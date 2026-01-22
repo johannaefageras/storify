@@ -4,6 +4,18 @@ import Anthropic from '@anthropic-ai/sdk';
 import type { WizardData, UserProfile } from '$lib/stores/wizard.svelte';
 import { ANTHROPIC_API_KEY } from '$env/static/private';
 
+// CORS headers for Capacitor native app
+const corsHeaders = {
+	'Access-Control-Allow-Origin': '*',
+	'Access-Control-Allow-Methods': 'POST, OPTIONS',
+	'Access-Control-Allow-Headers': 'Content-Type'
+};
+
+// Handle CORS preflight
+export const OPTIONS: RequestHandler = async () => {
+	return new Response(null, { headers: corsHeaders });
+};
+
 const client = new Anthropic({
 	apiKey: ANTHROPIC_API_KEY
 });
@@ -331,10 +343,13 @@ export const POST: RequestHandler = async ({ request }) => {
 		const textContent = message.content.find((block) => block.type === 'text');
 		const generatedEntry = textContent?.text || '';
 
-		return json({
-			success: true,
-			entry: generatedEntry
-		});
+		return json(
+			{
+				success: true,
+				entry: generatedEntry
+			},
+			{ headers: corsHeaders }
+		);
 	} catch (error) {
 		console.error('Generation error:', error);
 		return json(
@@ -342,7 +357,7 @@ export const POST: RequestHandler = async ({ request }) => {
 				success: false,
 				error: error instanceof Error ? error.message : 'Failed to generate entry'
 			},
-			{ status: 500 }
+			{ status: 500, headers: corsHeaders }
 		);
 	}
 };
