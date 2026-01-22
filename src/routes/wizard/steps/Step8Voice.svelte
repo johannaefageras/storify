@@ -3,18 +3,20 @@
 	import { tones } from '$lib/data/tones';
 	import { voiceSamples } from '$lib/data/voiceSamples';
 	import type { Component } from 'svelte';
-	import EmojiVoiceBored from '$lib/components/emojis/EmojiVoiceBored.svelte';
-	import EmojiVoiceBrittish from '$lib/components/emojis/EmojiVoiceBrittish.svelte';
-	import EmojiVoiceCatPerspective from '$lib/components/emojis/EmojiVoiceCatPerspective.svelte';
-	import EmojiVoiceClassic from '$lib/components/emojis/EmojiVoiceClassic.svelte';
-	import EmojiVoiceCringe from '$lib/components/emojis/EmojiVoiceCringe.svelte';
-	import EmojiVoiceDramaQueen from '$lib/components/emojis/EmojiVoiceDramaQueen.svelte';
-	import EmojiVoiceMeme from '$lib/components/emojis/EmojiVoiceMeme.svelte';
-	import EmojiVoicePhilosophical from '$lib/components/emojis/EmojiVoicePhilosophical.svelte';
-	import EmojiVoiceQuestLog from '$lib/components/emojis/EmojiVoiceQuestLog.svelte';
-	import EmojiVoiceSarcastic from '$lib/components/emojis/EmojiVoiceSarcastic.svelte';
-	import EmojiVoiceSportscaster from '$lib/components/emojis/EmojiVoiceSportscaster.svelte';
-	import EmojiVoiceStorytelling from '$lib/components/emojis/EmojiVoiceStorytelling.svelte';
+	import {
+	EmojiVoiceBored,
+	EmojiVoiceBritish,
+	EmojiVoiceCatPerspective,
+	EmojiVoiceClassic,
+	EmojiVoiceCringe,
+	EmojiVoiceDramaQueen,
+	EmojiVoiceMeme,
+	EmojiVoicePhilosophical,
+	EmojiVoiceQuestLog,
+	EmojiVoiceSarcastic,
+	EmojiVoiceSportscaster,
+	EmojiVoiceStorytelling
+} from '$lib/components/emojis';
 
 	const toneIconMap: Record<string, Component> = {
 		classic: EmojiVoiceClassic,
@@ -26,7 +28,7 @@
 		'drama-queen': EmojiVoiceDramaQueen,
 		meme: EmojiVoiceMeme,
 		cringe: EmojiVoiceCringe,
-		brittish: EmojiVoiceBrittish,
+		british: EmojiVoiceBritish,
 		'quest-log': EmojiVoiceQuestLog,
 		bored: EmojiVoiceBored
 	};
@@ -73,7 +75,7 @@
 			>
 				<span class="tone-emoji">
 					{#if ToneIcon}
-						<ToneIcon size={28} />
+						<ToneIcon size={36} />
 					{:else}
 						{tone.emoji}
 					{/if}

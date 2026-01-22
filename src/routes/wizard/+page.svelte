@@ -10,17 +10,9 @@
 	import Step7TimeCapsule from './steps/Step7TimeCapsule.svelte';
 	import Step8Voice from './steps/Step8Voice.svelte';
 	import Step9Summary from './steps/Step9Summary.svelte';
-	import EmojiStep0H1 from '$lib/components/emojis/EmojiStep0H1.svelte';
-	import EmojiStep1H1 from '$lib/components/emojis/EmojiStep1H1.svelte';
-	import EmojiStep2H1Alt from '$lib/components/emojis/EmojiStep2H1Alt.svelte';
-	import EmojiStep3H1 from '$lib/components/emojis/EmojiStep3H1.svelte';
-	import EmojiStep4H1 from '$lib/components/emojis/EmojiStep4H1.svelte';
-	import EmojiStep5H1 from '$lib/components/emojis/EmojiStep5H1.svelte';
-	import EmojiStep6H1 from '$lib/components/emojis/EmojiStep6H1.svelte';
-	import EmojiStep7H1 from '$lib/components/emojis/EmojiStep7H1.svelte';
-	import EmojiStep8H1 from '$lib/components/emojis/EmojiStep8H1.svelte';
-	import EmojiStep9H1 from '$lib/components/emojis/EmojiStep9H1.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
+
+	import { EmojiStep0H1, EmojiStep1H1, EmojiStep2H1, EmojiStep3H1, EmojiStep4H1, EmojiStep5H1, EmojiStep6H1, EmojiStep7H1, EmojiStep8H1, EmojiStep9H1 } from '$lib/components/emojis';
 
 	const optionalSteps = [0, 5, 6, 7];
 
@@ -127,7 +119,7 @@
 	const stepIcons = [
 		EmojiStep0H1,
 		EmojiStep1H1,
-		EmojiStep2H1Alt,
+		EmojiStep2H1,
 		EmojiStep3H1,
 		EmojiStep4H1,
 		EmojiStep5H1,
@@ -210,7 +202,7 @@
 					Tillbaka
 				</button>
 			{:else}
-				<div></div>
+				<a href="/" class="btn btn-secondary">Tillbaka</a>
 			{/if}
 
 			{#if showNextButton}
@@ -334,6 +326,10 @@
 		background-color: var(--color-neutral);
 		padding: 0.25rem 0.5rem;
 		border-radius: var(--radius-sm);
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		line-height: 1;
 	}
 
 	.wizard-content {
@@ -369,19 +365,6 @@
 	}
 
 	@media (max-width: 480px) {
-		.step-title-text {
-			display: inline-flex;
-			flex-wrap: wrap;
-			justify-content: center;
-			gap: 0.5rem;
-		}
-
-		.optional-badge {
-			position: static;
-			transform: none;
-			margin-left: 0;
-		}
-
 		.wizard-footer {
 			flex-direction: column;
 			gap: 0.75rem;

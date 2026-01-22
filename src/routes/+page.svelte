@@ -1,5 +1,8 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { themeStore } from '$lib/stores/theme.svelte';
+	import EmojiAppRosePinkLight from '$lib/components/emojis/EmojiAppRosePinkLight.svelte';
+	import EmojiAppRosePinkDark from '$lib/components/emojis/EmojiAppRosePinkDark.svelte';
 
 	function startWizard() {
 		goto('/wizard');
@@ -9,6 +12,13 @@
 <main class="landing">
 	<div class="container">
 		<header class="hero">
+			<div class="logo">
+				{#if themeStore.current === 'dark'}
+					<EmojiAppRosePinkDark size={120} />
+				{:else}
+					<EmojiAppRosePinkLight size={120} />
+				{/if}
+			</div>
 			<h1 class="title">Storify</h1>
 			<p class="subtitle">Du har inte tid att skriva dagbok. Perfekt – det behöver du inte heller.</p>
 		</header>
@@ -43,6 +53,12 @@
 		margin-bottom: 3rem;
 	}
 
+	.logo {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 1.5rem;
+	}
+
 	.title {
 		font-family: var(--font-primary);
 		font-size: var(--text-4xl);
@@ -57,9 +73,9 @@
 	.subtitle {
 		font-family: var(--font-primary);
 		font-size: var(--text-lg);
-		line-height: var(--leading-relaxed);
+		line-height: var(--leading-base);
 		color: var(--color-text-muted);
-		font-weight: var(--weight-light);
+		font-weight: var(--weight-book);
 		font-stretch: 100%;
 		letter-spacing: var(--tracking-wide);
 	}

@@ -1,36 +1,38 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import type { Component } from 'svelte';
-	import EmojiSleep1 from '$lib/components/emojis/EmojiSleep1.svelte';
-	import EmojiSleep2 from '$lib/components/emojis/EmojiSleep2.svelte';
-	import EmojiSleep3 from '$lib/components/emojis/EmojiSleep3.svelte';
-	import EmojiSleep4 from '$lib/components/emojis/EmojiSleep4.svelte';
-	import EmojiSleep5 from '$lib/components/emojis/EmojiSleep5.svelte';
-	import EmojiSleep6 from '$lib/components/emojis/EmojiSleep6.svelte';
-	import EmojiSleep7 from '$lib/components/emojis/EmojiSleep7.svelte';
-	import EmojiSleep8 from '$lib/components/emojis/EmojiSleep8.svelte';
-	import EmojiSleep9 from '$lib/components/emojis/EmojiSleep9.svelte';
-	import EmojiSleep10 from '$lib/components/emojis/EmojiSleep10.svelte';
-	import EmojiEnergy1 from '$lib/components/emojis/EmojiEnergy1.svelte';
-	import EmojiEnergy2 from '$lib/components/emojis/EmojiEnergy2.svelte';
-	import EmojiEnergy3 from '$lib/components/emojis/EmojiEnergy3.svelte';
-	import EmojiEnergy4 from '$lib/components/emojis/EmojiEnergy4.svelte';
-	import EmojiEnergy5 from '$lib/components/emojis/EmojiEnergy5.svelte';
-	import EmojiEnergy6 from '$lib/components/emojis/EmojiEnergy6.svelte';
-	import EmojiEnergy7 from '$lib/components/emojis/EmojiEnergy7.svelte';
-	import EmojiEnergy8 from '$lib/components/emojis/EmojiEnergy8.svelte';
-	import EmojiEnergy9 from '$lib/components/emojis/EmojiEnergy9.svelte';
-	import EmojiEnergy10 from '$lib/components/emojis/EmojiEnergy10.svelte';
-	import EmojiMood1 from '$lib/components/emojis/EmojiMood1.svelte';
-	import EmojiMood2 from '$lib/components/emojis/EmojiMood2.svelte';
-	import EmojiMood3 from '$lib/components/emojis/EmojiMood3.svelte';
-	import EmojiMood4 from '$lib/components/emojis/EmojiMood4.svelte';
-	import EmojiMood5 from '$lib/components/emojis/EmojiMood5.svelte';
-	import EmojiMood6 from '$lib/components/emojis/EmojiMood6.svelte';
-	import EmojiMood7 from '$lib/components/emojis/EmojiMood7.svelte';
-	import EmojiMood8 from '$lib/components/emojis/EmojiMood8.svelte';
-	import EmojiMood9 from '$lib/components/emojis/EmojiMood9.svelte';
-	import EmojiMood10 from '$lib/components/emojis/EmojiMood10.svelte';
+	import {
+	EmojiSleep1,
+	EmojiSleep2,
+	EmojiSleep3,
+	EmojiSleep4,
+	EmojiSleep5,
+	EmojiSleep6,
+	EmojiSleep7,
+	EmojiSleep8,
+	EmojiSleep9,
+	EmojiSleep10,
+	EmojiEnergy1,
+	EmojiEnergy2,
+	EmojiEnergy3,
+	EmojiEnergy4,
+	EmojiEnergy5,
+	EmojiEnergy6,
+	EmojiEnergy7,
+	EmojiEnergy8,
+	EmojiEnergy9,
+	EmojiEnergy10,
+	EmojiMood1,
+	EmojiMood2,
+	EmojiMood3,
+	EmojiMood4,
+	EmojiMood5,
+	EmojiMood6,
+	EmojiMood7,
+	EmojiMood8,
+	EmojiMood9,
+	EmojiMood10
+} from '$lib/components/emojis';
 
 	const sleepEmojis: Component[] = [
 		EmojiSleep1,

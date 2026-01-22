@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import EmojiStep3Location from '$lib/components/emojis/EmojiStep3Locations.svelte';
-	import EmojiStep3Events from '$lib/components/emojis/EmojiStep3Events.svelte';
-	import EmojiStep3Appearences from '$lib/components/emojis/EmojiStep3Appearences.svelte';
-	import EmojiStep3Locations from '$lib/components/emojis/EmojiStep3Locations.svelte';
+	import {
+	EmojiStep3Locations,
+	EmojiStep3Events,
+	EmojiStep3Appearences
+} from '$lib/components/emojis';
 
 	const locationOptions = [
 		'Hemma',

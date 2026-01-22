@@ -19,7 +19,7 @@ The journaling app collects information about a user's day through a wizard form
 | 👑 **Drama Queen**      | [drama-queen.md](./drama-queen.md)         | Swedish   | EVERYTHING is dramatic – telenovela energy                   |
 | 📱 **Meme**             | [meme.md](./meme.md)                       | Swenglish | Internet-speak, Gen Z humor, "it's giving..."                |
 | 😳 **Cringe**           | [cringe.md](./cringe.md)                   | Swedish   | Painfully self-aware about awkward moments                   |
-| 🇬🇧 **Brittisk**         | [brittish.md](./brittish.md)               | English   | Understated British wit – "Not bad, actually."               |
+| 🇬🇧 **Brittisk**         | [british.md](./british.md)                 | English   | Understated British wit – "Not bad, actually."               |
 | 🎮 **Quest Log**        | [quest-log.md](./quest-log.md)             | Swedish   | RPG gaming style with quests, loot, and achievements         |
 | 😐 **Uttråkad**         | [bored.md](./bored.md)                     | Swedish   | Everything is tedious. Whatever.                             |
 
@@ -122,8 +122,8 @@ The tone instructions expect structured data like:
 | Reflective, thoughtful   | Classic, Philosophical, Storytelling |
 | Frustrated, need to vent | Sarcastic, Bored, Drama Queen        |
 | Silly, want to laugh     | Cat Perspective, Meme, Cringe        |
-| Awkward day              | Cringe, Sarcastic, Brittish          |
-| Nothing happened         | Bored, Philosophical, Brittish       |
+| Awkward day              | Cringe, Sarcastic, British           |
+| Nothing happened         | Bored, Philosophical, British        |
 
 ### By Energy Level
 
@@ -131,14 +131,14 @@ The tone instructions expect structured data like:
 HIGH ENERGY                                              LOW ENERGY
     |                                                        |
     ▼                                                        ▼
-Drama Queen → Sportscaster → Meme → Quest Log → Classic → Brittish → Bored
+Drama Queen → Sportscaster → Meme → Quest Log → Classic → British → Bored
 ```
 
 ### Language Output
 
 - **Swedish**: Classic, Storytelling, Philosophical, Sportscaster, Cat Perspective, Sarcastic, Drama Queen, Cringe, Quest Log, Bored
 - **Swenglish**: Meme (mix of Swedish and English)
-- **English**: Brittish
+- **English**: British
 
 ## Customization
 
@@ -204,7 +204,7 @@ If wizard input doesn't include an awkward moment, the Cringe tone instructions 
 
 Works especially well if the user actually has cats! The tone can reference real pets if that information is available.
 
-### On the Brittish Tone
+### On the British Tone
 
 This is the only tone that outputs in **English** rather than Swedish. This is intentional – it's part of the humor and style.
 

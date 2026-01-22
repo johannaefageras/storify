@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import type { Component } from 'svelte';
-	import EmojiStep5Almost from '$lib/components/emojis/EmojiStep5Almost.svelte';
-	import EmojiStep5Unnecessary from '$lib/components/emojis/EmojiStep5Unnecessary.svelte';
-	import EmojiStep5Redo from '$lib/components/emojis/EmojiStep5Redo.svelte';
+	import {
+	EmojiStep5Almost,
+	EmojiStep5Unnecessary,
+	EmojiStep5Redo
+} from '$lib/components/emojis';
 
 	const fields: {
 		key: 'almostHappened' | 'unnecessaryThing' | 'wouldRedo';

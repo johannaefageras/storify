@@ -125,7 +125,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Skickade ett meddelande om någon... till den personen.',
     'Föll upp för trappan. Låtsades att jag joggar nu.'
   ],
-  brittish: [
+  british: [
     'Rather uneventful day, I must say. Not bad though.',
     'Bit of a kerfuffle at the office, but we managed. Stiff upper lip and all that.',
     "Had a lovely cuppa this morning. Sets the tone, doesn't it?",

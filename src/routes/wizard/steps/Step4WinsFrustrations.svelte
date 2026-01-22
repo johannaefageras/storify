@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import EmojiStep4Wins from '$lib/components/emojis/EmojiStep4Wins.svelte';
-	import EmojiStep4PetPeeves from '$lib/components/emojis/EmojiStep4PetPeeves.svelte';
+	import {
+	EmojiStep4Wins,
+	EmojiStep4PetPeeves
+} from '$lib/components/emojis';
 
 	const winPlaceholders = [
 		'Gick upp ur sängen (Räknas).',

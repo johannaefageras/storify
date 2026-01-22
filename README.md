@@ -58,7 +58,7 @@ See [TONES](tones/TONES.md) for all available writing styles:
 │   └── lib/                # Shared components and utilities
 ├── tones/                  # Tone instruction files for Claude
 │   │── bored.md
-│   │── brittish.md
+│   │── british.md
 │   │── cat-perspective.md
 │   │── classic.md
 │   │── cringe.md

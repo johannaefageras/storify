@@ -6,57 +6,57 @@ import { ANTHROPIC_API_KEY } from '$env/static/private';
 
 // CORS headers for Capacitor native app
 const corsHeaders = {
-	'Access-Control-Allow-Origin': '*',
-	'Access-Control-Allow-Methods': 'POST, OPTIONS',
-	'Access-Control-Allow-Headers': 'Content-Type'
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type'
 };
 
 // Handle CORS preflight
 export const OPTIONS: RequestHandler = async () => {
-	return new Response(null, { headers: corsHeaders });
+  return new Response(null, { headers: corsHeaders });
 };
 
 const client = new Anthropic({
-	apiKey: ANTHROPIC_API_KEY
+  apiKey: ANTHROPIC_API_KEY
 });
 
 function buildProfileDescription(profile: UserProfile): string {
-	const parts: string[] = [];
+  const parts: string[] = [];
 
-	// Age
-	if (profile.age) {
-		parts.push(`${profile.age} år`);
-	}
+  // Age
+  if (profile.age) {
+    parts.push(`${profile.age} år`);
+  }
 
-	// Pronouns -> grammatical word
-	if (profile.pronouns === 'hon') {
-		parts.push('tjej');
-	} else if (profile.pronouns === 'han') {
-		parts.push('kille');
-	} else if (profile.pronouns === 'hen') {
-		parts.push('person');
-	}
+  // Pronouns -> grammatical word
+  if (profile.pronouns === 'hon') {
+    parts.push('tjej');
+  } else if (profile.pronouns === 'han') {
+    parts.push('kille');
+  } else if (profile.pronouns === 'hen') {
+    parts.push('person');
+  }
 
-	// Hometown
-	if (profile.hometown) {
-		parts.push(`i ${profile.hometown}`);
-	}
+  // Hometown
+  if (profile.hometown) {
+    parts.push(`i ${profile.hometown}`);
+  }
 
-	// Build the description
-	if (parts.length > 0) {
-		return parts.join(' ');
-	}
+  // Build the description
+  if (parts.length > 0) {
+    return parts.join(' ');
+  }
 
-	// Fallback if no profile data
-	return 'ung person';
+  // Fallback if no profile data
+  return 'ung person';
 }
 
 function buildTonePrompt(toneId: string, profile: UserProfile): string {
-	const profileDesc = buildProfileDescription(profile);
-	const baseIntro = `Du är en hjälpsam skrivassistent som skriver dagboksinlägg åt en ${profileDesc}.`;
+  const profileDesc = buildProfileDescription(profile);
+  const baseIntro = `Du är en hjälpsam skrivassistent som skriver dagboksinlägg åt en ${profileDesc}.`;
 
-	const toneInstructions: Record<string, string> = {
-		classic: `${baseIntro}
+  const toneInstructions: Record<string, string> = {
+    classic: `${baseIntro}
 
 SKRIVSTIL: Klassisk dagbok
 - Skriv i första person, ärligt och personligt
@@ -69,7 +69,7 @@ SKRIVSTIL: Klassisk dagbok
 - Skriv på naturlig svenska
 - Längd: cirka 150-250 ord`,
 
-		storytelling: `${baseIntro}
+    storytelling: `${baseIntro}
 
 SKRIVSTIL: Berättande/Storytelling
 - Skriv dagen som en kort berättelse i tredje person
@@ -81,7 +81,7 @@ SKRIVSTIL: Berättande/Storytelling
 - Skriv på naturlig svenska
 - Längd: cirka 150-250 ord`,
 
-		philosophical: `${baseIntro}
+    philosophical: `${baseIntro}
 
 SKRIVSTIL: Filosofisk
 - Reflektera djupt över dagens händelser
@@ -93,7 +93,7 @@ SKRIVSTIL: Filosofisk
 - Skriv på naturlig svenska
 - Längd: cirka 150-250 ord`,
 
-		sportscaster: `${baseIntro}
+    sportscaster: `${baseIntro}
 
 SKRIVSTIL: Sportkommentator
 - Beskriv dagen som en sportkommentator som rapporterar live
@@ -105,7 +105,7 @@ SKRIVSTIL: Sportkommentator
 - Skriv på naturlig svenska
 - Längd: cirka 150-250 ord`,
 
-		'cat-perspective': `${baseIntro}
+    'cat-perspective': `${baseIntro}
 
 SKRIVSTIL: Kattperspektiv
 - Skriv ur perspektivet av en högdragen huskatt som observerar sin "människa"
@@ -117,7 +117,7 @@ SKRIVSTIL: Kattperspektiv
 - Skriv på naturlig svenska
 - Längd: cirka 150-250 ord`,
 
-		sarcastic: `${baseIntro}
+    sarcastic: `${baseIntro}
 
 SKRIVSTIL: Sarkastisk
 - Använd torr, ironisk humor genomgående
@@ -129,7 +129,7 @@ SKRIVSTIL: Sarkastisk
 - Skriv på naturlig svenska
 - Längd: cirka 150-250 ord`,
 
-		'drama-queen': `${baseIntro}
+    'drama-queen': `${baseIntro}
 
 SKRIVSTIL: Drama Queen
 - Överdramatisera ALLT - varje liten händelse är ENORM
@@ -141,7 +141,7 @@ SKRIVSTIL: Drama Queen
 - Skriv på naturlig svenska
 - Längd: cirka 150-250 ord`,
 
-		meme: `${baseIntro}
+    meme: `${baseIntro}
 
 SKRIVSTIL: Meme/Gen Z
 - Använd internetspråk och meme-kultur
@@ -153,7 +153,7 @@ SKRIVSTIL: Meme/Gen Z
 - Skriv som om det var ett Twitter/TikTok-inlägg
 - Längd: cirka 150-250 ord`,
 
-		cringe: `${baseIntro}
+    cringe: `${baseIntro}
 
 SKRIVSTIL: Cringe
 - Fokusera på pinsamma ögonblick och social awkwardness
@@ -165,7 +165,7 @@ SKRIVSTIL: Cringe
 - Skriv på naturlig svenska
 - Längd: cirka 150-250 ord`,
 
-		brittish: `${baseIntro}
+    british: `${baseIntro}
 
 SKRIVSTIL: Brittisk
 - Skriv på ENGELSKA med brittisk charm
@@ -176,7 +176,7 @@ SKRIVSTIL: Brittisk
 - Te-referenser uppskattas
 - Längd: cirka 150-250 ord`,
 
-		'quest-log': `${baseIntro}
+    'quest-log': `${baseIntro}
 
 SKRIVSTIL: Quest Log/RPG
 - Formatera dagen som ett RPG quest log
@@ -188,7 +188,7 @@ SKRIVSTIL: Quest Log/RPG
 - Skriv på naturlig svenska
 - Längd: cirka 150-250 ord`,
 
-		bored: `${baseIntro}
+    bored: `${baseIntro}
 
 SKRIVSTIL: Uttråkad
 - Skriv med minimal entusiasm
@@ -199,165 +199,165 @@ SKRIVSTIL: Uttråkad
 - Underliggande humor i hur ointresserad tonen är
 - Skriv på naturlig svenska
 - Längd: cirka 150-250 ord`
-	};
+  };
 
-	return toneInstructions[toneId] || toneInstructions.classic;
+  return toneInstructions[toneId] || toneInstructions.classic;
 }
 
 function formatProfileForPrompt(profile: UserProfile): string {
-	const lines: string[] = [];
+  const lines: string[] = [];
 
-	if (profile.name) {
-		lines.push(`Namn: ${profile.name}`);
-	}
-	if (profile.age) {
-		lines.push(`Ålder: ${profile.age} år`);
-	}
-	if (profile.hometown) {
-		lines.push(`Bor i: ${profile.hometown}`);
-	}
-	if (profile.occupationDetail) {
-		lines.push(`Sysselsättning: ${profile.occupationDetail}`);
-	}
-	if (profile.family.length > 0) {
-		lines.push(`Familj: ${profile.family.join(', ')}`);
-	}
-	if (profile.pets.length > 0) {
-		lines.push(`Husdjur: ${profile.pets.join(', ')}`);
-	}
-	if (profile.interests.length > 0) {
-		lines.push(`Intressen: ${profile.interests.join(', ')}`);
-	}
+  if (profile.name) {
+    lines.push(`Namn: ${profile.name}`);
+  }
+  if (profile.age) {
+    lines.push(`Ålder: ${profile.age} år`);
+  }
+  if (profile.hometown) {
+    lines.push(`Bor i: ${profile.hometown}`);
+  }
+  if (profile.occupationDetail) {
+    lines.push(`Sysselsättning: ${profile.occupationDetail}`);
+  }
+  if (profile.family.length > 0) {
+    lines.push(`Familj: ${profile.family.join(', ')}`);
+  }
+  if (profile.pets.length > 0) {
+    lines.push(`Husdjur: ${profile.pets.join(', ')}`);
+  }
+  if (profile.interests.length > 0) {
+    lines.push(`Intressen: ${profile.interests.join(', ')}`);
+  }
 
-	if (lines.length > 0) {
-		return `OM SKRIBENTEN:\n${lines.join('\n')}`;
-	}
-	return '';
+  if (lines.length > 0) {
+    return `OM SKRIBENTEN:\n${lines.join('\n')}`;
+  }
+  return '';
 }
 
 function formatWizardDataForPrompt(data: WizardData): string {
-	const sections: string[] = [];
+  const sections: string[] = [];
 
-	// Profile info (if any)
-	const profileSection = formatProfileForPrompt(data.profile);
-	if (profileSection) {
-		sections.push(profileSection);
-		sections.push(''); // Empty line separator
-	}
+  // Profile info (if any)
+  const profileSection = formatProfileForPrompt(data.profile);
+  if (profileSection) {
+    sections.push(profileSection);
+    sections.push(''); // Empty line separator
+  }
 
-	// Date info
-	sections.push(`DAGENS INFORMATION:`);
-	sections.push(`Datum: ${data.weekday} ${data.date}`);
+  // Date info
+  sections.push(`DAGENS INFORMATION:`);
+  sections.push(`Datum: ${data.weekday} ${data.date}`);
 
-	// Emojis that represent the day
-	if (data.emojis.length > 0) {
-		sections.push(`Dagens känsla (emojis): ${data.emojis.join(', ')}`);
-	}
+  // Emojis that represent the day
+  if (data.emojis.length > 0) {
+    sections.push(`Dagens känsla (emojis): ${data.emojis.join(', ')}`);
+  }
 
-	// Energy levels
-	sections.push(`Sömn: ${data.sleepQuality}/10`);
-	sections.push(`Energi: ${data.energyLevel}/10`);
-	sections.push(`Humör: ${data.mood}/10`);
+  // Energy levels
+  sections.push(`Sömn: ${data.sleepQuality}/10`);
+  sections.push(`Energi: ${data.energyLevel}/10`);
+  sections.push(`Humör: ${data.mood}/10`);
 
-	// Locations
-	const allLocations = [...data.locations, ...data.customLocations].filter(Boolean);
-	if (allLocations.length > 0) {
-		sections.push(`Platser: ${allLocations.join(', ')}`);
-	}
+  // Locations
+  const allLocations = [...data.locations, ...data.customLocations].filter(Boolean);
+  if (allLocations.length > 0) {
+    sections.push(`Platser: ${allLocations.join(', ')}`);
+  }
 
-	// Activities
-	const allActivities = [...data.activities, ...data.customActivities].filter(Boolean);
-	if (allActivities.length > 0) {
-		sections.push(`Aktiviteter: ${allActivities.join(', ')}`);
-	}
+  // Activities
+  const allActivities = [...data.activities, ...data.customActivities].filter(Boolean);
+  if (allActivities.length > 0) {
+    sections.push(`Aktiviteter: ${allActivities.join(', ')}`);
+  }
 
-	// People
-	if (data.people.length > 0) {
-		sections.push(`Personer: ${data.people.join(', ')}`);
-	}
+  // People
+  if (data.people.length > 0) {
+    sections.push(`Personer: ${data.people.join(', ')}`);
+  }
 
-	// Wins
-	const wins = data.wins.filter((w) => w.trim());
-	if (wins.length > 0) {
-		sections.push(`Bra saker/vinster: ${wins.join('; ')}`);
-	}
+  // Wins
+  const wins = data.wins.filter((w) => w.trim());
+  if (wins.length > 0) {
+    sections.push(`Bra saker/vinster: ${wins.join('; ')}`);
+  }
 
-	// Frustrations
-	const frustrations = data.frustrations.filter((f) => f.trim());
-	if (frustrations.length > 0) {
-		sections.push(`Motgångar/frustration: ${frustrations.join('; ')}`);
-	}
+  // Frustrations
+  const frustrations = data.frustrations.filter((f) => f.trim());
+  if (frustrations.length > 0) {
+    sections.push(`Motgångar/frustration: ${frustrations.join('; ')}`);
+  }
 
-	// Reflections (optional fields)
-	if (data.almostHappened?.trim()) {
-		sections.push(`Nästan hände: ${data.almostHappened}`);
-	}
-	if (data.unnecessaryThing?.trim()) {
-		sections.push(`Onödig sak jag gjorde: ${data.unnecessaryThing}`);
-	}
-	if (data.wouldRedo?.trim()) {
-		sections.push(`Skulle göra om: ${data.wouldRedo}`);
-	}
+  // Reflections (optional fields)
+  if (data.almostHappened?.trim()) {
+    sections.push(`Nästan hände: ${data.almostHappened}`);
+  }
+  if (data.unnecessaryThing?.trim()) {
+    sections.push(`Onödig sak jag gjorde: ${data.unnecessaryThing}`);
+  }
+  if (data.wouldRedo?.trim()) {
+    sections.push(`Skulle göra om: ${data.wouldRedo}`);
+  }
 
-	// Food
-	const allMeals = [...data.meals, ...data.customMeals].filter(Boolean);
-	if (allMeals.length > 0) {
-		sections.push(`Mat: ${allMeals.join(', ')}`);
-	}
+  // Food
+  const allMeals = [...data.meals, ...data.customMeals].filter(Boolean);
+  if (allMeals.length > 0) {
+    sections.push(`Mat: ${allMeals.join(', ')}`);
+  }
 
-	// Soundtrack
-	const allSoundtracks = [...data.soundtracks, ...data.customSoundtracks].filter(Boolean);
-	if (allSoundtracks.length > 0) {
-		sections.push(`Musik/ljud: ${allSoundtracks.join(', ')}`);
-	}
+  // Soundtrack
+  const allSoundtracks = [...data.soundtracks, ...data.customSoundtracks].filter(Boolean);
+  if (allSoundtracks.length > 0) {
+    sections.push(`Musik/ljud: ${allSoundtracks.join(', ')}`);
+  }
 
-	// Time capsule memory
-	if (data.memoryFor10Years?.trim()) {
-		sections.push(`Minne att spara (tidskapsel): ${data.memoryFor10Years}`);
-	}
+  // Time capsule memory
+  if (data.memoryFor10Years?.trim()) {
+    sections.push(`Minne att spara (tidskapsel): ${data.memoryFor10Years}`);
+  }
 
-	return sections.join('\n');
+  return sections.join('\n');
 }
 
 export const POST: RequestHandler = async ({ request }) => {
-	try {
-		const data: WizardData = await request.json();
+  try {
+    const data: WizardData = await request.json();
 
-		const toneId = data.selectedTone || 'classic';
-		const systemPrompt = buildTonePrompt(toneId, data.profile);
-		const userContent = formatWizardDataForPrompt(data);
+    const toneId = data.selectedTone || 'classic';
+    const systemPrompt = buildTonePrompt(toneId, data.profile);
+    const userContent = formatWizardDataForPrompt(data);
 
-		const message = await client.messages.create({
-			model: 'claude-sonnet-4-20250514',
-			max_tokens: 1024,
-			system: systemPrompt,
-			messages: [
-				{
-					role: 'user',
-					content: `${userContent}\n\nSkriv ett dagboksinlägg baserat på denna information.`
-				}
-			]
-		});
+    const message = await client.messages.create({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1024,
+      system: systemPrompt,
+      messages: [
+        {
+          role: 'user',
+          content: `${userContent}\n\nSkriv ett dagboksinlägg baserat på denna information.`
+        }
+      ]
+    });
 
-		// Extract text content from the response
-		const textContent = message.content.find((block) => block.type === 'text');
-		const generatedEntry = textContent?.text || '';
+    // Extract text content from the response
+    const textContent = message.content.find((block) => block.type === 'text');
+    const generatedEntry = textContent?.text || '';
 
-		return json(
-			{
-				success: true,
-				entry: generatedEntry
-			},
-			{ headers: corsHeaders }
-		);
-	} catch (error) {
-		console.error('Generation error:', error);
-		return json(
-			{
-				success: false,
-				error: error instanceof Error ? error.message : 'Failed to generate entry'
-			},
-			{ status: 500, headers: corsHeaders }
-		);
-	}
+    return json(
+      {
+        success: true,
+        entry: generatedEntry
+      },
+      { headers: corsHeaders }
+    );
+  } catch (error) {
+    console.error('Generation error:', error);
+    return json(
+      {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to generate entry'
+      },
+      { status: 500, headers: corsHeaders }
+    );
+  }
 };

@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import EmojiStep6Food from '$lib/components/emojis/EmojiStep6Food.svelte';
-	import EmojiStep6Soundtrack from '$lib/components/emojis/EmojiStep6Soundtrack.svelte';
+	import {
+	EmojiStep6Food,
+	EmojiStep6Soundtrack
+} from '$lib/components/emojis';
 
 	const mealOptions = ['Frukost', 'Lunch', 'Middag', 'Fika', 'Snacks', 'Mackor', 'För lite', 'Oregelbundet', 'Godis'];
 	const soundtrackOptions = ['Tystnaden', 'Podcast', 'Radio', 'Spotify', 'Julmusik', 'Nyheter', 'Grannarnas renovering'];

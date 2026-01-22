@@ -15,8 +15,7 @@
 		'Gymnasiet',
 		'Universitetet',
 		'Sjukskriven',
-		'Pensionär',
-		'Arbetssökande'
+		'Pensionär'
 	];
 
 	const familySuggestions = ['Mamma', 'Pappa', 'Syster', 'Bror', 'Sambo'];

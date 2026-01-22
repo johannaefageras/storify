@@ -3,7 +3,7 @@
 	import { tones } from '$lib/data/tones';
 	import { emojiLabelMap, emojiMap } from '$lib/data/emojis';
 	import type { Component } from 'svelte';
-	import EmojiSparkles from '$lib/components/emojis/EmojiAppSparkles.svelte';
+	import { EmojiAppSparklesSimpleLight } from '$lib/components/emojis';
 	import html2canvas from 'html2canvas';
 	import { Clipboard } from '@capacitor/clipboard';
 	import { Filesystem, Directory } from '@capacitor/filesystem';
@@ -35,19 +35,20 @@ Nu är det kväll och jag är trött, men den goda sorten av trött. Imorgon är
 Vi ses imorgon, dagboken.`;
 
 	// Voice icons for display
-	import EmojiVoiceBored from '$lib/components/emojis/EmojiVoiceBored.svelte';
-	import EmojiVoiceBrittish from '$lib/components/emojis/EmojiVoiceBrittish.svelte';
-	import EmojiVoiceCatPerspective from '$lib/components/emojis/EmojiVoiceCatPerspective.svelte';
-	import EmojiVoiceClassic from '$lib/components/emojis/EmojiVoiceClassic.svelte';
-	import EmojiVoiceCringe from '$lib/components/emojis/EmojiVoiceCringe.svelte';
-	import EmojiVoiceDramaQueen from '$lib/components/emojis/EmojiVoiceDramaQueen.svelte';
-	import EmojiVoiceMeme from '$lib/components/emojis/EmojiVoiceMeme.svelte';
-	import EmojiVoicePhilosophical from '$lib/components/emojis/EmojiVoicePhilosophical.svelte';
-	import EmojiVoiceQuestLog from '$lib/components/emojis/EmojiVoiceQuestLog.svelte';
-	import EmojiVoiceSarcastic from '$lib/components/emojis/EmojiVoiceSarcastic.svelte';
-	import EmojiVoiceSportscaster from '$lib/components/emojis/EmojiVoiceSportscaster.svelte';
-	import EmojiVoiceStorytelling from '$lib/components/emojis/EmojiVoiceStorytelling.svelte';
-
+	import {
+		EmojiVoiceBored,
+		EmojiVoiceBritish,
+		EmojiVoiceCatPerspective,
+		EmojiVoiceClassic,
+		EmojiVoiceCringe,
+		EmojiVoiceDramaQueen,
+		EmojiVoiceMeme,
+		EmojiVoicePhilosophical,
+		EmojiVoiceQuestLog,
+		EmojiVoiceSarcastic,
+		EmojiVoiceSportscaster,
+		EmojiVoiceStorytelling
+	} from '$lib/components/emojis';
 	const toneIconMap: Record<string, Component> = {
 		classic: EmojiVoiceClassic,
 		storytelling: EmojiVoiceStorytelling,
@@ -58,7 +59,7 @@ Vi ses imorgon, dagboken.`;
 		'drama-queen': EmojiVoiceDramaQueen,
 		meme: EmojiVoiceMeme,
 		cringe: EmojiVoiceCringe,
-		brittish: EmojiVoiceBrittish,
+		british: EmojiVoiceBritish,
 		'quest-log': EmojiVoiceQuestLog,
 		bored: EmojiVoiceBored
 	};
@@ -272,7 +273,7 @@ Vi ses imorgon, dagboken.`;
 				{#if isGenerating}
 					Skriver...
 				{:else}
-					<span class="generate-icon"><EmojiSparkles size={16} /></span>
+					<span class="generate-icon"><EmojiAppSparklesSimpleLight size={16} /></span>
 					Skriv om
 				{/if}
 			</button>
@@ -281,6 +282,16 @@ Vi ses imorgon, dagboken.`;
 {:else}
 	<div class="step-content">
 		<p class="step-intro">Kolla igenom dina val. Ser det bra ut? Då är det bara att trycka på knappen och låta dagboken ta form.</p>
+
+		{#if selectedTone}
+			{@const ToneIcon = getToneIcon(selectedTone.id)}
+			<span class="voice-indicator">
+				{#if ToneIcon}
+					<span class="voice-icon"><ToneIcon size={20} /></span>
+				{/if}
+				{selectedTone.name}
+			</span>
+		{/if}
 
 		<div class="summary-header">
 			<span class="summary-emojis">
@@ -347,19 +358,10 @@ Vi ses imorgon, dagboken.`;
 					<span class="spinner"></span>
 					Genererar...
 				{:else}
-					<span class="generate-icon"><EmojiSparkles size={20} /></span>
+					<span class="generate-icon"><EmojiAppSparklesSimpleLight size={28} /></span>
 					Generera dagboksinlägg
 				{/if}
 			</button>
-			{#if selectedTone}
-				{@const ToneIcon = getToneIcon(selectedTone.id)}
-				<span class="voice-indicator">
-					{#if ToneIcon}
-						<span class="voice-icon"><ToneIcon size={16} /></span>
-					{/if}
-					{selectedTone.name}
-				</span>
-			{/if}
 		</div>
 	</div>
 {/if}
@@ -533,7 +535,6 @@ Vi ses imorgon, dagboken.`;
 		flex-direction: column;
 		align-items: center;
 		gap: 0.75rem;
-		margin-top: 0.5rem;
 	}
 
 	.generate-btn {
@@ -573,10 +574,15 @@ Vi ses imorgon, dagboken.`;
 	.voice-indicator {
 		display: flex;
 		align-items: center;
-		gap: 0.375rem;
+		justify-content: center;
+		gap: 0.5rem;
+		margin-top: -0.75rem;
+		margin-bottom: -0.5rem;
 		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-regular);
+		font-size: var(--text-base);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
+		text-transform: uppercase;
 		color: var(--color-text-muted);
 	}
 

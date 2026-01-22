@@ -61,7 +61,7 @@ export const tones: Tone[] = [
     preview: 'Okej så jag råkade säga "du med" när någon önskade smaklig måltid...'
   },
   {
-    id: 'brittish',
+    id: 'british',
     name: 'Brittisk',
     emoji: '🇬🇧',
     preview: 'Rather uneventful day, I must say. Not bad though.'
