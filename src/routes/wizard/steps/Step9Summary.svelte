@@ -253,14 +253,14 @@ Vi ses imorgon, dagboken.`;
 				Kopiera text
 			</button>
 			<button class="save-image-btn" onclick={saveAsImage} title="Spara som bild">
-				Spara som bild
+				Spara bild
 			</button>
 			<button class="generate-btn small" onclick={handleGenerate} disabled={isGenerating}>
 				{#if isGenerating}
-					Genererar...
+					Skriver...
 				{:else}
 					<span class="generate-icon"><EmojiSparkles size={16} /></span>
-					Generera igen
+					Skriv om
 				{/if}
 			</button>
 		</div>

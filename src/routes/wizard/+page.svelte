@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import Step0Profile from './steps/Step0Profile.svelte';
 	import Step1Emojis from './steps/Step1Emojis.svelte';
@@ -21,13 +20,7 @@
 	import EmojiStep7H1 from '$lib/components/emojis/EmojiStep7H1.svelte';
 	import EmojiStep8H1 from '$lib/components/emojis/EmojiStep8H1.svelte';
 	import EmojiStep9H1 from '$lib/components/emojis/EmojiStep9H1.svelte';
-	import EmojiActivityHouse from '$lib/components/emojis/EmojiActivityHouse.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
-
-	function handleReset() {
-		wizardStore.fullReset();
-		goto('/');
-	}
 
 	const optionalSteps = [0, 5, 6, 7];
 
@@ -153,41 +146,25 @@
 	}
 </script>
 
-<button
-	class="home-button"
-	onclick={handleReset}
-	title="Tillbaka till start"
-	aria-label="Tillbaka till start"
->
-	<EmojiActivityHouse size={28} />
-</button>
-
-<main class="wizard">
-	<header class="wizard-header">
-		<div class="progress-container">
-			<div class="progress-bar" style="width: {progress}%"></div>
-		</div>
-		<div class="header-actions">
-			<button
-				class="home-button home-button-mobile"
-				onclick={handleReset}
-				title="Tillbaka till start"
-				aria-label="Tillbaka till start"
-			>
-				<EmojiActivityHouse size={24} />
-			</button>
-			<ThemeToggle variant="inline" />
-		</div>
-		<div class="step-indicator">
-			{#if currentStep === wizardStore.totalSteps && isResultView}
-				<span class="step-number">Förhandsvisning</span>
-				<h1 class="step-title">
-					<span class="step-title-text">Ditt dagboksutkast</span>
-				</h1>
-			{:else}
+<main class="wizard" class:result-view={isResultView}>
+	{#if isResultView}
+		<header class="wizard-header result-header">
+			<div class="header-actions result-header-actions">
+				<ThemeToggle variant="inline" />
+			</div>
+		</header>
+	{:else}
+		<header class="wizard-header">
+			<div class="progress-container">
+				<div class="progress-bar" style="width: {progress}%"></div>
+			</div>
+			<div class="header-actions">
+				<ThemeToggle variant="inline" />
+			</div>
+			<div class="step-indicator">
 				<span class="step-number">Steg {currentStep + 1} av {wizardStore.totalSteps}</span>
-				{@const StepIcon = stepIcons[currentStep]}
-				{#if StepIcon}
+				{#if stepIcons[currentStep]}
+					{@const StepIcon = stepIcons[currentStep]}
 					<div class="step-icon"><StepIcon size={48} /></div>
 				{/if}
 				<h1 class="step-title">
@@ -198,9 +175,9 @@
 						{/if}
 					</span>
 				</h1>
-			{/if}
-		</div>
-	</header>
+			</div>
+		</header>
+	{/if}
 
 	<div class="wizard-content">
 		{#if currentStep === 0}
@@ -226,27 +203,29 @@
 		{/if}
 	</div>
 
-	<footer class="wizard-footer">
-		{#if currentStep > 0}
-			<button class="btn btn-secondary" onclick={() => wizardStore.prevStep()}>
-				Tillbaka
-			</button>
-		{:else}
-			<div></div>
-		{/if}
+	{#if !isResultView}
+		<footer class="wizard-footer">
+			{#if currentStep > 0}
+				<button class="btn btn-secondary" onclick={() => wizardStore.prevStep()}>
+					Tillbaka
+				</button>
+			{:else}
+				<div></div>
+			{/if}
 
-		{#if showNextButton}
-			<button
-				class="btn btn-primary"
-				onclick={() => wizardStore.nextStep()}
-				disabled={nextButtonDisabled}
-			>
-				{nextButtonText}
-			</button>
-		{:else}
-			<div></div>
-		{/if}
-	</footer>
+			{#if showNextButton}
+				<button
+					class="btn btn-primary"
+					onclick={() => wizardStore.nextStep()}
+					disabled={nextButtonDisabled}
+				>
+					{nextButtonText}
+				</button>
+			{:else}
+				<div></div>
+			{/if}
+		</footer>
+	{/if}
 </main>
 
 <style>
@@ -290,34 +269,21 @@
 
 	.header-actions {
 		display: none;
-		justify-content: space-between;
+		justify-content: flex-end;
 		align-items: center;
 	}
 
-	.home-button {
-		position: fixed;
-		top: calc(env(safe-area-inset-top, 0px) + 1.25rem);
-		left: calc(env(safe-area-inset-left, 0px) + 1.25rem);
-		z-index: 100;
+	.result-header {
+		margin-bottom: 0;
+	}
+
+	.result-header-actions {
 		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0;
-		background: none;
-		border: none;
-		cursor: pointer;
-		opacity: 0.7;
-		transition: opacity 0.2s ease, transform 0.2s ease;
+		justify-content: flex-end;
 	}
 
-	.home-button:hover {
-		opacity: 1;
-		transform: scale(1.1);
-	}
-
-	.home-button-mobile {
-		display: none;
-		position: static;
+	.wizard.result-view {
+		padding-top: 1.25rem;
 	}
 
 	.step-number {
@@ -394,14 +360,6 @@
 		}
 
 		.header-actions {
-			display: flex;
-		}
-
-		.home-button:not(.home-button-mobile) {
-			display: none;
-		}
-
-		.home-button-mobile {
 			display: flex;
 		}
 
