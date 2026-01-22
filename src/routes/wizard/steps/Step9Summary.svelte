@@ -5,6 +5,10 @@
 	import type { Component } from 'svelte';
 	import EmojiSparkles from '$lib/components/emojis/EmojiAppSparkles.svelte';
 	import html2canvas from 'html2canvas';
+	import { Clipboard } from '@capacitor/clipboard';
+	import { Filesystem, Directory } from '@capacitor/filesystem';
+	import { Share } from '@capacitor/share';
+	import { getApiUrl } from '$lib/config';
 
 	// Generation state
 	let isGenerating = $state(false);
@@ -157,7 +161,7 @@ Vi ses imorgon, dagboken.`;
 			const emojiLabels = wizardStore.data.emojis.map(
 				(emojiId) => emojiLabelMap.get(emojiId) ?? emojiId
 			);
-			const response = await fetch('/api/generate', {
+			const response = await fetch(getApiUrl('/api/generate'), {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -186,8 +190,12 @@ Vi ses imorgon, dagboken.`;
 		error = '';
 	}
 
-	function copyToClipboard() {
-		navigator.clipboard.writeText(generatedEntry);
+	async function copyToClipboard() {
+		try {
+			await Clipboard.write({ string: generatedEntry });
+		} catch (e) {
+			console.error('Failed to copy to clipboard:', e);
+		}
 	}
 
 	async function saveAsImage() {
@@ -201,18 +209,23 @@ Vi ses imorgon, dagboken.`;
 				logging: false
 			});
 
-			// Convert to blob and download
-			canvas.toBlob((blob) => {
-				if (!blob) return;
-				const url = URL.createObjectURL(blob);
-				const link = document.createElement('a');
-				link.href = url;
-				link.download = `dagbok-${wizardStore.data.date || 'entry'}.png`;
-				document.body.appendChild(link);
-				link.click();
-				document.body.removeChild(link);
-				URL.revokeObjectURL(url);
-			}, 'image/png');
+			// Convert canvas to base64
+			const base64Data = canvas.toDataURL('image/png').split(',')[1];
+			const fileName = `dagbok-${wizardStore.data.date || 'entry'}.png`;
+
+			// Save to filesystem
+			const savedFile = await Filesystem.writeFile({
+				path: fileName,
+				data: base64Data,
+				directory: Directory.Cache
+			});
+
+			// Share the saved file
+			await Share.share({
+				title: 'Dagboksinlägg',
+				url: savedFile.uri,
+				dialogTitle: 'Spara eller dela din dagbok'
+			});
 		} catch (err) {
 			console.error('Failed to save as image:', err);
 		}

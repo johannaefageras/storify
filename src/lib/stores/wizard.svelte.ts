@@ -1,4 +1,5 @@
 import { browser } from '$app/environment';
+import { Preferences } from '@capacitor/preferences';
 
 export interface UserProfile {
 	name: string;
@@ -103,13 +104,13 @@ function createWizardStore() {
 	let isResultView = $state(false);
 	const totalSteps = 10;
 
-	function loadProfile(): UserProfile {
+	async function loadProfile(): Promise<UserProfile> {
 		if (!browser) return { ...defaultProfile };
 
 		try {
-			const stored = localStorage.getItem(PROFILE_STORAGE_KEY);
-			if (stored) {
-				const parsed = JSON.parse(stored);
+			const { value } = await Preferences.get({ key: PROFILE_STORAGE_KEY });
+			if (value) {
+				const parsed = JSON.parse(value);
 				return {
 					name: parsed.name || '',
 					age: parsed.age || '',
@@ -123,19 +124,22 @@ function createWizardStore() {
 				};
 			}
 		} catch (e) {
-			console.error('Failed to load profile from localStorage:', e);
+			console.error('Failed to load profile from Preferences:', e);
 		}
 
 		return { ...defaultProfile };
 	}
 
-	function saveProfile(profile: UserProfile) {
+	async function saveProfile(profile: UserProfile) {
 		if (!browser) return;
 
 		try {
-			localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(profile));
+			await Preferences.set({
+				key: PROFILE_STORAGE_KEY,
+				value: JSON.stringify(profile)
+			});
 		} catch (e) {
-			console.error('Failed to save profile to localStorage:', e);
+			console.error('Failed to save profile to Preferences:', e);
 		}
 	}
 
@@ -155,8 +159,8 @@ function createWizardStore() {
 		get progress() {
 			return ((currentStep + 1) / totalSteps) * 100;
 		},
-		initProfile() {
-			const profile = loadProfile();
+		async initProfile() {
+			const profile = await loadProfile();
 			data.profile = profile;
 		},
 		nextStep() {
@@ -179,7 +183,7 @@ function createWizardStore() {
 		},
 		updateProfile<K extends keyof UserProfile>(key: K, value: UserProfile[K]) {
 			data.profile[key] = value;
-			saveProfile(data.profile);
+			void saveProfile(data.profile);
 		},
 		setResultView(value: boolean) {
 			isResultView = value;

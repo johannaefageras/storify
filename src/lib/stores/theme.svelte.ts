@@ -1,18 +1,27 @@
 import { browser } from '$app/environment';
+import { Preferences } from '@capacitor/preferences';
 
 export type Theme = 'light' | 'dark';
+
+const THEME_STORAGE_KEY = 'theme';
 
 function createThemeStore() {
 	let theme = $state<Theme>('light');
 
-	function init() {
+	async function init() {
 		if (!browser) return;
 
-		const stored = localStorage.getItem('theme') as Theme | null;
-		if (stored === 'light' || stored === 'dark') {
-			theme = stored;
-		} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-			theme = 'dark';
+		try {
+			const { value } = await Preferences.get({ key: THEME_STORAGE_KEY });
+			if (value === 'light' || value === 'dark') {
+				theme = value;
+			} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+				theme = 'dark';
+			}
+		} catch {
+			if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+				theme = 'dark';
+			}
 		}
 		applyTheme();
 	}
@@ -22,19 +31,24 @@ function createThemeStore() {
 		document.documentElement.setAttribute('data-theme', theme);
 	}
 
+	async function saveTheme() {
+		if (!browser) return;
+		try {
+			await Preferences.set({ key: THEME_STORAGE_KEY, value: theme });
+		} catch (e) {
+			console.error('Failed to save theme to Preferences:', e);
+		}
+	}
+
 	function toggle() {
 		theme = theme === 'light' ? 'dark' : 'light';
-		if (browser) {
-			localStorage.setItem('theme', theme);
-		}
+		void saveTheme();
 		applyTheme();
 	}
 
 	function set(newTheme: Theme) {
 		theme = newTheme;
-		if (browser) {
-			localStorage.setItem('theme', theme);
-		}
+		void saveTheme();
 		applyTheme();
 	}
 
