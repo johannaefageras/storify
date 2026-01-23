@@ -88,17 +88,23 @@
 	.landing {
 		min-height: 100vh;
 		display: flex;
+		flex-direction: column;
 		align-items: center;
-		justify-content: center;
 		padding: 2rem;
+		padding-bottom: 0;
 	}
 
 	.container {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
 		text-align: center;
 		max-width: 520px;
+		width: 100%;
 	}
 
 	.hero {
+		margin-top: auto;
 		margin-bottom: 3rem;
 	}
 
@@ -130,10 +136,14 @@
 	}
 
 	.action {
-		margin-bottom: 4rem;
+		margin-bottom: 3rem;
 	}
 
 	.tagline {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-bottom: 1.5rem;
 		font-family: var(--font-primary);
 		color: var(--color-text-muted);
 		font-size: var(--text-xs);
@@ -143,10 +153,14 @@
 		text-transform: uppercase;
 	}
 
+	.tagline p {
+		margin-bottom: 1.5rem;
+	}
+
 	.reset-wrapper {
 		position: relative;
 		display: inline-block;
-		margin-top: 1rem;
+		margin-top: 3rem;
 	}
 
 	.reset-link {
