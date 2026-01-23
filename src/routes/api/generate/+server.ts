@@ -328,7 +328,7 @@ export const POST: RequestHandler = async ({ request }) => {
     const userContent = formatWizardDataForPrompt(data);
 
     const message = await client.messages.create({
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-opus-4-5-20251101',
       max_tokens: 1024,
       system: systemPrompt,
       messages: [

@@ -9,6 +9,7 @@
 	import { Filesystem, Directory } from '@capacitor/filesystem';
 	import { Share } from '@capacitor/share';
 	import { getApiUrl } from '$lib/config';
+	import { goto } from '$app/navigation';
 
 	// Generation state
 	let isGenerating = $state(false);
@@ -186,9 +187,10 @@ Vi ses imorgon, dagboken.`;
 	}
 
 	function handleStartOver() {
-		wizardStore.reset();
+		wizardStore.fullReset();
 		generatedEntry = '';
 		error = '';
+		goto('/');
 	}
 
 	async function copyToClipboard() {

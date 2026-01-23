@@ -93,6 +93,13 @@ export { default as EmojiEnergy7 } from './EmojiEnergy7.svelte';
 export { default as EmojiEnergy8 } from './EmojiEnergy8.svelte';
 export { default as EmojiEnergy9 } from './EmojiEnergy9.svelte';
 
+/* Legal Emojis */
+export { default as EmojiLegalAboutStorify } from './EmojiLegalAboutStorify.svelte';
+export { default as EmojiLegalContactStorify } from './EmojiLegalContactStorify.svelte';
+export { default as EmojiLegalCookiePolicy } from './EmojiLegalCookiePolicy.svelte';
+export { default as EmojiLegalPrivacyPolicy } from './EmojiLegalPrivacyPolicy.svelte';
+export { default as EmojiLegalTermsConditions } from './EmojiLegalTermsConditions.svelte';
+
 /* Feeling Emojis */
 export { default as EmojiFeelingAngry } from './EmojiFeelingAngry.svelte';
 export { default as EmojiFeelingConfused } from './EmojiFeelingConfused.svelte';

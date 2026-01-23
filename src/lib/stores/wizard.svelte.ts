@@ -202,6 +202,19 @@ function createWizardStore() {
 			currentStep = 0;
 			isResultView = false;
 		},
+		async clearAll() {
+			// Reset everything including profile and remove from storage
+			data = { ...defaultData, profile: { ...defaultProfile } };
+			currentStep = 0;
+			isResultView = false;
+			if (browser) {
+				try {
+					await Preferences.remove({ key: PROFILE_STORAGE_KEY });
+				} catch (e) {
+					console.error('Failed to remove profile from Preferences:', e);
+				}
+			}
+		},
 		isStepValid(step: number): boolean {
 			// Check if required fields for a step are filled
 			switch (step) {

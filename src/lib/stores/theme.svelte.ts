@@ -1,5 +1,6 @@
 import { browser } from '$app/environment';
 import { Preferences } from '@capacitor/preferences';
+import { StatusBar, Style } from '@capacitor/status-bar';
 
 export type Theme = 'light' | 'dark';
 
@@ -29,6 +30,10 @@ function createThemeStore() {
 	function applyTheme() {
 		if (!browser) return;
 		document.documentElement.setAttribute('data-theme', theme);
+
+		// Update Android status bar to match app theme
+		StatusBar.setStyle({ style: theme === 'light' ? Style.Light : Style.Dark }).catch(() => {});
+		StatusBar.setBackgroundColor({ color: theme === 'light' ? '#FFFFFF' : '#000000' }).catch(() => {});
 	}
 
 	async function saveTheme() {
