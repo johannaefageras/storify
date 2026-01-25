@@ -1650,16 +1650,16 @@ function formatWizardDataForPrompt(data: WizardData): string {
   return sections.join('\n');
 }
 
-export const POST: RequestHandler = async ({ request }) => {
-  try {
-    const data: WizardData = await request.json();
+const PRIMARY_MODEL = 'claude-opus-4-5-20251101';
+const FALLBACK_MODEL = 'claude-sonnet-4-20250514';
 
-    const toneId = data.selectedTone || 'classic';
-    const systemPrompt = buildTonePrompt(toneId, data.profile);
-    const userContent = formatWizardDataForPrompt(data);
-
-    const message = await client.messages.create({
-      model: 'claude-opus-4-5-20251101',
+async function generateWithFallback(
+  systemPrompt: string,
+  userContent: string
+): Promise<{ text: string; model: string }> {
+  const createMessage = async (model: string) => {
+    return client.messages.create({
+      model,
       max_tokens: 1024,
       system: systemPrompt,
       messages: [
@@ -1669,15 +1669,41 @@ export const POST: RequestHandler = async ({ request }) => {
         }
       ]
     });
+  };
 
-    // Extract text content from the response
+  try {
+    const message = await createMessage(PRIMARY_MODEL);
     const textContent = message.content.find((block) => block.type === 'text');
-    const generatedEntry = textContent?.text || '';
+    return { text: textContent?.text || '', model: PRIMARY_MODEL };
+  } catch (error: unknown) {
+    const isOverloaded =
+      error instanceof Error &&
+      (error.message.includes('overloaded') || error.message.includes('529'));
+
+    if (isOverloaded) {
+      console.log('Opus overloaded, falling back to Sonnet');
+      const message = await createMessage(FALLBACK_MODEL);
+      const textContent = message.content.find((block) => block.type === 'text');
+      return { text: textContent?.text || '', model: FALLBACK_MODEL };
+    }
+    throw error;
+  }
+}
+
+export const POST: RequestHandler = async ({ request }) => {
+  try {
+    const data: WizardData = await request.json();
+
+    const toneId = data.selectedTone || 'classic';
+    const systemPrompt = buildTonePrompt(toneId, data.profile);
+    const userContent = formatWizardDataForPrompt(data);
+
+    const result = await generateWithFallback(systemPrompt, userContent);
 
     return json(
       {
         success: true,
-        entry: generatedEntry
+        entry: result.text
       },
       { headers: corsHeaders }
     );
