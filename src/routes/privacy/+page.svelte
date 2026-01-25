@@ -1,14 +1,15 @@
 <script lang="ts">
-	import { EmojiLegalPrivacyPolicy } from '$lib/components/emojis';
+	import { EmojiShield } from '$lib/components/emojis/assorted';
+	import LegalFooter from '$lib/components/LegalFooter.svelte';
 </script>
 
 <main class="legal-page">
 	<a href="/" class="back-link">&larr; Tillbaka</a>
 	<div class="page-header">
-		<EmojiLegalPrivacyPolicy size={80} />
+		<EmojiShield size={80} />
 		<h1>Integritetspolicy</h1>
 	</div>
-	<p class="updated">Senast uppdaterad: 23 januari 2026</p>
+	<p class="updated">Senast uppdaterad: 25 januari 2026</p>
 
 	<section>
 		<h2>Vem ansvarar för dina uppgifter?</h2>
@@ -20,7 +21,8 @@
 		<p>Storify samlar in de uppgifter du själv väljer att fylla i när du använder appen. Detta kan inkludera:</p>
 		<ul>
 			<li><strong>Profilinformation:</strong> namn, ålder, pronomen, hemstad, familj, husdjur, sysselsättning och intressen</li>
-			<li><strong>Dagboksdata:</strong> datum, väder, humör, energinivå, sömnkvalitet, platser du besökt, aktiviteter, personer du träffat, reflektioner och annat du väljer att dela</li>
+			<li><strong>Dagboksdata:</strong> datum, väder, humör, energinivå, sömnkvalitet, platser du besökt, aktiviteter, personer du träffat, reflektioner, meddelanden till ditt framtida jag (tidskapsel) och annat du väljer att dela</li>
+			<li><strong>Platsdata:</strong> Om du väljer att aktivera väderdetektering kan appen begära tillgång till din ungefärliga position för att hämta aktuellt väder. Denna position används endast för att anropa vädertjänsten och sparas inte.</li>
 		</ul>
 		<p>All denna information lagras lokalt på din egen enhet – inte på våra servrar.</p>
 	</section>
@@ -42,6 +44,7 @@
 		<p>Vi använder följande externa tjänster:</p>
 		<ul>
 			<li><strong>Anthropic (Claude):</strong> AI-tjänst som genererar dagbokstexter. Data skickas krypterat och sparas inte efter att texten genererats. Anthropic är baserat i USA och följer lämpliga skyddsåtgärder för internationell dataöverföring. Läs mer i <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">Anthropics integritetspolicy</a>.</li>
+			<li><strong>Väder-API:</strong> Om du aktiverar väderdetektering skickas din ungefärliga position till en extern vädertjänst för att hämta aktuellt väder. Positionen sparas inte och används endast för denna enstaka förfrågan.</li>
 			<li><strong>Google Play:</strong> Om du laddat ner appen via Google Play kan Google samla in viss information enligt deras egna villkor. Läs mer i <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Googles integritetspolicy</a>.</li>
 		</ul>
 	</section>
@@ -73,11 +76,13 @@
 		<h2>Kontakt</h2>
 		<p>Har du frågor eller funderingar om din integritet? Kontakta oss på <a href="mailto:johanna@mystorify.se">johanna@mystorify.se</a>.</p>
 	</section>
+
+	<LegalFooter />
 </main>
 
 <style>
 	.legal-page {
-		max-width: 680px;
+		max-width: 720px;
 		margin: 0 auto;
 		padding: 2rem;
 		padding-top: calc(env(safe-area-inset-top, 0px) + 2rem);
@@ -171,8 +176,8 @@
 		position: absolute;
 		left: 0;
 		top: 0.55rem;
-		width: 5px;
-		height: 5px;
+		width: 6px;
+		height: 6px;
 		background-color: var(--color-accent);
 		border-radius: 50%;
 	}

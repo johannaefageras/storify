@@ -8,8 +8,8 @@ export interface Tone {
 export const tones: Tone[] = [
   {
     id: 'classic',
-    name: 'Klassisk Dagbok',
-    emoji: '🖋️',
+    name: 'Klassisk',
+    emoji: '📒',
     preview: 'Kära dagbok, idag var en av de där dagarna...'
   },
   {
@@ -27,13 +27,13 @@ export const tones: Tone[] = [
   {
     id: 'sportscaster',
     name: 'Sportkommentator',
-    emoji: '🏆',
+    emoji: '🎙️',
     preview: 'OCH HAN KLIVER UPP UR SÄNGEN! Vilken start på dagen!'
   },
   {
     id: 'cat-perspective',
     name: 'Kattperspektiv',
-    emoji: '🐱',
+    emoji: '🐈',
     preview: 'Människan vaknade sent igen. Typiskt.'
   },
   {
@@ -51,13 +51,13 @@ export const tones: Tone[] = [
   {
     id: 'meme',
     name: 'Meme',
-    emoji: '📱',
+    emoji: '💩',
     preview: 'no bc today was lowkey giving main character energy fr fr'
   },
   {
     id: 'cringe',
     name: 'Cringe',
-    emoji: '😳',
+    emoji: '😬',
     preview: 'Okej så jag råkade säga "du med" när någon önskade smaklig måltid...'
   },
   {
@@ -75,7 +75,55 @@ export const tones: Tone[] = [
   {
     id: 'bored',
     name: 'Uttråkad',
-    emoji: '😐',
+    emoji: '🥱',
     preview: 'Jaha. En dag till. Samma sak som vanligt antar jag.'
+  },
+  {
+    id: 'nature-documentary',
+    name: 'Naturdokumentär',
+    emoji: '🌎',
+    preview: 'Här ser vi tonåringen i sin naturliga miljö... sovande.'
+  },
+  {
+    id: 'therapist',
+    name: 'Psykolog',
+    emoji: '🧠️',
+    preview: 'Jag hör att det var en utmanande dag. Det är okej att känna så.'
+  },
+  {
+    id: 'ai-robot',
+    name: 'AI-Robot',
+    emoji: '🤖',
+    preview: 'SYSTEMLOGG: Ny dag initierad. Status: operationell.'
+  },
+  {
+    id: 'shakespeare',
+    name: 'Shakespeare',
+    emoji: '🎭',
+    preview: 'Hör, vad ljus från morgonfönstret bryter? Det är alarmet, och jag är trött.'
+  },
+  {
+    id: 'tabloid-newspaper',
+    name: 'Kvällstidning',
+    emoji: '📰',
+    preview: 'CHOCK: Lokal kvinna TVINGADES vakna INNAN klockan åtta!'
+  },
+  {
+    id: 'formal',
+    name: 'Formell',
+    emoji: '🏛️',
+    preview: 'Undertecknad får härmed meddela att dagens förehavanden nu dokumenteras.'
+  },
+  {
+    id: 'troubadour',
+    name: 'Trubadur',
+    emoji: '🎶',
+    preview: 'Hör min sång om denna dag, om solljus och om regn...'
+  },
+  {
+    id: 'nerd',
+    name: 'Nörd',
+    emoji: '🤓',
+    preview: 'Frukosten bestod av havregryn – stapelvara sedan bronsåldern, faktiskt!'
   }
 ];

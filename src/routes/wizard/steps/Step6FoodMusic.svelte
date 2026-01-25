@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import {
-	EmojiStep6Food,
-	EmojiStep6Soundtrack
-} from '$lib/components/emojis';
+	EmojiShortcake,
+	EmojiHeadphones
+} from '$lib/components/emojis/assorted';
 
-	const mealOptions = ['Frukost', 'Lunch', 'Middag', 'Fika', 'Snacks', 'Mackor', 'För lite', 'Oregelbundet', 'Godis'];
-	const soundtrackOptions = ['Tystnaden', 'Podcast', 'Radio', 'Spotify', 'Julmusik', 'Nyheter', 'Grannarnas renovering'];
+	const mealOptions = ['Frukost', 'Lunch', 'Middag', 'Fika', 'För lite', 'För mycket', 'Oregelbundet', 'Skräp'];
+	const soundtrackOptions = ['Spotify', 'Tystnaden', 'Samma låt på repeat', 'Tinnitus', 'Grannarnas renovering'];
 
 	let customMealInput = $state('');
 	let customSoundtrackInput = $state('');
@@ -82,7 +82,7 @@
 
 	<div class="field-group">
 		<span class="field-label">
-			<span class="label-emoji"><EmojiStep6Food size={23} /></span>
+			<span class="label-emoji"><EmojiShortcake size={23} /></span>
 			Vad åt du idag?
 		</span>
 		<div class="pill-cloud">
@@ -93,6 +93,9 @@
 					onclick={() => toggleMeal(meal)}
 				>
 					{meal}
+					{#if wizardStore.data.meals.includes(meal)}
+						<span class="remove">×</span>
+					{/if}
 				</button>
 			{/each}
 			{#each wizardStore.data.customMeals as meal}
@@ -104,7 +107,7 @@
 		<div class="add-custom">
 			<input
 				type="text"
-				placeholder="Något som var gott idag var..."
+				placeholder="Det där man äter stående vid diskbänken, femte koppen kaffe..."
 				bind:value={customMealInput}
 				onkeydown={(e) => handleKeydown(e, addCustomMeal)}
 			/>
@@ -114,7 +117,7 @@
 
 	<div class="field-group">
 		<span class="field-label">
-			<span class="label-emoji"><EmojiStep6Soundtrack size={23} /></span>
+			<span class="label-emoji"><EmojiHeadphones size={23} /></span>
 			Dagens soundtrack?
 		</span>
 		<div class="pill-cloud">
@@ -125,6 +128,9 @@
 					onclick={() => toggleSoundtrack(option)}
 				>
 					{option}
+					{#if wizardStore.data.soundtracks.includes(option)}
+						<span class="remove">×</span>
+					{/if}
 				</button>
 			{/each}
 			{#each wizardStore.data.customSoundtracks as soundtrack}
@@ -136,7 +142,7 @@
 		<div class="add-custom">
 			<input
 				type="text"
-				placeholder="Låten som kördes på repeat var..."
+				placeholder="Den där låten TikTok förstört, regnet mot fönstret..."
 				bind:value={customSoundtrackInput}
 				onkeydown={(e) => handleKeydown(e, addCustomSoundtrack)}
 			/>
@@ -165,13 +171,13 @@
 	.field-group {
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
+		gap: 0.5rem;
 	}
 
 	.field-label {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: 0.35rem;
 		font-family: var(--font-primary);
 		font-size: var(--text-md);
 		font-weight: var(--weight-regular);
@@ -192,13 +198,13 @@
 
 	.pill {
 		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-medium);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-news);
 		letter-spacing: var(--tracking-wide);
 		padding: 0.25rem 0.5rem;
 		background-color: var(--color-bg-elevated);
 		border: 1px solid var(--color-border);
-		border-radius: 0.5rem;
+		border-radius: 0.25rem;
 		color: var(--color-text);
 		cursor: pointer;
 		transition:
@@ -212,20 +218,23 @@
 	}
 
 	.pill.selected {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
 		background-color: var(--color-accent);
 		border-color: var(--color-accent);
 		color: white;
 	}
 
-	.pill.custom {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
+	.pill .remove {
+		font-size: 0.875rem;
+		line-height: 1;
+		opacity: 0.8;
+		transition: opacity 0.15s ease;
 	}
 
-	.pill .remove {
-		font-size: 1rem;
-		line-height: 1;
+	.pill:hover .remove {
+		opacity: 1;
 	}
 
 	.add-custom {

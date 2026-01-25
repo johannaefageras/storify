@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { EmojiLegalCookiePolicy } from '$lib/components/emojis';
+	import { EmojiCookie } from '$lib/components/emojis/assorted';
+	import LegalFooter from '$lib/components/LegalFooter.svelte';
 </script>
 
 <main class="legal-page">
 	<a href="/" class="back-link">&larr; Tillbaka</a>
 	<div class="page-header">
-		<EmojiLegalCookiePolicy size={80} />
+		<EmojiCookie size={80} />
 		<h1>Cookiepolicy</h1>
 	</div>
 	<p class="updated">Senast uppdaterad: 23 januari 2026</p>
@@ -65,11 +66,13 @@
 		<h2>Frågor?</h2>
 		<p>Har du funderingar kring hur vi hanterar data? Kontakta oss på <a href="mailto:johanna@mystorify.se">johanna@mystorify.se</a>.</p>
 	</section>
+
+	<LegalFooter />
 </main>
 
 <style>
 	.legal-page {
-		max-width: 680px;
+		max-width: 720px;
 		margin: 0 auto;
 		padding: 2rem;
 		padding-top: calc(env(safe-area-inset-top, 0px) + 2rem);
@@ -163,8 +166,8 @@
 		position: absolute;
 		left: 0;
 		top: 0.55rem;
-		width: 5px;
-		height: 5px;
+		width: 6px;
+		height: 6px;
 		background-color: var(--color-accent);
 		border-radius: 50%;
 	}

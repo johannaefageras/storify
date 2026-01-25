@@ -1,0 +1,10 @@
+export { default as EmojiFaceCrying } from './EmojiFaceCrying.svelte';
+export { default as EmojiFaceCryingLoudly } from './EmojiFaceCryingLoudly.svelte';
+export { default as EmojiFaceFrowning } from './EmojiFaceFrowning.svelte';
+export { default as EmojiFaceGrinningSweat } from './EmojiFaceGrinningSweat.svelte';
+export { default as EmojiFaceLOL } from './EmojiFaceLOL.svelte';
+export { default as EmojiFaceNeutral } from './EmojiFaceNeutral.svelte';
+export { default as EmojiFacePartying } from './EmojiFacePartying.svelte';
+export { default as EmojiFaceSlightlyFrowning } from './EmojiFaceSlightlyFrowning.svelte';
+export { default as EmojiFaceSmiling } from './EmojiFaceSmiling.svelte';
+export { default as EmojiFaceSmilingHearts } from './EmojiFaceSmilingHearts.svelte';

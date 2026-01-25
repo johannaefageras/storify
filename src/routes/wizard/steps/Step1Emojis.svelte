@@ -100,7 +100,7 @@
 				{@const EmojiComponent = getEmojiComponent(emojiId)}
 				<button class="selected-emoji" onclick={() => toggleEmoji(emojiId)}>
 					{#if EmojiComponent}
-						<EmojiComponent size={28} />
+						<EmojiComponent size={34} />
 					{/if}
 				</button>
 			{/each}
@@ -177,8 +177,8 @@
 	}
 
 	.selected-emoji {
-		width: 2.75rem;
-		height: 2.75rem;
+		width: 3.25rem;
+		height: 3.25rem;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -194,8 +194,8 @@
 	}
 
 	.emoji-placeholder {
-		width: 2.75rem;
-		height: 2.75rem;
+		width: 3.25rem;
+		height: 3.25rem;
 		border: 2px dashed var(--color-border);
 		border-radius: var(--radius-md);
 	}

@@ -1,27 +1,57 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import {
-	EmojiStep4Wins,
-	EmojiStep4PetPeeves
-} from '$lib/components/emojis';
+	EmojiTrophy,
+	EmojiCollision
+} from '$lib/components/emojis/assorted';
 
 	const winPlaceholders = [
-		'Gick upp ur sängen (Räknas).',
-		'Kom iväg i tid',
-		'Svarade på ett jobbigt mejl',
-		'Tog mig igenom dagen',
-		'Fixade en bugg',
-		'Tränade, faktiskt'
+		'Gick upp ur sängen (räknas).',
+		'Drog igång diskmaskinen, till slut.',
+		'Höll käften i rätt läge',
+		'Skickade mejlet jag skjutit upp i en vecka',
+		'Duschade, till och med håret'
 	];
 
 	const frustrationPlaceholders = [
-		'Köer överallt',
-		'Teknik som inte samarbetade',
+		'Hjärnan som inte ville samarbeta',
+		'Skorna som skaver',
 		'Tappade bort nycklarna',
-		'Glömde matlådan',
-		'Folk som inte svarar',
-		'Dåligt wifi',
+		'Dåligt wifi på tåget',
+		'Laddaren som inte nådde soffan'
 	];
+
+	const winSuggestions = ['Gick upp i tid', 'Drack vatten', 'Sa ja', 'Sa nej', 'Höll löftet'];
+
+	const frustrationSuggestions = ['Teknikstrul', 'Köer', 'Vädret', 'Folk', 'Jag själv', 'Sömnbrist'];
+
+	function toggleWinSuggestion(suggestion: string) {
+		if (wizardStore.data.wins.includes(suggestion)) {
+			const wins = wizardStore.data.wins.filter((w) => w !== suggestion);
+			wizardStore.updateData('wins', wins.length > 0 ? wins : ['']);
+		} else {
+			const emptyIndex = wizardStore.data.wins.findIndex((w) => w === '');
+			if (emptyIndex !== -1) {
+				updateWin(emptyIndex, suggestion);
+			} else {
+				wizardStore.updateData('wins', [...wizardStore.data.wins, suggestion]);
+			}
+		}
+	}
+
+	function toggleFrustrationSuggestion(suggestion: string) {
+		if (wizardStore.data.frustrations.includes(suggestion)) {
+			const frustrations = wizardStore.data.frustrations.filter((f) => f !== suggestion);
+			wizardStore.updateData('frustrations', frustrations.length > 0 ? frustrations : ['']);
+		} else {
+			const emptyIndex = wizardStore.data.frustrations.findIndex((f) => f === '');
+			if (emptyIndex !== -1) {
+				updateFrustration(emptyIndex, suggestion);
+			} else {
+				wizardStore.updateData('frustrations', [...wizardStore.data.frustrations, suggestion]);
+			}
+		}
+	}
 
 	function getPlaceholder(placeholders: string[], index: number): string {
 		return placeholders[index % placeholders.length];
@@ -67,9 +97,23 @@
 
 	<div class="field-group">
 		<span class="field-label">
-			<span class="label-emoji"><EmojiStep4Wins size={23} /></span>
-			Dagens wins (stort som smått)
+			<span class="label-emoji"><EmojiTrophy size={23} /></span>
+			Dagens små segrar
 		</span>
+		<div class="suggestion-pills">
+			{#each winSuggestions as suggestion}
+				<button
+					class="suggestion-pill"
+					class:selected={wizardStore.data.wins.includes(suggestion)}
+					onclick={() => toggleWinSuggestion(suggestion)}
+				>
+					{suggestion}
+					{#if wizardStore.data.wins.includes(suggestion)}
+						<span class="pill-remove">×</span>
+					{/if}
+				</button>
+			{/each}
+		</div>
 		<div class="repeater">
 			{#each wizardStore.data.wins as win, index}
 				<div class="repeater-item">
@@ -92,9 +136,23 @@
 
 	<div class="field-group">
 		<span class="field-label">
-			<span class="label-emoji"><EmojiStep4PetPeeves size={23} /></span>
+			<span class="label-emoji"><EmojiCollision size={23} /></span>
 			Dagens irritationsmoment
 		</span>
+		<div class="suggestion-pills">
+			{#each frustrationSuggestions as suggestion}
+				<button
+					class="suggestion-pill"
+					class:selected={wizardStore.data.frustrations.includes(suggestion)}
+					onclick={() => toggleFrustrationSuggestion(suggestion)}
+				>
+					{suggestion}
+					{#if wizardStore.data.frustrations.includes(suggestion)}
+						<span class="pill-remove">×</span>
+					{/if}
+				</button>
+			{/each}
+		</div>
 		<div class="repeater">
 			{#each wizardStore.data.frustrations as frustration, index}
 				<div class="repeater-item">
@@ -136,7 +194,7 @@
 	.field-group {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: 0.5rem;
 	}
 
 	.field-label {
@@ -153,6 +211,54 @@
 	.label-emoji {
 		display: flex;
 		align-items: center;
+	}
+
+	.suggestion-pills {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.25rem;
+	}
+
+	.suggestion-pill {
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
+		padding: 0.25rem 0.5rem;
+		background-color: var(--color-bg-elevated);
+		border: 1px solid var(--color-border);
+		border-radius: 0.375rem;
+		color: var(--color-text-muted);
+		cursor: pointer;
+		transition:
+			background-color 0.15s ease,
+			border-color 0.15s ease,
+			color 0.15s ease;
+	}
+
+	.suggestion-pill:hover {
+		border-color: var(--color-accent);
+		color: var(--color-text);
+	}
+
+	.suggestion-pill.selected {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+		background-color: var(--color-accent);
+		border-color: var(--color-accent);
+		color: white;
+	}
+
+	.pill-remove {
+		font-size: 0.875rem;
+		line-height: 1;
+		opacity: 0.8;
+		transition: opacity 0.15s ease;
+	}
+
+	.suggestion-pill:hover .pill-remove {
+		opacity: 1;
 	}
 
 	.repeater {

@@ -3,34 +3,30 @@
 	import { tones } from '$lib/data/tones';
 	import { voiceSamples } from '$lib/data/voiceSamples';
 	import type { Component } from 'svelte';
-	import {
-	EmojiVoiceBored,
-	EmojiVoiceBritish,
-	EmojiVoiceCatPerspective,
-	EmojiVoiceClassic,
-	EmojiVoiceCringe,
-	EmojiVoiceDramaQueen,
-	EmojiVoiceMeme,
-	EmojiVoicePhilosophical,
-	EmojiVoiceQuestLog,
-	EmojiVoiceSarcastic,
-	EmojiVoiceSportscaster,
-	EmojiVoiceStorytelling
-} from '$lib/components/emojis';
+	import { EmojiBrain, EmojiCatTabby, EmojiClassicBuilding, EmojiCrown, EmojiEarth, EmojiFaceGrimacing, EmojiFaceNerd, EmojiFaceSmirking, EmojiFaceThinking, EmojiFaceYawning, EmojiFlagUK, EmojiLedger, EmojiMusicalNotes, EmojiNewspaper, EmojiOpenBook, EmojiPoo, EmojiRobot, EmojiStudioMicrophone, EmojiTheaterMasks, EmojiVideoGameControl } from '$lib/components/emojis/voices';
+import { EmojiGameDice } from '$lib/components/emojis/assorted';
 
 	const toneIconMap: Record<string, Component> = {
-		classic: EmojiVoiceClassic,
-		storytelling: EmojiVoiceStorytelling,
-		philosophical: EmojiVoicePhilosophical,
-		sportscaster: EmojiVoiceSportscaster,
-		'cat-perspective': EmojiVoiceCatPerspective,
-		sarcastic: EmojiVoiceSarcastic,
-		'drama-queen': EmojiVoiceDramaQueen,
-		meme: EmojiVoiceMeme,
-		cringe: EmojiVoiceCringe,
-		british: EmojiVoiceBritish,
-		'quest-log': EmojiVoiceQuestLog,
-		bored: EmojiVoiceBored
+		classic: EmojiLedger,
+		sportscaster: EmojiStudioMicrophone,
+		'cat-perspective': EmojiCatTabby,
+		philosophical: EmojiFaceThinking,
+		'nature-documentary': EmojiEarth,
+		sarcastic: EmojiFaceGrimacing,
+		nerd: EmojiFaceNerd,
+		storytelling: EmojiOpenBook,
+		cringe: EmojiFaceSmirking,
+		formal: EmojiClassicBuilding,
+		'quest-log': EmojiVideoGameControl,
+		shakespeare: EmojiTheaterMasks,
+		therapist: EmojiBrain,
+		meme: EmojiPoo,
+		bored: EmojiFaceYawning,
+		british: EmojiFlagUK,
+		'drama-queen': EmojiCrown,
+		'ai-robot': EmojiRobot,
+		troubadour: EmojiMusicalNotes,
+		tabloid: EmojiNewspaper,
 	};
 
 	function getToneIcon(toneId: string): Component | undefined {
@@ -64,6 +60,16 @@
 	<p class="step-intro">Vilken känsla ska dagboken ha? En dag kan låta på många sätt beroende på vem som berättar. Välj din favorit och se hur det låter.</p>
 
 	<div class="tone-grid">
+		<button
+			class="tone-card surprise-card"
+			class:selected={wizardStore.data.selectedTone === 'surprise'}
+			onclick={() => wizardStore.updateData('selectedTone', 'surprise')}
+		>
+			<span class="tone-emoji">
+				<EmojiGameDice size={36} />
+			</span>
+			<span class="tone-name">Överraska mig!</span>
+		</button>
 		{#each tones as tone}
 			{@const ToneIcon = getToneIcon(tone.id)}
 			<button
@@ -91,6 +97,11 @@
 				<span class="preview-label">Förhandsvisning:</span>
 				<p class="preview-text">"{previewText}"</p>
 			</div>
+		{:else if wizardStore.data.selectedTone === 'surprise'}
+			<div class="preview surprise-preview">
+				<span class="preview-label">Överraskning väntar!</span>
+				<p class="preview-text">Vi väljer en slumpmässig röst åt dig när din dagbok skapas. Det blir som att öppna en present!</p>
+			</div>
 		{:else if wizardStore.data.selectedTone}
 			{@const selectedSample = getRandomSample(wizardStore.data.selectedTone)}
 			<div class="preview">
@@ -105,7 +116,7 @@
 	.step-content {
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
+		gap: 0.75rem;
 	}
 
 	.step-intro {
@@ -138,6 +149,14 @@
 			border-color 0.15s ease,
 			background-color 0.15s ease,
 			transform 0.1s ease;
+	}
+
+	.surprise-card {
+		grid-column: 1 / -1;
+		flex-direction: row;
+		justify-content: center;
+		gap: 0.75rem;
+		padding: 1rem 1.5rem;
 	}
 
 	.tone-card:hover {
@@ -174,7 +193,7 @@
 	.preview {
 		padding: 1rem 1.25rem;
 		background-color: var(--color-bg-elevated);
-		border: 1px solid var(--color-border);
+		border: 2px solid var(--color-border);
 		border-radius: var(--radius-md);
 		text-align: center;
 	}
@@ -199,6 +218,11 @@
 		letter-spacing: var(--tracking-wide);
 		color: var(--color-text);
 		line-height: var(--leading-relaxed);
+	}
+
+	.surprise-preview {
+		background-color: color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-elevated));
+		border-color: var(--color-accent);
 	}
 
 	@media (min-width: 480px) {

@@ -1,42 +1,31 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import {
-	EmojiStep3Locations,
-	EmojiStep3Events,
-	EmojiStep3Appearences
-} from '$lib/components/emojis';
+	import { EmojiPushpinRound, EmojiCalendar, EmojiWavingHand } from '$lib/components/emojis/assorted';
 
 	const locationOptions = [
 		'Hemma',
-		'På jobbet',
-		'I skolan',
+		'Skolan',
+		'Jobbet',
 		'Utomhus',
-		'På stan',
-		'På café',
-		'Hos en kompis',
-		'I naturen'
+		'Överallt',
+		'Ingenstans'
 	];
 
 	const activityOptions = [
-		'Pluggade',
 		'Jobbade',
-		'Tränade',
-		'Inget särskilt',
-		'Spelade',
+		'Pluggade',
 		'Scrollade',
-		'Shoppade',
-		'Vilade'
+		'Prokrastinerade',
+		'Inget särskilt'
 	];
 
 	const appearencesOptions = [
 		'Kompisar',
-		'Föräldrar',
-		'Syskon',
-		'Crush',
-		'Lärare',
+		'Familjen',
 		'Kollegor',
 		'Främlingar',
-		'Ingen alls'
+		'Någon ny',
+		'Ingen'
 	];
 
 	let customLocationInput = $state('');
@@ -143,7 +132,7 @@
 
 	<div class="field-group">
 		<span class="field-label">
-			<span class="label-emoji"><EmojiStep3Locations size={23} /></span>
+			<span class="label-emoji"><EmojiPushpinRound size={23} /></span>
 			Var har du varit idag?
 		</span>
 		<div class="pill-cloud">
@@ -154,6 +143,9 @@
 					onclick={() => toggleLocation(location)}
 				>
 					{location}
+					{#if wizardStore.data.locations.includes(location)}
+						<span class="remove">×</span>
+					{/if}
 				</button>
 			{/each}
 			{#each wizardStore.data.customLocations as location}
@@ -165,7 +157,7 @@
 		<div class="add-custom">
 			<input
 				type="text"
-				placeholder="Lägg till plats..."
+				placeholder="I köket, vid samma skolbänk som vanligt, i sängen..."
 				bind:value={customLocationInput}
 				onkeydown={(e) => handleKeydown(e, addCustomLocation)}
 			/>
@@ -177,7 +169,7 @@
 
 	<div class="field-group">
 		<span class="field-label">
-			<span class="label-emoji"><EmojiStep3Events size={23} /></span>
+			<span class="label-emoji"><EmojiCalendar size={23} /></span>
 			Vad hände idag?
 		</span>
 		<div class="pill-cloud">
@@ -188,6 +180,9 @@
 					onclick={() => toggleActivity(activity)}
 				>
 					{activity}
+					{#if wizardStore.data.activities.includes(activity)}
+						<span class="remove">×</span>
+					{/if}
 				</button>
 			{/each}
 			{#each wizardStore.data.customActivities as activity}
@@ -199,7 +194,7 @@
 		<div class="add-custom">
 			<input
 				type="text"
-				placeholder="Lägg till aktivitet..."
+				placeholder="Stirrade på ett dokument, åt lunch ensam..."
 				bind:value={customActivityInput}
 				onkeydown={(e) => handleKeydown(e, addCustomActivity)}
 			/>
@@ -211,7 +206,7 @@
 
 	<div class="field-group">
 		<span class="field-label">
-			<span class="label-emoji"><EmojiStep3Appearences size={23} /></span>
+			<span class="label-emoji"><EmojiWavingHand size={23} /></span>
 			 Vilka var med idag?
 		</span>
 		<div class="pill-cloud">
@@ -222,6 +217,9 @@
 					onclick={() => toggleAppearance(personType)}
 				>
 					{personType}
+					{#if wizardStore.data.people.includes(personType)}
+						<span class="remove">×</span>
+					{/if}
 				</button>
 			{/each}
 			{#each wizardStore.data.people.filter((p) => !appearencesOptions.includes(p)) as person}
@@ -262,13 +260,13 @@
 	.field-group {
 		display: flex;
 		flex-direction: column;
-		gap: 0.65rem;
+		gap: 0.25rem;
 	}
 
 	.field-label {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: 0.35rem;
 		font-family: var(--font-primary);
 		font-size: var(--text-base);
 		font-weight: var(--weight-regular);
@@ -294,13 +292,13 @@
 
 	.pill {
 		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-medium);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-news);
 		letter-spacing: var(--tracking-wide);
 		padding: 0.25rem 0.5rem;
 		background-color: var(--color-bg-elevated);
 		border: 1px solid var(--color-border);
-		border-radius: 0.5rem;
+		border-radius: 0.25rem;
 		color: var(--color-text);
 		cursor: pointer;
 		transition:
@@ -314,20 +312,23 @@
 	}
 
 	.pill.selected {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
 		background-color: var(--color-accent);
 		border-color: var(--color-accent);
 		color: white;
 	}
 
-	.pill.custom {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
+	.pill .remove {
+		font-size: 0.875rem;
+		line-height: 1;
+		opacity: 0.8;
+		transition: opacity 0.15s ease;
 	}
 
-	.pill .remove {
-		font-size: 1rem;
-		line-height: 1;
+	.pill:hover .remove {
+		opacity: 1;
 	}
 
 	.add-custom {

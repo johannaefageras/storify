@@ -1,15 +1,16 @@
 <script lang="ts">
-	import { EmojiAppRosePinkLight, EmojiAppRosePinkDark, EmojiLegalAboutStorify } from '$lib/components/emojis';
+	import { EmojiRoseLight, EmojiRoseDark, EmojiProfilePic, EmojiHammerWrench } from '$lib/components/emojis/assorted';
 	import { themeStore } from '$lib/stores/theme.svelte';
+	import LegalFooter from '$lib/components/LegalFooter.svelte';
 </script>
 
 <main class="legal-page">
 	<a href="/" class="back-link">&larr; Tillbaka</a>
 	<div class="page-header">
 		{#if themeStore.current === 'dark'}
-			<EmojiAppRosePinkDark size={80} />
+			<EmojiRoseLight size={80} />
 		{:else}
-			<EmojiAppRosePinkLight size={80} />
+			<EmojiRoseDark size={80} />
 		{/if}
 		<h1>Om Storify</h1>
 	</div>
@@ -18,19 +19,33 @@
 		<h2>En dagbok för oss som aldrig skriver dagbok</h2>
 		<p>Du vet de där fina anteckningsböckerna du köpt med de bästa intentioner? De som ligger i en låda någonstans med kanske tre inlägg – varav det sista börjar med "Oj, det var länge sen..."?</p>
 		<p>Storify är för oss. För alla som vill minnas sin vardag men som inte har tid, ork eller inspiration att faktiskt sätta sig ner och skriva. Svara på några frågor, välj en röst som passar ditt humör, och låt AI:n göra det jobbiga – själva skrivandet.</p>
+		<p>Appen hämtar till och med vädret automatiskt baserat på din position, och låter dig skriva en liten tidskapsel – ett meddelande till ditt framtida jag som vävs in i dagbokstexten.</p>
 	</section>
 
 	<section>
 		<h2>Varför jag byggde det här</h2>
 		<div class="about-johanna">
 			<div class="johanna-avatar">
-				<EmojiLegalAboutStorify size={96} />
+				<EmojiProfilePic size={96} />
 			</div>
 			<div class="johanna-text">
-				<p>Jag heter Johanna, bor i Göteborg och jobbar som sjuksköterska. På fritiden kodar jag (självlärd och stolt över det), syr mina egna kläder, och försöker hålla mina krukväxter vid liv. Ibland lyckas jag med alla tre samtidigt.</p>
+				<p>Jag heter Johanna, är sjuksköterska och bor i Göteborg. På fritiden kodar jag (självlärd, på hobbynivå), syr mina egna kläder, och försöker hålla mina krukväxter vid liv. Ibland lyckas jag med alla tre samtidigt.</p>
 			</div>
 		</div>
 		<p>Storify började som ett litet hobbyprojekt en kväll när jag tänkte: "Tänk om jag kunde få hjälp att skriva dagbok istället för att bara tänka att jag borde göra det?" Några kaffekoppar och kodningskvällar senare var appen född.</p>
+	</section>
+
+	<section>
+		<h2>Vill du vara med och utveckla projektet?</h2>
+		<div class="contribute-box">
+			<div class="contribute-icon">
+				<EmojiHammerWrench size={64} />
+			</div>
+			<div class="contribute-text">
+				<p>Storify är open source! Har du idéer, hittat en bugg, eller vill bidra med kod? Projektet finns på GitHub och alla bidrag är välkomna.</p>
+				<a href="https://github.com/johannaefageras/storify" target="_blank" rel="noopener noreferrer">Se källkoden på GitHub</a>
+			</div>
+		</div>
 	</section>
 
 	<section>
@@ -43,11 +58,13 @@
 		<h2>Tack för att du är här</h2>
 		<p>Att du använder något jag byggt på min fritid mellan arbetspass och kattgos betyder enormt mycket. Har du tankar, idéer eller bara vill säga hej? <a href="/contact">Hör av dig!</a></p>
 	</section>
+
+	<LegalFooter />
 </main>
 
 <style>
 	.legal-page {
-		max-width: 680px;
+		max-width: 720px;
 		margin: 0 auto;
 		padding: 2rem;
 		padding-top: calc(env(safe-area-inset-top, 0px) + 2rem);
@@ -101,6 +118,23 @@
 
 	.johanna-text p {
 		margin-bottom: 0;
+	}
+
+	.contribute-box {
+		display: flex;
+		gap: 1.25rem;
+		align-items: center;
+		background: var(--color-bg-elevated);
+		padding: 1.25rem;
+		border-radius: var(--radius-md);
+	}
+
+	.contribute-icon {
+		flex-shrink: 0;
+	}
+
+	.contribute-text p {
+		margin-bottom: 0.5rem;
 	}
 
 	h2 {

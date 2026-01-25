@@ -3,21 +3,41 @@
 	import { tones } from '$lib/data/tones';
 	import { emojiLabelMap, emojiMap } from '$lib/data/emojis';
 	import type { Component } from 'svelte';
-	import { EmojiAppSparklesSimpleLight } from '$lib/components/emojis';
+	import { EmojiSparkles } from '$lib/components/emojis/assorted';
+	import EmojiRoseLight from '$lib/components/emojis/assorted/EmojiRoseLight.svelte';
+	import EmojiRoseDark from '$lib/components/emojis/assorted/EmojiRoseDark.svelte';
+	import EmojiFramedPicture from '$lib/components/emojis/assorted/EmojiFramedPicture.svelte';
+	import EmojiPrinter from '$lib/components/emojis/assorted/EmojiPrinter.svelte';
+	import EmojiClipboard from '$lib/components/emojis/assorted/EmojiClipboard.svelte';
+	import EmojiEnvelopeIncoming from '$lib/components/emojis/assorted/EmojiEnvelopeIncoming.svelte';
 	import html2canvas from 'html2canvas';
-	import { Clipboard } from '@capacitor/clipboard';
-	import { Filesystem, Directory } from '@capacitor/filesystem';
-	import { Share } from '@capacitor/share';
+	import { jsPDF } from 'jspdf';
 	import { getApiUrl } from '$lib/config';
 	import { goto } from '$app/navigation';
+	import resultMessages from '$lib/data/resultMessages.json';
 
 	// Generation state
 	let isGenerating = $state(false);
 	let generatedEntry = $state('');
 	let error = $state('');
 
-	// Reference to the document element for image export
+	// References for export
 	let documentElement: HTMLDivElement = $state(null!);
+	let pdfElement: HTMLDivElement = $state(null!);
+	let isDownloading = $state(false);
+	let isDownloadingPdf = $state(false);
+	let isCopying = $state(false);
+	let isSendingEmail = $state(false);
+	let showEmailModal = $state(false);
+	let emailAddress = $state('');
+	let emailError = $state('');
+	let emailSent = $state(false);
+
+	// Random result message (selected once when entry is generated)
+	let resultMessage = $state({ title: '', subtitle: '' });
+
+	// Track the actual tone used (important for "surprise" mode)
+	let actualToneUsed = $state<string | null>(null);
 
 	// DEV: Preview mode for styling without API calls
 	const DEV_PREVIEW = false;
@@ -36,33 +56,30 @@ Nu är det kväll och jag är trött, men den goda sorten av trött. Imorgon är
 Vi ses imorgon, dagboken.`;
 
 	// Voice icons for display
-	import {
-		EmojiVoiceBored,
-		EmojiVoiceBritish,
-		EmojiVoiceCatPerspective,
-		EmojiVoiceClassic,
-		EmojiVoiceCringe,
-		EmojiVoiceDramaQueen,
-		EmojiVoiceMeme,
-		EmojiVoicePhilosophical,
-		EmojiVoiceQuestLog,
-		EmojiVoiceSarcastic,
-		EmojiVoiceSportscaster,
-		EmojiVoiceStorytelling
-	} from '$lib/components/emojis';
+	import { EmojiBrain, EmojiCatTabby, EmojiClassicBuilding, EmojiCrown, EmojiEarth, EmojiFaceGrimacing, EmojiFaceNerd, EmojiFaceSmirking, EmojiFaceThinking, EmojiFaceYawning, EmojiFlagUK, EmojiLedger, EmojiMusicalNotes, EmojiNewspaper, EmojiOpenBook, EmojiPoo, EmojiRobot, EmojiStudioMicrophone, EmojiTheaterMasks, EmojiVideoGameControl } from '$lib/components/emojis/voices';
+import { EmojiGameDice } from '$lib/components/emojis/assorted';
+
 	const toneIconMap: Record<string, Component> = {
-		classic: EmojiVoiceClassic,
-		storytelling: EmojiVoiceStorytelling,
-		philosophical: EmojiVoicePhilosophical,
-		sportscaster: EmojiVoiceSportscaster,
-		'cat-perspective': EmojiVoiceCatPerspective,
-		sarcastic: EmojiVoiceSarcastic,
-		'drama-queen': EmojiVoiceDramaQueen,
-		meme: EmojiVoiceMeme,
-		cringe: EmojiVoiceCringe,
-		british: EmojiVoiceBritish,
-		'quest-log': EmojiVoiceQuestLog,
-		bored: EmojiVoiceBored
+		classic: EmojiLedger,
+		sportscaster: EmojiStudioMicrophone,
+		'cat-perspective': EmojiCatTabby,
+		philosophical: EmojiFaceThinking,
+		'nature-documentary': EmojiEarth,
+		sarcastic: EmojiFaceGrimacing,
+		nerd: EmojiFaceNerd,
+		storytelling: EmojiOpenBook,
+		cringe: EmojiFaceSmirking,
+		formal: EmojiClassicBuilding,
+		'quest-log': EmojiVideoGameControl,
+		shakespeare: EmojiTheaterMasks,
+		therapist: EmojiBrain,
+		meme: EmojiPoo,
+		bored: EmojiFaceYawning,
+		british: EmojiFlagUK,
+		'drama-queen': EmojiCrown,
+		'ai-robot': EmojiRobot,
+		troubadour: EmojiMusicalNotes,
+		tabloid: EmojiNewspaper,
 	};
 
 	function getEmojiComponent(emojiId: string): Component | undefined {
@@ -74,6 +91,22 @@ Vi ses imorgon, dagboken.`;
 	}
 
 	const selectedTone = $derived(tones.find((t) => t.id === wizardStore.data.selectedTone));
+
+	// Detect dark mode for footer icon
+	let isDarkMode = $state(false);
+
+	$effect(() => {
+		if (typeof window !== 'undefined') {
+			isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
+
+			const observer = new MutationObserver(() => {
+				isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
+			});
+			observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+			return () => observer.disconnect();
+		}
+	});
 
 	function getMoodLabel(value: number): string {
 		if (value <= 3) return 'Lågt';
@@ -151,10 +184,19 @@ Vi ses imorgon, dagboken.`;
 		error = '';
 		generatedEntry = '';
 
+		// Determine the actual tone to use (random if "surprise" selected)
+		let toneToUse = wizardStore.data.selectedTone;
+		if (toneToUse === 'surprise') {
+			const randomIndex = Math.floor(Math.random() * tones.length);
+			toneToUse = tones[randomIndex].id;
+		}
+		actualToneUsed = toneToUse;
+
 		// DEV: Use sample content instead of API call
 		if (DEV_PREVIEW) {
 			await new Promise((resolve) => setTimeout(resolve, 800)); // Simulate loading
 			generatedEntry = SAMPLE_ENTRY;
+			selectRandomMessage();
 			isGenerating = false;
 			return;
 		}
@@ -168,13 +210,14 @@ Vi ses imorgon, dagboken.`;
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ ...wizardStore.data, emojis: emojiLabels })
+				body: JSON.stringify({ ...wizardStore.data, emojis: emojiLabels, selectedTone: toneToUse })
 			});
 
 			const result = await response.json();
 
 			if (result.success) {
 				generatedEntry = result.entry;
+				selectRandomMessage();
 			} else {
 				error = result.error || 'Något gick fel vid genereringen.';
 			}
@@ -193,99 +236,354 @@ Vi ses imorgon, dagboken.`;
 		goto('/');
 	}
 
-	async function copyToClipboard() {
-		try {
-			await Clipboard.write({ string: generatedEntry });
-		} catch (e) {
-			console.error('Failed to copy to clipboard:', e);
-		}
+	function selectRandomMessage() {
+		const randomIndex = Math.floor(Math.random() * resultMessages.length);
+		resultMessage = resultMessages[randomIndex];
 	}
 
-	async function saveAsImage() {
-		if (!documentElement) return;
+	async function downloadAsImage() {
+		if (!documentElement || isDownloading) return;
+		isDownloading = true;
 
 		try {
 			const canvas = await html2canvas(documentElement, {
-				backgroundColor: null,
-				scale: 2, // Higher resolution
+				backgroundColor: isDarkMode ? '#1c1c1f' : '#ffffff',
+				scale: 3,
 				useCORS: true,
 				logging: false
 			});
 
-			// Convert canvas to base64
-			const base64Data = canvas.toDataURL('image/png').split(',')[1];
-			const fileName = `dagbok-${wizardStore.data.date || 'entry'}.png`;
-
-			// Save to filesystem
-			const savedFile = await Filesystem.writeFile({
-				path: fileName,
-				data: base64Data,
-				directory: Directory.Cache
-			});
-
-			// Share the saved file
-			await Share.share({
-				title: 'Dagboksinlägg',
-				url: savedFile.uri,
-				dialogTitle: 'Spara eller dela din dagbok'
-			});
+			const link = document.createElement('a');
+			link.download = `dagbok-${wizardStore.data.date?.replace(/\s/g, '-') || 'entry'}.png`;
+			link.href = canvas.toDataURL('image/png', 1.0);
+			link.click();
 		} catch (err) {
-			console.error('Failed to save as image:', err);
+			console.error('Failed to download image:', err);
+		} finally {
+			isDownloading = false;
+		}
+	}
+
+	async function downloadAsPdf() {
+		if (!pdfElement || isDownloadingPdf) return;
+		isDownloadingPdf = true;
+
+		try {
+			const a4Width = 210;
+			const a4Height = 297;
+
+			await document.fonts.ready;
+
+			const canvas = await html2canvas(pdfElement, {
+				backgroundColor: '#ffffff',
+				scale: 3,
+				useCORS: true,
+				logging: false,
+				width: 720
+			});
+
+			const margin = 15;
+			const maxWidth = a4Width - margin * 2;
+			const maxHeight = a4Height - margin * 2;
+
+			const pxToMm = 25.4 / (96 * 3);
+			const contentWidthMm = canvas.width * pxToMm;
+			const contentHeightMm = canvas.height * pxToMm;
+
+			const scale = Math.min(maxWidth / contentWidthMm, maxHeight / contentHeightMm, 1);
+			const finalWidth = contentWidthMm * scale;
+			const finalHeight = contentHeightMm * scale;
+
+			const x = (a4Width - finalWidth) / 2;
+			const y = margin;
+
+			const pdf = new jsPDF({
+				orientation: 'portrait',
+				unit: 'mm',
+				format: 'a4'
+			});
+
+			const imgData = canvas.toDataURL('image/png', 1.0);
+			pdf.addImage(imgData, 'PNG', x, y, finalWidth, finalHeight);
+
+			pdf.save(`dagbok-${wizardStore.data.date?.replace(/\s/g, '-') || 'entry'}.pdf`);
+		} catch (err) {
+			console.error('Failed to download PDF:', err);
+		} finally {
+			isDownloadingPdf = false;
+		}
+	}
+
+	async function copyToClipboard() {
+		if (isCopying) return;
+		isCopying = true;
+
+		try {
+			await navigator.clipboard.writeText(generatedEntry);
+		} catch (err) {
+			console.error('Failed to copy to clipboard:', err);
+		} finally {
+			setTimeout(() => {
+				isCopying = false;
+			}, 1500);
+		}
+	}
+
+	function openEmailModal() {
+		emailAddress = '';
+		emailError = '';
+		emailSent = false;
+		showEmailModal = true;
+	}
+
+	function closeEmailModal() {
+		showEmailModal = false;
+		emailAddress = '';
+		emailError = '';
+	}
+
+	async function sendEmail() {
+		if (isSendingEmail || !emailAddress.trim()) return;
+		isSendingEmail = true;
+		emailError = '';
+
+		try {
+			const response = await fetch(getApiUrl('/api/email'), {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					email: emailAddress.trim(),
+					entry: generatedEntry,
+					date: wizardStore.data.date,
+					weekday: wizardStore.data.weekday
+				})
+			});
+
+			const result = await response.json();
+
+			if (result.success) {
+				emailSent = true;
+				setTimeout(() => {
+					closeEmailModal();
+				}, 1500);
+			} else {
+				emailError = result.error || 'Kunde inte skicka e-post.';
+			}
+		} catch (err) {
+			emailError = 'Kunde inte ansluta till servern. Försök igen.';
+			console.error('Email error:', err);
+		} finally {
+			isSendingEmail = false;
 		}
 	}
 </script>
 
 {#if generatedEntry}
 	<div class="result-view">
-		<div class="result-document" bind:this={documentElement}>
-			<div class="document-header">
-				<span class="document-emojis">
-					{#each wizardStore.data.emojis as emojiId}
-						{@const EmojiComponent = getEmojiComponent(emojiId)}
-						{#if EmojiComponent}
-							<span class="document-emoji"><EmojiComponent size={28} /></span>
+		<div class="result-intro">
+			<div class="result-icon">
+				{#if isDarkMode}
+					<EmojiRoseDark size={48} />
+				{:else}
+					<EmojiRoseLight size={48} />
+				{/if}
+			</div>
+			<h1 class="result-title">{resultMessage.title}</h1>
+			<p class="result-subtitle">{resultMessage.subtitle}</p>
+		</div>
+
+		<div class="document-wrapper">
+			<div class="result-document" bind:this={documentElement}>
+				<!-- Paper texture overlay -->
+				<div class="paper-texture"></div>
+
+				<div class="document-header">
+					<div class="document-date">
+						<span class="document-weekday">{wizardStore.data.weekday}</span>
+						<span class="document-date-text">{wizardStore.data.date}</span>
+					</div>
+					<span class="document-emojis">
+						{#each wizardStore.data.emojis as emojiId}
+							{@const EmojiComponent = getEmojiComponent(emojiId)}
+							{#if EmojiComponent}
+								<span class="document-emoji"><EmojiComponent size={30} /></span>
+							{/if}
+						{/each}
+					</span>
+				</div>
+
+				<div class="document-content">
+					{#each generatedEntry.split('\n\n') as paragraph, i}
+						{#if paragraph.trim()}
+							<p>
+								{@html paragraph
+									.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+									.replace(/\*(.*?)\*/g, '<em>$1</em>')
+									.replace(/\n/g, '<br>')}
+							</p>
 						{/if}
 					{/each}
-				</span>
-				<div class="document-date">
-					<span class="document-weekday">{wizardStore.data.weekday}</span>
-					<span class="document-date-text">{wizardStore.data.date}</span>
+				</div>
+
+				<div class="document-footer">
+					<div class="footer-line"></div>
+					<div class="footer-content">
+						{#if actualToneUsed || selectedTone}
+							{@const actualTone = actualToneUsed ? tones.find((t) => t.id === actualToneUsed) : selectedTone}
+							{#if actualTone}
+								{@const ToneIcon = getToneIcon(actualTone.id)}
+								<div class="document-tone">
+									{#if ToneIcon}
+										<span class="tone-icon"><ToneIcon size={30} /></span>
+									{/if}
+									<span class="tone-name">{actualTone.name}</span>
+								</div>
+							{/if}
+						{/if}
+						<span class="brand-text">Berättat av Storify</span>
+					</div>
 				</div>
 			</div>
-			<div class="document-divider"></div>
-			<div class="document-content">
-				{#each generatedEntry.split('\n\n') as paragraph}
-					{#if paragraph.trim()}
-						<p>{@html paragraph.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>').replace(/\n/g, '<br>')}</p>
+		</div>
+
+		<div class="actions-container">
+			<div class="result-actions">
+				<button class="action-btn" onclick={downloadAsImage} disabled={isDownloading}>
+					{#if isDownloading}
+						<span class="spinner"></span>
+						<span>Sparar...</span>
+					{:else}
+						<EmojiFramedPicture size={22} />
+						<span>Spara bild</span>
+					{/if}
+				</button>
+				<button class="action-btn" onclick={downloadAsPdf} disabled={isDownloadingPdf}>
+					{#if isDownloadingPdf}
+						<span class="spinner"></span>
+						<span>Skapar...</span>
+					{:else}
+						<EmojiPrinter size={22} />
+						<span>Spara PDF</span>
+					{/if}
+				</button>
+				<button class="action-btn" onclick={copyToClipboard} disabled={isCopying}>
+					{#if isCopying}
+						<svg class="action-icon check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+							<polyline points="20 6 9 17 4 12"/>
+						</svg>
+						<span>Kopierat!</span>
+					{:else}
+						<EmojiClipboard size={22} />
+						<span>Kopiera</span>
+					{/if}
+				</button>
+				<button class="action-btn" onclick={openEmailModal}>
+					<EmojiEnvelopeIncoming size={22} />
+					<span>Maila</span>
+				</button>
+			</div>
+				<button class="action-btn restart-btn" onclick={handleStartOver}>
+				Börja om från början
+			</button>
+		</div>
+
+		{#if showEmailModal}
+			<div class="modal-overlay" onclick={closeEmailModal} role="button" tabindex="-1" onkeydown={(e) => e.key === 'Escape' && closeEmailModal()}>
+				<div class="modal-content" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.key === 'Escape' && closeEmailModal()} role="dialog" aria-modal="true" aria-labelledby="email-modal-title" tabindex="-1">
+					<h2 id="email-modal-title" class="modal-title">Skicka till e-post</h2>
+					<p class="modal-description">Ange din e-postadress så skickar vi dagboksinlägget dit.</p>
+
+					<input
+						type="email"
+						class="modal-input"
+						placeholder="din@email.se"
+						bind:value={emailAddress}
+						onkeydown={(e) => e.key === 'Enter' && sendEmail()}
+						disabled={isSendingEmail || emailSent}
+					/>
+
+					{#if emailError}
+						<p class="modal-error">{emailError}</p>
+					{/if}
+
+					<div class="modal-actions">
+						<button class="modal-btn modal-btn-cancel" onclick={closeEmailModal} disabled={isSendingEmail}>
+							Avbryt
+						</button>
+						<button class="modal-btn modal-btn-send" onclick={sendEmail} disabled={isSendingEmail || emailSent || !emailAddress.trim()}>
+							{#if emailSent}
+								<svg class="action-icon check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+									<polyline points="20 6 9 17 4 12"/>
+								</svg>
+								Skickat!
+							{:else if isSendingEmail}
+								<span class="spinner"></span>
+								Skickar...
+							{:else}
+								Skicka
+							{/if}
+						</button>
+					</div>
+				</div>
+			</div>
+		{/if}
+	</div>
+
+	<!-- Hidden PDF-optimized layout -->
+	<div class="pdf-document" bind:this={pdfElement}>
+		<div class="pdf-header">
+			<div class="pdf-emojis">
+				{#each wizardStore.data.emojis as emojiId}
+					{@const EmojiComponent = getEmojiComponent(emojiId)}
+					{#if EmojiComponent}
+						<span class="pdf-emoji"><EmojiComponent size={44} /></span>
 					{/if}
 				{/each}
 			</div>
+			<h1 class="pdf-title">{wizardStore.data.weekday}, {wizardStore.data.date}</h1>
 		</div>
-		<div class="result-actions">
-			<button class="secondary-btn" onclick={handleStartOver}>
-				Börja om
-			</button>
-			<button class="copy-btn-large" onclick={copyToClipboard} title="Kopiera till urklipp">
-				Kopiera text
-			</button>
-			<button class="save-image-btn" onclick={saveAsImage} title="Spara som bild">
-				Spara bild
-			</button>
-			<button class="generate-btn small" onclick={handleGenerate} disabled={isGenerating}>
-				{#if isGenerating}
-					Skriver...
-				{:else}
-					<span class="generate-icon"><EmojiAppSparklesSimpleLight size={16} /></span>
-					Skriv om
+
+		<div class="pdf-content">
+			{#each generatedEntry.split('\n\n') as paragraph}
+				{#if paragraph.trim()}
+					<p>
+						{@html paragraph
+							.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+							.replace(/\*(.*?)\*/g, '<em>$1</em>')
+							.replace(/\n/g, '<br>')}
+					</p>
 				{/if}
-			</button>
+			{/each}
+		</div>
+
+		<div class="pdf-footer">
+			{#if actualToneUsed || selectedTone}
+				{@const pdfActualTone = actualToneUsed ? tones.find((t) => t.id === actualToneUsed) : selectedTone}
+				{#if pdfActualTone}
+					{@const ToneIcon = getToneIcon(pdfActualTone.id)}
+					{#if ToneIcon}
+						<span class="pdf-tone-icon"><ToneIcon size={24} /></span>
+					{/if}
+					<span class="pdf-tone-name">{pdfActualTone.name}</span>
+				{/if}
+			{/if}
+			<span class="pdf-brand">
+				<span class="pdf-brand-text">Berättat av Storify</span>
+			</span>
 		</div>
 	</div>
 {:else}
 	<div class="step-content">
 		<p class="step-intro">Kolla igenom dina val. Ser det bra ut? Då är det bara att trycka på knappen och låta dagboken ta form.</p>
 
-		{#if selectedTone}
+		{#if wizardStore.data.selectedTone === 'surprise'}
+			<span class="voice-indicator">
+				<span class="voice-icon"><EmojiGameDice size={20} /></span>
+				Överraskning
+			</span>
+		{:else if selectedTone}
 			{@const ToneIcon = getToneIcon(selectedTone.id)}
 			<span class="voice-indicator">
 				{#if ToneIcon}
@@ -360,7 +658,7 @@ Vi ses imorgon, dagboken.`;
 					<span class="spinner"></span>
 					Genererar...
 				{:else}
-					<span class="generate-icon"><EmojiAppSparklesSimpleLight size={28} /></span>
+					<span class="generate-icon"><EmojiSparkles size={28} /></span>
 					Generera dagboksinlägg
 				{/if}
 			</button>
@@ -369,6 +667,10 @@ Vi ses imorgon, dagboken.`;
 {/if}
 
 <style>
+	/* ==========================================================================
+	   Pre-generation: Step Content & Summary
+	   ========================================================================== */
+
 	.step-content {
 		display: flex;
 		flex-direction: column;
@@ -532,6 +834,26 @@ Vi ses imorgon, dagboken.`;
 		border-radius: var(--radius-sm);
 	}
 
+	.voice-indicator {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		margin-top: -0.75rem;
+		margin-bottom: -0.5rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-base);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	.voice-icon {
+		display: flex;
+		align-items: center;
+	}
+
 	.generate-section {
 		display: flex;
 		flex-direction: column;
@@ -568,27 +890,12 @@ Vi ses imorgon, dagboken.`;
 		transform: scale(0.98);
 	}
 
+	.generate-btn:disabled {
+		opacity: 0.7;
+		cursor: not-allowed;
+	}
+
 	.generate-icon {
-		display: flex;
-		align-items: center;
-	}
-
-	.voice-indicator {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0.5rem;
-		margin-top: -0.75rem;
-		margin-bottom: -0.5rem;
-		font-family: var(--font-primary);
-		font-size: var(--text-base);
-		font-weight: var(--weight-medium);
-		letter-spacing: var(--tracking-wide);
-		text-transform: uppercase;
-		color: var(--color-text-muted);
-	}
-
-	.voice-icon {
 		display: flex;
 		align-items: center;
 	}
@@ -605,54 +912,103 @@ Vi ses imorgon, dagboken.`;
 		text-align: center;
 	}
 
-	.spinner {
-		width: 18px;
-		height: 18px;
-		border: 2px solid rgba(255, 255, 255, 0.3);
-		border-top-color: white;
-		border-radius: 50%;
-		animation: spin 0.8s linear infinite;
-	}
-
-	@keyframes spin {
-		to {
-			transform: rotate(360deg);
-		}
-	}
-
-	.generate-btn:disabled {
-		opacity: 0.7;
-		cursor: not-allowed;
-	}
+	/* ==========================================================================
+	   Post-generation: Result View
+	   ========================================================================== */
 
 	.result-view {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
 	}
 
+	.result-intro {
+		text-align: center;
+		margin-bottom: 1.5rem;
+	}
+
+	.result-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 0.5rem;
+		opacity: 0.8;
+	}
+
+	.result-title {
+		font-family: var(--font-primary);
+		font-size: var(--text-xl);
+		font-weight: var(--weight-medium);
+		font-stretch: 105%;
+		letter-spacing: var(--tracking-tight);
+		line-height: var(--leading-tight);
+		color: var(--color-text);
+		margin: 0 0 0.375rem 0;
+	}
+
+	.result-subtitle {
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-regular);
+		letter-spacing: var(--tracking-wide);
+		line-height: var(--leading-relaxed);
+		color: var(--color-text-muted);
+		margin: 0;
+	}
+
+	/* ==========================================================================
+	   Document Wrapper
+	   ========================================================================== */
+
+	.document-wrapper {
+		width: 100%;
+		position: relative;
+	}
+
+	/* ==========================================================================
+	   Result Document - The main diary card
+	   ========================================================================== */
+
 	.result-document {
+		position: relative;
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
-		padding: 1.25rem;
+		gap: 1.5rem;
+		padding: 2rem;
+		font-family: var(--font-primary);
 		background-color: var(--color-bg-elevated);
-		border: 1px solid var(--color-border);
 		border-radius: var(--radius-md);
+		box-shadow:
+			0 1px 2px rgba(0, 0, 0, 0.04),
+			0 4px 12px rgba(0, 0, 0, 0.03),
+			0 8px 32px rgba(0, 0, 0, 0.02);
+		overflow: hidden;
 	}
+
+	.paper-texture {
+		position: absolute;
+		inset: 0;
+		background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+		opacity: 0.02;
+		pointer-events: none;
+	}
+
+	/* ==========================================================================
+	   Document Header
+	   ========================================================================== */
 
 	.document-header {
 		display: flex;
-		flex-direction: column;
+		justify-content: space-between;
 		align-items: flex-start;
-		gap: 0.5rem;
+		gap: 1rem;
+		padding-bottom: 1.5rem;
+		border-bottom: 1px solid var(--color-border);
 	}
 
 	.document-emojis {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
-		flex-wrap: wrap;
+		gap: 0.75rem;
 	}
 
 	.document-emoji {
@@ -661,120 +1017,360 @@ Vi ses imorgon, dagboken.`;
 	}
 
 	.document-date {
-		text-align: left;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.125rem;
 	}
 
 	.document-weekday {
-		display: block;
-		font-family: var(--font-primary);
-		font-size: var(--text-md);
+		font-size: var(--text-xl);
 		font-weight: var(--weight-medium);
 		font-stretch: 105%;
 		letter-spacing: var(--tracking-tight);
-		line-height: var(--leading-snug);
+		line-height: var(--leading-tight);
 		color: var(--color-text);
 	}
 
 	.document-date-text {
-		display: block;
 		font-size: var(--text-sm);
 		font-weight: var(--weight-regular);
 		letter-spacing: var(--tracking-wide);
 		color: var(--color-text-muted);
 	}
 
-	.document-divider {
-		height: 1px;
-		background-color: var(--color-border);
-	}
+	/* ==========================================================================
+	   Document Content
+	   ========================================================================== */
 
 	.document-content {
-		font-family: var(--font-primary);
 		font-size: var(--text-base);
-		font-weight: var(--weight-regular);
-		line-height: var(--leading-relaxed);
+		font-weight: var(--weight-book);
+		line-height: var(--leading-loose);
+		letter-spacing: var(--tracking-wide);
 		color: var(--color-text);
 	}
 
 	.document-content p {
-		margin: 0 0 0.75rem 0;
+		margin: 0 0 1.125rem 0;
+		text-indent: 0;
+	}
+
+	.document-content p:first-child {
+		font-weight: var(--weight-medium);
 	}
 
 	.document-content p:last-child {
 		margin-bottom: 0;
 	}
 
-	.result-actions {
+	/* ==========================================================================
+	   Document Footer
+	   ========================================================================== */
+
+	.document-footer {
 		display: flex;
+		flex-direction: column;
+	}
+
+	.footer-line {
+		height: 1px;
+		background: var(--color-border);
+		margin-bottom: 1.25rem;
+	}
+
+	.footer-content {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.document-tone {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.tone-icon {
+		display: flex;
+		align-items: center;
+	}
+
+	.tone-name {
+		font-size: var(--text-sm);
+		font-weight: var(--weight-semibold);
+		font-stretch: 105%;
+		letter-spacing: var(--tracking-wider);
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	.brand-text {
+		font-size: var(--text-sm);
+		font-weight: var(--weight-semibold);
+		font-stretch: 110%;
+		letter-spacing: var(--tracking-widest);
+		text-transform: uppercase;
+		color: var(--color-accent-hover);
+		transition: color 0.2s ease, opacity 0.2s ease;
+		cursor: default;
+	}
+
+	.brand-text:hover {
+		color: var(--color-accent);
+		opacity: 1;
+	}
+
+	/* ==========================================================================
+	   Action Buttons
+	   ========================================================================== */
+
+	.actions-container {
+		width: 100%;
+		margin-top: 1.5rem;
+	}
+
+	.result-actions {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
 		gap: 0.75rem;
-		flex-wrap: wrap;
-		margin-top: 0.5rem;
 	}
 
-	.secondary-btn {
-		flex: 1;
-		padding: 0.875rem 1.5rem;
+	.action-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		padding: 0.875rem 1rem;
 		font-family: var(--font-primary);
 		font-size: var(--text-sm);
 		font-weight: var(--weight-medium);
-		color: var(--color-text);
-		background-color: var(--color-neutral);
-		border: 1px solid var(--color-border);
+		letter-spacing: var(--tracking-wide);
 		border-radius: var(--radius-md);
 		cursor: pointer;
-		transition: background-color 0.15s ease;
+		transition: all 0.2s ease;
+		white-space: nowrap;
+		background: var(--color-accent);
+		color: white;
+		border: none;
 	}
 
-	.secondary-btn:hover {
-		background-color: var(--color-border);
+	.action-btn:hover:not(:disabled) {
+		background: var(--color-accent-hover);
+		box-shadow: 0 4px 12px rgba(244, 63, 122, 0.25);
 	}
 
-	.generate-btn.small {
-		flex: 1;
-		padding: 0.875rem 1.5rem;
-		font-size: var(--text-sm);
+	.action-btn:active:not(:disabled) {
+		transform: scale(0.97);
 	}
 
-	.copy-btn-large {
-		flex: 1;
-		padding: 0.875rem 1.5rem;
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-medium);
+	.action-btn:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+
+	.action-icon {
+		width: 18px;
+		height: 18px;
+		flex-shrink: 0;
+	}
+
+	.action-icon.check {
+		color: #22c55e;
+	}
+
+	.restart-btn {
+		width: 100%;
+		margin-top: 0.75rem;
+		background: transparent;
 		color: var(--color-accent);
-		background-color: transparent;
-		border: 1px solid var(--color-accent);
-		border-radius: var(--radius-md);
-		cursor: pointer;
-		transition:
-			color 0.15s ease,
-			border-color 0.15s ease,
-			background-color 0.15s ease;
+		border: 2px solid var(--color-accent);
 	}
 
-	.copy-btn-large:hover {
-		background-color: var(--color-neutral);
+	.restart-btn:hover {
+		background: var(--color-accent);
+		color: white;
 	}
 
-	.save-image-btn {
-		flex: 1;
-		padding: 0.875rem 1.5rem;
+	/* ==========================================================================
+	   Spinner
+	   ========================================================================== */
+
+	.spinner {
+		width: 16px;
+		height: 16px;
+		border: 2px solid currentColor;
+		border-top-color: transparent;
+		border-radius: 50%;
+		animation: spin 0.7s linear infinite;
+		opacity: 0.8;
+	}
+
+	.generate-btn .spinner {
+		width: 18px;
+		height: 18px;
+		border-color: rgba(255, 255, 255, 0.3);
+		border-top-color: white;
+		opacity: 1;
+	}
+
+	@keyframes spin {
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	/* ==========================================================================
+	   PDF Document (Hidden)
+	   ========================================================================== */
+
+	.pdf-document {
+		position: absolute;
+		left: -9999px;
+		top: 0;
+		width: 720px;
+		padding: 2.5rem 3rem;
+		background: #ffffff;
 		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-medium);
-		color: var(--color-accent);
-		background-color: transparent;
-		border: 1px solid var(--color-accent);
-		border-radius: var(--radius-md);
-		cursor: pointer;
-		transition:
-			color 0.15s ease,
-			border-color 0.15s ease,
-			background-color 0.15s ease;
 	}
 
-	.save-image-btn:hover {
-		background-color: var(--color-neutral);
+	.pdf-header {
+		margin-bottom: 2rem;
+	}
+
+	.pdf-emojis {
+		display: flex;
+		gap: 0.5rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.pdf-emoji {
+		display: flex;
+		align-items: center;
+	}
+
+	.pdf-title {
+		font-family: var(--font-primary);
+		font-size: 32px;
+		font-weight: var(--weight-semibold);
+		font-stretch: 105%;
+		letter-spacing: var(--tracking-tight);
+		color: #1a1a1a;
+		margin: 0;
+		line-height: 1.2;
+	}
+
+	.pdf-content {
+		font-family: var(--font-primary);
+		font-size: 19px;
+		font-weight: var(--weight-book);
+		line-height: 1.75;
+		letter-spacing: var(--tracking-wide);
+		color: #1a1a1a;
+	}
+
+	.pdf-content p {
+		margin: 0 0 1.25rem 0;
+		text-align: left;
+	}
+
+	.pdf-content p:last-child {
+		margin-bottom: 0;
+	}
+
+	.pdf-content p:first-child {
+		font-weight: var(--weight-medium);
+		font-size: 21px;
+	}
+
+	.pdf-footer {
+		display: flex;
+		align-items: center;
+		gap: 0.375rem;
+		margin-top: 2.5rem;
+		padding-top: 1rem;
+		border-top: 1px solid #e0e0e0;
+	}
+
+	.pdf-tone-icon {
+		display: flex;
+		align-items: center;
+		opacity: 0.6;
+	}
+
+	.pdf-tone-name {
+		font-family: var(--font-primary);
+		font-size: 14px;
+		font-weight: var(--weight-semibold);
+		font-stretch: 110%;
+		letter-spacing: var(--tracking-widest);
+		text-transform: uppercase;
+		color: #666;
+	}
+
+	.pdf-brand {
+		display: flex;
+		align-items: center;
+		gap: 0.375rem;
+		margin-left: auto;
+	}
+
+	.pdf-brand-text {
+		font-family: var(--font-primary);
+		font-size: 14px;
+		font-weight: var(--weight-semibold);
+		font-stretch: 110%;
+		letter-spacing: var(--tracking-widest);
+		text-transform: uppercase;
+		color: #888;
+	}
+
+	/* ==========================================================================
+	   Responsive Adjustments
+	   ========================================================================== */
+
+	@media (max-width: 640px) {
+		.result-document {
+			padding: 1.5rem;
+			gap: 1rem;
+		}
+
+		.document-header {
+			padding-bottom: 1rem;
+		}
+
+		.document-weekday {
+			font-size: var(--text-lg);
+		}
+
+		.document-emojis {
+			gap: 0.5rem;
+		}
+
+		.document-emoji :global(svg) {
+			width: 24px;
+			height: 24px;
+		}
+
+		.result-actions {
+			grid-template-columns: 1fr;
+		}
+
+		.action-btn {
+			padding: 1rem;
+		}
+
+		.footer-content {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.75rem;
+		}
+	}
+
+	@media (min-width: 641px) and (max-width: 900px) {
+		.result-actions {
+			grid-template-columns: repeat(2, 1fr);
+		}
 	}
 
 	@media (max-width: 480px) {
@@ -794,9 +1390,154 @@ Vi ses imorgon, dagboken.`;
 		.energy-value {
 			width: auto;
 		}
+	}
 
-		.result-actions > * {
-			flex: 1 1 100%;
+	/* ==========================================================================
+	   Email Modal
+	   ========================================================================== */
+
+	.modal-overlay {
+		position: fixed;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.5);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 1000;
+		padding: 1rem;
+		animation: fadeIn 0.15s ease;
+	}
+
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
 		}
+		to {
+			opacity: 1;
+		}
+	}
+
+	.modal-content {
+		background: var(--color-bg-elevated);
+		border-radius: var(--radius-md);
+		padding: 1.5rem;
+		width: 100%;
+		max-width: 400px;
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+		animation: slideUp 0.2s ease;
+	}
+
+	@keyframes slideUp {
+		from {
+			transform: translateY(10px);
+			opacity: 0;
+		}
+		to {
+			transform: translateY(0);
+			opacity: 1;
+		}
+	}
+
+	.modal-title {
+		font-family: var(--font-primary);
+		font-size: var(--text-lg);
+		font-weight: var(--weight-semibold);
+		font-stretch: 105%;
+		letter-spacing: var(--tracking-tight);
+		color: var(--color-text);
+		margin: 0 0 0.5rem 0;
+	}
+
+	.modal-description {
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-regular);
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-text-muted);
+		margin: 0 0 1rem 0;
+		line-height: var(--leading-relaxed);
+	}
+
+	.modal-input {
+		width: 100%;
+		padding: 0.875rem 1rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-base);
+		font-weight: var(--weight-regular);
+		color: var(--color-text);
+		background: var(--color-bg);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		outline: none;
+		transition: border-color 0.15s ease, box-shadow 0.15s ease;
+	}
+
+	.modal-input:focus {
+		border-color: var(--color-accent);
+		box-shadow: 0 0 0 3px rgba(244, 63, 122, 0.1);
+	}
+
+	.modal-input::placeholder {
+		color: var(--color-text-muted);
+	}
+
+	.modal-input:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+
+	.modal-error {
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		color: var(--color-error);
+		margin: 0.75rem 0 0 0;
+	}
+
+	.modal-actions {
+		display: flex;
+		gap: 0.75rem;
+		margin-top: 1.25rem;
+	}
+
+	.modal-btn {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		padding: 0.875rem 1rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
+		border-radius: var(--radius-sm);
+		cursor: pointer;
+		transition: all 0.15s ease;
+	}
+
+	.modal-btn:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+
+	.modal-btn-cancel {
+		background: transparent;
+		color: var(--color-text-muted);
+		border: 1px solid var(--color-border);
+	}
+
+	.modal-btn-cancel:hover:not(:disabled) {
+		background: var(--color-neutral);
+		color: var(--color-text);
+	}
+
+	.modal-btn-send {
+		background: var(--color-accent);
+		color: white;
+		border: none;
+	}
+
+	.modal-btn-send:hover:not(:disabled) {
+		background: var(--color-accent-hover);
 	}
 </style>

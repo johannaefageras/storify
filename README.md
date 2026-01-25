@@ -1,10 +1,10 @@
 # 📔 Storify
 
-> *For all the diaries you bought but never wrote in* ✨
+> _For all the diaries you bought but never wrote in_ ✨
 
 **Storify** is an AI-powered journaling app that transforms your daily experiences into personalized diary entries. Answer a few guided questions about your day, pick a writing style, and let Claude AI craft a unique journal entry just for you.
 
-[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-storify--v1.vercel.app-blue)](https://storify-v1.vercel.app)
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-storify--mystorify.se-blue)](https://mystorify.se)
 [![SvelteKit](https://img.shields.io/badge/SvelteKit-2.x-FF3E00?logo=svelte)](https://kit.svelte.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript)](https://www.typescriptlang.org)
 [![Anthropic](https://img.shields.io/badge/Powered_by-Claude_AI-D4A574)](https://anthropic.com)
@@ -16,9 +16,9 @@
 Journaling is powerful, but starting is hard. Storify removes the friction by:
 
 1. 📝 **Guiding you** through a simple wizard with questions about your day
-2. 🎭 **Letting you choose** from 12 unique writing styles
+2. 🎭 **Letting you choose** from 20 unique writing styles
 3. 🤖 **Generating** a personalized diary entry using Claude AI
-4. 📤 **Exporting** your entry as text, image, or sharing directly
+4. 📤 **Exporting or emailing** your entry as text, image, or share link
 
 No more staring at a blank page – just answer a few questions and get a beautifully written diary entry in seconds!
 
@@ -28,60 +28,72 @@ No more staring at a blank page – just answer a few questions and get a beauti
 
 ### 🧙‍♂️ 10-Step Guided Wizard
 
-| Step | Name | Description |
-|:----:|------|-------------|
-| 0 | 👤 Profile | Your name, age, hometown, interests (saved for future entries) |
-| 1 | 😊 Mood & Date | Pick up to 4 emojis that capture your day |
-| 2 | ⚡ Energy | Rate your sleep, energy, and overall mood (1-10) |
-| 3 | 🏃 Activities | Where you went, what you did, who you met |
-| 4 | 🏆 Wins & Frustrations | Celebrate victories and vent frustrations |
-| 5 | 💭 Reflections | What almost happened, regrets, redo moments |
-| 6 | 🍕 Food & Music | Meals and soundtracks of your day |
-| 7 | ⏳ Time Capsule | A memory to preserve for 10 years |
-| 8 | 🎭 Voice | Choose your writing style |
-| 9 | 📋 Summary | Review and generate your entry |
+| Step | Name                   | Description                                                    |
+| :--: | ---------------------- | -------------------------------------------------------------- |
+|  0   | 👤 Profile             | Name, age, pronouns, hometown, family, pets, interests          |
+|  1   | 😊 Mood, Date & Weather | Pick up to 4 emojis + optional auto-weather from location       |
+|  2   | ⚡ Energy              | Rate your sleep, energy, and overall mood (1-10)               |
+|  3   | 🏃 Activities          | Where you went, what you did, who you met                      |
+|  4   | 🏆 Wins & Frustrations | Celebrate victories and vent frustrations                      |
+|  5   | 💭 Reflections         | What almost happened, regrets, redo moments                    |
+|  6   | 🍕 Food & Music        | Meals and soundtracks of your day                              |
+|  7   | ⏳ Time Capsule        | A memory to preserve + a message to future you                 |
+|  8   | 🎭 Voice               | Choose your writing style                                      |
+|  9   | 📋 Summary             | Review and generate your entry                                 |
 
-### 🎭 12 Unique Writing Tones
+### 🎭 20 Unique Writing Tones
 
-| Tone | Description |
-|------|-------------|
-| 🖋️ **Klassisk** (Classic) | Traditional "Dear Diary" format |
-| 📖 **Berättelse** (Storytelling) | Your day as a narrative adventure |
-| 🤔 **Filosofisk** (Philosophical) | Deep reflections and existential musings |
-| 🏆 **Sportkommentator** (Sportscaster) | ENERGETIC play-by-play commentary |
-| 🐱 **Kattperspektiv** (Cat Perspective) | A judgmental cat observing its human |
-| 😏 **Sarkastisk** (Sarcastic) | Dry wit and ironic observations |
-| 👑 **Drama Queen** | Everything is DRAMATIC |
-| 📱 **Meme** | Gen Z internet speak, very relatable |
-| 😳 **Cringe** | Awkwardly endearing self-awareness |
-| 🇬🇧 **Brittisk** (British) | Understated elegance and dry humor |
-| 🎮 **Quest Log** | Your day as an RPG adventure |
-| 😐 **Uttråkad** (Bored) | Minimal enthusiasm, maximum vibes |
+| Tone                                    | Description                              |
+| --------------------------------------- | ---------------------------------------- |
+| 🖋️ **Klassisk** (Classic)               | Traditional "Dear Diary" format          |
+| 📖 **Berättelse** (Storytelling)        | Your day as a narrative adventure        |
+| 🤔 **Filosofisk** (Philosophical)       | Deep reflections and existential musings |
+| 🏆 **Sportkommentator** (Sportscaster)  | ENERGETIC play-by-play commentary        |
+| 🐱 **Kattperspektiv** (Cat Perspective) | A judgmental cat observing its human     |
+| 😏 **Sarkastisk** (Sarcastic)           | Dry wit and ironic observations          |
+| 👑 **Drama Queen**                      | Everything is DRAMATIC                   |
+| 📱 **Meme**                             | Gen Z internet speak, very relatable     |
+| 😳 **Cringe**                           | Awkwardly endearing self-awareness       |
+| 🇬🇧 **Brittisk** (British)               | Understated elegance and dry humor       |
+| 🎮 **Quest Log**                        | Your day as an RPG adventure             |
+| 😐 **Uttråkad** (Bored)                 | Minimal enthusiasm, maximum vibes        |
+| 🤖 **AI-Robot**                         | System log with tiny hints of feelings   |
+| 🧾 **Formell**                          | Overly formal official letter            |
+| 🐾 **Naturdokumentär**                  | Attenborough-style observations          |
+| 🤓 **Nörd**                              | Over-explains everything with facts      |
+| 🎭 **Shakespeare**                      | Dramatic monologue with archaic flair    |
+| 🗞️ **Kvällstidning**                    | Sensational tabloid headlines            |
+| 🧠 **Psykolog**                         | Therapist notes with warm insight        |
+| 🎶 **Trubadur**                         | Song lyrics/ballad format                |
 
 ### 📱 Multi-Platform Support
 
 - 🌐 **Web App** – Works in any modern browser
 - 📱 **Android App** – Native app via Capacitor
 - 🌙 **Dark Mode** – Easy on the eyes, day or night
+- 📬 **Email Delivery** – Send entries to your inbox
 
 ### 🔒 Privacy-First
 
 - Profile data stored **locally on your device**
 - Only daily entries sent to AI for generation
 - No server-side storage of your diary entries
+- Location data is used **only** to fetch weather (optional) and isn't stored
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Category | Technology |
-|----------|------------|
+| Category     | Technology                                                               |
+| ------------ | ------------------------------------------------------------------------ |
 | ⚡ Framework | [SvelteKit 2.x](https://kit.svelte.dev) + [Svelte 5](https://svelte.dev) |
-| 📘 Language | [TypeScript 5.9](https://www.typescriptlang.org) |
-| 🤖 AI | [Anthropic Claude API](https://anthropic.com) (Claude Opus 4.5) |
-| 📦 Build | [Vite 7.x](https://vitejs.dev) |
-| 📱 Mobile | [Capacitor 8.x](https://capacitorjs.com) |
-| 🚀 Hosting | [Vercel](https://vercel.com) |
+| 📘 Language  | [TypeScript 5.9](https://www.typescriptlang.org)                         |
+| 🤖 AI        | [Anthropic Claude API](https://anthropic.com) (Claude Opus 4.5)          |
+| 📬 Email     | [Resend API](https://resend.com)                                         |
+| 🌤️ Weather   | [SMHI Open Data](https://opendata.smhi.se)                               |
+| 📦 Build     | [Vite 7.x](https://vitejs.dev)                                           |
+| 📱 Mobile    | [Capacitor 8.x](https://capacitorjs.com)                                 |
+| 🚀 Hosting   | [Vercel](https://vercel.com)                                             |
 
 ---
 
@@ -97,7 +109,7 @@ No more staring at a blank page – just answer a few questions and get a beauti
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/storify.git
+git clone https://github.com/johannaefageras/storify.git
 cd storify
 
 # Install dependencies
@@ -150,8 +162,11 @@ Create a `.env` file in the root directory:
 # Required: Your Anthropic API key
 ANTHROPIC_API_KEY=sk-ant-xxxxxxxxxxxxx
 
+# Required: Email delivery (Resend)
+RESEND_API_KEY=re-xxxxxxxxxxxxx
+
 # Optional: API base URL for Capacitor native app
-VITE_API_BASE_URL=https://storify-v1.vercel.app
+VITE_API_BASE_URL=https://mystorify.se
 ```
 
 ---
@@ -235,13 +250,13 @@ The app is primarily in **Swedish** 🇸🇪 (UI text, tone instructions, genera
 
 ## 📊 Current Status
 
-| Component | Status |
-|-----------|--------|
-| 🌐 Web App | ✅ Production |
-| 📱 Android App | ✅ Production |
-| 🍎 iOS App | 🔜 Planned |
-| 🌍 Multi-language | 🔜 Planned |
-| 💾 Entry History | 🔜 Planned |
+| Component         | Status        |
+| ----------------- | ------------- |
+| 🌐 Web App        | ✅ Production |
+| 📱 Android App    | ✅ Production |
+| 🍎 iOS App        | 🔜 Planned    |
+| 🌍 Multi-language | 🔜 Planned    |
+| 💾 Entry History  | 🔜 Planned    |
 
 ---
 
@@ -273,6 +288,6 @@ This project is proprietary software. All rights reserved.
 
 **Made with ❤️ for journaling enthusiasts**
 
-[🌐 Try Storify](https://storify-v1.vercel.app) · [🐛 Report Bug](https://github.com/yourusername/storify/issues) · [💡 Request Feature](https://github.com/yourusername/storify/issues)
+[🌐 Try Storify](https://mystorify.se) · [🐛 Report Bug](https://github.com/johannaefageras/storify/issues) · [💡 Request Feature](https://github.com/johannaefageras/storify/issues)
 
 </div>

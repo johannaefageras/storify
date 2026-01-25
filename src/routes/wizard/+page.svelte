@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
+	import { EmojiUserSilhouette, EmojiCompass, EmojiChart, EmojiPushpin, EmojiScale, EmojiThoughtBalloon, EmojiCherries, EmojiCameraFlash, EmojiMagicWand, EmojiCheckMark } from '$lib/components/emojis/assorted';
 	import Step0Profile from './steps/Step0Profile.svelte';
 	import Step1Emojis from './steps/Step1Emojis.svelte';
 	import Step2Energy from './steps/Step2Energy.svelte';
@@ -11,10 +13,14 @@
 	import Step8Voice from './steps/Step8Voice.svelte';
 	import Step9Summary from './steps/Step9Summary.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
-
-	import { EmojiStep0H1, EmojiStep1H1, EmojiStep2H1, EmojiStep3H1, EmojiStep4H1, EmojiStep5H1, EmojiStep6H1, EmojiStep7H1, EmojiStep8H1, EmojiStep9H1 } from '$lib/components/emojis';
+	import LegalLinksFooter from '$lib/components/LegalLinksFooter.svelte';
 
 	const optionalSteps = [0, 5, 6, 7];
+
+	onMount(() => {
+		// Fetch weather silently in the background (fails silently if denied or unavailable)
+		wizardStore.initWeather();
+	});
 
 	let currentStep = $derived(wizardStore.currentStep);
 	let progress = $derived(wizardStore.progress);
@@ -117,21 +123,27 @@
 		'Allt på plats'
 	];
 	const stepIcons = [
-		EmojiStep0H1,
-		EmojiStep1H1,
-		EmojiStep2H1,
-		EmojiStep3H1,
-		EmojiStep4H1,
-		EmojiStep5H1,
-		EmojiStep6H1,
-		EmojiStep7H1,
-		EmojiStep8H1,
-		EmojiStep9H1
+		EmojiUserSilhouette,
+		EmojiCompass,
+		EmojiChart,
+		EmojiPushpin,
+		EmojiScale,
+		EmojiThoughtBalloon,
+		EmojiCherries,
+		EmojiCameraFlash,
+		EmojiMagicWand,
+		EmojiCheckMark
 	];
 
 	function isOptional(step: number): boolean {
 		return optionalSteps.includes(step);
 	}
+
+	// Scroll to top when step changes
+	$effect(() => {
+		currentStep; // Track the step
+		window.scrollTo({ top: 0, behavior: 'instant' });
+	});
 
 	function getStepTitle(step: number): string {
 		return stepTitles[step] || '';
@@ -140,11 +152,7 @@
 
 <main class="wizard" class:result-view={isResultView}>
 	{#if isResultView}
-		<header class="wizard-header result-header">
-			<div class="header-actions result-header-actions">
-				<ThemeToggle variant="inline" />
-			</div>
-		</header>
+		<!-- No header in result view - cleaner presentation -->
 	{:else}
 		<header class="wizard-header">
 			<div class="progress-container">
@@ -217,6 +225,7 @@
 				<div></div>
 			{/if}
 		</footer>
+		<LegalLinksFooter />
 	{/if}
 </main>
 
@@ -265,17 +274,8 @@
 		align-items: center;
 	}
 
-	.result-header {
-		margin-bottom: 0;
-	}
-
-	.result-header-actions {
-		display: flex;
-		justify-content: flex-end;
-	}
-
 	.wizard.result-view {
-		padding-top: 1.25rem;
+		padding: 1.25rem 1.25rem 2rem;
 	}
 
 	.step-number {
@@ -349,6 +349,10 @@
 	@media (max-width: 600px) {
 		.wizard {
 			padding: calc(env(safe-area-inset-top, 0px) + 1.25rem) 1rem 1.25rem;
+		}
+
+		.wizard.result-view {
+			padding: calc(env(safe-area-inset-top, 0px) + 1rem) 1rem 1.5rem;
 		}
 
 		.step-title {

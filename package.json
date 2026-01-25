@@ -3,6 +3,15 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "author": {
+    "name": "Johanna Fagerås",
+    "email": "johanna@mystorify.se",
+    "url": "https://mystorify.se"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/johannaefageras/storify.git"
+  },
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
@@ -32,6 +41,8 @@
     "@capacitor/splash-screen": "^8.0.0",
     "@capacitor/status-bar": "^8.0.0",
     "@sveltejs/adapter-vercel": "^6.3.0",
-    "html2canvas": "^1.4.1"
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.0.0",
+    "resend": "^6.8.0"
   }
 }

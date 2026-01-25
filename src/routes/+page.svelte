@@ -2,8 +2,8 @@
 	import { goto } from '$app/navigation';
 	import { themeStore } from '$lib/stores/theme.svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import EmojiAppRosePinkLight from '$lib/components/emojis/EmojiAppRosePinkLight.svelte';
-	import EmojiAppRosePinkDark from '$lib/components/emojis/EmojiAppRosePinkDark.svelte';
+	import { EmojiRoseLight, EmojiRoseDark } from '$lib/components/emojis/assorted';
+	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 
 	let showTooltip = $state(false);
@@ -26,44 +26,35 @@
 		<ThemeToggle variant="inline" />
 	</div>
 	<div class="container">
-		<header class="hero">
-			<div class="logo">
-				{#if themeStore.current === 'dark'}
-					<EmojiAppRosePinkDark size={120} />
-				{:else}
-					<EmojiAppRosePinkLight size={120} />
-				{/if}
-			</div>
-			<h1 class="title">Storify</h1>
-			<p class="subtitle">Du har inte tid att skriva dagbok. Perfekt – det behöver du inte heller.</p>
-		</header>
+		<div class="landing-main">
+			<header class="hero">
+				<div class="logo">
+					{#if themeStore.current === 'dark'}
+						<EmojiRoseDark size={120} />
+					{:else}
+						<EmojiRoseLight size={120} />
+					{/if}
+				</div>
+				<h1 class="title">Storify</h1>
+				<p class="subtitle">Du har inte tid att skriva dagbok. Perfekt – det behöver du inte heller.</p>
+			</header>
 
-		<div class="action">
-			<button class="btn btn-primary btn-large" onclick={startWizard}>
-				Skönt, sätt igång!
-			</button>
+			<div class="action">
+				<button class="btn btn-primary btn-large" onclick={startWizard}>
+					Skönt, sätt igång!
+				</button>
+			</div>
 		</div>
 
-		<footer class="tagline">
-			<p>För alla dagböcker du köpt som aldrig skrivits i</p>
+		<div class="landing-footer">
 			<div class="reset-wrapper">
 				<button class="reset-link" onclick={resetCache}>Rensa sparad data</button>
 				{#if showTooltip}
 					<span class="tooltip">Data rensad!</span>
 				{/if}
 			</div>
-			<nav class="legal-links">
-				<a href="/about">Om Storify</a>
-				<span class="separator">·</span>
-				<a href="/contact">Kontakta oss</a>
-				<span class="separator">·</span>
-				<a href="/privacy">Integritetspolicy</a>
-				<span class="separator">·</span>
-				<a href="/cookies">Cookiepolicy</a>
-				<span class="separator">·</span>
-				<a href="/terms">Användarvillkor</a>
-			</nav>
-		</footer>
+			<LegalFooter />
+		</div>
 	</div>
 </main>
 
@@ -103,9 +94,19 @@
 		width: 100%;
 	}
 
+	.landing-main {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 2.5rem;
+		padding: 1.5rem 0 0;
+		margin-top: 1.25rem;
+	}
+
 	.hero {
-		margin-top: auto;
-		margin-bottom: 3rem;
+		margin: 0;
 	}
 
 	.logo {
@@ -136,79 +137,42 @@
 	}
 
 	.action {
-		margin-bottom: 3rem;
+		margin: 0;
 	}
 
-	.tagline {
+	.landing-footer {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		margin-bottom: 1.5rem;
-		font-family: var(--font-primary);
-		color: var(--color-text-muted);
-		font-size: var(--text-xs);
-		font-weight: var(--weight-semibold);
-		font-stretch: 115%;
-		letter-spacing: var(--tracking-widest);
-		text-transform: uppercase;
-	}
-
-	.tagline p {
 		margin-bottom: 1.5rem;
 	}
 
 	.reset-wrapper {
 		position: relative;
 		display: inline-block;
-		margin-top: 3rem;
+		margin-top: 3.75rem;
 	}
 
 	.reset-link {
 		background: none;
 		border: none;
 		font-family: var(--font-primary);
-		font-size: var(--text-xs);
+		font-size: var(--text-sm);
 		color: var(--color-text-muted);
-		opacity: 0.5;
+		opacity: 0.75;
 		cursor: pointer;
 		text-decoration: underline;
 		text-underline-offset: 2px;
 		transition: opacity 0.2s ease;
+		font-weight: var(--weight-medium);
 	}
 
 	.reset-link:hover {
 		opacity: 1;
 	}
 
-	.legal-links {
-		margin-top: 1.25rem;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0.5rem;
-		text-transform: none;
-		letter-spacing: var(--tracking-normal);
-		font-weight: var(--weight-book);
-	}
-
-	.legal-links a {
-		color: var(--color-text-muted);
-		opacity: 0.5;
-		font-size: var(--text-xs);
-		text-decoration: none;
-		transition: opacity 0.2s ease;
-	}
-
-	.legal-links a:hover {
-		opacity: 1;
-		text-decoration: underline;
-		text-underline-offset: 2px;
-	}
-
-	.legal-links .separator {
-		color: var(--color-text-muted);
-		opacity: 0.3;
-		font-size: var(--text-xs);
+	.landing-footer :global(.legal-footer) {
+		margin-top: 1.5rem;
 	}
 
 	.tooltip {

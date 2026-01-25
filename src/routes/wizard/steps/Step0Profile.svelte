@@ -10,19 +10,17 @@
 
 	const occupationSuggestions = [
 		'Jobbar',
-		'Mellanstadiet',
-		'Högstadiet',
-		'Gymnasiet',
-		'Universitetet',
+		'Pluggar',
 		'Sjukskriven',
-		'Pensionär'
+		'Pensionär',
+		'Lite av varje'
 	];
 
-	const familySuggestions = ['Mamma', 'Pappa', 'Syster', 'Bror', 'Sambo'];
+	const familySuggestions = ['Mamma', 'Pappa', 'Sambo', 'Bror', 'Syster'];
 
-	const petSuggestions = ['Hund', 'Katt', 'Kanin', 'Hamster', 'Fisk', 'Fågel'];
+	const petSuggestions = ['Hund', 'Katt', 'Kanin', 'Hamster', 'Fisk'];
 
-	const interestSuggestions = ['Fotboll', 'Musik', 'Gaming', 'Läsa', 'Rita', 'Dansa', 'Simma', 'Laga mat'];
+	const interestSuggestions = ['Gaming', 'Träning', 'Hästar', 'Matlagning', 'Sova', 'TikTok'];
 
 	let familyInput = $state('');
 	let petInput = $state('');
@@ -90,24 +88,34 @@
 		wizardStore.updateProfile(key, value);
 	}
 
-	function selectOccupationSuggestion(suggestion: string) {
-		wizardStore.updateProfile('occupationDetail', suggestion);
+	function toggleOccupationSuggestion(suggestion: string) {
+		if (wizardStore.data.profile.occupationDetail === suggestion) {
+			wizardStore.updateProfile('occupationDetail', '');
+		} else {
+			wizardStore.updateProfile('occupationDetail', suggestion);
+		}
 	}
 
-	function addFamilySuggestion(suggestion: string) {
-		if (!wizardStore.data.profile.family.includes(suggestion)) {
+	function toggleFamilySuggestion(suggestion: string) {
+		if (wizardStore.data.profile.family.includes(suggestion)) {
+			removeFamily(suggestion);
+		} else {
 			wizardStore.updateProfile('family', [...wizardStore.data.profile.family, suggestion]);
 		}
 	}
 
-	function addPetSuggestion(suggestion: string) {
-		if (!wizardStore.data.profile.pets.includes(suggestion)) {
+	function togglePetSuggestion(suggestion: string) {
+		if (wizardStore.data.profile.pets.includes(suggestion)) {
+			removePet(suggestion);
+		} else {
 			wizardStore.updateProfile('pets', [...wizardStore.data.profile.pets, suggestion]);
 		}
 	}
 
-	function addInterestSuggestion(suggestion: string) {
-		if (!wizardStore.data.profile.interests.includes(suggestion)) {
+	function toggleInterestSuggestion(suggestion: string) {
+		if (wizardStore.data.profile.interests.includes(suggestion)) {
+			removeInterest(suggestion);
+		} else {
 			wizardStore.updateProfile('interests', [...wizardStore.data.profile.interests, suggestion]);
 		}
 	}
@@ -177,16 +185,19 @@
 					<button
 						class="suggestion-pill"
 						class:selected={wizardStore.data.profile.occupationDetail === suggestion}
-						onclick={() => selectOccupationSuggestion(suggestion)}
+						onclick={() => toggleOccupationSuggestion(suggestion)}
 					>
 						{suggestion}
+						{#if wizardStore.data.profile.occupationDetail === suggestion}
+							<span class="pill-remove">×</span>
+						{/if}
 					</button>
 				{/each}
 			</div>
 			<input
 				id="occupation"
 				type="text"
-				placeholder="T.ex. Årskurs 6, Jobbar som..."
+				placeholder="Sjunde klass, frilansare, mellan två grejer..."
 				value={wizardStore.data.profile.occupationDetail}
 				oninput={(e) => handleTextInput('occupationDetail', e.currentTarget.value)}
 			/>
@@ -200,14 +211,17 @@
 						<button
 							class="suggestion-pill"
 							class:selected={wizardStore.data.profile.family.includes(suggestion)}
-							onclick={() => addFamilySuggestion(suggestion)}
+							onclick={() => toggleFamilySuggestion(suggestion)}
 						>
 							{suggestion}
+							{#if wizardStore.data.profile.family.includes(suggestion)}
+								<span class="pill-remove">×</span>
+							{/if}
 						</button>
 					{/each}
 				</div>
 				<div class="tag-container">
-					{#each wizardStore.data.profile.family as member}
+					{#each wizardStore.data.profile.family.filter((m) => !familySuggestions.includes(m)) as member}
 						<span class="tag">
 							{member}
 							<button class="tag-remove" onclick={() => removeFamily(member)}>×</button>
@@ -218,7 +232,7 @@
 					<input
 						id="family"
 						type="text"
-						placeholder="Mamma, pappa..."
+						placeholder="En mormor som alltid ringer..."
 						bind:value={familyInput}
 						onkeydown={(e) => handleKeydown(e, addFamily)}
 					/>
@@ -233,14 +247,17 @@
 						<button
 							class="suggestion-pill"
 							class:selected={wizardStore.data.profile.pets.includes(suggestion)}
-							onclick={() => addPetSuggestion(suggestion)}
+							onclick={() => togglePetSuggestion(suggestion)}
 						>
 							{suggestion}
+							{#if wizardStore.data.profile.pets.includes(suggestion)}
+								<span class="pill-remove">×</span>
+							{/if}
 						</button>
 					{/each}
 				</div>
 				<div class="tag-container">
-					{#each wizardStore.data.profile.pets as pet}
+					{#each wizardStore.data.profile.pets.filter((p) => !petSuggestions.includes(p)) as pet}
 						<span class="tag">
 							{pet}
 							<button class="tag-remove" onclick={() => removePet(pet)}>×</button>
@@ -251,7 +268,7 @@
 					<input
 						id="pets"
 						type="text"
-						placeholder="Katten Misse..."
+						placeholder="En guldfisk som vägrar dö..."
 						bind:value={petInput}
 						onkeydown={(e) => handleKeydown(e, addPet)}
 					/>
@@ -267,14 +284,17 @@
 					<button
 						class="suggestion-pill"
 						class:selected={wizardStore.data.profile.interests.includes(suggestion)}
-						onclick={() => addInterestSuggestion(suggestion)}
+						onclick={() => toggleInterestSuggestion(suggestion)}
 					>
 						{suggestion}
+						{#if wizardStore.data.profile.interests.includes(suggestion)}
+							<span class="pill-remove">×</span>
+						{/if}
 					</button>
 				{/each}
 			</div>
 			<div class="tag-container">
-				{#each wizardStore.data.profile.interests as interest}
+				{#each wizardStore.data.profile.interests.filter((i) => !interestSuggestions.includes(i)) as interest}
 					<span class="tag">
 						{interest}
 						<button class="tag-remove" onclick={() => removeInterest(interest)}>×</button>
@@ -285,7 +305,7 @@
 				<input
 					id="interests"
 					type="text"
-					placeholder="T.ex. rita, läsa, spela fotboll..."
+					placeholder="Saker du gör för att du vill, inte för att du måste..."
 					bind:value={interestInput}
 					onkeydown={(e) => handleKeydown(e, addInterest)}
 				/>
@@ -420,9 +440,23 @@
 	}
 
 	.suggestion-pill.selected {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
 		background-color: var(--color-accent);
 		border-color: var(--color-accent);
 		color: white;
+	}
+
+	.pill-remove {
+		font-size: 0.875rem;
+		line-height: 1;
+		opacity: 0.8;
+		transition: opacity 0.15s ease;
+	}
+
+	.suggestion-pill:hover .pill-remove {
+		opacity: 1;
 	}
 
 	.tag-container {
@@ -476,7 +510,7 @@
 	.add-custom input {
 		flex: 1;
 		padding: 0.5rem 0.75rem;
-		font-size: var(--text-xs);
+		font-size: var(--text-sm);
 	}
 
 	.add-btn {

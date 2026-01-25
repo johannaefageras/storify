@@ -1,5 +1,8 @@
 import { browser } from '$app/environment';
 import { Preferences } from '@capacitor/preferences';
+import type { WeatherData } from '$lib/utils/weather';
+import { fetchWeather } from '$lib/utils/weather';
+import { getCurrentPosition } from '$lib/utils/geolocation';
 
 export interface UserProfile {
 	name: string;
@@ -20,7 +23,7 @@ export interface WizardData {
 	// Step 1: Date & Emojis
 	date: string;
 	weekday: string;
-	weather: string;
+	weather: WeatherData | null;
 	emojis: string[];
 
 	// Step 2: Sleep & Energy
@@ -52,6 +55,7 @@ export interface WizardData {
 
 	// Step 7: Time Capsule (optional)
 	memoryFor10Years: string;
+	messageToFutureSelf: string;
 
 	// Step 8: AI Voice
 	selectedTone: string;
@@ -76,7 +80,7 @@ function createWizardStore() {
 		profile: { ...defaultProfile },
 		date: '',
 		weekday: '',
-		weather: '',
+		weather: null,
 		emojis: [],
 		sleepQuality: 5.5,
 		energyLevel: 5.5,
@@ -96,6 +100,7 @@ function createWizardStore() {
 		soundtracks: [],
 		customSoundtracks: [],
 		memoryFor10Years: '',
+		messageToFutureSelf: '',
 		selectedTone: 'classic'
 	};
 
@@ -162,6 +167,15 @@ function createWizardStore() {
 		async initProfile() {
 			const profile = await loadProfile();
 			data.profile = profile;
+		},
+		async initWeather() {
+			const coords = await getCurrentPosition();
+			if (coords) {
+				const weather = await fetchWeather(coords);
+				if (weather) {
+					data.weather = weather;
+				}
+			}
 		},
 		nextStep() {
 			if (currentStep < totalSteps) {
@@ -277,7 +291,7 @@ function createWizardStore() {
 						data.customSoundtracks.length > 0
 					);
 				case 7: // Time Capsule
-					return data.memoryFor10Years.trim() !== '';
+					return data.memoryFor10Years.trim() !== '' || data.messageToFutureSelf.trim() !== '';
 				default:
 					return false;
 			}

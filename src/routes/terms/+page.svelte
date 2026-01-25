@@ -1,14 +1,15 @@
 <script lang="ts">
-	import { EmojiLegalTermsConditions } from '$lib/components/emojis';
+	import { EmojiScroll } from '$lib/components/emojis/assorted';
+	import LegalFooter from '$lib/components/LegalFooter.svelte';
 </script>
 
 <main class="legal-page">
 	<a href="/" class="back-link">&larr; Tillbaka</a>
 	<div class="page-header">
-		<EmojiLegalTermsConditions size={80} />
+		<EmojiScroll size={80} />
 		<h1>Användarvillkor</h1>
 	</div>
-	<p class="updated">Senast uppdaterad: 23 januari 2026</p>
+	<p class="updated">Senast uppdaterad: 25 januari 2026</p>
 
 	<section>
 		<h2>Välkommen till Storify</h2>
@@ -62,6 +63,7 @@
 		<p>Storify använder externa tjänster för att fungera. Genom att använda appen godkänner du även dessa tjänsters villkor:</p>
 		<ul>
 			<li><strong>Anthropic:</strong> AI-tjänsten som genererar dagbokstexter. <a href="https://www.anthropic.com/terms" target="_blank" rel="noopener">Läs deras villkor</a>.</li>
+			<li><strong>Väder-API:</strong> Extern tjänst som tillhandahåller väderdata baserat på din position (om du väljer att aktivera funktionen).</li>
 			<li><strong>Google Play:</strong> Om du laddat ner appen därifrån. <a href="https://play.google.com/intl/sv/about/play-terms/" target="_blank" rel="noopener">Läs deras villkor</a>.</li>
 		</ul>
 	</section>
@@ -80,11 +82,13 @@
 		<h2>Tillämplig lag</h2>
 		<p>Dessa villkor regleras av svensk lag. Eventuella tvister ska i första hand lösas genom dialog mellan parterna.</p>
 	</section>
+
+	<LegalFooter />
 </main>
 
 <style>
 	.legal-page {
-		max-width: 680px;
+		max-width: 720px;
 		margin: 0 auto;
 		padding: 2rem;
 		padding-top: calc(env(safe-area-inset-top, 0px) + 2rem);
@@ -178,8 +182,8 @@
 		position: absolute;
 		left: 0;
 		top: 0.55rem;
-		width: 5px;
-		height: 5px;
+		width: 6px;
+		height: 6px;
 		background-color: var(--color-accent);
 		border-radius: 50%;
 	}

@@ -2,10 +2,10 @@
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import type { Component } from 'svelte';
 	import {
-	EmojiStep5Almost,
-	EmojiStep5Unnecessary,
-	EmojiStep5Redo
-} from '$lib/components/emojis';
+	EmojiConstruction,
+	EmojiExclamationQuestion,
+	EmojiCounterClockwise
+} from '$lib/components/emojis/assorted';
 
 	const fields: {
 		key: 'almostHappened' | 'unnecessaryThing' | 'wouldRedo';
@@ -16,20 +16,20 @@
 		{
 			key: 'almostHappened',
 			label: 'Något som nästan hände, nästan...',
-			placeholder: 'Höll på att säga något du hade ångrat, var nära på att sms:a fel person...',
-			icon: EmojiStep5Almost
+			placeholder: 'Var nära att somna på mötet, höll på att skicka till fel person, på väg att köpa något onödigt...',
+			icon: EmojiConstruction
 		},
 		{
 			key: 'unnecessaryThing',
 			label: 'Varför gjorde du ens det här?',
-			placeholder: 'Scrollade i 2 h, köpte energidryck nr 3, tänkte samma tanke om och om igen...',
-			icon: EmojiStep5Unnecessary
+			placeholder: 'Kollade kylskåpet fyra gånger, scrollade TikTok i timmar, köpte energidryck nummer 3...',
+			icon: EmojiExclamationQuestion
 		},
 		{
 			key: 'wouldRedo',
 			label: 'Om du fick göra om ett ögonblick från idag – vilket?',
-			placeholder: 'Sagt vad du faktiskt menade, släppt en grej snabbare...',
-			icon: EmojiStep5Redo
+			placeholder: 'Tagit det lugnt istället för att stressa, stannat kvar lite längre, eller gått tidigare...',
+			icon: EmojiCounterClockwise
 		}
 	];
 </script>

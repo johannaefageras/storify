@@ -3,14 +3,23 @@
 </script>
 
 <div class="step-content">
-	<p class="step-intro">Vissa saker känns små just nu, men kan betyda allt om tio år. Skriv ner något du vill minnas.</p>
+	<p class="step-intro">Vissa saker känns små just nu, men kan betyda allt om tio år. Skriv ner något du vill minnas – och kanske ett ord till den du kommer att vara.</p>
 	<div class="field-group">
 		<label class="field-label" for="memory">Vad vill du minnas från idag?</label>
 		<textarea
 			id="memory"
-			placeholder="En tanke, ett ögonblick, en känsla. Något som hände eller något du kände..."
+			placeholder="Något någon sa som fastnade, en känsla du inte kan förklara, ett litet ögonblick som vid första anblick inte betydde något, men som ändå gjorde det..."
 			bind:value={wizardStore.data.memoryFor10Years}
-			rows="5"
+			rows="3"
+		></textarea>
+	</div>
+	<div class="field-group">
+		<label class="field-label" for="future-message">Ett meddelande till framtida dig</label>
+		<textarea
+			id="future-message"
+			placeholder="Hej framtida jag, glöm inte att... Det här var viktigt idag, även om du kanske skrattar åt det sen..."
+			bind:value={wizardStore.data.messageToFutureSelf}
+			rows="3"
 		></textarea>
 	</div>
 </div>

@@ -1,76 +1,48 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import type { Component } from 'svelte';
-	import {
-	EmojiSleep1,
-	EmojiSleep2,
-	EmojiSleep3,
-	EmojiSleep4,
-	EmojiSleep5,
-	EmojiSleep6,
-	EmojiSleep7,
-	EmojiSleep8,
-	EmojiSleep9,
-	EmojiSleep10,
-	EmojiEnergy1,
-	EmojiEnergy2,
-	EmojiEnergy3,
-	EmojiEnergy4,
-	EmojiEnergy5,
-	EmojiEnergy6,
-	EmojiEnergy7,
-	EmojiEnergy8,
-	EmojiEnergy9,
-	EmojiEnergy10,
-	EmojiMood1,
-	EmojiMood2,
-	EmojiMood3,
-	EmojiMood4,
-	EmojiMood5,
-	EmojiMood6,
-	EmojiMood7,
-	EmojiMood8,
-	EmojiMood9,
-	EmojiMood10
-} from '$lib/components/emojis';
+	import { EmojiFaceBagsUnderEyes, EmojiFaceGrinningSweat, EmojiFaceNeutral, EmojiFaceSleepy, EmojiFaceSlightlySmiling, EmojiFaceSmiling, EmojiFaceSmilingHearts, EmojiFaceStarStruck, EmojiFaceTired, EmojiFaceYawning } from '$lib/components/emojis/sleep';
+	import { EmojiFaceCrossedOutEyes, EmojiFacePartying, EmojiFaceSleeping, EmojiRocket } from '$lib/components/emojis/energy';
+	import { EmojiFaceCrying, EmojiFaceCryingLoudly, EmojiFaceFrowning, EmojiFaceLOL, EmojiFaceSlightlyFrowning
+} from '$lib/components/emojis/mood';
 
 	const sleepEmojis: Component[] = [
-		EmojiSleep1,
-		EmojiSleep2,
-		EmojiSleep3,
-		EmojiSleep4,
-		EmojiSleep5,
-		EmojiSleep6,
-		EmojiSleep7,
-		EmojiSleep8,
-		EmojiSleep9,
-		EmojiSleep10
+		EmojiFaceBagsUnderEyes,
+		EmojiFaceTired,
+		EmojiFaceSleepy,
+		EmojiFaceYawning,
+		EmojiFaceNeutral,
+		EmojiFaceSlightlySmiling,
+		EmojiFaceSmiling,
+		EmojiFaceSmilingHearts,
+		EmojiFaceGrinningSweat,
+		EmojiFaceStarStruck
 	];
 
 	const energyEmojis: Component[] = [
-		EmojiEnergy1,
-		EmojiEnergy2,
-		EmojiEnergy3,
-		EmojiEnergy4,
-		EmojiEnergy5,
-		EmojiEnergy6,
-		EmojiEnergy7,
-		EmojiEnergy8,
-		EmojiEnergy9,
-		EmojiEnergy10
+		EmojiFaceCrossedOutEyes,
+		EmojiFaceSleeping,
+		EmojiFaceTired,
+		EmojiFaceYawning,
+		EmojiFaceNeutral,
+		EmojiFaceSmiling,
+		EmojiFaceGrinningSweat,
+		EmojiFacePartying,
+		EmojiFaceStarStruck,
+		EmojiRocket
 	];
 
 	const moodEmojis: Component[] = [
-		EmojiMood1,
-		EmojiMood2,
-		EmojiMood3,
-		EmojiMood4,
-		EmojiMood5,
-		EmojiMood6,
-		EmojiMood7,
-		EmojiMood8,
-		EmojiMood9,
-		EmojiMood10
+		EmojiFaceCryingLoudly,
+		EmojiFaceCrying,
+		EmojiFaceFrowning,
+		EmojiFaceSlightlyFrowning,
+		EmojiFaceNeutral,
+		EmojiFaceSmiling,
+		EmojiFaceSmilingHearts,
+		EmojiFaceGrinningSweat,
+		EmojiFaceLOL,
+		EmojiFacePartying
 	];
 
 	const sliders = [
@@ -177,7 +149,7 @@
 	.slider-container {
 		display: flex;
 		align-items: center;
-		gap: 1rem;
+		gap: 0.875rem;
 	}
 
 	.slider-bound {
@@ -187,7 +159,8 @@
 		font-stretch: 105%;
 		letter-spacing: var(--tracking-wider);
 		color: var(--color-text-muted);
-		min-width: 4rem;
+		min-width: 3.5rem;
+		flex-shrink: 0;
 	}
 
 	.slider-bound:first-child {
@@ -202,46 +175,88 @@
 		flex: 1;
 		-webkit-appearance: none;
 		appearance: none;
-		height: 6px;
-		background: var(--color-neutral);
-		border-radius: 3px;
+		height: 3px;
+		background: var(--color-border);
+		border-radius: 2px;
 		outline: none;
+		cursor: pointer;
 	}
 
 	.slider::-webkit-slider-thumb {
 		-webkit-appearance: none;
 		appearance: none;
-		width: 18px;
-		height: 18px;
+		width: 16px;
+		height: 16px;
 		background: var(--color-accent);
 		border-radius: 50%;
 		cursor: pointer;
-		transition: transform 0.1s ease;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+		transition:
+			transform 0.15s ease,
+			box-shadow 0.15s ease;
 	}
 
 	.slider::-webkit-slider-thumb:hover {
-		transform: scale(1.15);
+		transform: scale(1.1);
+		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+	}
+
+	.slider:focus::-webkit-slider-thumb {
+		box-shadow:
+			0 0 0 3px var(--color-bg),
+			0 0 0 5px color-mix(in srgb, var(--color-accent) 30%, transparent);
 	}
 
 	.slider::-moz-range-thumb {
-		width: 18px;
-		height: 18px;
+		width: 16px;
+		height: 16px;
 		background: var(--color-accent);
 		border: none;
 		border-radius: 50%;
 		cursor: pointer;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+	}
+
+	.slider::-moz-range-thumb:hover {
+		transform: scale(1.1);
+	}
+
+	.slider::-moz-range-track {
+		height: 3px;
+		background: var(--color-border);
+		border-radius: 2px;
 	}
 
 	@media (max-width: 560px) {
-		.slider-container {
-			flex-direction: column;
-			align-items: stretch;
+		.step-content {
+			gap: 2rem;
+		}
+
+		.slider-group {
 			gap: 0.5rem;
 		}
 
+		.slider-container {
+			gap: 0.625rem;
+		}
+
 		.slider-bound {
-			min-width: 0;
-			text-align: center;
+			min-width: 2.75rem;
+			font-size: 0.65rem;
+		}
+
+		.slider {
+			height: 2px;
+		}
+
+		.slider::-webkit-slider-thumb {
+			width: 14px;
+			height: 14px;
+		}
+
+		.slider::-moz-range-thumb {
+			width: 14px;
+			height: 14px;
 		}
 	}
 </style>
