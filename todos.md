@@ -16,7 +16,6 @@ Voice input — Speak your answers instead of typing
 Photo attachment — Add a photo, AI incorporates it into the narrative
 Skip with AI guess — Skip a step, AI makes educated guesses based on patterns
 Mood board step — Pick colors/images that represent your day
-Weather integration — Auto-fetch weather, weave it into the entry
 Music integration — Connect Spotify, include "soundtrack of the day"
 Branching questions — If "bad day" → different follow-up questions than "great day"
 "One word" mode — Answer each step with just one word, AI expands
@@ -178,13 +177,6 @@ Unit tests for the wizard store (wizard.svelte.ts)
 API endpoint tests for /api/generate and /api/email
 Component tests for critical wizard steps
 Extract tone prompts - The buildTonePrompt() function in +server.ts is ~1,500 lines of nested string literals. Extract each tone to separate files in /tones/ (e.g., tones/classic.ts, tones/sarcastic.ts) for maintainability.
-
-Add input validation/sanitization - User text (names, activities, reflections) is sent directly to Claude without validation or length limits. Add:
-
-Maximum character limits on text inputs
-Basic content filtering before API submission
-Server-side validation in the API endpoint
-API rate limiting - Both /api/generate and /api/email have no protection against abuse. Add rate limiting (e.g., 10 generations per IP per hour).
 
 Medium Priority
 Improve error handling UX - Silent failures for weather/geolocation give no user feedback. Add subtle indicators when optional data couldn't be fetched.
