@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: storify
+    runtime: node
+    plan: professional
+    region: frankfurt # Closest to Sweden
+    buildCommand: npm install && npm run build
+    startCommand: node build
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: ANTHROPIC_API_KEY
+        sync: false # Set manually in Render dashboard
+      - key: RESEND_API_KEY
+        sync: false # Set manually in Render dashboard
