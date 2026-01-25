@@ -38,7 +38,11 @@
 		EmojiRobot,
 		EmojiStudioMicrophone,
 		EmojiTheaterMasks,
-		EmojiVideoGameControl
+		EmojiVideoGameControl,
+		EmojiSatellite,
+		EmojiLotusPosition,
+		EmojiExplodingHead,
+		EmojiDetective
 	} from '$lib/components/emojis/voices';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 </script>
@@ -177,7 +181,7 @@
 
 	<section>
 		<h2>Välj rätt röst</h2>
-		<p>Rösten du väljer påverkar stilen på din dagbokstext. Här är alla röster du kan välja mellan:</p>
+		<p>Rösten du väljer påverkar stilen på din dagbokstext. Här är alla 24 röster du kan välja mellan:</p>
 
 		<div class="voice-grid">
 			<div class="voice-card">
@@ -281,6 +285,26 @@
 				<p>Fakta, statistik och djupdykningar i varje liten detalj.</p>
 			</div>
 			<div class="voice-card">
+				<span class="voice-emoji"><EmojiSatellite size={28} /></span>
+				<h3>Foliehatt</h3>
+				<p>...</p>
+			</div>
+			<div class="voice-card">
+				<span class="voice-emoji"><EmojiLotusPosition size={28} /></span>
+				<h3>Självhjälpsbok</h3>
+				<p>...</p>
+			</div>
+			<div class="voice-card">
+				<span class="voice-emoji"><EmojiDetective size={28} /></span>
+				<h3>Deckare</h3>
+				<p>...</p>
+			</div>
+			<div class="voice-card">
+				<span class="voice-emoji"><EmojiExplodingHead size={28} /></span>
+				<h3>Grubblare</h3>
+				<p>...</p>
+			</div>
+			<div class="voice-card">
 				<span class="voice-emoji"><EmojiGameDice size={28} /></span>
 				<h3>Överraska mig!</h3>
 				<p>Låt slumpen välja – du vet aldrig vilken röst du får!</p>
@@ -296,13 +320,6 @@
 
 		<div class="save-grid">
 			<div class="save-card">
-				<span class="save-emoji"><EmojiClipboard size={28} /></span>
-				<div class="save-content">
-					<h3>Kopiera text</h3>
-					<p>Kopiera och klistra in var du vill.</p>
-				</div>
-			</div>
-			<div class="save-card">
 				<span class="save-emoji"><EmojiFramedPicture size={28} /></span>
 				<div class="save-content">
 					<h3>Spara som bild</h3>
@@ -317,10 +334,17 @@
 				</div>
 			</div>
 			<div class="save-card">
+				<span class="save-emoji"><EmojiClipboard size={28} /></span>
+				<div class="save-content">
+					<h3>Kopiera text</h3>
+					<p>Kopiera och klistra in var du vill.</p>
+				</div>
+			</div>
+			<div class="save-card">
 				<span class="save-emoji"><EmojiEnvelopeArrow size={28} /></span>
 				<div class="save-content">
-					<h3>Skicka via e-post</h3>
-					<p>Mejla texten till vem du vill.</p>
+					<h3>Skicka som e-post</h3>
+					<p>Mejla dagboken till vem du vill.</p>
 				</div>
 			</div>
 		</div>
