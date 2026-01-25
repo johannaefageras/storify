@@ -103,7 +103,7 @@ export const tones: Tone[] = [
     preview: 'Hör, vad ljus från morgonfönstret bryter? Det är alarmet, och jag är trött.'
   },
   {
-    id: 'tabloid-newspaper',
+    id: 'tabloid',
     name: 'Kvällstidning',
     emoji: '📰',
     preview: 'CHOCK: Lokal kvinna TVINGADES vakna INNAN klockan åtta!'
@@ -125,5 +125,29 @@ export const tones: Tone[] = [
     name: 'Nörd',
     emoji: '🤓',
     preview: 'Frukosten bestod av havregryn – stapelvara sedan bronsåldern, faktiskt!'
+  },
+  {
+    id: 'tinfoil-hat',
+    name: 'Foliehatt',
+    emoji: '🎩',
+    preview: 'Matteläraren var sjuk. *Exakt* samma dag som provet. Sammanträffande? Knappast.'
+  },
+  {
+    id: 'self-help',
+    name: 'Självhjälpsbok',
+    emoji: '✨',
+    preview: 'Ibland är de långsamma dagarna de viktigaste. Du är nog. Precis som du är.'
+  },
+  {
+    id: 'detective',
+    name: 'Deckare',
+    emoji: '🕵️',
+    preview: 'Klockan var åtta. Himlen var grå som en gammal filt. Ännu ett fall.'
+  },
+  {
+    id: 'overthinker',
+    name: 'Grubblare',
+    emoji: '🌀',
+    preview: 'Dagen var bra. Eller, "bra" – vad menar jag med det egentligen? Typ okej?'
   }
 ];

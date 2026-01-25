@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { EmojiPushpinRound, EmojiCalendar, EmojiWavingHand } from '$lib/components/emojis/assorted';
+	import { FIELD_LIMITS } from '$lib/validation';
 
 	const locationOptions = [
 		'Hemma',
@@ -160,6 +161,7 @@
 				placeholder="I köket, vid samma skolbänk som vanligt, i sängen..."
 				bind:value={customLocationInput}
 				onkeydown={(e) => handleKeydown(e, addCustomLocation)}
+				maxlength={FIELD_LIMITS.customLocations}
 			/>
 			<button class="add-btn" onclick={addCustomLocation} disabled={!customLocationInput.trim()}>
 				+
@@ -197,6 +199,7 @@
 				placeholder="Stirrade på ett dokument, åt lunch ensam..."
 				bind:value={customActivityInput}
 				onkeydown={(e) => handleKeydown(e, addCustomActivity)}
+				maxlength={FIELD_LIMITS.customActivities}
 			/>
 			<button class="add-btn" onclick={addCustomActivity} disabled={!customActivityInput.trim()}>
 				+
@@ -234,6 +237,7 @@
 				placeholder="Lägg till person..."
 				bind:value={personInput}
 				onkeydown={(e) => handleKeydown(e, addPerson)}
+				maxlength={FIELD_LIMITS.people}
 			/>
 			<button class="add-btn" onclick={addPerson} disabled={!personInput.trim()}>+</button>
 		</div>

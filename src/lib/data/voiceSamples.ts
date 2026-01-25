@@ -271,7 +271,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Var detta en bra dag? Låt morgondagen vara domare däröver.',
     'Med detta lägger jag min penna ned. God natt, och lycka till.'
   ],
-  'tabloid-newspaper': [
+  tabloid: [
     'CHOCK: Lokal kvinna TVINGADES vakna INNAN klockan åtta!',
     'SKANDAL på skolan: Lärare SJUK – eleverna i KAOS!',
     'AVSLÖJAR: Hemliga lunchen som ALLA pratar om!',
@@ -338,5 +338,73 @@ export const voiceSamples: Record<string, string[]> = {
     'Parenteser är mitt favoritverktyg (de rymmer så mycket extra information).',
     'Det här blev långt. Men det var ju INTRESSANT!',
     'God natt! Eller som romarna sa... faktiskt, jag får kolla upp det.'
+  ],
+  'tinfoil-hat': [
+    'Matteläraren var sjuk. *Exakt* samma dag som provet. Sammanträffande? Knappast.',
+    'Vaknade med en känsla av att något inte stämde. Jag hade rätt.',
+    'Bussen var tre minuter sen. Tre. Triangel har tre sidor. Jag säger inget mer.',
+    'De vill att vi ska tro att det här var en vanlig dag. Det var det inte.',
+    'Mammas pasta igen. Samma rätt som förra veckan. Varför just pasta? Tänk efter.',
+    'Alla var *väldigt* glada idag. Misstänkt glada, om du frågar mig.',
+    'Jag säger inte att det är en konspiration. Men det är *intressant*, eller hur?',
+    'Solen bröt igenom molnen *exakt* när jag gick ut. Som om någon visste.',
+    'Cafeterian hade slut på kanelbullar. Just idag. Bekvämt.',
+    'Fick en komplimang av en främling. Vem skickade dem? Och varför?',
+    'Vädret var grått. Klassisk dimridå. Bokstavligen.',
+    'Imorgon gräver jag djupare. Om de låter mig.',
+    '(Och ja, filmen var bra. Men det är *exakt* vad de vill att jag ska tycka.)',
+    'Någon ville att jag skulle missa bussen. Jag vet inte vem än. Men någon.',
+    'Mönstren finns där. Man måste bara våga se dem.'
+  ],
+  'self-help': [
+    'Ibland är de långsamma dagarna de viktigaste.',
+    'Du är nog. Precis som du är. Och det räcker.',
+    'Kom ihåg: de grå dagarna formar oss lika mycket som de gyllene.',
+    'Vad händer när vi slutar jaga det extraordinära och börjar omfamna det som är?',
+    'Det handlar inte om att dagen ska vara *speciell*. Det handlar om att vara här.',
+    'Bussen gick. Men de extra minuterna gav mig tid att bara *vara*.',
+    'Det är inte *bara* pasta. Det är närvaro. Kärlek. Tradition.',
+    'Du behöver inte ha alla svar. Du behöver bara ta nästa steg.',
+    'Stillhet är inte tomhet. Det är utrymme för integration.',
+    'Varje dag är ett val. Idag valde jag att vara närvarande.',
+    'Tack för denna dag. Med allt vad den var. Det räcker.',
+    'Även små steg framåt är framåt.',
+    'Om mitt liv är en bok, var det här ett lugnare kapitel. Och det är okej.',
+    'Connection. Närvaro. Det vi alla innerst inne längtar efter.',
+    'Imorgon börjar vi igen. Med allt vi lärt oss idag.'
+  ],
+  detective: [
+    'Klockan var åtta. Himlen var grå som en gammal filt.',
+    'Det regnade. Det regnar alltid.',
+    'Väckarklockan slet mig ur mörkret. Jag var inte redo.',
+    'Januari. Femtonde dagen. Ännu ett fall att lösa.',
+    'Hon visste mer än hon sa. Det gör de alltid.',
+    'Bussen skakade genom stan som en trött jätte.',
+    'Maten var... mat. Jag åt. Det var allt.',
+    'De var de enda jag litade på. Så långt man kan lita på någon.',
+    'Ett skratt. Kort. Oväntat. Sen var det över.',
+    'Läraren hade försvunnit. Sjukanmäld, sa de. Jag köpte det. För nu.',
+    'Kvällen föll sakta. Grått blev svart.',
+    'Jag ställde inga frågor. Ibland är det bättre att ta vad man får.',
+    'Mammas pasta. Det enda konstanta i en värld av skuggor.',
+    'Det var ingen bra dag. Men det var min dag.',
+    'Jag lade mig. Mörkret tog över. Imorgon börjar alltihop igen.'
+  ],
+  overthinker: [
+    'Dagen var bra. Eller, "bra" – vad menar jag med det egentligen?',
+    'Okej, så idag. Var börjar jag ens?',
+    'Hon sa hej. Men det var ett snabbt hej. Var det för snabbt?',
+    'Jag ska försöka berätta om min dag utan att övertänka. (Det kommer misslyckas.)',
+    'Vaknade trött. Eller – var jag trött, eller bara inte redo att vakna?',
+    'Vi åt lunch (i cafeterian (som vanligt (fast vid ett annat bord))) och pratade.',
+    'Nu överanalyserar jag igen. Klassiskt.',
+    'Det var kul. Typ. Hade de kul? Svårt att veta vad andra egentligen tänker.',
+    'Kände mig lugn. Misstänkt lugn. Är det lugn eller bara frånvaro av stress?',
+    'Apropå det – nej vänta, var var jag? Just ja.',
+    'Snart fredag. Det är bra. Eller, vad är det som är bra med fredag egentligen?',
+    'Jag var antingen: a) trött, b) uttråkad, eller c) båda? Oklart.',
+    'Så det var min dag. Tror jag. Eller?',
+    'Min hjärna behöver vila. Den håller inte med, men jag bestämmer.',
+    'Det känns bra. ...tror jag.'
   ]
 };

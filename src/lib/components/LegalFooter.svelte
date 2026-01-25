@@ -2,9 +2,9 @@
 	<nav class="legal-links">
 		<a href="/">Start</a>
 		<span class="separator">·</span>
-		<a href="/guide">Guide</a>
-		<span class="separator">·</span>
 		<a href="/about">Om</a>
+		<span class="separator">·</span>
+		<a href="/guide">Guide</a>
 		<span class="separator">·</span>
 		<a href="/contact">Kontakt</a>
 		<span class="separator">·</span>
@@ -15,7 +15,7 @@
 		<a href="/terms">Villkor</a>
 	</nav>
 	<div class="copyright">
-		Upphovsrätt © Johanna Fagerås 2026 | Alla rättigheter reserverade
+		Upphovsrätt © Storify 2026 | Alla rättigheter reserverade
 	</div>
 </footer>
 

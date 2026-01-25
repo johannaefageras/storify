@@ -1,19 +1,3 @@
-🎨 New Writing Tones
-
-Noir Detective — "The rain fell like my motivation. She walked into my Tuesday like trouble in heels..."
-Ship's Log / Pirate — "Day 47 at sea. The crew grows restless. We spotted land (IKEA)..."
-Cooking Show Host — "And TODAY we're adding a PINCH of existential dread to our morning commute!"
-True Crime Podcast — "But here's where things get interesting..." with dramatic reveals
-Anime Protagonist — Inner monologues, power-ups, friendship speeches
-LinkedIn Influencer — "I was crying in a Starbucks. Then a homeless man taught me about growth mindset. Here's 10 things I learned..."
-IKEA Assembly Manual — Minimalist, step-by-step, occasional missing screws
-Grandparent Storytelling — Tangents, "back in my day", wholesome wisdom
-Conspiracy Theorist — Everything is connected, wake up sheeple
-Museum Audio Guide — "To your left, you'll notice the subject chose cereal over toast..."
-Weather Report — "A 90% chance of procrastination moving in from the west..."
-Haiku Mode — Entire entry as a series of haikus
-Children's Book — Simple, whimsical, with a moral at the end
-
 📝 Entry Generation Improvements
 
 Length slider — Short (tweet-length), Medium, Long, Epic
@@ -183,3 +167,101 @@ Tone preview samples before selection
 Share button with native share sheet
 Haptic feedback on mobile interactions
 Celebration animation when entry is generated
+
+---
+
+Code Quality & Technical Improvements
+High Priority
+Add automated testing - There are no tests in the codebase. This is a significant risk for a production app. Add:
+
+Unit tests for the wizard store (wizard.svelte.ts)
+API endpoint tests for /api/generate and /api/email
+Component tests for critical wizard steps
+Extract tone prompts - The buildTonePrompt() function in +server.ts is ~1,500 lines of nested string literals. Extract each tone to separate files in /tones/ (e.g., tones/classic.ts, tones/sarcastic.ts) for maintainability.
+
+Add input validation/sanitization - User text (names, activities, reflections) is sent directly to Claude without validation or length limits. Add:
+
+Maximum character limits on text inputs
+Basic content filtering before API submission
+Server-side validation in the API endpoint
+API rate limiting - Both /api/generate and /api/email have no protection against abuse. Add rate limiting (e.g., 10 generations per IP per hour).
+
+Medium Priority
+Improve error handling UX - Silent failures for weather/geolocation give no user feedback. Add subtle indicators when optional data couldn't be fetched.
+
+Add session recovery - If the browser crashes mid-wizard, all unsaved daily data is lost. Consider saving draft state to localStorage periodically.
+
+Replace custom emoji components - 300+ tiny Svelte files for emojis bloats the bundle. Consider using a standard emoji library or Unicode with a single renderer component.
+
+Improve email markdown conversion - The regex-based conversion in +server.ts is fragile. Use a proper library like marked or showdown.
+
+Add request timeout - The Claude API call has no timeout handling. Add a 60-second timeout with user feedback.
+
+New Feature Suggestions
+User Experience
+Entry history/journal - Store generated entries locally (or with optional cloud sync) so users can:
+
+View past entries in a calendar view
+Search through their diary
+See a "year in review" compilation
+Quick mode - A 3-step express wizard for busy days (emojis → wins/frustrations → generate)
+
+Generation options:
+
+Length slider (short/medium/long)
+"Spice level" for how much exaggeration (1-5)
+Generate multiple versions to choose from
+Regenerate specific paragraphs
+Voice input - Allow speaking answers instead of typing, especially useful on mobile
+
+Photo attachment - Let users attach a photo of the day that influences the narrative
+
+Mood-adaptive tones - Automatically adjust tone intensity based on reported mood (less sarcasm on rough days)
+
+New Tones
+Your todos.md already has great ideas. Highest impact additions:
+
+Noir Detective - "The city never sleeps, and neither did they..."
+True Crime Podcast - "But what really happened that Tuesday?"
+Grandparent Storytelling - Warm, nostalgic, full of "in my day..."
+Haiku Mode - Entire entry as a series of haikus
+Custom Tone Builder - Let users describe their own tone
+Platform & Integration
+i18n support - Add an internationalization framework so the app can expand beyond Swedish. The UI, prompts, and generated content are all hard-coded in Swedish.
+
+Spotify integration - Auto-detect what the user listened to today for the "soundtrack" section
+
+Widget support - Quick Android widget for daily emoji mood logging
+
+Sharing improvements:
+
+Generate shareable images (quote cards) from entry excerpts
+Direct sharing to Instagram Stories or social media
+Notifications - Daily reminder to write an entry (opt-in)
+
+Analytics & Insights
+Personal insights dashboard:
+
+Mood trends over time
+Most common activities/locations
+Energy patterns by weekday
+Word clouds from entries
+Usage analytics (for you as developer):
+
+Which tones are most popular
+Where users drop off in the wizard
+Generation success/failure rates
+Architecture Suggestions
+Area Current Suggested
+Testing None Vitest + Playwright
+i18n Hard-coded Swedish svelte-i18n or paraglide
+Rate limiting None upstash/ratelimit or similar
+Entry storage None IndexedDB locally, optional Supabase sync
+Emoji handling 300+ components emoji-mart or Unicode
+Tone prompts 1 giant function Modular /tones/\*.ts files
+Quick Wins (Low Effort, High Impact)
+Add a "loading" skeleton for the weather fetch
+Show tone popularity badges ("Most loved", "New")
+Add keyboard shortcuts for navigation (←/→ for steps)
+Haptic feedback on mobile when selecting emojis
+Confetti animation after successful generation

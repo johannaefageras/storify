@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
+	import { FIELD_LIMITS } from '$lib/validation';
 
 	const pronounOptions = [
 		{ value: 'hon', label: 'Hon' },
@@ -135,6 +136,7 @@
 				placeholder="Ditt namn eller smeknamn"
 				value={wizardStore.data.profile.name}
 				oninput={(e) => handleTextInput('name', e.currentTarget.value)}
+				maxlength={FIELD_LIMITS.name}
 			/>
 		</div>
 
@@ -147,6 +149,7 @@
 					placeholder="T.ex. 12"
 					value={wizardStore.data.profile.age}
 					oninput={(e) => handleTextInput('age', e.currentTarget.value)}
+					maxlength={FIELD_LIMITS.age}
 				/>
 			</div>
 
@@ -175,6 +178,7 @@
 				placeholder="Var bor du?"
 				value={wizardStore.data.profile.hometown}
 				oninput={(e) => handleTextInput('hometown', e.currentTarget.value)}
+				maxlength={FIELD_LIMITS.hometown}
 			/>
 		</div>
 
@@ -200,6 +204,7 @@
 				placeholder="Sjunde klass, frilansare, mellan två grejer..."
 				value={wizardStore.data.profile.occupationDetail}
 				oninput={(e) => handleTextInput('occupationDetail', e.currentTarget.value)}
+				maxlength={FIELD_LIMITS.occupationDetail}
 			/>
 		</div>
 
@@ -235,6 +240,7 @@
 						placeholder="En mormor som alltid ringer..."
 						bind:value={familyInput}
 						onkeydown={(e) => handleKeydown(e, addFamily)}
+						maxlength={FIELD_LIMITS.family}
 					/>
 					<button class="add-btn" onclick={addFamily} disabled={!familyInput.trim()}>+</button>
 				</div>
@@ -271,6 +277,7 @@
 						placeholder="En guldfisk som vägrar dö..."
 						bind:value={petInput}
 						onkeydown={(e) => handleKeydown(e, addPet)}
+						maxlength={FIELD_LIMITS.pets}
 					/>
 					<button class="add-btn" onclick={addPet} disabled={!petInput.trim()}>+</button>
 				</div>
@@ -308,6 +315,7 @@
 					placeholder="Saker du gör för att du vill, inte för att du måste..."
 					bind:value={interestInput}
 					onkeydown={(e) => handleKeydown(e, addInterest)}
+					maxlength={FIELD_LIMITS.interests}
 				/>
 				<button class="add-btn" onclick={addInterest} disabled={!interestInput.trim()}>+</button>
 			</div>

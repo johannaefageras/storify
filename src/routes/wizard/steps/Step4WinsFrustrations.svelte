@@ -4,6 +4,7 @@
 	EmojiTrophy,
 	EmojiCollision
 } from '$lib/components/emojis/assorted';
+	import { FIELD_LIMITS } from '$lib/validation';
 
 	const winPlaceholders = [
 		'Gick upp ur sängen (räknas).',
@@ -122,6 +123,7 @@
 						placeholder={getPlaceholder(winPlaceholders, index)}
 						value={win}
 						oninput={(e) => updateWin(index, e.currentTarget.value)}
+						maxlength={FIELD_LIMITS.wins}
 					/>
 					{#if wizardStore.data.wins.length > 1}
 						<button class="remove-btn" onclick={() => removeWin(index)}>×</button>
@@ -161,6 +163,7 @@
 						placeholder={getPlaceholder(frustrationPlaceholders, index)}
 						value={frustration}
 						oninput={(e) => updateFrustration(index, e.currentTarget.value)}
+						maxlength={FIELD_LIMITS.frustrations}
 					/>
 					{#if wizardStore.data.frustrations.length > 1}
 						<button class="remove-btn" onclick={() => removeFrustration(index)}>×</button>

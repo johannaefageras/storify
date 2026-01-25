@@ -6,30 +6,35 @@
 	EmojiExclamationQuestion,
 	EmojiCounterClockwise
 } from '$lib/components/emojis/assorted';
+	import { FIELD_LIMITS } from '$lib/validation';
 
 	const fields: {
 		key: 'almostHappened' | 'unnecessaryThing' | 'wouldRedo';
 		label: string;
 		placeholder: string;
 		icon: Component;
+		limit: number;
 	}[] = [
 		{
 			key: 'almostHappened',
 			label: 'Något som nästan hände, nästan...',
 			placeholder: 'Var nära att somna på mötet, höll på att skicka till fel person, på väg att köpa något onödigt...',
-			icon: EmojiConstruction
+			icon: EmojiConstruction,
+			limit: FIELD_LIMITS.almostHappened
 		},
 		{
 			key: 'unnecessaryThing',
 			label: 'Varför gjorde du ens det här?',
 			placeholder: 'Kollade kylskåpet fyra gånger, scrollade TikTok i timmar, köpte energidryck nummer 3...',
-			icon: EmojiExclamationQuestion
+			icon: EmojiExclamationQuestion,
+			limit: FIELD_LIMITS.unnecessaryThing
 		},
 		{
 			key: 'wouldRedo',
 			label: 'Om du fick göra om ett ögonblick från idag – vilket?',
 			placeholder: 'Tagit det lugnt istället för att stressa, stannat kvar lite längre, eller gått tidigare...',
-			icon: EmojiCounterClockwise
+			icon: EmojiCounterClockwise,
+			limit: FIELD_LIMITS.wouldRedo
 		}
 	];
 </script>
@@ -38,17 +43,25 @@
 	<p class="step-intro">Dagens nästan-händelser, onödiga val och önskade omtag. Det som snurrar i huvudet efteråt, även fast dagen är slut.</p>
 
 	{#each fields as field}
+		{@const value = wizardStore.data[field.key] || ''}
+		{@const remaining = field.limit - value.length}
 		<div class="field-group">
 			<label class="field-label" for={field.key}>
 				<span class="label-emoji"><field.icon size={23} /></span>
 				{field.label}
 			</label>
-			<textarea
-				id={field.key}
-				placeholder={field.placeholder}
-				bind:value={wizardStore.data[field.key]}
-				rows="2"
-			></textarea>
+			<div class="textarea-wrapper">
+				<textarea
+					id={field.key}
+					placeholder={field.placeholder}
+					bind:value={wizardStore.data[field.key]}
+					rows="2"
+					maxlength={field.limit}
+				></textarea>
+				{#if remaining <= 50}
+					<span class="char-count" class:warning={remaining <= 20}>{remaining}</span>
+				{/if}
+			</div>
 		</div>
 	{/each}
 </div>
@@ -118,5 +131,22 @@
 		color: var(--color-text-muted);
 		font-weight: var(--weight-light);
 		letter-spacing: var(--tracking-wider);
+	}
+
+	.textarea-wrapper {
+		position: relative;
+	}
+
+	.char-count {
+		position: absolute;
+		right: 0.75rem;
+		bottom: 0.5rem;
+		font-size: var(--text-xs);
+		color: var(--color-text-muted);
+		pointer-events: none;
+	}
+
+	.char-count.warning {
+		color: var(--color-error, #dc2626);
 	}
 </style>

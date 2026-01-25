@@ -1,26 +1,45 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
+	import { FIELD_LIMITS } from '$lib/validation';
+
+	const memoryLimit = FIELD_LIMITS.memoryFor10Years;
+	const messageLimit = FIELD_LIMITS.messageToFutureSelf;
+
+	let memoryRemaining = $derived(memoryLimit - (wizardStore.data.memoryFor10Years?.length || 0));
+	let messageRemaining = $derived(messageLimit - (wizardStore.data.messageToFutureSelf?.length || 0));
 </script>
 
 <div class="step-content">
 	<p class="step-intro">Vissa saker känns små just nu, men kan betyda allt om tio år. Skriv ner något du vill minnas – och kanske ett ord till den du kommer att vara.</p>
 	<div class="field-group">
 		<label class="field-label" for="memory">Vad vill du minnas från idag?</label>
-		<textarea
-			id="memory"
-			placeholder="Något någon sa som fastnade, en känsla du inte kan förklara, ett litet ögonblick som vid första anblick inte betydde något, men som ändå gjorde det..."
-			bind:value={wizardStore.data.memoryFor10Years}
-			rows="3"
-		></textarea>
+		<div class="textarea-wrapper">
+			<textarea
+				id="memory"
+				placeholder="Något någon sa som fastnade, en känsla du inte kan förklara, ett litet ögonblick som vid första anblick inte betydde något, men som ändå gjorde det..."
+				bind:value={wizardStore.data.memoryFor10Years}
+				rows="3"
+				maxlength={memoryLimit}
+			></textarea>
+			{#if memoryRemaining <= 100}
+				<span class="char-count" class:warning={memoryRemaining <= 50}>{memoryRemaining}</span>
+			{/if}
+		</div>
 	</div>
 	<div class="field-group">
 		<label class="field-label" for="future-message">Ett meddelande till framtida dig</label>
-		<textarea
-			id="future-message"
-			placeholder="Hej framtida jag, glöm inte att... Det här var viktigt idag, även om du kanske skrattar åt det sen..."
-			bind:value={wizardStore.data.messageToFutureSelf}
-			rows="3"
-		></textarea>
+		<div class="textarea-wrapper">
+			<textarea
+				id="future-message"
+				placeholder="Hej framtida jag, glöm inte att... Det här var viktigt idag, även om du kanske skrattar åt det sen..."
+				bind:value={wizardStore.data.messageToFutureSelf}
+				rows="3"
+				maxlength={messageLimit}
+			></textarea>
+			{#if messageRemaining <= 100}
+				<span class="char-count" class:warning={messageRemaining <= 50}>{messageRemaining}</span>
+			{/if}
+		</div>
 	</div>
 </div>
 
@@ -86,5 +105,23 @@
 		color: var(--color-text-muted);
 		font-weight: var(--weight-light);
 		letter-spacing: var(--tracking-wider);
+	}
+
+	.textarea-wrapper {
+		position: relative;
+		width: 100%;
+	}
+
+	.char-count {
+		position: absolute;
+		right: 0.75rem;
+		bottom: 0.75rem;
+		font-size: var(--text-xs);
+		color: var(--color-text-muted);
+		pointer-events: none;
+	}
+
+	.char-count.warning {
+		color: var(--color-error, #dc2626);
 	}
 </style>

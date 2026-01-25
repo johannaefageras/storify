@@ -3,17 +3,18 @@
 	import { tones } from '$lib/data/tones';
 	import { voiceSamples } from '$lib/data/voiceSamples';
 	import type { Component } from 'svelte';
-	import { EmojiBrain, EmojiCatTabby, EmojiClassicBuilding, EmojiCrown, EmojiEarth, EmojiFaceGrimacing, EmojiFaceNerd, EmojiFaceSmirking, EmojiFaceThinking, EmojiFaceYawning, EmojiFlagUK, EmojiLedger, EmojiMusicalNotes, EmojiNewspaper, EmojiOpenBook, EmojiPoo, EmojiRobot, EmojiStudioMicrophone, EmojiTheaterMasks, EmojiVideoGameControl } from '$lib/components/emojis/voices';
+	import { EmojiBrain, EmojiCatTabby, EmojiClassicBuilding, EmojiCrown, EmojiEarth, EmojiFaceGrimacing, EmojiFaceNerd, EmojiFaceSmirking, EmojiFaceThinking, EmojiFaceYawning, EmojiFlagUK, EmojiLedger, EmojiMusicalNotes, EmojiNewspaper, EmojiOpenBook, EmojiPoo, EmojiRobot, EmojiStudioMicrophone, EmojiTheaterMasks, EmojiVideoGameControl, EmojiSatellite, EmojiLotusPosition, EmojiDetective, EmojiExplodingHead } from '$lib/components/emojis/voices';
 import { EmojiGameDice } from '$lib/components/emojis/assorted';
 
 	const toneIconMap: Record<string, Component> = {
 		classic: EmojiLedger,
 		sportscaster: EmojiStudioMicrophone,
-		'cat-perspective': EmojiCatTabby,
+		'tinfoil-hat': EmojiSatellite,
 		philosophical: EmojiFaceThinking,
 		'nature-documentary': EmojiEarth,
 		sarcastic: EmojiFaceGrimacing,
 		nerd: EmojiFaceNerd,
+		'cat-perspective': EmojiCatTabby,
 		storytelling: EmojiOpenBook,
 		cringe: EmojiFaceSmirking,
 		formal: EmojiClassicBuilding,
@@ -21,12 +22,15 @@ import { EmojiGameDice } from '$lib/components/emojis/assorted';
 		shakespeare: EmojiTheaterMasks,
 		therapist: EmojiBrain,
 		meme: EmojiPoo,
+		'self-help': EmojiLotusPosition,
 		bored: EmojiFaceYawning,
 		british: EmojiFlagUK,
+		detective: EmojiDetective,
 		'drama-queen': EmojiCrown,
 		'ai-robot': EmojiRobot,
 		troubadour: EmojiMusicalNotes,
 		tabloid: EmojiNewspaper,
+		overthinker: EmojiExplodingHead
 	};
 
 	function getToneIcon(toneId: string): Component | undefined {
@@ -35,6 +39,13 @@ import { EmojiGameDice } from '$lib/components/emojis/assorted';
 
 	let hoveredTone = $state<string | null>(null);
 	let previewText = $state<string | null>(null);
+
+	// Shuffle tones on component init (Fisher-Yates)
+	const shuffledTones = [...tones];
+	for (let i = shuffledTones.length - 1; i > 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1));
+		[shuffledTones[i], shuffledTones[j]] = [shuffledTones[j], shuffledTones[i]];
+	}
 
 	function getRandomSample(toneId: string): string {
 		const samples = voiceSamples[toneId];
@@ -59,38 +70,6 @@ import { EmojiGameDice } from '$lib/components/emojis/assorted';
 <div class="step-content">
 	<p class="step-intro">Vilken känsla ska dagboken ha? En dag kan låta på många sätt beroende på vem som berättar. Välj din favorit och se hur det låter.</p>
 
-	<div class="tone-grid">
-		<button
-			class="tone-card surprise-card"
-			class:selected={wizardStore.data.selectedTone === 'surprise'}
-			onclick={() => wizardStore.updateData('selectedTone', 'surprise')}
-		>
-			<span class="tone-emoji">
-				<EmojiGameDice size={36} />
-			</span>
-			<span class="tone-name">Överraska mig!</span>
-		</button>
-		{#each tones as tone}
-			{@const ToneIcon = getToneIcon(tone.id)}
-			<button
-				class="tone-card"
-				class:selected={wizardStore.data.selectedTone === tone.id}
-				onclick={() => wizardStore.updateData('selectedTone', tone.id)}
-				onmouseenter={() => handleMouseEnter(tone.id)}
-				onmouseleave={handleMouseLeave}
-			>
-				<span class="tone-emoji">
-					{#if ToneIcon}
-						<ToneIcon size={36} />
-					{:else}
-						{tone.emoji}
-					{/if}
-				</span>
-				<span class="tone-name">{tone.name}</span>
-			</button>
-		{/each}
-	</div>
-
 	<div class="preview-container">
 		{#if previewText}
 			<div class="preview">
@@ -109,6 +88,38 @@ import { EmojiGameDice } from '$lib/components/emojis/assorted';
 				<p class="preview-text">"{selectedSample}"</p>
 			</div>
 		{/if}
+	</div>
+
+	<div class="tone-grid">
+		{#each shuffledTones as tone}
+			{@const ToneIcon = getToneIcon(tone.id)}
+			<button
+				class="tone-card"
+				class:selected={wizardStore.data.selectedTone === tone.id}
+				onclick={() => wizardStore.updateData('selectedTone', tone.id)}
+				onmouseenter={() => handleMouseEnter(tone.id)}
+				onmouseleave={handleMouseLeave}
+			>
+				<span class="tone-emoji">
+					{#if ToneIcon}
+						<ToneIcon size={36} />
+					{:else}
+						{tone.emoji}
+					{/if}
+				</span>
+				<span class="tone-name">{tone.name}</span>
+			</button>
+		{/each}
+		<button
+			class="tone-card surprise-card"
+			class:selected={wizardStore.data.selectedTone === 'surprise'}
+			onclick={() => wizardStore.updateData('selectedTone', 'surprise')}
+		>
+			<span class="tone-emoji">
+				<EmojiGameDice size={36} />
+			</span>
+			<span class="tone-name">Överraska mig!</span>
+		</button>
 	</div>
 </div>
 

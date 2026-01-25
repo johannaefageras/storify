@@ -4,6 +4,7 @@
 	EmojiShortcake,
 	EmojiHeadphones
 } from '$lib/components/emojis/assorted';
+	import { FIELD_LIMITS } from '$lib/validation';
 
 	const mealOptions = ['Frukost', 'Lunch', 'Middag', 'Fika', 'För lite', 'För mycket', 'Oregelbundet', 'Skräp'];
 	const soundtrackOptions = ['Spotify', 'Tystnaden', 'Samma låt på repeat', 'Tinnitus', 'Grannarnas renovering'];
@@ -110,6 +111,7 @@
 				placeholder="Det där man äter stående vid diskbänken, femte koppen kaffe..."
 				bind:value={customMealInput}
 				onkeydown={(e) => handleKeydown(e, addCustomMeal)}
+				maxlength={FIELD_LIMITS.customMeals}
 			/>
 			<button class="add-btn" onclick={addCustomMeal} disabled={!customMealInput.trim()}>+</button>
 		</div>
@@ -145,6 +147,7 @@
 				placeholder="Den där låten TikTok förstört, regnet mot fönstret..."
 				bind:value={customSoundtrackInput}
 				onkeydown={(e) => handleKeydown(e, addCustomSoundtrack)}
+				maxlength={FIELD_LIMITS.customSoundtracks}
 			/>
 			<button class="add-btn" onclick={addCustomSoundtrack} disabled={!customSoundtrackInput.trim()}>+</button>
 		</div>

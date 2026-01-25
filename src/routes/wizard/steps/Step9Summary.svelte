@@ -56,17 +56,18 @@ Nu är det kväll och jag är trött, men den goda sorten av trött. Imorgon är
 Vi ses imorgon, dagboken.`;
 
 	// Voice icons for display
-	import { EmojiBrain, EmojiCatTabby, EmojiClassicBuilding, EmojiCrown, EmojiEarth, EmojiFaceGrimacing, EmojiFaceNerd, EmojiFaceSmirking, EmojiFaceThinking, EmojiFaceYawning, EmojiFlagUK, EmojiLedger, EmojiMusicalNotes, EmojiNewspaper, EmojiOpenBook, EmojiPoo, EmojiRobot, EmojiStudioMicrophone, EmojiTheaterMasks, EmojiVideoGameControl } from '$lib/components/emojis/voices';
+	import { EmojiBrain, EmojiCatTabby, EmojiClassicBuilding, EmojiCrown, EmojiEarth, EmojiFaceGrimacing, EmojiFaceNerd, EmojiFaceSmirking, EmojiFaceThinking, EmojiFaceYawning, EmojiFlagUK, EmojiLedger, EmojiMusicalNotes, EmojiNewspaper, EmojiOpenBook, EmojiPoo, EmojiRobot, EmojiStudioMicrophone, EmojiTheaterMasks, EmojiVideoGameControl, EmojiSatellite, EmojiLotusPosition, EmojiDetective, EmojiExplodingHead } from '$lib/components/emojis/voices';
 import { EmojiGameDice } from '$lib/components/emojis/assorted';
 
 	const toneIconMap: Record<string, Component> = {
 		classic: EmojiLedger,
 		sportscaster: EmojiStudioMicrophone,
-		'cat-perspective': EmojiCatTabby,
+		'tinfoil-hat': EmojiSatellite,
 		philosophical: EmojiFaceThinking,
 		'nature-documentary': EmojiEarth,
 		sarcastic: EmojiFaceGrimacing,
 		nerd: EmojiFaceNerd,
+		'cat-perspective': EmojiCatTabby,
 		storytelling: EmojiOpenBook,
 		cringe: EmojiFaceSmirking,
 		formal: EmojiClassicBuilding,
@@ -74,12 +75,15 @@ import { EmojiGameDice } from '$lib/components/emojis/assorted';
 		shakespeare: EmojiTheaterMasks,
 		therapist: EmojiBrain,
 		meme: EmojiPoo,
+		'self-help': EmojiLotusPosition,
 		bored: EmojiFaceYawning,
 		british: EmojiFlagUK,
+		detective: EmojiDetective,
 		'drama-queen': EmojiCrown,
 		'ai-robot': EmojiRobot,
 		troubadour: EmojiMusicalNotes,
 		tabloid: EmojiNewspaper,
+		overthinker: EmojiExplodingHead
 	};
 
 	function getEmojiComponent(emojiId: string): Component | undefined {

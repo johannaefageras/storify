@@ -2,6 +2,15 @@ import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { Resend } from 'resend';
 import { env } from '$env/dynamic/private';
+import {
+	validateEmail,
+	validateString,
+	escapeHtml,
+	safeMarkdownToHtml,
+	checkRateLimit,
+	getClientIdentifier,
+	LIMITS
+} from '$lib/validation';
 
 // CORS headers for Capacitor native app
 const corsHeaders = {
@@ -17,6 +26,26 @@ export const OPTIONS: RequestHandler = async () => {
 
 export const POST: RequestHandler = async ({ request }) => {
   try {
+    // 1. Rate limiting
+    const clientId = getClientIdentifier(request);
+    const rateLimitResult = await checkRateLimit(`email:${clientId}`);
+
+    if (!rateLimitResult.success) {
+      return json(
+        {
+          success: false,
+          error: 'Du har skickat för många e-postmeddelanden. Försök igen senare.'
+        },
+        {
+          status: 429,
+          headers: {
+            ...corsHeaders,
+            'Retry-After': String(Math.ceil((rateLimitResult.reset - Date.now()) / 1000))
+          }
+        }
+      );
+    }
+
     if (!env.RESEND_API_KEY) {
       console.error('RESEND_API_KEY is not configured');
       return json(
@@ -35,27 +64,38 @@ export const POST: RequestHandler = async ({ request }) => {
       );
     }
 
-    // Basic email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    // Validate email
+    const emailError = validateEmail(email);
+    if (emailError) {
       return json(
-        { success: false, error: 'Ogiltig e-postadress.' },
+        { success: false, error: emailError.message },
         { status: 400, headers: corsHeaders }
       );
     }
 
-    // Format the entry for email (convert markdown-ish to HTML)
+    // Validate entry length
+    const entryError = validateString(entry, 'entry', LIMITS.GENERATED_ENTRY);
+    if (entryError) {
+      return json(
+        { success: false, error: 'Dagboksinlägget är för långt.' },
+        { status: 400, headers: corsHeaders }
+      );
+    }
+
+    // XSS-safe HTML conversion - escape user content before inserting into HTML
     const formattedEntry = entry
       .split('\n\n')
       .map((paragraph: string) => {
         if (!paragraph.trim()) return '';
-        const formatted = paragraph
-          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-          .replace(/\*(.*?)\*/g, '<em>$1</em>')
-          .replace(/\n/g, '<br>');
+        // Use safe markdown conversion (escapes HTML first, then applies markdown)
+        const formatted = safeMarkdownToHtml(paragraph);
         return `<p style="margin: 0 0 1em 0; line-height: 1.6;">${formatted}</p>`;
       })
       .join('');
+
+    // Escape date/weekday for safe HTML insertion
+    const safeWeekday = escapeHtml(weekday || 'Dagbok');
+    const safeDate = escapeHtml(date || '');
 
     const htmlContent = `
 <!DOCTYPE html>
@@ -68,8 +108,8 @@ export const POST: RequestHandler = async ({ request }) => {
   <div style="max-width: 600px; margin: 0 auto; padding: 40px 20px;">
     <div style="background-color: #ffffff; border-radius: 12px; padding: 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
       <div style="border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 24px;">
-        <h1 style="margin: 0; font-size: 24px; font-weight: 600; color: #1a1a1a;">${weekday || 'Dagbok'}</h1>
-        <p style="margin: 4px 0 0 0; font-size: 14px; color: #666;">${date || ''}</p>
+        <h1 style="margin: 0; font-size: 24px; font-weight: 600; color: #1a1a1a;">${safeWeekday}</h1>
+        <p style="margin: 4px 0 0 0; font-size: 14px; color: #666;">${safeDate}</p>
       </div>
 
       <div style="font-size: 16px; color: #1a1a1a;">
