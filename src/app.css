@@ -78,8 +78,8 @@
 	   Base: 17px for optimal readability with GT Pressura's character width
 	   ========================================================================== */
 
-  --text-xs: 0.75rem; /* ~11.8px - micro labels */
-  --text-sm: 0.9rem; /* ~14.2px - small UI text */
+  --text-xs: 0.87rem; /* ~11.8px - micro labels */
+  --text-sm: 0.95rem; /* ~14.2px - small UI text */
   --text-base: 1.03rem; /* 17px - body text */
   --text-md: 1.125rem; /* ~19px - slightly emphasized */
   --text-lg: 1.25rem; /* ~21px - subheadings */

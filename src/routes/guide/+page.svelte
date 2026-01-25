@@ -2,7 +2,7 @@
 	import {
 		EmojiClipboard,
 		EmojiDiamond,
-		EmojiEnvelopeIncoming,
+		EmojiEnvelopeArrow,
 		EmojiFramedPicture,
 		EmojiGameDice,
 		EmojiLightBulb,
@@ -317,7 +317,7 @@
 				</div>
 			</div>
 			<div class="save-card">
-				<span class="save-emoji"><EmojiEnvelopeIncoming size={28} /></span>
+				<span class="save-emoji"><EmojiEnvelopeArrow size={28} /></span>
 				<div class="save-content">
 					<h3>Skicka via e-post</h3>
 					<p>Mejla texten till vem du vill.</p>

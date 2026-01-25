@@ -9,7 +9,7 @@
 	import EmojiFramedPicture from '$lib/components/emojis/assorted/EmojiFramedPicture.svelte';
 	import EmojiPrinter from '$lib/components/emojis/assorted/EmojiPrinter.svelte';
 	import EmojiClipboard from '$lib/components/emojis/assorted/EmojiClipboard.svelte';
-	import EmojiEnvelopeIncoming from '$lib/components/emojis/assorted/EmojiEnvelopeIncoming.svelte';
+	import EmojiEnvelopeArrow from '$lib/components/emojis/assorted/EmojiEnvelopeArrow.svelte';
 	import html2canvas from 'html2canvas';
 	import { jsPDF } from 'jspdf';
 	import { getApiUrl } from '$lib/config';
@@ -480,20 +480,20 @@ import { EmojiGameDice } from '$lib/components/emojis/assorted';
 					{/if}
 				</button>
 				<button class="action-btn" onclick={openEmailModal}>
-					<EmojiEnvelopeIncoming size={22} />
+					<EmojiEnvelopeArrow size={22} />
 					<span>Maila</span>
 				</button>
 			</div>
 				<button class="action-btn restart-btn" onclick={handleStartOver}>
-				Börja om från början
+				Börja om från början...
 			</button>
 		</div>
 
 		{#if showEmailModal}
 			<div class="modal-overlay" onclick={closeEmailModal} role="button" tabindex="-1" onkeydown={(e) => e.key === 'Escape' && closeEmailModal()}>
 				<div class="modal-content" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.key === 'Escape' && closeEmailModal()} role="dialog" aria-modal="true" aria-labelledby="email-modal-title" tabindex="-1">
-					<h2 id="email-modal-title" class="modal-title">Skicka till e-post</h2>
-					<p class="modal-description">Ange din e-postadress så skickar vi dagboksinlägget dit.</p>
+					<h2 id="email-modal-title" class="modal-title">Skicka som e-post</h2>
+					<p class="modal-description">Ange en e-postadress så skickar vi dagboksinlägget dit.</p>
 
 					<input
 						type="email"
