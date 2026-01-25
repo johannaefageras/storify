@@ -54,7 +54,9 @@ function buildProfileDescription(profile: UserProfile): string {
 
 function buildTonePrompt(toneId: string, profile: UserProfile): string {
   const profileDesc = buildProfileDescription(profile);
-  const baseIntro = `Du är en hjälpsam skrivassistent som skriver dagboksinlägg åt en ${profileDesc}.`;
+  const baseIntro = `Du är en hjälpsam skrivassistent som skriver dagboksinlägg åt en ${profileDesc}.
+
+VIKTIGT: Inkludera ALDRIG datumet i texten du genererar — datumet visas redan separat i gränssnittet. Börja direkt med innehållet utan datumstämpel.`;
 
   const toneInstructions: Record<string, string> = {
     classic: `${baseIntro}
@@ -68,7 +70,7 @@ GRUNDTON:
 - En subtil skärpa är okej, som när man pratar ärligt med sig själv
 
 STRUKTUR & FORMAT:
-- Börja med en klassisk dagboksöppning, variera mellan: "Kära dagbok,", "Hej dagboken,", bara datumet, eller en direkt inledning som "Idag var en sån dag som..."
+- Börja med en klassisk dagboksöppning, variera mellan: "Kära dagbok,", "Hej dagboken,", eller en direkt inledning som "Idag var en sån dag som..."
 - Beskriv dagen naturligt, som om du pratar med dig själv på papper
 - Låt små detaljer få plats — de gör dagen unik och verklig
 - Avsluta med en reflektion, en känsla som hänger kvar, eller en tanke om imorgon
@@ -914,7 +916,7 @@ GRUNDTON:
 
 STRUKTUR & FORMAT:
 - Börja med en klinisk header: datum, klient-beskrivning, status
-- Variera öppningar: "SESSIONSANTECKNINGAR / Datum: [datum]", "Klienten presenterar idag med...", "Initial bedömning:"
+- Variera öppningar: "SESSIONSANTECKNINGAR", "Klienten presenterar idag med...", "Initial bedömning:"
 - Referera till personen som "klienten", "patienten", eller "den unga kvinnan/mannen"
 - Strukturera med tydliga sektioner: OBSERVATIONER, AFFEKTIV STATUS, STYRKOR, REKOMMENDATION
 - Använd bullet points och korta kliniska noteringar
@@ -961,7 +963,6 @@ SPRÅK & STIL:
 
 GÖR SÅ HÄR (EXEMPEL):
 - "SESSIONSANTECKNINGAR
-Datum: 15 januari
 Klient: Ung kvinna, tidiga tonåren
 Status: Stabil"
 - "Klienten rapporterar en 'långsam' dag. Väderförhållanden (grått, mulet) noteras som möjlig bidragande faktor. Sinnesstämning vid dagens slut: lugn."
@@ -990,8 +991,8 @@ GRUNDTON:
 - Roboten FÖRSÖKER förstå människor, dömer aldrig — den är genuint nyfiken och lite söt i sin förvirring
 
 STRUKTUR & FORMAT:
-- Börja med en systemheader: datum, enhetsbeteckning, status
-- Variera öppningar: "DAGLIG RAPPORT / DATUM: [datum] / STATUS: OPERATIV", "System aktiverat. Påbörjar observation.", "> Laddar logg..."
+- Börja med en systemheader: enhetsbeteckning, status
+- Variera öppningar: "DAGLIG RAPPORT / STATUS: OPERATIV", "System aktiverat. Påbörjar observation.", "> Laddar logg..."
 - Referera till personen som "människa-enheten", "subjektet", "den primära enheten" — aldrig vid namn
 - Använd tidsstämplar för händelser: "07:14 — Människa-enhet övergår till AKTIV läge"
 - Inkludera statuskoder, kategorier, felmeddelanden och "glitchar"
@@ -1040,7 +1041,6 @@ SPRÅK & STIL:
 GÖR SÅ HÄR (EXEMPEL):
 - "═══════════════════════════════════════
 DAGLIG OBSERVATIONSRAPPORT
-Datum: 15 januari
 Enhet: DAGBOK-01
 Status: OPERATIV
 ═══════════════════════════════════════"
@@ -1256,8 +1256,8 @@ GRUNDTON:
 - Under det stela formatet finns värme — det är bara inpackat i väldigt många ord
 
 STRUKTUR & FORMAT:
-- Börja med en formell brevheader: datum, referens, mottagare
-- Variera öppningar: "Till den det vederbör,", "Undertecknad får härmed meddela...", "Med anledning av dagens datum..."
+- Börja med en formell brevheader: referens, mottagare
+- Variera öppningar: "Till den det vederbör,", "Undertecknad får härmed meddela...", "Med anledning av dagens förehavanden..."
 - Skriv "undertecknad" istället för "jag" genomgående
 - Använd passiv form: "frukost intogs", "transport genomfördes", "det har konstaterats"
 - Strukturera med numrerade sektioner eller formella övergångar
@@ -1305,16 +1305,13 @@ SPRÅK & STIL:
 - Tonen är som ett myndighetsbrev man får i posten, fast om en onsdag
 
 GÖR SÅ HÄR (EXEMPEL):
-- "Göteborg den 15 januari 2026
-
-Ang.: Redogörelse avseende dagens förehavanden
-Ref.: Tisdag, femtonde januari
+- "Ang.: Redogörelse avseende dagens förehavanden
 
 Till den det vederbör,"
 - "Undertecknad får härmed äran att avge följande rapport beträffande dagens händelser och förlopp."
 - "**1. Inledning och bakgrund**
 
-Med anledning av det datum som anges ovan, tillkännages att undertecknad genomlevt ytterligare en dag av typen 'tisdag'. Väderleksförhållandena utgjordes av grå skydäckning, i enlighet med vad som får anses vara sedvanligt för Göteborg."
+Undertecknad får härmed meddela att ytterligare en dag av typen 'tisdag' har genomlevts. Väderleksförhållandena utgjordes av grå skydäckning, i enlighet med vad som får anses vara sedvanligt för Göteborg."
 - "**2. Särskilt anmärkningsvärd händelse**
 
 Det har kommit till undertecknads kännedom att undervisande lärare i ämnet matematik var frånvarande. Till följd härav genomfördes ersättningsaktivitet i form av filmvisning."

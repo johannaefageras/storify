@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { EmojiCookie } from '$lib/components/emojis/assorted';
+	import { EmojiCookie, EmojiDiamond } from '$lib/components/emojis/assorted';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 </script>
 
@@ -24,31 +24,55 @@
 	<section>
 		<h2>Hur Storify lagrar data istället</h2>
 		<p>Istället för cookies använder Storify lokal lagring direkt på din enhet. Det finns en viktig skillnad:</p>
-		<ul>
-			<li><strong>Cookies:</strong> Skickas till servern vid varje förfrågan, kan läsas av webbplatsen och ibland av tredje part</li>
-			<li><strong>Lokal lagring:</strong> Stannar på din enhet, skickas aldrig automatiskt till någon server, och är endast tillgänglig för appen själv</li>
-		</ul>
+		<div class="custom-ul">
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Cookies:</strong> Skickas till servern vid varje förfrågan, kan läsas av webbplatsen och ibland av tredje part</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Lokal lagring:</strong> Stannar på din enhet, skickas aldrig automatiskt till någon server, och är endast tillgänglig för appen själv</span>
+			</div>
+		</div>
 	</section>
 
 	<section>
 		<h2>Vad vi sparar lokalt</h2>
 		<p>Storify sparar följande information på din enhet:</p>
-		<ul>
-			<li><strong>Din profil:</strong> Namn, ålder, intressen och annan information du fyller i för att personalisera dina dagbokstexter</li>
-			<li><strong>Temainställningar:</strong> Om du föredrar ljust eller mörkt läge</li>
-		</ul>
+		<div class="custom-ul">
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Din profil:</strong> Namn, ålder, intressen och annan information du fyller i för att personalisera dina dagbokstexter</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Temainställningar:</strong> Om du föredrar ljust eller mörkt läge</span>
+			</div>
+		</div>
 		<p>Denna data lagras med hjälp av enhetens inbyggda lagringsfunktioner (Capacitor Preferences i appen, eller webbläsarens lokala lagring på webben). Den lämnar aldrig din enhet om du inte aktivt väljer att generera en dagbokstext.</p>
 	</section>
 
 	<section>
 		<h2>Tredjepartscookies</h2>
 		<p>Vi använder inga tredjepartscookies. Det betyder:</p>
-		<ul>
-			<li>Ingen spårning från reklamtjänster</li>
-			<li>Inga analysverktyg som Google Analytics</li>
-			<li>Inga sociala media-knappar som laddar externa cookies</li>
-			<li>Ingen delning av din data med annonsörer</li>
-		</ul>
+		<div class="custom-ul">
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content">Ingen spårning från reklamtjänster</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content">Inga analysverktyg som Google Analytics</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content">Inga sociala media-knappar som laddar externa cookies</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content">Ingen delning av din data med annonsörer</span>
+			</div>
+		</div>
 	</section>
 
 	<section>
@@ -143,36 +167,39 @@
 		margin-bottom: 0;
 	}
 
-	ul {
-		list-style: none;
+	.custom-ul {
 		margin: 1rem 0;
-		padding: 0;
 		display: flex;
 		flex-direction: column;
 		gap: 0.75rem;
 	}
 
-	li {
+	.custom-li {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.625rem;
 		font-family: var(--font-primary);
 		font-size: var(--text-sm);
 		line-height: var(--leading-relaxed);
 		color: var(--color-text-muted);
-		padding-left: 1.25rem;
-		position: relative;
 	}
 
-	li::before {
-		content: '';
-		position: absolute;
-		left: 0;
-		top: 0.55rem;
-		width: 6px;
-		height: 6px;
-		background-color: var(--color-accent);
-		border-radius: 50%;
+	.list-icon {
+		flex-shrink: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 16px;
+		height: 21px;
+		padding-top: 2px;
+		color: var(--color-accent);
 	}
 
-	li strong {
+	.list-content {
+		flex: 1;
+	}
+
+	.list-content strong {
 		color: var(--color-text);
 		font-weight: var(--weight-medium);
 	}

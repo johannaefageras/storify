@@ -1,12 +1,23 @@
 <script lang="ts">
 	import {
 		EmojiClipboard,
+		EmojiDiamond,
 		EmojiEnvelopeIncoming,
 		EmojiFramedPicture,
 		EmojiGameDice,
 		EmojiLightBulb,
 		EmojiPrinter
 	} from '$lib/components/emojis/assorted';
+	import {
+		Emoji1,
+		Emoji2,
+		Emoji3,
+		Emoji4,
+		Emoji5,
+		Emoji6,
+		Emoji7,
+		Emoji8
+	} from '$lib/components/emojis/numbers';
 	import {
 		EmojiBrain,
 		EmojiCatTabby,
@@ -49,16 +60,40 @@
 
 	<section>
 		<h2>Steg för steg</h2>
-		<ol>
-			<li><strong>Fyll i din profil</strong> – Namn, ålder, pronomen och lite om din livssituation. Detta hjälper AI:n förstå vem du är.</li>
-			<li><strong>Berätta om ditt humör</strong> – Välj emojis som representerar hur du känner dig.</li>
-			<li><strong>Ange din energinivå och sömn</strong> – Enkla skjutreglage som fångar din fysiska status.</li>
-			<li><strong>Beskriv din dag</strong> – Aktiviteter, platser, personer du träffat.</li>
-			<li><strong>Lägg till detaljer</strong> – Vinster och frustration, reflektioner, mat och musik.</li>
-			<li><strong>Skriv en tidskapsel</strong> – Spara ett minne och ett meddelande till ditt framtida jag.</li>
-			<li><strong>Välj en röst</strong> – Hur vill du att din dagbok ska låta?</li>
-			<li><strong>Generera</strong> – Tryck på knappen och låt magin hända!</li>
-		</ol>
+		<div class="custom-ol">
+			<div class="custom-li">
+				<span class="list-icon number-icon"><Emoji1 size={14} /></span>
+				<span class="list-content"><strong>Fyll i din profil</strong> – Namn, ålder, pronomen och lite om din livssituation. Detta hjälper AI:n förstå vem du är.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon number-icon"><Emoji2 size={14} /></span>
+				<span class="list-content"><strong>Berätta om ditt humör</strong> – Välj emojis som representerar hur du känner dig.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon number-icon"><Emoji3 size={14} /></span>
+				<span class="list-content"><strong>Ange din energinivå och sömn</strong> – Enkla skjutreglage som fångar din fysiska status.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon number-icon"><Emoji4 size={14} /></span>
+				<span class="list-content"><strong>Beskriv din dag</strong> – Aktiviteter, platser, personer du träffat.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon number-icon"><Emoji5 size={14} /></span>
+				<span class="list-content"><strong>Lägg till detaljer</strong> – Vinster och frustration, reflektioner, mat och musik.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon number-icon"><Emoji6 size={14} /></span>
+				<span class="list-content"><strong>Skriv en tidskapsel</strong> – Spara ett minne och ett meddelande till ditt framtida jag.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon number-icon"><Emoji7 size={14} /></span>
+				<span class="list-content"><strong>Välj en röst</strong> – Hur vill du att din dagbok ska låta?</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon number-icon"><Emoji8 size={14} /></span>
+				<span class="list-content"><strong>Generera</strong> – Tryck på knappen och låt magin hända!</span>
+			</div>
+		</div>
 	</section>
 
 	<section>
@@ -91,25 +126,52 @@
 	<section>
 		<h2>Fritext-fälten är dina vänner</h2>
 		<p>I flera steg finns fritext-rutor där du kan skriva vad du vill. Använd dem! Här kan du:</p>
-		<ul>
-			<li>Berätta om något roligt som hände</li>
-			<li>Ventilera frustration</li>
-			<li>Spela in en tanke du vill komma ihåg</li>
-			<li>Beskriva ett ögonblick som betydde något</li>
-			<li>Skriva ner ett citat någon sa</li>
-		</ul>
+		<div class="custom-ul">
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content">Berätta om något roligt som hände</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content">Ventilera frustration</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content">Spela in en tanke du vill komma ihåg</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content">Beskriva ett ögonblick som betydde något</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content">Skriva ner ett citat någon sa</span>
+			</div>
+		</div>
 		<p>Ju mer kontext du ger, desto bättre kan AI:n fånga din dag.</p>
 	</section>
 
 	<section>
 		<h2>Tidskapseln – ett brev till framtiden</h2>
 		<p>I steg 7 hittar du "Tidskapseln" – en plats för att skriva ner något du vill minnas och ett meddelande till ditt framtida jag. Det kan vara:</p>
-		<ul>
-			<li>Ett ögonblick som kändes obetydligt men som du vill bevara</li>
-			<li>Något du är stolt över just nu</li>
-			<li>En påminnelse om vad som var viktigt idag</li>
-			<li>Ett uppmuntrande ord till dig själv om tio år</li>
-		</ul>
+		<div class="custom-ul">
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content">Ett ögonblick som kändes obetydligt men som du vill bevara</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content">Något du är stolt över just nu</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content">En påminnelse om vad som var viktigt idag</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content">Ett uppmuntrande ord till dig själv om tio år</span>
+			</div>
+		</div>
 		<p>Dessa detaljer kan vävas in i din dagbokstext och gör den extra personlig och tidlös.</p>
 	</section>
 
@@ -287,13 +349,28 @@
 
 	<section>
 		<h2>Pro-tips</h2>
-		<ul>
-			<li><strong>Skriv samma dag</strong> – Det är lättare att komma ihåg detaljer medan de är färska.</li>
-			<li><strong>Inkludera "tidskapsel"-detaljer</strong> – Vad kostar en liter mjölk? Vilken låt är populär just nu? Dessa saker blir fascinerande att läsa om några år.</li>
-			<li><strong>Blanda stort och smått</strong> – En stor nyhet och vad du åt till lunch. Både och gör dagen verklig.</li>
-			<li><strong>Spara dina favoriter</strong> – Exportera texter du gillar extra mycket så du har dem kvar.</li>
-			<li><strong>Ha kul!</strong> – Det här är inte en läxa. Det finns inga fel svar.</li>
-		</ul>
+		<div class="custom-ul">
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Skriv samma dag</strong> – Det är lättare att komma ihåg detaljer medan de är färska.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Inkludera "tidskapsel"-detaljer</strong> – Vad kostar en liter mjölk? Vilken låt är populär just nu? Dessa saker blir fascinerande att läsa om några år.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Blanda stort och smått</strong> – En stor nyhet och vad du åt till lunch. Både och gör dagen verklig.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Spara dina favoriter</strong> – Exportera texter du gillar extra mycket så du har dem kvar.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Ha kul!</strong> – Det här är inte en läxa. Det finns inga fel svar.</span>
+			</div>
+		</div>
 	</section>
 
 	<section>
@@ -389,54 +466,49 @@
 		margin-bottom: 0;
 	}
 
-	ul, ol {
-		list-style: none;
+	.custom-ol,
+	.custom-ul {
 		margin: 1rem 0;
-		padding: 0;
 		display: flex;
 		flex-direction: column;
 		gap: 0.75rem;
 	}
 
-	li {
+	.custom-li {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.625rem;
 		font-family: var(--font-primary);
 		font-size: var(--text-sm);
 		line-height: var(--leading-relaxed);
 		color: var(--color-text-muted);
-		padding-left: 1.25rem;
-		position: relative;
 	}
 
-	ul li::before {
-		content: '';
-		position: absolute;
-		left: 0;
-		top: 0.55rem;
-		width: 6px;
-		height: 6px;
-		background-color: var(--color-accent);
-		border-radius: 50%;
-	}
-
-	ol {
-		counter-reset: step-counter;
-	}
-
-	ol li {
-		counter-increment: step-counter;
-	}
-
-	ol li::before {
-		content: counter(step-counter);
-		position: absolute;
-		left: 0;
-		top: 0;
-		font-size: var(--text-xs);
-		font-weight: var(--weight-semibold);
+	.list-icon {
+		flex-shrink: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		color: var(--color-accent);
 	}
 
-	li strong {
+	.number-icon {
+		width: 16px;
+		height: 21px;
+		padding-top: 2px;
+	}
+
+	.bullet-icon {
+		width: 16px;
+		height: 21px;
+		padding-top: 2px;
+	}
+
+	.list-content {
+		flex: 1;
+	}
+
+	.list-content strong {
 		color: var(--color-text);
 		font-weight: var(--weight-medium);
 	}

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { EmojiScroll } from '$lib/components/emojis/assorted';
+	import { EmojiDiamond, EmojiScroll } from '$lib/components/emojis/assorted';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 </script>
 
@@ -29,43 +29,86 @@
 	<section>
 		<h2>Vad du inte får göra</h2>
 		<p>För att Storify ska fungera bra för alla ber vi dig att respektera följande:</p>
-		<ul>
-			<li><strong>Ingen kommersiell användning:</strong> Appen är avsedd för personligt bruk. Du får inte använda tjänsten för att massproducera innehåll i kommersiellt syfte.</li>
-			<li><strong>Ingen manipulation av AI:n:</strong> Försök inte kringgå eller manipulera AI-tjänsten på olämpliga sätt, till exempel för att generera olagligt, hatiskt eller skadligt innehåll.</li>
-			<li><strong>Respektera andras integritet:</strong> Om du skriver om andra personer i din dagbok, tänk på deras integritet om du väljer att dela texterna offentligt.</li>
-		</ul>
+		<div class="custom-ul">
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Ingen kommersiell användning:</strong> Appen är avsedd för personligt bruk. Du får inte använda tjänsten för att massproducera innehåll i kommersiellt syfte.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Ingen manipulation av AI:n:</strong> Försök inte kringgå eller manipulera AI-tjänsten på olämpliga sätt, till exempel för att generera olagligt, hatiskt eller skadligt innehåll.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Respektera andras integritet:</strong> Om du skriver om andra personer i din dagbok, tänk på deras integritet om du väljer att dela texterna offentligt.</span>
+			</div>
+		</div>
 	</section>
 
 	<section>
 		<h2>AI-genererat innehåll</h2>
 		<p>Dagbokstexterna skapas av en AI-modell baserat på den information du fyller i. Även om vi strävar efter hög kvalitet kan vi inte garantera att texterna alltid är felfria, korrekta eller passar dina förväntningar. AI:n kan ibland:</p>
-		<ul>
-			<li>Missförstå eller feltolka den information du gett</li>
-			<li>Lägga till detaljer som inte stämmer</li>
-			<li>Producera text som inte matchar den valda stilen perfekt</li>
-		</ul>
+		<div class="custom-ul">
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content">Missförstå eller feltolka den information du gett</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content">Lägga till detaljer som inte stämmer</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content">Producera text som inte matchar den valda stilen perfekt</span>
+			</div>
+		</div>
 		<p>Vi rekommenderar att du alltid läser igenom och redigerar texten efter behov innan du sparar eller delar den.</p>
 	</section>
 
 	<section>
 		<h2>Ansvarsbegränsning</h2>
 		<p>Storify tillhandahålls i befintligt skick ("as is"). Vi gör vårt bästa för att appen ska fungera bra, men kan inte garantera att den alltid är tillgänglig eller felfri. Vi ansvarar inte för:</p>
-		<ul>
-			<li>Förlust av data (kom ihåg att all data lagras lokalt på din enhet)</li>
-			<li>Eventuella fel eller brister i AI-genererat innehåll</li>
-			<li>Skador som kan uppstå vid användning av appen</li>
-			<li>Problem orsakade av tredjepartstjänster</li>
-		</ul>
+		<div class="custom-ul">
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content">Förlust av data (kom ihåg att all data lagras lokalt på din enhet)</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content">Eventuella fel eller brister i AI-genererat innehåll</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content">Skador som kan uppstå vid användning av appen</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content">Problem orsakade av tredjepartstjänster</span>
+			</div>
+		</div>
 	</section>
 
 	<section>
 		<h2>Tredjepartstjänster</h2>
 		<p>Storify använder externa tjänster för att fungera. Genom att använda appen godkänner du även dessa tjänsters villkor:</p>
-		<ul>
-			<li><strong>Anthropic:</strong> AI-tjänsten som genererar dagbokstexter. <a href="https://www.anthropic.com/terms" target="_blank" rel="noopener">Läs deras villkor</a>.</li>
-			<li><strong>Väder-API:</strong> Extern tjänst som tillhandahåller väderdata baserat på din position (om du väljer att aktivera funktionen).</li>
-			<li><strong>Google Play:</strong> Om du laddat ner appen därifrån. <a href="https://play.google.com/intl/sv/about/play-terms/" target="_blank" rel="noopener">Läs deras villkor</a>.</li>
-		</ul>
+		<div class="custom-ul">
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Anthropic:</strong> AI-tjänsten som genererar dagbokstexter. <a href="https://www.anthropic.com/terms" target="_blank" rel="noopener">Läs deras villkor</a>.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Resend:</strong> E-posttjänst som används för att skicka dagbokstexter via e-post (om du väljer att använda funktionen). <a href="https://resend.com/legal/terms-of-service" target="_blank" rel="noopener">Läs deras villkor</a>.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Väder-API:</strong> Extern tjänst som tillhandahåller väderdata baserat på din position (om du väljer att aktivera funktionen).</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Google Play:</strong> Om du laddat ner appen därifrån. <a href="https://play.google.com/intl/sv/about/play-terms/" target="_blank" rel="noopener">Läs deras villkor</a>.</span>
+			</div>
+		</div>
 	</section>
 
 	<section>
@@ -159,36 +202,39 @@
 		margin-bottom: 0;
 	}
 
-	ul {
-		list-style: none;
+	.custom-ul {
 		margin: 1rem 0;
-		padding: 0;
 		display: flex;
 		flex-direction: column;
 		gap: 0.75rem;
 	}
 
-	li {
+	.custom-li {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.625rem;
 		font-family: var(--font-primary);
 		font-size: var(--text-sm);
 		line-height: var(--leading-relaxed);
 		color: var(--color-text-muted);
-		padding-left: 1.25rem;
-		position: relative;
 	}
 
-	li::before {
-		content: '';
-		position: absolute;
-		left: 0;
-		top: 0.55rem;
-		width: 6px;
-		height: 6px;
-		background-color: var(--color-accent);
-		border-radius: 50%;
+	.list-icon {
+		flex-shrink: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 16px;
+		height: 21px;
+		padding-top: 2px;
+		color: var(--color-accent);
 	}
 
-	li strong {
+	.list-content {
+		flex: 1;
+	}
+
+	.list-content strong {
 		color: var(--color-text);
 		font-weight: var(--weight-medium);
 	}

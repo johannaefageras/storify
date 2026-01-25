@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { EmojiShield } from '$lib/components/emojis/assorted';
+	import { EmojiDiamond, EmojiShield } from '$lib/components/emojis/assorted';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 </script>
 
@@ -19,11 +19,20 @@
 	<section>
 		<h2>Vilka uppgifter samlar vi in?</h2>
 		<p>Storify samlar in de uppgifter du själv väljer att fylla i när du använder appen. Detta kan inkludera:</p>
-		<ul>
-			<li><strong>Profilinformation:</strong> namn, ålder, pronomen, hemstad, familj, husdjur, sysselsättning och intressen</li>
-			<li><strong>Dagboksdata:</strong> datum, väder, humör, energinivå, sömnkvalitet, platser du besökt, aktiviteter, personer du träffat, reflektioner, meddelanden till ditt framtida jag (tidskapsel) och annat du väljer att dela</li>
-			<li><strong>Platsdata:</strong> Om du väljer att aktivera väderdetektering kan appen begära tillgång till din ungefärliga position för att hämta aktuellt väder. Denna position används endast för att anropa vädertjänsten och sparas inte.</li>
-		</ul>
+		<div class="custom-ul">
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Profilinformation:</strong> namn, ålder, pronomen, hemstad, familj, husdjur, sysselsättning och intressen</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Dagboksdata:</strong> datum, väder, humör, energinivå, sömnkvalitet, platser du besökt, aktiviteter, personer du träffat, reflektioner, meddelanden till ditt framtida jag (tidskapsel) och annat du väljer att dela</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Platsdata:</strong> Om du väljer att aktivera väderdetektering kan appen begära tillgång till din ungefärliga position för att hämta aktuellt väder. Denna position används endast för att anropa vädertjänsten och sparas inte.</span>
+			</div>
+		</div>
 		<p>All denna information lagras lokalt på din egen enhet – inte på våra servrar.</p>
 	</section>
 
@@ -42,23 +51,51 @@
 	<section>
 		<h2>Tredjepartstjänster</h2>
 		<p>Vi använder följande externa tjänster:</p>
-		<ul>
-			<li><strong>Anthropic (Claude):</strong> AI-tjänst som genererar dagbokstexter. Data skickas krypterat och sparas inte efter att texten genererats. Anthropic är baserat i USA och följer lämpliga skyddsåtgärder för internationell dataöverföring. Läs mer i <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">Anthropics integritetspolicy</a>.</li>
-			<li><strong>Väder-API:</strong> Om du aktiverar väderdetektering skickas din ungefärliga position till en extern vädertjänst för att hämta aktuellt väder. Positionen sparas inte och används endast för denna enstaka förfrågan.</li>
-			<li><strong>Google Play:</strong> Om du laddat ner appen via Google Play kan Google samla in viss information enligt deras egna villkor. Läs mer i <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Googles integritetspolicy</a>.</li>
-		</ul>
+		<div class="custom-ul">
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Anthropic (Claude):</strong> AI-tjänst som genererar dagbokstexter. Data skickas krypterat och sparas inte efter att texten genererats. Anthropic är baserat i USA och följer lämpliga skyddsåtgärder för internationell dataöverföring. Läs mer i <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">Anthropics integritetspolicy</a>.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Resend:</strong> E-posttjänst som används om du väljer att skicka din dagbokstext via e-post. Din e-postadress och dagbokstexten skickas då till Resend för leverans. Vi sparar inte din e-postadress och Resend hanterar den endast för att skicka meddelandet. Resend är baserat i USA och följer lämpliga skyddsåtgärder för internationell dataöverföring. Läs mer i <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener">Resends integritetspolicy</a>.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Väder-API:</strong> Om du aktiverar väderdetektering skickas din ungefärliga position till en extern vädertjänst för att hämta aktuellt väder. Positionen sparas inte och används endast för denna enstaka förfrågan.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Google Play:</strong> Om du laddat ner appen via Google Play kan Google samla in viss information enligt deras egna villkor. Läs mer i <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Googles integritetspolicy</a>.</span>
+			</div>
+		</div>
 	</section>
 
 	<section>
 		<h2>Dina rättigheter enligt GDPR</h2>
 		<p>Enligt EU:s dataskyddsförordning (GDPR) har du ett antal rättigheter när det gäller dina personuppgifter. Eftersom all din data lagras lokalt på din enhet har du redan full kontroll, men här är dina rättigheter:</p>
-		<ul>
-			<li><strong>Rätt till tillgång:</strong> Du kan se all din sparade data direkt i appen</li>
-			<li><strong>Rätt till rättelse:</strong> Du kan ändra din profilinformation när som helst</li>
-			<li><strong>Rätt till radering:</strong> Du kan radera all data via "Rensa sparad data" på startsidan</li>
-			<li><strong>Rätt till dataportabilitet:</strong> Din data finns redan på din enhet</li>
-			<li><strong>Rätt att återkalla samtycke:</strong> Du kan sluta använda appen och radera din data när som helst</li>
-		</ul>
+		<div class="custom-ul">
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Rätt till tillgång:</strong> Du kan se all din sparade data direkt i appen</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Rätt till rättelse:</strong> Du kan ändra din profilinformation när som helst</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Rätt till radering:</strong> Du kan radera all data via "Rensa sparad data" på startsidan</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Rätt till dataportabilitet:</strong> Din data finns redan på din enhet</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Rätt att återkalla samtycke:</strong> Du kan sluta använda appen och radera din data när som helst</span>
+			</div>
+		</div>
 		<p>Om du anser att vi hanterar dina uppgifter felaktigt har du rätt att lämna in ett klagomål till Integritetsskyddsmyndigheten (IMY) på <a href="https://www.imy.se" target="_blank" rel="noopener">www.imy.se</a>.</p>
 	</section>
 
@@ -153,36 +190,39 @@
 		margin-bottom: 0;
 	}
 
-	ul {
-		list-style: none;
+	.custom-ul {
 		margin: 1rem 0;
-		padding: 0;
 		display: flex;
 		flex-direction: column;
 		gap: 0.75rem;
 	}
 
-	li {
+	.custom-li {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.625rem;
 		font-family: var(--font-primary);
 		font-size: var(--text-sm);
 		line-height: var(--leading-relaxed);
 		color: var(--color-text-muted);
-		padding-left: 1.25rem;
-		position: relative;
 	}
 
-	li::before {
-		content: '';
-		position: absolute;
-		left: 0;
-		top: 0.55rem;
-		width: 6px;
-		height: 6px;
-		background-color: var(--color-accent);
-		border-radius: 50%;
+	.list-icon {
+		flex-shrink: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 16px;
+		height: 21px;
+		padding-top: 2px;
+		color: var(--color-accent);
 	}
 
-	li strong {
+	.list-content {
+		flex: 1;
+	}
+
+	.list-content strong {
 		color: var(--color-text);
 		font-weight: var(--weight-medium);
 	}

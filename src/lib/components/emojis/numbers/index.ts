@@ -1,0 +1,9 @@
+export { default as Emoji1 } from './Emoji1.svelte';
+export { default as Emoji2 } from './Emoji2.svelte';
+export { default as Emoji3 } from './Emoji3.svelte';
+export { default as Emoji4 } from './Emoji4.svelte';
+export { default as Emoji5 } from './Emoji5.svelte';
+export { default as Emoji6 } from './Emoji6.svelte';
+export { default as Emoji7 } from './Emoji7.svelte';
+export { default as Emoji8 } from './Emoji8.svelte';
+export { default as Emoji9 } from './Emoji9.svelte';

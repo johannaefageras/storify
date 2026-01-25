@@ -10,6 +10,7 @@ export { default as EmojiCompass } from './EmojiCompass.svelte';
 export { default as EmojiConstruction } from './EmojiConstruction.svelte';
 export { default as EmojiCookie } from './EmojiCookie.svelte';
 export { default as EmojiCounterClockwise } from './EmojiCounterClockwise.svelte';
+export { default as EmojiDiamond } from './EmojiDiamond.svelte';
 export { default as EmojiDiamondLight } from './EmojiDiamondLight.svelte';
 export { default as EmojiDiamondDark } from './EmojiDiamondDark.svelte';
 export { default as EmojiEnvelopeArrow } from './EmojiEnvelopeArrow.svelte';
