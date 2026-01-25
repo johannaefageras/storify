@@ -4,7 +4,7 @@ services:
     runtime: node
     plan: pro
     region: frankfurt # Closest to Sweden
-    buildCommand: npm install && npm run build
+    buildCommand: npm install && USE_NODE_ADAPTER=true npm run build
     startCommand: node build
     healthCheckPath: /
     envVars:
