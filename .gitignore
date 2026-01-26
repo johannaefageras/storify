@@ -29,3 +29,7 @@ Thumbs.db
 # Coverage
 actions/coverage/
 coverage/
+
+# Claude
+.claude/
+CLAUDE.md
