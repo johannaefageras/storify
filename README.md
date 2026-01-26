@@ -4,7 +4,7 @@
 
 **Storify** is an AI-powered journaling app that transforms your daily experiences into personalized diary entries. Answer a few guided questions about your day, pick a writing style, and let Claude AI craft a unique journal entry just for you.
 
-[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-storify--mystorify.se-blue)](https://mystorify.se)
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-mystorify.se-pink)](https://mystorify.se)
 [![SvelteKit](https://img.shields.io/badge/SvelteKit-2.x-FF3E00?logo=svelte)](https://kit.svelte.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript)](https://www.typescriptlang.org)
 [![Anthropic](https://img.shields.io/badge/Powered_by-Claude_AI-D4A574)](https://anthropic.com)
