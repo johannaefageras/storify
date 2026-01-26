@@ -3,7 +3,7 @@
 	import { tones } from '$lib/data/tones';
 	import { voiceSamples } from '$lib/data/voiceSamples';
 	import type { Component } from 'svelte';
-	import { EmojiBrain, EmojiCatTabby, EmojiClassicBuilding, EmojiCrown, EmojiEarth, EmojiFaceGrimacing, EmojiFaceNerd, EmojiFaceSmirking, EmojiFaceThinking, EmojiFaceYawning, EmojiFlagUK, EmojiLedger, EmojiMusicalNotes, EmojiNewspaper, EmojiOpenBook, EmojiPoo, EmojiRobot, EmojiStudioMicrophone, EmojiTheaterMasks, EmojiVideoGameControl, EmojiSatellite, EmojiLotusPosition, EmojiDetective, EmojiExplodingHead } from '$lib/components/emojis/voices';
+	import { EmojiBrain, EmojiCatTabby, EmojiCrown, EmojiEarth, EmojiFaceGrimacing, EmojiFaceNerd, EmojiFaceSmirking, EmojiFaceThinking, EmojiFaceYawning, EmojiFlagUK, EmojiLedger, EmojiMusicalNotes, EmojiNewspaper, EmojiOpenBook, EmojiPoo, EmojiRobot, EmojiStudioMicrophone, EmojiTheaterMasks, EmojiVideoGameControl, EmojiSatellite, EmojiLotusPosition, EmojiDetective, EmojiExplodingHead, EmojiBlackNib } from '$lib/components/emojis/voices';
 import { EmojiGameDice } from '$lib/components/emojis/assorted';
 
 	const toneIconMap: Record<string, Component> = {
@@ -17,7 +17,7 @@ import { EmojiGameDice } from '$lib/components/emojis/assorted';
 		'cat-perspective': EmojiCatTabby,
 		storytelling: EmojiOpenBook,
 		cringe: EmojiFaceSmirking,
-		formal: EmojiClassicBuilding,
+		formal: EmojiBlackNib,
 		'quest-log': EmojiVideoGameControl,
 		shakespeare: EmojiTheaterMasks,
 		therapist: EmojiBrain,

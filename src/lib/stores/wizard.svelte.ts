@@ -12,7 +12,7 @@ export interface UserProfile {
   family: string[];
   pets: string[];
   occupationType: 'student' | 'working' | 'other' | '';
-  occupationDetail: string;
+  occupationDetail: string[];
   interests: string[];
 }
 
@@ -71,7 +71,7 @@ const defaultProfile: UserProfile = {
   family: [],
   pets: [],
   occupationType: '',
-  occupationDetail: '',
+  occupationDetail: [],
   interests: []
 };
 
@@ -82,9 +82,9 @@ function createWizardStore() {
     weekday: '',
     weather: null,
     emojis: [],
-    sleepQuality: 5.0,
-    energyLevel: 5.0,
-    mood: 5.0,
+    sleepQuality: 5.48,
+    energyLevel: 5.48,
+    mood: 5.48,
     locations: [],
     customLocations: [],
     activities: [],
@@ -124,7 +124,11 @@ function createWizardStore() {
           family: Array.isArray(parsed.family) ? parsed.family : [],
           pets: Array.isArray(parsed.pets) ? parsed.pets : [],
           occupationType: parsed.occupationType || '',
-          occupationDetail: parsed.occupationDetail || '',
+          occupationDetail: Array.isArray(parsed.occupationDetail)
+            ? parsed.occupationDetail
+            : typeof parsed.occupationDetail === 'string' && parsed.occupationDetail.trim()
+              ? [parsed.occupationDetail.trim()]
+              : [],
           interests: Array.isArray(parsed.interests) ? parsed.interests : []
         };
       }
@@ -273,7 +277,7 @@ function createWizardStore() {
             data.profile.family.length > 0 ||
             data.profile.pets.length > 0 ||
             data.profile.occupationType !== '' ||
-            data.profile.occupationDetail.trim() !== '' ||
+            data.profile.occupationDetail.length > 0 ||
             data.profile.interests.length > 0
           );
         case 5: // Reflections

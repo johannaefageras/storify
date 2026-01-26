@@ -1,7 +1,7 @@
 // Character limits by field type
 export const LIMITS = {
 	// Single text inputs
-	SHORT_TEXT: 100, // name, hometown, occupationDetail, age
+	SHORT_TEXT: 100, // name, hometown, occupationDetail items, age
 
 	// Array item limits
 	TAG_ITEM: 50, // family, pets, interests, locations, activities, people, meals, soundtracks

@@ -28,18 +28,18 @@ No more staring at a blank page – just answer a few questions and get a beauti
 
 ### 🧙‍♂️ 10-Step Guided Wizard
 
-| Step | Name                   | Description                                                    |
-| :--: | ---------------------- | -------------------------------------------------------------- |
-|  0   | 👤 Profile             | Name, age, pronouns, hometown, family, pets, interests          |
-|  1   | 😊 Mood, Date & Weather | Pick up to 4 emojis + optional auto-weather from location       |
-|  2   | ⚡ Energy              | Rate your sleep, energy, and overall mood (1-10)               |
-|  3   | 🏃 Activities          | Where you went, what you did, who you met                      |
-|  4   | 🏆 Wins & Frustrations | Celebrate victories and vent frustrations                      |
-|  5   | 💭 Reflections         | What almost happened, regrets, redo moments                    |
-|  6   | 🍕 Food & Music        | Meals and soundtracks of your day                              |
-|  7   | ⏳ Time Capsule        | A memory to preserve + a message to future you                 |
-|  8   | 🎭 Voice               | Choose your writing style                                      |
-|  9   | 📋 Summary             | Review and generate your entry                                 |
+| Step | Name                    | Description                                               |
+| :--: | ----------------------- | --------------------------------------------------------- |
+|  0   | 👤 Profile              | Name, age, pronouns, hometown, family, pets, interests    |
+|  1   | 😊 Mood, Date & Weather | Pick up to 4 emojis + optional auto-weather from location |
+|  2   | ⚡ Energy               | Rate your sleep, energy, and overall mood (1-10)          |
+|  3   | 🏃 Activities           | Where you went, what you did, who you met                 |
+|  4   | 🏆 Wins & Frustrations  | Celebrate victories and vent frustrations                 |
+|  5   | 💭 Reflections          | What almost happened, regrets, redo moments               |
+|  6   | 🍕 Food & Music         | Meals and soundtracks of your day                         |
+|  7   | ⏳ Time Capsule         | A memory to preserve + a message to future you            |
+|  8   | 🎭 Voice                | Choose your writing style                                 |
+|  9   | 📋 Summary              | Review and generate your entry                            |
 
 ### 🎭 20 Unique Writing Tones
 
@@ -60,7 +60,7 @@ No more staring at a blank page – just answer a few questions and get a beauti
 | 🤖 **AI-Robot**                         | System log with tiny hints of feelings   |
 | 🧾 **Formell**                          | Overly formal official letter            |
 | 🐾 **Naturdokumentär**                  | Attenborough-style observations          |
-| 🤓 **Nörd**                              | Over-explains everything with facts      |
+| 🤓 **Nörd**                             | Over-explains everything with facts      |
 | 🎭 **Shakespeare**                      | Dramatic monologue with archaic flair    |
 | 🗞️ **Kvällstidning**                    | Sensational tabloid headlines            |
 | 🧠 **Psykolog**                         | Therapist notes with warm insight        |
@@ -195,20 +195,7 @@ storify/
 │       │   └── 📄 emojis.ts          # Emoji categories
 │       └── 📂 components/            # Reusable components
 │           └── 📂 emojis/            # Custom emoji SVGs
-├── 📂 tones/                         # Detailed tone instructions
-│   ├── 📄 classic.md
-│   ├── 📄 storytelling.md
-│   ├── 📄 philosophical.md
-│   ├── 📄 sportscaster.md
-│   ├── 📄 cat-perspective.md
-│   ├── 📄 sarcastic.md
-│   ├── 📄 drama-queen.md
-│   ├── 📄 meme.md
-│   ├── 📄 cringe.md
-│   ├── 📄 british.md
-│   ├── 📄 quest-log.md
-│   ├── 📄 bored.md
-│   └── 📄 TONES.md                   # Tone overview
+├── 📂 tones/                         # Detailed tone instructions                  # Tone overview
 ├── 📂 android/                       # Capacitor Android project
 ├── 📂 static/                        # Static assets & fonts
 ├── 📄 capacitor.config.ts            # Capacitor configuration

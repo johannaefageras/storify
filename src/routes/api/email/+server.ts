@@ -82,16 +82,8 @@ export const POST: RequestHandler = async ({ request }) => {
       );
     }
 
-    // XSS-safe HTML conversion - escape user content before inserting into HTML
-    const formattedEntry = entry
-      .split('\n\n')
-      .map((paragraph: string) => {
-        if (!paragraph.trim()) return '';
-        // Use safe markdown conversion (escapes HTML first, then applies markdown)
-        const formatted = safeMarkdownToHtml(paragraph);
-        return `<p style="margin: 0 0 1em 0; line-height: 1.6;">${formatted}</p>`;
-      })
-      .join('');
+    // Convert markdown to HTML using marked (escapes HTML in input by default)
+    const formattedEntry = safeMarkdownToHtml(entry);
 
     // Escape date/weekday for safe HTML insertion
     const safeWeekday = escapeHtml(weekday || 'Dagbok');
@@ -112,8 +104,22 @@ export const POST: RequestHandler = async ({ request }) => {
         <p style="margin: 4px 0 0 0; font-size: 14px; color: #666;">${safeDate}</p>
       </div>
 
-      <div style="font-size: 16px; color: #1a1a1a;">
-        ${formattedEntry}
+      <div style="font-size: 16px; color: #1a1a1a; line-height: 1.6;">
+        <style>
+          .entry p { margin: 0 0 1em 0; }
+          .entry h1, .entry h2, .entry h3 { margin: 1.5em 0 0.5em 0; font-weight: 600; }
+          .entry h1 { font-size: 1.5em; }
+          .entry h2 { font-size: 1.3em; }
+          .entry h3 { font-size: 1.1em; }
+          .entry ul, .entry ol { margin: 0 0 1em 0; padding-left: 1.5em; }
+          .entry li { margin: 0.25em 0; }
+          .entry blockquote { margin: 1em 0; padding-left: 1em; border-left: 3px solid #ddd; color: #666; }
+          .entry hr { border: none; border-top: 1px solid #eee; margin: 1.5em 0; }
+          .entry a { color: #2563eb; }
+        </style>
+        <div class="entry">
+          ${formattedEntry}
+        </div>
       </div>
 
       <div style="border-top: 1px solid #eee; padding-top: 20px; margin-top: 24px;">

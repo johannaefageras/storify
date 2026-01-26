@@ -21,7 +21,6 @@
 	import {
 		EmojiBrain,
 		EmojiCatTabby,
-		EmojiClassicBuilding,
 		EmojiCrown,
 		EmojiEarth,
 		EmojiFaceGrimacing,
@@ -42,7 +41,8 @@
 		EmojiSatellite,
 		EmojiLotusPosition,
 		EmojiExplodingHead,
-		EmojiDetective
+		EmojiDetective,
+		EmojiBlackNib
 	} from '$lib/components/emojis/voices';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 </script>
@@ -270,7 +270,7 @@
 				<p>CHOCK! SKANDAL! Din dag som sensationella rubriker!</p>
 			</div>
 			<div class="voice-card">
-				<span class="voice-emoji"><EmojiClassicBuilding size={28} /></span>
+				<span class="voice-emoji"><EmojiBlackNib size={28} /></span>
 				<h3>Formell</h3>
 				<p>Byråkratisk precision. Undertecknad meddelar härmed...</p>
 			</div>
@@ -287,24 +287,24 @@
 			<div class="voice-card">
 				<span class="voice-emoji"><EmojiSatellite size={28} /></span>
 				<h3>Foliehatt</h3>
-				<p>...</p>
+				<p>Allt hänger ihop. Dolda signaler och hemliga planer överallt.</p>
 			</div>
 			<div class="voice-card">
 				<span class="voice-emoji"><EmojiLotusPosition size={28} /></span>
 				<h3>Självhjälpsbok</h3>
-				<p>...</p>
+				<p>Upplyftande råd, små övningar och pepp för din utveckling.</p>
 			</div>
 			<div class="voice-card">
 				<span class="voice-emoji"><EmojiDetective size={28} /></span>
 				<h3>Deckare</h3>
-				<p>...</p>
+				<p>Din dag som ett mysterium med ledtrådar och vändningar.</p>
 			</div>
 			<div class="voice-card">
 				<span class="voice-emoji"><EmojiExplodingHead size={28} /></span>
 				<h3>Grubblare</h3>
-				<p>...</p>
+				<p>Alla beslut analyseras in i minsta detalj. Om och om igen.</p>
 			</div>
-			<div class="voice-card">
+			<div class="voice-card voice-card--wide">
 				<span class="voice-emoji"><EmojiGameDice size={28} /></span>
 				<h3>Överraska mig!</h3>
 				<p>Låt slumpen välja – du vet aldrig vilken röst du får!</p>
@@ -603,6 +603,10 @@
 		flex-direction: column;
 		align-items: center;
 		gap: 0.25rem;
+	}
+
+	.voice-card--wide {
+		grid-column: 1 / -1;
 	}
 
 	.voice-card .voice-emoji {

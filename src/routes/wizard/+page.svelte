@@ -76,7 +76,7 @@
 					data.profile.family.length > 0 ||
 					data.profile.pets.length > 0 ||
 					data.profile.occupationType !== '' ||
-					data.profile.occupationDetail.trim() !== '' ||
+					data.profile.occupationDetail.length > 0 ||
 					data.profile.interests.length > 0
 				);
 			case 5: // Reflections

@@ -24,6 +24,7 @@
 	const interestSuggestions = ['Gaming', 'Träning', 'Hästar', 'Matlagning', 'Sova', 'TikTok'];
 
 	let familyInput = $state('');
+	let occupationInput = $state('');
 	let petInput = $state('');
 	let interestInput = $state('');
 
@@ -41,6 +42,26 @@
 		wizardStore.updateProfile(
 			'family',
 			wizardStore.data.profile.family.filter((f) => f !== member)
+		);
+	}
+
+	function addOccupation() {
+		const value = occupationInput.trim();
+		if (!value || wizardStore.data.profile.occupationDetail.includes(value)) {
+			occupationInput = '';
+			return;
+		}
+		wizardStore.updateProfile('occupationDetail', [
+			...wizardStore.data.profile.occupationDetail,
+			value
+		]);
+		occupationInput = '';
+	}
+
+	function removeOccupation(occupation: string) {
+		wizardStore.updateProfile(
+			'occupationDetail',
+			wizardStore.data.profile.occupationDetail.filter((o) => o !== occupation)
 		);
 	}
 
@@ -85,15 +106,18 @@
 		}
 	}
 
-	function handleTextInput(key: 'name' | 'age' | 'hometown' | 'occupationDetail', value: string) {
+	function handleTextInput(key: 'name' | 'age' | 'hometown', value: string) {
 		wizardStore.updateProfile(key, value);
 	}
 
 	function toggleOccupationSuggestion(suggestion: string) {
-		if (wizardStore.data.profile.occupationDetail === suggestion) {
-			wizardStore.updateProfile('occupationDetail', '');
+		if (wizardStore.data.profile.occupationDetail.includes(suggestion)) {
+			removeOccupation(suggestion);
 		} else {
-			wizardStore.updateProfile('occupationDetail', suggestion);
+			wizardStore.updateProfile('occupationDetail', [
+				...wizardStore.data.profile.occupationDetail,
+				suggestion
+			]);
 		}
 	}
 
@@ -188,24 +212,39 @@
 				{#each occupationSuggestions as suggestion}
 					<button
 						class="suggestion-pill"
-						class:selected={wizardStore.data.profile.occupationDetail === suggestion}
+						class:selected={wizardStore.data.profile.occupationDetail.includes(suggestion)}
 						onclick={() => toggleOccupationSuggestion(suggestion)}
 					>
 						{suggestion}
-						{#if wizardStore.data.profile.occupationDetail === suggestion}
+						{#if wizardStore.data.profile.occupationDetail.includes(suggestion)}
 							<span class="pill-remove">×</span>
 						{/if}
 					</button>
 				{/each}
 			</div>
-			<input
-				id="occupation"
-				type="text"
-				placeholder="Sjunde klass, frilansare, mellan två grejer..."
-				value={wizardStore.data.profile.occupationDetail}
-				oninput={(e) => handleTextInput('occupationDetail', e.currentTarget.value)}
-				maxlength={FIELD_LIMITS.occupationDetail}
-			/>
+			<div class="tag-container">
+				{#each wizardStore.data.profile.occupationDetail.filter(
+					(o) => !occupationSuggestions.includes(o)
+				) as occupation}
+					<span class="tag">
+						{occupation}
+						<button class="tag-remove" onclick={() => removeOccupation(occupation)}>×</button>
+					</span>
+				{/each}
+			</div>
+			<div class="add-custom">
+				<input
+					id="occupation"
+					type="text"
+					placeholder="Sjunde klass, frilansare, mellan två grejer..."
+					bind:value={occupationInput}
+					onkeydown={(e) => handleKeydown(e, addOccupation)}
+					maxlength={FIELD_LIMITS.occupationDetail}
+				/>
+				<button class="add-btn" onclick={addOccupation} disabled={!occupationInput.trim()}>
+					+
+				</button>
+			</div>
 		</div>
 
 		<div class="field-row">

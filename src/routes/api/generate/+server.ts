@@ -43,8 +43,8 @@ function formatProfileForPrompt(profile: UserProfile): string {
   if (profile.hometown) {
     lines.push(`Bor i: ${profile.hometown}`);
   }
-  if (profile.occupationDetail) {
-    lines.push(`Sysselsättning: ${profile.occupationDetail}`);
+  if (profile.occupationDetail.length > 0) {
+    lines.push(`Sysselsättning: ${profile.occupationDetail.join(', ')}`);
   }
   if (profile.family.length > 0) {
     lines.push(`Familj: ${profile.family.join(', ')}`);

@@ -1,4 +1,5 @@
 export { default as EmojiAntenna } from './EmojiAntenna.svelte';
+export { default as EmojiBlackNib } from './EmojiBlackNib.svelte';
 export { default as EmojiBrain } from './EmojiBrain.svelte';
 export { default as EmojiCatTabby } from './EmojiCatTabby.svelte';
 export { default as EmojiClassicBuilding } from './EmojiClassicBuilding.svelte';

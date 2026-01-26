@@ -1,3 +1,12 @@
+import { marked, type MarkedOptions } from 'marked';
+
+// Configure marked for safe email HTML output
+const markedOptions: MarkedOptions = {
+	async: false,
+	gfm: true,
+	breaks: true
+};
+
 // Remove potential XSS vectors and clean user input
 export function sanitizeString(input: string): string {
 	if (!input) return '';
@@ -34,19 +43,11 @@ export function escapeHtml(unsafe: string): string {
 		.replace(/'/g, '&#039;');
 }
 
-// Safe markdown-to-HTML conversion for emails
-// Only allows bold (**) and italic (*) - escapes everything else first
+// Safe markdown-to-HTML conversion for emails using marked
+// Marked escapes HTML in input by default, preventing XSS
 export function safeMarkdownToHtml(text: string): string {
 	if (!text) return '';
 
-	// First escape all HTML
-	let safe = escapeHtml(text);
-
-	// Then apply safe markdown transformations
-	safe = safe
-		.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-		.replace(/\*(.+?)\*/g, '<em>$1</em>')
-		.replace(/\n/g, '<br>');
-
-	return safe;
+	const html = marked.parse(text, markedOptions) as string;
+	return html.trim();
 }
