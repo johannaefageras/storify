@@ -90,7 +90,7 @@
 </script>
 
 <div class="step-content">
-	<p class="emoji-prompt">Välj 1–4 emojis för att sammanfatta dagen. Ibland säger en bild mer än tusen ord.</p>
+	<p class="emoji-prompt">Välj 1-4 emojis som sammanfattar dagen. Ibland säger en bild mer än tusen ord...</p>
 
 	<div class="date-display">
 		<div class="date-info">
@@ -165,7 +165,6 @@
 	}
 
 	.date {
-		font-family: var(--font-mono);
 		font-size: var(--text-sm);
 		font-weight: var(--weight-regular);
 		letter-spacing: var(--tracking-wide);
@@ -230,7 +229,7 @@
 		font-size: var(--text-xs);
 		font-weight: var(--weight-semibold);
 		font-stretch: 115%;
-		letter-spacing: var(--tracking-widest);
+		letter-spacing: var(--tracking-wider);
 		text-transform: uppercase;
 		color: var(--color-text-muted);
 	}

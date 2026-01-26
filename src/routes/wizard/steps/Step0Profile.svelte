@@ -9,20 +9,6 @@
 		{ value: 'none', label: 'Vill inte uppge' }
 	];
 
-	const occupationSuggestions = [
-		'Jobbar',
-		'Pluggar',
-		'Sjukskriven',
-		'Pensionär',
-		'Lite av varje'
-	];
-
-	const familySuggestions = ['Mamma', 'Pappa', 'Sambo', 'Bror', 'Syster'];
-
-	const petSuggestions = ['Hund', 'Katt', 'Kanin', 'Hamster', 'Fisk'];
-
-	const interestSuggestions = ['Gaming', 'Träning', 'Hästar', 'Matlagning', 'Sova', 'TikTok'];
-
 	let familyInput = $state('');
 	let occupationInput = $state('');
 	let petInput = $state('');
@@ -110,54 +96,25 @@
 		wizardStore.updateProfile(key, value);
 	}
 
-	function toggleOccupationSuggestion(suggestion: string) {
-		if (wizardStore.data.profile.occupationDetail.includes(suggestion)) {
-			removeOccupation(suggestion);
-		} else {
-			wizardStore.updateProfile('occupationDetail', [
-				...wizardStore.data.profile.occupationDetail,
-				suggestion
-			]);
-		}
-	}
-
-	function toggleFamilySuggestion(suggestion: string) {
-		if (wizardStore.data.profile.family.includes(suggestion)) {
-			removeFamily(suggestion);
-		} else {
-			wizardStore.updateProfile('family', [...wizardStore.data.profile.family, suggestion]);
-		}
-	}
-
-	function togglePetSuggestion(suggestion: string) {
-		if (wizardStore.data.profile.pets.includes(suggestion)) {
-			removePet(suggestion);
-		} else {
-			wizardStore.updateProfile('pets', [...wizardStore.data.profile.pets, suggestion]);
-		}
-	}
-
-	function toggleInterestSuggestion(suggestion: string) {
-		if (wizardStore.data.profile.interests.includes(suggestion)) {
-			removeInterest(suggestion);
-		} else {
-			wizardStore.updateProfile('interests', [...wizardStore.data.profile.interests, suggestion]);
-		}
+	function focusInput(event: MouseEvent) {
+		const container = event.currentTarget as HTMLElement;
+		const input = container.querySelector('input');
+		if (input) input.focus();
 	}
 </script>
 
 <div class="step-content">
 	<p class="step-intro">
-		Fyll i det du vill – lite eller mycket, det är upp till dig. Hoppa över det som känns irrelevant.
+		Fyll i det du vill – lite eller mycket, det är upp till dig. Hoppa över sådant som inte känns relevant.
 	</p>
 
 	<div class="form-grid">
 		<div class="field-group">
-			<label class="field-label" for="name">Namn</label>
+			<label class="field-label" for="name">Tilltalsnamn</label>
 			<input
 				id="name"
 				type="text"
-				placeholder="Ditt namn eller smeknamn"
+				placeholder="Vad du heter eller vill bli kallad..."
 				value={wizardStore.data.profile.name}
 				oninput={(e) => handleTextInput('name', e.currentTarget.value)}
 				maxlength={FIELD_LIMITS.name}
@@ -170,7 +127,7 @@
 				<input
 					id="age"
 					type="text"
-					placeholder="T.ex. 12"
+					placeholder="Snart 12 år, 30+, mitt i livet..."
 					value={wizardStore.data.profile.age}
 					oninput={(e) => handleTextInput('age', e.currentTarget.value)}
 					maxlength={FIELD_LIMITS.age}
@@ -185,7 +142,7 @@
 					onchange={(e) => wizardStore.updateProfile('pronouns', e.currentTarget.value)}
 				>
 					<option value="" disabled selected={wizardStore.data.profile.pronouns === ''}
-						>-- Välj --</option
+						>-- Välj hur du vill bli tilltalad --</option
 					>
 					{#each pronounOptions as option}
 						<option value={option.value}>{option.label}</option>
@@ -195,11 +152,11 @@
 		</div>
 
 		<div class="field-group">
-			<label class="field-label" for="hometown">Hemstad</label>
+			<label class="field-label" for="hometown">Hemstad / ort</label>
 			<input
 				id="hometown"
 				type="text"
-				placeholder="Var bor du?"
+				placeholder="Lägenhet i Göteborg, hus på landsbygden..."
 				value={wizardStore.data.profile.hometown}
 				oninput={(e) => handleTextInput('hometown', e.currentTarget.value)}
 				maxlength={FIELD_LIMITS.hometown}
@@ -208,155 +165,87 @@
 
 		<div class="field-group">
 			<label class="field-label" for="occupation">Sysselsättning</label>
-			<div class="suggestion-pills">
-				{#each occupationSuggestions as suggestion}
-					<button
-						class="suggestion-pill"
-						class:selected={wizardStore.data.profile.occupationDetail.includes(suggestion)}
-						onclick={() => toggleOccupationSuggestion(suggestion)}
-					>
-						{suggestion}
-						{#if wizardStore.data.profile.occupationDetail.includes(suggestion)}
-							<span class="pill-remove">×</span>
-						{/if}
-					</button>
-				{/each}
-			</div>
-			<div class="tag-container">
-				{#each wizardStore.data.profile.occupationDetail.filter(
-					(o) => !occupationSuggestions.includes(o)
-				) as occupation}
+			<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+			<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
+				{#each wizardStore.data.profile.occupationDetail as occupation}
 					<span class="tag">
 						{occupation}
 						<button class="tag-remove" onclick={() => removeOccupation(occupation)}>×</button>
 					</span>
 				{/each}
-			</div>
-			<div class="add-custom">
 				<input
 					id="occupation"
 					type="text"
-					placeholder="Sjunde klass, frilansare, mellan två grejer..."
+					placeholder={wizardStore.data.profile.occupationDetail.length === 0 ? 'Jobbar, pluggar, pensionär, lite av varje...' : ''}
 					bind:value={occupationInput}
 					onkeydown={(e) => handleKeydown(e, addOccupation)}
 					maxlength={FIELD_LIMITS.occupationDetail}
 				/>
-				<button class="add-btn" onclick={addOccupation} disabled={!occupationInput.trim()}>
-					+
-				</button>
 			</div>
 		</div>
 
 		<div class="field-row">
 			<div class="field-group compact">
-				<label class="field-label" for="family">Familj</label>
-				<div class="suggestion-pills">
-					{#each familySuggestions as suggestion}
-						<button
-							class="suggestion-pill"
-							class:selected={wizardStore.data.profile.family.includes(suggestion)}
-							onclick={() => toggleFamilySuggestion(suggestion)}
-						>
-							{suggestion}
-							{#if wizardStore.data.profile.family.includes(suggestion)}
-								<span class="pill-remove">×</span>
-							{/if}
-						</button>
-					{/each}
-				</div>
-				<div class="tag-container">
-					{#each wizardStore.data.profile.family.filter((m) => !familySuggestions.includes(m)) as member}
+				<label class="field-label" for="family">Familjemedlemmar</label>
+				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+				<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
+					{#each wizardStore.data.profile.family as member}
 						<span class="tag">
 							{member}
 							<button class="tag-remove" onclick={() => removeFamily(member)}>×</button>
 						</span>
 					{/each}
-				</div>
-				<div class="add-custom">
 					<input
 						id="family"
 						type="text"
-						placeholder="En mormor som alltid ringer..."
+						placeholder={wizardStore.data.profile.family.length === 0 ? 'Sambon, mormor som alltid ringer...' : ''}
 						bind:value={familyInput}
 						onkeydown={(e) => handleKeydown(e, addFamily)}
 						maxlength={FIELD_LIMITS.family}
 					/>
-					<button class="add-btn" onclick={addFamily} disabled={!familyInput.trim()}>+</button>
 				</div>
 			</div>
 
 			<div class="field-group compact">
 				<label class="field-label" for="pets">Husdjur</label>
-				<div class="suggestion-pills">
-					{#each petSuggestions as suggestion}
-						<button
-							class="suggestion-pill"
-							class:selected={wizardStore.data.profile.pets.includes(suggestion)}
-							onclick={() => togglePetSuggestion(suggestion)}
-						>
-							{suggestion}
-							{#if wizardStore.data.profile.pets.includes(suggestion)}
-								<span class="pill-remove">×</span>
-							{/if}
-						</button>
-					{/each}
-				</div>
-				<div class="tag-container">
-					{#each wizardStore.data.profile.pets.filter((p) => !petSuggestions.includes(p)) as pet}
+				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+				<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
+					{#each wizardStore.data.profile.pets as pet}
 						<span class="tag">
 							{pet}
 							<button class="tag-remove" onclick={() => removePet(pet)}>×</button>
 						</span>
 					{/each}
-				</div>
-				<div class="add-custom">
 					<input
 						id="pets"
 						type="text"
-						placeholder="En guldfisk som vägrar dö..."
+						placeholder={wizardStore.data.profile.pets.length === 0 ? 'Katten Mats, fågeln Pelle...' : ''}
 						bind:value={petInput}
 						onkeydown={(e) => handleKeydown(e, addPet)}
 						maxlength={FIELD_LIMITS.pets}
 					/>
-					<button class="add-btn" onclick={addPet} disabled={!petInput.trim()}>+</button>
 				</div>
 			</div>
 		</div>
 
 		<div class="field-group">
 			<label class="field-label" for="interests">Intressen & hobbies</label>
-			<div class="suggestion-pills">
-				{#each interestSuggestions as suggestion}
-					<button
-						class="suggestion-pill"
-						class:selected={wizardStore.data.profile.interests.includes(suggestion)}
-						onclick={() => toggleInterestSuggestion(suggestion)}
-					>
-						{suggestion}
-						{#if wizardStore.data.profile.interests.includes(suggestion)}
-							<span class="pill-remove">×</span>
-						{/if}
-					</button>
-				{/each}
-			</div>
-			<div class="tag-container">
-				{#each wizardStore.data.profile.interests.filter((i) => !interestSuggestions.includes(i)) as interest}
+			<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+			<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
+				{#each wizardStore.data.profile.interests as interest}
 					<span class="tag">
 						{interest}
 						<button class="tag-remove" onclick={() => removeInterest(interest)}>×</button>
 					</span>
 				{/each}
-			</div>
-			<div class="add-custom">
 				<input
 					id="interests"
 					type="text"
-					placeholder="Saker du gör för att du vill, inte för att du måste..."
+					placeholder={wizardStore.data.profile.interests.length === 0 ? 'Träning, WoW, TikTok, bygga appar...' : ''}
 					bind:value={interestInput}
 					onkeydown={(e) => handleKeydown(e, addInterest)}
 					maxlength={FIELD_LIMITS.interests}
 				/>
-				<button class="add-btn" onclick={addInterest} disabled={!interestInput.trim()}>+</button>
 			</div>
 		</div>
 	</div>
@@ -382,18 +271,18 @@
 	.form-grid {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: 0.875rem;
 	}
 
 	.field-row {
 		display: flex;
-		gap: 1rem;
+		gap: 0.75rem;
 	}
 
 	.field-group {
 		display: flex;
 		flex-direction: column;
-		gap: 0.375rem;
+		gap: 0.25rem;
 	}
 
 	.field-group.compact {
@@ -403,15 +292,16 @@
 
 	.field-label {
 		font-family: var(--font-primary);
-		font-size: var(--text-sm);
+		font-size: var(--text-xs);
 		font-weight: var(--weight-medium);
 		letter-spacing: var(--tracking-wide);
-		color: var(--color-text);
+		text-transform: uppercase;
+		color: var(--color-text-muted);
 	}
 
 	input[type='text'] {
 		width: 100%;
-		height: 2.5rem;
+		height: 2.75rem;
 		padding: 0 0.875rem;
 		font-family: var(--font-primary);
 		font-size: var(--text-sm);
@@ -422,23 +312,27 @@
 		background-color: var(--color-bg-elevated);
 		color: var(--color-text);
 		outline: none;
-		transition: border-color 0.15s ease;
+		transition:
+			border-color 0.15s ease,
+			box-shadow 0.15s ease;
 		box-sizing: border-box;
 	}
 
 	input[type='text']:focus {
 		border-color: var(--color-accent);
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
 	}
 
 	input[type='text']::placeholder {
 		color: var(--color-text-muted);
 		font-weight: var(--weight-light);
 		letter-spacing: var(--tracking-wider);
+		opacity: 0.7;
 	}
 
 	select {
 		width: 100%;
-		height: 2.5rem;
+		height: 2.75rem;
 		padding: 0 0.875rem;
 		font-family: var(--font-primary);
 		font-size: var(--text-sm);
@@ -450,83 +344,70 @@
 		color: var(--color-text);
 		outline: none;
 		cursor: pointer;
-		transition: border-color 0.15s ease;
+		transition:
+			border-color 0.15s ease,
+			box-shadow 0.15s ease;
 		box-sizing: border-box;
 	}
 
 	select:focus {
 		border-color: var(--color-accent);
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
 	}
 
-	.suggestion-pills {
+	.tag-input {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.25rem;
-	}
-
-	.suggestion-pill {
-		font-family: var(--font-primary);
-		font-size: var(--text-xs);
-		font-weight: var(--weight-medium);
-		letter-spacing: var(--tracking-wide);
-		padding: 0.25rem 0.5rem;
-		background-color: var(--color-bg-elevated);
-		border: 1px solid var(--color-border);
-		border-radius: 0.375rem;
-		color: var(--color-text-muted);
-		cursor: pointer;
-		transition:
-			background-color 0.15s ease,
-			border-color 0.15s ease,
-			color 0.15s ease;
-	}
-
-	.suggestion-pill:hover {
-		border-color: var(--color-accent);
-		color: var(--color-text);
-	}
-
-	.suggestion-pill.selected {
-		display: flex;
 		align-items: center;
-		gap: 0.25rem;
-		background-color: var(--color-accent);
+		gap: 0.375rem;
+		min-height: 2.75rem;
+		padding: 0.375rem 0.625rem;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		background-color: var(--color-bg-elevated);
+		cursor: text;
+		transition:
+			border-color 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+
+	.tag-input:focus-within {
 		border-color: var(--color-accent);
-		color: white;
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
 	}
 
-	.pill-remove {
-		font-size: 0.875rem;
-		line-height: 1;
-		opacity: 0.8;
-		transition: opacity 0.15s ease;
+	.tag-input input {
+		flex: 1;
+		min-width: 60px;
+		height: 1.75rem;
+		padding: 0 0.25rem;
+		border: none;
+		background: transparent;
+		font-size: var(--text-sm);
 	}
 
-	.suggestion-pill:hover .pill-remove {
-		opacity: 1;
+	.tag-input input:focus {
+		border: none;
+		outline: none;
+		box-shadow: none;
 	}
 
-	.tag-container {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.25rem;
-	}
-
-	.tag-container:empty {
-		display: none;
+	.tag-input input::placeholder {
+		opacity: 0.6;
 	}
 
 	.tag {
-		display: flex;
+		display: inline-flex;
 		align-items: center;
 		gap: 0.25rem;
 		font-family: var(--font-primary);
 		font-size: var(--text-xs);
 		font-weight: var(--weight-medium);
-		padding: 0.2rem 0.4rem;
+		padding: 0.12rem 0.5rem;
 		background-color: var(--color-accent);
-		border-radius: 0.375rem;
+		border-radius: 0.325rem;
 		color: white;
+		white-space: nowrap;
 	}
 
 	.tag-remove {
@@ -549,52 +430,9 @@
 		opacity: 1;
 	}
 
-	.add-custom {
-		display: flex;
-		gap: 0.375rem;
-	}
-
-	.add-custom input {
-		flex: 1;
-		padding: 0.5rem 0.75rem;
-		font-size: var(--text-sm);
-	}
-
-	.add-btn {
-		width: 2rem;
-		font-family: var(--font-primary);
-		font-size: 1rem;
-		font-weight: var(--weight-medium);
-		background-color: var(--color-accent);
-		color: white;
-		border-radius: var(--radius-sm);
-		transition:
-			background-color 0.15s ease,
-			opacity 0.15s ease;
-	}
-
-	.add-btn:hover:not(:disabled) {
-		background-color: var(--color-accent-hover);
-	}
-
-	.add-btn:disabled {
-		opacity: 0.4;
-		cursor: not-allowed;
-	}
-
 	@media (max-width: 600px) {
 		.field-row {
 			flex-direction: column;
-		}
-	}
-
-	@media (max-width: 480px) {
-		.add-custom {
-			flex-direction: column;
-		}
-
-		.add-btn {
-			width: 100%;
 		}
 	}
 </style>

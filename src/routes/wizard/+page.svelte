@@ -111,14 +111,14 @@
 	});
 
 	const stepTitles = [
-		'Först lite om dig',
-		'Hur var dagen?',
-		'Hur var dagsformen?',
+		'Lite om dig',
+		'Hur var din dag?',
+		'Hur mådde du?',
 		'Vad hände idag?',
-		'Vinster & Förluster',
+		'Vinster & Motgångar',
 		'Reflektioner',
 		'Snacks & Soundtracks',
-		'Värt att minnas',
+		'Minnesvärt',
 		'Välj en röst',
 		'Allt på plats'
 	];

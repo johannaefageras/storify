@@ -62,9 +62,9 @@
 		},
 		{
 			key: 'mood' as const,
-			label: 'Hur var humöret idag?',
-			low: 'Botten',
-			high: 'Toppen',
+			label: 'Hur var ditt humör idag?',
+			low: 'På botten',
+			high: 'Strålande',
 			emojis: moodEmojis
 		}
 	];
