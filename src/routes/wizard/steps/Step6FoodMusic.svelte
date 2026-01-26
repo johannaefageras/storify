@@ -1,69 +1,42 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import {
-	EmojiShortcake,
-	EmojiHeadphones
-} from '$lib/components/emojis/assorted';
+		EmojiShortcake,
+		EmojiHeadphones
+	} from '$lib/components/emojis/assorted';
 	import { FIELD_LIMITS } from '$lib/validation';
 
-	const mealOptions = ['Frukost', 'Lunch', 'Middag', 'Fika', 'För lite', 'För mycket', 'Oregelbundet', 'Skräp'];
-	const soundtrackOptions = ['Spotify', 'Tystnaden', 'Samma låt på repeat', 'Tinnitus', 'Grannarnas renovering'];
+	let mealInput = $state('');
+	let soundtrackInput = $state('');
 
-	let customMealInput = $state('');
-	let customSoundtrackInput = $state('');
-
-	function toggleMeal(meal: string) {
-		const current = wizardStore.data.meals;
-		if (current.includes(meal)) {
-			wizardStore.updateData(
-				'meals',
-				current.filter((m) => m !== meal)
-			);
-		} else {
-			wizardStore.updateData('meals', [...current, meal]);
+	function addMeal() {
+		const value = mealInput.trim();
+		if (!value || wizardStore.data.customMeals.includes(value)) {
+			mealInput = '';
+			return;
 		}
+		wizardStore.updateData('customMeals', [...wizardStore.data.customMeals, value]);
+		mealInput = '';
 	}
 
-	function addCustomMeal() {
-		if (customMealInput.trim()) {
-			wizardStore.updateData('customMeals', [
-				...wizardStore.data.customMeals,
-				customMealInput.trim()
-			]);
-			customMealInput = '';
-		}
-	}
-
-	function removeCustomMeal(meal: string) {
+	function removeMeal(meal: string) {
 		wizardStore.updateData(
 			'customMeals',
 			wizardStore.data.customMeals.filter((m) => m !== meal)
 		);
 	}
 
-	function toggleSoundtrack(option: string) {
-		const current = wizardStore.data.soundtracks;
-		if (current.includes(option)) {
-			wizardStore.updateData(
-				'soundtracks',
-				current.filter((s) => s !== option)
-			);
-		} else {
-			wizardStore.updateData('soundtracks', [...current, option]);
+	function addSoundtrack() {
+		const value = soundtrackInput.trim();
+		if (!value || wizardStore.data.customSoundtracks.includes(value)) {
+			soundtrackInput = '';
+			return;
 		}
+		wizardStore.updateData('customSoundtracks', [...wizardStore.data.customSoundtracks, value]);
+		soundtrackInput = '';
 	}
 
-	function addCustomSoundtrack() {
-		if (customSoundtrackInput.trim()) {
-			wizardStore.updateData('customSoundtracks', [
-				...wizardStore.data.customSoundtracks,
-				customSoundtrackInput.trim()
-			]);
-			customSoundtrackInput = '';
-		}
-	}
-
-	function removeCustomSoundtrack(soundtrack: string) {
+	function removeSoundtrack(soundtrack: string) {
 		wizardStore.updateData(
 			'customSoundtracks',
 			wizardStore.data.customSoundtracks.filter((s) => s !== soundtrack)
@@ -76,6 +49,12 @@
 			action();
 		}
 	}
+
+	function focusInput(event: MouseEvent) {
+		const container = event.currentTarget as HTMLElement;
+		const input = container.querySelector('input');
+		if (input) input.focus();
+	}
 </script>
 
 <div class="step-content">
@@ -84,72 +63,46 @@
 	<div class="field-group">
 		<span class="field-label">
 			<span class="label-emoji"><EmojiShortcake size={23} /></span>
-			Vad åt du idag?
+			Vad har du ätit idag?
 		</span>
-		<div class="pill-cloud">
-			{#each mealOptions as meal}
-				<button
-					class="pill"
-					class:selected={wizardStore.data.meals.includes(meal)}
-					onclick={() => toggleMeal(meal)}
-				>
-					{meal}
-					{#if wizardStore.data.meals.includes(meal)}
-						<span class="remove">×</span>
-					{/if}
-				</button>
-			{/each}
+		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+		<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
 			{#each wizardStore.data.customMeals as meal}
-				<button class="pill selected custom" onclick={() => removeCustomMeal(meal)}>
-					{meal} <span class="remove">×</span>
-				</button>
+				<span class="tag">
+					{meal}
+					<button class="tag-remove" onclick={() => removeMeal(meal)}>×</button>
+				</span>
 			{/each}
-		</div>
-		<div class="add-custom">
 			<input
 				type="text"
-				placeholder="Det där man äter stående vid diskbänken, femte koppen kaffe..."
-				bind:value={customMealInput}
-				onkeydown={(e) => handleKeydown(e, addCustomMeal)}
+				placeholder={wizardStore.data.customMeals.length === 0 ? 'Brunch på hotellet, fika med farmor, fem koppar kaffe...' : ''}
+				bind:value={mealInput}
+				onkeydown={(e) => handleKeydown(e, addMeal)}
 				maxlength={FIELD_LIMITS.customMeals}
 			/>
-			<button class="add-btn" onclick={addCustomMeal} disabled={!customMealInput.trim()}>+</button>
 		</div>
 	</div>
 
 	<div class="field-group">
 		<span class="field-label">
 			<span class="label-emoji"><EmojiHeadphones size={23} /></span>
-			Dagens soundtrack?
+			Vad var dagens soundtrack?
 		</span>
-		<div class="pill-cloud">
-			{#each soundtrackOptions as option}
-				<button
-					class="pill"
-					class:selected={wizardStore.data.soundtracks.includes(option)}
-					onclick={() => toggleSoundtrack(option)}
-				>
-					{option}
-					{#if wizardStore.data.soundtracks.includes(option)}
-						<span class="remove">×</span>
-					{/if}
-				</button>
-			{/each}
+		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+		<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
 			{#each wizardStore.data.customSoundtracks as soundtrack}
-				<button class="pill selected custom" onclick={() => removeCustomSoundtrack(soundtrack)}>
-					{soundtrack} <span class="remove">×</span>
-				</button>
+				<span class="tag">
+					{soundtrack}
+					<button class="tag-remove" onclick={() => removeSoundtrack(soundtrack)}>×</button>
+				</span>
 			{/each}
-		</div>
-		<div class="add-custom">
 			<input
 				type="text"
-				placeholder="Den där låten TikTok förstört, regnet mot fönstret..."
-				bind:value={customSoundtrackInput}
-				onkeydown={(e) => handleKeydown(e, addCustomSoundtrack)}
+				placeholder={wizardStore.data.customSoundtracks.length === 0 ? 'Samma låt på repeat, regnet, grannarnas renovering...' : ''}
+				bind:value={soundtrackInput}
+				onkeydown={(e) => handleKeydown(e, addSoundtrack)}
 				maxlength={FIELD_LIMITS.customSoundtracks}
 			/>
-			<button class="add-btn" onclick={addCustomSoundtrack} disabled={!customSoundtrackInput.trim()}>+</button>
 		</div>
 	</div>
 </div>
@@ -158,7 +111,7 @@
 	.step-content {
 		display: flex;
 		flex-direction: column;
-		gap: 1.25rem;
+		gap: 1.75rem;
 	}
 
 	.step-intro {
@@ -174,7 +127,7 @@
 	.field-group {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: 0.25rem;
 	}
 
 	.field-label {
@@ -182,7 +135,7 @@
 		align-items: center;
 		gap: 0.35rem;
 		font-family: var(--font-primary);
-		font-size: var(--text-md);
+		font-size: var(--text-base);
 		font-weight: var(--weight-regular);
 		letter-spacing: var(--tracking-wide);
 		color: var(--color-text);
@@ -193,112 +146,83 @@
 		align-items: center;
 	}
 
-	.pill-cloud {
+	.tag-input {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.325rem;
-	}
-
-	.pill {
-		font-family: var(--font-primary);
-		font-size: var(--text-xs);
-		font-weight: var(--weight-news);
-		letter-spacing: var(--tracking-wide);
-		padding: 0.25rem 0.5rem;
-		background-color: var(--color-bg-elevated);
+		align-items: center;
+		gap: 0.375rem;
+		min-height: 2.75rem;
+		padding: 0.375rem 0.625rem;
 		border: 1px solid var(--color-border);
-		border-radius: 0.25rem;
-		color: var(--color-text);
-		cursor: pointer;
+		border-radius: var(--radius-sm);
+		background-color: var(--color-bg-elevated);
+		cursor: text;
 		transition:
-			background-color 0.15s ease,
 			border-color 0.15s ease,
-			color 0.15s ease;
+			box-shadow 0.15s ease;
 	}
 
-	.pill:hover {
+	.tag-input:focus-within {
 		border-color: var(--color-accent);
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
 	}
 
-	.pill.selected {
-		display: flex;
+	.tag-input input {
+		flex: 1;
+		min-width: 60px;
+		height: 1.75rem;
+		padding: 0 0.25rem;
+		border: none;
+		background: transparent;
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		color: var(--color-text);
+	}
+
+	.tag-input input:focus {
+		border: none;
+		outline: none;
+		box-shadow: none;
+	}
+
+	.tag-input input::placeholder {
+		color: var(--color-text-muted);
+		font-weight: var(--weight-light);
+		letter-spacing: var(--tracking-wider);
+		opacity: 0.6;
+	}
+
+	.tag {
+		display: inline-flex;
 		align-items: center;
 		gap: 0.25rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-medium);
+		padding: 0.12rem 0.5rem;
 		background-color: var(--color-accent);
-		border-color: var(--color-accent);
+		border-radius: 0.325rem;
 		color: white;
+		white-space: nowrap;
 	}
 
-	.pill .remove {
+	.tag-remove {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 0.875rem;
+		height: 0.875rem;
 		font-size: 0.875rem;
 		line-height: 1;
+		background: none;
+		border: none;
+		color: white;
+		cursor: pointer;
 		opacity: 0.8;
 		transition: opacity 0.15s ease;
 	}
 
-	.pill:hover .remove {
+	.tag-remove:hover {
 		opacity: 1;
-	}
-
-	.add-custom {
-		display: flex;
-		gap: 0.5rem;
-	}
-
-	.add-custom input {
-		flex: 1;
-		padding: 0.75rem 1rem;
-		font-family: var(--font-primary);
-		font-size: var(--text-base);
-		font-weight: var(--weight-regular);
-		letter-spacing: var(--tracking-wide);
-		line-height: var(--leading-normal);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-sm);
-		background-color: var(--color-bg-elevated);
-		outline: none;
-		transition: border-color 0.15s ease;
-	}
-
-	.add-custom input:focus {
-		border-color: var(--color-accent);
-	}
-
-	.add-custom input::placeholder {
-		color: var(--color-text-muted);
-		font-weight: var(--weight-light);
-		letter-spacing: var(--tracking-wider);
-	}
-
-	.add-btn {
-		width: 2.5rem;
-		font-family: var(--font-primary);
-		font-size: 1.25rem;
-		font-weight: var(--weight-medium);
-		background-color: var(--color-accent);
-		color: white;
-		border-radius: var(--radius-sm);
-		transition:
-			background-color 0.15s ease,
-			opacity 0.15s ease;
-	}
-
-	.add-btn:hover:not(:disabled) {
-		background-color: var(--color-accent-hover);
-	}
-
-	.add-btn:disabled {
-		opacity: 0.4;
-		cursor: not-allowed;
-	}
-
-	@media (max-width: 480px) {
-		.add-custom {
-			flex-direction: column;
-		}
-
-		.add-btn {
-			width: 100%;
-		}
 	}
 </style>

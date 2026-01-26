@@ -12,11 +12,11 @@
 <div class="step-content">
 	<p class="step-intro">Vissa saker känns små just nu, men kan betyda allt om tio år. Skriv ner något du vill minnas – och kanske ett ord till den du kommer att vara.</p>
 	<div class="field-group">
-		<label class="field-label" for="memory">Vad vill du minnas från idag?</label>
+		<label class="field-label" for="memory">Vad vill du minnas från idag - om några år?</label>
 		<div class="textarea-wrapper">
 			<textarea
 				id="memory"
-				placeholder="Något någon sa som fastnade, en känsla du inte kan förklara, ett litet ögonblick som vid första anblick inte betydde något, men som ändå gjorde det..."
+				placeholder="Ett litet ögonblick som vid första anblick inte verkade vara så mycket för världen, men som verkligen var det..."
 				bind:value={wizardStore.data.memoryFor10Years}
 				rows="3"
 				maxlength={memoryLimit}
@@ -27,11 +27,11 @@
 		</div>
 	</div>
 	<div class="field-group">
-		<label class="field-label" for="future-message">Ett meddelande till framtida dig</label>
+		<label class="field-label" for="future-message">Ett meddelande till ditt framtida jag, från dig själv</label>
 		<div class="textarea-wrapper">
 			<textarea
 				id="future-message"
-				placeholder="Hej framtida jag, glöm inte att... Det här var viktigt idag, även om du kanske skrattar åt det sen..."
+				placeholder="Hej framtida jag! Försök att skratta åt den där jobbiga händelsen från idag istället för att fortfarande grubbla över den..."
 				bind:value={wizardStore.data.messageToFutureSelf}
 				rows="3"
 				maxlength={messageLimit}

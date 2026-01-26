@@ -17,22 +17,22 @@
 	}[] = [
 		{
 			key: 'almostHappened',
-			label: 'Något som nästan hände, nästan...',
-			placeholder: 'Var nära att somna på mötet, höll på att skicka till fel person, på väg att köpa något onödigt...',
+			label: 'Något som var nära på att hända idag',
+			placeholder: 'Råkade nästan sms:a fel person, köpte nästan något onödigt...',
 			icon: EmojiConstruction,
 			limit: FIELD_LIMITS.almostHappened
 		},
 		{
 			key: 'unnecessaryThing',
 			label: 'Varför gjorde du ens det här?',
-			placeholder: 'Kollade kylskåpet fyra gånger, scrollade TikTok i timmar, köpte energidryck nummer 3...',
+			placeholder: 'Scrollade på TikTok i 2 timmar, köpte energidryck nummer 3...',
 			icon: EmojiExclamationQuestion,
 			limit: FIELD_LIMITS.unnecessaryThing
 		},
 		{
 			key: 'wouldRedo',
-			label: 'Om du fick göra om ett ögonblick från idag – vilket?',
-			placeholder: 'Tagit det lugnt istället för att stressa, stannat kvar lite längre, eller gått tidigare...',
+			label: 'Vad skulle du vilja göra om idag om du fick chansen?',
+			placeholder: 'Stressat mindre, stannat kvar lite längre, eller gått tidigare...',
 			icon: EmojiCounterClockwise,
 			limit: FIELD_LIMITS.wouldRedo
 		}

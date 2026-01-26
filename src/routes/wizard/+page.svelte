@@ -117,7 +117,7 @@
 		'Vad hände idag?',
 		'Vinster & Motgångar',
 		'Reflektioner',
-		'Snacks & Soundtracks',
+		'Sinnesintryck',
 		'Minnesvärt',
 		'Välj en röst',
 		'Allt på plats'

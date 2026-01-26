@@ -3,91 +3,41 @@
 	import { EmojiPushpinRound, EmojiCalendar, EmojiWavingHand } from '$lib/components/emojis/assorted';
 	import { FIELD_LIMITS } from '$lib/validation';
 
-	const locationOptions = [
-		'Hemma',
-		'Skolan',
-		'Jobbet',
-		'Utomhus',
-		'Överallt',
-		'Ingenstans'
-	];
-
-	const activityOptions = [
-		'Jobbade',
-		'Pluggade',
-		'Scrollade',
-		'Prokrastinerade',
-		'Inget särskilt'
-	];
-
-	const appearencesOptions = [
-		'Kompisar',
-		'Familjen',
-		'Kollegor',
-		'Främlingar',
-		'Någon ny',
-		'Ingen'
-	];
-
-	let customLocationInput = $state('');
-	let customActivityInput = $state('');
+	let locationInput = $state('');
+	let activityInput = $state('');
 	let personInput = $state('');
 
-	function toggleLocation(location: string) {
-		const current = wizardStore.data.locations;
-		if (current.includes(location)) {
-			wizardStore.updateData(
-				'locations',
-				current.filter((l) => l !== location)
-			);
-		} else {
-			wizardStore.updateData('locations', [...current, location]);
+	function addLocation() {
+		const value = locationInput.trim();
+		if (!value || wizardStore.data.locations.includes(value)) {
+			locationInput = '';
+			return;
 		}
+		wizardStore.updateData('locations', [...wizardStore.data.locations, value]);
+		locationInput = '';
 	}
 
-	function toggleActivity(activity: string) {
-		const current = wizardStore.data.activities;
-		if (current.includes(activity)) {
-			wizardStore.updateData(
-				'activities',
-				current.filter((a) => a !== activity)
-			);
-		} else {
-			wizardStore.updateData('activities', [...current, activity]);
-		}
-	}
-
-	function addCustomLocation() {
-		if (customLocationInput.trim()) {
-			wizardStore.updateData('customLocations', [
-				...wizardStore.data.customLocations,
-				customLocationInput.trim()
-			]);
-			customLocationInput = '';
-		}
-	}
-
-	function removeCustomLocation(location: string) {
+	function removeLocation(location: string) {
 		wizardStore.updateData(
-			'customLocations',
-			wizardStore.data.customLocations.filter((l) => l !== location)
+			'locations',
+			wizardStore.data.locations.filter((l) => l !== location)
 		);
 	}
 
-	function addCustomActivity() {
-		if (customActivityInput.trim()) {
-			wizardStore.updateData('customActivities', [
-				...wizardStore.data.customActivities,
-				customActivityInput.trim()
-			]);
-			customActivityInput = '';
+	function addActivity() {
+		const value = activityInput.trim();
+		if (!value || wizardStore.data.activities.includes(value)) {
+			activityInput = '';
+			return;
 		}
+		wizardStore.updateData('activities', [...wizardStore.data.activities, value]);
+		activityInput = '';
 	}
 
-	function removeCustomActivity(activity: string) {
+	function removeActivity(activity: string) {
 		wizardStore.updateData(
-			'customActivities',
-			wizardStore.data.customActivities.filter((a) => a !== activity)
+			'activities',
+			wizardStore.data.activities.filter((a) => a !== activity)
 		);
 	}
 
@@ -99,18 +49,6 @@
 		}
 		wizardStore.updateData('people', [...wizardStore.data.people, value]);
 		personInput = '';
-	}
-
-	function toggleAppearance(personType: string) {
-		const current = wizardStore.data.people;
-		if (current.includes(personType)) {
-			wizardStore.updateData(
-				'people',
-				current.filter((p) => p !== personType)
-			);
-		} else {
-			wizardStore.updateData('people', [...current, personType]);
-		}
 	}
 
 	function removePerson(person: string) {
@@ -126,6 +64,12 @@
 			action();
 		}
 	}
+
+	function focusInput(event: MouseEvent) {
+		const container = event.currentTarget as HTMLElement;
+		const input = container.querySelector('input');
+		if (input) input.focus();
+	}
 </script>
 
 <div class="step-content">
@@ -136,36 +80,21 @@
 			<span class="label-emoji"><EmojiPushpinRound size={23} /></span>
 			Var har du varit idag?
 		</span>
-		<div class="pill-cloud">
-			{#each locationOptions as location}
-				<button
-					class="pill"
-					class:selected={wizardStore.data.locations.includes(location)}
-					onclick={() => toggleLocation(location)}
-				>
+		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+		<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
+			{#each wizardStore.data.locations as location}
+				<span class="tag">
 					{location}
-					{#if wizardStore.data.locations.includes(location)}
-						<span class="remove">×</span>
-					{/if}
-				</button>
+					<button class="tag-remove" onclick={() => removeLocation(location)}>×</button>
+				</span>
 			{/each}
-			{#each wizardStore.data.customLocations as location}
-				<button class="pill selected custom" onclick={() => removeCustomLocation(location)}>
-					{location} <span class="remove">×</span>
-				</button>
-			{/each}
-		</div>
-		<div class="add-custom">
 			<input
 				type="text"
-				placeholder="I köket, vid samma skolbänk som vanligt, i sängen..."
-				bind:value={customLocationInput}
-				onkeydown={(e) => handleKeydown(e, addCustomLocation)}
-				maxlength={FIELD_LIMITS.customLocations}
+				placeholder={wizardStore.data.locations.length === 0 ? 'I köket, vid samma skolbänk som vanligt, i sängen...' : ''}
+				bind:value={locationInput}
+				onkeydown={(e) => handleKeydown(e, addLocation)}
+				maxlength={FIELD_LIMITS.locations}
 			/>
-			<button class="add-btn" onclick={addCustomLocation} disabled={!customLocationInput.trim()}>
-				+
-			</button>
 		</div>
 	</div>
 
@@ -174,72 +103,44 @@
 			<span class="label-emoji"><EmojiCalendar size={23} /></span>
 			Vad hände idag?
 		</span>
-		<div class="pill-cloud">
-			{#each activityOptions as activity}
-				<button
-					class="pill"
-					class:selected={wizardStore.data.activities.includes(activity)}
-					onclick={() => toggleActivity(activity)}
-				>
+		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+		<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
+			{#each wizardStore.data.activities as activity}
+				<span class="tag">
 					{activity}
-					{#if wizardStore.data.activities.includes(activity)}
-						<span class="remove">×</span>
-					{/if}
-				</button>
+					<button class="tag-remove" onclick={() => removeActivity(activity)}>×</button>
+				</span>
 			{/each}
-			{#each wizardStore.data.customActivities as activity}
-				<button class="pill selected custom" onclick={() => removeCustomActivity(activity)}>
-					{activity} <span class="remove">×</span>
-				</button>
-			{/each}
-		</div>
-		<div class="add-custom">
 			<input
 				type="text"
-				placeholder="Stirrade på ett dokument, åt lunch ensam..."
-				bind:value={customActivityInput}
-				onkeydown={(e) => handleKeydown(e, addCustomActivity)}
-				maxlength={FIELD_LIMITS.customActivities}
+				placeholder={wizardStore.data.activities.length === 0 ? 'Stirrade på ett dokument, åt lunch ensam...' : ''}
+				bind:value={activityInput}
+				onkeydown={(e) => handleKeydown(e, addActivity)}
+				maxlength={FIELD_LIMITS.activities}
 			/>
-			<button class="add-btn" onclick={addCustomActivity} disabled={!customActivityInput.trim()}>
-				+
-			</button>
 		</div>
 	</div>
 
 	<div class="field-group">
 		<span class="field-label">
 			<span class="label-emoji"><EmojiWavingHand size={23} /></span>
-			 Vilka var med idag?
+			Vilka var med idag?
 		</span>
-		<div class="pill-cloud">
-			{#each appearencesOptions as personType}
-				<button
-					class="pill"
-					class:selected={wizardStore.data.people.includes(personType)}
-					onclick={() => toggleAppearance(personType)}
-				>
-					{personType}
-					{#if wizardStore.data.people.includes(personType)}
-						<span class="remove">×</span>
-					{/if}
-				</button>
+		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+		<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
+			{#each wizardStore.data.people as person}
+				<span class="tag">
+					{person}
+					<button class="tag-remove" onclick={() => removePerson(person)}>×</button>
+				</span>
 			{/each}
-			{#each wizardStore.data.people.filter((p) => !appearencesOptions.includes(p)) as person}
-				<button class="pill selected custom" onclick={() => removePerson(person)}>
-					{person} <span class="remove">×</span>
-				</button>
-			{/each}
-		</div>
-		<div class="add-custom">
 			<input
 				type="text"
-				placeholder="Lägg till person..."
+				placeholder={wizardStore.data.people.length === 0 ? 'Lägg till person...' : ''}
 				bind:value={personInput}
 				onkeydown={(e) => handleKeydown(e, addPerson)}
 				maxlength={FIELD_LIMITS.people}
 			/>
-			<button class="add-btn" onclick={addPerson} disabled={!personInput.trim()}>+</button>
 		</div>
 	</div>
 </div>
@@ -288,113 +189,84 @@
 		height: 23px !important;
 	}
 
-	.pill-cloud {
+	.tag-input {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.325rem;
-	}
-
-	.pill {
-		font-family: var(--font-primary);
-		font-size: var(--text-xs);
-		font-weight: var(--weight-news);
-		letter-spacing: var(--tracking-wide);
-		padding: 0.25rem 0.5rem;
-		background-color: var(--color-bg-elevated);
+		align-items: center;
+		gap: 0.375rem;
+		min-height: 2.75rem;
+		padding: 0.375rem 0.625rem;
 		border: 1px solid var(--color-border);
-		border-radius: 0.25rem;
-		color: var(--color-text);
-		cursor: pointer;
+		border-radius: var(--radius-sm);
+		background-color: var(--color-bg-elevated);
+		cursor: text;
 		transition:
-			background-color 0.15s ease,
 			border-color 0.15s ease,
-			color 0.15s ease;
+			box-shadow 0.15s ease;
 	}
 
-	.pill:hover {
+	.tag-input:focus-within {
 		border-color: var(--color-accent);
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
 	}
 
-	.pill.selected {
-		display: flex;
+	.tag-input input {
+		flex: 1;
+		min-width: 60px;
+		height: 1.75rem;
+		padding: 0 0.25rem;
+		border: none;
+		background: transparent;
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		color: var(--color-text);
+	}
+
+	.tag-input input:focus {
+		border: none;
+		outline: none;
+		box-shadow: none;
+	}
+
+	.tag-input input::placeholder {
+		color: var(--color-text-muted);
+		font-weight: var(--weight-light);
+		letter-spacing: var(--tracking-wider);
+		opacity: 0.6;
+	}
+
+	.tag {
+		display: inline-flex;
 		align-items: center;
 		gap: 0.25rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-medium);
+		padding: 0.12rem 0.5rem;
 		background-color: var(--color-accent);
-		border-color: var(--color-accent);
+		border-radius: 0.325rem;
 		color: white;
+		white-space: nowrap;
 	}
 
-	.pill .remove {
+	.tag-remove {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 0.875rem;
+		height: 0.875rem;
 		font-size: 0.875rem;
 		line-height: 1;
+		background: none;
+		border: none;
+		color: white;
+		cursor: pointer;
 		opacity: 0.8;
 		transition: opacity 0.15s ease;
 	}
 
-	.pill:hover .remove {
+	.tag-remove:hover {
 		opacity: 1;
-	}
-
-	.add-custom {
-		display: flex;
-		gap: 0.5rem;
-		margin-top: 0.25rem;
-	}
-
-	.add-custom input {
-		flex: 1;
-		padding: 0.625rem 1rem;
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-regular);
-		letter-spacing: var(--tracking-wide);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-sm);
-		background-color: var(--color-bg-elevated);
-		outline: none;
-		transition: border-color 0.15s ease;
-	}
-
-	.add-custom input:focus {
-		border-color: var(--color-accent);
-	}
-
-	.add-custom input::placeholder {
-		color: var(--color-text-muted);
-		font-weight: var(--weight-light);
-		letter-spacing: var(--tracking-wider);
-	}
-
-	.add-btn {
-		width: 2.5rem;
-		font-family: var(--font-primary);
-		font-size: 1.25rem;
-		font-weight: var(--weight-medium);
-		background-color: var(--color-accent);
-		color: white;
-		border-radius: var(--radius-sm);
-		transition:
-			background-color 0.15s ease,
-			opacity 0.15s ease;
-	}
-
-	.add-btn:hover:not(:disabled) {
-		background-color: var(--color-accent-hover);
-	}
-
-	.add-btn:disabled {
-		opacity: 0.4;
-		cursor: not-allowed;
-	}
-
-	@media (max-width: 480px) {
-		.add-custom {
-			flex-direction: column;
-		}
-
-		.add-btn {
-			width: 100%;
-		}
 	}
 
 </style>
