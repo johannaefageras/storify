@@ -11,12 +11,13 @@ import {
   checkRateLimit,
   getClientIdentifier
 } from '$lib/validation';
+import { verifyIntegrityToken } from '$lib/server/playIntegrity';
 
 // CORS headers for Capacitor native app
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type'
+  'Access-Control-Allow-Headers': 'Content-Type, X-Integrity-Token, X-Integrity-Nonce'
 };
 
 // Handle CORS preflight
@@ -232,7 +233,23 @@ export const POST: RequestHandler = async ({ request }) => {
       );
     }
 
-    // 2. Parse and validate payload size
+    // 2. Verify Play Integrity token (if provided)
+    const integrityToken = request.headers.get('X-Integrity-Token');
+    const integrityNonce = request.headers.get('X-Integrity-Nonce');
+
+    const integrityResult = await verifyIntegrityToken(integrityToken, integrityNonce);
+    if (!integrityResult.valid) {
+      console.warn('Integrity verification failed:', integrityResult.reason);
+      return json(
+        {
+          success: false,
+          error: 'Appens integritet kunde inte verifieras.'
+        },
+        { status: 403, headers: corsHeaders }
+      );
+    }
+
+    // 3. Parse and validate payload size
     const data: WizardData = await request.json();
 
     if (!validatePayloadSize(data)) {
@@ -242,7 +259,7 @@ export const POST: RequestHandler = async ({ request }) => {
       );
     }
 
-    // 3. Validate all fields
+    // 4. Validate all fields
     const validation = validateWizardData(data);
 
     if (!validation.valid) {
