@@ -1,4 +1,4 @@
-# Tone: Självhjälpsbok
+# Tone: Livscoach
 
 ## Overview
 
@@ -95,19 +95,19 @@ End with one of:
 
 Turn any negative into a positive:
 
-> "Bussen gick. Och ja, det kändes frustrerande. Men här är sanningen: de där extra tio minuterna gav mig tid att bara *vara*. Att andas. Universum visste vad det gjorde."
+> "Bussen gick. Och ja, det kändes frustrerande. Men här är sanningen: de där extra tio minuterna gav mig tid att bara _vara_. Att andas. Universum visste vad det gjorde."
 
 ### The Lesson Extraction
 
 Find meaning in everything:
 
-> "Pasta till middag. Så enkelt. Och ändå — är det inte i det enkla vi hittar det sanna? Mat lagad med kärlek. Delade med familjen. Det är inte *bara* pasta. Det är närvaro."
+> "Pasta till middag. Så enkelt. Och ändå — är det inte i det enkla vi hittar det sanna? Mat lagad med kärlek. Delade med familjen. Det är inte _bara_ pasta. Det är närvaro."
 
 ### The Rhetorical Reflection
 
 Guide the reader to insight:
 
-> "Varför kändes dagen lång? Kanske för att jag ännu inte lärt mig att släppa behovet av att tiden ska röra sig i min takt. Kanske var det dagens gåva: en påminnelse om att vara *här*."
+> "Varför kändes dagen lång? Kanske för att jag ännu inte lärt mig att släppa behovet av att tiden ska röra sig i min takt. Kanske var det dagens gåva: en påminnelse om att vara _här_."
 
 ### The Affirming Statement
 
@@ -133,17 +133,17 @@ Structure the day as part of a larger story:
 
 ## Wisdom Translations
 
-| Normal Event | Self-Help Framing |
-|--------------|------------------|
-| Woke up tired | "Kroppen sa ifrån. Och jag valde att lyssna." |
-| Bus was late | "En oväntad paus. En möjlighet att andas." |
-| Boring lesson | "Inte varje moment behöver vara spännande för att vara värdefullt." |
-| Teacher was sick | "Förändring utan förvarning. Och jag hanterade det." |
-| Hung out with friends | "Connection. Närvaro. Det vi alla innerst inne längtar efter." |
-| Ate dinner | "Näring för kroppen, näring för själen." |
-| Felt calm | "Frid är inte frånvaro av kaos. Det är närvaro i nuet." |
-| Grey weather | "Även grå dagar har sin skönhet. Det handlar om hur vi ser." |
-| Nothing happened | "Stillhet är inte tomhet. Det är utrymme för integration." |
+| Normal Event             | Self-Help Framing                                                              |
+| ------------------------ | ------------------------------------------------------------------------------ |
+| Woke up tired            | "Kroppen sa ifrån. Och jag valde att lyssna."                                  |
+| Bus was late             | "En oväntad paus. En möjlighet att andas."                                     |
+| Boring lesson            | "Inte varje moment behöver vara spännande för att vara värdefullt."            |
+| Teacher was sick         | "Förändring utan förvarning. Och jag hanterade det."                           |
+| Hung out with friends    | "Connection. Närvaro. Det vi alla innerst inne längtar efter."                 |
+| Ate dinner               | "Näring för kroppen, näring för själen."                                       |
+| Felt calm                | "Frid är inte frånvaro av kaos. Det är närvaro i nuet."                        |
+| Grey weather             | "Även grå dagar har sin skönhet. Det handlar om hur vi ser."                   |
+| Nothing happened         | "Stillhet är inte tomhet. Det är utrymme för integration."                     |
 | Looked forward to Friday | "Hopp. Förväntan. Påminnelsen om att det alltid finns något att se fram emot." |
 
 ## Affirmation Library
@@ -163,31 +163,36 @@ Sprinkle these throughout:
 
 ## Emotional Calibration
 
-| If the day was... | Self-help approach... |
-|-------------------|----------------------|
-| Happy/exciting | Celebrate AND remind that joy is a practice, not just luck |
-| Sad/difficult | Honor the struggle, extract the lesson, affirm resilience |
-| Boring/uneventful | Reframe as rest, integration, "necessary chapters" |
-| Mixed/complicated | Embrace nuance: "Life isn't either/or. It's both/and." |
-| Stressful | Acknowledge, then pivot to coping skills and self-compassion |
+| If the day was... | Self-help approach...                                        |
+| ----------------- | ------------------------------------------------------------ |
+| Happy/exciting    | Celebrate AND remind that joy is a practice, not just luck   |
+| Sad/difficult     | Honor the struggle, extract the lesson, affirm resilience    |
+| Boring/uneventful | Reframe as rest, integration, "necessary chapters"           |
+| Mixed/complicated | Embrace nuance: "Life isn't either/or. It's both/and."       |
+| Stressful         | Acknowledge, then pivot to coping skills and self-compassion |
 
 ## The Self-Help Voice Spectrum
 
 The narrator can move between different self-help "modes":
 
 ### The Gentle Coach
+
 > "Jag hör dig. Dagen var tung. Men du kom igenom. Det säger något om din styrka."
 
 ### The Wise Observer
+
 > "Intressant, eller hur? Hur de små stunderna — en kopp te, ett skratt med en vän — ofta blir det vi minns."
 
 ### The Enthusiastic Cheerleader
+
 > "Du klarade ÄNNU en dag! Och inte bara klarade — du levde den. Det är enormt."
 
 ### The Philosophical Guide
+
 > "Vad är egentligen en 'bra' dag? Kanske är det inte vad som händer. Kanske är det hur vi väljer att möta det."
 
 ### The Mindful Presence
+
 > "Stanna upp. Läs den meningen igen. Känns det sant? Bra. Ta med dig det."
 
 ## Chapter Titles
@@ -231,11 +236,11 @@ Vi jagar så mycket. Nästa grej. Nästa upplevelse. Nästa dag. Men idag — id
 
 Matteläraren var sjuk. Planen ändrades. Och istället för att stressa över det, lät jag det vara. Vi såg en film. Jag andades. Ibland är de oväntade förändringarna inte störningar — de är gåvor.
 
-Och under håltimmen hände något vackert. Inget dramatiskt. Bara jag och mina vänner i cafeterian, pratandes om ingenting särskilt. Men det är ju *där* det verkliga livet bor, eller hur? I de där stunderna vi knappt lägger märke till. Närvaro. Skratt. Tillhörighet.
+Och under håltimmen hände något vackert. Inget dramatiskt. Bara jag och mina vänner i cafeterian, pratandes om ingenting särskilt. Men det är ju _där_ det verkliga livet bor, eller hur? I de där stunderna vi knappt lägger märke till. Närvaro. Skratt. Tillhörighet.
 
-Sedan: mammas pasta. Enkelt. Varmt. Min syster vid bordet. Och jag tänkte: det här är det. Det är inte komplicerat. Det handlar inte om att dagen ska vara *speciell*. Det handlar om att vara här. Fullt ut.
+Sedan: mammas pasta. Enkelt. Varmt. Min syster vid bordet. Och jag tänkte: det här är det. Det är inte komplicerat. Det handlar inte om att dagen ska vara _speciell_. Det handlar om att vara här. Fullt ut.
 
-Vädret var grått. Humöret var lugnt. Och jag kände tacksamhet — inte för att allt var perfekt, utan för att det var *nog*. Fredag närmar sig. Men sanningen? Idag var också bra. På sitt eget, stillsamma vis.
+Vädret var grått. Humöret var lugnt. Och jag kände tacksamhet — inte för att allt var perfekt, utan för att det var _nog_. Fredag närmar sig. Men sanningen? Idag var också bra. På sitt eget, stillsamma vis.
 
 Kom ihåg det: de grå dagarna formar oss lika mycket som de gyllene. Kanske mer.
 
@@ -245,12 +250,12 @@ Du behöver inte prestera varje dag. Du behöver bara vara. Och idag? Idag var d
 
 ## Prompt Template
 
-When generating a "Självhjälpsbok" entry, use this system context:
+When generating a "Livscoach" entry, use this system context:
 
 ```
 Du är en hjälpsam skrivassistent som skriver dagboksinlägg åt en ung person.
 
-SKRIVSTIL: Självhjälpsbok (Inspirerande livscoach)
+SKRIVSTIL: Livscoach (Inspirerande självhjälpsbok)
 - Skriv som ett kapitel i en motiverande självhjälpsbok
 - Blanda andra person ("du") med första person reflektioner
 - Hitta djup mening och livslektioner i vardagliga händelser
@@ -286,7 +291,7 @@ VIKTIGT:
 Dagens information:
 {structured_data_from_wizard}
 
-Skriv ett dagboksinlägg i självhjälpsbok-stil baserat på denna information.
+Skriv ett dagboksinlägg i livscoach-stil baserat på denna information.
 ```
 
 ## Variation Notes

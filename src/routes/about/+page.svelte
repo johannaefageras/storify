@@ -1,5 +1,8 @@
 <script lang="ts">
-	import { EmojiRoseLight, EmojiRoseDark, EmojiProfilePic, EmojiHammerWrench } from '$lib/components/emojis/assorted';
+	import EmojiRoseLight from '$lib/components/emojis/EmojiRoseLight.svelte';
+	import EmojiRoseDark from '$lib/components/emojis/EmojiRoseDark.svelte';
+	import EmojiProfilePicture from '$lib/components/emojis/EmojiProfilePicture.svelte';
+	import EmojiTools from '$lib/components/emojis/EmojiTools.svelte';
 	import { themeStore } from '$lib/stores/theme.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 </script>
@@ -26,7 +29,7 @@
 		<h2>Varför jag byggde det här</h2>
 		<div class="about-johanna">
 			<div class="johanna-avatar">
-				<EmojiProfilePic size={96} />
+				<EmojiProfilePicture size={96} />
 			</div>
 			<div class="johanna-text">
 				<p>Jag heter Johanna, är sjuksköterska och bor i Göteborg. På fritiden kodar jag (självlärd, på hobbynivå), syr mina egna kläder, och försöker hålla mina krukväxter vid liv. Ibland lyckas jag med alla tre samtidigt.</p>
@@ -39,7 +42,7 @@
 		<h2>Vill du vara med och utveckla projektet?</h2>
 		<div class="contribute-box">
 			<div class="contribute-icon">
-				<EmojiHammerWrench size={64} />
+				<EmojiTools size={64} />
 			</div>
 			<div class="contribute-text">
 				<p>Storify är open source! Har du idéer, hittat en bugg, eller vill bidra med kod? Projektet finns på GitHub och alla bidrag är välkomna.</p>

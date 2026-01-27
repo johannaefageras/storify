@@ -3,13 +3,13 @@ import type { RequestHandler } from './$types';
 import { Resend } from 'resend';
 import { env } from '$env/dynamic/private';
 import {
-	validateEmail,
-	validateString,
-	escapeHtml,
-	safeMarkdownToHtml,
-	checkRateLimit,
-	getClientIdentifier,
-	LIMITS
+  validateEmail,
+  validateString,
+  escapeHtml,
+  safeMarkdownToHtml,
+  checkRateLimit,
+  getClientIdentifier,
+  LIMITS
 } from '$lib/validation';
 
 // CORS headers for Capacitor native app

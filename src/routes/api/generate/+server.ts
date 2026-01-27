@@ -6,10 +6,10 @@ import { ANTHROPIC_API_KEY } from '$env/static/private';
 import emojiMeanings from '$lib/data/emojiMeanings.json';
 import { buildTonePrompt } from '$lib/data/tonePrompts';
 import {
-	validateWizardData,
-	validatePayloadSize,
-	checkRateLimit,
-	getClientIdentifier
+  validateWizardData,
+  validatePayloadSize,
+  checkRateLimit,
+  getClientIdentifier
 } from '$lib/validation';
 
 // CORS headers for Capacitor native app

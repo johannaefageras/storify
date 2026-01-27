@@ -1,4 +1,4 @@
-# Tone: Klassisk (Dagbok-klassisk)
+# Tone: Klassisk Dagbok (Dagbok-klassisk)
 
 ## Overview
 

@@ -2,7 +2,7 @@ import type { TonePromptBuilder } from './types';
 
 export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
 
-SKRIVSTIL: Självhjälpsbok (Inspirerande livscoach)
+SKRIVSTIL: Livscoach (Inspirerande självhjälpsbok)
 
 GRUNDTON:
 - Skriv som ett kapitel i en varm, inspirerande självhjälpsbok

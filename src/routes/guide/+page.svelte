@@ -1,49 +1,7 @@
 <script lang="ts">
 	import {
-		EmojiClipboard,
-		EmojiDiamond,
-		EmojiEnvelopeArrow,
-		EmojiFramedPicture,
-		EmojiGameDice,
-		EmojiLightBulb,
-		EmojiPrinter
-	} from '$lib/components/emojis/assorted';
-	import {
-		Emoji1,
-		Emoji2,
-		Emoji3,
-		Emoji4,
-		Emoji5,
-		Emoji6,
-		Emoji7,
-		Emoji8
-	} from '$lib/components/emojis/numbers';
-	import {
-		EmojiBrain,
-		EmojiCatTabby,
-		EmojiCrown,
-		EmojiEarth,
-		EmojiFaceGrimacing,
-		EmojiFaceNerd,
-		EmojiFaceSmirking,
-		EmojiFaceThinking,
-		EmojiFaceYawning,
-		EmojiFlagUK,
-		EmojiLedger,
-		EmojiMusicalNotes,
-		EmojiNewspaper,
-		EmojiOpenBook,
-		EmojiPoo,
-		EmojiRobot,
-		EmojiStudioMicrophone,
-		EmojiTheaterMasks,
-		EmojiVideoGameControl,
-		EmojiSatellite,
-		EmojiLotusPosition,
-		EmojiExplodingHead,
-		EmojiDetective,
-		EmojiBlackNib
-	} from '$lib/components/emojis/voices';
+		EmojiLightBulb, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiFaceThinking, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceSmirking, EmojiSatellite, EmojiDice, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiMailIncoming, EmojiDiamond, Emoji1, Emoji2, Emoji3, Emoji4, Emoji5, Emoji6, Emoji7, Emoji8, Emoji9
+	} from '$lib/components/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 </script>
 
@@ -186,7 +144,7 @@
 		<div class="voice-grid">
 			<div class="voice-card">
 				<span class="voice-emoji"><EmojiLedger size={28} /></span>
-				<h3>Klassisk</h3>
+				<h3>Klassisk Dagbok</h3>
 				<p>En rak, varm berättelse om din dag. Perfekt för alla tillfällen.</p>
 			</div>
 			<div class="voice-card">
@@ -200,12 +158,12 @@
 				<p>Djupa reflektioner om livets mening och vardagens under.</p>
 			</div>
 			<div class="voice-card">
-				<span class="voice-emoji"><EmojiStudioMicrophone size={28} /></span>
+				<span class="voice-emoji"><EmojiMicrophone size={28} /></span>
 				<h3>Sportkommentator</h3>
 				<p>OCH HAN GÖR DET! Spänning och energi i varje moment!</p>
 			</div>
 			<div class="voice-card">
-				<span class="voice-emoji"><EmojiCatTabby size={28} /></span>
+				<span class="voice-emoji"><EmojiCat size={28} /></span>
 				<h3>Kattperspektiv</h3>
 				<p>Din dag sedd genom kattens dömande och nyfikna ögon.</p>
 			</div>
@@ -235,7 +193,7 @@
 				<p>Torr brittisk humor och understatement. Skrivs på engelska.</p>
 			</div>
 			<div class="voice-card">
-				<span class="voice-emoji"><EmojiVideoGameControl size={28} /></span>
+				<span class="voice-emoji"><EmojiVideoGame size={28} /></span>
 				<h3>Quest Log</h3>
 				<p>Din dag som ett äventyr med quests, XP och achievements.</p>
 			</div>
@@ -290,8 +248,8 @@
 				<p>Allt hänger ihop. Dolda signaler och hemliga planer överallt.</p>
 			</div>
 			<div class="voice-card">
-				<span class="voice-emoji"><EmojiLotusPosition size={28} /></span>
-				<h3>Självhjälpsbok</h3>
+				<span class="voice-emoji"><EmojiWomanMeditating size={28} /></span>
+				<h3>Livscoach</h3>
 				<p>Upplyftande råd, små övningar och pepp för din utveckling.</p>
 			</div>
 			<div class="voice-card">
@@ -300,12 +258,12 @@
 				<p>Din dag som ett mysterium med ledtrådar och vändningar.</p>
 			</div>
 			<div class="voice-card">
-				<span class="voice-emoji"><EmojiExplodingHead size={28} /></span>
+				<span class="voice-emoji"><EmojiFaceExplodingHead size={28} /></span>
 				<h3>Grubblare</h3>
 				<p>Alla beslut analyseras in i minsta detalj. Om och om igen.</p>
 			</div>
 			<div class="voice-card voice-card--wide">
-				<span class="voice-emoji"><EmojiGameDice size={28} /></span>
+				<span class="voice-emoji"><EmojiDice size={28} /></span>
 				<h3>Överraska mig!</h3>
 				<p>Låt slumpen välja – du vet aldrig vilken röst du får!</p>
 			</div>
@@ -341,7 +299,7 @@
 				</div>
 			</div>
 			<div class="save-card">
-				<span class="save-emoji"><EmojiEnvelopeArrow size={28} /></span>
+				<span class="save-emoji"><EmojiMailIncoming size={28} /></span>
 				<div class="save-content">
 					<h3>Skicka som e-post</h3>
 					<p>Mejla dagboken till vem du vill.</p>

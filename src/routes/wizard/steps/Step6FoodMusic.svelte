@@ -3,7 +3,7 @@
 	import {
 		EmojiShortcake,
 		EmojiHeadphones
-	} from '$lib/components/emojis/assorted';
+	} from '$lib/components/emojis';
 	import { FIELD_LIMITS } from '$lib/validation';
 
 	let mealInput = $state('');

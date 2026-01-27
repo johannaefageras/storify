@@ -1,778 +1,462 @@
 {
-  "face-angry": {
-    "name": "Arg",
-    "meaning": "Användaren känner ilska, frustration eller irritation. Något har gått fel eller gjort dem upprörda."
-  },
-  "face-anguished": {
-    "name": "Ångestfull",
-    "meaning": "Användaren upplever ångest, oro eller känslomässig smärta. Något tynger dem."
-  },
-  "face-anxious-sweat": {
-    "name": "Nervös",
-    "meaning": "Användaren känner sig stressad, nervös eller pressad. Kanske inför något viktigt eller oväntat."
-  },
-  "face-astonished": {
-    "name": "Häpen",
-    "meaning": "Användaren är överraskad eller chockad över något som hänt. En oväntad vändning."
-  },
-  "face-bags-under-eyes": {
-    "name": "Sömnbrist",
-    "meaning": "Användaren är extremt trött, har sovit dåligt eller känner sig utmattad."
-  },
-  "face-beaming-smiling-eyes": {
-    "name": "Jätteglad",
-    "meaning": "Användaren är genuint lycklig och glad. En riktigt bra dag med positiv energi."
-  },
-  "face-confounded": {
-    "name": "Förvirrad & stressad",
-    "meaning": "Användaren känner sig överväldigad, förbryllad och stressad på samma gång."
-  },
-  "face-confused": {
-    "name": "Förvirrad",
-    "meaning": "Användaren är osäker eller förvirrad över något. Saker är inte som de brukar vara."
-  },
-  "face-crossed-out-eyes": {
-    "name": "Totalt slut",
-    "meaning": "Användaren är helt överkörd och kollapsad. Energin är helt borta."
-  },
-  "face-crying": {
-    "name": "Ledsen",
-    "meaning": "Användaren känner sorg eller besvikelse. Något har gjort dem ledsna."
-  },
-  "face-crying-loudly": {
-    "name": "Förtvivlad",
-    "meaning": "Användaren upplever stark sorg eller förtvivlan. En emotionellt tung dag."
-  },
-  "face-diagonal-mouth": {
-    "name": "Obekväm",
-    "meaning": "Användaren känner sig tveksam eller obekväm. Osäker på hur de ska förhålla sig till något."
-  },
-  "face-disappointed": {
-    "name": "Besviken",
-    "meaning": "Användaren är besviken eller nedstämd. Förväntningar som inte uppfylldes."
-  },
-  "face-disguised": {
-    "name": "Förklädd",
-    "meaning": "Användaren känner sig hemlig eller vill dölja något. Kanske lite mystisk energi."
-  },
-  "face-enraged": {
-    "name": "Rasande",
-    "meaning": "Användaren är extremt arg eller upprörd. Stark ilska över något."
-  },
-  "face-exploding-head": {
-    "name": "Mind blown",
-    "meaning": "Användaren är helt överväldigad eller chockad. Något otroligt har hänt som de knappt kan fatta."
-  },
-  "face-expressionless": {
-    "name": "Tom",
-    "meaning": "Användaren känner sig neutral, tom eller känslolös. Varken bra eller dåligt, bara... är."
-  },
-  "face-frowning": {
-    "name": "Missnöjd",
-    "meaning": "Användaren är missnöjd, ledsen eller sur. Dagen har inte varit bra."
-  },
-  "face-grimacing": {
-    "name": "Pinsamt",
-    "meaning": "Användaren har upplevt något pinsamt eller obekvämt. Kryper lite av minnet."
-  },
-  "face-grinning-squinting": {
-    "name": "Skrattar",
-    "meaning": "Användaren har skrattat mycket eller funnit något väldigt roligt idag."
-  },
-  "face-grinning-sweat": {
-    "name": "Nervöst skratt",
-    "meaning": "Användaren har upplevt en situation som var både pinsam och rolig."
-  },
-  "face-heart-eyes": {
-    "name": "Förälskad",
-    "meaning": "Användaren känner kärlek, beundran eller är förälskad i något eller någon."
-  },
-  "face-lol": {
-    "name": "LOL",
-    "meaning": "Användaren har skrattat högt eller haft en väldigt rolig upplevelse."
-  },
-  "face-melting": {
-    "name": "Smälter",
-    "meaning": "Användaren känner sig överväldigad, kanske av värme, stress eller starka känslor."
-  },
-  "face-monocle": {
-    "name": "Granskande",
-    "meaning": "Användaren har analyserat eller granskat något noggrant. Lite skeptisk eller nyfiken."
-  },
-  "face-nauseated": {
-    "name": "Illamående",
-    "meaning": "Användaren mår illa eller känner äckel, antingen fysiskt eller över något som hänt."
-  },
-  "face-nerd": {
-    "name": "Nördig",
-    "meaning": "Användaren har ägnat sig åt något intellektuellt, pluggat eller nördat ner sig i något."
-  },
-  "face-neutral": {
-    "name": "Neutral",
-    "meaning": "Användaren känner sig neutral eller likgiltig. En ganska 'meh'-dag."
-  },
-  "face-partying": {
-    "name": "Fest",
-    "meaning": "Användaren har firat eller varit på fest. En rolig och social dag."
-  },
-  "face-persevering": {
-    "name": "Kämpar på",
-    "meaning": "Användaren har haft det tufft men håller ut. Kämpar sig igenom."
-  },
-  "face-pleading": {
-    "name": "Bönfaller",
-    "meaning": "Användaren har önskat eller bett om något. Kanske lite desperat eller hoppfull."
-  },
-  "face-raised-eyebrows": {
-    "name": "Skeptisk",
-    "meaning": "Användaren har blivit överraskad eller är skeptisk till något."
-  },
-  "face-rolling-eyes": {
-    "name": "Ögonrullning",
-    "meaning": "Användaren har irriterat sig på något eller tyckt att något var dumt/onödigt."
-  },
-  "face-sleeping": {
-    "name": "Sovande",
-    "meaning": "Användaren är trött och behöver vila, eller har sovit mycket."
-  },
-  "face-sleepy": {
-    "name": "Sömnig",
-    "meaning": "Användaren är sömnig eller trött. Längtar efter att få sova."
-  },
-  "face-slightly-frowning": {
-    "name": "Lite ledsen",
-    "meaning": "Användaren är lite nedstämd eller tveksam. Inte jättedåligt, men inte bra heller."
-  },
   "face-slightly-smiling": {
     "name": "Försiktigt glad",
-    "meaning": "Användaren är nöjd och försiktigt glad. En helt okej dag."
-  },
-  "face-smiling": {
-    "name": "Glad",
-    "meaning": "Användaren är glad och nöjd. En bra dag."
+    "meaning": "Användaren känner sig nöjd eller stillsamt glad. Inget stort jubel, men en trygg och okej känsla."
   },
   "face-smiling-hearts": {
     "name": "Full av kärlek",
-    "meaning": "Användaren känner mycket kärlek, värme och omtanke. Hjärtat är fullt."
+    "meaning": "Användaren känner värme, omtanke eller kärlek. Hjärtat är öppet och positivt."
   },
-  "face-smirking": {
-    "name": "Självsäker",
-    "meaning": "Användaren känner sig självsäker, kanske lite sarkastisk eller vet något andra inte vet."
+  "face-zany": {
+    "name": "Knäpp & tokig",
+    "meaning": "Användaren är i ett lekfullt, galet eller småkaotiskt humör. Energin är hög och okontrollerad på ett roligt sätt."
   },
-  "face-spiral-eyes": {
-    "name": "Snurrig",
-    "meaning": "Användaren är yr, förvirrad eller överväldigad. Allting snurrar."
-  },
-  "face-squinting-tongue": {
-    "name": "Busig",
-    "meaning": "Användaren är på busigt humör, tramsar eller skojar."
+  "face-partying": {
+    "name": "Feststämning",
+    "meaning": "Användaren firar, har roligt eller är på socialt, uppåt humör."
   },
   "face-star-struck": {
     "name": "Imponerad",
-    "meaning": "Användaren är mycket imponerad eller beundrar något/någon."
-  },
-  "face-steam-from-nose": {
-    "name": "Frustrerad",
-    "meaning": "Användaren känner frustration eller ilska som bubblar under ytan."
+    "meaning": "Användaren känner stark beundran eller fascination inför något eller någon."
   },
   "face-sunglasses": {
-    "name": "Cool",
-    "meaning": "Användaren känner sig cool, självsäker och avslappnad."
+    "name": "Cool & självsäker",
+    "meaning": "Användaren känner sig trygg i sig själv, avslappnad och självsäker."
   },
-  "face-swearing": {
-    "name": "Förbannad",
-    "meaning": "Användaren är så arg att de vill svära. Något har verkligen gått dem på nerverna."
+  "face-lol": {
+    "name": "Skrattar",
+    "meaning": "Användaren har haft genuint roligt och skrattat mycket."
   },
-  "face-thermometer": {
-    "name": "Sjuk",
-    "meaning": "Användaren är sjuk eller känner sig krasslig."
+  "face-holding-back-tears": {
+    "name": "Rörd",
+    "meaning": "Användaren försöker hålla tillbaka tårar. Stark känsla av sorg, lättnad eller rörelse utan att släppa loss helt."
   },
-  "face-thinking": {
-    "name": "Funderar",
-    "meaning": "Användaren har funderat mycket eller tänkt på något specifikt."
-  },
-  "face-tired": {
-    "name": "Utmattad",
-    "meaning": "Användaren är utmattad och trött. Har förbrukat all energi."
-  },
-  "face-unamused": {
-    "name": "Ointresserad",
-    "meaning": "Användaren är ointresserad eller missnöjd. Inte imponerad av något."
-  },
-  "face-unhappy": {
-    "name": "Olycklig",
-    "meaning": "Användaren är olycklig eller ledsen. Ingen bra dag."
+  "face-in-clouds": {
+    "name": "I dimma",
+    "meaning": "Användaren känner sig frånvarande, mentalt dimmig eller borta i tankar."
   },
   "face-upside-down": {
     "name": "Ironisk",
-    "meaning": "Användaren känner ironi eller att saker är upp-och-ner. Lite absurt."
+    "meaning": "Användaren upplever absurditet, ironi eller att saker känns bakvända."
+  },
+  "face-grimacing": {
+    "name": "Pinsamt",
+    "meaning": "Användaren har upplevt något stelt eller obekvämt som får det att krypa i kroppen."
+  },
+  "face-neutral": {
+    "name": "Neutral",
+    "meaning": "Användaren känner varken särskilt bra eller dåligt. En känslomässigt platt dag."
+  },
+  "face-thinking": {
+    "name": "Funderande",
+    "meaning": "Användaren tänker mycket, analyserar eller försöker förstå något."
+  },
+  "face-rolling-eyes": {
+    "name": "Irriterad",
+    "meaning": "Användaren är trött på något, irriterad eller upplever andras beteende som dumt eller onödigt."
+  },
+  "face-raising-eyebrow": {
+    "name": "Skeptisk",
+    "meaning": "Användaren ifrågasätter något eller känner misstänksamhet inför en situation."
+  },
+  "face-melting": {
+    "name": "Överväldigad",
+    "meaning": "Användaren känner sig mentalt eller emotionellt överbelastad. Allt känns lite för mycket."
+  },
+  "face-unamused": {
+    "name": "Oimponerad",
+    "meaning": "Användaren är missnöjd eller ointresserad. Något föll helt platt."
+  },
+  "face-crying": {
+    "name": "Ledsen",
+    "meaning": "Användaren känner sorg och har gråtit eller varit nära tårar."
+  },
+  "face-crying-loudly": {
+    "name": "Förtvivlad",
+    "meaning": "Användaren upplever stark, överväldigande sorg eller emotionell smärta."
+  },
+  "face-bags-under-eyes": {
+    "name": "Sömnbrist",
+    "meaning": "Användaren är mycket trött och utmattad, ofta kopplat till dålig eller för lite sömn."
+  },
+  "face-angry": {
+    "name": "Arg",
+    "meaning": "Användaren känner ilska eller stark irritation. Något har gått över gränsen."
+  },
+  "face-steam-from-nose": {
+    "name": "Frustrerad",
+    "meaning": "Användaren är irriterad och frustrationen bubblar under ytan."
   },
   "face-vomiting": {
-    "name": "Spyr",
-    "meaning": "Användaren mår riktigt illa eller reagerar starkt negativt på något."
+    "name": "Mår illa",
+    "meaning": "Användaren känner starkt obehag, äckel eller fysisk/mental illamående reaktion."
   },
-  "face-weary": {
-    "name": "Sliten",
-    "meaning": "Användaren är sliten och trött efter en tuff dag."
-  },
-  "face-winking": {
-    "name": "Blinkar",
-    "meaning": "Användaren är på skojigt humör eller har en hemlighet. Lite flirtigt."
-  },
-  "face-woozy": {
-    "name": "Yr",
-    "meaning": "Användaren känner sig yr, förvirrad eller lite borta."
-  },
-  "face-yawning": {
-    "name": "Gäspar",
-    "meaning": "Användaren är trött och gäspar. Redo för sängen."
-  },
-  "face-zany": {
-    "name": "Galen",
-    "meaning": "Användaren känner sig galen, knäpp eller tokig på ett roligt sätt."
-  },
-  "abacus": {
-    "name": "Kulram",
-    "meaning": "Användaren har räknat, jobbat med siffror eller matematik."
-  },
-  "airplane": {
-    "name": "Flygplan",
-    "meaning": "Användaren har rest, flugit eller planerat/drömt om resa."
-  },
-  "ballet-shoes": {
-    "name": "Balettskor",
-    "meaning": "Användaren har dansat, sett dans eller uppskattat något elegant."
-  },
-  "bathtub": {
-    "name": "Badkar",
-    "meaning": "Användaren har badat, kopplat av eller tagit tid för egenvård."
-  },
-  "beach": {
-    "name": "Strand",
-    "meaning": "Användaren har varit vid havet, stranden eller längtar efter sommar och ledighet."
-  },
-  "bed": {
-    "name": "Säng",
-    "meaning": "Användaren har sovit mycket, vilat eller längtar efter sängen."
-  },
-  "biceps": {
-    "name": "Biceps",
-    "meaning": "Användaren har tränat, känt sig stark eller åstadkommit något kraftfullt."
-  },
-  "bicycle": {
-    "name": "Cykel",
-    "meaning": "Användaren har cyklat eller rest på ett aktivt, miljövänligt sätt."
+  "face-exploding-head": {
+    "name": "Helt överväldigad",
+    "meaning": "Användaren känner sig mentalt sprängfylld. För mycket information, känslor eller intryck på en gång."
   },
   "books": {
     "name": "Böcker",
-    "meaning": "Användaren har läst, studerat eller fördjupat sig i kunskap."
-  },
-  "briefcase": {
-    "name": "Portfölj",
-    "meaning": "Användaren har jobbat, haft en arbetsdag eller ägnat sig åt professionella saker."
-  },
-  "broom": {
-    "name": "Kvast",
-    "meaning": "Användaren har städat, gjort rent eller ordnat upp hemma."
-  },
-  "bus": {
-    "name": "Buss",
-    "meaning": "Användaren har åkt kollektivt, pendlat eller rest med buss."
-  },
-  "camping": {
-    "name": "Camping",
-    "meaning": "Användaren har campat, varit ute i naturen eller ägnat sig åt friluftsliv."
-  },
-  "carousel-horse": {
-    "name": "Karusellhäst",
-    "meaning": "Användaren har upplevt något nostalgiskt, barndomsminnen eller nöjesfält."
-  },
-  "circus-tent": {
-    "name": "Cirkustält",
-    "meaning": "Användaren har sett en show, upplevt underhållning eller något spektakulärt."
-  },
-  "color-palette": {
-    "name": "Färgpalett",
-    "meaning": "Användaren har varit kreativ, målat, designat eller uttryckt sig konstnärligt."
-  },
-  "couch-lamp": {
-    "name": "Soffa & lampa",
-    "meaning": "Användaren har mysat hemma, tagit det lugnt i vardagsrummet."
-  },
-  "diving-mask": {
-    "name": "Dykarmask",
-    "meaning": "Användaren har snorklat, dykt eller upplevt något under vattenytan."
-  },
-  "ferris-wheel": {
-    "name": "Pariserhjul",
-    "meaning": "Användaren har haft en speciell upplevelse, njutit av utsikten eller besökt nöjesfält."
-  },
-  "file-box": {
-    "name": "Arkivlåda",
-    "meaning": "Användaren har organiserat, sorterat eller jobbat med pappersarbete."
-  },
-  "frying-pan": {
-    "name": "Stekpanna",
-    "meaning": "Användaren har lagat mat, kokat eller ägnat sig åt kulinariska aktiviteter."
-  },
-  "hammer-wrench": {
-    "name": "Verktyg",
-    "meaning": "Användaren har fixat, byggt eller reparerat något."
+    "meaning": "Användaren har läst, pluggat eller fördjupat sig i kunskap. En dag med fokus, lärande eller lugn."
   },
   "headphones": {
     "name": "Hörlurar",
-    "meaning": "Användaren har lyssnat på musik, podcasts eller ljud i egen värld."
-  },
-  "hot-beverage": {
-    "name": "Varm dryck",
-    "meaning": "Användaren har druckit kaffe, te eller njutit av en mysig fika."
-  },
-  "house-garden": {
-    "name": "Hus & trädgård",
-    "meaning": "Användaren har tillbringat tid hemma, i trädgården eller jobbat med hemmet."
-  },
-  "laptop": {
-    "name": "Laptop",
-    "meaning": "Användaren har jobbat vid datorn, surfat eller ägnat sig åt digitala aktiviteter."
-  },
-  "luggage": {
-    "name": "Bagage",
-    "meaning": "Användaren har rest, packat eller är på väg någonstans."
-  },
-  "man-dancing": {
-    "name": "Dansande man",
-    "meaning": "Användaren har dansat, haft kul eller firat på något sätt."
-  },
-  "maracas": {
-    "name": "Maracas",
-    "meaning": "Användaren har haft en festlig dag med musik och glädje."
-  },
-  "memo": {
-    "name": "Anteckning",
-    "meaning": "Användaren har skrivit, antecknat eller dokumenterat något viktigt."
-  },
-  "musical-notes": {
-    "name": "Musiknoter",
-    "meaning": "Användaren har lyssnat på eller skapat musik, eller upplevt något melodiskt."
-  },
-  "nail-polish": {
-    "name": "Nagellack",
-    "meaning": "Användaren har ägnat sig åt skönhet, egenvård eller gjort sig fin."
-  },
-  "newspaper": {
-    "name": "Tidning",
-    "meaning": "Användaren har läst nyheter, hållit sig uppdaterad eller tagit in information."
-  },
-  "page-bookmarked": {
-    "name": "Bokmärke",
-    "meaning": "Användaren har sparat något för senare, hittat något värt att komma ihåg."
-  },
-  "party-popper": {
-    "name": "Party popper",
-    "meaning": "Användaren har firat något, haft fest eller upplevt glädjefylld celebration."
-  },
-  "playground-slide": {
-    "name": "Rutschkana",
-    "meaning": "Användaren har lekt, haft kul eller spenderat tid med barn."
+    "meaning": "Användaren har lyssnat på musik, podcast eller behövt vara i sin egen bubbla. Avskärmning eller fokus."
   },
   "potted-plant": {
     "name": "Krukväxt",
-    "meaning": "Användaren har tagit hand om växter, njutit av natur inomhus eller skapat lugn."
-  },
-  "railway-car": {
-    "name": "Tågvagn",
-    "meaning": "Användaren har rest med tåg eller pendlat på längre sträcka."
-  },
-  "roller-coaster": {
-    "name": "Berg-och-dalbana",
-    "meaning": "Användaren har upplevt spänning, rus eller en känslomässig berg-och-dalbana."
-  },
-  "roller-skate": {
-    "name": "Rullskridsko",
-    "meaning": "Användaren har åkt skridskor, rullskridskor eller ägnat sig åt aktiv fritid."
-  },
-  "school": {
-    "name": "Skola",
-    "meaning": "Användaren har haft en skoldag, lärt sig något eller ägnat sig åt studier."
-  },
-  "scooter": {
-    "name": "Sparkcykel",
-    "meaning": "Användaren har tagit sig fram snabbt och smidigt, kanske i stadsmiljö."
+    "meaning": "Användaren har tagit hand om växter, fixat hemma eller sökt lugn via naturkänsla och omvårdnad."
   },
   "shopping-cart": {
-    "name": "Kundvagn",
-    "meaning": "Användaren har handlat mat, gjort matinköp eller shoppat."
+    "name": "Handla",
+    "meaning": "Användaren har shoppat eller gjort ärenden. Praktiska vardagssysslor eller konsumtion."
   },
-  "shoppings-bags": {
-    "name": "Shoppingkassar",
-    "meaning": "Användaren har shoppat, köpt nya saker eller unnat sig något."
+  "bed": {
+    "name": "Säng",
+    "meaning": "Användaren har vilat, sovit eller längtat efter återhämtning. Kroppen behöver paus."
   },
-  "slot-machine": {
-    "name": "Spelautomat",
-    "meaning": "Användaren har provat lyckan, tagit en chans eller spelat."
+  "video-game-controller": {
+    "name": "TV-spel",
+    "meaning": "Användaren har spelat eller kopplat av med gaming. Kan vara återhämtning, flykt eller socialt beroende på sammanhang."
   },
-  "smart-phone": {
-    "name": "Mobil",
-    "meaning": "Användaren har använt telefonen mycket, chattade eller var uppkopplad."
+  "suitcase": {
+    "name": "Resväska",
+    "meaning": "Användaren har rest, packat eller planerat resa. Rörelse, ombyte eller längtan bort."
   },
-  "soccer-ball": {
-    "name": "Fotboll",
-    "meaning": "Användaren har spelat eller sett fotboll, eller ägnat sig åt sport."
+  "laptop-woman": {
+    "name": "Datorjobb",
+    "meaning": "Användaren har jobbat, pluggat eller varit mycket vid datorn. Produktivitet, skärmtrötthet eller fokus."
   },
-  "speedboat": {
-    "name": "Snabbåt",
-    "meaning": "Användaren har upplevt fart, frihet eller äventyr till havs."
+  "hot-beverage": {
+    "name": "Varm dryck",
+    "meaning": "Användaren har fikat eller tagit en paus med kaffe/te. Mys, rutiner eller tröst."
   },
-  "stadium": {
-    "name": "Stadion",
-    "meaning": "Användaren har sett ett evenemang, match eller varit del av en stor publik."
+  "couch": {
+    "name": "Soffläge",
+    "meaning": "Användaren har tagit det lugnt hemma, vilat eller återhämtat sig. Låg energi eller välförtjänt paus."
   },
-  "technologist": {
-    "name": "Tekniker",
-    "meaning": "Användaren har programmerat, kodat eller jobbat med teknik."
+  "car": {
+    "name": "Bil",
+    "meaning": "Användaren har kört bil eller åkt någonstans. Transport, ärenden eller utflykt."
   },
-  "telephone": {
-    "name": "Telefon",
-    "meaning": "Användaren har ringt, pratat i telefon eller haft viktiga samtal."
+  "woman-running": {
+    "name": "Löpning",
+    "meaning": "Användaren har tränat, sprungit eller varit aktiv. Motion, endorfiner eller disciplin."
   },
-  "tram": {
-    "name": "Spårvagn",
-    "meaning": "Användaren har rest i staden med kollektivtrafik."
+  "women-bunny-ears": {
+    "name": "Uteliv",
+    "meaning": "Användaren har varit social, festat eller hängt med vänner. Glädje, kaos eller gemenskap."
   },
   "tv": {
     "name": "TV",
-    "meaning": "Användaren har tittat på TV, streamat eller sett film/serier."
+    "meaning": "Användaren har tittat på film/serier eller streamat. Avkoppling, distraktion eller sällskap i bakgrunden."
   },
-  "video-game-control": {
-    "name": "Spelkontroll",
-    "meaning": "Användaren har spelat TV-spel, gamat eller ägnat sig åt gaming."
+  "tram": {
+    "name": "Spårvagn",
+    "meaning": "Användaren har pendlat eller rört sig i stan med kollektivtrafik. Vardag, tempo och logistik."
+  },
+  "soccer-ball": {
+    "name": "Fotboll",
+    "meaning": "Användaren har spelat eller följt fotboll. Sport, energi och ofta socialt sammanhang."
+  },
+  "school": {
+    "name": "Skola",
+    "meaning": "Användaren har varit i skolan eller pluggat. Struktur, krav eller utveckling."
+  },
+  "playground-slide": {
+    "name": "Lekplats",
+    "meaning": "Användaren har lekt, varit med barn eller varit i en lekfull miljö. Familj, vardag eller glädje."
+  },
+  "palette": {
+    "name": "Skapande",
+    "meaning": "Användaren har varit kreativ: designat, målat eller skapat. Uttryck, flow eller inspiration."
+  },
+  "money-wings": {
+    "name": "Pengar flyger",
+    "meaning": "Användaren har spenderat pengar eller känt ekonomisk stress. Utgifter, dyr dag eller “varför kostar allt?”-känsla."
+  },
+  "house": {
+    "name": "Hemma",
+    "meaning": "Användaren har varit hemma, fixat med boendet eller levt vardagsliv. Tryggt, stilla eller instängt."
+  },
+  "beach": {
+    "name": "Strand",
+    "meaning": "Användaren har varit vid havet/stranden eller längtat efter ledighet. Lugn, sommarkänsla eller frihet."
+  },
+  "bank": {
+    "name": "Bank",
+    "meaning": "Användaren har hanterat ekonomi, räkningar eller pengar. Ansvar, planering eller stress."
+  },
+  "disco-ball": {
+    "name": "Dans & fest",
+    "meaning": "Användaren har varit i feststämning, dansat eller haft en kväll med energi och musik."
   },
   "woman-dancing": {
-    "name": "Dansande kvinna",
-    "meaning": "Användaren har dansat, haft kul eller uttryckt glädje genom rörelse."
+    "name": "Dans",
+    "meaning": "Användaren har dansat eller varit i ett sprudlande humör. Rörelse, glädje eller att släppa loss."
   },
-  "woman-meditating": {
-    "name": "Mediterar",
-    "meaning": "Användaren har mediterat, gjort yoga eller sökt inre lugn."
+  "man-surfing": {
+    "name": "Surfing",
+    "meaning": "Användaren har surfat eller varit i en äventyrlig, aktiv känsla. Hav, frihet och fart."
   },
-  "woman-running": {
-    "name": "Springer",
-    "meaning": "Användaren har sprungit, joggat eller tränat kondition."
+  "camping": {
+    "name": "Camping",
+    "meaning": "Användaren har varit ute i naturen eller gjort något friluftslivigt. Avkoppling, enkelhet eller äventyr."
   },
-  "women-friends": {
-    "name": "Vänner",
-    "meaning": "Användaren har umgåtts med vänner, haft sällskap eller upplevt gemenskap."
+  "beer": {
+    "name": "Öl",
+    "meaning": "Användaren har druckit öl eller varit i bar-/umgängeskontext. Socialt, avkoppling eller “lite för mycket”-risk beroende på dagen."
   },
-  "writing-hand": {
-    "name": "Skriver",
-    "meaning": "Användaren har skrivit, antecknat eller uttryckt sig genom text."
+  "bathtub": {
+    "name": "Bad",
+    "meaning": "Användaren har badat eller prioriterat egenvård. Avkoppling, återhämtning och lugn."
   },
-  "yarn": {
-    "name": "Garn",
-    "meaning": "Användaren har stickat, virkat eller ägnat sig åt handarbete."
+  "smartphone": {
+    "name": "Mobil",
+    "meaning": "Användaren har varit mycket på mobilen. Kontakt, scrollande, distraktion eller kommunikation."
   },
-  "bolt": {
-    "name": "Blixt",
-    "meaning": "Användaren har upplevt intensitet, snabb energi eller plötslig insikt."
+  "slot-machine": {
+    "name": "Chansspel",
+    "meaning": "Användaren har spelat, tagit risker eller haft en “jag testar”-känsla. Kan vara bokstavligt casino eller metafor för osäkerhet."
   },
-  "cherry-blossom": {
-    "name": "Körsbärsblomma",
-    "meaning": "Användaren känner vårens ankomst, skönhet eller något kortvarigt vackert."
-  },
-  "cloud-lightning": {
-    "name": "Åskmoln",
-    "meaning": "Användaren har upplevt oväder, turbulens eller dramatiska känslor."
-  },
-  "cloud-rain": {
-    "name": "Regn",
-    "meaning": "Användaren har upplevt regn, kanske melankoli eller rening."
-  },
-  "cloud-snow": {
-    "name": "Snöfall",
-    "meaning": "Användaren har upplevt snö, vinterväder eller kylig stämning."
-  },
-  "cyclone": {
-    "name": "Cyklon",
-    "meaning": "Användaren har upplevt kaos, virvlande händelser eller intensiv aktivitet."
-  },
-  "dashing-away": {
-    "name": "Vind",
-    "meaning": "Användaren har varit snabb, haft bråttom eller känt att saker gått fort."
-  },
-  "face-cold": {
-    "name": "Fryser",
-    "meaning": "Användaren fryser eller har upplevt kyla."
-  },
-  "face-hot": {
-    "name": "Varm",
-    "meaning": "Användaren är varm, svettig eller har upplevt hetta."
-  },
-  "leaves": {
-    "name": "Löv",
-    "meaning": "Användaren har upplevt höst, naturens skiftningar eller förändring."
-  },
-  "rainbow": {
-    "name": "Regnbåge",
-    "meaning": "Användaren har sett hopp, något vackert efter storm eller mångfald."
-  },
-  "seedling": {
-    "name": "Grodd",
-    "meaning": "Användaren har upplevt tillväxt, nya början eller något spirande."
-  },
-  "snowflake": {
-    "name": "Snöflinga",
-    "meaning": "Användaren har upplevt vinter, kyla eller något unikt och vackert."
+  "bicycle": {
+    "name": "Cykel",
+    "meaning": "Användaren har cyklat eller rört sig aktivt i vardagen. Motion, transport och frihetskänsla."
   },
   "sun": {
     "name": "Sol",
-    "meaning": "Användaren har haft en solig, varm och positiv dag med ljus energi."
+    "meaning": "Användaren upplever ljus, energi eller positiv stämning. En dag som känns lättare och mer hoppfull."
   },
-  "sun-cloud": {
-    "name": "Sol & moln",
-    "meaning": "Användaren har haft en dag med blandade känslor, lite av varje."
+  "sun-behind-cloud": {
+    "name": "Sol bakom moln",
+    "meaning": "Användaren har haft en dag med blandade känslor. Det finns ljus, men också viss tyngd."
+  },
+  "cloud": {
+    "name": "Molnigt",
+    "meaning": "Användaren känner sig dämpad, lågmäld eller grå i sinnet. Inget extremt, bara… tungt."
+  },
+  "cloud-rain": {
+    "name": "Regn",
+    "meaning": "Användaren upplever sorg, melankoli eller behov av att rensa känslor. Stillamt men kännbart."
+  },
+  "cloud-lightning": {
+    "name": "Åska",
+    "meaning": "Användaren har upplevt spänning, irritation eller plötsliga känsloutbrott."
+  },
+  "cloud-thunderstorm": {
+    "name": "Kraftigt oväder",
+    "meaning": "Användaren befinner sig i emotionellt kaos eller stark inre konflikt. Intensivt och svårt att ignorera."
+  },
+  "cloud-snow": {
+    "name": "Snöfall",
+    "meaning": "Användaren känner kyla, stillhet eller avstånd. Allt går långsamt och dämpat."
+  },
+  "snowflake": {
+    "name": "Snöflinga",
+    "meaning": "Användaren upplever kyla eller isolering, men också något stillsamt och kontrollerat."
+  },
+  "rainbow": {
+    "name": "Regnbåge",
+    "meaning": "Användaren ser hopp eller ljusning efter något jobbigt. Något fint mitt i det svåra."
+  },
+  "cyclone": {
+    "name": "Virvelstorm",
+    "meaning": "Användaren känner sig mentalt uppsnurrad. Många saker händer samtidigt utan tydlig riktning."
   },
   "tornado": {
     "name": "Tornado",
-    "meaning": "Användaren har upplevt kaos, vilda händelser eller känslomässig storm."
+    "meaning": "Användaren upplever extrem emotionell turbulens. Kaos, överväldigande känslor eller kris."
+  },
+  "high-voltage": {
+    "name": "Laddad",
+    "meaning": "Användaren känner stark energi, spänning eller nervositet. Något är på väg att hända."
+  },
+  "wind-leaves": {
+    "name": "Blåst",
+    "meaning": "Användaren upplever rörelse och förändring. Saker är i omlopp, inget är riktigt stilla."
   },
   "umbrella-rain": {
-    "name": "Paraply & regn",
-    "meaning": "Användaren har skyddat sig, förberett sig för motgångar eller upplevt regn."
+    "name": "Skydd i regn",
+    "meaning": "Användaren hanterar något tungt men har skydd eller strategier för att klara det."
   },
-  "alarm": {
-    "name": "Väckarklocka",
-    "meaning": "Användaren har vaknat tidigt, känt stress kring tid eller haft påminnelser."
-  },
-  "alien": {
-    "name": "Alien",
-    "meaning": "Användaren har känt sig annorlunda, konstig eller som en utomstående."
-  },
-  "anchor": {
-    "name": "Ankare",
-    "meaning": "Användaren har känt stabilitet, trygghet eller förankring."
-  },
-  "battery": {
-    "name": "Batteri",
-    "meaning": "Användaren har haft god energi, känt sig laddad och redo."
-  },
-  "battery-low": {
-    "name": "Lågt batteri",
-    "meaning": "Användaren är slut på energi, behöver ladda om eller vila."
-  },
-  "bomb": {
-    "name": "Bomb",
-    "meaning": "Användaren har upplevt något explosivt, oväntat eller kaotiskt."
-  },
-  "broken-heart": {
-    "name": "Brustet hjärta",
-    "meaning": "Användaren har upplevt hjärtesorg, sorg i kärlek eller djup besvikelse."
-  },
-  "bullseye": {
-    "name": "Mitt i prick",
-    "meaning": "Användaren har träffat rätt, nått ett mål eller lyckats med något precist."
-  },
-  "candle": {
-    "name": "Ljus",
-    "meaning": "Användaren har upplevt stillhet, minne eller stämningsfull atmosfär."
-  },
-  "chequered-flag": {
-    "name": "Målflagga",
-    "meaning": "Användaren har nått ett mål, avslutat något eller klarat av en utmaning."
-  },
-  "clapping-hands": {
-    "name": "Applåder",
-    "meaning": "Användaren har fått beröm, uppskattat något eller firat en prestation."
-  },
-  "collision": {
-    "name": "Krock",
-    "meaning": "Användaren har upplevt konflikt, sammanstötning eller något dramatiskt."
-  },
-  "construction": {
-    "name": "Byggarbete",
-    "meaning": "Användaren har jobbat med något pågående, byggt eller varit under utveckling."
-  },
-  "crystal-ball": {
-    "name": "Kristallkula",
-    "meaning": "Användaren har funderat på framtiden, känt mystik eller undrat vad som kommer."
-  },
-  "dizzy": {
-    "name": "Yr",
-    "meaning": "Användaren har känt sig yr, snurrig eller överväldigad."
-  },
-  "electric-plug": {
-    "name": "Eluttag",
-    "meaning": "Användaren behöver koppla in sig, ladda eller få energi."
+  "air": {
+    "name": "Frisk luft",
+    "meaning": "Användaren känner lättnad, klarhet eller behov av utrymme och andrum."
   },
   "fire": {
     "name": "Eld",
-    "meaning": "Användaren har känt intensitet, passion, energi eller hetta."
+    "meaning": "Användaren känner intensiv energi, passion eller ilska. Stark kraft, på gott eller ont."
   },
-  "fleur-de-lis": {
-    "name": "Fransk lilja",
-    "meaning": "Användaren har upplevt något elegant, klassiskt eller kungligt."
+  "face-hot": {
+    "name": "Hetta",
+    "meaning": "Användaren känner sig överhettad, stressad eller pressad. För mycket på en gång."
   },
-  "four-leaf-clover": {
-    "name": "Fyrklöver",
-    "meaning": "Användaren har haft tur, känt sig lycklig eller hittat något sällsynt."
+  "face-cold": {
+    "name": "Kyla",
+    "meaning": "Användaren känner sig kall, avstängd eller emotionellt distanserad."
   },
-  "framed-picture": {
-    "name": "Tavla",
-    "meaning": "Användaren har skapat minnen, sett konst eller bevarat något vackert."
+  "thermometer": {
+    "name": "Temperatur",
+    "meaning": "Användaren upplever tydliga svängningar i mående. Något är ur balans."
   },
-  "fuel-pump": {
-    "name": "Bensinpump",
-    "meaning": "Användaren har tankat energi, fyllt på eller förberett sig för resan."
+  "seedling": {
+    "name": "Grodd",
+    "meaning": "Användaren befinner sig i början av något nytt. Försiktig optimism och tillväxt."
   },
-  "fu-hand": {
-    "name": "Långfinger",
-    "meaning": "Användaren har känt stark frustration, ilska eller trots."
+  "cherry-blossom": {
+    "name": "Vårblom",
+    "meaning": "Användaren upplever något vackert men skört. En fin stund som inte varar för evigt."
   },
-  "gem-stone": {
-    "name": "Ädelsten",
-    "meaning": "Användaren har hittat något värdefullt, skattat något eller känt sig speciell."
+  "tulip": {
+    "name": "Tulpan",
+    "meaning": "Användaren känner vårkänsla, mild glädje eller enkel uppskattning av det lilla."
   },
-  "ghost": {
-    "name": "Spöke",
-    "meaning": "Användaren har känt sig osynlig, spöklik eller upplevt något läskigt/mystiskt."
+  "maple-leaf": {
+    "name": "Höstlöv",
+    "meaning": "Användaren upplever förändring, avslut eller acceptans av att något går mot sitt slut."
   },
-  "gift": {
-    "name": "Present",
-    "meaning": "Användaren har fått eller gett en present, upplevt överraskning eller generositet."
-  },
-  "glowing-star": {
-    "name": "Lysande stjärna",
-    "meaning": "Användaren har upplevt något speciellt, strålande eller utmärkande."
-  },
-  "hearts-on-fire": {
-    "name": "Brinnande hjärtan",
-    "meaning": "Användaren känner intensiv passion, stark kärlek eller brinnande känslor."
-  },
-  "herb": {
-    "name": "Ört",
-    "meaning": "Användaren har upplevt natur, kryddor eller något naturligt och grönt."
-  },
-  "hundred-points": {
-    "name": "100 poäng",
-    "meaning": "Användaren har presterat perfekt, gjort något riktigt bra eller känt full framgång."
-  },
-  "ice": {
-    "name": "Is",
-    "meaning": "Användaren har känt kyla, frostig stämning eller nått frysläge."
-  },
-  "joker": {
-    "name": "Joker",
-    "meaning": "Användaren har varit skämtsam, oförutsägbar eller upplevt överraskningar."
-  },
-  "life-buoy": {
-    "name": "Livboj",
-    "meaning": "Användaren har fått hjälp, räddats eller upplevt trygghet i svåra stunder."
-  },
-  "magnifying-glass": {
-    "name": "Förstoringsglas",
-    "meaning": "Användaren har letat, undersökt eller analyserat något noggrant."
-  },
-  "medal": {
-    "name": "Medalj",
-    "meaning": "Användaren har presterat, vunnit eller uppnått något imponerande."
-  },
-  "megaphone": {
-    "name": "Megafon",
-    "meaning": "Användaren har sagt sin mening, gjort sin röst hörd eller förmedlat ett budskap."
-  },
-  "mirror": {
-    "name": "Spegel",
-    "meaning": "Användaren har reflekterat, sett på sig själv eller funderat över sin identitet."
-  },
-  "money-bag": {
-    "name": "Pengar",
-    "meaning": "Användaren har tänkt på ekonomi, tjänat eller spenderat pengar."
-  },
-  "no-entry": {
-    "name": "Förbjudet",
-    "meaning": "Användaren har stött på hinder, fått stopp eller sagt nej till något."
-  },
-  "ok-hand": {
-    "name": "OK",
-    "meaning": "Användaren tycker att saker är okej, bra nog eller godkända."
-  },
-  "owl": {
-    "name": "Uggla",
-    "meaning": "Användaren har varit klok, nattlig eller upplevt visdom."
-  },
-  "pirate-flag": {
-    "name": "Piratflagga",
-    "meaning": "Användaren har känt sig rebellisk, äventyrlig eller lite farlig."
-  },
-  "popcorn": {
-    "name": "Popcorn",
-    "meaning": "Användaren har sett på drama, underhållning eller njutit av att observera."
-  },
-  "puzzle-piece": {
-    "name": "Pusselbit",
-    "meaning": "Användaren har sett samband, hittat lösningar eller känt att saker fallit på plats."
-  },
-  "ribbon": {
-    "name": "Rosett",
-    "meaning": "Användaren har upplevt något fint, dekoration eller prestation."
-  },
-  "rocket": {
-    "name": "Raket",
-    "meaning": "Användaren har startat något, tagit fart eller upplevt snabb framgång."
-  },
-  "roll-of-paper": {
-    "name": "Pappersrulle",
-    "meaning": "Användaren har ägnat sig åt vardagssysslor eller hushållsgöromål."
-  },
-  "scale": {
-    "name": "Våg",
-    "meaning": "Användaren har vägt alternativ, sökt balans eller tänkt på rättvisa."
-  },
-  "skull-crossbones": {
-    "name": "Dödskalle",
-    "meaning": "Användaren har upplevt fara, något dödligt tråkigt eller mörkt humor."
-  },
-  "splatter": {
-    "name": "Stänk",
-    "meaning": "Användaren har upplevt kaos, röra eller något oväntat stökigt."
-  },
-  "star": {
-    "name": "Stjärna",
-    "meaning": "Användaren har upplevt något favoritmässigt, bra eller stjärnbetyg."
-  },
-  "traffic-light": {
-    "name": "Trafikljus",
-    "meaning": "Användaren har behövt vänta, fått grönt ljus eller stannat upp."
-  },
-  "trash": {
-    "name": "Soptunna",
-    "meaning": "Användaren har kastat något, rensat eller känt att något var skräp."
-  },
-  "trophy": {
-    "name": "Trofé",
-    "meaning": "Användaren har vunnit, triumferat eller uppnått en stor framgång."
-  },
-  "unicorn": {
-    "name": "Enhörning",
-    "meaning": "Användaren har upplevt något magiskt, fantastiskt eller sällsynt vackert."
-  },
-  "victory-hand": {
-    "name": "Segertecken",
-    "meaning": "Användaren har segrat, känt fred eller uppnått vinst."
+  "palm-tree": {
+    "name": "Palmer",
+    "meaning": "Användaren längtar efter vila, flykt eller ett lättare livstempo."
   },
   "volcano": {
     "name": "Vulkan",
-    "meaning": "Användaren har känt undertryckta känslor som bubblar, intensitet eller utbrott."
+    "meaning": "Användaren bär på starka, undertryckta känslor som riskerar att få ett utbrott."
+  },
+  "trophy": {
+    "name": "Trofé",
+    "meaning": "Användaren känner stolthet över en prestation eller framgång. Något har lyckats."
+  },
+  "robot": {
+    "name": "Robotläge",
+    "meaning": "Användaren går på autopilot. Känslor är nedtonade och saker görs av rutin snarare än lust."
+  },
+  "skull": {
+    "name": "Mörkt",
+    "meaning": "Användaren upplever något tungt, obehagligt eller hotfullt. Allvarlig stämning."
+  },
+  "poo": {
+    "name": "Kaos",
+    "meaning": "Allt känns rörigt, pinsamt eller har gått åt skogen. Ofta med en dos självironi."
+  },
+  "unicorn": {
+    "name": "Magiskt",
+    "meaning": "Användaren upplever något ovanligt fint, drömlikt eller nästan för bra för att vara sant."
+  },
+  "alien": {
+    "name": "Utanför",
+    "meaning": "Användaren känner sig annorlunda, utanför eller som att de inte riktigt passar in."
+  },
+  "thought-balloon": {
+    "name": "Grubbel",
+    "meaning": "Användaren är fast i sina tankar. Mycket inre dialog och funderande."
+  },
+  "hundred-points": {
+    "name": "Full pott",
+    "meaning": "Användaren känner att något gick perfekt eller att de verkligen lyckades."
   },
   "warning": {
     "name": "Varning",
-    "meaning": "Användaren har känt risk, fått varningstecken eller varit på sin vakt."
+    "meaning": "Användaren upplever risk, oro eller att något inte känns rätt. En inre varningssignal."
   },
-  "woman-facepalming": {
-    "name": "Facepalm",
-    "meaning": "Användaren har upplevt något pinsamt, dumt eller som får en att ta sig för pannan."
+  "gift": {
+    "name": "Gåva",
+    "meaning": "Användaren har fått eller upplevt något positivt och oväntat. Tacksamhet eller glädje."
   },
-  "woman-zombie": {
-    "name": "Zombie",
-    "meaning": "Användaren känner sig hjärndöd, som en vandrande död eller totalt slut."
+  "dizzy": {
+    "name": "Yr",
+    "meaning": "Användaren känner sig förvirrad eller mentalt snurrig. För mycket intryck."
+  },
+  "bullseye": {
+    "name": "Mitt i prick",
+    "meaning": "Användaren har träffat rätt eller varit fokuserad och precis i sitt agerande."
+  },
+  "bomb": {
+    "name": "Explosion",
+    "meaning": "En situation eller känsla briserade. Plötsligt kaos eller starka reaktioner."
+  },
+  "brain": {
+    "name": "Övertänkande",
+    "meaning": "Användaren är mentalt belastad. Mycket analys, lite vila."
+  },
+  "alarm": {
+    "name": "Alarm",
+    "meaning": "Användaren känner stress, tidspress eller behov av att agera snabbt."
+  },
+  "chequered-flag": {
+    "name": "Avslut",
+    "meaning": "Något är färdigt. En fas, uppgift eller period har nått sitt slut."
+  },
+  "construction": {
+    "name": "Under uppbyggnad",
+    "meaning": "Användaren befinner sig mitt i en process. Inget är klart än, men något håller på att formas."
+  },
+  "collision": {
+    "name": "Krock",
+    "meaning": "Konflikt eller sammanstötning, internt eller externt. Något skar sig."
+  },
+  "crystal-ball": {
+    "name": "Osäker framtid",
+    "meaning": "Användaren tänker mycket på vad som kommer härnäst. Ovisshet och spekulation."
+  },
+  "four-leaf-clover": {
+    "name": "Tur",
+    "meaning": "Användaren känner medvind eller att saker fallit väl ut utan större ansträngning."
+  },
+  "gem-stone": {
+    "name": "Värdefullt",
+    "meaning": "Något litet men betydelsefullt har uppmärksammats. En inre eller yttre skatt."
+  },
+  "ghost": {
+    "name": "Hänger kvar",
+    "meaning": "Gamla tankar, minnen eller känslor som vägrar släppa taget."
+  },
+  "heart-on-fire": {
+    "name": "Brinner",
+    "meaning": "Användaren känner stark passion, intensitet eller känslomässigt engagemang."
+  },
+  "headstone": {
+    "name": "Förlust",
+    "meaning": "Användaren bearbetar ett avslut, en sorg eller något som definitivt är över."
+  },
+  "magnifying-glass": {
+    "name": "Granskning",
+    "meaning": "Användaren analyserar, ifrågasätter eller tittar närmare på detaljer."
+  },
+  "megaphone": {
+    "name": "Höra & höras",
+    "meaning": "Användaren vill uttrycka sig tydligt eller få sin röst hörd."
+  },
+  "rocket": {
+    "name": "Acceleration",
+    "meaning": "Saker går snabbt framåt. Nystart, momentum eller stark drivkraft."
+  },
+  "toilet-paper": {
+    "name": "Lågpunkt",
+    "meaning": "En vardaglig kris eller känsla av att vara på botten. Ofta med torr humor."
+  },
+  "trash": {
+    "name": "Släppa taget",
+    "meaning": "Användaren gör sig av med något som inte längre behövs. Rensning, mentalt eller praktiskt."
+  },
+  "mirror": {
+    "name": "Självreflektion",
+    "meaning": "Användaren tittar inåt och reflekterar över sig själv eller sitt beteende."
+  },
+  "light-bulb": {
+    "name": "Insikt",
+    "meaning": "Användaren har fått en idé eller förstått något viktigt. Ett mentalt klick."
+  },
+  "life-buoy": {
+    "name": "Stöd",
+    "meaning": "Användaren har fått eller behövt hjälp. Något höll dem flytande."
+  },
+  "crown": {
+    "name": "Självvärde",
+    "meaning": "Användaren känner stolthet, egenmakt eller stärkt självbild."
+  },
+  "balloon": {
+    "name": "Lätthet",
+    "meaning": "Användaren upplever glädje, lättnad eller att något lyfter humöret."
   }
 }

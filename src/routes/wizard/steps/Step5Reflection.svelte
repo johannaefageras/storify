@@ -2,10 +2,10 @@
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import type { Component } from 'svelte';
 	import {
-	EmojiConstruction,
+	EmojiWarning,
 	EmojiExclamationQuestion,
-	EmojiCounterClockwise
-} from '$lib/components/emojis/assorted';
+	EmojiRedo
+} from '$lib/components/emojis';
 	import { FIELD_LIMITS } from '$lib/validation';
 
 	const fields: {
@@ -19,7 +19,7 @@
 			key: 'almostHappened',
 			label: 'Något som var nära på att hända idag',
 			placeholder: 'Råkade nästan sms:a fel person, köpte nästan något onödigt...',
-			icon: EmojiConstruction,
+			icon: EmojiWarning,
 			limit: FIELD_LIMITS.almostHappened
 		},
 		{
@@ -33,7 +33,7 @@
 			key: 'wouldRedo',
 			label: 'Vad skulle du vilja göra om idag om du fick chansen?',
 			placeholder: 'Stressat mindre, stannat kvar lite längre, eller gått tidigare...',
-			icon: EmojiCounterClockwise,
+			icon: EmojiRedo,
 			limit: FIELD_LIMITS.wouldRedo
 		}
 	];

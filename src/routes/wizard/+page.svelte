@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import { EmojiUserSilhouette, EmojiCompass, EmojiChart, EmojiPushpin, EmojiScale, EmojiThoughtBalloon, EmojiCherries, EmojiCameraFlash, EmojiMagicWand, EmojiCheckMark } from '$lib/components/emojis/assorted';
+	import { EmojiUserSilhouette, EmojiCompass, EmojiChart, EmojiCalendar, EmojiScale, EmojiMirror, EmojiCherries, EmojiCamera, EmojiSpeakingHead, EmojiCheck } from '$lib/components/emojis';
 	import Step0Profile from './steps/Step0Profile.svelte';
 	import Step1Emojis from './steps/Step1Emojis.svelte';
 	import Step2Energy from './steps/Step2Energy.svelte';
@@ -126,13 +126,13 @@
 		EmojiUserSilhouette,
 		EmojiCompass,
 		EmojiChart,
-		EmojiPushpin,
+		EmojiCalendar,
 		EmojiScale,
-		EmojiThoughtBalloon,
+		EmojiMirror,
 		EmojiCherries,
-		EmojiCameraFlash,
-		EmojiMagicWand,
-		EmojiCheckMark
+		EmojiCamera,
+		EmojiSpeakingHead,
+		EmojiCheck
 	];
 
 	function isOptional(step: number): boolean {
@@ -207,10 +207,10 @@
 		<footer class="wizard-footer">
 			{#if currentStep > 0}
 				<button class="btn btn-secondary" onclick={() => wizardStore.prevStep()}>
-					Tillbaka
+					Gå tillbaka
 				</button>
 			{:else}
-				<a href="/" class="btn btn-secondary">Tillbaka</a>
+				<a href="/" class="btn btn-secondary">Gå tillbaka</a>
 			{/if}
 
 			{#if showNextButton}

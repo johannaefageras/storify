@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { EmojiWavingHand, EmojiBouquet } from '$lib/components/emojis/assorted';
+	import { EmojiHandWave, EmojiBouquet } from '$lib/components/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 
 	const FORM_ID = 'o77pouaahs4';
@@ -79,7 +79,7 @@
 <main class="legal-page">
 	<a href="/" class="back-link">&larr; Tillbaka</a>
 	<div class="page-header">
-		<EmojiWavingHand size={80} />
+		<EmojiHandWave size={80} />
 		<h1>Hör av dig</h1>
 	</div>
 

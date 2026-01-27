@@ -8,7 +8,7 @@ export interface Tone {
 export const tones: Tone[] = [
   {
     id: 'classic',
-    name: 'Klassisk',
+    name: 'Klassisk Dagbok',
     emoji: '📒',
     preview: 'Kära dagbok, idag var en av de där dagarna...'
   },
@@ -134,7 +134,7 @@ export const tones: Tone[] = [
   },
   {
     id: 'self-help',
-    name: 'Självhjälpsbok',
+    name: 'Livscoach',
     emoji: '✨',
     preview: 'Ibland är de långsamma dagarna de viktigaste. Du är nog. Precis som du är.'
   },

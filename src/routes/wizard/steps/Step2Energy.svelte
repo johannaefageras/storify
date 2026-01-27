@@ -1,10 +1,7 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import type { Component } from 'svelte';
-	import { EmojiFaceBagsUnderEyes, EmojiFaceGrinningSweat, EmojiFaceNeutral, EmojiFaceSleepy, EmojiFaceSlightlySmiling, EmojiFaceSmiling, EmojiFaceSmilingHearts, EmojiFaceStarStruck, EmojiFaceTired, EmojiFaceYawning } from '$lib/components/emojis/sleep';
-	import { EmojiFaceCrossedOutEyes, EmojiFacePartying, EmojiFaceSleeping, EmojiRocket } from '$lib/components/emojis/energy';
-	import { EmojiFaceCrying, EmojiFaceCryingLoudly, EmojiFaceFrowning, EmojiFaceLOL, EmojiFaceSlightlyFrowning
-} from '$lib/components/emojis/mood';
+	import { EmojiFaceBagsUnderEyes, EmojiFaceTired, EmojiFaceSleepy, EmojiFaceYawning, EmojiFaceNeutral, EmojiFaceSlightlySmiling, EmojiFaceSmilingEyes, EmojiFaceSmilingHearts, EmojiFaceGrinningSweat, EmojiFaceStarStruck, EmojiFaceSleeping, EmojiFaceCrossedOutEyes, EmojiFaceWeary, EmojiFaceSmiling, EmojiFaceGrinningSmilingEyes, EmojiFacePartying, EmojiRocket, EmojiFaceCryingLoudly, EmojiFaceCrying, EmojiFaceFrowning, EmojiFaceSlightlyFrowning, EmojiFaceRelieved, EmojiFaceLOL } from '$lib/components/emojis';
 
 	const sleepEmojis: Component[] = [
 		EmojiFaceBagsUnderEyes,
@@ -13,20 +10,20 @@
 		EmojiFaceYawning,
 		EmojiFaceNeutral,
 		EmojiFaceSlightlySmiling,
-		EmojiFaceSmiling,
+		EmojiFaceSmilingEyes,
 		EmojiFaceSmilingHearts,
 		EmojiFaceGrinningSweat,
 		EmojiFaceStarStruck
 	];
 
 	const energyEmojis: Component[] = [
-		EmojiFaceCrossedOutEyes,
 		EmojiFaceSleeping,
-		EmojiFaceTired,
+		EmojiFaceCrossedOutEyes,
+		EmojiFaceWeary,
 		EmojiFaceYawning,
 		EmojiFaceNeutral,
 		EmojiFaceSmiling,
-		EmojiFaceGrinningSweat,
+		EmojiFaceGrinningSmilingEyes,
 		EmojiFacePartying,
 		EmojiFaceStarStruck,
 		EmojiRocket
@@ -38,11 +35,11 @@
 		EmojiFaceFrowning,
 		EmojiFaceSlightlyFrowning,
 		EmojiFaceNeutral,
-		EmojiFaceSmiling,
+		EmojiFaceRelieved,
+		EmojiFaceSmilingEyes,
 		EmojiFaceSmilingHearts,
 		EmojiFaceGrinningSweat,
-		EmojiFaceLOL,
-		EmojiFacePartying
+		EmojiFaceLOL
 	];
 
 	const sliders = [

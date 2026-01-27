@@ -3,19 +3,12 @@
 	import { tones } from '$lib/data/tones';
 	import { emojiLabelMap, emojiMap } from '$lib/data/emojis';
 	import type { Component } from 'svelte';
-	import { EmojiSparkles } from '$lib/components/emojis/assorted';
-	import EmojiRoseLight from '$lib/components/emojis/assorted/EmojiRoseLight.svelte';
-	import EmojiRoseDark from '$lib/components/emojis/assorted/EmojiRoseDark.svelte';
-	import EmojiFramedPicture from '$lib/components/emojis/assorted/EmojiFramedPicture.svelte';
-	import EmojiPrinter from '$lib/components/emojis/assorted/EmojiPrinter.svelte';
-	import EmojiClipboard from '$lib/components/emojis/assorted/EmojiClipboard.svelte';
-	import EmojiEnvelopeArrow from '$lib/components/emojis/assorted/EmojiEnvelopeArrow.svelte';
+	import { EmojiSparkles, EmojiRoseLight, EmojiRoseDark, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiMailIncoming, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiFaceThinking, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceSmirking, EmojiSatellite, EmojiDice } from '$lib/components/emojis';
 	import html2canvas from 'html2canvas';
 	import { jsPDF } from 'jspdf';
 	import { getApiUrl } from '$lib/config';
 	import { goto } from '$app/navigation';
 	import resultMessages from '$lib/data/resultMessages.json';
-
 	// Generation state
 	let isGenerating = $state(false);
 	let generatedEntry = $state('');
@@ -55,27 +48,23 @@ Nu är det kväll och jag är trött, men den goda sorten av trött. Imorgon är
 
 Vi ses imorgon, dagboken.`;
 
-	// Voice icons for display
-	import { EmojiBrain, EmojiCatTabby, EmojiCrown, EmojiEarth, EmojiFaceGrimacing, EmojiFaceNerd, EmojiFaceSmirking, EmojiFaceThinking, EmojiFaceYawning, EmojiFlagUK, EmojiLedger, EmojiMusicalNotes, EmojiNewspaper, EmojiOpenBook, EmojiPoo, EmojiRobot, EmojiStudioMicrophone, EmojiTheaterMasks, EmojiVideoGameControl, EmojiSatellite, EmojiLotusPosition, EmojiDetective, EmojiExplodingHead, EmojiBlackNib } from '$lib/components/emojis/voices';
-import { EmojiGameDice } from '$lib/components/emojis/assorted';
-
 	const toneIconMap: Record<string, Component> = {
 		classic: EmojiLedger,
-		sportscaster: EmojiStudioMicrophone,
+		sportscaster: EmojiMicrophone,
 		'tinfoil-hat': EmojiSatellite,
 		philosophical: EmojiFaceThinking,
 		'nature-documentary': EmojiEarth,
 		sarcastic: EmojiFaceGrimacing,
 		nerd: EmojiFaceNerd,
-		'cat-perspective': EmojiCatTabby,
+		'cat-perspective': EmojiCat,
 		storytelling: EmojiOpenBook,
 		cringe: EmojiFaceSmirking,
 		formal: EmojiBlackNib,
-		'quest-log': EmojiVideoGameControl,
+		'quest-log': EmojiVideoGame,
 		shakespeare: EmojiTheaterMasks,
 		therapist: EmojiBrain,
 		meme: EmojiPoo,
-		'self-help': EmojiLotusPosition,
+		'self-help': EmojiWomanMeditating,
 		bored: EmojiFaceYawning,
 		british: EmojiFlagUK,
 		detective: EmojiDetective,
@@ -83,7 +72,7 @@ import { EmojiGameDice } from '$lib/components/emojis/assorted';
 		'ai-robot': EmojiRobot,
 		troubadour: EmojiMusicalNotes,
 		tabloid: EmojiNewspaper,
-		overthinker: EmojiExplodingHead
+		overthinker: EmojiFaceExplodingHead
 	};
 
 	function getEmojiComponent(emojiId: string): Component | undefined {
@@ -484,7 +473,7 @@ import { EmojiGameDice } from '$lib/components/emojis/assorted';
 					{/if}
 				</button>
 				<button class="action-btn" onclick={openEmailModal}>
-					<EmojiEnvelopeArrow size={22} />
+					<EmojiMailIncoming size={22} />
 					<span>Maila</span>
 				</button>
 			</div>
@@ -584,7 +573,7 @@ import { EmojiGameDice } from '$lib/components/emojis/assorted';
 
 		{#if wizardStore.data.selectedTone === 'surprise'}
 			<span class="voice-indicator">
-				<span class="voice-icon"><EmojiGameDice size={20} /></span>
+				<span class="voice-icon"><EmojiDice size={20} /></span>
 				Överraskning
 			</span>
 		{:else if selectedTone}

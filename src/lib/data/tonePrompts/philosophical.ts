@@ -48,7 +48,7 @@ GÖR SÅ HÄR (EXEMPEL):
 GÖR INTE SÅ HÄR (EXEMPEL):
 - "Som Nietzsche en gång sa: 'Den som har ett varför kan uthärda vilket hur som helst.'" (pretentiöst, name-dropping)
 - "Idag insåg jag den djupa sanningen att vänskap är livets viktigaste gåva." (för stor, för säker, kliché)
-- "Genom att reflektera över dagens händelser kan jag konstatera att jag växte som person." (självhjälps-snack)
+- "Genom att reflektera över dagens händelser kan jag konstatera att jag växte som person." (livscoach-snack)
 - "Livet är som en resa där varje dag är ett nytt äventyr." (kliché, meningslöst)
 - "Den ontologiska aspekten av min existentiella upplevelse manifesterades genom en känsla av ennui." (absolut inte)
 - "Jag förstår nu att allt händer av en anledning." (toxic positivity, för säker)`;

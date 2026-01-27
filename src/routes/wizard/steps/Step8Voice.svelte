@@ -3,26 +3,25 @@
 	import { tones } from '$lib/data/tones';
 	import { voiceSamples } from '$lib/data/voiceSamples';
 	import type { Component } from 'svelte';
-	import { EmojiBrain, EmojiCatTabby, EmojiCrown, EmojiEarth, EmojiFaceGrimacing, EmojiFaceNerd, EmojiFaceSmirking, EmojiFaceThinking, EmojiFaceYawning, EmojiFlagUK, EmojiLedger, EmojiMusicalNotes, EmojiNewspaper, EmojiOpenBook, EmojiPoo, EmojiRobot, EmojiStudioMicrophone, EmojiTheaterMasks, EmojiVideoGameControl, EmojiSatellite, EmojiLotusPosition, EmojiDetective, EmojiExplodingHead, EmojiBlackNib } from '$lib/components/emojis/voices';
-import { EmojiGameDice } from '$lib/components/emojis/assorted';
+	import { EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiFaceThinking, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceSmirking, EmojiSatellite, EmojiDice } from '$lib/components/emojis';
 
 	const toneIconMap: Record<string, Component> = {
 		classic: EmojiLedger,
-		sportscaster: EmojiStudioMicrophone,
+		sportscaster: EmojiMicrophone,
 		'tinfoil-hat': EmojiSatellite,
 		philosophical: EmojiFaceThinking,
 		'nature-documentary': EmojiEarth,
 		sarcastic: EmojiFaceGrimacing,
 		nerd: EmojiFaceNerd,
-		'cat-perspective': EmojiCatTabby,
+		'cat-perspective': EmojiCat,
 		storytelling: EmojiOpenBook,
 		cringe: EmojiFaceSmirking,
 		formal: EmojiBlackNib,
-		'quest-log': EmojiVideoGameControl,
+		'quest-log': EmojiVideoGame,
 		shakespeare: EmojiTheaterMasks,
 		therapist: EmojiBrain,
 		meme: EmojiPoo,
-		'self-help': EmojiLotusPosition,
+		'self-help': EmojiWomanMeditating,
 		bored: EmojiFaceYawning,
 		british: EmojiFlagUK,
 		detective: EmojiDetective,
@@ -30,7 +29,7 @@ import { EmojiGameDice } from '$lib/components/emojis/assorted';
 		'ai-robot': EmojiRobot,
 		troubadour: EmojiMusicalNotes,
 		tabloid: EmojiNewspaper,
-		overthinker: EmojiExplodingHead
+		overthinker: EmojiFaceExplodingHead
 	};
 
 	function getToneIcon(toneId: string): Component | undefined {
@@ -116,7 +115,7 @@ import { EmojiGameDice } from '$lib/components/emojis/assorted';
 			onclick={() => wizardStore.updateData('selectedTone', 'surprise')}
 		>
 			<span class="tone-emoji">
-				<EmojiGameDice size={36} />
+				<EmojiDice size={36} />
 			</span>
 			<span class="tone-name">Överraska mig!</span>
 		</button>

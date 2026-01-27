@@ -2,7 +2,7 @@ import type { TonePromptBuilder } from './types';
 
 export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
 
-SKRIVSTIL: Klassisk dagbok
+SKRIVSTIL: Klassisk Dagbok
 
 GRUNDTON:
 - Skriv i första person, ärligt och personligt

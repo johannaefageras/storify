@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import { EmojiPushpinRound, EmojiCalendar, EmojiWavingHand } from '$lib/components/emojis/assorted';
+	import { EmojiPushpinRound, EmojiPushpin, EmojiHandWave } from '$lib/components/emojis';
 	import { FIELD_LIMITS } from '$lib/validation';
 
 	let locationInput = $state('');
@@ -100,7 +100,7 @@
 
 	<div class="field-group">
 		<span class="field-label">
-			<span class="label-emoji"><EmojiCalendar size={23} /></span>
+			<span class="label-emoji"><EmojiPushpin size={23} /></span>
 			Vad hände idag?
 		</span>
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
@@ -123,7 +123,7 @@
 
 	<div class="field-group">
 		<span class="field-label">
-			<span class="label-emoji"><EmojiWavingHand size={23} /></span>
+			<span class="label-emoji"><EmojiHandWave size={23} /></span>
 			Vilka var med idag?
 		</span>
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->

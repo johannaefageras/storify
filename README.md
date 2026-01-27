@@ -45,7 +45,7 @@ No more staring at a blank page – just answer a few questions and get a beauti
 
 | Tone                                    | Description                              |
 | --------------------------------------- | ---------------------------------------- |
-| 🖋️ **Klassisk** (Classic)               | Traditional "Dear Diary" format          |
+| 🖋️ **Klassisk Dagbok** (Classic)        | Traditional "Dear Diary" format          |
 | 📖 **Berättelse** (Storytelling)        | Your day as a narrative adventure        |
 | 🤔 **Filosofisk** (Philosophical)       | Deep reflections and existential musings |
 | 🏆 **Sportkommentator** (Sportscaster)  | ENERGETIC play-by-play commentary        |

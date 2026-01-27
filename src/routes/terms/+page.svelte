@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { EmojiDiamond, EmojiScroll } from '$lib/components/emojis/assorted';
+	import { EmojiScroll, EmojiDiamond } from '$lib/components/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 </script>
 

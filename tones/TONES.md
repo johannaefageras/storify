@@ -8,28 +8,28 @@ The journaling app collects information about a user's day through a wizard form
 
 ## Available Tones
 
-| Tone                    | File                                       | Language  | Description                                                  |
-| ----------------------- | ------------------------------------------ | --------- | ------------------------------------------------------------ |
-| 🖋️ **Klassisk**         | [classic.md](./classic.md)                 | Swedish   | Honest, timeless diary style – "Kära dagbok..."              |
-| 📖 **Berättelse**       | [storytelling.md](./storytelling.md)       | Swedish   | Warm, omniscient narrator telling your story                 |
-| 🤔 **Filosofisk**       | [philosophical.md](./philosophical.md)     | Swedish   | Thoughtful, wondering, finding meaning in small moments      |
-| 🏆 **Sportkommentator** | [sportscaster.md](./sportscaster.md)       | Swedish   | High-energy play-by-play of your day as athletic achievement |
-| 🐱 **Kattperspektiv**   | [cat-perspective.md](./cat-perspective.md) | Swedish   | Your day observed by a judgmental, superior house cat        |
-| 😏 **Sarkastisk**       | [sarcastic.md](./sarcastic.md)             | Swedish   | Dry, ironic wit – coping through humor                       |
-| 👑 **Drama Queen**      | [drama-queen.md](./drama-queen.md)         | Swedish   | EVERYTHING is dramatic – telenovela energy                   |
-| 📱 **Meme**             | [meme.md](./meme.md)                       | Swenglish | Internet-speak, Gen Z humor, "it's giving..."                |
-| 😳 **Cringe**           | [cringe.md](./cringe.md)                   | Swedish   | Painfully self-aware about awkward moments                   |
-| 🇬🇧 **Brittisk**         | [brittish.md](./brittish.md)               | English   | Understated British wit – "Not bad, actually."               |
-| 🎮 **Quest Log**        | [quest-log.md](./quest-log.md)             | Swedish   | RPG gaming style with quests, loot, and achievements         |
-| 😐 **Uttråkad**         | [bored.md](./bored.md)                     | Swedish   | Everything is tedious. Whatever.                             |
-| 🤖 **AI-Robot**         | [ai-robot.md](./ai-robot.md)               | Swedish   | System log with mechanical language and emerging feelings    |
-| 🧾 **Formell**          | [formal.md](./formal.md)                   | Swedish   | Overly formal official letter about the day                  |
-| 🐾 **Naturdokumentär**  | [nature-documentary.md](./nature-documentary.md) | Swedish | Attenborough-style observations of human behavior            |
-| 🤓 **Nörd**             | [nerd.md](./nerd.md)                       | Swedish   | Over-explains everything with facts and tangents             |
-| 🎭 **Shakespeare**      | [shakespeare.md](./shakespeare.md)         | Swedish   | Dramatic monologue with archaic Swedish and theater flair    |
-| 🗞️ **Kvällstidning**    | [tabloid.md](./tabloid.md)                 | Swedish   | Sensational tabloid headlines about mundane events           |
-| 🧠 **Psykolog**         | [therapist.md](./therapist.md)             | Swedish   | Clinical therapist notes with warm insight                   |
-| 🎶 **Trubadur**         | [troubadour.md](./troubadour.md)           | Swedish   | Song lyrics/ballad with verses and chorus                    |
+| Tone                    | File                                             | Language  | Description                                                  |
+| ----------------------- | ------------------------------------------------ | --------- | ------------------------------------------------------------ |
+| 🖋️ **Klassisk Dagbok**  | [classic.md](./classic.md)                       | Swedish   | Honest, timeless diary style – "Kära dagbok..."              |
+| 📖 **Berättelse**       | [storytelling.md](./storytelling.md)             | Swedish   | Warm, omniscient narrator telling your story                 |
+| 🤔 **Filosofisk**       | [philosophical.md](./philosophical.md)           | Swedish   | Thoughtful, wondering, finding meaning in small moments      |
+| 🏆 **Sportkommentator** | [sportscaster.md](./sportscaster.md)             | Swedish   | High-energy play-by-play of your day as athletic achievement |
+| 🐱 **Kattperspektiv**   | [cat-perspective.md](./cat-perspective.md)       | Swedish   | Your day observed by a judgmental, superior house cat        |
+| 😏 **Sarkastisk**       | [sarcastic.md](./sarcastic.md)                   | Swedish   | Dry, ironic wit – coping through humor                       |
+| 👑 **Drama Queen**      | [drama-queen.md](./drama-queen.md)               | Swedish   | EVERYTHING is dramatic – telenovela energy                   |
+| 📱 **Meme**             | [meme.md](./meme.md)                             | Swenglish | Internet-speak, Gen Z humor, "it's giving..."                |
+| 😳 **Cringe**           | [cringe.md](./cringe.md)                         | Swedish   | Painfully self-aware about awkward moments                   |
+| 🇬🇧 **Brittisk**         | [brittish.md](./brittish.md)                     | English   | Understated British wit – "Not bad, actually."               |
+| 🎮 **Quest Log**        | [quest-log.md](./quest-log.md)                   | Swedish   | RPG gaming style with quests, loot, and achievements         |
+| 😐 **Uttråkad**         | [bored.md](./bored.md)                           | Swedish   | Everything is tedious. Whatever.                             |
+| 🤖 **AI-Robot**         | [ai-robot.md](./ai-robot.md)                     | Swedish   | System log with mechanical language and emerging feelings    |
+| 🧾 **Formell**          | [formal.md](./formal.md)                         | Swedish   | Overly formal official letter about the day                  |
+| 🐾 **Naturdokumentär**  | [nature-documentary.md](./nature-documentary.md) | Swedish   | Attenborough-style observations of human behavior            |
+| 🤓 **Nörd**             | [nerd.md](./nerd.md)                             | Swedish   | Over-explains everything with facts and tangents             |
+| 🎭 **Shakespeare**      | [shakespeare.md](./shakespeare.md)               | Swedish   | Dramatic monologue with archaic Swedish and theater flair    |
+| 🗞️ **Kvällstidning**    | [tabloid.md](./tabloid.md)                       | Swedish   | Sensational tabloid headlines about mundane events           |
+| 🧠 **Psykolog**         | [therapist.md](./therapist.md)                   | Swedish   | Clinical therapist notes with warm insight                   |
+| 🎶 **Trubadur**         | [troubadour.md](./troubadour.md)                 | Swedish   | Song lyrics/ballad with verses and chorus                    |
 
 ## File Structure
 
@@ -124,10 +124,10 @@ The tone instructions expect structured data like:
 
 ### By Mood
 
-| Feeling                  | Recommended Tones                    |
-| ------------------------ | ------------------------------------ |
+| Feeling                  | Recommended Tones                        |
+| ------------------------ | ---------------------------------------- |
 | Happy, want to celebrate | Drama Queen, Sportkommentator, Quest Log |
-| Reflective, thoughtful   | Klassisk, Filosofisk, Berättelse         |
+| Reflective, thoughtful   | Klassisk Dagbok, Filosofisk, Berättelse  |
 | Frustrated, need to vent | Sarkastisk, Uttråkad, Drama Queen        |
 | Silly, want to laugh     | Kattperspektiv, Meme, Cringe             |
 | Awkward day              | Cringe, Sarkastisk, Brittisk             |
@@ -144,7 +144,7 @@ Drama Queen → Sportkommentator → Meme → Quest Log → Klassisk → Brittis
 
 ### Language Output
 
-- **Swedish**: Klassisk, Berättelse, Filosofisk, Sportkommentator, Kattperspektiv, Sarkastisk, Drama Queen, Cringe, Quest Log, Uttråkad, AI-Robot, Formell, Naturdokumentär, Nörd, Shakespeare, Kvällstidning, Psykolog, Trubadur
+- **Swedish**: Klassisk Dagbok, Berättelse, Filosofisk, Sportkommentator, Kattperspektiv, Sarkastisk, Drama Queen, Cringe, Quest Log, Uttråkad, AI-Robot, Formell, Naturdokumentär, Nörd, Shakespeare, Kvällstidning, Psykolog, Trubadur
 - **Swenglish**: Meme (mix of Swedish and English)
 - **English**: Brittisk
 
