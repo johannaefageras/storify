@@ -32,7 +32,7 @@
 				<EmojiProfilePicture size={96} />
 			</div>
 			<div class="johanna-text">
-				<p>Jag heter Johanna, är sjuksköterska och bor i Göteborg. På fritiden kodar jag (självlärd, på hobbynivå), syr mina egna kläder, och försöker hålla mina krukväxter vid liv. Ibland lyckas jag med alla tre samtidigt.</p>
+				<p>Jag heter Johanna, är 36 år och bor i Göteborg. På fritiden kodar jag (självlärd, på hobbynivå), syr mina egna kläder, och försöker hålla mina krukväxter vid liv. Ibland lyckas jag med alla tre samtidigt.</p>
 			</div>
 		</div>
 		<p>Storify började som ett litet hobbyprojekt en kväll när jag tänkte: "Tänk om jag kunde få hjälp att skriva dagbok istället för att bara tänka att jag borde göra det?" Några kaffekoppar och kodningskvällar senare var appen född.</p>
