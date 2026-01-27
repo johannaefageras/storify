@@ -76,6 +76,11 @@ function formatWizardDataForPrompt(data: WizardData): string {
   sections.push(`DAGENS INFORMATION:`);
   sections.push(`Datum: ${data.weekday} ${data.date}`);
 
+  // Location (auto-detected via geocoding)
+  if (data.locationName) {
+    sections.push(`Plats: ${data.locationName}`);
+  }
+
   // Weather (auto-detected from user's location)
   if (data.weather) {
     sections.push(`Väder: ${data.weather.temperature}°C, ${data.weather.description}`);

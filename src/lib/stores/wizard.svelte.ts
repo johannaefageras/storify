@@ -3,6 +3,7 @@ import { Preferences } from '@capacitor/preferences';
 import type { WeatherData } from '$lib/utils/weather';
 import { fetchWeather } from '$lib/utils/weather';
 import { getCurrentPosition } from '$lib/utils/geolocation';
+import { fetchLocationName } from '$lib/utils/geocoding';
 
 export interface UserProfile {
   name: string;
@@ -24,6 +25,7 @@ export interface WizardData {
   date: string;
   weekday: string;
   weather: WeatherData | null;
+  locationName: string | null; // e.g., "Södermalm, Stockholm"
   emojis: string[];
 
   // Step 2: Sleep & Energy
@@ -81,6 +83,7 @@ function createWizardStore() {
     date: '',
     weekday: '',
     weather: null,
+    locationName: null,
     emojis: [],
     sleepQuality: 5.48,
     energyLevel: 5.48,
@@ -175,9 +178,16 @@ function createWizardStore() {
     async initWeather() {
       const coords = await getCurrentPosition();
       if (coords) {
-        const weather = await fetchWeather(coords);
+        // Fetch weather and location name in parallel
+        const [weather, locationInfo] = await Promise.all([
+          fetchWeather(coords),
+          fetchLocationName(coords)
+        ]);
         if (weather) {
           data.weather = weather;
+        }
+        if (locationInfo) {
+          data.locationName = locationInfo.name;
         }
       }
     },
