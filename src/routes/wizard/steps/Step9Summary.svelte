@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import { integrityStore } from '$lib/stores/integrity.svelte';
 	import { tones } from '$lib/data/tones';
 	import { emojiLabelMap, emojiMap } from '$lib/data/emojis';
 	import type { Component } from 'svelte';
@@ -178,23 +177,6 @@ Vi ses imorgon, dagboken.`;
 		error = '';
 		generatedEntry = '';
 
-		// Check integrity on Android before generating
-		if (integrityStore.requiresVerification() && !integrityStore.verified) {
-			// Try to verify integrity if not already checked
-			if (!integrityStore.checked) {
-				const verified = await integrityStore.init();
-				if (!verified) {
-					error = 'Kunde inte verifiera appens integritet. Försök igen.';
-					isGenerating = false;
-					return;
-				}
-			} else {
-				error = 'Appens integritet kunde inte verifieras. Kontrollera att appen är nedladdad från Google Play.';
-				isGenerating = false;
-				return;
-			}
-		}
-
 		// Determine the actual tone to use (random if "surprise" selected)
 		let toneToUse = wizardStore.data.selectedTone;
 		if (toneToUse === 'surprise') {
@@ -217,24 +199,11 @@ Vi ses imorgon, dagboken.`;
 				(emojiId) => emojiLabelMap.get(emojiId) ?? emojiId
 			);
 
-			// Get integrity token for this request (on Android)
-			const integrityData = await integrityStore.getTokenForRequest(
-				`generate-${Date.now()}`
-			);
-
-			const headers: Record<string, string> = {
-				'Content-Type': 'application/json'
-			};
-
-			// Add integrity headers if available
-			if (integrityData) {
-				headers['X-Integrity-Token'] = integrityData.token;
-				headers['X-Integrity-Nonce'] = integrityData.nonce;
-			}
-
 			const response = await fetch(getApiUrl('/api/generate'), {
 				method: 'POST',
-				headers,
+				headers: {
+					'Content-Type': 'application/json'
+				},
 				body: JSON.stringify({ ...wizardStore.data, emojis: emojiLabels, selectedTone: toneToUse })
 			});
 
