@@ -16,11 +16,8 @@
 
 <footer class="legal-footer">
 	<nav class="legal-links">
-		{#each visibleLinks as link, i}
+		{#each visibleLinks as link}
 			<a href={link.href}>{link.label}</a>
-			{#if i < visibleLinks.length - 1}
-				<span class="separator">·</span>
-			{/if}
 		{/each}
 	</nav>
 	<div class="copyright">
@@ -64,10 +61,10 @@
 		text-underline-offset: 2px;
 	}
 
-	.legal-links .separator {
-		color: var(--color-text-muted);
-		opacity: 0.3;
-		font-size: var(--text-xs);
+	.legal-links a:not(:first-child)::before {
+		content: '·';
+		margin-right: 0.5rem;
+		opacity: 0.6;
 	}
 
 	.copyright {
