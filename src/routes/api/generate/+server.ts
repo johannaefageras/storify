@@ -232,11 +232,12 @@ export const POST: RequestHandler = async ({ request }) => {
       );
     }
 
-    // 2. Verify Play Integrity token (if provided)
+    // 2. Verify Play Integrity token (required for Android clients when configured)
     const integrityToken = request.headers.get('X-Integrity-Token');
     const integrityNonce = request.headers.get('X-Integrity-Nonce');
+    const userAgent = request.headers.get('User-Agent');
 
-    const integrityResult = await verifyIntegrityToken(integrityToken, integrityNonce);
+    const integrityResult = await verifyIntegrityToken(integrityToken, integrityNonce, userAgent);
     if (!integrityResult.valid) {
       console.warn('Integrity verification failed:', integrityResult.reason);
       return json(

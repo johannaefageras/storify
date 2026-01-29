@@ -183,21 +183,42 @@ export function isIntegrityConfigured(): boolean {
 }
 
 /**
+ * Check if a request appears to be from an Android native client.
+ * This is used to enforce integrity verification for native clients
+ * while allowing web clients to skip it.
+ */
+function isAndroidClient(userAgent: string | null): boolean {
+	if (!userAgent) return false;
+	// Check for Android in User-Agent (Capacitor apps include this)
+	return userAgent.toLowerCase().includes('android');
+}
+
+/**
  * Verify a Play Integrity token from an API request.
- * Returns { valid: true } if verification passes or is skipped (not configured).
+ * Returns { valid: true } if verification passes or is skipped (not configured/web client).
  * Returns { valid: false, reason: string } if verification fails.
+ *
+ * @param token - The integrity token from X-Integrity-Token header
+ * @param nonce - The nonce from X-Integrity-Nonce header
+ * @param userAgent - The User-Agent header (used to detect native clients)
  */
 export async function verifyIntegrityToken(
 	token: string | null,
-	nonce: string | null
+	nonce: string | null,
+	userAgent: string | null = null
 ): Promise<{ valid: boolean; reason?: string; skipped?: boolean }> {
 	// Skip verification if not configured
 	if (!isIntegrityConfigured()) {
 		return { valid: true, skipped: true };
 	}
 
-	// If token/nonce not provided, allow request (for web clients)
+	// If token/nonce not provided, check if this is a native client
 	if (!token || !nonce) {
+		// Android clients must provide integrity headers when configured
+		if (isAndroidClient(userAgent)) {
+			return { valid: false, reason: 'Integrity token required for native clients' };
+		}
+		// Allow web clients without integrity headers
 		return { valid: true, skipped: true };
 	}
 
