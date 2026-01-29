@@ -24,12 +24,11 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		align-self: center;
 		gap: 1rem;
 		font-family: var(--font-primary);
 		max-width: 520px;
 		width: 100%;
-		margin-left: auto;
-		margin-right: auto;
 	}
 
 	.legal-links {
