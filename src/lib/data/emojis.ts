@@ -215,7 +215,6 @@ import {
   EmojiLeavesFluttering,
   EmojiLuggage,
   EmojiPalmTree,
-  EmojiPawPrints,
   EmojiPlanet,
   EmojiPlaygroundSlide,
   EmojiPottedPlant,
@@ -728,7 +727,6 @@ export const emojiCategories: EmojiCategory[] = [
       { id: 'leaves-fluttering', component: EmojiLeavesFluttering, label: 'löv, höst, vind' },
       { id: 'luggage', component: EmojiLuggage, label: 'bagage, resa, packa' },
       { id: 'palm-tree', component: EmojiPalmTree, label: 'palm, tropiskt, semester' },
-      { id: 'paw-prints', component: EmojiPawPrints, label: 'tassavtryck, djur, husdjur' },
       { id: 'planet', component: EmojiPlanet, label: 'planet, rymden, universum' },
       {
         id: 'playground-slide',
