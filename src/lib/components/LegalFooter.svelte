@@ -1,18 +1,27 @@
+<script>
+	import { page } from '$app/state';
+
+	const links = [
+		{ href: '/', label: 'Start' },
+		{ href: '/about', label: 'Om' },
+		{ href: '/guide', label: 'Guide' },
+		{ href: '/contact', label: 'Kontakt' },
+		{ href: '/privacy', label: 'Integritet' },
+		{ href: '/cookies', label: 'Kakor' },
+		{ href: '/terms', label: 'Villkor' }
+	];
+
+	const visibleLinks = $derived(links.filter(link => link.href !== page.url.pathname));
+</script>
+
 <footer class="legal-footer">
 	<nav class="legal-links">
-		<a href="/">Start</a>
-		<span class="separator">·</span>
-		<a href="/about">Om</a>
-		<span class="separator">·</span>
-		<a href="/guide">Guide</a>
-		<span class="separator">·</span>
-		<a href="/contact">Kontakt</a>
-		<span class="separator">·</span>
-		<a href="/privacy">Integritet</a>
-		<span class="separator">·</span>
-		<a href="/cookies">Kakor</a>
-		<span class="separator">·</span>
-		<a href="/terms">Villkor</a>
+		{#each visibleLinks as link, i}
+			<a href={link.href}>{link.label}</a>
+			{#if i < visibleLinks.length - 1}
+				<span class="separator">·</span>
+			{/if}
+		{/each}
 	</nav>
 	<div class="copyright">
 		Upphovsrätt © Storify 2026
@@ -30,7 +39,7 @@
 		gap: 1rem;
 		font-family: var(--font-primary);
 		width: 100%;
-		max-width: 520px;
+		max-width: 720px;
 	}
 
 	.legal-links {
