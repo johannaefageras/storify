@@ -225,7 +225,9 @@
 				<div></div>
 			{/if}
 		</footer>
-		<LegalFooter />
+		<div class="footer-container">
+			<LegalFooter />
+		</div>
 	{/if}
 </main>
 
@@ -346,7 +348,7 @@
 		margin-top: auto;
 	}
 
-	.wizard :global(.legal-footer) {
+	.footer-container {
 		align-self: center;
 		width: 100%;
 		max-width: 520px;
