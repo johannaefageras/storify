@@ -346,6 +346,12 @@
 		margin-top: auto;
 	}
 
+	.wizard :global(.legal-footer) {
+		align-self: center;
+		width: 100%;
+		max-width: 520px;
+	}
+
 	@media (max-width: 600px) {
 		.wizard {
 			padding: calc(env(safe-area-inset-top, 0px) + 1.25rem) 1rem 1.25rem;
