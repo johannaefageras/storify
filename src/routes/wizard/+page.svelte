@@ -349,9 +349,9 @@
 	}
 
 	.footer-container {
-		align-self: center;
-		width: 100%;
-		max-width: 520px;
+		align-self: center !important;
+		width: 100% !important;
+		max-width: 520px !important;
 	}
 
 	@media (max-width: 600px) {
