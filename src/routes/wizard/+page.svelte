@@ -359,6 +359,11 @@
 			padding: calc(env(safe-area-inset-top, 0px) + 1.25rem) 1rem 1.25rem;
 		}
 
+		.footer-container {
+			max-width: 100% !important;
+			padding: 0 2rem;
+		}
+
 		.wizard.result-view {
 			padding: calc(env(safe-area-inset-top, 0px) + 1rem) 1rem 1.5rem;
 		}
