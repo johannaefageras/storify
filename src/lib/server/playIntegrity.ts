@@ -165,10 +165,13 @@ function validateVerdict(
 		return { valid: false, reason: 'Device integrity check failed' };
 	}
 
-	// Check app integrity - require PLAY_RECOGNIZED for production
+	// Check app integrity
+	// PLAY_RECOGNIZED: App installed from Google Play
+	// UNEVALUATED: Can occur during testing or for unpublished apps
+	// UNRECOGNIZED_VERSION: Sideloaded APK (allowed for development/testing)
 	const appVerdict = verdict.appIntegrity.appRecognitionVerdict;
-	if (appVerdict !== 'PLAY_RECOGNIZED' && appVerdict !== 'UNEVALUATED') {
-		// UNEVALUATED can occur during testing or for unpublished apps
+	const allowedAppVerdicts = ['PLAY_RECOGNIZED', 'UNEVALUATED', 'UNRECOGNIZED_VERSION'];
+	if (!allowedAppVerdicts.includes(appVerdict)) {
 		return { valid: false, reason: 'App integrity check failed' };
 	}
 
