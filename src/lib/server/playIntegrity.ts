@@ -194,14 +194,33 @@ export function isIntegrityConfigured(): boolean {
 }
 
 /**
- * Check if a request appears to be from an Android native client.
+ * Check if a request appears to be from a Capacitor Android native app.
  * This is used to enforce integrity verification for native clients
- * while allowing web clients to skip it.
+ * while allowing web clients (including web on Android devices) to skip it.
+ *
+ * Capacitor WebView User-Agents typically:
+ * - Contain "Android" AND "wv" (webview marker)
+ * - Do NOT contain standard browser identifiers like "Chrome/" without "wv"
+ *
+ * Regular Android browsers will have "Chrome/" but NOT "wv"
  */
 function isAndroidClient(userAgent: string | null): boolean {
 	if (!userAgent) return false;
-	// Check for Android in User-Agent (Capacitor apps include this)
-	return userAgent.toLowerCase().includes('android');
+	const ua = userAgent.toLowerCase();
+
+	// Must be Android
+	if (!ua.includes('android')) return false;
+
+	// Check for WebView marker (wv) - indicates Capacitor/native app
+	// WebView UAs look like: "... Android ... wv) ..."
+	if (ua.includes(' wv)') || ua.includes(' wv ')) return true;
+
+	// Also check for absence of standard browser - Capacitor WebViews
+	// sometimes don't have the wv marker but lack browser identifiers
+	// However, this is risky as it could block legitimate users
+	// So we only require integrity if we're confident it's a WebView
+
+	return false;
 }
 
 /**
