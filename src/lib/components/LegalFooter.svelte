@@ -26,8 +26,11 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		align-self: center;
 		gap: 1rem;
 		font-family: var(--font-primary);
+		width: 100%;
+		max-width: 520px;
 	}
 
 	.legal-links {

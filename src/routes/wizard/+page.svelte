@@ -13,7 +13,7 @@
 	import Step8Voice from './steps/Step8Voice.svelte';
 	import Step9Summary from './steps/Step9Summary.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
-	import LegalLinksFooter from '$lib/components/LegalLinksFooter.svelte';
+	import LegalFooter from '$lib/components/LegalFooter.svelte';
 
 	const optionalSteps = [0, 5, 6, 7];
 
@@ -225,7 +225,7 @@
 				<div></div>
 			{/if}
 		</footer>
-		<LegalLinksFooter />
+		<LegalFooter />
 	{/if}
 </main>
 
