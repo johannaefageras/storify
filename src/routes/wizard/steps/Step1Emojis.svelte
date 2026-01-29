@@ -350,6 +350,11 @@
 			width: 2.5rem;
 			height: 2.5rem;
 		}
+
+		.emoji-picker .emoji-btn :global(svg) {
+			width: 2rem;
+			height: 2rem;
+		}
 	}
 
 	@media (max-width: 420px) {

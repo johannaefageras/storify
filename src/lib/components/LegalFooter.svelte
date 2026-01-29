@@ -15,7 +15,7 @@
 		<a href="/terms">Villkor</a>
 	</nav>
 	<div class="copyright">
-		Upphovsrätt © Storify 2026 | Alla rättigheter reserverade
+		Upphovsrätt © Storify 2026
 	</div>
 </footer>
 
