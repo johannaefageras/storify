@@ -7,10 +7,9 @@ import emojiMeanings from '$lib/data/emojiMeanings.json';
 import { buildTonePrompt } from '$lib/data/tonePrompts';
 import {
   validateWizardData,
-  validatePayloadSize,
-  checkRateLimit,
-  getClientIdentifier
+  validatePayloadSize
 } from '$lib/validation';
+import { checkRateLimit, getClientIdentifier } from '$lib/validation/ratelimit';
 import { verifyIntegrityToken } from '$lib/server/playIntegrity';
 
 // CORS headers for Capacitor native app

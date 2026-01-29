@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { FIELD_LIMITS } from '$lib/validation';
+	import InfoTooltip from '$lib/components/InfoTooltip.svelte';
 
 	const pronounOptions = [
 		{ value: 'hon', label: 'Hon' },
@@ -31,6 +32,13 @@
 		);
 	}
 
+	function removeLastFamily() {
+		const arr = wizardStore.data.profile.family;
+		if (arr.length > 0) {
+			wizardStore.updateProfile('family', arr.slice(0, -1));
+		}
+	}
+
 	function addOccupation() {
 		const value = occupationInput.trim();
 		if (!value || wizardStore.data.profile.occupationDetail.includes(value)) {
@@ -51,6 +59,13 @@
 		);
 	}
 
+	function removeLastOccupation() {
+		const arr = wizardStore.data.profile.occupationDetail;
+		if (arr.length > 0) {
+			wizardStore.updateProfile('occupationDetail', arr.slice(0, -1));
+		}
+	}
+
 	function addPet() {
 		const value = petInput.trim();
 		if (!value || wizardStore.data.profile.pets.includes(value)) {
@@ -66,6 +81,13 @@
 			'pets',
 			wizardStore.data.profile.pets.filter((p) => p !== pet)
 		);
+	}
+
+	function removeLastPet() {
+		const arr = wizardStore.data.profile.pets;
+		if (arr.length > 0) {
+			wizardStore.updateProfile('pets', arr.slice(0, -1));
+		}
 	}
 
 	function addInterest() {
@@ -85,10 +107,45 @@
 		);
 	}
 
-	function handleKeydown(event: KeyboardEvent, action: () => void) {
+	function removeLastInterest() {
+		const arr = wizardStore.data.profile.interests;
+		if (arr.length > 0) {
+			wizardStore.updateProfile('interests', arr.slice(0, -1));
+		}
+	}
+
+	function handleKeydown(event: KeyboardEvent, action: () => void, removeLastAction?: () => void) {
 		if (event.key === 'Enter') {
 			event.preventDefault();
 			action();
+		} else if (event.key === 'Backspace' && removeLastAction) {
+			const input = event.currentTarget as HTMLInputElement;
+			if (input.value === '' || (input.selectionStart === 0 && input.selectionEnd === 0)) {
+				event.preventDefault();
+				removeLastAction();
+			}
+		}
+	}
+
+	function handleCommaInput(
+		event: Event,
+		inputSetter: (v: string) => void,
+		action: () => void
+	) {
+		const input = event.currentTarget as HTMLInputElement;
+		const value = input.value;
+		if (value.includes(',')) {
+			const parts = value.split(',');
+			const beforeComma = parts[0];
+			const afterComma = parts.slice(1).join(',').trimStart();
+
+			// Must set input.value directly so Svelte's bind:value reads the correct value
+			input.value = beforeComma;
+			inputSetter(beforeComma);
+			action();
+
+			input.value = afterComma;
+			inputSetter(afterComma);
 		}
 	}
 
@@ -164,7 +221,10 @@
 		</div>
 
 		<div class="field-group">
-			<label class="field-label" for="occupation">Sysselsättning</label>
+			<label class="field-label" for="occupation">
+				Sysselsättning
+				<InfoTooltip text="Separera olika sysselsättningar med komma-tecken" />
+			</label>
 			<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 			<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
 				{#each wizardStore.data.profile.occupationDetail as occupation}
@@ -178,7 +238,8 @@
 					type="text"
 					placeholder={wizardStore.data.profile.occupationDetail.length === 0 ? 'Jobbar, pluggar, pensionär, lite av varje...' : ''}
 					bind:value={occupationInput}
-					onkeydown={(e) => handleKeydown(e, addOccupation)}
+					onkeydown={(e) => handleKeydown(e, addOccupation, removeLastOccupation)}
+					oninput={(e) => handleCommaInput(e, (v) => occupationInput = v, addOccupation)}
 					maxlength={FIELD_LIMITS.occupationDetail}
 				/>
 			</div>
@@ -186,7 +247,10 @@
 
 		<div class="field-row">
 			<div class="field-group compact">
-				<label class="field-label" for="family">Familjemedlemmar</label>
+				<label class="field-label" for="family">
+					Familjemedlemmar
+					<InfoTooltip text="Separera olika familjemedlemmar med komma-tecken" />
+				</label>
 				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 				<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
 					{#each wizardStore.data.profile.family as member}
@@ -200,14 +264,18 @@
 						type="text"
 						placeholder={wizardStore.data.profile.family.length === 0 ? 'Sambon, mormor som alltid ringer...' : ''}
 						bind:value={familyInput}
-						onkeydown={(e) => handleKeydown(e, addFamily)}
+						onkeydown={(e) => handleKeydown(e, addFamily, removeLastFamily)}
+						oninput={(e) => handleCommaInput(e, (v) => familyInput = v, addFamily)}
 						maxlength={FIELD_LIMITS.family}
 					/>
 				</div>
 			</div>
 
 			<div class="field-group compact">
-				<label class="field-label" for="pets">Husdjur</label>
+				<label class="field-label" for="pets">
+					Husdjur
+					<InfoTooltip text="Separera olika husdjur med komma-tecken" />
+				</label>
 				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 				<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
 					{#each wizardStore.data.profile.pets as pet}
@@ -221,7 +289,8 @@
 						type="text"
 						placeholder={wizardStore.data.profile.pets.length === 0 ? 'Katten Mats, fågeln Pelle...' : ''}
 						bind:value={petInput}
-						onkeydown={(e) => handleKeydown(e, addPet)}
+						onkeydown={(e) => handleKeydown(e, addPet, removeLastPet)}
+						oninput={(e) => handleCommaInput(e, (v) => petInput = v, addPet)}
 						maxlength={FIELD_LIMITS.pets}
 					/>
 				</div>
@@ -229,7 +298,10 @@
 		</div>
 
 		<div class="field-group">
-			<label class="field-label" for="interests">Intressen & hobbies</label>
+			<label class="field-label" for="interests">
+				Intressen & hobbies
+				<InfoTooltip text="Separera olika intressen/hobbies med komma-tecken" />
+			</label>
 			<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 			<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
 				{#each wizardStore.data.profile.interests as interest}
@@ -243,7 +315,8 @@
 					type="text"
 					placeholder={wizardStore.data.profile.interests.length === 0 ? 'Träning, WoW, TikTok, bygga appar...' : ''}
 					bind:value={interestInput}
-					onkeydown={(e) => handleKeydown(e, addInterest)}
+					onkeydown={(e) => handleKeydown(e, addInterest, removeLastInterest)}
+					oninput={(e) => handleCommaInput(e, (v) => interestInput = v, addInterest)}
 					maxlength={FIELD_LIMITS.interests}
 				/>
 			</div>
@@ -291,6 +364,9 @@
 	}
 
 	.field-label {
+		display: flex;
+		align-items: center;
+		gap: 0.35rem;
 		font-family: var(--font-primary);
 		font-size: var(--text-xs);
 		font-weight: var(--weight-medium);
@@ -366,6 +442,8 @@
 		border-radius: var(--radius-sm);
 		background-color: var(--color-bg-elevated);
 		cursor: text;
+		touch-action: manipulation;
+		-webkit-tap-highlight-color: transparent;
 		transition:
 			border-color 0.15s ease,
 			box-shadow 0.15s ease;

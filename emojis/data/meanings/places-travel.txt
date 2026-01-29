@@ -1,0 +1,210 @@
+{
+  "air": {
+    "name": "Luft",
+    "meaning": "Användaren har känt vinden, andats frisk luft eller upplevt en blåsig dag."
+  },
+  "airplane": {
+    "name": "Flygplan",
+    "meaning": "Användaren har flugit, rest långt eller planerar en flygresa."
+  },
+  "ambulance": {
+    "name": "Ambulans",
+    "meaning": "Användaren har upplevt ett nödfall, varit på sjukhus eller sett en akut situation."
+  },
+  "anchor": {
+    "name": "Ankare",
+    "meaning": "Användaren har varit vid havet, på en båt eller känt sig stabil och förankrad."
+  },
+  "bank": {
+    "name": "Bank",
+    "meaning": "Användaren har besökt banken, hanterat ekonomi eller gjort bankärenden."
+  },
+  "beach": {
+    "name": "Strand",
+    "meaning": "Användaren har varit på stranden, njutit av sol och hav eller haft en avkopplande dag."
+  },
+  "bouquet": {
+    "name": "Bukett",
+    "meaning": "Användaren har fått eller gett blommor, eller upplevt något romantiskt och vackert."
+  },
+  "bus": {
+    "name": "Buss",
+    "meaning": "Användaren har åkt buss, pendlat eller rest med kollektivtrafik."
+  },
+  "car": {
+    "name": "Bil",
+    "meaning": "Användaren har kört bil, åkt någonstans eller gjort en bilresa."
+  },
+  "carousel-horse": {
+    "name": "Karusellhäst",
+    "meaning": "Användaren har varit på nöjespark, tivoli eller upplevt barnslig glädje."
+  },
+  "cherry-blossom": {
+    "name": "Körsbärsblom",
+    "meaning": "Användaren har njutit av vårens skönhet, sett blommor eller känt hopp och förnyelse."
+  },
+  "circus-tent": {
+    "name": "Cirkustält",
+    "meaning": "Användaren har varit på cirkus, sett en show eller upplevt något spektakulärt."
+  },
+  "cloud": {
+    "name": "Moln",
+    "meaning": "Användaren har haft en mulen dag, sett på molnen eller känt sig lite drömmande."
+  },
+  "compass": {
+    "name": "Kompass",
+    "meaning": "Användaren har navigerat, hittat sin riktning eller utforskat nya platser."
+  },
+  "cyclone": {
+    "name": "Cyklon",
+    "meaning": "Användaren har upplevt stormigt väder, kaos eller intensiva händelser."
+  },
+  "earth": {
+    "name": "Jorden",
+    "meaning": "Användaren har tänkt globalt, känt samhörighet med världen eller rest internationellt."
+  },
+  "ferris-wheel": {
+    "name": "Pariserhjul",
+    "meaning": "Användaren har varit på nöjespark, njutit av utsikten eller haft en romantisk stund."
+  },
+  "fire": {
+    "name": "Eld",
+    "meaning": "Användaren har suttit vid en brasa, känt värme eller upplevt något intensivt."
+  },
+  "fuel": {
+    "name": "Bensin",
+    "meaning": "Användaren har tankat bilen, gjort ett stopp eller rest med fordon."
+  },
+  "herb": {
+    "name": "Ört",
+    "meaning": "Användaren har plockat örter, lagat mat med kryddor eller varit ute i naturen."
+  },
+  "highway": {
+    "name": "Motorväg",
+    "meaning": "Användaren har gjort en bilresa, kört långt eller rest på motorvägen."
+  },
+  "hospital": {
+    "name": "Sjukhus",
+    "meaning": "Användaren har besökt sjukhuset, fått vård eller varit med om något medicinskt."
+  },
+  "house": {
+    "name": "Hus",
+    "meaning": "Användaren har varit hemma, fokuserat på hemmet eller känt trygghet i sitt hem."
+  },
+  "ice": {
+    "name": "Is",
+    "meaning": "Användaren har upplevt kyla, is eller vinterväder."
+  },
+  "leaves-fluttering": {
+    "name": "Fladdande löv",
+    "meaning": "Användaren har njutit av hösten, sett löven falla eller känt vindens sus."
+  },
+  "luggage": {
+    "name": "Bagage",
+    "meaning": "Användaren har packat, rest eller är på väg någonstans."
+  },
+  "palm-tree": {
+    "name": "Palm",
+    "meaning": "Användaren har varit på semester, upplevt tropiskt klimat eller drömt om värme."
+  },
+  "paw-prints": {
+    "name": "Tassavtryck",
+    "meaning": "Användaren har umgåtts med djur, husdjur eller sett söta fyrfotingar."
+  },
+  "planet": {
+    "name": "Planet",
+    "meaning": "Användaren har tänkt på rymden, universum eller känt sig filosofisk om tillvaron."
+  },
+  "playground-slide": {
+    "name": "Rutschkana",
+    "meaning": "Användaren har varit på lekplats, lekt med barn eller känt barnslig glädje."
+  },
+  "potted-plant": {
+    "name": "Krukväxt",
+    "meaning": "Användaren har skött om växter, njutit av grönt hemma eller känt naturens närvaro."
+  },
+  "rainbow": {
+    "name": "Regnbåge",
+    "meaning": "Användaren har sett en regnbåge, upplevt hopp eller haft en färgglad och positiv dag."
+  },
+  "rocket": {
+    "name": "Raket",
+    "meaning": "Användaren har siktat högt, gjort snabba framsteg eller känt sig energisk och driven."
+  },
+  "roller-coaster": {
+    "name": "Berg-och-dalbana",
+    "meaning": "Användaren har upplevt spänning, haft en intensiv dag eller känt känslomässiga svängningar."
+  },
+  "satellite": {
+    "name": "Satellit",
+    "meaning": "Användaren har tänkt på teknik, kommunikation eller känt sig uppkopplad med världen."
+  },
+  "school": {
+    "name": "Skola",
+    "meaning": "Användaren har varit i skolan, studerat eller lärt sig något nytt."
+  },
+  "scooter": {
+    "name": "Sparkcykel",
+    "meaning": "Användaren har åkt sparkcykel, elsparkcykel eller transporterat sig smidigt."
+  },
+  "seedling": {
+    "name": "Planta",
+    "meaning": "Användaren har planterat något, sett tillväxt eller påbörjat något nytt."
+  },
+  "snowflake": {
+    "name": "Snöflinga",
+    "meaning": "Användaren har upplevt snö, vinter eller njutit av den kalla årstiden."
+  },
+  "speedboat": {
+    "name": "Motorbåt",
+    "meaning": "Användaren har åkt båt, varit på vattnet eller känt fart och frihet till sjöss."
+  },
+  "suitcase": {
+    "name": "Resväska",
+    "meaning": "Användaren har packat för resa, rest iväg eller kommit hem från en resa."
+  },
+  "sun": {
+    "name": "Sol",
+    "meaning": "Användaren har njutit av solsken, haft fint väder eller känt värme och energi."
+  },
+  "sunflower": {
+    "name": "Solros",
+    "meaning": "Användaren har sett solrosor, njutit av sommar eller känt glädje och optimism."
+  },
+  "thermometer": {
+    "name": "Termometer",
+    "meaning": "Användaren har kollat temperaturen, upplevt extremt väder eller känt av värme eller kyla."
+  },
+  "toilet": {
+    "name": "Toalett",
+    "meaning": "Användaren har besökt toaletten, haft magproblem eller gjort ett nödvändigt stopp."
+  },
+  "tornado": {
+    "name": "Tornado",
+    "meaning": "Användaren har upplevt kaos, stormiga händelser eller intensiva omvälvningar."
+  },
+  "traffic-light": {
+    "name": "Trafikljus",
+    "meaning": "Användaren har varit i trafiken, väntat på grönt eller navigerat i stadsmiljö."
+  },
+  "tram": {
+    "name": "Spårvagn",
+    "meaning": "Användaren har åkt spårvagn, pendlat eller rest i stadsmiljö."
+  },
+  "tram-front": {
+    "name": "Spårvagn framifrån",
+    "meaning": "Användaren har åkt kollektivt, pendlat eller tagit sig runt i staden."
+  },
+  "tulip": {
+    "name": "Tulpan",
+    "meaning": "Användaren har njutit av våren, sett tulpaner eller känt hopp och förnyelse."
+  },
+  "umbrella-rain": {
+    "name": "Paraply & regn",
+    "meaning": "Användaren har upplevt regn, använt paraply eller haft en regnig dag."
+  },
+  "volcano": {
+    "name": "Vulkan",
+    "meaning": "Användaren har upplevt intensiva känslor, utbrott eller sett något mäktigt i naturen."
+  }
+}

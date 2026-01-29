@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { EmojiPushpinRound, EmojiPushpin, EmojiHandWave } from '$lib/components/emojis';
+	import InfoTooltip from '$lib/components/InfoTooltip.svelte';
 	import { FIELD_LIMITS } from '$lib/validation';
 
 	let locationInput = $state('');
@@ -24,6 +25,13 @@
 		);
 	}
 
+	function removeLastLocation() {
+		const arr = wizardStore.data.locations;
+		if (arr.length > 0) {
+			wizardStore.updateData('locations', arr.slice(0, -1));
+		}
+	}
+
 	function addActivity() {
 		const value = activityInput.trim();
 		if (!value || wizardStore.data.activities.includes(value)) {
@@ -39,6 +47,13 @@
 			'activities',
 			wizardStore.data.activities.filter((a) => a !== activity)
 		);
+	}
+
+	function removeLastActivity() {
+		const arr = wizardStore.data.activities;
+		if (arr.length > 0) {
+			wizardStore.updateData('activities', arr.slice(0, -1));
+		}
 	}
 
 	function addPerson() {
@@ -58,10 +73,45 @@
 		);
 	}
 
-	function handleKeydown(event: KeyboardEvent, action: () => void) {
+	function removeLastPerson() {
+		const arr = wizardStore.data.people;
+		if (arr.length > 0) {
+			wizardStore.updateData('people', arr.slice(0, -1));
+		}
+	}
+
+	function handleKeydown(event: KeyboardEvent, action: () => void, removeLastAction?: () => void) {
 		if (event.key === 'Enter') {
 			event.preventDefault();
 			action();
+		} else if (event.key === 'Backspace' && removeLastAction) {
+			const input = event.currentTarget as HTMLInputElement;
+			if (input.value === '' || (input.selectionStart === 0 && input.selectionEnd === 0)) {
+				event.preventDefault();
+				removeLastAction();
+			}
+		}
+	}
+
+	function handleCommaInput(
+		event: Event,
+		inputSetter: (v: string) => void,
+		action: () => void
+	) {
+		const input = event.currentTarget as HTMLInputElement;
+		const value = input.value;
+		if (value.includes(',')) {
+			const parts = value.split(',');
+			const beforeComma = parts[0];
+			const afterComma = parts.slice(1).join(',').trimStart();
+
+			// Must set input.value directly so Svelte's bind:value reads the correct value
+			input.value = beforeComma;
+			inputSetter(beforeComma);
+			action();
+
+			input.value = afterComma;
+			inputSetter(afterComma);
 		}
 	}
 
@@ -79,6 +129,7 @@
 		<span class="field-label">
 			<span class="label-emoji"><EmojiPushpinRound size={23} /></span>
 			Var har du varit idag?
+			<InfoTooltip text="Separera olika platser med komma-tecken" />
 		</span>
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 		<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
@@ -92,7 +143,8 @@
 				type="text"
 				placeholder={wizardStore.data.locations.length === 0 ? 'I köket, vid samma skolbänk som vanligt, i sängen...' : ''}
 				bind:value={locationInput}
-				onkeydown={(e) => handleKeydown(e, addLocation)}
+				onkeydown={(e) => handleKeydown(e, addLocation, removeLastLocation)}
+				oninput={(e) => handleCommaInput(e, (v) => locationInput = v, addLocation)}
 				maxlength={FIELD_LIMITS.locations}
 			/>
 		</div>
@@ -102,6 +154,7 @@
 		<span class="field-label">
 			<span class="label-emoji"><EmojiPushpin size={23} /></span>
 			Vad hände idag?
+			<InfoTooltip text="Separera olika händelser med komma-tecken" />
 		</span>
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 		<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
@@ -115,7 +168,8 @@
 				type="text"
 				placeholder={wizardStore.data.activities.length === 0 ? 'Stirrade på ett dokument, åt lunch ensam...' : ''}
 				bind:value={activityInput}
-				onkeydown={(e) => handleKeydown(e, addActivity)}
+				onkeydown={(e) => handleKeydown(e, addActivity, removeLastActivity)}
+				oninput={(e) => handleCommaInput(e, (v) => activityInput = v, addActivity)}
 				maxlength={FIELD_LIMITS.activities}
 			/>
 		</div>
@@ -125,6 +179,7 @@
 		<span class="field-label">
 			<span class="label-emoji"><EmojiHandWave size={23} /></span>
 			Vilka var med idag?
+			<InfoTooltip text="Separera olika personer/djur med komma-tecken" />
 		</span>
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 		<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
@@ -138,7 +193,8 @@
 				type="text"
 				placeholder={wizardStore.data.people.length === 0 ? 'Lägg till person...' : ''}
 				bind:value={personInput}
-				onkeydown={(e) => handleKeydown(e, addPerson)}
+				onkeydown={(e) => handleKeydown(e, addPerson, removeLastPerson)}
+				oninput={(e) => handleCommaInput(e, (v) => personInput = v, addPerson)}
 				maxlength={FIELD_LIMITS.people}
 			/>
 		</div>
@@ -200,6 +256,8 @@
 		border-radius: var(--radius-sm);
 		background-color: var(--color-bg-elevated);
 		cursor: text;
+		touch-action: manipulation;
+		-webkit-tap-highlight-color: transparent;
 		transition:
 			border-color 0.15s ease,
 			box-shadow 0.15s ease;

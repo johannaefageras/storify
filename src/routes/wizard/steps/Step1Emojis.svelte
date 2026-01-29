@@ -8,6 +8,7 @@
 		type EmojiItem,
 		type EmojiCategory
 	} from '$lib/data/emojis';
+	import EmojiRefresh from '$lib/components/icons/EmojiRefresh.svelte';
 
 	const weekdays = ['Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag'];
 	const months = [
@@ -87,6 +88,26 @@
 	function getEmojiComponent(emojiId: string): Component | undefined {
 		return emojiMap.get(emojiId);
 	}
+
+	function refreshCategory(categoryIndex: number) {
+		const category = emojiCategories[categoryIndex];
+		const selectedIds = wizardStore.data.emojis;
+
+		// Find which selected emojis belong to this category
+		const selectedInCategory = category.emojis.filter((e) => selectedIds.includes(e.id));
+		const selectedIdsInCategory = new Set(selectedInCategory.map((e) => e.id));
+
+		// Get new random emojis excluding already selected ones
+		const availableForRandom = category.emojis.filter((e) => !selectedIdsInCategory.has(e.id));
+		const randomCount = Math.max(0, EMOJIS_PER_CATEGORY - selectedInCategory.length);
+		const randomEmojis = getRandomEmojis(availableForRandom, randomCount);
+
+		// Update just this category
+		displayCategories[categoryIndex] = {
+			name: category.name,
+			emojis: [...selectedInCategory, ...randomEmojis]
+		};
+	}
 </script>
 
 <div class="step-content">
@@ -113,9 +134,14 @@
 	</div>
 
 	<div class="emoji-picker">
-			{#each displayCategories as category}
+			{#each displayCategories as category, index}
 				<div class="emoji-category">
-					<span class="category-name">{category.name}</span>
+					<div class="category-header">
+						<span class="category-name">{category.name}</span>
+						<button class="refresh-btn" onclick={() => refreshCategory(index)} aria-label="Ladda fler {category.name}">
+							<EmojiRefresh size={14} color="var(--color-text)" />
+						</button>
+					</div>
 					<div class="emoji-grid">
 						{#each category.emojis as emoji}
 							<button
@@ -224,6 +250,38 @@
 		gap: 0.375rem;
 	}
 
+	.category-header {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.refresh-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 2rem;
+		height: 2rem;
+		padding: 0;
+		background: transparent;
+		border: none;
+		border-radius: var(--radius-sm);
+		cursor: pointer;
+		opacity: 0.6;
+		transition: opacity 0.15s ease, transform 0.15s ease, background-color 0.15s ease;
+	}
+
+	.refresh-btn:hover {
+		opacity: 1;
+		transform: rotate(45deg);
+	}
+
+	.refresh-btn:active {
+		opacity: 1;
+		transform: rotate(180deg);
+		background-color: var(--color-border);
+	}
+
 	.category-name {
 		font-family: var(--font-primary);
 		font-size: var(--text-xs);
@@ -260,6 +318,7 @@
 	.emoji-btn :global(svg) {
 		width: 1.75rem;
 		height: 1.75rem;
+		pointer-events: none;
 	}
 
 	.emoji-btn:hover:not(.disabled) {
@@ -285,6 +344,11 @@
 
 		.selected-emojis {
 			flex-wrap: wrap;
+		}
+
+		.refresh-btn {
+			width: 2.5rem;
+			height: 2.5rem;
 		}
 	}
 

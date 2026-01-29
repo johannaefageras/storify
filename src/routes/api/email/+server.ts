@@ -7,10 +7,9 @@ import {
   validateString,
   escapeHtml,
   safeMarkdownToHtml,
-  checkRateLimit,
-  getClientIdentifier,
   LIMITS
 } from '$lib/validation';
+import { checkRateLimit, getClientIdentifier } from '$lib/validation/ratelimit';
 
 // CORS headers for Capacitor native app
 const corsHeaders = {

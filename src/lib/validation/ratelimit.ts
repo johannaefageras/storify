@@ -1,5 +1,6 @@
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
+import { env } from '$env/dynamic/private';
 
 // Initialize Redis client (lazy - only when needed)
 let ratelimit: Ratelimit | null = null;
@@ -7,8 +8,8 @@ let ratelimit: Ratelimit | null = null;
 function getRateLimiter(): Ratelimit | null {
 	if (ratelimit) return ratelimit;
 
-	const upstashUrl = process.env.UPSTASH_REDIS_REST_URL;
-	const upstashToken = process.env.UPSTASH_REDIS_REST_TOKEN;
+	const upstashUrl = env.UPSTASH_REDIS_REST_URL;
+	const upstashToken = env.UPSTASH_REDIS_REST_TOKEN;
 
 	if (!upstashUrl || !upstashToken) {
 		console.warn('Upstash credentials not configured. Rate limiting disabled.');

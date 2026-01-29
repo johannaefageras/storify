@@ -1,0 +1,462 @@
+{
+  "anger-bubble": {
+    "name": "Ilska",
+    "meaning": "Användaren känner sig arg eller frustrerad. Något har retat upp dem och irritationen bubblar."
+  },
+  "broken-heart": {
+    "name": "Krossat hjärta",
+    "meaning": "Användaren upplever hjärtesorg, separation eller djup besvikelse i kärlek eller relationer."
+  },
+  "face-angry": {
+    "name": "Arg",
+    "meaning": "Användaren är arg eller irriterad. Något eller någon har gjort dem upprörda."
+  },
+  "face-angry-horns": {
+    "name": "Djävulsk",
+    "meaning": "Användaren känner sig busig, elak eller har gjort något lite fräckt. En lekfull ondska."
+  },
+  "face-anguished": {
+    "name": "Plågad",
+    "meaning": "Användaren känner ångest eller djup oro. Något tynger tungt på sinnet."
+  },
+  "face-anxious": {
+    "name": "Ängslig",
+    "meaning": "Användaren känner sig nervös eller orolig. Osäkerhet och ängslan präglar känsloläget."
+  },
+  "face-astonished": {
+    "name": "Häpen",
+    "meaning": "Användaren är extremt förvånad eller chockad över något som hänt."
+  },
+  "face-bags-under-eyes": {
+    "name": "Utmattad",
+    "meaning": "Användaren är extremt trött, har sovit dåligt eller känner sig helt slut."
+  },
+  "face-beaming": {
+    "name": "Strålande glad",
+    "meaning": "Användaren är genuint lycklig och strålar av glädje. En riktigt bra dag."
+  },
+  "face-blowing-kiss": {
+    "name": "Slängkyss",
+    "meaning": "Användaren känner kärlek, tillgivenhet eller vill visa uppskattning på ett kärleksfullt sätt."
+  },
+  "face-cold": {
+    "name": "Frusen",
+    "meaning": "Användaren fryser eller har haft en kall dag. Kan också betyda att de känner sig känslomässigt kalla."
+  },
+  "face-confounded": {
+    "name": "Förbryllad",
+    "meaning": "Användaren känner sig frustrerad och förvirrad samtidigt. Saker går inte som planerat."
+  },
+  "face-confused": {
+    "name": "Förvirrad",
+    "meaning": "Användaren förstår inte riktigt vad som händer. Osäkerhet och frågetecken."
+  },
+  "face-cowboy": {
+    "name": "Cowboy",
+    "meaning": "Användaren känner sig äventyrlig, cool eller har en sorglös och självsäker attityd."
+  },
+  "face-crossed-out-eyes": {
+    "name": "Utslocknad",
+    "meaning": "Användaren är helt slut, överväldigad eller känner sig totalt utslagen."
+  },
+  "face-crying": {
+    "name": "Gråter",
+    "meaning": "Användaren är ledsen och har gråtit eller känner för att gråta. En tung dag."
+  },
+  "face-crying-loudly": {
+    "name": "Storbölar",
+    "meaning": "Användaren är djupt ledsen eller förkrossad. Känslorna är överväldigande."
+  },
+  "face-diagonal-mouth": {
+    "name": "Tveksam",
+    "meaning": "Användaren är osäker eller skeptisk. Något känns inte helt rätt."
+  },
+  "face-disappointed": {
+    "name": "Besviken",
+    "meaning": "Användaren är besviken över något som hänt eller inte hänt. Förväntningar uppfylldes inte."
+  },
+  "face-disguise": {
+    "name": "Förklädnad",
+    "meaning": "Användaren känner sig hemlighetsfull, döljer något eller är i ett mystiskt humör."
+  },
+  "face-downcast-sweat": {
+    "name": "Nedstämd & stressad",
+    "meaning": "Användaren känner sig nedstämd och lite stressad. En kombination av oro och ledsenhet."
+  },
+  "face-drooling": {
+    "name": "Dreglar",
+    "meaning": "Användaren längtar intensivt efter något, kanske god mat eller något de verkligen vill ha."
+  },
+  "face-exhaling": {
+    "name": "Andas ut",
+    "meaning": "Användaren känner lättnad eller försöker lugna ner sig. En djup utandning efter stress."
+  },
+  "face-exploding-head": {
+    "name": "Mind blown",
+    "meaning": "Användaren är helt överväldigad eller chockad. Något otroligt eller häpnadsväckande har hänt."
+  },
+  "face-expressionless": {
+    "name": "Uttryckslös",
+    "meaning": "Användaren känner sig tom, likgiltig eller visar medvetet inga känslor."
+  },
+  "face-fearful": {
+    "name": "Rädd",
+    "meaning": "Användaren känner rädsla eller är skrämd av något. Oron är påtaglig."
+  },
+  "face-frowning": {
+    "name": "Sur",
+    "meaning": "Användaren är på dåligt humör, missnöjd eller lite ledsen."
+  },
+  "face-frowning-open-mouth": {
+    "name": "Förskräckt",
+    "meaning": "Användaren är chockad och upprörd. Något oväntat negativt har hänt."
+  },
+  "face-grimacing": {
+    "name": "Grimaserar",
+    "meaning": "Användaren känner sig generad, nervös eller har hamnat i en pinsam situation."
+  },
+  "face-grinning": {
+    "name": "Flin",
+    "meaning": "Användaren är glad och på gott humör. Ett brett leende präglar dagen."
+  },
+  "face-grinning-big-eyes": {
+    "name": "Glad & ivrig",
+    "meaning": "Användaren är entusiastisk och glad. Ivern och glädjen lyser igenom."
+  },
+  "face-grinning-smiling-eyes": {
+    "name": "Varmt leende",
+    "meaning": "Användaren känner genuin värme och lycka. Ett äkta, hjärtligt leende."
+  },
+  "face-grinning-squinting": {
+    "name": "Skrattar",
+    "meaning": "Användaren har skrattat eller är i ett mycket roligt humör. Glädjen är stor."
+  },
+  "face-grinning-sweat": {
+    "name": "Nervöst skratt",
+    "meaning": "Användaren skrattar men är lite nervös eller lättad. Pinsamt men okej."
+  },
+  "face-hand-over-mouth": {
+    "name": "Fniss",
+    "meaning": "Användaren fnissar, har en hemlighet eller har sagt något de kanske inte borde."
+  },
+  "face-head-bandage": {
+    "name": "Skadad",
+    "meaning": "Användaren har skadat sig, är sjuk eller mår fysiskt dåligt."
+  },
+  "face-heart-eyes": {
+    "name": "Förälskad",
+    "meaning": "Användaren är förälskad, förtjust eller älskar något väldigt mycket."
+  },
+  "face-holding-back-tears": {
+    "name": "Håller tårarna",
+    "meaning": "Användaren är rörd eller känslosam och försöker hålla tillbaka tårarna."
+  },
+  "face-hushed": {
+    "name": "Tyst förvåning",
+    "meaning": "Användaren är förvånad men tyst. Något oväntat har hänt."
+  },
+  "face-in-clouds": {
+    "name": "Drömmande",
+    "meaning": "Användaren är tankfull, drömmande eller lite förvirrad. Huvudet är i molnen."
+  },
+  "face-kissing": {
+    "name": "Puss",
+    "meaning": "Användaren skickar en puss eller känner sig kärleksfull och tillgiven."
+  },
+  "face-kissing-closed-eyes": {
+    "name": "Öm kyss",
+    "meaning": "Användaren känner romantik och ömhet. En kärleksfull och intim känsla."
+  },
+  "face-kissing-smiling-eyes": {
+    "name": "Glad kyss",
+    "meaning": "Användaren känner sig glad och tillgiven. En vänlig, varm kyss."
+  },
+  "face-lol": {
+    "name": "Skrattar högt",
+    "meaning": "Användaren skrattar högt och hjärtligt. Något var verkligen roligt."
+  },
+  "face-lying": {
+    "name": "Ljuger",
+    "meaning": "Användaren har ljugit, överdrivit eller känner sig lite skyldig för något."
+  },
+  "face-medical-mask": {
+    "name": "Sjuk med mask",
+    "meaning": "Användaren är sjuk, förkyld eller tar försiktighetsåtgärder för hälsan."
+  },
+  "face-melting": {
+    "name": "Smälter",
+    "meaning": "Användaren känner sig generad, överväldigad av värme eller smälter av förlägenhet."
+  },
+  "face-money-mouth": {
+    "name": "Pengar på hjärnan",
+    "meaning": "Användaren tänker på pengar, har tjänat pengar eller känner sig rik."
+  },
+  "face-monocle": {
+    "name": "Granskande",
+    "meaning": "Användaren är skeptisk, undersöker något närmare eller är intellektuellt nyfiken."
+  },
+  "face-nauseated": {
+    "name": "Illamående",
+    "meaning": "Användaren mår illa, är äcklad eller känner fysiskt obehag."
+  },
+  "face-nerd": {
+    "name": "Nörd",
+    "meaning": "Användaren känner sig smart, har lärt sig något nytt eller är stolt över sin kunskap."
+  },
+  "face-neutral": {
+    "name": "Neutral",
+    "meaning": "Användaren känner sig varken glad eller ledsen. En balanserad, likgiltig känsla."
+  },
+  "face-open-eyes-hand-over-mouth": {
+    "name": "Chockad oops",
+    "meaning": "Användaren är chockad eller har insett något oväntat. Ett förvånat misstag."
+  },
+  "face-open-mouth": {
+    "name": "Förvånad",
+    "meaning": "Användaren är förvånad eller häpen. Något oväntat har hänt."
+  },
+  "face-partying": {
+    "name": "Feststämning",
+    "meaning": "Användaren firar, festar eller är i ett festligt och glatt humör."
+  },
+  "face-peeking-eye": {
+    "name": "Kikar",
+    "meaning": "Användaren är nyfiken, lite blyg eller kikar på något intressant."
+  },
+  "face-persevering": {
+    "name": "Kämpar på",
+    "meaning": "Användaren kämpar igenom något svårt. Uthållighet trots frustration."
+  },
+  "face-pleading": {
+    "name": "Bedjande",
+    "meaning": "Användaren ber om något, vädjar eller försöker vara gullig för att få sin vilja igenom."
+  },
+  "face-pouting": {
+    "name": "Tjurig",
+    "meaning": "Användaren är tjurig, sur eller arg på ett barnsligt sätt."
+  },
+  "face-raising-eyebrow": {
+    "name": "Höjer ögonbryn",
+    "meaning": "Användaren är skeptisk, misstänksam eller ifrågasätter något."
+  },
+  "face-relieved": {
+    "name": "Lättad",
+    "meaning": "Användaren känner lättnad. Något stressigt är över eller löst sig."
+  },
+  "face-rolling-eyes": {
+    "name": "Himlar ögonen",
+    "meaning": "Användaren är irriterad, uttråkad eller tycker något är löjligt."
+  },
+  "face-sad-but-relieved": {
+    "name": "Ledsen men lättad",
+    "meaning": "Användaren är ledsen men samtidigt lättad. Blandade känslor efter något svårt."
+  },
+  "face-saluting": {
+    "name": "Hälsar",
+    "meaning": "Användaren visar respekt, accepterar en uppgift eller bekräftar något."
+  },
+  "face-savoring-food": {
+    "name": "Njuter av mat",
+    "meaning": "Användaren har ätit något gott eller njuter av en smakupplevelse."
+  },
+  "face-screaming-in-fear": {
+    "name": "Skriker av rädsla",
+    "meaning": "Användaren är livrädd eller i panik. Något skrämmande har hänt."
+  },
+  "face-shaking": {
+    "name": "Skakar",
+    "meaning": "Användaren skakar av chock, köld eller starka känslor."
+  },
+  "face-shushing": {
+    "name": "Tystar",
+    "meaning": "Användaren har en hemlighet, vill att något ska hållas tyst eller säger ssh."
+  },
+  "face-sleeping": {
+    "name": "Sover",
+    "meaning": "Användaren har sovit, är sömnig eller drömmer om att få sova."
+  },
+  "face-sleepy": {
+    "name": "Sömnig",
+    "meaning": "Användaren är trött och sömnig. Behöver vila eller sömn."
+  },
+  "face-slightly-frowning": {
+    "name": "Lite ledsen",
+    "meaning": "Användaren är lite nedstämd eller besviken. Ingen stor sorg, men något känns fel."
+  },
+  "face-slightly-smiling": {
+    "name": "Försiktigt glad",
+    "meaning": "Användaren känner sig nöjd eller stillsamt glad. Inget stort jubel, men en trygg och okej känsla."
+  },
+  "face-smiling": {
+    "name": "Leende",
+    "meaning": "Användaren är glad och positiv. Ett vanligt, trevligt humör."
+  },
+  "face-smiling-eyes": {
+    "name": "Leende ögon",
+    "meaning": "Användaren är genuint nöjd och lycklig. Värmen syns i ögonen."
+  },
+  "face-smiling-halo": {
+    "name": "Ängel",
+    "meaning": "Användaren känner sig oskyldig, har gjort något bra eller är på sitt bästa beteende."
+  },
+  "face-smiling-hearts": {
+    "name": "Full av kärlek",
+    "meaning": "Användaren känner värme, omtanke eller kärlek. Hjärtat är öppet och positivt."
+  },
+  "face-smiling-open-hands": {
+    "name": "Kramande",
+    "meaning": "Användaren vill ge en kram, känner sig välkomnande eller öppen."
+  },
+  "face-smiling-tear": {
+    "name": "Glad tår",
+    "meaning": "Användaren är rörd till tårar av glädje. Känslosamt men positivt."
+  },
+  "face-smirking": {
+    "name": "Flirtig",
+    "meaning": "Användaren är flirtig, självsäker eller har något på gång."
+  },
+  "face-sneezing": {
+    "name": "Nyser",
+    "meaning": "Användaren är förkyld, har allergier eller mår lite dåligt."
+  },
+  "face-spiral-eyes": {
+    "name": "Yr i huvudet",
+    "meaning": "Användaren känner sig yr, hypnotiserad eller helt förvirrad."
+  },
+  "face-squinting": {
+    "name": "Kisar",
+    "meaning": "Användaren är skeptisk, misstänksam eller tittar närmare på något."
+  },
+  "face-squinting-tongue": {
+    "name": "Busig tunga",
+    "meaning": "Användaren är busig, lekfull och retsam. En rolig och energisk känsla."
+  },
+  "face-star-struck": {
+    "name": "Stjärnögd",
+    "meaning": "Användaren är imponerad, beundrar något eller har upplevt något fantastiskt."
+  },
+  "face-steam-from-nose": {
+    "name": "Frustrerad ånga",
+    "meaning": "Användaren är frustrerad eller arg och försöker hålla sig lugn."
+  },
+  "face-sunglasses": {
+    "name": "Cool",
+    "meaning": "Användaren känner sig cool, avslappnad och självsäker."
+  },
+  "face-swearing": {
+    "name": "Svär",
+    "meaning": "Användaren är väldigt arg och svär. Frustrationen är på topp."
+  },
+  "face-sweating": {
+    "name": "Svettas",
+    "meaning": "Användaren har ansträngt sig fysiskt, är varm eller nervös."
+  },
+  "face-thermometer": {
+    "name": "Feber",
+    "meaning": "Användaren är sjuk med feber eller mår fysiskt dåligt."
+  },
+  "face-thinking": {
+    "name": "Funderar",
+    "meaning": "Användaren tänker, funderar eller överväger något."
+  },
+  "face-tired": {
+    "name": "Trött",
+    "meaning": "Användaren är trött och utmattad. Energin är låg."
+  },
+  "face-tongue": {
+    "name": "Räcker tunga",
+    "meaning": "Användaren är lekfull, busig eller retas lite."
+  },
+  "face-unamused": {
+    "name": "Ointresserad",
+    "meaning": "Användaren är uttråkad, ointresserad eller inte imponerad."
+  },
+  "face-upside-down": {
+    "name": "Upp och ner",
+    "meaning": "Användaren är sarkastisk, fånig eller ser saker från ett annat perspektiv."
+  },
+  "face-vomiting": {
+    "name": "Kräks",
+    "meaning": "Användaren mår mycket illa, är sjuk eller är extremt äcklad av något."
+  },
+  "face-weary": {
+    "name": "Utmattad",
+    "meaning": "Användaren är helt utmattad och uppgiven. Orken är slut."
+  },
+  "face-winking": {
+    "name": "Blinkar",
+    "meaning": "Användaren blinkar flirtigt, skämtar eller delar en hemlighet."
+  },
+  "face-winking-tongue": {
+    "name": "Blinkar med tunga",
+    "meaning": "Användaren är busig och skämtsam. En lekfull och rolig känsla."
+  },
+  "face-without-mouth": {
+    "name": "Mållös",
+    "meaning": "Användaren vet inte vad de ska säga, är tyst eller har ingen kommentar."
+  },
+  "face-woozy": {
+    "name": "Omtöcknad",
+    "meaning": "Användaren känner sig yr, berusad eller inte riktigt med."
+  },
+  "face-worried": {
+    "name": "Orolig",
+    "meaning": "Användaren är orolig eller bekymrad över något."
+  },
+  "face-yawning": {
+    "name": "Gäspar",
+    "meaning": "Användaren är trött, uttråkad eller gäspar av sömnbrist."
+  },
+  "face-zany": {
+    "name": "Knäpp & tokig",
+    "meaning": "Användaren är i ett lekfullt, galet eller småkaotiskt humör. Energin är hög och okontrollerad på ett roligt sätt."
+  },
+  "face-zipper-mouth": {
+    "name": "Mun med blixtlås",
+    "meaning": "Användaren håller tyst, bevarar en hemlighet eller väljer att inte säga något."
+  },
+  "hand-fu": {
+    "name": "Knytnäve",
+    "meaning": "Användaren känner sig stark, redo att kämpa eller visar solidaritet."
+  },
+  "hand-ok": {
+    "name": "Ok-tecken",
+    "meaning": "Användaren tycker allt är okej, bra eller perfekt."
+  },
+  "hand-victory": {
+    "name": "Segertecken",
+    "meaning": "Användaren firar en seger, visar peace eller är positiv."
+  },
+  "hand-wave": {
+    "name": "Vinkar",
+    "meaning": "Användaren hälsar, säger hej eller hejdå till någon."
+  },
+  "hands-clapping": {
+    "name": "Applåderar",
+    "meaning": "Användaren applåderar, firar eller visar uppskattning för något."
+  },
+  "handshake": {
+    "name": "Handslag",
+    "meaning": "Användaren har gjort en överenskommelse, träffat någon eller visar samarbete."
+  },
+  "heart-on-fire": {
+    "name": "Brinnande hjärta",
+    "meaning": "Användaren känner intensiv passion, stark kärlek eller brinnande känslor."
+  },
+  "people-hugging": {
+    "name": "Kramar",
+    "meaning": "Användaren har fått eller gett en kram. Värme, tröst och närhet."
+  },
+  "speech-balloon": {
+    "name": "Pratbubbla",
+    "meaning": "Användaren har pratat mycket, haft viktiga samtal eller kommunicerat."
+  },
+  "thought-balloon": {
+    "name": "Tankebubbla",
+    "meaning": "Användaren har tänkt mycket, funderat eller dagdrömt."
+  },
+  "zzz": {
+    "name": "Sover",
+    "meaning": "Användaren är sömnig, har sovit eller behöver sova. Vila och återhämtning."
+  }
+}

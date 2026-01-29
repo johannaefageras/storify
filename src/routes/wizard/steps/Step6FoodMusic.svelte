@@ -4,6 +4,7 @@
 		EmojiShortcake,
 		EmojiHeadphones
 	} from '$lib/components/emojis';
+	import InfoTooltip from '$lib/components/InfoTooltip.svelte';
 	import { FIELD_LIMITS } from '$lib/validation';
 
 	let mealInput = $state('');
@@ -26,6 +27,13 @@
 		);
 	}
 
+	function removeLastMeal() {
+		const arr = wizardStore.data.customMeals;
+		if (arr.length > 0) {
+			wizardStore.updateData('customMeals', arr.slice(0, -1));
+		}
+	}
+
 	function addSoundtrack() {
 		const value = soundtrackInput.trim();
 		if (!value || wizardStore.data.customSoundtracks.includes(value)) {
@@ -43,10 +51,45 @@
 		);
 	}
 
-	function handleKeydown(event: KeyboardEvent, action: () => void) {
+	function removeLastSoundtrack() {
+		const arr = wizardStore.data.customSoundtracks;
+		if (arr.length > 0) {
+			wizardStore.updateData('customSoundtracks', arr.slice(0, -1));
+		}
+	}
+
+	function handleKeydown(event: KeyboardEvent, action: () => void, removeLastAction?: () => void) {
 		if (event.key === 'Enter') {
 			event.preventDefault();
 			action();
+		} else if (event.key === 'Backspace' && removeLastAction) {
+			const input = event.currentTarget as HTMLInputElement;
+			if (input.value === '' || (input.selectionStart === 0 && input.selectionEnd === 0)) {
+				event.preventDefault();
+				removeLastAction();
+			}
+		}
+	}
+
+	function handleCommaInput(
+		event: Event,
+		inputSetter: (v: string) => void,
+		action: () => void
+	) {
+		const input = event.currentTarget as HTMLInputElement;
+		const value = input.value;
+		if (value.includes(',')) {
+			const parts = value.split(',');
+			const beforeComma = parts[0];
+			const afterComma = parts.slice(1).join(',').trimStart();
+
+			// Must set input.value directly so Svelte's bind:value reads the correct value
+			input.value = beforeComma;
+			inputSetter(beforeComma);
+			action();
+
+			input.value = afterComma;
+			inputSetter(afterComma);
 		}
 	}
 
@@ -64,6 +107,7 @@
 		<span class="field-label">
 			<span class="label-emoji"><EmojiShortcake size={23} /></span>
 			Vad har du ätit idag?
+			<InfoTooltip text="Separera olika måltider/drycker med komma-tecken" />
 		</span>
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 		<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
@@ -77,7 +121,8 @@
 				type="text"
 				placeholder={wizardStore.data.customMeals.length === 0 ? 'Brunch på hotellet, fika med farmor, fem koppar kaffe...' : ''}
 				bind:value={mealInput}
-				onkeydown={(e) => handleKeydown(e, addMeal)}
+				onkeydown={(e) => handleKeydown(e, addMeal, removeLastMeal)}
+				oninput={(e) => handleCommaInput(e, (v) => mealInput = v, addMeal)}
 				maxlength={FIELD_LIMITS.customMeals}
 			/>
 		</div>
@@ -87,6 +132,7 @@
 		<span class="field-label">
 			<span class="label-emoji"><EmojiHeadphones size={23} /></span>
 			Vad var dagens soundtrack?
+			<InfoTooltip text="Separera olika ljud med komma-tecken" />
 		</span>
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 		<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
@@ -100,7 +146,8 @@
 				type="text"
 				placeholder={wizardStore.data.customSoundtracks.length === 0 ? 'Samma låt på repeat, regnet, grannarnas renovering...' : ''}
 				bind:value={soundtrackInput}
-				onkeydown={(e) => handleKeydown(e, addSoundtrack)}
+				onkeydown={(e) => handleKeydown(e, addSoundtrack, removeLastSoundtrack)}
+				oninput={(e) => handleCommaInput(e, (v) => soundtrackInput = v, addSoundtrack)}
 				maxlength={FIELD_LIMITS.customSoundtracks}
 			/>
 		</div>
@@ -157,6 +204,8 @@
 		border-radius: var(--radius-sm);
 		background-color: var(--color-bg-elevated);
 		cursor: text;
+		touch-action: manipulation;
+		-webkit-tap-highlight-color: transparent;
 		transition:
 			border-color 0.15s ease,
 			box-shadow 0.15s ease;

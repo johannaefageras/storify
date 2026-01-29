@@ -9,4 +9,4 @@ export {
 	type ValidationResult
 } from './validators';
 export { sanitizeString, sanitizeArray, escapeHtml, safeMarkdownToHtml } from './sanitizers';
-export { checkRateLimit, getClientIdentifier, type RateLimitResult } from './ratelimit';
+// Note: ratelimit.ts is server-only - import directly from '$lib/validation/ratelimit' in server code

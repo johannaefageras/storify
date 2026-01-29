@@ -1,7 +1,7 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { env } from '$env/dynamic/private';
-import { checkRateLimit, getClientIdentifier } from '$lib/validation';
+import { checkRateLimit, getClientIdentifier } from '$lib/validation/ratelimit';
 
 // CORS headers for Capacitor native app
 const corsHeaders = {

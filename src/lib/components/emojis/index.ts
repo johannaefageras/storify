@@ -172,7 +172,7 @@ export { default as EmojiFaceUpsideDown } from './EmojiFaceUpsideDown.svelte';
 export { default as EmojiFaceVomiting } from './EmojiFaceVomiting.svelte';
 export { default as EmojiFaceWeary } from './EmojiFaceWeary.svelte';
 export { default as EmojiFaceWinking } from './EmojiFaceWinking.svelte';
-export { default as EmojiFaceWinkingTounge } from './EmojiFaceWinkingTounge.svelte';
+export { default as EmojiFaceWinkingTongue } from './EmojiFaceWinkingTongue.svelte';
 export { default as EmojiFaceWithoutMouth } from './EmojiFaceWithoutMouth.svelte';
 export { default as EmojiFaceWoozy } from './EmojiFaceWoozy.svelte';
 export { default as EmojiFaceWorried } from './EmojiFaceWorried.svelte';
