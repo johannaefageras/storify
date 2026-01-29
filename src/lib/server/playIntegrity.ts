@@ -147,6 +147,14 @@ function validateVerdict(
 	verdict: IntegrityVerdict,
 	expectedNonce: string
 ): { valid: boolean; reason?: string } {
+	// Log the full verdict for debugging
+	console.log('Play Integrity verdict received:', JSON.stringify({
+		packageName: verdict.requestDetails.requestPackageName,
+		appVerdict: verdict.appIntegrity.appRecognitionVerdict,
+		deviceVerdict: verdict.deviceIntegrity.deviceRecognitionVerdict,
+		licenseVerdict: verdict.accountDetails.appLicensingVerdict
+	}));
+
 	// Verify nonce matches
 	if (verdict.requestDetails.nonce !== expectedNonce) {
 		return { valid: false, reason: 'Nonce mismatch' };
@@ -154,7 +162,7 @@ function validateVerdict(
 
 	// Verify package name
 	if (verdict.requestDetails.requestPackageName !== 'com.storify.app') {
-		return { valid: false, reason: 'Invalid package name' };
+		return { valid: false, reason: `Invalid package name: ${verdict.requestDetails.requestPackageName}` };
 	}
 
 	// Check device integrity - require at least MEETS_DEVICE_INTEGRITY
@@ -162,7 +170,7 @@ function validateVerdict(
 	const hasDeviceIntegrity = deviceVerdict.includes('MEETS_DEVICE_INTEGRITY');
 
 	if (!hasDeviceIntegrity) {
-		return { valid: false, reason: 'Device integrity check failed' };
+		return { valid: false, reason: `Device integrity check failed: ${deviceVerdict.join(', ') || 'empty'}` };
 	}
 
 	// Check app integrity
@@ -172,7 +180,7 @@ function validateVerdict(
 	const appVerdict = verdict.appIntegrity.appRecognitionVerdict;
 	const allowedAppVerdicts = ['PLAY_RECOGNIZED', 'UNEVALUATED', 'UNRECOGNIZED_VERSION'];
 	if (!allowedAppVerdicts.includes(appVerdict)) {
-		return { valid: false, reason: 'App integrity check failed' };
+		return { valid: false, reason: `App integrity check failed: ${appVerdict}` };
 	}
 
 	return { valid: true };

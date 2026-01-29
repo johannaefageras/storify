@@ -101,17 +101,20 @@ export async function verifyAppIntegrity(apiBaseUrl: string): Promise<boolean> {
 			body: JSON.stringify({ token, nonce })
 		});
 
-		if (!response.ok) {
-			console.error('Integrity verification failed:', response.status);
+		const result = await response.json();
+
+		if (!response.ok || !result.verified) {
+			// Log the detailed reason from the server
+			const reason = result.reason || result.error || 'Unknown reason';
+			console.error('Integrity verification failed:', response.status, reason);
 			integrityVerified = false;
 			lastVerificationTime = now;
 			return false;
 		}
 
-		const result = await response.json();
-		integrityVerified = result.verified === true;
+		integrityVerified = true;
 		lastVerificationTime = now;
-		return integrityVerified;
+		return true;
 	} catch (error) {
 		console.error('Error during integrity verification:', error);
 		integrityVerified = false;
