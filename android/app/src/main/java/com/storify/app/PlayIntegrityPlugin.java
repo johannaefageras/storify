@@ -24,6 +24,9 @@ public class PlayIntegrityPlugin extends Plugin {
         integrityManager = IntegrityManagerFactory.create(getContext());
     }
 
+    // Cloud project number for storify-v2 (get from Google Cloud Console dashboard)
+    private static final long CLOUD_PROJECT_NUMBER = 1018057137441L;
+
     @PluginMethod
     public void requestIntegrityToken(PluginCall call) {
         String nonce = call.getString("nonce");
@@ -35,6 +38,7 @@ public class PlayIntegrityPlugin extends Plugin {
 
         IntegrityTokenRequest request = IntegrityTokenRequest.builder()
                 .setNonce(nonce)
+                .setCloudProjectNumber(CLOUD_PROJECT_NUMBER)
                 .build();
 
         integrityManager.requestIntegrityToken(request)
