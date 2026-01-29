@@ -20,15 +20,11 @@
 	.legal-footer {
 		margin-top: 3rem;
 		padding-top: 2rem;
-		border-top: 1px solid var(--color-border);
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		align-self: center;
 		gap: 1rem;
 		font-family: var(--font-primary);
-		max-width: 520px;
-		width: 100%;
 	}
 
 	.legal-links {
