@@ -44,7 +44,7 @@
 		align-items: center;
 		justify-content: center;
 		flex-wrap: wrap;
-		gap: 0.5rem;
+		gap: 0.25rem 1rem;
 	}
 
 	.legal-links a {
@@ -53,6 +53,7 @@
 		font-size: var(--text-xs);
 		text-decoration: none;
 		transition: opacity 0.2s ease;
+		white-space: nowrap;
 	}
 
 	.legal-links a:hover {
@@ -61,12 +62,7 @@
 		text-underline-offset: 2px;
 	}
 
-	.legal-links a:not(:first-child)::before {
-		content: '·';
-		margin-right: 0.5rem;
-		opacity: 0.6;
-	}
-
+	
 	.copyright {
 		padding-top: 1rem;
 		border-top: 1px solid var(--color-border);
