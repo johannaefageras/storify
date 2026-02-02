@@ -37,12 +37,6 @@ export const tones: Tone[] = [
     preview: 'Människan vaknade sent igen. Typiskt.'
   },
   {
-    id: 'sarcastic',
-    name: 'Sarkastisk',
-    emoji: '😏',
-    preview: 'Åh, vilken fantastisk dag. Verkligen. Helt makalös.'
-  },
-  {
     id: 'drama-queen',
     name: 'Drama Queen',
     emoji: '👑',
@@ -122,7 +116,7 @@ export const tones: Tone[] = [
   },
   {
     id: 'nerd',
-    name: 'Nörd',
+    name: 'Nördig',
     emoji: '🤓',
     preview: 'Frukosten bestod av havregryn – stapelvara sedan bronsåldern, faktiskt!'
   },
@@ -146,8 +140,15 @@ export const tones: Tone[] = [
   },
   {
     id: 'overthinker',
-    name: 'Grubblare',
+    name: 'Grubblande',
     emoji: '🌀',
     preview: 'Dagen var bra. Eller, "bra" – vad menar jag med det egentligen? Typ okej?'
+  },
+  {
+    id: 'cynical',
+    name: 'Cynisk',
+    emoji: '😒',
+    preview:
+      'Det gick bra. Inte för att jag förväntade mig det, men ibland har världen sina ögonblick.'
   }
 ];

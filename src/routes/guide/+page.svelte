@@ -1,6 +1,6 @@
 <script lang="ts">
 	import {
-		EmojiLightBulb, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiFaceThinking, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceSmirking, EmojiSatellite, EmojiDice, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiMailIncoming, EmojiDiamond, Emoji1, Emoji2, Emoji3, Emoji4, Emoji5, Emoji6, Emoji7, Emoji8, Emoji9
+		EmojiLightBulb, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiFaceThinking, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceUnamused, EmojiSatellite, EmojiDice, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiMailIncoming, EmojiDiamond, Emoji1, Emoji2, Emoji3, Emoji4, Emoji5, Emoji6, Emoji7, Emoji8
 	} from '$lib/components/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 </script>
@@ -25,31 +25,31 @@
 		<div class="custom-ol">
 			<div class="custom-li">
 				<span class="list-icon number-icon"><Emoji1 size={14} /></span>
-				<span class="list-content"><strong>Fyll i din profil</strong> – Namn, ålder, pronomen och lite om din livssituation. Detta hjälper AI:n förstå vem du är.</span>
+				<span class="list-content"><strong>Fyll i din profil</strong> – Namn, ålder, pronomen och lite om din livssituation. Detta hjälper appen att förstå vem du är.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon number-icon"><Emoji2 size={14} /></span>
-				<span class="list-content"><strong>Berätta om ditt humör</strong> – Välj emojis som representerar hur du känner dig.</span>
+				<span class="list-content"><strong>Visualisera ditt humör</strong> – Välj emojis som representerar hur din dag varit.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon number-icon"><Emoji3 size={14} /></span>
-				<span class="list-content"><strong>Ange din energinivå och sömn</strong> – Enkla skjutreglage som fångar din fysiska status.</span>
+				<span class="list-content"><strong>Ange sömn, energinivå och humör</strong> – Enkla handtag som fångar din fysiska status.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon number-icon"><Emoji4 size={14} /></span>
-				<span class="list-content"><strong>Beskriv din dag</strong> – Aktiviteter, platser, personer du träffat.</span>
+				<span class="list-content"><strong>Beskriv din dag</strong> – Platser, aktiviteter och personer som du träffat.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon number-icon"><Emoji5 size={14} /></span>
-				<span class="list-content"><strong>Lägg till detaljer</strong> – Vinster och frustration, reflektioner, mat och musik.</span>
+				<span class="list-content"><strong>Lägg till detaljer</strong> – Vinster och motgångar, reflektioner, mat och musik.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon number-icon"><Emoji6 size={14} /></span>
-				<span class="list-content"><strong>Skriv en tidskapsel</strong> – Spara ett minne och ett meddelande till ditt framtida jag.</span>
+				<span class="list-content"><strong>Hjälp dig själv att minnas</strong> – Spara ett minne och ett meddelande till ditt framtida jag.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon number-icon"><Emoji7 size={14} /></span>
-				<span class="list-content"><strong>Välj en röst</strong> – Hur vill du att din dagbok ska låta?</span>
+				<span class="list-content"><strong>Välj en röst</strong> – Hur vill du att din dagbok ska låta? Välj vem som ska skriva den.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon number-icon"><Emoji8 size={14} /></span>
@@ -65,7 +65,7 @@
 		<div class="tip-box">
 			<h3>Var specifik</h3>
 			<p><span class="example bad">Mindre bra:</span> "Träffade en kompis"</p>
-			<p><span class="example good">Bättre:</span> "Fika med Emma på Kafferepet, pratade om hennes nya jobb"</p>
+			<p><span class="example good">Bättre:</span> "Fika med Emma på Espresso House, pratade om hennes nya jobb"</p>
 		</div>
 
 		<div class="tip-box">
@@ -107,34 +107,10 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
-				<span class="list-content">Skriva ner ett citat någon sa</span>
+				<span class="list-content">Skriva ner ett citat som någon sa</span>
 			</div>
 		</div>
 		<p>Ju mer kontext du ger, desto bättre kan AI:n fånga din dag.</p>
-	</section>
-
-	<section>
-		<h2>Tidskapseln – ett brev till framtiden</h2>
-		<p>I steg 7 hittar du "Tidskapseln" – en plats för att skriva ner något du vill minnas och ett meddelande till ditt framtida jag. Det kan vara:</p>
-		<div class="custom-ul">
-			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
-				<span class="list-content">Ett ögonblick som kändes obetydligt men som du vill bevara</span>
-			</div>
-			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
-				<span class="list-content">Något du är stolt över just nu</span>
-			</div>
-			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
-				<span class="list-content">En påminnelse om vad som var viktigt idag</span>
-			</div>
-			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
-				<span class="list-content">Ett uppmuntrande ord till dig själv om tio år</span>
-			</div>
-		</div>
-		<p>Dessa detaljer kan vävas in i din dagbokstext och gör den extra personlig och tidlös.</p>
 	</section>
 
 	<section>
@@ -168,9 +144,9 @@
 				<p>Din dag sedd genom kattens dömande och nyfikna ögon.</p>
 			</div>
 			<div class="voice-card">
-				<span class="voice-emoji"><EmojiFaceSmirking size={28} /></span>
-				<h3>Sarkastisk</h3>
-				<p>För dagar när du mest vill rulla med ögonen åt allt.</p>
+				<span class="voice-emoji"><EmojiFaceUnamused size={28} /></span>
+				<h3>Cynisk</h3>
+				<p>Skeptisk och lite uppgiven – men ärlig och underfundig.</p>
 			</div>
 			<div class="voice-card">
 				<span class="voice-emoji"><EmojiCrown size={28} /></span>
@@ -237,9 +213,9 @@
 				<h3>Trubadur</h3>
 				<p>Din dag sjungen som en ballad. Med rim och melodi.</p>
 			</div>
-			<div class="voice-card">
+		<div class="voice-card">
 				<span class="voice-emoji"><EmojiFaceNerd size={28} /></span>
-				<h3>Nörd</h3>
+				<h3>Nördig</h3>
 				<p>Fakta, statistik och djupdykningar i varje liten detalj.</p>
 			</div>
 			<div class="voice-card">
@@ -257,9 +233,9 @@
 				<h3>Deckare</h3>
 				<p>Din dag som ett mysterium med ledtrådar och vändningar.</p>
 			</div>
-			<div class="voice-card">
+		<div class="voice-card">
 				<span class="voice-emoji"><EmojiFaceExplodingHead size={28} /></span>
-				<h3>Grubblare</h3>
+				<h3>Grubblande</h3>
 				<p>Alla beslut analyseras in i minsta detalj. Om och om igen.</p>
 			</div>
 			<div class="voice-card voice-card--wide">
@@ -280,21 +256,21 @@
 			<div class="save-card">
 				<span class="save-emoji"><EmojiFramedPicture size={28} /></span>
 				<div class="save-content">
-					<h3>Spara som bild</h3>
+					<h3>Spara som en bild</h3>
 					<p>Spara som en bild till ditt fotoalbum.</p>
 				</div>
 			</div>
 			<div class="save-card">
 				<span class="save-emoji"><EmojiPrinter size={28} /></span>
 				<div class="save-content">
-					<h3>Spara som PDF</h3>
+					<h3>Spara i PDF-format</h3>
 					<p>Perfekt för utskrift och arkivering.</p>
 				</div>
 			</div>
 			<div class="save-card">
 				<span class="save-emoji"><EmojiClipboard size={28} /></span>
 				<div class="save-content">
-					<h3>Kopiera text</h3>
+					<h3>Kopiera texten</h3>
 					<p>Kopiera och klistra in var du vill.</p>
 				</div>
 			</div>
@@ -338,11 +314,11 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
-				<span class="list-content"><strong>Inkludera "tidskapsel"-detaljer</strong> – Vad kostar en liter mjölk? Vilken låt är populär just nu? Dessa saker blir fascinerande att läsa om några år.</span>
+				<span class="list-content"><strong>Inkludera en "tidskapsel"</strong> – Vad kostar en liter mjölk? Vilken låt är populär just nu? Dessa saker blir kul att läsa om några år.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
-				<span class="list-content"><strong>Blanda stort och smått</strong> – En stor nyhet och vad du åt till lunch. Både och gör dagen verklig.</span>
+				<span class="list-content"><strong>Blanda stort och smått</strong> – Allt ifrån sensationella nyheter till vad du åt till frukost. Både och gör dagen verklig.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>

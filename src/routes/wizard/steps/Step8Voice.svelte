@@ -3,7 +3,8 @@
 	import { tones } from '$lib/data/tones';
 	import { voiceSamples } from '$lib/data/voiceSamples';
 	import type { Component } from 'svelte';
-	import { EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiFaceThinking, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceSmirking, EmojiSatellite, EmojiDice } from '$lib/components/emojis';
+	import { EmojiVideoGame, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiFaceThinking, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceSmirking, EmojiSatellite, EmojiDice, EmojiFaceUnamused } from '$lib/components/emojis';
+	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 
 	const toneIconMap: Record<string, Component> = {
 		classic: EmojiLedger,
@@ -11,7 +12,7 @@
 		'tinfoil-hat': EmojiSatellite,
 		philosophical: EmojiFaceThinking,
 		'nature-documentary': EmojiEarth,
-		sarcastic: EmojiFaceGrimacing,
+		cynical: EmojiFaceUnamused,
 		nerd: EmojiFaceNerd,
 		'cat-perspective': EmojiCat,
 		storytelling: EmojiOpenBook,
@@ -67,12 +68,12 @@
 </script>
 
 <div class="step-content">
-	<p class="step-intro">Vilken känsla ska dagboken ha? En dag kan låta på många sätt beroende på vem som berättar. Välj din favorit och se hur det låter.</p>
+	<p class="step-intro">Vilken känsla ska dagboken ha? En dag kan låta på många sätt beroende på vem som berättar. Välj din favorit och se hur det låter<RequiredIndicator tooltip="Välj en röst" /></p>
 
 	<div class="preview-container">
 		{#if previewText}
 			<div class="preview">
-				<span class="preview-label">Förhandsvisning:</span>
+				<span class="preview-label">Förhandsvisning</span>
 				<p class="preview-text">"{previewText}"</p>
 			</div>
 		{:else if wizardStore.data.selectedTone === 'surprise'}
@@ -83,8 +84,13 @@
 		{:else if wizardStore.data.selectedTone}
 			{@const selectedSample = getRandomSample(wizardStore.data.selectedTone)}
 			<div class="preview">
-				<span class="preview-label">Förhandsvisning:</span>
+				<span class="preview-label">Förhandsvisning</span>
 				<p class="preview-text">"{selectedSample}"</p>
+			</div>
+		{:else}
+			<div class="preview prompt-preview">
+				<span class="preview-label">Välj en röst</span>
+				<p class="preview-text">Välj en röst för att se ett exempel på hur din dagbok kommer att låta.</p>
 			</div>
 		{/if}
 	</div>
@@ -95,7 +101,7 @@
 			<button
 				class="tone-card"
 				class:selected={wizardStore.data.selectedTone === tone.id}
-				onclick={() => wizardStore.updateData('selectedTone', tone.id)}
+				onclick={() => wizardStore.updateData('selectedTone', wizardStore.data.selectedTone === tone.id ? '' : tone.id)}
 				onmouseenter={() => handleMouseEnter(tone.id)}
 				onmouseleave={handleMouseLeave}
 			>
@@ -112,7 +118,7 @@
 		<button
 			class="tone-card surprise-card"
 			class:selected={wizardStore.data.selectedTone === 'surprise'}
-			onclick={() => wizardStore.updateData('selectedTone', 'surprise')}
+			onclick={() => wizardStore.updateData('selectedTone', wizardStore.data.selectedTone === 'surprise' ? '' : 'surprise')}
 		>
 			<span class="tone-emoji">
 				<EmojiDice size={36} />
@@ -203,7 +209,7 @@
 	.preview {
 		padding: 1rem 1.25rem;
 		background-color: var(--color-bg-elevated);
-		border: 2px solid var(--color-border);
+		border: 2px dashed var(--color-border);
 		border-radius: var(--radius-md);
 		text-align: center;
 	}
@@ -234,6 +240,7 @@
 		background-color: color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-elevated));
 		border-color: var(--color-accent);
 	}
+
 
 	@media (min-width: 480px) {
 		.tone-grid {

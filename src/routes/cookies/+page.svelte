@@ -9,7 +9,7 @@
 		<EmojiCookie size={80} />
 		<h1>Cookiepolicy</h1>
 	</div>
-	<p class="updated">Senast uppdaterad: 23 januari 2026</p>
+	<p class="updated">Senast uppdaterad: 2 februari 2026</p>
 
 	<section>
 		<h2>Den korta versionen</h2>

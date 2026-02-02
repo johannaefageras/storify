@@ -14,6 +14,8 @@
 	import Step9Summary from './steps/Step9Summary.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import IconArrowLeft from '$lib/components/icons/IconArrowLeft.svelte';
+	import IconArrowRight from '$lib/components/icons/IconArrowRight.svelte';
 
 	const optionalSteps = [0, 5, 6, 7];
 
@@ -45,11 +47,8 @@
 					(data.locations.length > 0 || data.customLocations.length > 0) &&
 					(data.activities.length > 0 || data.customActivities.length > 0)
 				);
-			case 4: // Wins & Frustrations - at least one win or frustration
-				return (
-					data.wins.some((w) => w.trim() !== '') ||
-					data.frustrations.some((f) => f.trim() !== '')
-				);
+			case 4: // Wins & Frustrations - at least one win required
+				return data.wins.some((w) => w.trim() !== '');
 			case 5: // Reflections - optional
 				return true;
 			case 6: // Food & Music - optional
@@ -104,10 +103,26 @@
 	let nextButtonDisabled = $derived(!isCurrentStepOptional && !isCurrentStepValid);
 	let nextButtonText = $derived.by(() => {
 		if (!isCurrentStepOptional) {
-			return 'Nästa';
+			return 'Fortsätt';
 		}
-		// Optional step: show "Hoppa över" only if no fields filled, otherwise "Nästa"
-		return hasFilledOptionalFields ? 'Nästa' : 'Hoppa över';
+		// Optional step: show "Hoppa över" only if no fields filled, otherwise "Fortsätt"
+		return hasFilledOptionalFields ? 'Fortsätt' : 'Hoppa över';
+	});
+
+	// Tooltip messages for disabled button per step
+	let disabledTooltip = $derived.by(() => {
+		switch (currentStep) {
+			case 1:
+				return 'Välj minst en emoji';
+			case 3:
+				return 'Lägg till minst en plats och en händelse';
+			case 4:
+				return 'Ange minst en bra sak från idag';
+			case 8:
+				return 'Välj en röst för att fortsätta';
+			default:
+				return 'Fyll i obligatoriska fält för att fortsätta';
+		}
 	});
 
 	const stepTitles = [
@@ -207,20 +222,33 @@
 		<footer class="wizard-footer">
 			{#if currentStep > 0}
 				<button class="btn btn-secondary" onclick={() => wizardStore.prevStep()}>
-					Gå tillbaka
+					<IconArrowLeft size={16} /> Tillbaka
 				</button>
 			{:else}
-				<a href="/" class="btn btn-secondary">Gå tillbaka</a>
+				<a href="/" class="btn btn-secondary"><IconArrowLeft size={16} /> Tillbaka</a>
 			{/if}
 
 			{#if showNextButton}
-				<button
-					class="btn btn-primary"
-					onclick={() => wizardStore.nextStep()}
-					disabled={nextButtonDisabled}
-				>
-					{nextButtonText}
-				</button>
+				<div class="next-btn-wrapper" class:disabled={nextButtonDisabled}>
+					<button
+						class="btn btn-primary"
+						class:btn-disabled={nextButtonDisabled}
+						onclick={() => {
+							// Use setTimeout to allow blur handlers to complete and update state first
+							setTimeout(() => {
+								if (wizardStore.isStepValid(currentStep)) {
+									wizardStore.nextStep();
+								}
+							}, 0);
+						}}
+						aria-disabled={nextButtonDisabled}
+					>
+						{nextButtonText} <IconArrowRight size={16} />
+					</button>
+					{#if nextButtonDisabled}
+						<span class="disabled-tooltip">{disabledTooltip}</span>
+					{/if}
+				</div>
 			{:else}
 				<div></div>
 			{/if}
@@ -387,8 +415,89 @@
 			gap: 0.75rem;
 		}
 
+		.wizard-footer > .btn,
+		.wizard-footer > a.btn {
+			width: 100%;
+			align-self: stretch;
+		}
+
 		.wizard-footer .btn {
 			width: 100%;
+		}
+	}
+
+	.next-btn-wrapper {
+		position: relative;
+	}
+
+	.disabled-tooltip {
+		position: absolute;
+		bottom: calc(100% + 10px);
+		left: 50%;
+		transform: translateX(-50%);
+		padding: 0.5rem 0.75rem;
+		background-color: var(--color-bg-elevated);
+		color: var(--color-text);
+		border: 1px solid var(--color-border);
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
+		line-height: var(--leading-snug);
+		white-space: nowrap;
+		border-radius: var(--radius-sm);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 0.15s ease 0.1s, visibility 0.15s ease 0.1s;
+		pointer-events: none;
+		z-index: 100;
+	}
+
+	.disabled-tooltip::after {
+		content: '';
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		transform: translateX(-50%);
+		border: 6px solid transparent;
+		border-top-color: var(--color-border);
+	}
+
+	.disabled-tooltip::before {
+		content: '';
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		transform: translateX(-50%);
+		margin-top: -1px;
+		border: 5px solid transparent;
+		border-top-color: var(--color-bg-elevated);
+		z-index: 1;
+	}
+
+	.next-btn-wrapper.disabled:hover .disabled-tooltip {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	/* Touch devices: show on tap/active */
+	@media (hover: none) {
+		.next-btn-wrapper.disabled:active .disabled-tooltip {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.next-btn-wrapper {
+			width: 100%;
+		}
+
+		.disabled-tooltip {
+			white-space: normal;
+			text-align: center;
+			max-width: 200px;
 		}
 	}
 </style>

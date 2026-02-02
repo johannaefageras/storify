@@ -397,6 +397,19 @@ button {
   transform: none;
 }
 
+.btn-primary.btn-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-primary.btn-disabled:hover {
+  background-color: var(--color-accent);
+}
+
+.btn-primary.btn-disabled:active {
+  transform: none;
+}
+
 .btn-secondary {
   background-color: var(--color-neutral);
   color: var(--color-text);
@@ -471,4 +484,21 @@ textarea::placeholder {
   font-stretch: 110%;
   letter-spacing: var(--tracking-widest);
   text-transform: uppercase;
+}
+
+/* ==========================================================================
+   Required Field Indicator
+   ========================================================================== */
+
+.required {
+  color: var(--color-accent);
+  font-weight: var(--weight-medium);
+  margin-left: 0.05em;
+}
+
+.required-icon {
+  color: var(--color-accent);
+  margin-left: 0.05em;
+  vertical-align: middle;
+  display: inline-block;
 }

@@ -84,23 +84,6 @@ export const voiceSamples: Record<string, string[]> = {
     'Försökte fånga den röda pricken igen. Den undkom. Nästa gång.',
     'Nu ska människan sova. Äntligen tystnad. Dags att springa runt i lägenheten.'
   ],
-  sarcastic: [
-    'Åh, vilken fantastisk dag. Verkligen. Helt makalös.',
-    'Gissa vem som hade världens bästa morgon? Inte jag.',
-    'Tåget var försenat. Igen. Chockerande nyhet.',
-    'Regnade hela dagen. I Göteborg. Vem hade kunnat förutspå det.',
-    'Mamma frågade hur dagen var. Sa "bra". Menade "fråga inte".',
-    'Ännu en dag i paradiset. Kan knappt bärga mig till imorgon.',
-    'Provet gick jättebra. Om man med "jättebra" menar "inte alls".',
-    'Skrivaren krånglade lagom till deadline. Klassiskt.',
-    'Vaknade utvilad och energisk. Nej, skojar. Vaknade och ville dö lite.',
-    'Alla var jättetrevliga idag. Eller så låtsades jag inte märka.',
-    'Lunchen tog slut precis innan jag kom fram. Vilken tur jag har.',
-    'Fick höra att jag "ser trött ut". Tack för den. Hade ingen aning.',
-    'Måndag igen. Vem hade trott att den skulle komma efter söndag.',
-    'Mötet kunde definitivt inte varit ett mejl. Nej då. Absolut inte.',
-    'Underbar dag. Längtar redan till nästa. Verkligen.'
-  ],
   'drama-queen': [
     'JAG ÖVERLEVDE. Knappt. Men jag överlevde.',
     'ALDRIG har någon upplevt en sådan MONUMENTAL morgon som jag!',
@@ -406,5 +389,22 @@ export const voiceSamples: Record<string, string[]> = {
     'Så det var min dag. Tror jag. Eller?',
     'Min hjärna behöver vila. Den håller inte med, men jag bestämmer.',
     'Det känns bra. ...tror jag.'
+  ],
+  cynical: [
+    'Naturligtvis gick det som det alltid gör. Vem kunde ha anat.',
+    'Man säger att varje dag är en ny chans. "Man" har uppenbarligen aldrig haft en tisdag.',
+    'Mötet kunde ha varit ett mejl. Men möten vill existera. Det ligger i deras natur.',
+    'Alla sa att de "älskade idén". Ingen erbjöd sig att hjälpa till.',
+    'Bussen var sen. Som bussar är. Det är inbyggt i konceptet.',
+    'Hon sa att det var "för allas bästa". I verkligheten menade hon nog något annat.',
+    'Det var faktiskt en bra dag. Misstänkt bra. Väntar på haken.',
+    'Kaffemaskinen var trasig. Igen. Maskiner känner av när man behöver dem.',
+    'Ännu en dag, ännu samma mönster. Förutsägbarheten är nästan tröstande.',
+    'Alla verkade glada. Eller så spelade de med. Svårt att veta skillnaden ibland.',
+    '"Vi får se" betyder alltid nej. Det har jag lärt mig.',
+    'Solen sken faktiskt idag. I januari. Väntar på att februari ska kompensera.',
+    'Folk är som bäst när de inte försöker. Det har jag märkt.',
+    'Imorgon blir det samma sak igen. I alla fall vet jag vad jag har att vänta mig.',
+    'Sådan är världen. Vi hittar våra små segrar där vi kan.'
   ]
 };

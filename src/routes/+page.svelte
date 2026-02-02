@@ -5,6 +5,7 @@
 	import { EmojiRoseLight, EmojiRoseDark } from '$lib/components/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
+	import IconArrowRight from '$lib/components/icons/IconArrowRight.svelte';
 
 	let showTooltip = $state(false);
 
@@ -41,7 +42,7 @@
 
 			<div class="action">
 				<button class="btn btn-primary btn-large" onclick={startWizard}>
-					Skönt, sätt igång!
+					Skönt, sätt igång! <IconArrowRight size={18} />
 				</button>
 			</div>
 		</div>

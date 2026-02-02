@@ -9,7 +9,7 @@
 		<EmojiScroll size={80} />
 		<h1>Användarvillkor</h1>
 	</div>
-	<p class="updated">Senast uppdaterad: 25 januari 2026</p>
+	<p class="updated">Senast uppdaterad: 2 februari 2026</p>
 
 	<section>
 		<h2>Välkommen till Storify</h2>

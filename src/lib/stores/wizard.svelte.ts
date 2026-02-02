@@ -104,7 +104,7 @@ function createWizardStore() {
     customSoundtracks: [],
     memoryFor10Years: '',
     messageToFutureSelf: '',
-    selectedTone: 'classic'
+    selectedTone: ''
   };
 
   let data = $state<WizardData>({ ...defaultData });
@@ -257,10 +257,8 @@ function createWizardStore() {
             (data.locations.length > 0 || data.customLocations.length > 0) &&
             (data.activities.length > 0 || data.customActivities.length > 0)
           );
-        case 4: // Wins & Frustrations - at least one win or frustration
-          return (
-            data.wins.some((w) => w.trim() !== '') || data.frustrations.some((f) => f.trim() !== '')
-          );
+        case 4: // Wins & Frustrations - at least one win required
+          return data.wins.some((w) => w.trim() !== '');
         case 5: // Reflections - optional
           return true;
         case 6: // Food & Music - optional

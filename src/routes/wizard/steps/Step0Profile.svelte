@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { FIELD_LIMITS } from '$lib/validation';
-	import InfoTooltip from '$lib/components/InfoTooltip.svelte';
 
 	const pronounOptions = [
 		{ value: 'hon', label: 'Hon' },
@@ -221,10 +220,7 @@
 		</div>
 
 		<div class="field-group">
-			<label class="field-label" for="occupation">
-				Sysselsättning
-				<InfoTooltip text="Separera olika sysselsättningar med komma-tecken" />
-			</label>
+			<label class="field-label" for="occupation">Sysselsättning</label>
 			<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 			<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
 				{#each wizardStore.data.profile.occupationDetail as occupation}
@@ -240,6 +236,7 @@
 					bind:value={occupationInput}
 					onkeydown={(e) => handleKeydown(e, addOccupation, removeLastOccupation)}
 					oninput={(e) => handleCommaInput(e, (v) => occupationInput = v, addOccupation)}
+					onblur={addOccupation}
 					maxlength={FIELD_LIMITS.occupationDetail}
 				/>
 			</div>
@@ -247,10 +244,7 @@
 
 		<div class="field-row">
 			<div class="field-group compact">
-				<label class="field-label" for="family">
-					Familjemedlemmar
-					<InfoTooltip text="Separera olika familjemedlemmar med komma-tecken" />
-				</label>
+				<label class="field-label" for="family">Familjemedlemmar</label>
 				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 				<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
 					{#each wizardStore.data.profile.family as member}
@@ -266,16 +260,14 @@
 						bind:value={familyInput}
 						onkeydown={(e) => handleKeydown(e, addFamily, removeLastFamily)}
 						oninput={(e) => handleCommaInput(e, (v) => familyInput = v, addFamily)}
+						onblur={addFamily}
 						maxlength={FIELD_LIMITS.family}
 					/>
 				</div>
 			</div>
 
 			<div class="field-group compact">
-				<label class="field-label" for="pets">
-					Husdjur
-					<InfoTooltip text="Separera olika husdjur med komma-tecken" />
-				</label>
+				<label class="field-label" for="pets">Husdjur</label>
 				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 				<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
 					{#each wizardStore.data.profile.pets as pet}
@@ -291,6 +283,7 @@
 						bind:value={petInput}
 						onkeydown={(e) => handleKeydown(e, addPet, removeLastPet)}
 						oninput={(e) => handleCommaInput(e, (v) => petInput = v, addPet)}
+						onblur={addPet}
 						maxlength={FIELD_LIMITS.pets}
 					/>
 				</div>
@@ -298,10 +291,7 @@
 		</div>
 
 		<div class="field-group">
-			<label class="field-label" for="interests">
-				Intressen & hobbies
-				<InfoTooltip text="Separera olika intressen/hobbies med komma-tecken" />
-			</label>
+			<label class="field-label" for="interests">Intressen & hobbies</label>
 			<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 			<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
 				{#each wizardStore.data.profile.interests as interest}
@@ -317,6 +307,7 @@
 					bind:value={interestInput}
 					onkeydown={(e) => handleKeydown(e, addInterest, removeLastInterest)}
 					oninput={(e) => handleCommaInput(e, (v) => interestInput = v, addInterest)}
+					onblur={addInterest}
 					maxlength={FIELD_LIMITS.interests}
 				/>
 			</div>

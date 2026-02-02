@@ -9,6 +9,7 @@
 		type EmojiCategory
 	} from '$lib/data/emojis';
 	import EmojiRefresh from '$lib/components/icons/EmojiRefresh.svelte';
+	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 
 	const weekdays = ['Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag'];
 	const months = [
@@ -111,7 +112,7 @@
 </script>
 
 <div class="step-content">
-	<p class="emoji-prompt">Välj 1-4 emojis som sammanfattar dagen. Ibland säger en bild mer än tusen ord...</p>
+	<p class="emoji-prompt">Ibland säger en bild mer än tusen ord... Välj 1-4 emojis som sammanfattar din dag<RequiredIndicator tooltip="Välj minst en emoji" /></p>
 
 	<div class="date-display">
 		<div class="date-info">

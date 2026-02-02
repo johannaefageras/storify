@@ -4,7 +4,6 @@
 		EmojiShortcake,
 		EmojiHeadphones
 	} from '$lib/components/emojis';
-	import InfoTooltip from '$lib/components/InfoTooltip.svelte';
 	import { FIELD_LIMITS } from '$lib/validation';
 
 	let mealInput = $state('');
@@ -107,7 +106,6 @@
 		<span class="field-label">
 			<span class="label-emoji"><EmojiShortcake size={23} /></span>
 			Vad har du ätit idag?
-			<InfoTooltip text="Separera olika måltider/drycker med komma-tecken" />
 		</span>
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 		<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
@@ -123,6 +121,7 @@
 				bind:value={mealInput}
 				onkeydown={(e) => handleKeydown(e, addMeal, removeLastMeal)}
 				oninput={(e) => handleCommaInput(e, (v) => mealInput = v, addMeal)}
+				onblur={addMeal}
 				maxlength={FIELD_LIMITS.customMeals}
 			/>
 		</div>
@@ -132,7 +131,6 @@
 		<span class="field-label">
 			<span class="label-emoji"><EmojiHeadphones size={23} /></span>
 			Vad var dagens soundtrack?
-			<InfoTooltip text="Separera olika ljud med komma-tecken" />
 		</span>
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 		<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
@@ -148,6 +146,7 @@
 				bind:value={soundtrackInput}
 				onkeydown={(e) => handleKeydown(e, addSoundtrack, removeLastSoundtrack)}
 				oninput={(e) => handleCommaInput(e, (v) => soundtrackInput = v, addSoundtrack)}
+				onblur={addSoundtrack}
 				maxlength={FIELD_LIMITS.customSoundtracks}
 			/>
 		</div>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { EmojiPushpinRound, EmojiPushpin, EmojiHandWave } from '$lib/components/emojis';
-	import InfoTooltip from '$lib/components/InfoTooltip.svelte';
+	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 	import { FIELD_LIMITS } from '$lib/validation';
 
 	let locationInput = $state('');
@@ -128,8 +128,7 @@
 	<div class="field-group">
 		<span class="field-label">
 			<span class="label-emoji"><EmojiPushpinRound size={23} /></span>
-			Var har du varit idag?
-			<InfoTooltip text="Separera olika platser med komma-tecken" />
+			<span>Var har du varit idag?<RequiredIndicator tooltip="Lägg till minst en plats" /></span>
 		</span>
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 		<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
@@ -145,6 +144,7 @@
 				bind:value={locationInput}
 				onkeydown={(e) => handleKeydown(e, addLocation, removeLastLocation)}
 				oninput={(e) => handleCommaInput(e, (v) => locationInput = v, addLocation)}
+				onblur={addLocation}
 				maxlength={FIELD_LIMITS.locations}
 			/>
 		</div>
@@ -153,8 +153,7 @@
 	<div class="field-group">
 		<span class="field-label">
 			<span class="label-emoji"><EmojiPushpin size={23} /></span>
-			Vad hände idag?
-			<InfoTooltip text="Separera olika händelser med komma-tecken" />
+			<span>Vad hände idag?<RequiredIndicator tooltip="Lägg till minst en händelse" /></span>
 		</span>
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 		<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
@@ -170,6 +169,7 @@
 				bind:value={activityInput}
 				onkeydown={(e) => handleKeydown(e, addActivity, removeLastActivity)}
 				oninput={(e) => handleCommaInput(e, (v) => activityInput = v, addActivity)}
+				onblur={addActivity}
 				maxlength={FIELD_LIMITS.activities}
 			/>
 		</div>
@@ -179,7 +179,6 @@
 		<span class="field-label">
 			<span class="label-emoji"><EmojiHandWave size={23} /></span>
 			Vilka var med idag?
-			<InfoTooltip text="Separera olika personer/djur med komma-tecken" />
 		</span>
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 		<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
@@ -195,6 +194,7 @@
 				bind:value={personInput}
 				onkeydown={(e) => handleKeydown(e, addPerson, removeLastPerson)}
 				oninput={(e) => handleCommaInput(e, (v) => personInput = v, addPerson)}
+				onblur={addPerson}
 				maxlength={FIELD_LIMITS.people}
 			/>
 		</div>

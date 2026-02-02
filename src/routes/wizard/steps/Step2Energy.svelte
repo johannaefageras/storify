@@ -2,6 +2,7 @@
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import type { Component } from 'svelte';
 	import { EmojiFaceBagsUnderEyes, EmojiFaceTired, EmojiFaceSleepy, EmojiFaceYawning, EmojiFaceNeutral, EmojiFaceSlightlySmiling, EmojiFaceSmilingEyes, EmojiFaceSmilingHearts, EmojiFaceGrinningSweat, EmojiFaceStarStruck, EmojiFaceSleeping, EmojiFaceCrossedOutEyes, EmojiFaceWeary, EmojiFaceSmiling, EmojiFaceGrinningSmilingEyes, EmojiFacePartying, EmojiRocket, EmojiFaceCryingLoudly, EmojiFaceCrying, EmojiFaceFrowning, EmojiFaceSlightlyFrowning, EmojiFaceRelieved, EmojiFaceLOL } from '$lib/components/emojis';
+	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 
 	const sleepEmojis: Component[] = [
 		EmojiFaceBagsUnderEyes,
@@ -46,6 +47,7 @@
 		{
 			key: 'sleepQuality' as const,
 			label: 'Hur sov du inatt?',
+			tooltip: 'Ange sömnkvalitet med handtaget',
 			low: 'Inte alls',
 			high: 'Utmärkt',
 			emojis: sleepEmojis
@@ -53,6 +55,7 @@
 		{
 			key: 'energyLevel' as const,
 			label: 'Hur var dagens energinivå?',
+			tooltip: 'Ange energinivå med handtaget',
 			low: 'Omätbar',
 			high: 'Maxad',
 			emojis: energyEmojis
@@ -60,6 +63,7 @@
 		{
 			key: 'mood' as const,
 			label: 'Hur var ditt humör idag?',
+			tooltip: 'Ange humör med handtaget',
 			low: 'På botten',
 			high: 'Strålande',
 			emojis: moodEmojis
@@ -79,7 +83,7 @@
 	{#each sliders as slider}
 		<div class="slider-group">
 			<label class="slider-label" for={slider.key}>
-				{slider.label}
+				{slider.label}<RequiredIndicator tooltip={slider.tooltip} />
 			</label>
 
 			<div class="slider-emoji">

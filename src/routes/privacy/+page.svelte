@@ -9,7 +9,7 @@
 		<EmojiShield size={80} />
 		<h1>Integritetspolicy</h1>
 	</div>
-	<p class="updated">Senast uppdaterad: 25 januari 2026</p>
+	<p class="updated">Senast uppdaterad: 2 februari 2026</p>
 
 	<section>
 		<h2>Vem ansvarar för dina uppgifter?</h2>

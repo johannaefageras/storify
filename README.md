@@ -16,7 +16,7 @@
 Journaling is powerful, but starting is hard. Storify removes the friction by:
 
 1. 📝 **Guiding you** through a simple wizard with questions about your day
-2. 🎭 **Letting you choose** from 20 unique writing styles
+2. 🎭 **Letting you choose** from 24 unique writing styles
 3. 🤖 **Generating** a personalized diary entry using Claude AI
 4. 📤 **Exporting or emailing** your entry as text, image, or share link
 
@@ -41,30 +41,34 @@ No more staring at a blank page – just answer a few questions and get a beauti
 |  8   | 🎭 Voice                | Choose your writing style                                 |
 |  9   | 📋 Summary              | Review and generate your entry                            |
 
-### 🎭 20 Unique Writing Tones
+### 🎭 24 Unique Writing Tones
 
 | Tone                                    | Description                              |
 | --------------------------------------- | ---------------------------------------- |
-| 🖋️ **Klassisk Dagbok** (Classic)        | Traditional "Dear Diary" format          |
+| 📒 **Klassisk Dagbok** (Classic)        | Traditional "Dear Diary" format          |
 | 📖 **Berättelse** (Storytelling)        | Your day as a narrative adventure        |
 | 🤔 **Filosofisk** (Philosophical)       | Deep reflections and existential musings |
-| 🏆 **Sportkommentator** (Sportscaster)  | ENERGETIC play-by-play commentary        |
-| 🐱 **Kattperspektiv** (Cat Perspective) | A judgmental cat observing its human     |
-| 😏 **Sarkastisk** (Sarcastic)           | Dry wit and ironic observations          |
+| 🎙️ **Sportkommentator** (Sportscaster)  | ENERGETIC play-by-play commentary        |
+| 🐈 **Kattperspektiv** (Cat Perspective) | A judgmental cat observing its human     |
 | 👑 **Drama Queen**                      | Everything is DRAMATIC                   |
-| 📱 **Meme**                             | Gen Z internet speak, very relatable     |
-| 😳 **Cringe**                           | Awkwardly endearing self-awareness       |
+| 💩 **Meme**                             | Gen Z internet speak, very relatable     |
+| 😬 **Cringe**                           | Awkwardly endearing self-awareness       |
 | 🇬🇧 **Brittisk** (British)               | Understated elegance and dry humor       |
 | 🎮 **Quest Log**                        | Your day as an RPG adventure             |
-| 😐 **Uttråkad** (Bored)                 | Minimal enthusiasm, maximum vibes        |
+| 🥱 **Uttråkad** (Bored)                 | Minimal enthusiasm, maximum vibes        |
+| 🌎 **Naturdokumentär**                  | Attenborough-style observations          |
+| 🧠 **Psykolog** (Therapist)             | Therapist notes with warm insight        |
 | 🤖 **AI-Robot**                         | System log with tiny hints of feelings   |
-| 🧾 **Formell**                          | Overly formal official letter            |
-| 🐾 **Naturdokumentär**                  | Attenborough-style observations          |
-| 🤓 **Nörd**                             | Over-explains everything with facts      |
 | 🎭 **Shakespeare**                      | Dramatic monologue with archaic flair    |
-| 🗞️ **Kvällstidning**                    | Sensational tabloid headlines            |
-| 🧠 **Psykolog**                         | Therapist notes with warm insight        |
-| 🎶 **Trubadur**                         | Song lyrics/ballad format                |
+| 📰 **Kvällstidning** (Tabloid)          | Sensational tabloid headlines            |
+| 🏛️ **Formell** (Formal)                 | Overly formal official letter            |
+| 🎶 **Trubadur** (Troubadour)            | Song lyrics/ballad format                |
+| 🤓 **Nördig** (Nerdy)                   | Over-explains everything with facts      |
+| 🎩 **Foliehatt** (Tinfoil Hat)          | Conspiracy theories everywhere           |
+| ✨ **Livscoach** (Life Coach)           | Uplifting advice and encouragement       |
+| 🕵️ **Deckare** (Detective)              | Your day as a mystery to solve           |
+| 🌀 **Grubblande** (Overthinker)         | Analyzing every detail, over and over    |
+| 😒 **Cynisk** (Cynical)                 | Skeptical and wryly honest               |
 
 ### 📱 Multi-Platform Support
 

@@ -4,6 +4,7 @@
 	EmojiTrophy,
 	EmojiCollision
 } from '$lib/components/emojis';
+	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 	import { FIELD_LIMITS } from '$lib/validation';
 
 	const winPlaceholders = [
@@ -67,7 +68,7 @@
 	<div class="field-group">
 		<span class="field-label">
 			<span class="label-emoji"><EmojiTrophy size={23} /></span>
-			Dagens små segrar
+			<span>Dagens små segrar<RequiredIndicator tooltip="Ange minst en bra sak från idag" /></span>
 		</span>
 		<div class="repeater">
 			{#each wizardStore.data.wins as win, index}

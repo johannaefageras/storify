@@ -7,7 +7,7 @@ import { buildPrompt as storytellingPrompt } from './storytelling';
 import { buildPrompt as philosophicalPrompt } from './philosophical';
 import { buildPrompt as sportscasterPrompt } from './sportscaster';
 import { buildPrompt as catPerspectivePrompt } from './cat-perspective';
-import { buildPrompt as sarcasticPrompt } from './sarcastic';
+import { buildPrompt as cynicalPrompt } from './cynical';
 import { buildPrompt as dramaQueenPrompt } from './drama-queen';
 import { buildPrompt as memePrompt } from './meme';
 import { buildPrompt as cringePrompt } from './cringe';
@@ -29,30 +29,30 @@ import { buildPrompt as overthinkerPrompt } from './overthinker';
 
 // Registry of all tone prompt builders
 const toneBuilders: Record<ToneId, TonePromptBuilder> = {
-	classic: classicPrompt,
-	storytelling: storytellingPrompt,
-	philosophical: philosophicalPrompt,
-	sportscaster: sportscasterPrompt,
-	'cat-perspective': catPerspectivePrompt,
-	sarcastic: sarcasticPrompt,
-	'drama-queen': dramaQueenPrompt,
-	meme: memePrompt,
-	cringe: cringePrompt,
-	british: britishPrompt,
-	'quest-log': questLogPrompt,
-	bored: boredPrompt,
-	'nature-documentary': natureDocumentaryPrompt,
-	therapist: therapistPrompt,
-	'ai-robot': aiRobotPrompt,
-	shakespeare: shakespearePrompt,
-	tabloid: tabloidPrompt,
-	formal: formalPrompt,
-	troubadour: troubadourPrompt,
-	nerd: nerdPrompt,
-	'tinfoil-hat': tinfoilHatPrompt,
-	'self-help': selfHelpPrompt,
-	detective: detectivePrompt,
-	overthinker: overthinkerPrompt
+  classic: classicPrompt,
+  storytelling: storytellingPrompt,
+  philosophical: philosophicalPrompt,
+  sportscaster: sportscasterPrompt,
+  'cat-perspective': catPerspectivePrompt,
+  cynical: cynicalPrompt,
+  'drama-queen': dramaQueenPrompt,
+  meme: memePrompt,
+  cringe: cringePrompt,
+  british: britishPrompt,
+  'quest-log': questLogPrompt,
+  bored: boredPrompt,
+  'nature-documentary': natureDocumentaryPrompt,
+  therapist: therapistPrompt,
+  'ai-robot': aiRobotPrompt,
+  shakespeare: shakespearePrompt,
+  tabloid: tabloidPrompt,
+  formal: formalPrompt,
+  troubadour: troubadourPrompt,
+  nerd: nerdPrompt,
+  'tinfoil-hat': tinfoilHatPrompt,
+  'self-help': selfHelpPrompt,
+  detective: detectivePrompt,
+  overthinker: overthinkerPrompt
 };
 
 /**
@@ -60,9 +60,9 @@ const toneBuilders: Record<ToneId, TonePromptBuilder> = {
  * Falls back to 'classic' tone if the requested tone is not found.
  */
 export function buildTonePrompt(toneId: string, profile: UserProfile): string {
-	const baseIntro = buildBaseIntro(profile);
-	const builder = toneBuilders[toneId as ToneId] || toneBuilders.classic;
-	return builder(baseIntro);
+  const baseIntro = buildBaseIntro(profile);
+  const builder = toneBuilders[toneId as ToneId] || toneBuilders.classic;
+  return builder(baseIntro);
 }
 
 // Re-export types for convenience
