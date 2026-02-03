@@ -3,9 +3,9 @@
 	import { FIELD_LIMITS } from '$lib/validation';
 
 	const pronounOptions = [
-		{ value: 'hon', label: 'Hon' },
-		{ value: 'han', label: 'Han' },
-		{ value: 'hen', label: 'Hen' },
+		{ value: 'hon', label: 'Hon / Henne' },
+		{ value: 'han', label: 'Han / Honom' },
+		{ value: 'hen', label: 'Hen / Henom' },
 		{ value: 'none', label: 'Vill inte uppge' }
 	];
 

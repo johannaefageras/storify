@@ -1,8 +1,5 @@
 <script lang="ts">
-	import EmojiRoseLight from '$lib/components/emojis/EmojiRoseLight.svelte';
-	import EmojiRoseDark from '$lib/components/emojis/EmojiRoseDark.svelte';
-	import EmojiProfilePicture from '$lib/components/emojis/EmojiProfilePicture.svelte';
-	import EmojiTools from '$lib/components/emojis/EmojiTools.svelte';
+	import { EmojiRoseLight, EmojiRoseDark, EmojiProfilePictureLaptop, EmojiTools } from '$lib/components/emojis';
 	import { themeStore } from '$lib/stores/theme.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 </script>
@@ -29,7 +26,7 @@
 		<h2>Varför jag byggde det här</h2>
 		<div class="about-johanna">
 			<div class="johanna-avatar">
-				<EmojiProfilePicture size={96} />
+				<EmojiProfilePictureLaptop size={96} />
 			</div>
 			<div class="johanna-text">
 				<p>Jag heter Johanna, är 36 år och bor i Göteborg. På fritiden kodar jag (självlärd, på hobbynivå), syr mina egna kläder, och försöker hålla mina krukväxter vid liv. Ibland lyckas jag med alla tre samtidigt.</p>

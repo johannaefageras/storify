@@ -3,34 +3,38 @@
 	import { tones } from '$lib/data/tones';
 	import { voiceSamples } from '$lib/data/voiceSamples';
 	import type { Component } from 'svelte';
-	import { EmojiVideoGame, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiFaceThinking, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceSmirking, EmojiSatellite, EmojiDice, EmojiFaceUnamused } from '$lib/components/emojis';
+	import { EmojiRobot, EmojiFaceYawning, EmojiFlagUK, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiDetective, EmojiCrown, EmojiTopHat, EmojiHeartOnFire, EmojiPoo, EmojiEarth, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanMeditating, EmojiTheaterMasks, EmojiMicrophone, EmojiOpenBook, EmojiNewspaper, EmojiBrain, EmojiSatellite, EmojiMusicalNotes, EmojiDice } from '$lib/components/emojis';
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 
 	const toneIconMap: Record<string, Component> = {
-		classic: EmojiLedger,
-		sportscaster: EmojiMicrophone,
-		'tinfoil-hat': EmojiSatellite,
-		philosophical: EmojiFaceThinking,
-		'nature-documentary': EmojiEarth,
-		cynical: EmojiFaceUnamused,
-		nerd: EmojiFaceNerd,
-		'cat-perspective': EmojiCat,
-		storytelling: EmojiOpenBook,
-		cringe: EmojiFaceSmirking,
-		formal: EmojiBlackNib,
-		'quest-log': EmojiVideoGame,
-		shakespeare: EmojiTheaterMasks,
-		therapist: EmojiBrain,
-		meme: EmojiPoo,
-		'self-help': EmojiWomanMeditating,
-		bored: EmojiFaceYawning,
-		british: EmojiFlagUK,
-		detective: EmojiDetective,
-		'drama-queen': EmojiCrown,
 		'ai-robot': EmojiRobot,
-		troubadour: EmojiMusicalNotes,
-		tabloid: EmojiNewspaper,
-		overthinker: EmojiFaceExplodingHead
+		'bored': EmojiFaceYawning,
+		'british': EmojiFlagUK,
+		'bureaucratic': EmojiArchive,
+		'cat-perspective': EmojiCat,
+		'chaotic': EmojiTornado,
+		'classic': EmojiLedger,
+		'cringe': EmojiFaceGrimacing,
+		'cynical': EmojiFaceUnamused,
+		'detective': EmojiDetective,
+		'drama-queen': EmojiCrown,
+		'formal': EmojiTopHat,
+		'melodramatic': EmojiHeartOnFire,
+		'meme': EmojiPoo,
+		'nature-documentary': EmojiEarth,
+		'nerd': EmojiFaceNerd,
+		'overthinker': EmojiFaceExplodingHead,
+		'passive-aggressive': EmojiFaceUpsideDown,
+		'philosophical': EmojiOwl,
+		'quest-log': EmojiVideoGame,
+		'self-help': EmojiWomanMeditating,
+		'shakespeare': EmojiTheaterMasks,
+		'sportscaster': EmojiMicrophone,
+		'storytelling': EmojiOpenBook,
+		'tabloid': EmojiNewspaper,
+		'therapist': EmojiBrain,
+		'tinfoil-hat': EmojiSatellite,
+		'troubadour': EmojiMusicalNotes
 	};
 
 	function getToneIcon(toneId: string): Component | undefined {

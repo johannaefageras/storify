@@ -1,0 +1,21 @@
+<script>
+  let {
+    size = 24,
+    class: className = '',
+    ...rest
+  } = $props();
+</script>
+
+<svg
+  data-name="Layer 1"
+  xmlns="http://www.w3.org/2000/svg"
+  style=""
+  viewBox="0 0 512 426.67"
+  width={size}
+  height={size}
+  class={className}
+  aria-hidden="true"
+  {...rest}
+>
+  <g class="nc-icon-wrapper"><defs><radialGradient id="1770128270293-6509062_b" cx="310.36" cy="381.11" fx="310.36" fy="381.11" r="34.6" gradientTransform="matrix(1 0 0 -1.01 0 428.49)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#e0e0e0"></stop><stop offset=".33" stop-color="#c6c8c9"></stop><stop offset=".87" stop-color="#92989c"></stop></radialGradient><radialGradient id="1770128270293-6509062_c" cx="264.46" cy="411.6" fx="264.46" fy="411.6" r="30.68" gradientTransform="matrix(1 0 0 -1.02 -.31 432.46)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#e0e0e0"></stop><stop offset=".33" stop-color="#c6c8c9"></stop><stop offset=".87" stop-color="#92989c"></stop></radialGradient><radialGradient id="1770128270293-6509062_d" cx="201.52" cy="381.11" fx="201.52" fy="381.11" r="34.59" gradientTransform="matrix(1 0 0 -1.01 0 428.49)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#e0e0e0"></stop><stop offset=".33" stop-color="#c6c8c9"></stop><stop offset=".87" stop-color="#92989c"></stop></radialGradient><radialGradient id="1770128270293-6509062_e" cx="213.79" cy="411.6" fx="213.79" fy="411.6" r="30.69" gradientTransform="matrix(1 0 0 -1.02 12.12 432.46)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#e0e0e0"></stop><stop offset=".33" stop-color="#c6c8c9"></stop><stop offset=".87" stop-color="#92989c"></stop></radialGradient><linearGradient id="1770128270293-6509062_f" x1="255.87" y1="228.57" x2="255.87" y2="361.83" gradientTransform="matrix(1 0 0 -1 -.31 423.04)" gradientUnits="userSpaceOnUse"><stop offset=".54" stop-color="#92989c"></stop><stop offset=".83" stop-color="#c6c8c9"></stop><stop offset="1" stop-color="#e0e0e0"></stop></linearGradient><radialGradient id="1770128270293-6509062_g" cx="254.85" cy="-522.61" fx="254.85" fy="-522.61" r="527.4" gradientTransform="matrix(1 0 0 -.38 -.31 -7.27)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ff66a4"></stop><stop offset=".21" stop-color="#fe63a2"></stop><stop offset=".38" stop-color="#fb599a"></stop><stop offset=".54" stop-color="#f6488e"></stop><stop offset=".68" stop-color="#ef307d"></stop><stop offset=".71" stop-color="#ed2b79"></stop></radialGradient></defs><path class="m" d="M283.37,19.66l25.6,25.67h30.14c18.73,0,18.75,21.57,0,21.57h-34.4c-2.76,0-5.49-1.02-7.58-3.12l-28.85-28.96c-4.16-4.17,10.91-19.34,15.09-15.16Z" fill="url(#1770128270293-6509062_b)"></path><path class="l" d="M297.58,22.83c0,30.4-44.97,30.4-44.97,0,0-30.44,44.97-30.44,44.97,0Z" fill="url(#1770128270293-6509062_c)"></path><path class="k" d="M228.52,19.66l-25.6,25.67h-30.14c-18.73,0-18.75,21.57,0,21.57h34.39c2.76,0,5.49-1.02,7.57-3.12l28.86-28.96c4.16-4.17-10.91-19.34-15.08-15.16Z" fill="url(#1770128270293-6509062_d)"></path><path class="j" d="M259.27,22.83c0,30.4-44.97,30.4-44.97,0,0-30.44,44.97-30.44,44.97,0Z" fill="url(#1770128270293-6509062_e)"></path><path class="i" d="M439.17,69.29c-26.18-12.88-340.36-12.83-366.45,0-30.22,14.86-56.67,124.19,5.7,124.19h355.06c62.36,0,35.91-109.33,5.69-124.19Z" fill="url(#1770128270293-6509062_f)"></path><path class="h" d="M428.18,91.4c-15.94-11.35-333.93-9.2-344.68,0C67.07,105.49-10.64,291.2,1.23,324.62c8.99,25.2,30.09,83.87,55.43,92.25,42.19,13.92,355.05,12.19,398.38,0,25.67-7.24,46.46-67.05,55.42-92.25,13.32-37.58-63.5-219.83-82.28-233.21Z" fill="url(#1770128270293-6509062_g)"></path></g>
+</svg>

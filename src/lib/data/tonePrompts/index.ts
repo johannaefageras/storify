@@ -26,6 +26,10 @@ import { buildPrompt as tinfoilHatPrompt } from './tinfoil-hat';
 import { buildPrompt as selfHelpPrompt } from './self-help';
 import { buildPrompt as detectivePrompt } from './detective';
 import { buildPrompt as overthinkerPrompt } from './overthinker';
+import { buildPrompt as passiveAggressivePrompt } from './passive-aggressive';
+import { buildPrompt as melodramaticPrompt } from './melodramatic';
+import { buildPrompt as chaoticPrompt } from './chaotic';
+import { buildPrompt as bureaucraticPrompt } from './bureaucratic';
 
 // Registry of all tone prompt builders
 const toneBuilders: Record<ToneId, TonePromptBuilder> = {
@@ -52,7 +56,11 @@ const toneBuilders: Record<ToneId, TonePromptBuilder> = {
   'tinfoil-hat': tinfoilHatPrompt,
   'self-help': selfHelpPrompt,
   detective: detectivePrompt,
-  overthinker: overthinkerPrompt
+  overthinker: overthinkerPrompt,
+  'passive-aggressive': passiveAggressivePrompt,
+  melodramatic: melodramaticPrompt,
+  chaotic: chaoticPrompt,
+  bureaucratic: bureaucraticPrompt
 };
 
 /**

@@ -1,0 +1,21 @@
+<script>
+  let {
+    size = 24,
+    class: className = '',
+    ...rest
+  } = $props();
+</script>
+
+<svg
+  data-name="Layer 1"
+  xmlns="http://www.w3.org/2000/svg"
+  style=""
+  viewBox="0 0 512 546.14"
+  width={size}
+  height={size}
+  class={className}
+  aria-hidden="true"
+  {...rest}
+>
+  <g class="nc-icon-wrapper"><defs><radialGradient id="1770128270577-1879266_b" cx="256" cy="258" fx="256" fy="258" r="256" gradientTransform="matrix(1 0 0 -1 0 548.14)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#d773ff"></stop><stop offset=".41" stop-color="#c63bff"></stop><stop offset=".78" stop-color="#b300ff"></stop><stop offset="1" stop-color="#9c00e2"></stop></radialGradient><linearGradient id="1770128270577-1879266_c" x1="384.35" y1="215.61" x2="359.28" y2="284.5" gradientTransform="matrix(1 0 0 -1 0 548.14)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#c9ff00"></stop><stop offset=".27" stop-color="#c7fc00"></stop><stop offset=".43" stop-color="#c0f400"></stop><stop offset=".56" stop-color="#b5e600"></stop><stop offset=".68" stop-color="#a5d100"></stop><stop offset=".78" stop-color="#91b700"></stop><stop offset=".88" stop-color="#779700"></stop><stop offset=".98" stop-color="#5a7100"></stop><stop offset="1" stop-color="#516600"></stop></linearGradient><linearGradient id="1770128270577-1879266_d" x1="127.64" y1="215.61" x2="152.72" y2="284.5" gradientTransform="matrix(1 0 0 -1 0 548.14)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#c9ff00"></stop><stop offset=".27" stop-color="#c7fc00"></stop><stop offset=".43" stop-color="#c0f400"></stop><stop offset=".56" stop-color="#b5e600"></stop><stop offset=".68" stop-color="#a5d100"></stop><stop offset=".78" stop-color="#91b700"></stop><stop offset=".88" stop-color="#779700"></stop><stop offset=".98" stop-color="#5a7100"></stop><stop offset="1" stop-color="#516600"></stop></linearGradient></defs><circle class="g" cx="256" cy="290.14" r="256" fill="url(#1770128270577-1879266_b)"></circle><path class="i" d="M174.88,99.59c-8.47-8.12-109.21-.71-108.15-92.16.1-8.3-6.62-9.54-9.98-4.24-75.86,119.79,8.91,193.96,22.8,200.34,64.61,29.61,131.02-69.74,95.33-103.94Z" fill="#1a1626"></path><path class="i" d="M337.13,99.59c8.47-8.12,109.2-.71,108.15-92.16-.1-8.3,6.61-9.54,9.97-4.24,75.87,119.79-8.91,193.96-22.8,200.34-64.61,29.61-131.02-69.74-95.32-103.94Z" fill="#1a1626"></path><path class="j" d="M447.92,250.36c13.62,41.63-5.68,87.83-46.39,106.79-40.65,18.98-88.38,4.11-111.53-32.99l60.69-67.97,97.23-5.84Z" fill="#430062"></path><path class="f" d="M416.61,254.4c13.41,28.71.98,62.83-27.72,76.24-28.71,13.38-62.81.95-76.24-27.73-8.47-18.25,95.47-66.74,103.95-48.5Z" fill="url(#1770128270577-1879266_c)"></path><path class="j" d="M64.06,250.36c-13.62,41.63,5.7,87.83,46.4,106.79,40.64,18.98,88.39,4.11,111.53-32.99l-60.69-67.97-97.25-5.84Z" fill="#430062"></path><path class="e" d="M95.38,254.4c-13.4,28.71-.97,62.83,27.72,76.24,28.73,13.38,62.84.95,76.25-27.73,8.48-18.25-95.46-66.74-103.97-48.5Z" fill="url(#1770128270577-1879266_d)"></path><path class="i" d="M387.26,261.92c-4.45-10.83-59.05,17.91-54.58,28.71,7.04,17,24.95,24.35,40.03,16.44,15.07-7.93,21.6-28.14,14.55-45.15Z" fill="#1a1626"></path><path class="i" d="M124.73,261.91c-7.03,17.01-.51,37.21,14.56,45.15,15.09,7.94,33,.57,40.04-16.43,4.45-10.8-50.13-39.53-54.6-28.72Z" fill="#1a1626"></path><path class="h" d="M447.92,250.37c-13.97-9.11-30.57-12.88-47.44-12.81-16.89.16-33.79,4.12-49.2,11.27-15.37,7.04-29.45,17.43-40.47,30.29-10.92,12.87-19.04,28.45-20.81,45.03,11.7-11.71,22.94-21.4,34.97-29.82,11.96-8.44,24.34-15.47,37.4-21.56,13-6.02,26.51-10.95,40.69-14.66,14.22-3.81,28.39-6.15,44.86-7.75Z" fill="#8219b3"></path><path class="h" d="M64.06,250.37c13.96-9.11,30.58-12.88,47.43-12.81,16.9.16,33.81,4.12,49.23,11.27,15.36,7.04,29.46,17.43,40.47,30.29,10.92,12.87,19.04,28.45,20.81,45.03-11.71-11.71-22.94-21.4-34.96-29.82-11.96-8.44-24.34-15.47-37.43-21.56-12.99-6.02-26.51-10.95-40.69-14.66-14.22-3.81-28.38-6.15-44.86-7.75Z" fill="#8219b3"></path><path class="i" d="M195.35,445.4c31.26-21.96,87.55-23.42,121.3,0,7.82,5.4,20.77,1.63,17.87-4.67-29.5-64.32-127.59-64.18-157.03,0-2.91,6.32,10.07,10.12,17.86,4.67Z" fill="#1a1626"></path></g>
+</svg>

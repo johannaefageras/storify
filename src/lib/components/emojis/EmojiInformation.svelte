@@ -7,14 +7,15 @@
 </script>
 
 <svg
+  data-name="Layer 1"
   xmlns="http://www.w3.org/2000/svg"
   style=""
-  viewBox="0 0 512 511.99"
+  viewBox="0 0 512 512"
   width={size}
   height={size}
   class={className}
   aria-hidden="true"
   {...rest}
 >
-  <g><defs><linearGradient id="1769458979099-9192556_d" x1="659.72" y1="1193.99" x2="659.72" y2="339.49" gradientTransform="matrix(.56 0 0 .56 -112.47 -172.84)" gradientUnits="userSpaceOnUse"><stop offset=".5" stop-color="#0086e6"></stop><stop offset="1" stop-color="#14bbff"></stop></linearGradient></defs><g id="1769458979099-9192556_b" data-name="a"><g id="1769458979099-9192556_c" data-name="a"><path class="f" d="M443.77,511.99c12.37,0,23.74-3.09,34.12-9.28,10.37-6.19,18.65-14.47,24.83-24.83,6.19-10.37,9.28-21.74,9.28-34.11V68.22c0-12.37-3.09-23.74-9.28-34.11-6.19-10.37-14.47-18.65-24.83-24.83-10.37-6.19-21.74-9.28-34.12-9.28H68.23c-12.37,0-23.74,3.09-34.12,9.28-10.37,6.19-18.65,14.47-24.83,24.83C3.09,44.48,0,55.85,0,68.22v375.54c0,12.37,3.09,23.74,9.28,34.11,6.19,10.37,14.47,18.65,24.83,24.83,10.37,6.19,21.74,9.28,34.12,9.28h375.54" vector-effect="none" fill="#0086e6"></path><path class="e" d="M443.77,494.53c14.19,0,26.29-4.91,36.3-14.74s15.01-21.83,15.01-36.02V68.22c0-14.19-5-26.29-15.01-36.3-10.01-10.01-22.11-15.01-36.3-15.01H68.23c-14.19,0-26.2,5-36.02,15.01-9.83,10.01-14.74,22.11-14.74,36.3v375.54c0,14.19,4.91,26.2,14.74,36.02,9.83,9.83,21.83,14.74,36.02,14.74h375.54" vector-effect="none" fill="url(#1769458979099-9192556_d)"></path><path class="g" d="M222.16,102.61v58.4h67.68v-58.4h-67.68M222.16,200.32v209.05h67.68v-209.05h-67.68" vector-effect="none" fill="#fff"></path></g></g></g>
+  <g class="nc-icon-wrapper"><defs><linearGradient id="1770128270364-192686_b" x1="256" y1="514" x2="256" y2="2" gradientTransform="matrix(1 0 0 -1 0 514)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#00abf1"></stop><stop offset=".23" stop-color="#00a7ef"></stop><stop offset=".47" stop-color="#009ae9"></stop><stop offset=".71" stop-color="#0086e0"></stop><stop offset=".95" stop-color="#0069d3"></stop><stop offset="1" stop-color="#0062d0"></stop></linearGradient></defs><path class="c" d="M512,443.73c0,37.55-30.72,68.27-68.27,68.27H68.27c-37.55,0-68.27-30.72-68.27-68.27V68.27C0,30.72,30.72,0,68.27,0h375.47c37.55,0,68.27,30.72,68.27,68.27v375.47Z" fill="url(#1770128270364-192686_b)"></path><path class="d" d="M222.38 102.4H289.62V160.94H222.38z" fill="#fff"></path><path class="d" d="M222.38 200.53H289.62V409.6H222.38z" fill="#fff"></path></g>
 </svg>

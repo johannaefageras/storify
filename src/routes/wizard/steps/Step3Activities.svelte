@@ -1,21 +1,69 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import { EmojiPushpinRound, EmojiPushpin, EmojiHandWave } from '$lib/components/emojis';
+	import { EmojiPushpinRound, EmojiPushpin, EmojiHandWaving, EmojiHouse, EmojiHouseAlt, EmojiWomenFriends } from '$lib/components/emojis';
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 	import { FIELD_LIMITS } from '$lib/validation';
+	import { searchPlaces, getPlaceCategory, isAddress, type Place } from '$lib/utils/places';
 
 	let locationInput = $state('');
 	let activityInput = $state('');
 	let personInput = $state('');
 
-	function addLocation() {
-		const value = locationInput.trim();
-		if (!value || wizardStore.data.locations.includes(value)) {
-			locationInput = '';
+	// Place autocomplete state
+	let places = $state<Place[]>([]);
+	let isLoadingPlaces = $state(false);
+	let showPlaceDropdown = $state(false);
+	let selectedPlaceIndex = $state(-1);
+	let debounceTimer: ReturnType<typeof setTimeout>;
+
+	function triggerPlaceSearch(value: string) {
+		const trimmed = value.trim();
+
+		// Trigger place search if 2+ characters
+		if (trimmed.length >= 2) {
+			clearTimeout(debounceTimer);
+			debounceTimer = setTimeout(async () => {
+				isLoadingPlaces = true;
+				console.log('[Places] Searching for:', trimmed);
+				const results = await searchPlaces(trimmed);
+				console.log('[Places] Results:', results.length);
+				places = results;
+				showPlaceDropdown = results.length > 0;
+				isLoadingPlaces = false;
+			}, 300);
+		} else {
+			places = [];
+			showPlaceDropdown = false;
+		}
+
+		selectedPlaceIndex = -1;
+	}
+
+	function addLocation(value: string) {
+		const trimmed = value.trim();
+		if (!trimmed || wizardStore.data.locations.includes(trimmed)) {
 			return;
 		}
-		wizardStore.updateData('locations', [...wizardStore.data.locations, value]);
+		wizardStore.updateData('locations', [...wizardStore.data.locations, trimmed]);
+	}
+
+	function commitLocationInput() {
+		const value = locationInput.trim();
+		if (value) {
+			addLocation(value);
+			locationInput = '';
+			places = [];
+			showPlaceDropdown = false;
+			selectedPlaceIndex = -1;
+		}
+	}
+
+	function selectPlace(place: Place) {
+		addLocation(place.name);
 		locationInput = '';
+		places = [];
+		showPlaceDropdown = false;
+		selectedPlaceIndex = -1;
 	}
 
 	function removeLocation(location: string) {
@@ -29,6 +77,85 @@
 		const arr = wizardStore.data.locations;
 		if (arr.length > 0) {
 			wizardStore.updateData('locations', arr.slice(0, -1));
+		}
+	}
+
+	function handleLocationKeydown(event: KeyboardEvent) {
+		// Handle dropdown navigation
+		if (showPlaceDropdown && places.length > 0) {
+			switch (event.key) {
+				case 'ArrowDown':
+					event.preventDefault();
+					selectedPlaceIndex = Math.min(selectedPlaceIndex + 1, places.length - 1);
+					return;
+				case 'ArrowUp':
+					event.preventDefault();
+					selectedPlaceIndex = Math.max(selectedPlaceIndex - 1, -1);
+					return;
+				case 'Enter':
+					event.preventDefault();
+					if (selectedPlaceIndex >= 0 && selectedPlaceIndex < places.length) {
+						selectPlace(places[selectedPlaceIndex]);
+					} else {
+						commitLocationInput();
+					}
+					return;
+				case 'Escape':
+					event.preventDefault();
+					showPlaceDropdown = false;
+					selectedPlaceIndex = -1;
+					return;
+			}
+		}
+
+		// Default behavior
+		if (event.key === 'Enter') {
+			event.preventDefault();
+			commitLocationInput();
+		} else if (event.key === 'Backspace') {
+			const input = event.currentTarget as HTMLInputElement;
+			if (input.value === '' || (input.selectionStart === 0 && input.selectionEnd === 0)) {
+				event.preventDefault();
+				removeLastLocation();
+			}
+		}
+	}
+
+	function handleLocationBlur() {
+		// Delay to allow click on dropdown items
+		setTimeout(() => {
+			if (locationInput.trim()) {
+				commitLocationInput();
+			}
+			showPlaceDropdown = false;
+			selectedPlaceIndex = -1;
+		}, 200);
+	}
+
+	function handleLocationInputEvent(event: Event) {
+		const input = event.currentTarget as HTMLInputElement;
+		const value = input.value;
+
+		// Handle comma-separated input
+		if (value.includes(',')) {
+			const parts = value.split(',');
+			const beforeComma = parts[0].trim();
+			const afterComma = parts.slice(1).join(',').trimStart();
+
+			if (beforeComma) {
+				addLocation(beforeComma);
+			}
+			locationInput = afterComma;
+			places = [];
+			showPlaceDropdown = false;
+
+			// Trigger new search if there's text after comma
+			if (afterComma.length >= 2) {
+				triggerPlaceSearch(afterComma);
+			}
+		} else {
+			// Normal input - trigger search
+			triggerPlaceSearch(value);
 		}
 	}
 
@@ -105,7 +232,6 @@
 			const beforeComma = parts[0];
 			const afterComma = parts.slice(1).join(',').trimStart();
 
-			// Must set input.value directly so Svelte's bind:value reads the correct value
 			input.value = beforeComma;
 			inputSetter(beforeComma);
 			action();
@@ -127,26 +253,69 @@
 
 	<div class="field-group">
 		<span class="field-label">
-			<span class="label-emoji"><EmojiPushpinRound size={23} /></span>
+			<span class="label-emoji"><EmojiHouse size={23} /></span>
 			<span>Var har du varit idag?<RequiredIndicator tooltip="Lägg till minst en plats" /></span>
 		</span>
-		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-		<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
-			{#each wizardStore.data.locations as location}
-				<span class="tag">
-					{location}
-					<button class="tag-remove" onclick={() => removeLocation(location)}>×</button>
-				</span>
-			{/each}
-			<input
-				type="text"
-				placeholder={wizardStore.data.locations.length === 0 ? 'I köket, vid samma skolbänk som vanligt, i sängen...' : ''}
-				bind:value={locationInput}
-				onkeydown={(e) => handleKeydown(e, addLocation, removeLastLocation)}
-				oninput={(e) => handleCommaInput(e, (v) => locationInput = v, addLocation)}
-				onblur={addLocation}
-				maxlength={FIELD_LIMITS.locations}
-			/>
+
+		<div class="autocomplete-wrapper">
+			<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+			<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
+				{#each wizardStore.data.locations as location}
+					<span class="tag">
+						{location}
+						<button class="tag-remove" onclick={() => removeLocation(location)}>×</button>
+					</span>
+				{/each}
+				<input
+					type="text"
+					placeholder={wizardStore.data.locations.length === 0 ? 'Sök eller skriv plats...' : ''}
+					bind:value={locationInput}
+					onkeydown={handleLocationKeydown}
+					oninput={handleLocationInputEvent}
+					onblur={handleLocationBlur}
+					onfocus={() => { if (places.length > 0) showPlaceDropdown = true; }}
+					autocomplete="off"
+					autocorrect="off"
+					autocapitalize="off"
+					spellcheck="false"
+					maxlength={FIELD_LIMITS.locations}
+				/>
+				{#if isLoadingPlaces}
+					<span class="loading-indicator"></span>
+				{/if}
+			</div>
+
+			{#if showPlaceDropdown && places.length > 0}
+				<ul class="dropdown" role="listbox">
+					{#each places as place, i}
+						<li
+							class="dropdown-item"
+							class:selected={i === selectedPlaceIndex}
+							role="option"
+							aria-selected={i === selectedPlaceIndex}
+							onmousedown={() => selectPlace(place)}
+							onmouseenter={() => (selectedPlaceIndex = i)}
+						>
+							<span class="place-icon">
+								{#if isAddress(place.types)}
+									<EmojiPushpinRound size={22} />
+								{:else}
+									<EmojiPushpinRound size={22} />
+								{/if}
+							</span>
+							<span class="place-info">
+								<span class="place-name">{place.name}</span>
+								{#if place.address}
+									<span class="place-address">{place.address}</span>
+								{/if}
+							</span>
+							{#if getPlaceCategory(place.types)}
+								<span class="place-category">{getPlaceCategory(place.types)}</span>
+							{/if}
+						</li>
+					{/each}
+				</ul>
+			{/if}
 		</div>
 	</div>
 
@@ -177,7 +346,7 @@
 
 	<div class="field-group">
 		<span class="field-label">
-			<span class="label-emoji"><EmojiHandWave size={23} /></span>
+			<span class="label-emoji"><EmojiHandWaving size={23} /></span>
 			Vilka var med idag?
 		</span>
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
@@ -245,6 +414,10 @@
 		height: 23px !important;
 	}
 
+	.autocomplete-wrapper {
+		position: relative;
+	}
+
 	.tag-input {
 		display: flex;
 		flex-wrap: wrap;
@@ -270,7 +443,7 @@
 
 	.tag-input input {
 		flex: 1;
-		min-width: 60px;
+		min-width: 80px;
 		height: 1.75rem;
 		padding: 0 0.25rem;
 		border: none;
@@ -327,4 +500,101 @@
 		opacity: 1;
 	}
 
+	.loading-indicator {
+		width: 14px;
+		height: 14px;
+		border: 2px solid var(--color-border);
+		border-top-color: var(--color-accent);
+		border-radius: 50%;
+		animation: spin 0.8s linear infinite;
+		flex-shrink: 0;
+	}
+
+	@keyframes spin {
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	.dropdown {
+		position: absolute;
+		top: calc(100% + 4px);
+		left: 0;
+		right: 0;
+		max-height: 200px;
+		overflow-y: auto;
+		background-color: var(--color-bg-elevated);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+		list-style: none;
+		margin: 0;
+		padding: 0.25rem 0;
+		z-index: 100;
+	}
+
+	.dropdown-item {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.5rem 0.75rem;
+		cursor: pointer;
+		transition: background-color 0.1s ease;
+	}
+
+	.dropdown-item:hover,
+	.dropdown-item.selected {
+		background-color: var(--color-neutral);
+	}
+
+	.place-icon {
+		flex-shrink: 0;
+		display: flex;
+		align-items: center;
+		opacity: 0.6;
+	}
+
+	.place-info {
+		flex: 1;
+		min-width: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.0625rem;
+	}
+
+	.place-name {
+		font-size: var(--text-sm);
+		font-weight: var(--weight-medium);
+		color: var(--color-text);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.place-address {
+		font-size: var(--text-xs);
+		font-weight: var(--weight-regular);
+		color: var(--color-text-muted);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.place-category {
+		flex-shrink: 0;
+		font-size: 0.625rem;
+		font-weight: var(--weight-medium);
+		color: var(--color-accent);
+		background-color: color-mix(in srgb, var(--color-accent) 10%, transparent);
+		padding: 0.0625rem 0.375rem;
+		border-radius: 0.1875rem;
+		text-transform: uppercase;
+		letter-spacing: var(--tracking-wide);
+	}
+
+	@media (max-width: 600px) {
+		.place-category {
+			display: none;
+		}
+	}
 </style>

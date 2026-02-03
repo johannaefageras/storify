@@ -3,7 +3,7 @@
 	import { tones } from '$lib/data/tones';
 	import { emojiLabelMap, emojiMap } from '$lib/data/emojis';
 	import type { Component } from 'svelte';
-	import { EmojiSparkles, EmojiRoseLight, EmojiRoseDark, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiMailIncoming, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiFaceThinking, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceSmirking, EmojiSatellite, EmojiDice } from '$lib/components/emojis';
+	import { EmojiSparkles, EmojiRoseLight, EmojiRoseDark, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiArchive, EmojiEnvelopeIncoming, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiDice, EmojiTornado, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl } from '$lib/components/emojis';
 	import html2canvas from 'html2canvas';
 	import { jsPDF } from 'jspdf';
 	import { getApiUrl } from '$lib/config';
@@ -49,30 +49,34 @@ Nu är det kväll och jag är trött, men den goda sorten av trött. Imorgon är
 Vi ses imorgon, dagboken.`;
 
 	const toneIconMap: Record<string, Component> = {
-		classic: EmojiLedger,
-		sportscaster: EmojiMicrophone,
-		'tinfoil-hat': EmojiSatellite,
-		philosophical: EmojiFaceThinking,
-		'nature-documentary': EmojiEarth,
-		sarcastic: EmojiFaceGrimacing,
-		nerd: EmojiFaceNerd,
-		'cat-perspective': EmojiCat,
-		storytelling: EmojiOpenBook,
-		cringe: EmojiFaceSmirking,
-		formal: EmojiBlackNib,
-		'quest-log': EmojiVideoGame,
-		shakespeare: EmojiTheaterMasks,
-		therapist: EmojiBrain,
-		meme: EmojiPoo,
-		'self-help': EmojiWomanMeditating,
-		bored: EmojiFaceYawning,
-		british: EmojiFlagUK,
-		detective: EmojiDetective,
-		'drama-queen': EmojiCrown,
 		'ai-robot': EmojiRobot,
-		troubadour: EmojiMusicalNotes,
-		tabloid: EmojiNewspaper,
-		overthinker: EmojiFaceExplodingHead
+		'bored': EmojiFaceYawning,
+		'british': EmojiFlagUK,
+		'bureaucratic': EmojiArchive,
+		'cat-perspective': EmojiCat,
+		'chaotic': EmojiTornado,
+		'classic': EmojiLedger,
+		'cringe': EmojiFaceGrimacing,
+		'cynical': EmojiFaceUnamused,
+		'detective': EmojiDetective,
+		'drama-queen': EmojiCrown,
+		'formal': EmojiTopHat,
+		'melodramatic': EmojiHeartOnFire,
+		'meme': EmojiPoo,
+		'nature-documentary': EmojiEarth,
+		'nerd': EmojiFaceNerd,
+		'overthinker': EmojiFaceExplodingHead,
+		'passive-aggressive': EmojiFaceUpsideDown,
+		'philosophical': EmojiOwl,
+		'quest-log': EmojiVideoGame,
+		'self-help': EmojiWomanMeditating,
+		'shakespeare': EmojiTheaterMasks,
+		'sportscaster': EmojiMicrophone,
+		'storytelling': EmojiOpenBook,
+		'tabloid': EmojiNewspaper,
+		'therapist': EmojiBrain,
+		'tinfoil-hat': EmojiSatellite,
+		'troubadour': EmojiMusicalNotes
 	};
 
 	function getEmojiComponent(emojiId: string): Component | undefined {
@@ -474,7 +478,7 @@ Vi ses imorgon, dagboken.`;
 					{/if}
 				</button>
 				<button class="action-btn" onclick={openEmailModal}>
-					<EmojiMailIncoming size={22} />
+					<EmojiEnvelopeIncoming size={22} />
 					<span>Maila</span>
 				</button>
 			</div>

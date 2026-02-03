@@ -1,9 +1,42 @@
 <script lang="ts">
 	import {
-		EmojiLightBulb, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiFaceThinking, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceUnamused, EmojiSatellite, EmojiDice, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiMailIncoming, EmojiDiamond, Emoji1, Emoji2, Emoji3, Emoji4, Emoji5, Emoji6, Emoji7, Emoji8
-	} from '$lib/components/emojis';
+		EmojiLightBulb, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiOwl, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceUnamused, EmojiSatellite, EmojiFaceUpsideDown, EmojiArchive, EmojiTornado, EmojiHeartOnFire, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiEnvelopeIncoming, EmojiDiamond, EmojiPlus, EmojiMinus } from '$lib/components/emojis';
+	import { Number1, Number2, Number3, Number4, Number5, Number6, Number7, Number8, Number9 } from '$lib/components/numbers';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import { voiceSamples } from '$lib/data/voiceSamples';
+	import type { Snippet } from 'svelte';
+
+	interface VoiceInfo {
+		id: string;
+		name: string;
+		description: string;
+		icon: Snippet;
+	}
+
+	let selectedVoice: VoiceInfo | null = $state(null);
+
+	function openModal(voice: VoiceInfo) {
+		selectedVoice = voice;
+	}
+
+	function closeModal() {
+		selectedVoice = null;
+	}
+
+	function handleKeydown(event: KeyboardEvent) {
+		if (event.key === 'Escape' && selectedVoice) {
+			closeModal();
+		}
+	}
+
+	function getRandomSamples(id: string, count: number = 3): string[] {
+		const samples = voiceSamples[id] || [];
+		const shuffled = [...samples].sort(() => Math.random() - 0.5);
+		return shuffled.slice(0, count);
+	}
 </script>
+
+<svelte:window onkeydown={handleKeydown} />
 
 <main class="legal-page">
 	<a href="/" class="back-link">&larr; Tillbaka</a>
@@ -24,35 +57,35 @@
 		<h2>Steg för steg</h2>
 		<div class="custom-ol">
 			<div class="custom-li">
-				<span class="list-icon number-icon"><Emoji1 size={14} /></span>
+				<span class="list-icon number-icon"><NumberDigit1 size={14} /></span>
 				<span class="list-content"><strong>Fyll i din profil</strong> – Namn, ålder, pronomen och lite om din livssituation. Detta hjälper appen att förstå vem du är.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon number-icon"><Emoji2 size={14} /></span>
+				<span class="list-icon number-icon"><NumberDigit2 size={14} /></span>
 				<span class="list-content"><strong>Visualisera ditt humör</strong> – Välj emojis som representerar hur din dag varit.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon number-icon"><Emoji3 size={14} /></span>
+				<span class="list-icon number-icon"><NumberDigit3 size={14} /></span>
 				<span class="list-content"><strong>Ange sömn, energinivå och humör</strong> – Enkla handtag som fångar din fysiska status.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon number-icon"><Emoji4 size={14} /></span>
+				<span class="list-icon number-icon"><NumberDigit4 size={14} /></span>
 				<span class="list-content"><strong>Beskriv din dag</strong> – Platser, aktiviteter och personer som du träffat.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon number-icon"><Emoji5 size={14} /></span>
+				<span class="list-icon number-icon"><NumberDigit5 size={14} /></span>
 				<span class="list-content"><strong>Lägg till detaljer</strong> – Vinster och motgångar, reflektioner, mat och musik.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon number-icon"><Emoji6 size={14} /></span>
+				<span class="list-icon number-icon"><NumberDigit6 size={14} /></span>
 				<span class="list-content"><strong>Hjälp dig själv att minnas</strong> – Spara ett minne och ett meddelande till ditt framtida jag.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon number-icon"><Emoji7 size={14} /></span>
+				<span class="list-icon number-icon"><NumberDigit7 size={14} /></span>
 				<span class="list-content"><strong>Välj en röst</strong> – Hur vill du att din dagbok ska låta? Välj vem som ska skriva den.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon number-icon"><Emoji8 size={14} /></span>
+				<span class="list-icon number-icon"><NumberDigit8 size={14} /></span>
 				<span class="list-content"><strong>Generera</strong> – Tryck på knappen och låt magin hända!</span>
 			</div>
 		</div>
@@ -64,14 +97,14 @@
 
 		<div class="tip-box">
 			<h3>Var specifik</h3>
-			<p><span class="example bad">Mindre bra:</span> "Träffade en kompis"</p>
-			<p><span class="example good">Bättre:</span> "Fika med Emma på Espresso House, pratade om hennes nya jobb"</p>
+			<p><span class="icon-badge bad"><EmojiMinus size={14} /></span> "Träffade en kompis"</p>
+			<p><span class="icon-badge good"><EmojiPlus size={14} /></span> "Fika med Emma på Espresso House, pratade om hennes nya jobb"</p>
 		</div>
 
 		<div class="tip-box">
 			<h3>Inkludera känslor</h3>
-			<p><span class="example bad">Mindre bra:</span> "Jobbade"</p>
-			<p><span class="example good">Bättre:</span> "Stressigt på jobbet, men kände mig stolt efter presentationen"</p>
+			<p><span class="icon-badge bad"><EmojiMinus size={14} /></span> "Jobbade"</p>
+			<p><span class="icon-badge good"><EmojiPlus size={14} /></span> "Stressigt på jobbet, men kände mig stolt efter presentationen"</p>
 		</div>
 
 		<div class="tip-box">
@@ -115,138 +148,178 @@
 
 	<section>
 		<h2>Välj rätt röst</h2>
-		<p>Rösten du väljer påverkar stilen på din dagbokstext. Här är alla 24 röster du kan välja mellan:</p>
+		<p>Rösten du väljer påverkar stilen på din dagbokstext. Klicka på en röst för att läsa mer och se exempel:</p>
 
-		<div class="voice-grid">
-			<div class="voice-card">
-				<span class="voice-emoji"><EmojiLedger size={28} /></span>
-				<h3>Klassisk Dagbok</h3>
-				<p>En rak, varm berättelse om din dag. Perfekt för alla tillfällen.</p>
-			</div>
-			<div class="voice-card">
-				<span class="voice-emoji"><EmojiOpenBook size={28} /></span>
-				<h3>Berättelse</h3>
-				<p>Din dag som en fängslande novell med dramaturgisk båge.</p>
-			</div>
-			<div class="voice-card">
-				<span class="voice-emoji"><EmojiFaceThinking size={28} /></span>
-				<h3>Filosofisk</h3>
-				<p>Djupa reflektioner om livets mening och vardagens under.</p>
-			</div>
-			<div class="voice-card">
-				<span class="voice-emoji"><EmojiMicrophone size={28} /></span>
-				<h3>Sportkommentator</h3>
-				<p>OCH HAN GÖR DET! Spänning och energi i varje moment!</p>
-			</div>
-			<div class="voice-card">
-				<span class="voice-emoji"><EmojiCat size={28} /></span>
-				<h3>Kattperspektiv</h3>
-				<p>Din dag sedd genom kattens dömande och nyfikna ögon.</p>
-			</div>
-			<div class="voice-card">
-				<span class="voice-emoji"><EmojiFaceUnamused size={28} /></span>
-				<h3>Cynisk</h3>
-				<p>Skeptisk och lite uppgiven – men ärlig och underfundig.</p>
-			</div>
-			<div class="voice-card">
-				<span class="voice-emoji"><EmojiCrown size={28} /></span>
-				<h3>Drama Queen</h3>
-				<p>ALLT är en KATASTROF eller en TRIUMF. Inga mellanting!</p>
-			</div>
-			<div class="voice-card">
-				<span class="voice-emoji"><EmojiPoo size={28} /></span>
-				<h3>Meme</h3>
-				<p>no cap this is giving very much chronically online energy fr fr</p>
-			</div>
-			<div class="voice-card">
-				<span class="voice-emoji"><EmojiFaceGrimacing size={28} /></span>
-				<h3>Cringe</h3>
-				<p>Alla pinsamma ögonblick förevigas för evigheten. Du bad om det.</p>
-			</div>
-			<div class="voice-card">
-				<span class="voice-emoji"><EmojiFlagUK size={28} /></span>
-				<h3>Brittisk</h3>
-				<p>Torr brittisk humor och understatement. Skrivs på engelska.</p>
-			</div>
-			<div class="voice-card">
-				<span class="voice-emoji"><EmojiVideoGame size={28} /></span>
-				<h3>Quest Log</h3>
-				<p>Din dag som ett äventyr med quests, XP och achievements.</p>
-			</div>
-			<div class="voice-card">
-				<span class="voice-emoji"><EmojiFaceYawning size={28} /></span>
-				<h3>Uttråkad</h3>
-				<p>En AI som verkligen inte bryr sig. Minimalt engagemang.</p>
-			</div>
-			<div class="voice-card">
-				<span class="voice-emoji"><EmojiEarth size={28} /></span>
-				<h3>Naturdokumentär</h3>
-				<p>David Attenborough observerar dig i din naturliga miljö.</p>
-			</div>
-			<div class="voice-card">
-				<span class="voice-emoji"><EmojiBrain size={28} /></span>
-				<h3>Psykolog</h3>
-				<p>Empatisk och validerande. Hjälper dig förstå dina känslor.</p>
-			</div>
-			<div class="voice-card">
-				<span class="voice-emoji"><EmojiRobot size={28} /></span>
-				<h3>AI-Robot</h3>
-				<p>SYSTEMLOGG: Mänsklig aktivitet dokumenterad. Analyserar...</p>
-			</div>
-			<div class="voice-card">
-				<span class="voice-emoji"><EmojiTheaterMasks size={28} /></span>
-				<h3>Shakespeare</h3>
-				<p>Poetisk prosa från renässansen. Att vara eller icke vara.</p>
-			</div>
-			<div class="voice-card">
-				<span class="voice-emoji"><EmojiNewspaper size={28} /></span>
-				<h3>Kvällstidning</h3>
-				<p>CHOCK! SKANDAL! Din dag som sensationella rubriker!</p>
-			</div>
-			<div class="voice-card">
-				<span class="voice-emoji"><EmojiBlackNib size={28} /></span>
-				<h3>Formell</h3>
-				<p>Byråkratisk precision. Undertecknad meddelar härmed...</p>
-			</div>
-			<div class="voice-card">
-				<span class="voice-emoji"><EmojiMusicalNotes size={28} /></span>
-				<h3>Trubadur</h3>
-				<p>Din dag sjungen som en ballad. Med rim och melodi.</p>
-			</div>
-		<div class="voice-card">
-				<span class="voice-emoji"><EmojiFaceNerd size={28} /></span>
-				<h3>Nördig</h3>
-				<p>Fakta, statistik och djupdykningar i varje liten detalj.</p>
-			</div>
-			<div class="voice-card">
-				<span class="voice-emoji"><EmojiSatellite size={28} /></span>
-				<h3>Foliehatt</h3>
-				<p>Allt hänger ihop. Dolda signaler och hemliga planer överallt.</p>
-			</div>
-			<div class="voice-card">
-				<span class="voice-emoji"><EmojiWomanMeditating size={28} /></span>
-				<h3>Livscoach</h3>
-				<p>Upplyftande råd, små övningar och pepp för din utveckling.</p>
-			</div>
-			<div class="voice-card">
-				<span class="voice-emoji"><EmojiDetective size={28} /></span>
-				<h3>Deckare</h3>
-				<p>Din dag som ett mysterium med ledtrådar och vändningar.</p>
-			</div>
-		<div class="voice-card">
-				<span class="voice-emoji"><EmojiFaceExplodingHead size={28} /></span>
-				<h3>Grubblande</h3>
-				<p>Alla beslut analyseras in i minsta detalj. Om och om igen.</p>
-			</div>
-			<div class="voice-card voice-card--wide">
-				<span class="voice-emoji"><EmojiDice size={28} /></span>
-				<h3>Överraska mig!</h3>
-				<p>Låt slumpen välja – du vet aldrig vilken röst du får!</p>
-			</div>
+		<div class="voice-grid-compact">
+			{#snippet ledgerIcon()}<EmojiLedger size={20} />{/snippet}
+			{#snippet openBookIcon()}<EmojiOpenBook size={20} />{/snippet}
+			{#snippet owlIcon()}<EmojiOwl size={20} />{/snippet}
+			{#snippet microphoneIcon()}<EmojiMicrophone size={20} />{/snippet}
+			{#snippet catIcon()}<EmojiCat size={20} />{/snippet}
+			{#snippet unamusedIcon()}<EmojiFaceUnamused size={20} />{/snippet}
+			{#snippet crownIcon()}<EmojiCrown size={20} />{/snippet}
+			{#snippet pooIcon()}<EmojiPoo size={20} />{/snippet}
+			{#snippet grimacingIcon()}<EmojiFaceGrimacing size={20} />{/snippet}
+			{#snippet flagUKIcon()}<EmojiFlagUK size={20} />{/snippet}
+			{#snippet videoGameIcon()}<EmojiVideoGame size={20} />{/snippet}
+			{#snippet yawningIcon()}<EmojiFaceYawning size={20} />{/snippet}
+			{#snippet earthIcon()}<EmojiEarth size={20} />{/snippet}
+			{#snippet brainIcon()}<EmojiBrain size={20} />{/snippet}
+			{#snippet robotIcon()}<EmojiRobot size={20} />{/snippet}
+			{#snippet theaterMasksIcon()}<EmojiTheaterMasks size={20} />{/snippet}
+			{#snippet newspaperIcon()}<EmojiNewspaper size={20} />{/snippet}
+			{#snippet blackNibIcon()}<EmojiBlackNib size={20} />{/snippet}
+			{#snippet musicalNotesIcon()}<EmojiMusicalNotes size={20} />{/snippet}
+			{#snippet nerdIcon()}<EmojiFaceNerd size={20} />{/snippet}
+			{#snippet satelliteIcon()}<EmojiSatellite size={20} />{/snippet}
+			{#snippet meditatingIcon()}<EmojiWomanMeditating size={20} />{/snippet}
+			{#snippet detectiveIcon()}<EmojiDetective size={20} />{/snippet}
+			{#snippet explodingHeadIcon()}<EmojiFaceExplodingHead size={20} />{/snippet}
+			{#snippet upsideDownIcon()}<EmojiFaceUpsideDown size={20} />{/snippet}
+			{#snippet archiveIcon()}<EmojiArchive size={20} />{/snippet}
+			{#snippet tornadoIcon()}<EmojiTornado size={20} />{/snippet}
+			{#snippet heartOnFireIcon()}<EmojiHeartOnFire size={20} />{/snippet}
+			<button class="voice-chip" onclick={() => openModal({ id: 'classic', name: 'Klassisk Dagbok', description: 'En rak, varm berättelse om din dag. Perfekt för alla tillfällen.', icon: ledgerIcon })}>
+				<span class="voice-chip-emoji">{@render ledgerIcon()}</span>
+				<span class="voice-chip-name">Klassisk Dagbok</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'storytelling', name: 'Berättelse', description: 'Din dag som en fängslande novell med dramaturgisk båge.', icon: openBookIcon })}>
+				<span class="voice-chip-emoji">{@render openBookIcon()}</span>
+				<span class="voice-chip-name">Berättelse</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'philosophical', name: 'Filosofisk', description: 'Djupa reflektioner om livets mening och vardagens under.', icon: owlIcon })}>
+				<span class="voice-chip-emoji">{@render owlIcon()}</span>
+				<span class="voice-chip-name">Filosofisk</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'sportscaster', name: 'Sportkommentator', description: 'OCH HAN GÖR DET! Spänning och energi i varje moment!', icon: microphoneIcon })}>
+				<span class="voice-chip-emoji">{@render microphoneIcon()}</span>
+				<span class="voice-chip-name">Sportkommentator</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'cat-perspective', name: 'Kattperspektiv', description: 'Din dag sedd genom kattens dömande och nyfikna ögon.', icon: catIcon })}>
+				<span class="voice-chip-emoji">{@render catIcon()}</span>
+				<span class="voice-chip-name">Kattperspektiv</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'cynical', name: 'Cynisk', description: 'Skeptisk och lite uppgiven – men ärlig och underfundig.', icon: unamusedIcon })}>
+				<span class="voice-chip-emoji">{@render unamusedIcon()}</span>
+				<span class="voice-chip-name">Cynisk</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'drama-queen', name: 'Drama Queen', description: 'ALLT är en KATASTROF eller en TRIUMF. Inga mellanting!', icon: crownIcon })}>
+				<span class="voice-chip-emoji">{@render crownIcon()}</span>
+				<span class="voice-chip-name">Drama Queen</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'meme', name: 'Meme', description: 'no cap this is giving very much chronically online energy fr fr', icon: pooIcon })}>
+				<span class="voice-chip-emoji">{@render pooIcon()}</span>
+				<span class="voice-chip-name">Meme</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'cringe', name: 'Cringe', description: 'Alla pinsamma ögonblick förevigas för evigheten. Du bad om det.', icon: grimacingIcon })}>
+				<span class="voice-chip-emoji">{@render grimacingIcon()}</span>
+				<span class="voice-chip-name">Cringe</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'british', name: 'Brittisk', description: 'Torr brittisk humor och understatement. Skrivs på engelska.', icon: flagUKIcon })}>
+				<span class="voice-chip-emoji">{@render flagUKIcon()}</span>
+				<span class="voice-chip-name">Brittisk</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'quest-log', name: 'Quest Log', description: 'Din dag som ett äventyr med quests, XP och achievements.', icon: videoGameIcon })}>
+				<span class="voice-chip-emoji">{@render videoGameIcon()}</span>
+				<span class="voice-chip-name">Quest Log</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'bored', name: 'Uttråkad', description: 'En AI som verkligen inte bryr sig. Minimalt engagemang.', icon: yawningIcon })}>
+				<span class="voice-chip-emoji">{@render yawningIcon()}</span>
+				<span class="voice-chip-name">Uttråkad</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'nature-documentary', name: 'Naturdokumentär', description: 'David Attenborough observerar dig i din naturliga miljö.', icon: earthIcon })}>
+				<span class="voice-chip-emoji">{@render earthIcon()}</span>
+				<span class="voice-chip-name">Naturdokumentär</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'therapist', name: 'Psykolog', description: 'Empatisk och validerande. Hjälper dig förstå dina känslor.', icon: brainIcon })}>
+				<span class="voice-chip-emoji">{@render brainIcon()}</span>
+				<span class="voice-chip-name">Psykolog</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'ai-robot', name: 'AI-Robot', description: 'SYSTEMLOGG: Mänsklig aktivitet dokumenterad. Analyserar...', icon: robotIcon })}>
+				<span class="voice-chip-emoji">{@render robotIcon()}</span>
+				<span class="voice-chip-name">AI-Robot</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'shakespeare', name: 'Shakespeare', description: 'Poetisk prosa från renässansen. Att vara eller icke vara.', icon: theaterMasksIcon })}>
+				<span class="voice-chip-emoji">{@render theaterMasksIcon()}</span>
+				<span class="voice-chip-name">Shakespeare</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'tabloid', name: 'Kvällstidning', description: 'CHOCK! SKANDAL! Din dag som sensationella rubriker!', icon: newspaperIcon })}>
+				<span class="voice-chip-emoji">{@render newspaperIcon()}</span>
+				<span class="voice-chip-name">Kvällstidning</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'formal', name: 'Formell', description: 'Byråkratisk precision. Undertecknad meddelar härmed...', icon: blackNibIcon })}>
+				<span class="voice-chip-emoji">{@render blackNibIcon()}</span>
+				<span class="voice-chip-name">Formell</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'troubadour', name: 'Trubadur', description: 'Din dag sjungen som en ballad. Med rim och melodi.', icon: musicalNotesIcon })}>
+				<span class="voice-chip-emoji">{@render musicalNotesIcon()}</span>
+				<span class="voice-chip-name">Trubadur</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'nerd', name: 'Nördig', description: 'Fakta, statistik och djupdykningar i varje liten detalj.', icon: nerdIcon })}>
+				<span class="voice-chip-emoji">{@render nerdIcon()}</span>
+				<span class="voice-chip-name">Nördig</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'tinfoil-hat', name: 'Foliehatt', description: 'Allt hänger ihop. Dolda signaler och hemliga planer överallt.', icon: satelliteIcon })}>
+				<span class="voice-chip-emoji">{@render satelliteIcon()}</span>
+				<span class="voice-chip-name">Foliehatt</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'self-help', name: 'Livscoach', description: 'Upplyftande råd, små övningar och pepp för din utveckling.', icon: meditatingIcon })}>
+				<span class="voice-chip-emoji">{@render meditatingIcon()}</span>
+				<span class="voice-chip-name">Livscoach</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'detective', name: 'Deckare', description: 'Din dag som ett mysterium med ledtrådar och vändningar.', icon: detectiveIcon })}>
+				<span class="voice-chip-emoji">{@render detectiveIcon()}</span>
+				<span class="voice-chip-name">Deckare</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'overthinker', name: 'Grubblande', description: 'Alla beslut analyseras in i minsta detalj. Om och om igen.', icon: explodingHeadIcon })}>
+				<span class="voice-chip-emoji">{@render explodingHeadIcon()}</span>
+				<span class="voice-chip-name">Grubblande</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'passive-aggressive', name: 'Passivt Aggressiv', description: 'Nej då, allt är helt fine. Verkligen. Det är lugnt. Inga problem alls.', icon: upsideDownIcon })}>
+				<span class="voice-chip-emoji">{@render upsideDownIcon()}</span>
+				<span class="voice-chip-name">Passivt Aggressiv</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'bureaucratic', name: 'Byråkratisk', description: 'Formulär, stämplar och paragrafer. Allt ska dokumenteras korrekt.', icon: archiveIcon })}>
+				<span class="voice-chip-emoji">{@render archiveIcon()}</span>
+				<span class="voice-chip-name">Byråkratisk</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'chaotic', name: 'Kaotisk', description: 'Allt händer på en gång och ingenting går som planerat. Kaoset regerar!', icon: tornadoIcon })}>
+				<span class="voice-chip-emoji">{@render tornadoIcon()}</span>
+				<span class="voice-chip-name">Kaotisk</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'melodramatic', name: 'Melodramatisk', description: 'Varje ögonblick är livsavgörande. Tårar, suckar och dramatiska pauser.', icon: heartOnFireIcon })}>
+				<span class="voice-chip-emoji">{@render heartOnFireIcon()}</span>
+				<span class="voice-chip-name">Melodramatisk</span>
+			</button>
 		</div>
 
-		<p>Experimentera! Samma dag kan bli helt olika beroende på vilken röst du väljer. Ibland är det roligt att testa flera röster på samma dag.</p>
+		<p>Experimentera! Samma dag kan bli helt olika beroende på vilken röst du väljer. Kan du inte bestämma dig? Välj <strong>"Överraska mig!"</strong> i appen så får du en slumpmässig röst varje gång.</p>
 	</section>
+
+	<!-- Voice Modal -->
+	{#if selectedVoice}
+		<div class="modal-backdrop" onclick={closeModal} role="presentation">
+			<div class="modal-content" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+				<button class="modal-close" onclick={closeModal} aria-label="Stäng">
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<line x1="18" y1="6" x2="6" y2="18"></line>
+						<line x1="6" y1="6" x2="18" y2="18"></line>
+					</svg>
+				</button>
+				<div class="modal-header">
+					<span class="modal-emoji">{@render selectedVoice.icon()}</span>
+					<h3 id="modal-title">{selectedVoice.name}</h3>
+				</div>
+				<p class="modal-description">{selectedVoice.description}</p>
+				<div class="modal-samples">
+					<h4>Exempel på rösten:</h4>
+					{#each getRandomSamples(selectedVoice.id, 3) as sample}
+						<p class="sample-text">"{sample}"</p>
+					{/each}
+				</div>
+			</div>
+		</div>
+	{/if}
 
 	<section>
 		<h2>Spara din dagbokstext</h2>
@@ -275,7 +348,7 @@
 				</div>
 			</div>
 			<div class="save-card">
-				<span class="save-emoji"><EmojiMailIncoming size={28} /></span>
+				<span class="save-emoji"><EmojiEnvelopeIncoming size={28} /></span>
 				<div class="save-content">
 					<h3>Skicka som e-post</h3>
 					<p>Mejla dagboken till vem du vill.</p>
@@ -454,6 +527,7 @@
 		width: 16px;
 		height: 21px;
 		padding-top: 2px;
+		color: var(--color-accent);
 	}
 
 	.bullet-icon {
@@ -503,67 +577,192 @@
 		margin-bottom: 0;
 	}
 
-	.example {
-		font-weight: var(--weight-medium);
-		font-size: var(--text-xs);
-		padding: 0.125rem 0.375rem;
+	.icon-badge {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.25rem;
 		border-radius: var(--radius-sm);
 		margin-right: 0.25rem;
+		vertical-align: middle;
 	}
 
-	.example.bad {
+	.icon-badge.bad {
 		background-color: var(--color-danger-bg, rgba(239, 68, 68, 0.1));
-		color: var(--color-danger, #ef4444);
 	}
 
-	.example.good {
+	.icon-badge.good {
 		background-color: var(--color-success-bg, rgba(34, 197, 94, 0.1));
-		color: var(--color-success, #22c55e);
 	}
 
-	.voice-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-		gap: 0.75rem;
+	.voice-grid-compact {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
 		margin: 1.25rem 0;
 	}
 
-	.voice-card {
-		background: var(--color-bg-elevated);
-		padding: 1rem;
-		border-radius: var(--radius-md);
-		text-align: center;
-		display: flex;
-		flex-direction: column;
+	.voice-chip {
+		display: inline-flex;
 		align-items: center;
-		gap: 0.25rem;
+		gap: 0.375rem;
+		padding: 0.5rem 0.75rem;
+		background: var(--color-bg-elevated);
+		border: 1px solid transparent;
+		border-radius: var(--radius-md);
+		cursor: pointer;
+		transition: all 0.15s ease;
+		font-family: var(--font-primary);
 	}
 
-	.voice-card--wide {
-		grid-column: 1 / -1;
+	.voice-chip:hover {
+		background: var(--color-bg-hover, rgba(255, 255, 255, 0.1));
+		border-color: var(--color-border-subtle, rgba(255, 255, 255, 0.1));
 	}
 
-	.voice-card .voice-emoji {
+	.voice-chip:active {
+		transform: scale(0.98);
+	}
+
+	.voice-chip-emoji {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		margin-bottom: 0.25rem;
+		flex-shrink: 0;
 	}
 
-	.voice-card h3 {
+	.voice-chip-name {
+		font-size: var(--text-xs);
+		font-weight: var(--weight-medium);
+		color: var(--color-text);
+		white-space: nowrap;
+	}
+
+	/* Modal styles */
+	.modal-backdrop {
+		position: fixed;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.6);
+		backdrop-filter: blur(4px);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 1rem;
+		z-index: 1000;
+		animation: fadeIn 0.15s ease;
+	}
+
+	@keyframes fadeIn {
+		from { opacity: 0; }
+		to { opacity: 1; }
+	}
+
+	.modal-content {
+		background: var(--color-bg);
+		border-radius: var(--radius-lg);
+		padding: 1.5rem;
+		max-width: 400px;
+		width: 100%;
+		max-height: 80vh;
+		overflow-y: auto;
+		position: relative;
+		animation: slideUp 0.2s ease;
+		border: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.1));
+	}
+
+	@keyframes slideUp {
+		from {
+			opacity: 0;
+			transform: translateY(10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.modal-close {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		background: none;
+		border: none;
+		color: var(--color-text-muted);
+		cursor: pointer;
+		padding: 0.25rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: var(--radius-sm);
+		transition: color 0.15s ease, background 0.15s ease;
+	}
+
+	.modal-close:hover {
+		color: var(--color-text);
+		background: var(--color-bg-elevated);
+	}
+
+	.modal-header {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		margin-bottom: 0.75rem;
+		padding-right: 2rem;
+	}
+
+	.modal-emoji {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transform: scale(1.6);
+		transform-origin: center;
+	}
+
+	.modal-header h3 {
 		font-family: var(--font-primary);
-		font-size: var(--text-sm);
+		font-size: var(--text-base);
 		font-weight: var(--weight-semibold);
 		color: var(--color-text);
 		margin: 0;
 	}
 
-	.voice-card p {
+	.modal-description {
 		font-family: var(--font-primary);
-		font-size: var(--text-xs);
+		font-size: var(--text-sm);
 		line-height: var(--leading-relaxed);
 		color: var(--color-text-muted);
-		margin: 0;
+		margin-bottom: 1rem;
+	}
+
+	.modal-samples {
+		background: var(--color-bg-elevated);
+		border-radius: var(--radius-md);
+		padding: 1rem;
+	}
+
+	.modal-samples h4 {
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-semibold);
+		color: var(--color-text);
+		margin: 0 0 0.75rem 0;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.sample-text {
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-style: italic;
+		line-height: var(--leading-relaxed);
+		color: var(--color-text-muted);
+		margin: 0 0 0.5rem 0;
+		padding-left: 0.75rem;
+		border-left: 2px solid var(--color-accent);
+	}
+
+	.sample-text:last-child {
+		margin-bottom: 0;
 	}
 
 	.save-grid {

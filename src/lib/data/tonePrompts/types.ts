@@ -24,6 +24,10 @@ export type ToneId =
   | 'tinfoil-hat'
   | 'self-help'
   | 'detective'
+  | 'passive-aggressive'
+  | 'melodramatic'
+  | 'chaotic'
+  | 'bureaucratic'
   | 'overthinker';
 
 export type TonePromptBuilder = (baseIntro: string) => string;

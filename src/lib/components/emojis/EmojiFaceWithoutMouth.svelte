@@ -7,6 +7,7 @@
 </script>
 
 <svg
+  data-name="Layer 1"
   xmlns="http://www.w3.org/2000/svg"
   style=""
   viewBox="0 0 512 512"
@@ -16,5 +17,5 @@
   aria-hidden="true"
   {...rest}
 >
-  <g><defs><linearGradient id="1769458979061-6044783_d" x1="659.23" y1="-199.24" x2="659.23" y2="716.78" gradientTransform="matrix(.56 0 0 -.56 -112.47 400.64)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ff9500"></stop><stop offset=".19" stop-color="#ffad00"></stop><stop offset=".54" stop-color="#ffd500"></stop><stop offset=".83" stop-color="#ffed00"></stop><stop offset="1" stop-color="#fff600"></stop></linearGradient></defs><g id="1769458979061-6044783_b" data-name="a"><g id="1769458979061-6044783_c" data-name="a"><path class="e" d="M512,256c0-35.3-6.64-68.41-19.92-99.34-13.28-30.93-31.66-58.13-55.13-81.61-23.47-23.47-50.67-41.85-81.61-55.13C324.41,6.64,291.3,0,256,0s-68.41,6.64-99.34,19.92c-30.93,13.28-58.13,31.66-81.61,55.13-23.47,23.47-41.85,50.67-55.13,81.61C6.64,187.59,0,220.7,0,256s6.64,68.41,19.92,99.34c13.28,30.93,31.66,58.13,55.13,81.61,23.47,23.47,50.67,41.85,81.61,55.13s64.04,19.93,99.34,19.93,68.41-6.64,99.34-19.93c30.93-13.28,58.13-31.66,81.61-55.13s41.85-50.67,55.13-81.61c13.28-30.93,19.92-64.04,19.92-99.34" vector-effect="none" fill="url(#1769458979061-6044783_d)"></path><path class="f" d="M204.69,213.43c0-13.1-3.28-24.2-9.83-33.3s-14.55-13.64-24.02-13.64-17.56,4.55-24.29,13.64c-6.73,9.1-10.1,20.19-10.1,33.3s3.36,23.74,10.1,33.02c6.73,9.28,14.83,13.92,24.29,13.92s17.47-4.64,24.02-13.92,9.83-20.29,9.83-33.02" vector-effect="none" fill="#1a1626"></path><path class="f" d="M375.27,213.43c0-13.1-3.28-24.2-9.83-33.3-6.55-9.1-14.55-13.64-24.02-13.64s-17.56,4.55-24.29,13.64c-6.73,9.1-10.1,20.19-10.1,33.3s3.36,23.74,10.1,33.02c6.73,9.28,14.83,13.92,24.29,13.92s17.47-4.64,24.02-13.92,9.83-20.29,9.83-33.02" vector-effect="none" fill="#1a1626"></path></g></g></g>
+  <g class="nc-icon-wrapper"><defs><linearGradient id="1770128270430-5713948_b" x1="256" y1="2" x2="256" y2="514" gradientTransform="matrix(1 0 0 -1 0 514)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ff9500"></stop><stop offset=".19" stop-color="#ffad00"></stop><stop offset=".55" stop-color="#ffd500"></stop><stop offset=".83" stop-color="#ffed00"></stop><stop offset="1" stop-color="#fff600"></stop></linearGradient></defs><circle class="c" cx="256" cy="256" r="256" fill="url(#1770128270430-5713948_b)"></circle><ellipse class="d" cx="170.67" cy="213.33" rx="34.13" ry="46.93" fill="#1a1626"></ellipse><ellipse class="d" cx="341.33" cy="213.33" rx="34.13" ry="46.93" fill="#1a1626"></ellipse></g>
 </svg>

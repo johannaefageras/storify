@@ -150,5 +150,29 @@ export const tones: Tone[] = [
     emoji: '😒',
     preview:
       'Det gick bra. Inte för att jag förväntade mig det, men ibland har världen sina ögonblick.'
+  },
+  {
+    id: 'passive-aggressive',
+    name: 'Passivt Aggressiv',
+    emoji: '😐',
+    preview: 'Ingen sa tack. Men det behövs väl inte. Jag förväntar mig inget.'
+  },
+  {
+    id: 'melodramatic',
+    name: 'Melodramatisk',
+    emoji: '🎭',
+    preview: 'Regnet föll mot rutan som mina drömmar faller mot livets hårda golv.'
+  },
+  {
+    id: 'chaotic',
+    name: 'Kaotisk',
+    emoji: '🌪️',
+    preview: 'Okej jag måste – åh katten vill in igen – ja. Bra dag. Typ. KATT. Hejdå.'
+  },
+  {
+    id: 'bureaucratic',
+    name: 'Byråkratisk',
+    emoji: '📋',
+    preview: 'Ärendet avslutas. Med vänlig hälsning, Undertecknad, Handläggare.'
   }
 ];

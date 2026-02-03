@@ -1186,5 +1186,393 @@
   "woman-zombie": {
     "name": "Zombie",
     "meaning": "Användaren har känt sig som en zombie, extremt trött eller levande död av utmattning."
+  },
+  "face-clown": {
+    "name": "Clownansikte",
+    "meaning": "Användaren har varit löjlig, gjort bort sig eller känt sig som en pajas."
+  },
+  "face-enraged": {
+    "name": "Rasande ansikte",
+    "meaning": "Användaren har varit extremt arg, ursinnig eller känt ett intensivt raseri."
+  },
+  "face-flushed": {
+    "name": "Rodnande ansikte",
+    "meaning": "Användaren har känt sig generad, blyg eller hamnat i en pinsam situation."
+  },
+  "face-pensive": {
+    "name": "Eftertänksamt ansikte",
+    "meaning": "Användaren har varit fundersam, lite nedstämd eller grubblat över något."
+  },
+  "face-smiling-horns": {
+    "name": "Busigt djävulsansikte",
+    "meaning": "Användaren har varit busig, retsam eller gjort något litet fuffens."
+  },
+  "face-tears-of-joy": {
+    "name": "Gråter av skratt",
+    "meaning": "Användaren har skrattat så mycket att tårarna runnit. Något var väldigt roligt."
+  },
+  "kiss-mark": {
+    "name": "Kyssavtryck",
+    "meaning": "Användaren har pussats, känt sig romantisk eller visat kärlek."
+  },
+  "speaking-head": {
+    "name": "Talande huvud",
+    "meaning": "Användaren har pratat mycket, haft viktiga samtal eller gjort sin röst hörd."
+  },
+  "woman-facepalm": {
+    "name": "Facepalm",
+    "meaning": "Användaren har känt sig uppgiven, sett något dumt eller reagerat på något pinsamt."
+  },
+  "bar-chart": {
+    "name": "Stapeldiagram",
+    "meaning": "Användaren har arbetat med data, analyserat statistik eller presenterat siffror."
+  },
+  "black-nib": {
+    "name": "Pennspets",
+    "meaning": "Användaren har skrivit något viktigt, signerat dokument eller ägnat sig åt kalligrafi."
+  },
+  "bookmark": {
+    "name": "Bokmärke",
+    "meaning": "Användaren har sparat något för senare, läst en bok eller markerat något viktigt."
+  },
+  "chart": {
+    "name": "Diagram",
+    "meaning": "Användaren har analyserat data, följt trender eller arbetat med grafer och statistik."
+  },
+  "cherries": {
+    "name": "Körsbär",
+    "meaning": "Användaren har ätit frukt, njutit av något sött eller känt en somrig stämning."
+  },
+  "cookie": {
+    "name": "Kaka",
+    "meaning": "Användaren har fikat, bakat eller unnat sig något gott."
+  },
+  "detective": {
+    "name": "Detektiv",
+    "meaning": "Användaren har undersökt något, letat efter svar eller känt sig som en spanare."
+  },
+  "feather": {
+    "name": "Fjäder",
+    "meaning": "Användaren har skrivit kreativt, känt sig lätt eller upplevt något poetiskt."
+  },
+  "fork-knife-plate": {
+    "name": "Tallrik med bestick",
+    "meaning": "Användaren har ätit en ordentlig måltid, varit på restaurang eller lagat middag."
+  },
+  "fountain-pen": {
+    "name": "Reservoarpenna",
+    "meaning": "Användaren har skrivit något elegant, undertecknat viktiga papper eller njutit av att skriva."
+  },
+  "graduation-cap": {
+    "name": "Studentmössa",
+    "meaning": "Användaren har tagit examen, firat en utbildning eller lärt sig något nytt."
+  },
+  "juggling": {
+    "name": "Jonglering",
+    "meaning": "Användaren har haft mycket att balansera, multi-taskat eller känt sig som en jonglör."
+  },
+  "laptop": {
+    "name": "Laptop",
+    "meaning": "Användaren har arbetat vid datorn, surfat eller gjort något digitalt."
+  },
+  "newspaper": {
+    "name": "Tidning",
+    "meaning": "Användaren har läst nyheter, följt aktuella händelser eller tagit del av information."
+  },
+  "office-worker": {
+    "name": "Kontorsarbetare",
+    "meaning": "Användaren har jobbat på kontor, haft en typisk arbetsdag eller hanterat kontorssysslor."
+  },
+  "pie": {
+    "name": "Paj",
+    "meaning": "Användaren har bakat, ätit paj eller njutit av en hemlagad dessert."
+  },
+  "pizza": {
+    "name": "Pizza",
+    "meaning": "Användaren har ätit pizza, beställt mat eller haft en avslappnad måltid."
+  },
+  "printer": {
+    "name": "Skrivare",
+    "meaning": "Användaren har skrivit ut dokument, arbetat med pappersarbete eller fixat med kontorsteknik."
+  },
+  "ruler": {
+    "name": "Linjal",
+    "meaning": "Användaren har mätt, ritat eller arbetat med precision och noggrannhet."
+  },
+  "scroll": {
+    "name": "Pergamentrulle",
+    "meaning": "Användaren har läst något gammalt, studerat historia eller upplevt något högtidligt."
+  },
+  "shower": {
+    "name": "Dusch",
+    "meaning": "Användaren har duschat, fräschat upp sig eller tagit en stund för egenvård."
+  },
+  "woman-cartwheeling": {
+    "name": "Hjulning",
+    "meaning": "Användaren har varit aktiv, tränat gymnastik eller känt sig energisk och lekfull."
+  },
+  "woman-judge": {
+    "name": "Domare",
+    "meaning": "Användaren har dömt, fattat viktiga beslut eller hanterat rättvisa och regler."
+  },
+  "woman-raising-hand": {
+    "name": "Räcker upp handen",
+    "meaning": "Användaren har ställt frågor, deltagit aktivt eller velat säga något viktigt."
+  },
+  "cat": {
+    "name": "Katt",
+    "meaning": "Användaren har umgåtts med en katt, känt sig mysig eller haft ett lugnt ögonblick."
+  },
+  "classic-building": {
+    "name": "Klassisk byggnad",
+    "meaning": "Användaren har besökt ett museum, sett vacker arkitektur eller upplevt något kulturellt."
+  },
+  "cloud-lightning": {
+    "name": "Åskmoln",
+    "meaning": "Användaren har upplevt åskväder, känt dramatik i luften eller haft en intensiv dag."
+  },
+  "cloud-rain": {
+    "name": "Regnmoln",
+    "meaning": "Användaren har upplevt regn, haft en grå dag eller stannat inne på grund av vädret."
+  },
+  "cloud-snow": {
+    "name": "Snömoln",
+    "meaning": "Användaren har sett snö, upplevt vinterväder eller njutit av ett vinterlandskap."
+  },
+  "dove": {
+    "name": "Duva",
+    "meaning": "Användaren har känt frid, upplevt harmoni eller haft ett fridfullt ögonblick."
+  },
+  "flying-saucer": {
+    "name": "Flygande tefat",
+    "meaning": "Användaren har upplevt något oförklarligt, fantiserat om rymden eller känt sig utomjordisk."
+  },
+  "hyacinth": {
+    "name": "Hyacint",
+    "meaning": "Användaren har njutit av blommor, känt vårdoft eller upplevt något vackert."
+  },
+  "map": {
+    "name": "Karta",
+    "meaning": "Användaren har navigerat, planerat en resa eller utforskat nya platser."
+  },
+  "maple-leaf": {
+    "name": "Lönnlöv",
+    "meaning": "Användaren har upplevt hösten, sett färgglada löv eller känt en höststämning."
+  },
+  "office-building": {
+    "name": "Kontorsbyggnad",
+    "meaning": "Användaren har varit på jobbet, besökt ett kontor eller haft en arbetsrelaterad dag."
+  },
+  "park": {
+    "name": "Park",
+    "meaning": "Användaren har varit i en park, promenerat i det gröna eller njutit av naturen i staden."
+  },
+  "rose": {
+    "name": "Ros",
+    "meaning": "Användaren har fått eller gett blommor, känt romantik eller uppskattat något vackert."
+  },
+  "sailboat": {
+    "name": "Segelbåt",
+    "meaning": "Användaren har seglat, varit vid vattnet eller drömt om havet och frihet."
+  },
+  "sun-behind-cloud": {
+    "name": "Sol bakom moln",
+    "meaning": "Användaren har upplevt växlande väder, halvmulet eller en dag med omväxlande sol och moln."
+  },
+  "sun-face": {
+    "name": "Solsikte",
+    "meaning": "Användaren har haft en solig dag, känt värme och glädje eller varit på strålande humör."
+  },
+  "tree": {
+    "name": "Träd",
+    "meaning": "Användaren har varit i naturen, njutit av grönska eller känt sig jordad."
+  },
+  "water-wave": {
+    "name": "Våg",
+    "meaning": "Användaren har varit vid havet, badat eller upplevt vattnets kraft och rörelse."
+  },
+  "window": {
+    "name": "Fönster",
+    "meaning": "Användaren har tittat ut genom fönstret, drömt sig bort eller observerat världen utifrån."
+  },
+  "antenna": {
+    "name": "Antenn",
+    "meaning": "Användaren har tagit emot signaler, kommunicerat eller känt sig uppkopplad."
+  },
+  "birthday-cake": {
+    "name": "Födelsedagstårta",
+    "meaning": "Användaren har firat födelsedag, ätit tårta eller varit på kalas."
+  },
+  "cabinet": {
+    "name": "Arkivskåp",
+    "meaning": "Användaren har organiserat, arkiverat eller letat bland dokument och papper."
+  },
+  "calendar": {
+    "name": "Kalender",
+    "meaning": "Användaren har planerat, bokat in något eller hållit koll på viktiga datum."
+  },
+  "calendar-spiral": {
+    "name": "Spiralkalender",
+    "meaning": "Användaren har planerat framåt, strukturerat sin tid eller antecknat kommande händelser."
+  },
+  "calendar-tear-off": {
+    "name": "Avrivningskalender",
+    "meaning": "Användaren har markerat en dag, räknat ner till något eller följt tidens gång."
+  },
+  "champagne-bottle": {
+    "name": "Champagneflaska",
+    "meaning": "Användaren har firat något stort, öppnat bubbel eller haft anledning att fira."
+  },
+  "champagne-glasses": {
+    "name": "Champagneglas",
+    "meaning": "Användaren har skålat, firat tillsammans med andra eller haft ett festligt ögonblick."
+  },
+  "check": {
+    "name": "Bock",
+    "meaning": "Användaren har bockat av något, slutfört en uppgift eller känt sig klar."
+  },
+  "confetti": {
+    "name": "Konfetti",
+    "meaning": "Användaren har firat, varit på fest eller upplevt något värt att fira."
+  },
+  "diamond": {
+    "name": "Diamant",
+    "meaning": "Användaren har upplevt något värdefullt, fått något dyrt eller känt sig speciell."
+  },
+  "envelope": {
+    "name": "Kuvert",
+    "meaning": "Användaren har skickat eller fått brev, hanterat post eller kommunicerat skriftligt."
+  },
+  "envelope-arrow": {
+    "name": "Skickat brev",
+    "meaning": "Användaren har skickat iväg något viktigt, postat brev eller sänt ett meddelande."
+  },
+  "envelope-heart": {
+    "name": "Kärleksbrev",
+    "meaning": "Användaren har skickat eller fått ett kärleksfullt meddelande eller känt romantik."
+  },
+  "envelope-incoming": {
+    "name": "Inkommande brev",
+    "meaning": "Användaren har fått post, mottagit ett meddelande eller väntat på något som anlände."
+  },
+  "fleur-de-lis": {
+    "name": "Lilja",
+    "meaning": "Användaren har upplevt något elegant, heraldiskt eller kopplat till tradition."
+  },
+  "floppy-disk": {
+    "name": "Diskett",
+    "meaning": "Användaren har sparat något viktigt, känt nostalgi eller arbetat med äldre teknik."
+  },
+  "folder": {
+    "name": "Mapp",
+    "meaning": "Användaren har organiserat dokument, sorterat filer eller strukturerat sitt arbete."
+  },
+  "folder-open": {
+    "name": "Öppen mapp",
+    "meaning": "Användaren har öppnat projekt, gått igenom dokument eller arbetat med filer."
+  },
+  "gloves": {
+    "name": "Handskar",
+    "meaning": "Användaren har klätt sig varmt, varit ute i kylan eller förberett sig för vintern."
+  },
+  "inbox": {
+    "name": "Inkorg",
+    "meaning": "Användaren har hanterat inkommande meddelanden, kollat mejl eller tagit emot ärenden."
+  },
+  "information": {
+    "name": "Information",
+    "meaning": "Användaren har sökt information, fått viktiga upplysningar eller lärt sig något nytt."
+  },
+  "label": {
+    "name": "Etikett",
+    "meaning": "Användaren har märkt upp något, kategoriserat eller organiserat med etiketter."
+  },
+  "lock": {
+    "name": "Lås",
+    "meaning": "Användaren har låst något, känt behov av säkerhet eller skyddat något privat."
+  },
+  "magnet": {
+    "name": "Magnet",
+    "meaning": "Användaren har känt stark dragning till något, attraherat eller blivit attraherad."
+  },
+  "mailbox": {
+    "name": "Brevlåda",
+    "meaning": "Användaren har kollat posten, väntat på brev eller fått något levererat."
+  },
+  "mantelpiece-clock": {
+    "name": "Bordsklocka",
+    "meaning": "Användaren har tänkt på tiden, känt nostalgi eller uppskattat något klassiskt."
+  },
+  "necktie": {
+    "name": "Slips",
+    "meaning": "Användaren har klätt sig formellt, varit på möte eller representerat professionellt."
+  },
+  "outbox": {
+    "name": "Utkorg",
+    "meaning": "Användaren har skickat iväg meddelanden, avslutat ärenden eller levererat arbete."
+  },
+  "package": {
+    "name": "Paket",
+    "meaning": "Användaren har fått eller skickat ett paket, handlat online eller väntat på leverans."
+  },
+  "page": {
+    "name": "Sida",
+    "meaning": "Användaren har läst, skrivit eller arbetat med dokument och papper."
+  },
+  "page-bookmarks": {
+    "name": "Sida med bokmärken",
+    "meaning": "Användaren har markerat viktiga ställen, organiserat läsning eller gjort anteckningar."
+  },
+  "page-with-curl": {
+    "name": "Dokument",
+    "meaning": "Användaren har arbetat med papper, läst dokument eller hanterat skriftligt material."
+  },
+  "paperclip": {
+    "name": "Gem",
+    "meaning": "Användaren har satt ihop dokument, bifogat filer eller organiserat papper."
+  },
+  "phone": {
+    "name": "Telefon",
+    "meaning": "Användaren har ringt, pratat i telefon eller haft viktiga samtal."
+  },
+  "prohibited": {
+    "name": "Förbjudet",
+    "meaning": "Användaren har stött på hinder, nekats något eller upplevt ett stopp."
+  },
+  "pushpin-round": {
+    "name": "Kartnål",
+    "meaning": "Användaren har markerat något viktigt, fäst upp en påminnelse eller noterat en plats."
+  },
+  "redo": {
+    "name": "Gör om",
+    "meaning": "Användaren har gjort om något, fått en ny chans eller upprepat en handling."
+  },
+  "rock": {
+    "name": "Sten",
+    "meaning": "Användaren har känt sig stabil, stark som en klippa eller upplevt något solitt."
+  },
+  "scarf": {
+    "name": "Halsduk",
+    "meaning": "Användaren har klätt sig varmt, burit en mysig halsduk eller förberett sig för kylan."
+  },
+  "shield": {
+    "name": "Sköld",
+    "meaning": "Användaren har känt sig skyddad, försvarat något eller sökt trygghet."
+  },
+  "symbol-female": {
+    "name": "Kvinnosymbol",
+    "meaning": "Användaren har reflekterat över kvinnlighet, genus eller identitet."
+  },
+  "symbol-male": {
+    "name": "Manssymbol",
+    "meaning": "Användaren har reflekterat över manlighet, genus eller identitet."
+  },
+  "symbol-transgender": {
+    "name": "Transsymbol",
+    "meaning": "Användaren har reflekterat över könsidentitet, transrättigheter eller mångfald."
+  },
+  "top-hat": {
+    "name": "Hög hatt",
+    "meaning": "Användaren har känt sig elegant, upplevt något fint eller varit på en festlig tillställning."
   }
 }
