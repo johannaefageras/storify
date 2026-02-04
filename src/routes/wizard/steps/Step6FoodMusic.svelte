@@ -371,6 +371,17 @@
 		color: var(--color-text);
 	}
 
+	@media (max-width: 479px) {
+		.color-swatch {
+			padding: 4px;
+			border-radius: 5px;
+		}
+
+		.swatch-inner {
+			border-radius: 3px;
+		}
+	}
+
 	@media (min-width: 480px) {
 		.color-swatches {
 			grid-template-columns: repeat(16, 1fr);

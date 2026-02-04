@@ -92,7 +92,8 @@
 					data.meals.length > 0 ||
 					data.customMeals.length > 0 ||
 					data.soundtracks.length > 0 ||
-					data.customSoundtracks.length > 0
+					data.customSoundtracks.length > 0 ||
+					data.moodColor !== ''
 				);
 			case 7: // Time Capsule
 				return data.memoryFor10Years.trim() !== '';
@@ -110,8 +111,8 @@
 		if (!isCurrentStepOptional) {
 			return 'Fortsätt';
 		}
-		// Optional step: show "Hoppa över" only if no fields filled, otherwise "Fortsätt"
-		return hasFilledOptionalFields ? 'Fortsätt' : 'Hoppa över';
+		// Optional step: show "Hoppa över" only if no fields filled, otherwise "Nästa"
+		return hasFilledOptionalFields ? 'Nästa' : 'Hoppa över';
 	});
 
 	// Tooltip messages for disabled button per step
