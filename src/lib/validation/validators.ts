@@ -101,7 +101,7 @@ export function validateWizardData(data: WizardData): ValidationResult {
 	// Profile validation
 	const profile = data.profile;
 	if (profile) {
-		const stringFields: (keyof UserProfile)[] = ['name', 'age', 'hometown'];
+		const stringFields: (keyof UserProfile)[] = ['name', 'hometown'];
 		for (const field of stringFields) {
 			const value = profile[field];
 			if (typeof value === 'string') {

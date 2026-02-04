@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import { EmojiUserSilhouette, EmojiCompass, EmojiChart, EmojiCalendar, EmojiScale, EmojiMirror, EmojiCherries, EmojiCamera, EmojiSpeakingHead, EmojiCheck } from '$lib/components/emojis';
+	import { EmojiUserSilhouette, EmojiCompass, EmojiChart, EmojiCalendar, EmojiScale, EmojiMirror, EmojiCherries, EmojiCamera, EmojiSpeakingHead, EmojiCrystalBall, EmojiCheck } from '$lib/components/emojis';
 	import Step0Profile from './steps/Step0Profile.svelte';
 	import Step1Emojis from './steps/Step1Emojis.svelte';
 	import Step2Energy from './steps/Step2Energy.svelte';
@@ -11,13 +11,14 @@
 	import Step6FoodMusic from './steps/Step6FoodMusic.svelte';
 	import Step7TimeCapsule from './steps/Step7TimeCapsule.svelte';
 	import Step8Voice from './steps/Step8Voice.svelte';
-	import Step9Summary from './steps/Step9Summary.svelte';
+	import Step9Addons from './steps/Step9Addons.svelte';
+	import Step10Summary from './steps/Step10Summary.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import IconArrowLeft from '$lib/components/icons/IconArrowLeft.svelte';
 	import IconArrowRight from '$lib/components/icons/IconArrowRight.svelte';
 
-	const optionalSteps = [0, 5, 6, 7];
+	const optionalSteps = [0, 5, 6, 7, 9];
 
 	onMount(() => {
 		// Fetch weather silently in the background (fails silently if denied or unavailable)
@@ -57,7 +58,9 @@
 				return true;
 			case 8: // AI Voice - has default, always valid
 				return data.selectedTone.trim() !== '';
-			case 9: // Summary - no next button needed
+			case 9: // Add-ons - optional
+				return true;
+			case 10: // Summary - no next button needed
 				return true;
 			default:
 				return true;
@@ -69,7 +72,7 @@
 			case 0: // Profile
 				return (
 					data.profile.name.trim() !== '' ||
-					data.profile.age.trim() !== '' ||
+					data.profile.birthday !== null ||
 					data.profile.pronouns.trim() !== '' ||
 					data.profile.hometown.trim() !== '' ||
 					data.profile.family.length > 0 ||
@@ -93,6 +96,8 @@
 				);
 			case 7: // Time Capsule
 				return data.memoryFor10Years.trim() !== '';
+			case 9: // Add-ons
+				return data.includeHoroscope;
 			default:
 				return false;
 		}
@@ -135,6 +140,7 @@
 		'Sinnesintryck',
 		'Minnesvärt',
 		'Välj en röst',
+		'Tillägg',
 		'Allt på plats'
 	];
 	const stepIcons = [
@@ -147,6 +153,7 @@
 		EmojiCherries,
 		EmojiCamera,
 		EmojiSpeakingHead,
+		EmojiCrystalBall,
 		EmojiCheck
 	];
 
@@ -214,7 +221,9 @@
 		{:else if currentStep === 8}
 			<Step8Voice />
 		{:else if currentStep === 9}
-			<Step9Summary />
+			<Step9Addons />
+		{:else if currentStep === 10}
+			<Step10Summary />
 		{/if}
 	</div>
 

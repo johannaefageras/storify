@@ -10,6 +10,7 @@ import {
   validatePayloadSize
 } from '$lib/validation';
 import { checkRateLimit, getClientIdentifier } from '$lib/validation/ratelimit';
+import { getZodiacFromBirthday, getAgeFromBirthday } from '$lib/utils/zodiac';
 
 // CORS headers for Capacitor native app
 const corsHeaders = {
@@ -36,8 +37,11 @@ function formatProfileForPrompt(profile: UserProfile): string {
   if (profile.name) {
     lines.push(`Namn: ${profile.name}`);
   }
-  if (profile.age) {
-    lines.push(`Ålder: ${profile.age} år`);
+  if (profile.birthday) {
+    const age = getAgeFromBirthday(profile.birthday);
+    if (age !== null) {
+      lines.push(`Ålder: ${age} år`);
+    }
   }
   if (profile.hometown) {
     lines.push(`Bor i: ${profile.hometown}`);
@@ -166,7 +170,45 @@ function formatWizardDataForPrompt(data: WizardData): string {
     sections.push(`Meddelande till framtida jag: ${data.messageToFutureSelf}`);
   }
 
+  // Horoscope info (if enabled)
+  if (data.includeHoroscope && data.profile.birthday) {
+    const zodiac = getZodiacFromBirthday(data.profile.birthday);
+    if (zodiac) {
+      sections.push('');
+      sections.push(`HOROSKOP:`);
+      sections.push(`Stjärntecken: ${zodiac.name} (${zodiac.symbol})`);
+    }
+  }
+
   return sections.join('\n');
+}
+
+function buildHoroscopeInstructions(zodiacName: string): string {
+  return `
+
+---
+
+HOROSKOP-TILLÄGG:
+
+Efter dagboksinlägget, lägg till ett SEPARAT avsnitt med rubriken "Horoskop för ${zodiacName}" (gärna med en passande emoji).
+
+HOROSKOPET SKA:
+- Vara baserat på dagens händelser och känslor från dagboken
+- Ha en lekfull, mysig ton som passar dagbokens stil
+- Vara personligt och kopplat till det som faktiskt hänt idag
+- Innehålla en positiv eller uppmuntrande touch utan att vara krystat
+- Vara 2-4 meningar långt
+- Gärna inkludera lite "kosmisk" språkdräkt, som "stjärnorna antyder..." eller "universum vill..."
+
+EXEMPEL PÅ BRA HOROSKOP:
+- "Stjärnorna såg din insats idag och var imponerade. Venus står i en position som antyder att du snart kommer få ett oväntat komplimang."
+- "Universum noterade att du inte gav upp. Den kosmiska energin belönar envishet – förvänta dig en liten seger i veckan som kommer."
+
+GÖR INTE:
+- Skriv inte generiska horoskop som kunde gälla vem som helst
+- Skriv inte om saker som inte hänt eller nämnts i dagens händelser
+- Var inte för allvarlig eller mystisk
+- Använd inte klyschor som "kärlek väntar runt hörnet" om det inte passar kontexten`;
 }
 
 const PRIMARY_MODEL = 'claude-opus-4-5-20251101';
@@ -256,7 +298,16 @@ export const POST: RequestHandler = async ({ request }) => {
     }
 
     const toneId = data.selectedTone || 'classic';
-    const systemPrompt = buildTonePrompt(toneId, data.profile);
+    let systemPrompt = buildTonePrompt(toneId, data.profile);
+
+    // Append horoscope instructions if enabled
+    if (data.includeHoroscope && data.profile.birthday) {
+      const zodiac = getZodiacFromBirthday(data.profile.birthday);
+      if (zodiac) {
+        systemPrompt += buildHoroscopeInstructions(zodiac.name);
+      }
+    }
+
     const userContent = formatWizardDataForPrompt(data);
 
     const result = await generateWithFallback(systemPrompt, userContent);

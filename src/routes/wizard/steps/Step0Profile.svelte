@@ -1,6 +1,42 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { FIELD_LIMITS } from '$lib/validation';
+	import { getZodiacFromBirthday, getAgeFromBirthday } from '$lib/utils/zodiac';
+	import {
+		EmojiZodiacAries,
+		EmojiZodiacTaurus,
+		EmojiZodiacGemini,
+		EmojiZodiacCancer,
+		EmojiZodiacLeo,
+		EmojiZodiacVirgo,
+		EmojiZodiacLibra,
+		EmojiZodiacScorpio,
+		EmojiZodiacSagittarius,
+		EmojiZodiacCapricorn,
+		EmojiZodiacAquarius,
+		EmojiZodiacPisces
+	} from '$lib/components/emojis';
+	import type { Component } from 'svelte';
+
+	// Zodiac emoji components map
+	const zodiacComponents: Record<string, Component> = {
+		aries: EmojiZodiacAries,
+		taurus: EmojiZodiacTaurus,
+		gemini: EmojiZodiacGemini,
+		cancer: EmojiZodiacCancer,
+		leo: EmojiZodiacLeo,
+		virgo: EmojiZodiacVirgo,
+		libra: EmojiZodiacLibra,
+		scorpio: EmojiZodiacScorpio,
+		sagittarius: EmojiZodiacSagittarius,
+		capricorn: EmojiZodiacCapricorn,
+		aquarius: EmojiZodiacAquarius,
+		pisces: EmojiZodiacPisces
+	};
+
+	// Computed zodiac sign and age from birthday
+	let zodiacSign = $derived(getZodiacFromBirthday(wizardStore.data.profile.birthday));
+	let calculatedAge = $derived(getAgeFromBirthday(wizardStore.data.profile.birthday));
 
 	const pronounOptions = [
 		{ value: 'hon', label: 'Hon / Henne' },
@@ -148,8 +184,12 @@
 		}
 	}
 
-	function handleTextInput(key: 'name' | 'age' | 'hometown', value: string) {
+	function handleTextInput(key: 'name' | 'hometown', value: string) {
 		wizardStore.updateProfile(key, value);
+	}
+
+	function handleBirthdayChange(value: string) {
+		wizardStore.updateProfile('birthday', value || null);
 	}
 
 	function focusInput(event: MouseEvent) {
@@ -179,15 +219,26 @@
 
 		<div class="field-row">
 			<div class="field-group compact">
-				<label class="field-label" for="age">Ålder</label>
+				<label class="field-label" for="birthday">Födelsedag</label>
 				<input
-					id="age"
-					type="text"
-					placeholder="Snart 12 år, 30+, mitt i livet..."
-					value={wizardStore.data.profile.age}
-					oninput={(e) => handleTextInput('age', e.currentTarget.value)}
-					maxlength={FIELD_LIMITS.age}
+					id="birthday"
+					type="date"
+					value={wizardStore.data.profile.birthday || ''}
+					oninput={(e) => handleBirthdayChange(e.currentTarget.value)}
+					max={new Date().toISOString().split('T')[0]}
 				/>
+				{#if zodiacSign}
+					{@const ZodiacIcon = zodiacComponents[zodiacSign.id]}
+					<div class="zodiac-display">
+						{#if ZodiacIcon}
+							<span class="zodiac-icon"><ZodiacIcon size={18} /></span>
+						{/if}
+						<span class="zodiac-name">{zodiacSign.name}</span>
+						{#if calculatedAge !== null}
+							<span class="age-display">({calculatedAge} år)</span>
+						{/if}
+					</div>
+				{/if}
 			</div>
 
 			<div class="field-group compact">
@@ -395,6 +446,55 @@
 		font-weight: var(--weight-light);
 		letter-spacing: var(--tracking-wider);
 		opacity: 0.7;
+	}
+
+	input[type='date'] {
+		width: 100%;
+		height: 2.75rem;
+		padding: 0 0.875rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-regular);
+		letter-spacing: var(--tracking-normal);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		background-color: var(--color-bg-elevated);
+		color: var(--color-text);
+		outline: none;
+		transition:
+			border-color 0.15s ease,
+			box-shadow 0.15s ease;
+		box-sizing: border-box;
+	}
+
+	input[type='date']:focus {
+		border-color: var(--color-accent);
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
+	}
+
+	.zodiac-display {
+		display: flex;
+		align-items: center;
+		gap: 0.375rem;
+		margin-top: 0.375rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		color: var(--color-text-muted);
+	}
+
+	.zodiac-icon {
+		display: flex;
+		align-items: center;
+	}
+
+	.zodiac-name {
+		font-weight: var(--weight-medium);
+		color: var(--color-text);
+	}
+
+	.age-display {
+		font-weight: var(--weight-regular);
+		color: var(--color-text-muted);
 	}
 
 	select {

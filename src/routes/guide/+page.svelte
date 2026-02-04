@@ -1,7 +1,7 @@
 <script lang="ts">
 	import {
 		EmojiLightBulb, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiOwl, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceUnamused, EmojiSatellite, EmojiFaceUpsideDown, EmojiArchive, EmojiTornado, EmojiHeartOnFire, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiEnvelopeIncoming, EmojiDiamond, EmojiPlus, EmojiMinus } from '$lib/components/emojis';
-	import { Number1, Number2, Number3, Number4, Number5, Number6, Number7, Number8, Number9 } from '$lib/components/numbers';
+	import { Number1, Number2, Number3, Number4, Number5, Number6, Number7, Number8 } from '$lib/components/numbers';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import { voiceSamples } from '$lib/data/voiceSamples';
 	import type { Snippet } from 'svelte';
@@ -57,35 +57,35 @@
 		<h2>Steg för steg</h2>
 		<div class="custom-ol">
 			<div class="custom-li">
-				<span class="list-icon number-icon"><NumberDigit1 size={14} /></span>
+				<span class="list-icon number-icon"><Number1 size={14} /></span>
 				<span class="list-content"><strong>Fyll i din profil</strong> – Namn, ålder, pronomen och lite om din livssituation. Detta hjälper appen att förstå vem du är.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon number-icon"><NumberDigit2 size={14} /></span>
+				<span class="list-icon number-icon"><Number2 size={14} /></span>
 				<span class="list-content"><strong>Visualisera ditt humör</strong> – Välj emojis som representerar hur din dag varit.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon number-icon"><NumberDigit3 size={14} /></span>
+				<span class="list-icon number-icon"><Number3 size={14} /></span>
 				<span class="list-content"><strong>Ange sömn, energinivå och humör</strong> – Enkla handtag som fångar din fysiska status.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon number-icon"><NumberDigit4 size={14} /></span>
+				<span class="list-icon number-icon"><Number4 size={14} /></span>
 				<span class="list-content"><strong>Beskriv din dag</strong> – Platser, aktiviteter och personer som du träffat.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon number-icon"><NumberDigit5 size={14} /></span>
+				<span class="list-icon number-icon"><Number5 size={14} /></span>
 				<span class="list-content"><strong>Lägg till detaljer</strong> – Vinster och motgångar, reflektioner, mat och musik.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon number-icon"><NumberDigit6 size={14} /></span>
+				<span class="list-icon number-icon"><Number6 size={14} /></span>
 				<span class="list-content"><strong>Hjälp dig själv att minnas</strong> – Spara ett minne och ett meddelande till ditt framtida jag.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon number-icon"><NumberDigit7 size={14} /></span>
+				<span class="list-icon number-icon"><Number7 size={14} /></span>
 				<span class="list-content"><strong>Välj en röst</strong> – Hur vill du att din dagbok ska låta? Välj vem som ska skriva den.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon number-icon"><NumberDigit8 size={14} /></span>
+				<span class="list-icon number-icon"><Number8 size={14} /></span>
 				<span class="list-content"><strong>Generera</strong> – Tryck på knappen och låt magin hända!</span>
 			</div>
 		</div>

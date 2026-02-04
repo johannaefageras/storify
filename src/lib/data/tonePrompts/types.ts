@@ -1,4 +1,5 @@
 import type { UserProfile } from '$lib/stores/wizard.svelte';
+import { getAgeFromBirthday } from '$lib/utils/zodiac';
 
 export type ToneId =
   | 'classic'
@@ -40,8 +41,11 @@ export interface ToneModule {
 export function buildProfileDescription(profile: UserProfile): string {
   const parts: string[] = [];
 
-  if (profile.age) {
-    parts.push(`${profile.age} år`);
+  if (profile.birthday) {
+    const age = getAgeFromBirthday(profile.birthday);
+    if (age !== null) {
+      parts.push(`${age} år`);
+    }
   }
 
   if (profile.pronouns === 'hon') {

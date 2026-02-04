@@ -7,7 +7,7 @@ import { fetchLocationName } from '$lib/utils/geocoding';
 
 export interface UserProfile {
   name: string;
-  age: string;
+  birthday: string | null;
   pronouns: string;
   hometown: string;
   family: string[];
@@ -61,13 +61,16 @@ export interface WizardData {
 
   // Step 8: AI Voice
   selectedTone: string;
+
+  // Step 9: Add-ons
+  includeHoroscope: boolean;
 }
 
 const PROFILE_STORAGE_KEY = 'storify-profile';
 
 const defaultProfile: UserProfile = {
   name: '',
-  age: '',
+  birthday: null,
   pronouns: '',
   hometown: '',
   family: [],
@@ -104,13 +107,14 @@ function createWizardStore() {
     customSoundtracks: [],
     memoryFor10Years: '',
     messageToFutureSelf: '',
-    selectedTone: ''
+    selectedTone: '',
+    includeHoroscope: false
   };
 
   let data = $state<WizardData>({ ...defaultData });
   let currentStep = $state(0);
   let isResultView = $state(false);
-  const totalSteps = 10;
+  const totalSteps = 11;
 
   async function loadProfile(): Promise<UserProfile> {
     if (!browser) return { ...defaultProfile };
@@ -121,7 +125,7 @@ function createWizardStore() {
         const parsed = JSON.parse(value);
         return {
           name: parsed.name || '',
-          age: parsed.age || '',
+          birthday: parsed.birthday || null,
           pronouns: parsed.pronouns || '',
           hometown: parsed.hometown || '',
           family: Array.isArray(parsed.family) ? parsed.family : [],
@@ -267,7 +271,9 @@ function createWizardStore() {
           return true;
         case 8: // AI Voice - has default, always valid
           return data.selectedTone.trim() !== '';
-        case 9: // Summary - no next button needed
+        case 9: // Add-ons - optional
+          return true;
+        case 10: // Summary - no next button needed
           return true;
         default:
           return true;
@@ -279,7 +285,7 @@ function createWizardStore() {
         case 0: // Profile
           return (
             data.profile.name.trim() !== '' ||
-            data.profile.age.trim() !== '' ||
+            data.profile.birthday !== null ||
             data.profile.pronouns.trim() !== '' ||
             data.profile.hometown.trim() !== '' ||
             data.profile.family.length > 0 ||
@@ -303,6 +309,8 @@ function createWizardStore() {
           );
         case 7: // Time Capsule
           return data.memoryFor10Years.trim() !== '' || data.messageToFutureSelf.trim() !== '';
+        case 9: // Add-ons
+          return data.includeHoroscope;
         default:
           return false;
       }

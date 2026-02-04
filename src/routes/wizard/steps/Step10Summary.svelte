@@ -13,7 +13,6 @@
 	let isGenerating = $state(false);
 	let generatedEntry = $state('');
 	let error = $state('');
-
 	// References for export
 	let documentElement: HTMLDivElement = $state(null!);
 	let pdfElement: HTMLDivElement = $state(null!);

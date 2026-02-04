@@ -28,7 +28,7 @@ export const LIMITS = {
 export const FIELD_LIMITS: Record<string, number> = {
 	// Profile
 	name: LIMITS.SHORT_TEXT,
-	age: LIMITS.SHORT_TEXT,
+	birthday: 10, // 'YYYY-MM-DD' format
 	hometown: LIMITS.SHORT_TEXT,
 	occupationDetail: LIMITS.SHORT_TEXT,
 
