@@ -39,7 +39,7 @@ async function generateWithFallback(
   const createMessage = async (model: string) => {
     return client.messages.create({
       model,
-      max_tokens: 1024,
+      max_tokens: 2048,
       system: systemPrompt,
       messages: [
         {
