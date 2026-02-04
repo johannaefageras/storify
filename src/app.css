@@ -28,6 +28,23 @@
   --color-error: #dc2626;
   --color-error-bg: #fef2f2;
   --color-error-border: #fecaca;
+
+  --mood-yellow: #f59e0b;
+  --mood-orange: #f97316;
+  --mood-red: #ef4444;
+  --mood-pink: #ec4899;
+  --mood-purple: #a855f7;
+  --mood-indigo: #6366f1;
+  --mood-blue: #3b82f6;
+  --mood-sky: #0ea5e9;
+  --mood-cyan: #06b6d4;
+  --mood-teal: #14b8a6;
+  --mood-green: #22c55e;
+  --mood-lime: #84cc16;
+  --mood-brown: #a16207;
+  --mood-gray: #71717a;
+  --mood-black: #18181b;
+  --mood-white: #fafafa;
 }
 
 /* ==========================================================================
@@ -52,6 +69,23 @@
   --color-error-bg: #2a1515;
   --color-error-border: #5c2020;
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+
+  --mood-yellow: #fbbf24;
+  --mood-orange: #fb923c;
+  --mood-red: #f87171;
+  --mood-pink: #f472b6;
+  --mood-purple: #c084fc;
+  --mood-indigo: #818cf8;
+  --mood-blue: #60a5fa;
+  --mood-sky: #38bdf8;
+  --mood-cyan: #22d3ee;
+  --mood-teal: #2dd4bf;
+  --mood-green: #4ade80;
+  --mood-lime: #a3e635;
+  --mood-brown: #d97706;
+  --mood-gray: #a1a1aa;
+  --mood-black: #27272a;
+  --mood-white: #f4f4f5;
 }
 
 :root {

@@ -2,9 +2,11 @@
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import {
 		EmojiShortcake,
-		EmojiHeadphones
+		EmojiHeadphonesAlt,
+		EmojiPalette
 	} from '$lib/components/emojis';
 	import { FIELD_LIMITS } from '$lib/validation';
+	import { moodColors } from '$lib/data/moodColors';
 
 	let mealInput = $state('');
 	let soundtrackInput = $state('');
@@ -129,7 +131,7 @@
 
 	<div class="field-group">
 		<span class="field-label">
-			<span class="label-emoji"><EmojiHeadphones size={23} /></span>
+			<span class="label-emoji"><EmojiHeadphonesAlt size={23} /></span>
 			Vad var dagens soundtrack?
 		</span>
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
@@ -150,6 +152,39 @@
 				maxlength={FIELD_LIMITS.customSoundtracks}
 			/>
 		</div>
+	</div>
+
+	<div class="field-group">
+		<span class="field-label">
+			<span class="label-emoji"><EmojiPalette size={23} /></span>
+			Om idag var en färg...
+		</span>
+		<p class="field-description">Välj den färg som bäst speglar känslan av din dag.</p>
+		<div class="color-swatches">
+			{#each moodColors as color}
+				<button
+					type="button"
+					class="color-swatch"
+					class:selected={wizardStore.data.moodColor === color.id}
+					style="--swatch-color: var({color.cssVar})"
+					aria-label={color.name}
+					onclick={() => wizardStore.updateData('moodColor', wizardStore.data.moodColor === color.id ? '' : color.id)}
+				>
+					<span class="swatch-inner"></span>
+				</button>
+			{/each}
+		</div>
+		{#if wizardStore.data.moodColor}
+			{@const selectedColor = moodColors.find(c => c.id === wizardStore.data.moodColor)}
+			{#if selectedColor}
+				<p class="selected-color-keywords">
+					<span class="selected-color-name">{selectedColor.name}:</span>
+					{selectedColor.keywords.join(' · ')}
+				</p>
+			{/if}
+		{:else}
+			<p class="color-hint">Klicka på en färg för att se dess betydelse</p>
+		{/if}
 	</div>
 </div>
 
@@ -190,6 +225,14 @@
 	.label-emoji {
 		display: flex;
 		align-items: center;
+	}
+
+	.field-description {
+		margin: 0;
+		color: var(--color-text-muted);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-light);
+		letter-spacing: var(--tracking-wide);
 	}
 
 	.tag-input {
@@ -272,5 +315,65 @@
 
 	.tag-remove:hover {
 		opacity: 1;
+	}
+
+	.color-swatches {
+		display: grid;
+		grid-template-columns: repeat(8, 1fr);
+		gap: clamp(0.25rem, 1vw, 0.5rem);
+	}
+
+	.color-swatch {
+		position: relative;
+		aspect-ratio: 1;
+		padding: clamp(2px, 0.5vw, 4px);
+		border: none;
+		border-radius: 4px;
+		background-color: var(--color-bg-elevated);
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+		cursor: pointer;
+		transition: transform 0.15s ease, box-shadow 0.15s ease;
+	}
+
+	.color-swatch:hover {
+		transform: scale(1.1);
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+	}
+
+	.color-swatch.selected {
+		box-shadow: 0 0 0 2px var(--color-accent), 0 1px 3px rgba(0, 0, 0, 0.15);
+	}
+
+	.swatch-inner {
+		display: block;
+		width: 100%;
+		height: 100%;
+		border-radius: 2px;
+		background-color: var(--swatch-color);
+	}
+
+	.selected-color-keywords,
+	.color-hint {
+		margin: 0.25rem 0 0;
+		font-size: var(--text-sm);
+		font-weight: var(--weight-light);
+		color: var(--color-text-muted);
+		letter-spacing: var(--tracking-wide);
+	}
+
+	.color-hint {
+		opacity: 0.7;
+		font-style: italic;
+	}
+
+	.selected-color-name {
+		font-weight: var(--weight-medium);
+		color: var(--color-text);
+	}
+
+	@media (min-width: 480px) {
+		.color-swatches {
+			grid-template-columns: repeat(16, 1fr);
+		}
 	}
 </style>

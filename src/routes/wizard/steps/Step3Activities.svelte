@@ -14,6 +14,7 @@
 	let isLoadingPlaces = $state(false);
 	let showPlaceDropdown = $state(false);
 	let selectedPlaceIndex = $state(-1);
+	let justSelected = $state(false);
 	let debounceTimer: ReturnType<typeof setTimeout>;
 
 	function triggerPlaceSearch(value: string) {
@@ -59,11 +60,16 @@
 	}
 
 	function selectPlace(place: Place) {
+		justSelected = true;
 		addLocation(place.name);
 		locationInput = '';
 		places = [];
 		showPlaceDropdown = false;
 		selectedPlaceIndex = -1;
+		// Reset flag after events settle
+		setTimeout(() => {
+			justSelected = false;
+		}, 150);
 	}
 
 	function removeLocation(location: string) {
@@ -273,7 +279,7 @@
 					onkeydown={handleLocationKeydown}
 					oninput={handleLocationInputEvent}
 					onblur={handleLocationBlur}
-					onfocus={() => { if (places.length > 0) showPlaceDropdown = true; }}
+					onfocus={() => { if (places.length > 0 && !justSelected) showPlaceDropdown = true; }}
 					autocomplete="off"
 					autocorrect="off"
 					autocapitalize="off"
@@ -293,7 +299,7 @@
 							class:selected={i === selectedPlaceIndex}
 							role="option"
 							aria-selected={i === selectedPlaceIndex}
-							onmousedown={() => selectPlace(place)}
+							onmousedown={(e) => { e.preventDefault(); selectPlace(place); }}
 							onmouseenter={() => (selectedPlaceIndex = i)}
 						>
 							<span class="place-icon">

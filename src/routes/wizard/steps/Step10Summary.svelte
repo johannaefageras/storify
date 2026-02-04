@@ -2,8 +2,9 @@
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { tones } from '$lib/data/tones';
 	import { emojiLabelMap, emojiMap } from '$lib/data/emojis';
+	import { getMoodColorById } from '$lib/data/moodColors';
 	import type { Component } from 'svelte';
-	import { EmojiSparklesAlt, EmojiRoseLight, EmojiRoseDark, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiArchive, EmojiEnvelopeIncoming, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiDice, EmojiTornado, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiCrystalBall, EmojiScroll, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces } from '$lib/components/emojis';
+	import { EmojiSparklesAlt, EmojiRoseLight, EmojiRoseDark, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiArchive, EmojiEnvelopeIncoming, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiDice, EmojiTornado, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiCrystalBall, EmojiMemo, EmojiScroll, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces } from '$lib/components/emojis';
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
 	import html2canvas from 'html2canvas';
 	import { jsPDF } from 'jspdf';
@@ -64,7 +65,36 @@ Vi ses imorgon, dagboken.`;
 	};
 
 	const zodiacSign = $derived(getZodiacFromBirthday(wizardStore.data.profile.birthday));
-	const hasAddons = $derived(wizardStore.data.includeHoroscope || wizardStore.data.includeOnThisDay);
+	const hasAddons = $derived(wizardStore.data.includeHoroscope || wizardStore.data.includeOnThisDay || wizardStore.data.includeHomework);
+
+	// Detect addon heading type for rendering with emoji icons
+	type ParagraphType = 'horoscope-heading' | 'onthisday-heading' | 'homework-heading' | 'regular';
+
+	function getParagraphType(text: string): ParagraphType {
+		// Strip markdown formatting (**, *) from start/end before checking patterns
+		const trimmed = text.trim().replace(/^\*+|\*+$/g, '');
+		// Check for horoscope heading (Swedish or English)
+		if (/^Horoskop för /i.test(trimmed) || /^Horoscope for /i.test(trimmed)) {
+			return 'horoscope-heading';
+		}
+		// Check for "on this day" heading (Swedish or English)
+		if (
+			/^På denna dag(?:[\s.!:…—–-]*)$/i.test(trimmed) ||
+			/^On this day(?:[\s.!:…—–-]*)$/i.test(trimmed)
+		) {
+			return 'onthisday-heading';
+		}
+		// Check for homework heading (Swedish or English)
+		if (/^Hemläxa/i.test(trimmed) || /^Homework/i.test(trimmed)) {
+			return 'homework-heading';
+		}
+		return 'regular';
+	}
+
+	function getZodiacComponent(): Component | undefined {
+		if (!zodiacSign) return undefined;
+		return zodiacComponents[zodiacSign.id];
+	}
 
 	const toneIconMap: Record<string, Component> = {
 		'ai-robot': EmojiRobot,
@@ -133,7 +163,61 @@ Vi ses imorgon, dagboken.`;
 		| { type: 'text'; label: string; value: string }
 		| { type: 'emojis'; label: string; emojiIds: string[] }
 		| { type: 'energy'; label: string; sleep: number; energy: number; mood: number }
-		| { type: 'list'; label: string; items: string[] };
+		| { type: 'list'; label: string; items: string[] }
+		| { type: 'color'; label: string; colorId: string; colorName: string; cssVar: string };
+
+	type RenderParagraph = { type: ParagraphType; text: string };
+
+	function formatParagraph(text: string): string {
+		return text
+			.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+			.replace(/\*(.*?)\*/g, '<em>$1</em>')
+			.replace(/\n/g, '<br>');
+	}
+
+	function isSeparatorParagraph(text: string): boolean {
+		return /^-{3,}$/.test(text.trim());
+	}
+
+	function stripSeparatorLines(entry: string): string {
+		return entry
+			.split('\n')
+			.filter((line) => !isSeparatorParagraph(line))
+			.join('\n')
+			.replace(/\n{3,}/g, '\n\n')
+			.trim();
+	}
+
+	function getRenderParagraphs(entry: string): RenderParagraph[] {
+		if (!entry) return [];
+		const paragraphs = entry.split(/\n{2,}/);
+		const result: RenderParagraph[] = [];
+
+		for (const paragraph of paragraphs) {
+			if (!paragraph.trim()) continue;
+			if (isSeparatorParagraph(paragraph)) continue;
+
+			const paragraphType = getParagraphType(paragraph);
+			if (paragraphType === 'regular') {
+				result.push({ type: 'regular', text: paragraph });
+				continue;
+			}
+
+			const lines = paragraph
+				.split('\n')
+				.map((line) => line.trim())
+				.filter((line) => line && !isSeparatorParagraph(line));
+			if (lines.length === 0) continue;
+
+			result.push({ type: paragraphType, text: lines[0] });
+
+			if (lines.length > 1) {
+				result.push({ type: 'regular', text: lines.slice(1).join('\n') });
+			}
+		}
+
+		return result;
+	}
 
 	function getFilledData(): SummaryItem[] {
 		const data = wizardStore.data;
@@ -181,6 +265,13 @@ Vi ses imorgon, dagboken.`;
 			sections.push({ type: 'list', label: 'Soundtrack', items: allSoundtracks });
 		}
 
+		if (data.moodColor) {
+			const moodColor = getMoodColorById(data.moodColor);
+			if (moodColor) {
+				sections.push({ type: 'color', label: 'Färg', colorId: moodColor.id, colorName: moodColor.name, cssVar: moodColor.cssVar });
+			}
+		}
+
 		if (data.memoryFor10Years && data.memoryFor10Years.trim()) {
 			sections.push({ type: 'text', label: 'Tidskapsel', value: data.memoryFor10Years });
 		}
@@ -189,6 +280,7 @@ Vi ses imorgon, dagboken.`;
 	}
 
 	const summaryData = $derived(getFilledData());
+	const renderParagraphs = $derived(getRenderParagraphs(generatedEntry));
 
 	$effect(() => {
 		wizardStore.setResultView(generatedEntry.trim().length > 0);
@@ -210,7 +302,7 @@ Vi ses imorgon, dagboken.`;
 		// DEV: Use sample content instead of API call
 		if (DEV_PREVIEW) {
 			await new Promise((resolve) => setTimeout(resolve, 800)); // Simulate loading
-			generatedEntry = SAMPLE_ENTRY;
+			generatedEntry = stripSeparatorLines(SAMPLE_ENTRY);
 			selectRandomMessage();
 			isGenerating = false;
 			return;
@@ -232,7 +324,7 @@ Vi ses imorgon, dagboken.`;
 			const result = await response.json();
 
 			if (result.success) {
-				generatedEntry = result.entry;
+				generatedEntry = stripSeparatorLines(result.entry);
 				selectRandomMessage();
 			} else {
 				error = result.error || 'Något gick fel vid genereringen.';
@@ -270,7 +362,7 @@ Vi ses imorgon, dagboken.`;
 			});
 
 			const link = document.createElement('a');
-			link.download = `dagbok-${wizardStore.data.date?.replace(/\s/g, '-') || 'entry'}.png`;
+			link.download = `dagbok-${wizardStore.data.date?.replace(/[\s,]+/g, '-').replace(/-+/g, '-') || 'entry'}.png`;
 			link.href = canvas.toDataURL('image/png', 1.0);
 			link.click();
 		} catch (err) {
@@ -322,7 +414,7 @@ Vi ses imorgon, dagboken.`;
 			const imgData = canvas.toDataURL('image/png', 1.0);
 			pdf.addImage(imgData, 'PNG', x, y, finalWidth, finalHeight);
 
-			pdf.save(`dagbok-${wizardStore.data.date?.replace(/\s/g, '-') || 'entry'}.pdf`);
+			pdf.save(`dagbok-${wizardStore.data.date?.replace(/[\s,]+/g, '-').replace(/-+/g, '-') || 'entry'}.pdf`);
 		} catch (err) {
 			console.error('Failed to download PDF:', err);
 		} finally {
@@ -431,13 +523,30 @@ Vi ses imorgon, dagboken.`;
 				</div>
 
 				<div class="document-content">
-					{#each generatedEntry.split('\n\n') as paragraph, i}
-						{#if paragraph.trim()}
+					{#each renderParagraphs as paragraph}
+						{#if paragraph.type === 'horoscope-heading'}
+							{@const ZodiacIcon = getZodiacComponent()}
+							<p class="addon-heading">
+								{#if ZodiacIcon}
+									<span class="addon-icon"><ZodiacIcon size={24} /></span>
+								{:else}
+									<span class="addon-icon"><EmojiCrystalBall size={24} /></span>
+								{/if}
+								<span>{@html formatParagraph(paragraph.text)}</span>
+							</p>
+						{:else if paragraph.type === 'onthisday-heading'}
+							<p class="addon-heading">
+								<span class="addon-icon"><EmojiScroll size={24} /></span>
+								<span>{@html formatParagraph(paragraph.text)}</span>
+							</p>
+						{:else if paragraph.type === 'homework-heading'}
+							<p class="addon-heading">
+								<span class="addon-icon"><EmojiMemo size={24} /></span>
+								<span>{@html formatParagraph(paragraph.text)}</span>
+							</p>
+						{:else}
 							<p>
-								{@html paragraph
-									.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-									.replace(/\*(.*?)\*/g, '<em>$1</em>')
-									.replace(/\n/g, '<br>')}
+								{@html formatParagraph(paragraph.text)}
 							</p>
 						{/if}
 					{/each}
@@ -562,13 +671,30 @@ Vi ses imorgon, dagboken.`;
 		</div>
 
 		<div class="pdf-content">
-			{#each generatedEntry.split('\n\n') as paragraph}
-				{#if paragraph.trim()}
+			{#each renderParagraphs as paragraph}
+				{#if paragraph.type === 'horoscope-heading'}
+					{@const ZodiacIcon = getZodiacComponent()}
+					<p class="pdf-addon-heading">
+						{#if ZodiacIcon}
+							<span class="pdf-addon-icon"><ZodiacIcon size={20} /></span>
+						{:else}
+							<span class="pdf-addon-icon"><EmojiCrystalBall size={20} /></span>
+						{/if}
+						<span>{@html formatParagraph(paragraph.text)}</span>
+					</p>
+				{:else if paragraph.type === 'onthisday-heading'}
+					<p class="pdf-addon-heading">
+						<span class="pdf-addon-icon"><EmojiScroll size={20} /></span>
+						<span>{@html formatParagraph(paragraph.text)}</span>
+					</p>
+				{:else if paragraph.type === 'homework-heading'}
+					<p class="pdf-addon-heading">
+						<span class="pdf-addon-icon"><EmojiMemo size={20} /></span>
+						<span>{@html formatParagraph(paragraph.text)}</span>
+					</p>
+				{:else}
 					<p>
-						{@html paragraph
-							.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-							.replace(/\*(.*?)\*/g, '<em>$1</em>')
-							.replace(/\n/g, '<br>')}
+						{@html formatParagraph(paragraph.text)}
 					</p>
 				{/if}
 			{/each}
@@ -620,18 +746,23 @@ Vi ses imorgon, dagboken.`;
 								{#if zodiacSign}
 									{@const ZodiacIcon = zodiacComponents[zodiacSign.id]}
 									{#if ZodiacIcon}
-										<ZodiacIcon size={18} />
+										<ZodiacIcon size={20} />
 									{:else}
-										<EmojiCrystalBall size={18} />
+										<EmojiCrystalBall size={20} />
 									{/if}
 								{:else}
-									<EmojiCrystalBall size={18} />
+									<EmojiCrystalBall size={20} />
 								{/if}
 							</span>
 						{/if}
 						{#if wizardStore.data.includeOnThisDay}
 							<span class="addon-badge" title="På denna dag...">
-								<EmojiScroll size={18} />
+								<EmojiScroll size={20} />
+							</span>
+						{/if}
+						{#if wizardStore.data.includeHomework}
+							<span class="addon-badge" title="Hemläxa">
+								<EmojiMemo size={20} />
 							</span>
 						{/if}
 					</div>
@@ -682,6 +813,11 @@ Vi ses imorgon, dagboken.`;
 							{#each item.items as tag}
 								<span class="summary-tag">{tag}</span>
 							{/each}
+						</div>
+					{:else if item.type === 'color'}
+						<div class="summary-color">
+							<span class="summary-color-swatch" style="--swatch-color: var({item.cssVar})"></span>
+							<span class="summary-color-name">{item.colorName}</span>
 						</div>
 					{/if}
 				</div>
@@ -772,8 +908,7 @@ Vi ses imorgon, dagboken.`;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 0.25rem;
-		background-color: var(--color-neutral);
+		padding: 0.12rem;
 		border-radius: var(--radius-xs);
 	}
 
@@ -887,6 +1022,28 @@ Vi ses imorgon, dagboken.`;
 		background-color: var(--color-neutral);
 		padding: 0.25rem 0.625rem;
 		border-radius: var(--radius-sm);
+	}
+
+	.summary-color {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-top: 0.25rem;
+	}
+
+	.summary-color-swatch {
+		width: 1.5rem;
+		height: 1.5rem;
+		border-radius: 4px;
+		background-color: var(--swatch-color);
+		box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.9), 0 1px 3px rgba(0, 0, 0, 0.1);
+	}
+
+	.summary-color-name {
+		font-family: var(--font-primary);
+		font-size: var(--text-base);
+		font-weight: var(--weight-regular);
+		color: var(--color-text);
 	}
 
 	.voice-indicator {
@@ -1119,6 +1276,27 @@ Vi ses imorgon, dagboken.`;
 		margin-bottom: 0;
 	}
 
+	.document-content p.addon-heading {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.5rem;
+		font-weight: var(--weight-medium);
+		margin-top: 1.5rem;
+	}
+
+	.document-content p.addon-heading:first-child {
+		margin-top: 0;
+		padding-top: 0;
+		border-top: none;
+	}
+
+	.addon-icon {
+		display: flex;
+		align-items: center;
+		flex-shrink: 0;
+		margin-top: 0.125rem;
+	}
+
 	/* ==========================================================================
 	   Document Footer
 	   ========================================================================== */
@@ -1336,6 +1514,23 @@ Vi ses imorgon, dagboken.`;
 	.pdf-content p:first-child {
 		font-weight: var(--weight-medium);
 		font-size: 21px;
+	}
+
+	.pdf-content p.pdf-addon-heading {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.5rem;
+		font-weight: var(--weight-medium);
+		margin-top: 1.5rem;
+		padding-top: 1rem;
+		border-top: 1px solid #e0e0e0;
+	}
+
+	.pdf-addon-icon {
+		display: flex;
+		align-items: center;
+		flex-shrink: 0;
+		margin-top: 0.125rem;
 	}
 
 	.pdf-footer {

@@ -66,11 +66,13 @@ const createMinimalWizardData = (overrides: Partial<WizardData> = {}): WizardDat
   customMeals: [],
   soundtracks: [],
   customSoundtracks: [],
+  moodColor: '',
   memoryFor10Years: '',
   messageToFutureSelf: '',
   selectedTone: 'classic',
   includeHoroscope: false,
   includeOnThisDay: false,
+  includeHomework: true,
   ...overrides
 });
 

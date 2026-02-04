@@ -54,6 +54,7 @@ export interface WizardData {
   customMeals: string[];
   soundtracks: string[];
   customSoundtracks: string[];
+  moodColor: string;
 
   // Step 7: Time Capsule (optional)
   memoryFor10Years: string;
@@ -65,6 +66,7 @@ export interface WizardData {
   // Step 9: Add-ons
   includeHoroscope: boolean;
   includeOnThisDay: boolean;
+  includeHomework: boolean;
 }
 
 const PROFILE_STORAGE_KEY = 'storify-profile';
@@ -106,11 +108,13 @@ function createWizardStore() {
     customMeals: [],
     soundtracks: [],
     customSoundtracks: [],
+    moodColor: '',
     memoryFor10Years: '',
     messageToFutureSelf: '',
     selectedTone: '',
     includeHoroscope: false,
-    includeOnThisDay: false
+    includeOnThisDay: false,
+    includeHomework: true
   };
 
   let data = $state<WizardData>({ ...defaultData });
@@ -307,12 +311,13 @@ function createWizardStore() {
             data.meals.length > 0 ||
             data.customMeals.length > 0 ||
             data.soundtracks.length > 0 ||
-            data.customSoundtracks.length > 0
+            data.customSoundtracks.length > 0 ||
+            data.moodColor !== ''
           );
         case 7: // Time Capsule
           return data.memoryFor10Years.trim() !== '' || data.messageToFutureSelf.trim() !== '';
         case 9: // Add-ons
-          return data.includeHoroscope || data.includeOnThisDay;
+          return data.includeHoroscope || data.includeOnThisDay || data.includeHomework;
         default:
           return false;
       }

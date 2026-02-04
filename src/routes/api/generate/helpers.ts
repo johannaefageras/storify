@@ -2,6 +2,7 @@ import type { WizardData, UserProfile } from '$lib/stores/wizard.svelte';
 import { getZodiacFromBirthday, getAgeFromBirthday } from '$lib/utils/zodiac';
 import emojiMeanings from '$lib/data/emojiMeanings.json';
 import type { ToneId } from '$lib/data/tonePrompts/types';
+import { getMoodColorById } from '$lib/data/moodColors';
 
 /**
  * Tone metadata for addon instructions.
@@ -264,6 +265,14 @@ export function formatWizardDataForPrompt(data: WizardData): string {
 		sections.push(`Musik/ljud: ${allSoundtracks.join(', ')}`);
 	}
 
+	// Mood color
+	if (data.moodColor) {
+		const moodColor = getMoodColorById(data.moodColor);
+		if (moodColor) {
+			sections.push(`Om dagen var en färg: ${moodColor.name} (symboliserar ${moodColor.meaning})`);
+		}
+	}
+
 	// Time capsule memory
 	if (data.memoryFor10Years?.trim()) {
 		sections.push(`Minne att spara (tidskapsel): ${data.memoryFor10Years}`);
@@ -294,16 +303,15 @@ export function buildOnThisDayInstructions(dateString: string, toneId?: string):
 	if (isEnglish) {
 		return `
 
----
-
 "ON THIS DAY" SECTION:
 
-After the diary entry (and horoscope if included), add a SEPARATE section with the heading "On this day..." (with an appropriate emoji like 📜 or 🗓️).
+After the diary entry (and horoscope if included), add a SEPARATE section with the heading "On this day..." (without any emoji - the app will add the icon).
 
 IMPORTANT: Write this section in ENGLISH, matching the diary's language and tone.
 Apply the same writing style as the main entry: ${metadata.styleSummary}
 
 THE SECTION SHOULD:
+- Start with exactly "On this day..." as the heading (no emoji before or after)
 - Mention 1-2 interesting historical events that occurred on this date (${dateString})
 - Be factual – only use real historical events you're certain about
 - Be brief and concise (2-4 sentences)
@@ -311,10 +319,11 @@ THE SECTION SHOULD:
 - Connect the event to something in today's diary if it fits naturally
 
 EXAMPLE (in British tone):
-- "📜 On this day in 1969, Neil Armstrong took humanity's first step on the moon. Not quite as monumental as getting out of bed this morning, but rather historic nonetheless."
-- "🗓️ On this day in 1912, the Titanic sank. Unlike one's mood today, which seems to be floating along quite nicely."
+- "On this day in 1969, Neil Armstrong took humanity's first step on the moon. Not quite as monumental as getting out of bed this morning, but rather historic nonetheless."
+- "On this day in 1912, the Titanic sank. Unlike one's mood today, which seems to be floating along quite nicely."
 
 DO NOT:
+- Include any emoji in the heading – the app handles this
 - Make up events – only use facts you're certain about
 - Be too long or detailed
 - Force a connection to today's events if it doesn't fit naturally`;
@@ -322,16 +331,15 @@ DO NOT:
 
 	return `
 
----
-
 "PÅ DENNA DAG"-TILLÄGG:
 
-Efter dagboksinlägget (och eventuellt horoskop), lägg till ett SEPARAT avsnitt med rubriken "På denna dag..." (gärna med en passande emoji som 📜 eller 🗓️).
+Efter dagboksinlägget (och eventuellt horoskop), lägg till ett SEPARAT avsnitt med rubriken "På denna dag..." (utan emoji - appen lägger till ikonen).
 
 VIKTIGT: Skriv detta avsnitt med SAMMA ton och stil som dagboksinlägget.
 Använd stilen: ${metadata.styleSummary}
 
 AVSNITTET SKA:
+- Börja med exakt "På denna dag..." som rubrik (ingen emoji före eller efter)
 - Nämna 1-2 intressanta historiska händelser som inträffade på detta datum (${dateString})
 - Vara faktabaserat – använd verkliga historiska händelser
 - Gärna inkludera en svensk koppling om möjligt, men internationella händelser är också bra
@@ -340,10 +348,11 @@ AVSNITTET SKA:
 - Gärna koppla händelsen till något i dagens dagbok om det passar naturligt
 
 EXEMPEL PÅ BRA "PÅ DENNA DAG":
-- "📜 På denna dag 1969 tog Neil Armstrong mänsklighetens första steg på månen. Kanske inte lika stort som ditt steg ut ur sängen idag, men ändå historiskt."
-- "🗓️ Den här dagen 1912 sjönk Titanic. Till skillnad från ditt humör idag som verkar flyta på fint."
+- "På denna dag 1969 tog Neil Armstrong mänsklighetens första steg på månen. Kanske inte lika stort som ditt steg ut ur sängen idag, men ändå historiskt."
+- "På denna dag 1912 sjönk Titanic. Till skillnad från ditt humör idag som verkar flyta på fint."
 
 GÖR INTE:
+- Inkludera någon emoji i rubriken – appen hanterar detta
 - Hitta på händelser – använd bara fakta du är säker på
 - Var inte för lång eller detaljerad
 - Tvinga inte en koppling till dagens händelser om det inte passar`;
@@ -373,16 +382,15 @@ export function buildHoroscopeInstructions(zodiacName: string, toneId?: string):
 		const englishZodiac = zodiacNameEnglish[zodiacName] || zodiacName;
 		return `
 
----
-
 HOROSCOPE SECTION:
 
-After the diary entry, add a SEPARATE section with the heading "Horoscope for ${englishZodiac}" (with an appropriate emoji).
+After the diary entry, add a SEPARATE section with the heading "Horoscope for ${englishZodiac}" (without any emoji - the app will add the zodiac icon).
 
 IMPORTANT: Write this section in ENGLISH, matching the diary's language and tone.
 Apply the same writing style as the main entry: ${metadata.styleSummary}
 
 THE HOROSCOPE SHOULD:
+- Start with exactly "Horoscope for ${englishZodiac}" as the heading (no emoji before or after)
 - Be based on today's events and feelings from the diary
 - Match the tone and style of the main diary entry (understated, dry wit)
 - Be personal and connected to what actually happened today
@@ -391,10 +399,11 @@ THE HOROSCOPE SHOULD:
 - Include some "cosmic" language, like "the stars suggest..." or "the universe appears to..."
 
 EXAMPLE (in British tone):
-- "The stars observed your efforts today and were, one might say, moderately impressed. Venus is in a position that suggests an unexpected compliment may be forthcoming. Rather nice, if true."
-- "The universe took note of your persistence today. The cosmic energy tends to reward such stubbornness – one might expect a small victory in the coming week. Nothing too dramatic, of course."
+- "Horoscope for Scorpio" followed by "The stars observed your efforts today and were, one might say, moderately impressed. Venus is in a position that suggests an unexpected compliment may be forthcoming."
+- "Horoscope for Leo" followed by "The universe took note of your persistence today. The cosmic energy tends to reward such stubbornness – one might expect a small victory in the coming week."
 
 DO NOT:
+- Include any emoji in the heading – the app handles this
 - Write generic horoscopes that could apply to anyone
 - Write about things that didn't happen or weren't mentioned today
 - Be too serious or mystical
@@ -403,16 +412,15 @@ DO NOT:
 
 	return `
 
----
-
 HOROSKOP-TILLÄGG:
 
-Efter dagboksinlägget, lägg till ett SEPARAT avsnitt med rubriken "Horoskop för ${zodiacName}" (gärna med en passande emoji).
+Efter dagboksinlägget, lägg till ett SEPARAT avsnitt med rubriken "Horoskop för ${zodiacName}" (utan emoji - appen lägger till stjärntecken-ikonen).
 
 VIKTIGT: Skriv detta avsnitt med SAMMA ton och stil som dagboksinlägget.
 Använd stilen: ${metadata.styleSummary}
 
 HOROSKOPET SKA:
+- Börja med exakt "Horoskop för ${zodiacName}" som rubrik (ingen emoji före eller efter)
 - Vara baserat på dagens händelser och känslor från dagboken
 - Matcha tonen och stilen i huvuddagboken
 - Vara personligt och kopplat till det som faktiskt hänt idag
@@ -421,12 +429,84 @@ HOROSKOPET SKA:
 - Gärna inkludera lite "kosmisk" språkdräkt, som "stjärnorna antyder..." eller "universum vill..."
 
 EXEMPEL PÅ BRA HOROSKOP:
-- "Stjärnorna såg din insats idag och var imponerade. Venus står i en position som antyder att du snart kommer få ett oväntat komplimang."
-- "Universum noterade att du inte gav upp. Den kosmiska energin belönar envishet – förvänta dig en liten seger i veckan som kommer."
+- "Horoskop för Skorpionen" följt av "Stjärnorna såg din insats idag och var imponerade. Venus står i en position som antyder att du snart kommer få ett oväntat komplimang."
+- "Horoskop för Lejonet" följt av "Universum noterade att du inte gav upp. Den kosmiska energin belönar envishet – förvänta dig en liten seger i veckan som kommer."
 
 GÖR INTE:
+- Inkludera någon emoji i rubriken – appen hanterar detta
 - Skriv inte generiska horoskop som kunde gälla vem som helst
 - Skriv inte om saker som inte hänt eller nämnts i dagens händelser
 - Var inte för allvarlig eller mystisk
 - Använd inte klyschor som "kärlek väntar runt hörnet" om det inte passar kontexten`;
+}
+
+export function buildHomeworkInstructions(toneId?: string): string {
+	const metadata = getToneMetadata(toneId || 'classic');
+	const isEnglish = metadata.language === 'english';
+
+	if (isEnglish) {
+		return `
+
+"HOMEWORK" SECTION:
+
+After the diary entry (and any other addons), add a SEPARATE section with the heading "Homework" (without any emoji - the app will add the icon).
+
+IMPORTANT: Write this section in ENGLISH, matching the diary's language and tone.
+Apply the same writing style as the main entry: ${metadata.styleSummary}
+
+THIS SECTION SHOULD:
+- Start with exactly "Homework" as the heading (no emoji before or after)
+- Contain ONE single, specific reflection or challenge for the reader
+- Be based on today's actual events, feelings, wins, or frustrations
+- Either be action-oriented ("Tomorrow, try...") OR reflective ("Consider why...") - let the tone guide this
+- Choose an appropriate timeframe naturally (tomorrow, this week, next time you...) based on context
+- Match the tone and personality of the main diary entry
+- Be personal and relevant - NOT generic self-help advice
+- Be 1-3 sentences long
+
+EXAMPLES OF GOOD "HOMEWORK" (adapt to match the diary's tone):
+- "Tomorrow morning, before the usual rush, take five minutes to simply sit with your tea. Notice how that feels."
+- "The next time someone offers help, try accepting it. Just to see what happens."
+- "Consider: what would today have looked like if you'd said no to that one thing?"
+- "This week, do one thing that's just for you. Not productive, not useful - just enjoyable."
+
+DO NOT:
+- Include any emoji in the heading – the app handles this
+- Give generic advice that could apply to anyone
+- Be preachy or lecture the reader
+- Suggest anything unrelated to what actually happened today
+- Give multiple tasks – just ONE focused thing`;
+	}
+
+	return `
+
+"HEMLÄXA"-TILLÄGG:
+
+Efter dagboksinlägget (och eventuella andra tillägg), lägg till ett SEPARAT avsnitt med rubriken "Hemläxa" (utan emoji - appen lägger till ikonen).
+
+VIKTIGT: Skriv detta avsnitt med SAMMA ton och stil som dagboksinlägget.
+Använd stilen: ${metadata.styleSummary}
+
+AVSNITTET SKA:
+- Börja med exakt "Hemläxa" som rubrik (ingen emoji före eller efter)
+- Innehålla EN enda, specifik reflektion eller utmaning för läsaren
+- Vara baserat på dagens faktiska händelser, känslor, vinster eller motgångar
+- Antingen vara handlingsinriktat ("Imorgon, prova att...") ELLER reflekterande ("Fundera på varför...") - låt tonen styra
+- Välja en lämplig tidsram naturligt (imorgon, den här veckan, nästa gång du...) baserat på sammanhanget
+- Matcha tonen och personligheten i huvuddagboken
+- Vara personligt och relevant - INTE generiska självhjälpsråd
+- Vara 1-3 meningar långt
+
+EXEMPEL PÅ BRA "HEMLÄXA" (anpassa till dagbokens ton):
+- "Imorgon bitti, innan den vanliga stressen, ta fem minuter och bara sitt med ditt te. Lägg märke till hur det känns."
+- "Nästa gång någon erbjuder hjälp, prova att tacka ja. Bara för att se vad som händer."
+- "Fundera: hur hade dagen sett ut om du sagt nej till den där grejen?"
+- "Den här veckan, gör en sak som bara är för dig. Inte produktiv, inte nyttig – bara njutbar."
+
+GÖR INTE:
+- Inkludera någon emoji i rubriken – appen hanterar detta
+- Ge generiska råd som kunde gälla vem som helst
+- Var inte predikande eller moralistisk
+- Föreslå inte saker som inte relaterar till det som faktiskt hänt idag
+- Ge inte flera uppgifter – bara EN fokuserad sak`;
 }

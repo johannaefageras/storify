@@ -191,6 +191,8 @@ describe('wizardStore', () => {
 		});
 
 		it('step 9 (Add-ons) detects horoscope', () => {
+			// Homework is on by default, so turn it off first
+			wizardStore.updateData('includeHomework', false);
 			expect(wizardStore.hasOptionalFieldsFilled(9)).toBe(false);
 
 			wizardStore.updateData('includeHoroscope', true);
@@ -198,8 +200,17 @@ describe('wizardStore', () => {
 		});
 
 		it('step 9 (Add-ons) detects on this day', () => {
+			wizardStore.updateData('includeHomework', false);
 			wizardStore.updateData('includeOnThisDay', true);
 			expect(wizardStore.hasOptionalFieldsFilled(9)).toBe(true);
+		});
+
+		it('step 9 (Add-ons) detects homework (default on)', () => {
+			// Homework is on by default
+			expect(wizardStore.hasOptionalFieldsFilled(9)).toBe(true);
+
+			wizardStore.updateData('includeHomework', false);
+			expect(wizardStore.hasOptionalFieldsFilled(9)).toBe(false);
 		});
 
 		it('required steps return false', () => {

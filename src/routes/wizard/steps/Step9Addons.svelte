@@ -3,6 +3,7 @@
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
 	import {
 		EmojiCrystalBall,
+		EmojiMemo,
 		EmojiScroll,
 		EmojiZodiacAries,
 		EmojiZodiacTaurus,
@@ -47,6 +48,10 @@
 
 	function toggleOnThisDay() {
 		wizardStore.updateData('includeOnThisDay', !wizardStore.data.includeOnThisDay);
+	}
+
+	function toggleHomework() {
+		wizardStore.updateData('includeHomework', !wizardStore.data.includeHomework);
 	}
 </script>
 
@@ -110,6 +115,28 @@
 			</div>
 			<div class="addon-toggle">
 				<div class="toggle-track" class:active={wizardStore.data.includeOnThisDay}>
+					<div class="toggle-thumb"></div>
+				</div>
+			</div>
+		</button>
+
+		<button
+			class="addon-card"
+			class:selected={wizardStore.data.includeHomework}
+			onclick={toggleHomework}
+			type="button"
+		>
+			<div class="addon-icon">
+				<EmojiMemo size={40} />
+			</div>
+			<div class="addon-content">
+				<h3 class="addon-title">Hemläxa</h3>
+				<p class="addon-description">
+					Få en personlig reflektion eller utmaning att ta med dig till imorgon.
+				</p>
+			</div>
+			<div class="addon-toggle">
+				<div class="toggle-track" class:active={wizardStore.data.includeHomework}>
 					<div class="toggle-thumb"></div>
 				</div>
 			</div>

@@ -8,6 +8,7 @@ import { validateWizardData, validatePayloadSize } from '$lib/validation';
 import { checkRateLimit, getClientIdentifier } from '$lib/validation/ratelimit';
 import { getZodiacFromBirthday } from '$lib/utils/zodiac';
 import {
+  buildHomeworkInstructions,
   buildHoroscopeInstructions,
   buildOnThisDayInstructions,
   formatWizardDataForPrompt
@@ -129,6 +130,11 @@ export const POST: RequestHandler = async ({ request }) => {
     // Append "on this day" instructions if enabled (pass toneId so addon matches the voice)
     if (data.includeOnThisDay && data.date) {
       systemPrompt += buildOnThisDayInstructions(data.date, toneId);
+    }
+
+    // Append homework instructions if enabled (pass toneId so addon matches the voice)
+    if (data.includeHomework) {
+      systemPrompt += buildHomeworkInstructions(toneId);
     }
 
     const userContent = formatWizardDataForPrompt(data);
