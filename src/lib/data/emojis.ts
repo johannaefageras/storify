@@ -354,7 +354,6 @@ import {
   EmojiChampagneGlasses,
   EmojiCheck,
   EmojiConfetti,
-  EmojiDiamond,
   EmojiEnvelope,
   EmojiEnvelopeArrow,
   EmojiEnvelopeHeart,
@@ -385,9 +384,6 @@ import {
   EmojiRock,
   EmojiScarf,
   EmojiShield,
-  EmojiSymbolFemale,
-  EmojiSymbolMale,
-  EmojiSymbolTransgender,
   EmojiTopHat
 } from '$lib/components/emojis';
 
@@ -1029,7 +1025,6 @@ export const emojiCategories: EmojiCategory[] = [
       },
       { id: 'check', component: EmojiCheck, label: 'bock, klar, godkänd' },
       { id: 'confetti', component: EmojiConfetti, label: 'konfetti, fest, firande' },
-      { id: 'diamond', component: EmojiDiamond, label: 'diamant, juvel, dyrbar' },
       { id: 'envelope', component: EmojiEnvelope, label: 'kuvert, brev, post' },
       { id: 'envelope-arrow', component: EmojiEnvelopeArrow, label: 'skicka brev, utgående, post' },
       {
@@ -1072,13 +1067,6 @@ export const emojiCategories: EmojiCategory[] = [
       { id: 'rock', component: EmojiRock, label: 'sten, klippa, solid' },
       { id: 'scarf', component: EmojiScarf, label: 'halsduk, vinter, värme' },
       { id: 'shield', component: EmojiShield, label: 'sköld, skydd, säkerhet' },
-      { id: 'symbol-female', component: EmojiSymbolFemale, label: 'kvinna, kvinnlig, venus' },
-      { id: 'symbol-male', component: EmojiSymbolMale, label: 'man, manlig, mars' },
-      {
-        id: 'symbol-transgender',
-        component: EmojiSymbolTransgender,
-        label: 'transperson, genus, identitet'
-      },
       { id: 'top-hat', component: EmojiTopHat, label: 'hög hatt, elegant, gentleman' }
     ]
   }

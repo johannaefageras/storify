@@ -1,7 +1,7 @@
 {
   "name": "storify",
   "private": true,
-  "version": "2.1.0.12",
+  "version": "2.1.0.13",
   "type": "module",
   "author": {
     "name": "Johanna Fagerås",
@@ -50,6 +50,7 @@
     "@capacitor/splash-screen": "^8.0.0",
     "@capacitor/status-bar": "^8.0.0",
     "@sveltejs/adapter-node": "^5.2.0",
+    "@types/html2canvas": "^0.5.35",
     "@upstash/ratelimit": "^2.0.8",
     "@upstash/redis": "^1.36.1",
     "html2canvas": "^1.4.1",

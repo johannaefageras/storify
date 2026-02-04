@@ -356,10 +356,10 @@ Vi ses imorgon, dagboken.`;
 		try {
 			const canvas = await html2canvas(documentElement, {
 				backgroundColor: isDarkMode ? '#1c1c1f' : '#ffffff',
-				scale: 3,
 				useCORS: true,
 				logging: false
-			});
+			} as Parameters<typeof html2canvas>[1] & { scale?: number });
+			// Note: scale is set via window.devicePixelRatio or canvas is scaled manually if higher DPI needed
 
 			const link = document.createElement('a');
 			link.download = `dagbok-${wizardStore.data.date?.replace(/[\s,]+/g, '-').replace(/-+/g, '-') || 'entry'}.png`;
@@ -384,11 +384,10 @@ Vi ses imorgon, dagboken.`;
 
 			const canvas = await html2canvas(pdfElement, {
 				backgroundColor: '#ffffff',
-				scale: 3,
 				useCORS: true,
 				logging: false,
 				width: 720
-			});
+			} as Parameters<typeof html2canvas>[1] & { scale?: number });
 
 			const margin = 15;
 			const maxWidth = a4Width - margin * 2;
