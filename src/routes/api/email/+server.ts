@@ -81,7 +81,7 @@ export const POST: RequestHandler = async ({ request }) => {
       );
     }
 
-    // Convert markdown to HTML using marked (escapes HTML in input by default)
+    // Convert markdown to HTML (AI-generated content, no user HTML expected)
     const formattedEntry = safeMarkdownToHtml(entry);
 
     // Escape date/weekday for safe HTML insertion

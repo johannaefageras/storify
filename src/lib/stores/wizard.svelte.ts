@@ -64,6 +64,7 @@ export interface WizardData {
 
   // Step 9: Add-ons
   includeHoroscope: boolean;
+  includeOnThisDay: boolean;
 }
 
 const PROFILE_STORAGE_KEY = 'storify-profile';
@@ -108,7 +109,8 @@ function createWizardStore() {
     memoryFor10Years: '',
     messageToFutureSelf: '',
     selectedTone: '',
-    includeHoroscope: false
+    includeHoroscope: false,
+    includeOnThisDay: false
   };
 
   let data = $state<WizardData>({ ...defaultData });
@@ -310,7 +312,7 @@ function createWizardStore() {
         case 7: // Time Capsule
           return data.memoryFor10Years.trim() !== '' || data.messageToFutureSelf.trim() !== '';
         case 9: // Add-ons
-          return data.includeHoroscope;
+          return data.includeHoroscope || data.includeOnThisDay;
         default:
           return false;
       }

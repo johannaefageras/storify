@@ -3,7 +3,8 @@
 	import { tones } from '$lib/data/tones';
 	import { emojiLabelMap, emojiMap } from '$lib/data/emojis';
 	import type { Component } from 'svelte';
-	import { EmojiSparkles, EmojiRoseLight, EmojiRoseDark, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiArchive, EmojiEnvelopeIncoming, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiDice, EmojiTornado, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl } from '$lib/components/emojis';
+	import { EmojiSparklesAlt, EmojiRoseLight, EmojiRoseDark, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiArchive, EmojiEnvelopeIncoming, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiDice, EmojiTornado, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiCrystalBall, EmojiScroll, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces } from '$lib/components/emojis';
+	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
 	import html2canvas from 'html2canvas';
 	import { jsPDF } from 'jspdf';
 	import { getApiUrl } from '$lib/config';
@@ -46,6 +47,24 @@ Hemma hos mamma ikväll blev det pasta till middag. Hon gör den där såsen som
 Nu är det kväll och jag är trött, men den goda sorten av trött. Imorgon är det torsdag, vilket betyder att det snart är fredag. Den tanken gör mig glad.
 
 Vi ses imorgon, dagboken.`;
+
+	const zodiacComponents: Record<string, Component> = {
+		aries: EmojiZodiacAries,
+		taurus: EmojiZodiacTaurus,
+		gemini: EmojiZodiacGemini,
+		cancer: EmojiZodiacCancer,
+		leo: EmojiZodiacLeo,
+		virgo: EmojiZodiacVirgo,
+		libra: EmojiZodiacLibra,
+		scorpio: EmojiZodiacScorpio,
+		sagittarius: EmojiZodiacSagittarius,
+		capricorn: EmojiZodiacCapricorn,
+		aquarius: EmojiZodiacAquarius,
+		pisces: EmojiZodiacPisces
+	};
+
+	const zodiacSign = $derived(getZodiacFromBirthday(wizardStore.data.profile.birthday));
+	const hasAddons = $derived(wizardStore.data.includeHoroscope || wizardStore.data.includeOnThisDay);
 
 	const toneIconMap: Record<string, Component> = {
 		'ai-robot': EmojiRobot,
@@ -591,18 +610,41 @@ Vi ses imorgon, dagboken.`;
 		{/if}
 
 		<div class="summary-header">
+			<div class="summary-date">
+				<span class="weekday">{wizardStore.data.weekday}</span>
+				<span class="date">{wizardStore.data.date}</span>
+				{#if hasAddons}
+					<div class="summary-addons">
+						{#if wizardStore.data.includeHoroscope}
+							<span class="addon-badge" title="Horoskop">
+								{#if zodiacSign}
+									{@const ZodiacIcon = zodiacComponents[zodiacSign.id]}
+									{#if ZodiacIcon}
+										<ZodiacIcon size={18} />
+									{:else}
+										<EmojiCrystalBall size={18} />
+									{/if}
+								{:else}
+									<EmojiCrystalBall size={18} />
+								{/if}
+							</span>
+						{/if}
+						{#if wizardStore.data.includeOnThisDay}
+							<span class="addon-badge" title="På denna dag...">
+								<EmojiScroll size={18} />
+							</span>
+						{/if}
+					</div>
+				{/if}
+			</div>
 			<span class="summary-emojis">
 				{#each wizardStore.data.emojis as emojiId}
 					{@const EmojiComponent = getEmojiComponent(emojiId)}
 					{#if EmojiComponent}
-						<span class="summary-emoji"><EmojiComponent size={40} /></span>
+						<span class="summary-emoji"><EmojiComponent size={36} /></span>
 					{/if}
 				{/each}
 			</span>
-			<div class="summary-date">
-				<span class="weekday">{wizardStore.data.weekday}</span>
-				<span class="date">{wizardStore.data.date}</span>
-			</div>
 		</div>
 
 		<div class="summary-grid">
@@ -655,7 +697,7 @@ Vi ses imorgon, dagboken.`;
 					<span class="spinner"></span>
 					Genererar...
 				{:else}
-					<span class="generate-icon"><EmojiSparkles size={28} /></span>
+					<span class="generate-icon"><EmojiSparklesAlt size={28} /></span>
 					Generera dagboksinlägg
 				{/if}
 			</button>
@@ -686,36 +728,25 @@ Vi ses imorgon, dagboken.`;
 
 	.summary-header {
 		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 0.75rem;
-		padding: 1.5rem;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 1rem;
+		padding: 1rem 1.25rem;
 		background-color: var(--color-bg-elevated);
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-md);
 	}
 
-	.summary-emojis {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0.75rem;
-		flex-wrap: wrap;
-	}
-
-	.summary-emoji {
-		display: flex;
-		align-items: center;
-	}
-
 	.summary-date {
-		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.125rem;
 	}
 
 	.weekday {
-		display: block;
 		font-family: var(--font-primary);
-		font-size: var(--text-md);
+		font-size: var(--text-lg);
 		font-weight: var(--weight-medium);
 		font-stretch: 105%;
 		letter-spacing: var(--tracking-tight);
@@ -724,11 +755,38 @@ Vi ses imorgon, dagboken.`;
 	}
 
 	.date {
-		display: block;
 		font-size: var(--text-sm);
 		font-weight: var(--weight-regular);
 		letter-spacing: var(--tracking-wide);
 		color: var(--color-text-muted);
+	}
+
+	.summary-addons {
+		display: flex;
+		align-items: center;
+		gap: 0.375rem;
+		margin-top: 0.375rem;
+	}
+
+	.addon-badge {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.25rem;
+		background-color: var(--color-neutral);
+		border-radius: var(--radius-xs);
+	}
+
+	.summary-emojis {
+		display: flex;
+		align-items: center;
+		gap: 0.55rem;
+		flex-wrap: wrap;
+	}
+
+	.summary-emoji {
+		display: flex;
+		align-items: center;
 	}
 
 	.summary-grid {

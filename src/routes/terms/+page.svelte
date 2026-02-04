@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { EmojiScroll, EmojiDiamond } from '$lib/components/emojis';
+	import { EmojiProfilePictureJudge, EmojiDiamond } from '$lib/components/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 </script>
 
 <main class="legal-page">
 	<a href="/" class="back-link">&larr; Tillbaka</a>
 	<div class="page-header">
-		<EmojiScroll size={80} />
+		<EmojiProfilePictureJudge size={80} />
 		<h1>Användarvillkor</h1>
 	</div>
 	<p class="updated">Senast uppdaterad: 2 februari 2026</p>

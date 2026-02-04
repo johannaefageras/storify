@@ -43,8 +43,8 @@ export function escapeHtml(unsafe: string): string {
 		.replace(/'/g, '&#039;');
 }
 
-// Safe markdown-to-HTML conversion for emails using marked
-// Marked escapes HTML in input by default, preventing XSS
+// Markdown-to-HTML conversion for emails using marked
+// Note: Does NOT escape HTML in input - callers should sanitize if needed
 export function safeMarkdownToHtml(text: string): string {
 	if (!text) return '';
 

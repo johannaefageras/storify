@@ -1,6 +1,6 @@
 <script lang="ts">
 	import {
-		EmojiLightBulb, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiOwl, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceUnamused, EmojiSatellite, EmojiFaceUpsideDown, EmojiArchive, EmojiTornado, EmojiHeartOnFire, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiEnvelopeIncoming, EmojiDiamond, EmojiPlus, EmojiMinus } from '$lib/components/emojis';
+		EmojiProfilePictureTippingHand, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiOwl, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceUnamused, EmojiSatellite, EmojiFaceUpsideDown, EmojiArchive, EmojiTornado, EmojiWiltedFlower, EmojiFramedPictureAlt, EmojiPrinter, EmojiClipboard, EmojiEnvelopeIncoming, EmojiDiamond, EmojiPlus, EmojiMinus } from '$lib/components/emojis';
 	import { Number1, Number2, Number3, Number4, Number5, Number6, Number7, Number8 } from '$lib/components/numbers';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import { voiceSamples } from '$lib/data/voiceSamples';
@@ -41,8 +41,8 @@
 <main class="legal-page">
 	<a href="/" class="back-link">&larr; Tillbaka</a>
 	<div class="page-header">
-		<EmojiLightBulb size={80} />
-		<h1>Guide</h1>
+		<EmojiProfilePictureTippingHand size={80} />
+		<h1>Användarguide</h1>
 	</div>
 	<p class="subtitle">Så får du ut det bästa av Storify</p>
 
@@ -178,7 +178,7 @@
 			{#snippet upsideDownIcon()}<EmojiFaceUpsideDown size={20} />{/snippet}
 			{#snippet archiveIcon()}<EmojiArchive size={20} />{/snippet}
 			{#snippet tornadoIcon()}<EmojiTornado size={20} />{/snippet}
-			{#snippet heartOnFireIcon()}<EmojiHeartOnFire size={20} />{/snippet}
+			{#snippet wiltedFlowerIcon()}<EmojiWiltedFlower size={20} />{/snippet}
 			<button class="voice-chip" onclick={() => openModal({ id: 'classic', name: 'Klassisk Dagbok', description: 'En rak, varm berättelse om din dag. Perfekt för alla tillfällen.', icon: ledgerIcon })}>
 				<span class="voice-chip-emoji">{@render ledgerIcon()}</span>
 				<span class="voice-chip-name">Klassisk Dagbok</span>
@@ -287,8 +287,8 @@
 				<span class="voice-chip-emoji">{@render tornadoIcon()}</span>
 				<span class="voice-chip-name">Kaotisk</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'melodramatic', name: 'Melodramatisk', description: 'Varje ögonblick är livsavgörande. Tårar, suckar och dramatiska pauser.', icon: heartOnFireIcon })}>
-				<span class="voice-chip-emoji">{@render heartOnFireIcon()}</span>
+			<button class="voice-chip" onclick={() => openModal({ id: 'melodramatic', name: 'Melodramatisk', description: 'Varje ögonblick är livsavgörande. Tårar, suckar och dramatiska pauser.', icon: wiltedFlowerIcon })}>
+				<span class="voice-chip-emoji">{@render wiltedFlowerIcon()}</span>
 				<span class="voice-chip-name">Melodramatisk</span>
 			</button>
 		</div>
@@ -327,7 +327,7 @@
 
 		<div class="save-grid">
 			<div class="save-card">
-				<span class="save-emoji"><EmojiFramedPicture size={28} /></span>
+				<span class="save-emoji"><EmojiFramedPictureAlt size={28} /></span>
 				<div class="save-content">
 					<h3>Spara som en bild</h3>
 					<p>Spara som en bild till ditt fotoalbum.</p>

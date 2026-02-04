@@ -188,8 +188,76 @@
 		wizardStore.updateProfile(key, value);
 	}
 
-	function handleBirthdayChange(value: string) {
-		wizardStore.updateProfile('birthday', value || null);
+	// Swedish month names
+	const swedishMonths = [
+		{ value: 1, label: 'Januari' },
+		{ value: 2, label: 'Februari' },
+		{ value: 3, label: 'Mars' },
+		{ value: 4, label: 'April' },
+		{ value: 5, label: 'Maj' },
+		{ value: 6, label: 'Juni' },
+		{ value: 7, label: 'Juli' },
+		{ value: 8, label: 'Augusti' },
+		{ value: 9, label: 'September' },
+		{ value: 10, label: 'Oktober' },
+		{ value: 11, label: 'November' },
+		{ value: 12, label: 'December' }
+	];
+
+	// Parse existing birthday or initialize empty
+	function parseBirthday(dateStr: string | null) {
+		if (!dateStr) return { year: '', month: '', day: '' };
+		const [year, month, day] = dateStr.split('-');
+		return {
+			year: year || '',
+			month: month ? parseInt(month, 10).toString() : '',
+			day: day ? parseInt(day, 10).toString() : ''
+		};
+	}
+
+	let birthdayParts = $state(parseBirthday(wizardStore.data.profile.birthday));
+
+	// Generate year options (1900 to 2025)
+	const currentYear = new Date().getFullYear();
+	const yearOptions = Array.from({ length: 126 }, (_, i) => 2025 - i);
+
+	// Days in month calculation
+	function getDaysInMonth(year: number, month: number): number {
+		if (!year || !month) return 31;
+		return new Date(year, month, 0).getDate();
+	}
+
+	let daysInSelectedMonth = $derived(
+		getDaysInMonth(
+			birthdayParts.year ? parseInt(birthdayParts.year, 10) : currentYear,
+			birthdayParts.month ? parseInt(birthdayParts.month, 10) : 1
+		)
+	);
+
+	function updateBirthday() {
+		const { year, month, day } = birthdayParts;
+		if (year && month && day) {
+			const paddedMonth = month.padStart(2, '0');
+			const paddedDay = day.padStart(2, '0');
+			wizardStore.updateProfile('birthday', `${year}-${paddedMonth}-${paddedDay}`);
+		} else {
+			wizardStore.updateProfile('birthday', null);
+		}
+	}
+
+	function handleBirthdayPartChange(part: 'year' | 'month' | 'day', value: string) {
+		birthdayParts[part] = value;
+		// Adjust day if it exceeds days in the new month
+		if (part === 'month' || part === 'year') {
+			const maxDay = getDaysInMonth(
+				parseInt(birthdayParts.year, 10) || currentYear,
+				parseInt(birthdayParts.month, 10) || 1
+			);
+			if (birthdayParts.day && parseInt(birthdayParts.day, 10) > maxDay) {
+				birthdayParts.day = maxDay.toString();
+			}
+		}
+		updateBirthday();
 	}
 
 	function focusInput(event: MouseEvent) {
@@ -217,16 +285,47 @@
 			/>
 		</div>
 
-		<div class="field-row">
-			<div class="field-group compact">
-				<label class="field-label" for="birthday">Födelsedag</label>
-				<input
-					id="birthday"
-					type="date"
-					value={wizardStore.data.profile.birthday || ''}
-					oninput={(e) => handleBirthdayChange(e.currentTarget.value)}
-					max={new Date().toISOString().split('T')[0]}
-				/>
+		<div class="field-row birthday-row">
+			<div class="field-group birthday-group">
+				<span class="field-label" id="birthday-label">Födelsedag</span>
+				<div class="birthday-selects" role="group" aria-labelledby="birthday-label">
+					<select
+						id="birthday-day"
+						class="birthday-day"
+						aria-label="Dag"
+						value={birthdayParts.day}
+						onchange={(e) => handleBirthdayPartChange('day', e.currentTarget.value)}
+					>
+						<option value="" disabled selected={birthdayParts.day === ''}>Dag</option>
+						{#each Array.from({ length: daysInSelectedMonth }, (_, i) => i + 1) as day}
+							<option value={day.toString()}>{day}</option>
+						{/each}
+					</select>
+					<select
+						id="birthday-month"
+						class="birthday-month"
+						aria-label="Månad"
+						value={birthdayParts.month}
+						onchange={(e) => handleBirthdayPartChange('month', e.currentTarget.value)}
+					>
+						<option value="" disabled selected={birthdayParts.month === ''}>Månad</option>
+						{#each swedishMonths as month}
+							<option value={month.value.toString()}>{month.label}</option>
+						{/each}
+					</select>
+					<select
+						id="birthday-year"
+						class="birthday-year"
+						aria-label="År"
+						value={birthdayParts.year}
+						onchange={(e) => handleBirthdayPartChange('year', e.currentTarget.value)}
+					>
+						<option value="" disabled selected={birthdayParts.year === ''}>År</option>
+						{#each yearOptions as year}
+							<option value={year.toString()}>{year}</option>
+						{/each}
+					</select>
+				</div>
 				{#if zodiacSign}
 					{@const ZodiacIcon = zodiacComponents[zodiacSign.id]}
 					<div class="zodiac-display">
@@ -249,7 +348,7 @@
 					onchange={(e) => wizardStore.updateProfile('pronouns', e.currentTarget.value)}
 				>
 					<option value="" disabled selected={wizardStore.data.profile.pronouns === ''}
-						>-- Välj hur du vill bli tilltalad --</option
+						>-- Välj pronomen --</option
 					>
 					{#each pronounOptions as option}
 						<option value={option.value}>{option.label}</option>
@@ -448,28 +547,43 @@
 		opacity: 0.7;
 	}
 
-	input[type='date'] {
-		width: 100%;
-		height: 2.75rem;
-		padding: 0 0.875rem;
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-regular);
-		letter-spacing: var(--tracking-normal);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-sm);
-		background-color: var(--color-bg-elevated);
-		color: var(--color-text);
-		outline: none;
-		transition:
-			border-color 0.15s ease,
-			box-shadow 0.15s ease;
-		box-sizing: border-box;
+	.birthday-row {
+		flex-wrap: wrap;
 	}
 
-	input[type='date']:focus {
-		border-color: var(--color-accent);
-		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
+	.birthday-group {
+		flex: 2;
+		min-width: 0;
+	}
+
+	.birthday-selects {
+		display: flex;
+		gap: 0.5rem;
+	}
+
+	.birthday-day,
+	.birthday-month,
+	.birthday-year {
+		width: auto;
+		appearance: none;
+		-webkit-appearance: none;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235f5f5f' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: right 0.5rem center;
+		padding-right: 1.75rem;
+	}
+
+	.birthday-day {
+		flex: 0 0 4.5rem;
+	}
+
+	.birthday-month {
+		flex: 1;
+		min-width: 6rem;
+	}
+
+	.birthday-year {
+		flex: 0 0 5rem;
 	}
 
 	.zodiac-display {
@@ -602,6 +716,27 @@
 	@media (max-width: 600px) {
 		.field-row {
 			flex-direction: column;
+		}
+
+		.birthday-row {
+			flex-direction: column;
+		}
+
+		.birthday-selects {
+			flex-wrap: wrap;
+		}
+
+		.birthday-day {
+			flex: 0 0 4rem;
+		}
+
+		.birthday-month {
+			flex: 1;
+			min-width: 5.5rem;
+		}
+
+		.birthday-year {
+			flex: 0 0 4.5rem;
 		}
 	}
 </style>

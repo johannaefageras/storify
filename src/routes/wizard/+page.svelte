@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import { EmojiUserSilhouette, EmojiCompass, EmojiChart, EmojiCalendar, EmojiScale, EmojiMirror, EmojiCherries, EmojiCamera, EmojiSpeakingHead, EmojiCrystalBall, EmojiCheck } from '$lib/components/emojis';
+	import { EmojiUserSilhouette, EmojiCompass, EmojiChart, EmojiCalendar, EmojiScale, EmojiMirror, EmojiCherries, EmojiCamera, EmojiSpeakingHead, EmojiPuzzlePieceAlt, EmojiCheck } from '$lib/components/emojis';
 	import Step0Profile from './steps/Step0Profile.svelte';
 	import Step1Emojis from './steps/Step1Emojis.svelte';
 	import Step2Energy from './steps/Step2Energy.svelte';
@@ -97,7 +97,7 @@
 			case 7: // Time Capsule
 				return data.memoryFor10Years.trim() !== '';
 			case 9: // Add-ons
-				return data.includeHoroscope;
+				return data.includeHoroscope || data.includeOnThisDay;
 			default:
 				return false;
 		}
@@ -153,7 +153,7 @@
 		EmojiCherries,
 		EmojiCamera,
 		EmojiSpeakingHead,
-		EmojiCrystalBall,
+		EmojiPuzzlePieceAlt,
 		EmojiCheck
 	];
 

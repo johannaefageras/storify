@@ -3,7 +3,7 @@
 	import { tones } from '$lib/data/tones';
 	import { voiceSamples } from '$lib/data/voiceSamples';
 	import type { Component } from 'svelte';
-	import { EmojiRobot, EmojiFaceYawning, EmojiFlagUK, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiDetective, EmojiCrown, EmojiTopHat, EmojiHeartOnFire, EmojiPoo, EmojiEarth, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanMeditating, EmojiTheaterMasks, EmojiMicrophone, EmojiOpenBook, EmojiNewspaper, EmojiBrain, EmojiSatellite, EmojiMusicalNotes, EmojiDice } from '$lib/components/emojis';
+	import { EmojiRobot, EmojiFaceYawning, EmojiFlagUK, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiDetective, EmojiCrown, EmojiTopHat, EmojiWiltedFlower, EmojiPoo, EmojiEarth, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanMeditating, EmojiTheaterMasks, EmojiMicrophone, EmojiOpenBook, EmojiNewspaper, EmojiBrain, EmojiSatellite, EmojiMusicalNotes, EmojiDice } from '$lib/components/emojis';
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 
 	const toneIconMap: Record<string, Component> = {
@@ -19,7 +19,7 @@
 		'detective': EmojiDetective,
 		'drama-queen': EmojiCrown,
 		'formal': EmojiTopHat,
-		'melodramatic': EmojiHeartOnFire,
+		'melodramatic': EmojiWiltedFlower,
 		'meme': EmojiPoo,
 		'nature-documentary': EmojiEarth,
 		'nerd': EmojiFaceNerd,

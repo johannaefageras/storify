@@ -3,6 +3,7 @@
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
 	import {
 		EmojiCrystalBall,
+		EmojiScroll,
 		EmojiZodiacAries,
 		EmojiZodiacTaurus,
 		EmojiZodiacGemini,
@@ -42,6 +43,10 @@
 		if (hasBirthday) {
 			wizardStore.updateData('includeHoroscope', !wizardStore.data.includeHoroscope);
 		}
+	}
+
+	function toggleOnThisDay() {
+		wizardStore.updateData('includeOnThisDay', !wizardStore.data.includeOnThisDay);
 	}
 </script>
 
@@ -83,6 +88,28 @@
 			</div>
 			<div class="addon-toggle">
 				<div class="toggle-track" class:active={wizardStore.data.includeHoroscope && hasBirthday}>
+					<div class="toggle-thumb"></div>
+				</div>
+			</div>
+		</button>
+
+		<button
+			class="addon-card"
+			class:selected={wizardStore.data.includeOnThisDay}
+			onclick={toggleOnThisDay}
+			type="button"
+		>
+			<div class="addon-icon">
+				<EmojiScroll size={40} />
+			</div>
+			<div class="addon-content">
+				<h3 class="addon-title">På denna dag...</h3>
+				<p class="addon-description">
+					Lägg till en historisk händelse som inträffade på dagens datum.
+				</p>
+			</div>
+			<div class="addon-toggle">
+				<div class="toggle-track" class:active={wizardStore.data.includeOnThisDay}>
 					<div class="toggle-thumb"></div>
 				</div>
 			</div>
