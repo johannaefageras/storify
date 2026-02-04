@@ -1,7 +1,7 @@
 {
   "name": "storify",
   "private": true,
-  "version": "2.1.0.13",
+  "version": "2.1.0.14",
   "type": "module",
   "author": {
     "name": "Johanna Fagerås",
