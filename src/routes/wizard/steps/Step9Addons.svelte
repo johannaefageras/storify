@@ -3,7 +3,7 @@
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
 	import {
 		EmojiCrystalBall,
-		EmojiMemo,
+		EmojiBooks,
 		EmojiScroll,
 		EmojiZodiacAries,
 		EmojiZodiacTaurus,
@@ -127,7 +127,7 @@
 			type="button"
 		>
 			<div class="addon-icon">
-				<EmojiMemo size={40} />
+				<EmojiBooks size={40} />
 			</div>
 			<div class="addon-content">
 				<h3 class="addon-title">Hemläxa</h3>

@@ -1,5 +1,6 @@
-// Enable prerendering for all pages (required for static adapter)
+// Enable prerendering for static content pages (SEO)
 export const prerender = true;
 
-// Enable SPA mode - client-side routing handles all navigation
-export const ssr = false;
+// Enable SSR for better SEO - crawlers see full HTML content
+// Note: The wizard route disables this since it uses Capacitor APIs
+export const ssr = true;

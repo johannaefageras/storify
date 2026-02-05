@@ -178,8 +178,9 @@
 			{@const selectedColor = moodColors.find(c => c.id === wizardStore.data.moodColor)}
 			{#if selectedColor}
 				<p class="selected-color-keywords">
-					<span class="selected-color-name">{selectedColor.name}:</span>
-					{selectedColor.keywords.join(' · ')}
+					{#each selectedColor.keywords as keyword}
+						<span class="keyword-tag">#{keyword}</span>
+					{/each}
 				</p>
 			{/if}
 		{:else}
@@ -341,7 +342,7 @@
 	}
 
 	.color-swatch.selected {
-		box-shadow: 0 0 0 2px var(--color-accent), 0 1px 3px rgba(0, 0, 0, 0.15);
+		box-shadow: 0 0 0 2px var(--swatch-color), 0 1px 3px rgba(0, 0, 0, 0.15);
 	}
 
 	.swatch-inner {
@@ -361,14 +362,20 @@
 		letter-spacing: var(--tracking-wide);
 	}
 
+	.selected-color-keywords {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.375rem;
+	}
+
+	.keyword-tag {
+		font-size: var(--text-xs);
+		color: var(--color-text-muted);
+	}
+
 	.color-hint {
 		opacity: 0.7;
 		font-style: italic;
-	}
-
-	.selected-color-name {
-		font-weight: var(--weight-medium);
-		color: var(--color-text);
 	}
 
 	@media (max-width: 479px) {

@@ -4,7 +4,7 @@
 	import { emojiLabelMap, emojiMap } from '$lib/data/emojis';
 	import { getMoodColorById } from '$lib/data/moodColors';
 	import type { Component } from 'svelte';
-	import { EmojiSparklesAlt, EmojiRoseLight, EmojiRoseDark, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiArchive, EmojiEnvelopeIncoming, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiDice, EmojiTornado, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiCrystalBall, EmojiMemo, EmojiScroll, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces } from '$lib/components/emojis';
+	import { EmojiSparklesAlt, EmojiRoseLight, EmojiRoseDark, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiArchive, EmojiEnvelopeIncoming, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiDice, EmojiTornado, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiCrystalBall, EmojiBooks, EmojiScroll, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces } from '$lib/components/emojis';
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
 	import html2canvas from 'html2canvas';
 	import { jsPDF } from 'jspdf';
@@ -540,7 +540,7 @@ Vi ses imorgon, dagboken.`;
 							</p>
 						{:else if paragraph.type === 'homework-heading'}
 							<p class="addon-heading">
-								<span class="addon-icon"><EmojiMemo size={24} /></span>
+								<span class="addon-icon"><EmojiBooks size={24} /></span>
 								<span>{@html formatParagraph(paragraph.text)}</span>
 							</p>
 						{:else}
@@ -688,7 +688,7 @@ Vi ses imorgon, dagboken.`;
 					</p>
 				{:else if paragraph.type === 'homework-heading'}
 					<p class="pdf-addon-heading">
-						<span class="pdf-addon-icon"><EmojiMemo size={20} /></span>
+						<span class="pdf-addon-icon"><EmojiBooks size={20} /></span>
 						<span>{@html formatParagraph(paragraph.text)}</span>
 					</p>
 				{:else}
@@ -761,7 +761,7 @@ Vi ses imorgon, dagboken.`;
 						{/if}
 						{#if wizardStore.data.includeHomework}
 							<span class="addon-badge" title="Hemläxa">
-								<EmojiMemo size={20} />
+								<EmojiBooks size={20} />
 							</span>
 						{/if}
 					</div>

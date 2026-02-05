@@ -19,7 +19,11 @@ const config = {
 					fallback: 'index.html', // SPA fallback for client-side routing
 					precompress: false,
 					strict: true
-				})
+				}),
+		prerender: {
+			entries: ['*', '/sitemap.xml'],
+			handleUnseenRoutes: 'warn'
+		}
 	}
 };
 
