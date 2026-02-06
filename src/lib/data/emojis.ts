@@ -1082,6 +1082,14 @@ emojiCategories.forEach((category) => {
   });
 });
 
+// Extend emojiLabelMap with Jomoji names for emojis not in the original set
+import { jomojiNameMap } from './jomojis';
+for (const [id, name] of jomojiNameMap) {
+  if (!emojiLabelMap.has(id)) {
+    emojiLabelMap.set(id, name);
+  }
+}
+
 // Helper function to get a random selection of emojis from a category
 export function getRandomEmojis(emojis: EmojiItem[], count: number): EmojiItem[] {
   const shuffled = [...emojis].sort(() => Math.random() - 0.5);

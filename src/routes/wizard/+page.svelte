@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { EmojiUserSilhouette, EmojiCompass, EmojiChart, EmojiCalendar, EmojiScale, EmojiMirrorAlt, EmojiCherries, EmojiCamera, EmojiSpeakingHead, EmojiPuzzlePieceAlt, EmojiCheck } from '$lib/components/emojis';
+	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import Step0Profile from './steps/Step0Profile.svelte';
 	import Step1Emojis from './steps/Step1Emojis.svelte';
 	import Step2Energy from './steps/Step2Energy.svelte';
@@ -111,8 +112,8 @@
 		if (!isCurrentStepOptional) {
 			return 'Fortsätt';
 		}
-		// Optional step: show "Hoppa över" only if no fields filled, otherwise "Nästa"
-		return hasFilledOptionalFields ? 'Nästa' : 'Hoppa över';
+		// Optional step: show "Hoppa över" only if no fields filled, otherwise "Fortsätt"
+		return hasFilledOptionalFields ? 'Fortsätt' : 'Hoppa över';
 	});
 
 	// Tooltip messages for disabled button per step
@@ -188,7 +189,7 @@
 				<span class="step-number">Steg {currentStep + 1} av {wizardStore.totalSteps}</span>
 				{#if stepIcons[currentStep]}
 					{@const StepIcon = stepIcons[currentStep]}
-					<div class="step-icon"><StepIcon size={48} /></div>
+					<div class="step-icon"><UniqueEmoji><StepIcon size={48} /></UniqueEmoji></div>
 				{/if}
 				<h1 class="step-title">
 					<span class="step-title-text">

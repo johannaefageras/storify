@@ -1,15 +1,25 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import { onMount, type Component } from 'svelte';
-	import {
-		emojiCategories,
-		emojiMap,
-		getRandomEmojis,
-		type EmojiItem,
-		type EmojiCategory
-	} from '$lib/data/emojis';
-	import EmojiRefresh from '$lib/components/icons/EmojiRefresh.svelte';
+	import { onMount } from 'svelte';
+	import { jomojiCategories, jomojiSvgMap } from '$lib/data/jomojis';
+	import type { Jomoji } from '$lib/data/jomojiTypes';
+	import { shuffleAndPick } from '$lib/utils/shuffleAndPick';
+	import { uniqueSvgIds } from '$lib/utils/uniqueSvgIds';
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
+
+	const EMOJIS_PER_CATEGORY = 96;
+
+	// Pre-compute unique tab icons once to prevent re-generation on tab switch
+	const uniqueTabIcons = jomojiCategories.map((cat) => uniqueSvgIds(cat.icon));
+
+	// Cache unique SVGs for emojis by ID to prevent re-generation
+	const uniqueEmojiSvgCache = new Map<string, string>();
+	function getUniqueEmojiSvg(emojiId: string, svg: string): string {
+		if (!uniqueEmojiSvgCache.has(emojiId)) {
+			uniqueEmojiSvgCache.set(emojiId, uniqueSvgIds(svg));
+		}
+		return uniqueEmojiSvgCache.get(emojiId)!;
+	}
 
 	const weekdays = ['Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag'];
 	const months = [
@@ -27,37 +37,34 @@
 		'december'
 	];
 
-	const EMOJIS_PER_CATEGORY = 12;
+	let activeTab = $state(0);
 
-	// Generate random emoji selections for each category
-	interface DisplayCategory {
-		name: string;
-		emojis: EmojiItem[];
+	// Shuffle once and cache per category
+	const shuffledCache = new Map<number, Jomoji[]>();
+	function getDisplayedEmojis(categoryIndex: number): Jomoji[] {
+		if (!shuffledCache.has(categoryIndex)) {
+			shuffledCache.set(
+				categoryIndex,
+				shuffleAndPick(jomojiCategories[categoryIndex].emojis, EMOJIS_PER_CATEGORY)
+			);
+		}
+		const cached = shuffledCache.get(categoryIndex)!;
+		const selectedIds = new Set(wizardStore.data.emojis);
+
+		// Ensure selected emojis from this category are always visible
+		const selectedInCategory = jomojiCategories[categoryIndex].emojis.filter((e) =>
+			selectedIds.has(e.id)
+		);
+		const cachedIds = new Set(cached.map((e) => e.id));
+		const missingSelected = selectedInCategory.filter((e) => !cachedIds.has(e.id));
+
+		if (missingSelected.length > 0) {
+			return [...missingSelected, ...cached];
+		}
+		return cached;
 	}
 
-	// Build display categories ensuring selected emojis are always included
-	function buildDisplayCategories(): DisplayCategory[] {
-		const selectedIds = wizardStore.data.emojis;
-
-		return emojiCategories.map((category) => {
-			// Find which selected emojis belong to this category
-			const selectedInCategory = category.emojis.filter((e) => selectedIds.includes(e.id));
-			const selectedIdsInCategory = new Set(selectedInCategory.map((e) => e.id));
-
-			// Get random emojis excluding already selected ones
-			const availableForRandom = category.emojis.filter((e) => !selectedIdsInCategory.has(e.id));
-			const randomCount = Math.max(0, EMOJIS_PER_CATEGORY - selectedInCategory.length);
-			const randomEmojis = getRandomEmojis(availableForRandom, randomCount);
-
-			// Combine: selected first, then random
-			return {
-				name: category.name,
-				emojis: [...selectedInCategory, ...randomEmojis]
-			};
-		});
-	}
-
-	let displayCategories: DisplayCategory[] = $state(buildDisplayCategories());
+	let currentEmojis: Jomoji[] = $derived(getDisplayedEmojis(activeTab));
 
 	onMount(() => {
 		const now = new Date();
@@ -85,30 +92,6 @@
 	function isSelected(emojiId: string): boolean {
 		return wizardStore.data.emojis.includes(emojiId);
 	}
-
-	function getEmojiComponent(emojiId: string): Component | undefined {
-		return emojiMap.get(emojiId);
-	}
-
-	function refreshCategory(categoryIndex: number) {
-		const category = emojiCategories[categoryIndex];
-		const selectedIds = wizardStore.data.emojis;
-
-		// Find which selected emojis belong to this category
-		const selectedInCategory = category.emojis.filter((e) => selectedIds.includes(e.id));
-		const selectedIdsInCategory = new Set(selectedInCategory.map((e) => e.id));
-
-		// Get new random emojis excluding already selected ones
-		const availableForRandom = category.emojis.filter((e) => !selectedIdsInCategory.has(e.id));
-		const randomCount = Math.max(0, EMOJIS_PER_CATEGORY - selectedInCategory.length);
-		const randomEmojis = getRandomEmojis(availableForRandom, randomCount);
-
-		// Update just this category
-		displayCategories[categoryIndex] = {
-			name: category.name,
-			emojis: [...selectedInCategory, ...randomEmojis]
-		};
-	}
 </script>
 
 <div class="step-content">
@@ -121,10 +104,10 @@
 		</div>
 		<div class="selected-emojis">
 			{#each wizardStore.data.emojis as emojiId}
-				{@const EmojiComponent = getEmojiComponent(emojiId)}
+				{@const svg = jomojiSvgMap.get(emojiId)}
 				<button class="selected-emoji" onclick={() => toggleEmoji(emojiId)}>
-					{#if EmojiComponent}
-						<EmojiComponent size={34} />
+					{#if svg}
+						<span class="emoji-svg selected-emoji-svg">{@html getUniqueEmojiSvg(emojiId, svg)}</span>
 					{/if}
 				</button>
 			{/each}
@@ -135,28 +118,34 @@
 	</div>
 
 	<div class="emoji-picker">
-			{#each displayCategories as category, index}
-				<div class="emoji-category">
-					<div class="category-header">
-						<span class="category-name">{category.name}</span>
-						<button class="refresh-btn" onclick={() => refreshCategory(index)} aria-label="Ladda fler {category.name}">
-							<EmojiRefresh size={14} color="var(--color-text)" />
-						</button>
-					</div>
-					<div class="emoji-grid">
-						{#each category.emojis as emoji}
-							<button
-								class="emoji-btn"
-								class:selected={isSelected(emoji.id)}
-								class:disabled={wizardStore.data.emojis.length >= 4 && !isSelected(emoji.id)}
-								onclick={() => toggleEmoji(emoji.id)}
-							>
-								<emoji.component size={28} />
-							</button>
-						{/each}
-					</div>
-				</div>
+		<div class="tabs" role="tablist">
+			{#each jomojiCategories as category, i (category.name)}
+				<button
+					class="tab"
+					class:active={activeTab === i}
+					role="tab"
+					aria-selected={activeTab === i}
+					onclick={() => (activeTab = i)}
+				>
+					<span class="tab-icon">{@html uniqueTabIcons[i]}</span>
+					<span class="tab-label">{category.name}</span>
+				</button>
 			{/each}
+		</div>
+
+		<div class="emoji-grid">
+			{#each currentEmojis as emoji (emoji.id)}
+				<button
+					class="emoji-btn"
+					class:selected={isSelected(emoji.id)}
+					class:disabled={wizardStore.data.emojis.length >= 4 && !isSelected(emoji.id)}
+					onclick={() => toggleEmoji(emoji.id)}
+					title={emoji.name}
+				>
+					{@html getUniqueEmojiSvg(emoji.id, emoji.svg)}
+				</button>
+			{/each}
+		</div>
 	</div>
 </div>
 
@@ -221,6 +210,11 @@
 		transform: scale(1.05);
 	}
 
+	.selected-emoji-svg {
+		width: 2.125rem;
+		height: 2.125rem;
+	}
+
 	.emoji-placeholder {
 		width: 3.25rem;
 		height: 3.25rem;
@@ -240,69 +234,75 @@
 	}
 
 	.emoji-picker {
-		display: flex;
-		flex-direction: column;
-		gap: 0.75rem;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		overflow: hidden;
+		background: var(--color-bg-elevated);
 	}
 
-	.emoji-category {
+	/* Tabs */
+	.tabs {
 		display: flex;
-		flex-direction: column;
-		gap: 0.375rem;
-	}
-
-	.category-header {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-	}
-
-	.refresh-btn {
-		display: flex;
-		align-items: center;
 		justify-content: center;
-		width: 2rem;
-		height: 2rem;
-		padding: 0;
-		background: transparent;
+		gap: 0.25rem;
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.tab {
+		display: flex;
+		align-items: center;
+		gap: 0.375rem;
+		padding: 0.625rem 0.625rem;
 		border: none;
-		border-radius: var(--radius-sm);
+		background: none;
 		cursor: pointer;
-		opacity: 0.6;
-		transition: opacity 0.15s ease, transform 0.15s ease, background-color 0.15s ease;
-	}
-
-	.refresh-btn:hover {
-		opacity: 1;
-		transform: rotate(45deg);
-	}
-
-	.refresh-btn:active {
-		opacity: 1;
-		transform: rotate(180deg);
-		background-color: var(--color-border);
-	}
-
-	.category-name {
-		font-family: var(--font-primary);
-		font-size: var(--text-xs);
-		font-weight: var(--weight-semibold);
-		font-stretch: 115%;
-		letter-spacing: var(--tracking-wider);
-		text-transform: uppercase;
 		color: var(--color-text-muted);
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
+		white-space: nowrap;
+		border-bottom: 2px solid transparent;
+		transition:
+			color 0.15s,
+			border-color 0.15s;
 	}
 
+	.tab:hover {
+		color: var(--color-text);
+	}
+
+	.tab.active {
+		color: var(--color-accent);
+		border-bottom-color: var(--color-accent);
+	}
+
+	.tab-icon {
+		width: 1.25rem;
+		height: 1.25rem;
+		flex-shrink: 0;
+	}
+
+	.tab-icon :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.tab-label {
+		line-height: 1.25rem;
+	}
+
+	/* Emoji grid */
 	.emoji-grid {
 		display: grid;
 		grid-template-columns: repeat(6, 1fr);
 		gap: 0.375rem;
+		padding: 0.75rem;
 	}
 
 	.emoji-btn {
 		width: 100%;
 		aspect-ratio: 1;
-		font-size: 1.5rem;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -310,6 +310,7 @@
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-sm);
 		cursor: pointer;
+		padding: 0.35rem;
 		transition:
 			transform 0.1s ease,
 			border-color 0.1s ease,
@@ -317,8 +318,8 @@
 	}
 
 	.emoji-btn :global(svg) {
-		width: 1.75rem;
-		height: 1.75rem;
+		width: 100%;
+		height: 100%;
 		pointer-events: none;
 	}
 
@@ -336,6 +337,18 @@
 		cursor: not-allowed;
 	}
 
+	/* SVG sizing helper */
+	.emoji-svg {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.emoji-svg :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
 	@media (max-width: 600px) {
 		.date-display {
 			flex-direction: column;
@@ -347,14 +360,12 @@
 			flex-wrap: wrap;
 		}
 
-		.refresh-btn {
-			width: 2.5rem;
-			height: 2.5rem;
+		.tab-label {
+			display: none;
 		}
 
-		.emoji-picker .emoji-btn :global(svg) {
-			width: 2rem;
-			height: 2rem;
+		.tab.active .tab-label {
+			display: block;
 		}
 	}
 

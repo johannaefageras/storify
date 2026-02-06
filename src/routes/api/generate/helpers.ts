@@ -1,8 +1,16 @@
 import type { WizardData, UserProfile } from '$lib/stores/wizard.svelte';
 import { getZodiacFromBirthday, getAgeFromBirthday } from '$lib/utils/zodiac';
 import emojiMeanings from '$lib/data/emojiMeanings.json';
+import jomojiMeanings from '$lib/data/jomojiMeanings.json';
 import type { ToneId } from '$lib/data/tonePrompts/types';
 import { getMoodColorById } from '$lib/data/moodColors';
+
+// Merged emoji meanings: jomojiMeanings takes precedence, falls back to emojiMeanings
+type EmojiMeaning = { name: string; meaning: string };
+const mergedEmojiMeanings: Record<string, EmojiMeaning> = {
+	...emojiMeanings,
+	...jomojiMeanings
+};
 
 /**
  * Tone metadata for addon instructions.
@@ -198,11 +206,16 @@ export function formatWizardDataForPrompt(data: WizardData): string {
 	if (data.emojis.length > 0) {
 		const emojiDescriptions = data.emojis
 			.map((emojiId) => {
-				const emoji = emojiMeanings[emojiId as keyof typeof emojiMeanings];
+				const emoji = mergedEmojiMeanings[emojiId];
 				if (emoji) {
 					return `- ${emoji.name}: ${emoji.meaning}`;
 				}
-				return `- ${emojiId}`;
+				// Fallback: format the ID as a readable name
+				const fallbackName = emojiId
+					.split('-')
+					.map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+					.join(' ');
+				return `- ${fallbackName}`;
 			})
 			.join('\n');
 		sections.push(`Dagens känsla (emojis):\n${emojiDescriptions}`);

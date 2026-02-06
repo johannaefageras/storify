@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import { EmojiPushpinRound, EmojiPushpin, EmojiHandWaving, EmojiHouse, EmojiHouseAlt, EmojiWomenFriends } from '$lib/components/emojis';
+	import { EmojiPushpinRound, EmojiPushpin, EmojiHandWaving, EmojiHouse } from '$lib/components/emojis';
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 	import { FIELD_LIMITS } from '$lib/validation';
 	import { searchPlaces, getPlaceCategory, isAddress, type Place } from '$lib/utils/places';
@@ -274,7 +274,7 @@
 				{/each}
 				<input
 					type="text"
-					placeholder={wizardStore.data.locations.length === 0 ? 'Sök eller skriv plats...' : ''}
+					placeholder={wizardStore.data.locations.length === 0 ? 'Sök efter platser, eller skriv fritt...' : ''}
 					bind:value={locationInput}
 					onkeydown={handleLocationKeydown}
 					oninput={handleLocationInputEvent}
@@ -340,7 +340,7 @@
 			{/each}
 			<input
 				type="text"
-				placeholder={wizardStore.data.activities.length === 0 ? 'Stirrade på ett dokument, åt lunch ensam...' : ''}
+				placeholder={wizardStore.data.activities.length === 0 ? 'Stirrade på ett dokument, åt lunch i solen...' : ''}
 				bind:value={activityInput}
 				onkeydown={(e) => handleKeydown(e, addActivity, removeLastActivity)}
 				oninput={(e) => handleCommaInput(e, (v) => activityInput = v, addActivity)}
@@ -365,7 +365,7 @@
 			{/each}
 			<input
 				type="text"
-				placeholder={wizardStore.data.people.length === 0 ? 'Lägg till person...' : ''}
+				placeholder={wizardStore.data.people.length === 0 ? 'Träffade du någon? Var du ens själv med?' : ''}
 				bind:value={personInput}
 				onkeydown={(e) => handleKeydown(e, addPerson, removeLastPerson)}
 				oninput={(e) => handleCommaInput(e, (v) => personInput = v, addPerson)}

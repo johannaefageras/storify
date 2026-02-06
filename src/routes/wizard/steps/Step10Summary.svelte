@@ -1,16 +1,20 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { tones } from '$lib/data/tones';
-	import { emojiLabelMap, emojiMap } from '$lib/data/emojis';
+	import { emojiLabelMap } from '$lib/data/emojis';
+	import { jomojiSvgMap, jomojiNameMap } from '$lib/data/jomojis';
+	import { uniqueSvgIds } from '$lib/utils/uniqueSvgIds';
 	import { getMoodColorById } from '$lib/data/moodColors';
 	import type { Component } from 'svelte';
 	import { EmojiSparklesAlt, EmojiRoseLight, EmojiRoseDark, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiArchive, EmojiEnvelopeIncoming, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiDice, EmojiTornado, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiCrystalBall, EmojiBooks, EmojiScroll, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces } from '$lib/components/emojis';
+	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
 	import html2canvas from 'html2canvas';
 	import { jsPDF } from 'jspdf';
 	import { getApiUrl } from '$lib/config';
 	import { goto } from '$app/navigation';
 	import resultMessages from '$lib/data/resultMessages.json';
+	import { getLoadingPhrases } from '$lib/data/loadingPhrases';
 	// Generation state
 	let isGenerating = $state(false);
 	let generatedEntry = $state('');
@@ -29,6 +33,48 @@
 
 	// Random result message (selected once when entry is generated)
 	let resultMessage = $state({ title: '', subtitle: '' });
+
+	// Loading phrase cycling
+	let loadingPhrase = $state('');
+	let loadingPhraseVisible = $state(false);
+	let phraseInterval: ReturnType<typeof setInterval> | null = null;
+
+	function shuffled(arr: string[]): string[] {
+		const a = [...arr];
+		for (let i = a.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[a[i], a[j]] = [a[j], a[i]];
+		}
+		return a;
+	}
+
+	function startPhraseCycling(toneId: string) {
+		let remaining = shuffled(getLoadingPhrases(toneId));
+
+		// Show first phrase immediately
+		loadingPhrase = remaining.pop()!;
+		loadingPhraseVisible = true;
+
+		phraseInterval = setInterval(() => {
+			loadingPhraseVisible = false;
+
+			setTimeout(() => {
+				if (remaining.length === 0) {
+					remaining = shuffled(getLoadingPhrases(toneId));
+				}
+				loadingPhrase = remaining.pop()!;
+				loadingPhraseVisible = true;
+			}, 300);
+		}, 2200);
+	}
+
+	function stopPhraseCycling() {
+		if (phraseInterval) {
+			clearInterval(phraseInterval);
+			phraseInterval = null;
+		}
+		loadingPhraseVisible = false;
+	}
 
 	// Track the actual tone used (important for "surprise" mode)
 	let actualToneUsed = $state<string | null>(null);
@@ -127,8 +173,8 @@ Vi ses imorgon, dagboken.`;
 		'troubadour': EmojiMusicalNotes
 	};
 
-	function getEmojiComponent(emojiId: string): Component | undefined {
-		return emojiMap.get(emojiId);
+	function getEmojiSvg(emojiId: string): string | undefined {
+		return jomojiSvgMap.get(emojiId);
 	}
 
 	function getToneIcon(toneId: string): Component | undefined {
@@ -298,19 +344,21 @@ Vi ses imorgon, dagboken.`;
 			toneToUse = tones[randomIndex].id;
 		}
 		actualToneUsed = toneToUse;
+		startPhraseCycling(toneToUse);
 
 		// DEV: Use sample content instead of API call
 		if (DEV_PREVIEW) {
-			await new Promise((resolve) => setTimeout(resolve, 800)); // Simulate loading
+			await new Promise((resolve) => setTimeout(resolve, 5000)); // Simulate loading
 			generatedEntry = stripSeparatorLines(SAMPLE_ENTRY);
 			selectRandomMessage();
+			stopPhraseCycling();
 			isGenerating = false;
 			return;
 		}
 
 		try {
 			const emojiLabels = wizardStore.data.emojis.map(
-				(emojiId) => emojiLabelMap.get(emojiId) ?? emojiId
+				(emojiId) => emojiLabelMap.get(emojiId) ?? jomojiNameMap.get(emojiId) ?? emojiId
 			);
 
 			const response = await fetch(getApiUrl('/api/generate'), {
@@ -333,6 +381,7 @@ Vi ses imorgon, dagboken.`;
 			error = 'Kunde inte ansluta till servern. Försök igen.';
 			console.error('Generation error:', err);
 		} finally {
+			stopPhraseCycling();
 			isGenerating = false;
 		}
 	}
@@ -513,9 +562,9 @@ Vi ses imorgon, dagboken.`;
 					</div>
 					<span class="document-emojis">
 						{#each wizardStore.data.emojis as emojiId}
-							{@const EmojiComponent = getEmojiComponent(emojiId)}
-							{#if EmojiComponent}
-								<span class="document-emoji"><EmojiComponent size={30} /></span>
+							{@const svg = getEmojiSvg(emojiId)}
+							{#if svg}
+								<span class="document-emoji">{@html uniqueSvgIds(svg)}</span>
 							{/if}
 						{/each}
 					</span>
@@ -527,20 +576,20 @@ Vi ses imorgon, dagboken.`;
 							{@const ZodiacIcon = getZodiacComponent()}
 							<p class="addon-heading">
 								{#if ZodiacIcon}
-									<span class="addon-icon"><ZodiacIcon size={24} /></span>
+									<span class="addon-icon"><UniqueEmoji><ZodiacIcon size={24} /></UniqueEmoji></span>
 								{:else}
-									<span class="addon-icon"><EmojiCrystalBall size={24} /></span>
+									<span class="addon-icon"><UniqueEmoji><EmojiCrystalBall size={24} /></UniqueEmoji></span>
 								{/if}
 								<span>{@html formatParagraph(paragraph.text)}</span>
 							</p>
 						{:else if paragraph.type === 'onthisday-heading'}
 							<p class="addon-heading">
-								<span class="addon-icon"><EmojiScroll size={24} /></span>
+								<span class="addon-icon"><UniqueEmoji><EmojiScroll size={24} /></UniqueEmoji></span>
 								<span>{@html formatParagraph(paragraph.text)}</span>
 							</p>
 						{:else if paragraph.type === 'homework-heading'}
 							<p class="addon-heading">
-								<span class="addon-icon"><EmojiBooks size={24} /></span>
+								<span class="addon-icon"><UniqueEmoji><EmojiBooks size={24} /></UniqueEmoji></span>
 								<span>{@html formatParagraph(paragraph.text)}</span>
 							</p>
 						{:else}
@@ -560,7 +609,7 @@ Vi ses imorgon, dagboken.`;
 								{@const ToneIcon = getToneIcon(actualTone.id)}
 								<div class="document-tone">
 									{#if ToneIcon}
-										<span class="tone-icon"><ToneIcon size={30} /></span>
+										<span class="tone-icon"><UniqueEmoji><ToneIcon size={30} /></UniqueEmoji></span>
 									{/if}
 									<span class="tone-name">{actualTone.name}</span>
 								</div>
@@ -660,9 +709,9 @@ Vi ses imorgon, dagboken.`;
 		<div class="pdf-header">
 			<div class="pdf-emojis">
 				{#each wizardStore.data.emojis as emojiId}
-					{@const EmojiComponent = getEmojiComponent(emojiId)}
-					{#if EmojiComponent}
-						<span class="pdf-emoji"><EmojiComponent size={44} /></span>
+					{@const svg = getEmojiSvg(emojiId)}
+					{#if svg}
+						<span class="pdf-emoji">{@html uniqueSvgIds(svg)}</span>
 					{/if}
 				{/each}
 			</div>
@@ -675,20 +724,20 @@ Vi ses imorgon, dagboken.`;
 					{@const ZodiacIcon = getZodiacComponent()}
 					<p class="pdf-addon-heading">
 						{#if ZodiacIcon}
-							<span class="pdf-addon-icon"><ZodiacIcon size={20} /></span>
+							<span class="pdf-addon-icon"><UniqueEmoji><ZodiacIcon size={20} /></UniqueEmoji></span>
 						{:else}
-							<span class="pdf-addon-icon"><EmojiCrystalBall size={20} /></span>
+							<span class="pdf-addon-icon"><UniqueEmoji><EmojiCrystalBall size={20} /></UniqueEmoji></span>
 						{/if}
 						<span>{@html formatParagraph(paragraph.text)}</span>
 					</p>
 				{:else if paragraph.type === 'onthisday-heading'}
 					<p class="pdf-addon-heading">
-						<span class="pdf-addon-icon"><EmojiScroll size={20} /></span>
+						<span class="pdf-addon-icon"><UniqueEmoji><EmojiScroll size={20} /></UniqueEmoji></span>
 						<span>{@html formatParagraph(paragraph.text)}</span>
 					</p>
 				{:else if paragraph.type === 'homework-heading'}
 					<p class="pdf-addon-heading">
-						<span class="pdf-addon-icon"><EmojiBooks size={20} /></span>
+						<span class="pdf-addon-icon"><UniqueEmoji><EmojiBooks size={20} /></UniqueEmoji></span>
 						<span>{@html formatParagraph(paragraph.text)}</span>
 					</p>
 				{:else}
@@ -705,7 +754,7 @@ Vi ses imorgon, dagboken.`;
 				{#if pdfActualTone}
 					{@const ToneIcon = getToneIcon(pdfActualTone.id)}
 					{#if ToneIcon}
-						<span class="pdf-tone-icon"><ToneIcon size={24} /></span>
+						<span class="pdf-tone-icon"><UniqueEmoji><ToneIcon size={24} /></UniqueEmoji></span>
 					{/if}
 					<span class="pdf-tone-name">{pdfActualTone.name}</span>
 				{/if}
@@ -728,7 +777,7 @@ Vi ses imorgon, dagboken.`;
 			{@const ToneIcon = getToneIcon(selectedTone.id)}
 			<span class="voice-indicator">
 				{#if ToneIcon}
-					<span class="voice-icon"><ToneIcon size={20} /></span>
+					<span class="voice-icon"><UniqueEmoji><ToneIcon size={20} /></UniqueEmoji></span>
 				{/if}
 				{selectedTone.name}
 			</span>
@@ -745,23 +794,23 @@ Vi ses imorgon, dagboken.`;
 								{#if zodiacSign}
 									{@const ZodiacIcon = zodiacComponents[zodiacSign.id]}
 									{#if ZodiacIcon}
-										<ZodiacIcon size={20} />
+										<UniqueEmoji><ZodiacIcon size={20} /></UniqueEmoji>
 									{:else}
-										<EmojiCrystalBall size={20} />
+										<UniqueEmoji><EmojiCrystalBall size={20} /></UniqueEmoji>
 									{/if}
 								{:else}
-									<EmojiCrystalBall size={20} />
+									<UniqueEmoji><EmojiCrystalBall size={20} /></UniqueEmoji>
 								{/if}
 							</span>
 						{/if}
 						{#if wizardStore.data.includeOnThisDay}
 							<span class="addon-badge" title="På denna dag...">
-								<EmojiScroll size={20} />
+								<UniqueEmoji><EmojiScroll size={20} /></UniqueEmoji>
 							</span>
 						{/if}
 						{#if wizardStore.data.includeHomework}
 							<span class="addon-badge" title="Hemläxa">
-								<EmojiBooks size={20} />
+								<UniqueEmoji><EmojiBooks size={20} /></UniqueEmoji>
 							</span>
 						{/if}
 					</div>
@@ -769,9 +818,9 @@ Vi ses imorgon, dagboken.`;
 			</div>
 			<span class="summary-emojis">
 				{#each wizardStore.data.emojis as emojiId}
-					{@const EmojiComponent = getEmojiComponent(emojiId)}
-					{#if EmojiComponent}
-						<span class="summary-emoji"><EmojiComponent size={36} /></span>
+					{@const svg = getEmojiSvg(emojiId)}
+					{#if svg}
+						<span class="summary-emoji">{@html uniqueSvgIds(svg)}</span>
 					{/if}
 				{/each}
 			</span>
@@ -830,7 +879,7 @@ Vi ses imorgon, dagboken.`;
 			<button class="generate-btn" onclick={handleGenerate} disabled={isGenerating}>
 				{#if isGenerating}
 					<span class="spinner"></span>
-					Genererar...
+					<span class="loading-phrase" class:visible={loadingPhraseVisible}>{loadingPhrase}</span>
 				{:else}
 					<span class="generate-icon"><EmojiSparklesAlt size={28} /></span>
 					Generera dagboksinlägg
@@ -921,6 +970,13 @@ Vi ses imorgon, dagboken.`;
 	.summary-emoji {
 		display: flex;
 		align-items: center;
+		width: 36px;
+		height: 36px;
+	}
+
+	.summary-emoji :global(svg) {
+		width: 100%;
+		height: 100%;
 	}
 
 	.summary-grid {
@@ -1111,6 +1167,15 @@ Vi ses imorgon, dagboken.`;
 		align-items: center;
 	}
 
+	.loading-phrase {
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	.loading-phrase.visible {
+		opacity: 1;
+	}
+
 	.error-message {
 		width: 100%;
 		padding: 0.75rem 1rem;
@@ -1219,12 +1284,19 @@ Vi ses imorgon, dagboken.`;
 	.document-emojis {
 		display: flex;
 		align-items: center;
-		gap: 0.75rem;
+		gap: 0.5rem;
 	}
 
 	.document-emoji {
 		display: flex;
 		align-items: center;
+		width: 30px;
+		height: 30px;
+	}
+
+	.document-emoji :global(svg) {
+		width: 100%;
+		height: 100%;
 	}
 
 	.document-date {
@@ -1479,6 +1551,13 @@ Vi ses imorgon, dagboken.`;
 	.pdf-emoji {
 		display: flex;
 		align-items: center;
+		width: 44px;
+		height: 44px;
+	}
+
+	.pdf-emoji :global(svg) {
+		width: 100%;
+		height: 100%;
 	}
 
 	.pdf-title {
