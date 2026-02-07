@@ -550,7 +550,9 @@ Vi ses imorgon, dagboken.`;
 	};
 
 	function parseSwedishDate(dateStr: string): string {
-		const parts = dateStr.trim().split(' ');
+		// Strip time suffix (", kl HH:MM") if present
+		const datePart = dateStr.split(',')[0].trim();
+		const parts = datePart.split(' ');
 		if (parts.length !== 3) return new Date().toISOString().split('T')[0];
 		const [day, month, year] = parts;
 		const mm = swedishMonths[month.toLowerCase()] ?? '01';
@@ -564,7 +566,14 @@ Vi ses imorgon, dagboken.`;
 		entrySaveError = '';
 
 		try {
-			const { error: insertError } = await supabase.from('entries').insert({
+			// Ensure session is fresh (triggers token refresh if expired)
+			const { data: { session } } = await supabase.auth.getSession();
+			if (!session) {
+				entrySaveError = 'Din session har gått ut. Logga in igen.';
+				return;
+			}
+
+			const payload = {
 				user_id: authStore.user.id,
 				generated_text: generatedEntry,
 				tone_id: actualToneUsed || wizardStore.data.selectedTone,
@@ -572,14 +581,17 @@ Vi ses imorgon, dagboken.`;
 				weekday: wizardStore.data.weekday,
 				emojis: wizardStore.data.emojis,
 				mood_color: wizardStore.data.moodColor || null,
-				energy_level: wizardStore.data.energyLevel,
-				sleep_quality: wizardStore.data.sleepQuality,
-				mood_level: wizardStore.data.mood
-			});
+				energy_level: Math.round(wizardStore.data.energyLevel),
+				sleep_quality: Math.round(wizardStore.data.sleepQuality),
+				mood_level: Math.round(wizardStore.data.mood)
+			};
+			console.log('Insert payload:', JSON.stringify(payload, null, 2));
+
+			const { error: insertError } = await supabase.from('entries').insert(payload);
 
 			if (insertError) {
 				entrySaveError = 'Kunde inte spara inlägget. Försök igen.';
-				console.error('Save entry error:', insertError);
+				console.error('Save entry error:', JSON.stringify(insertError, null, 2));
 			} else {
 				entrySaved = true;
 				setTimeout(() => { entrySaved = false; }, 3000);
