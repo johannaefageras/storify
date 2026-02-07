@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
+	import { authStore } from '$lib/stores/auth.svelte';
 	import { EmojiUserSilhouette, EmojiCompass, EmojiChart, EmojiCalendar, EmojiScale, EmojiMirror, EmojiCherries, EmojiCamera, EmojiSpeakingHead, EmojiPuzzlePiece, EmojiCheck } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import Step0Profile from './steps/Step0Profile.svelte';
@@ -186,7 +187,7 @@
 				<ThemeToggle variant="inline" />
 			</div>
 			<div class="step-indicator">
-				<span class="step-number">Steg {currentStep + 1} av {wizardStore.totalSteps}</span>
+				<span class="step-number">Steg {wizardStore.displayStepNumber} av {wizardStore.displayTotalSteps}</span>
 				{#if stepIcons[currentStep]}
 					{@const StepIcon = stepIcons[currentStep]}
 					<div class="step-icon"><UniqueEmoji><StepIcon size={48} /></UniqueEmoji></div>
@@ -231,7 +232,7 @@
 
 	{#if !isResultView}
 		<footer class="wizard-footer">
-			{#if currentStep > 0}
+			{#if currentStep > 0 && !(authStore.isLoggedIn && currentStep === 1)}
 				<button class="btn btn-secondary" onclick={() => wizardStore.prevStep()}>
 					<IconArrowLeft size={16} /> Tillbaka
 				</button>

@@ -4,6 +4,8 @@ import type { WeatherData } from '$lib/utils/weather';
 import { fetchWeather } from '$lib/utils/weather';
 import { getCurrentPosition } from '$lib/utils/geolocation';
 import { fetchLocationName } from '$lib/utils/geocoding';
+import { supabase } from '$lib/supabase/client';
+import { authStore } from '$lib/stores/auth.svelte';
 
 export interface UserProfile {
   name: string;
@@ -122,9 +124,7 @@ function createWizardStore() {
   let isResultView = $state(false);
   const totalSteps = 11;
 
-  async function loadProfile(): Promise<UserProfile> {
-    if (!browser) return { ...defaultProfile };
-
+  async function loadProfileFromPreferences(): Promise<UserProfile> {
     try {
       const { value } = await Preferences.get({ key: PROFILE_STORAGE_KEY });
       if (value) {
@@ -148,20 +148,77 @@ function createWizardStore() {
     } catch (e) {
       console.error('Failed to load profile from Preferences:', e);
     }
-
     return { ...defaultProfile };
+  }
+
+  async function loadProfileFromSupabase(userId: string): Promise<UserProfile> {
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single();
+
+      if (error || !data) return { ...defaultProfile };
+
+      return {
+        name: data.name || '',
+        birthday: data.birthday || null,
+        pronouns: data.pronouns || '',
+        hometown: data.hometown || '',
+        family: data.family || [],
+        pets: data.pets || [],
+        occupationType: data.occupation_type || '',
+        occupationDetail: data.occupation_detail || [],
+        interests: data.interests || []
+      };
+    } catch (e) {
+      console.error('Failed to load profile from Supabase:', e);
+      return { ...defaultProfile };
+    }
+  }
+
+  async function loadProfile(): Promise<UserProfile> {
+    if (!browser) return { ...defaultProfile };
+
+    if (authStore.isLoggedIn && authStore.user) {
+      return loadProfileFromSupabase(authStore.user.id);
+    }
+    return loadProfileFromPreferences();
   }
 
   async function saveProfile(profile: UserProfile) {
     if (!browser) return;
 
-    try {
-      await Preferences.set({
-        key: PROFILE_STORAGE_KEY,
-        value: JSON.stringify(profile)
-      });
-    } catch (e) {
-      console.error('Failed to save profile to Preferences:', e);
+    if (authStore.isLoggedIn && authStore.user) {
+      try {
+        await supabase
+          .from('profiles')
+          .update({
+            name: profile.name,
+            birthday: profile.birthday,
+            pronouns: profile.pronouns,
+            hometown: profile.hometown,
+            family: profile.family,
+            pets: profile.pets,
+            occupation_type: profile.occupationType,
+            occupation_detail: profile.occupationDetail,
+            interests: profile.interests,
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', authStore.user.id);
+      } catch (e) {
+        console.error('Failed to save profile to Supabase:', e);
+      }
+    } else {
+      try {
+        await Preferences.set({
+          key: PROFILE_STORAGE_KEY,
+          value: JSON.stringify(profile)
+        });
+      } catch (e) {
+        console.error('Failed to save profile to Preferences:', e);
+      }
     }
   }
 
@@ -175,15 +232,27 @@ function createWizardStore() {
     get totalSteps() {
       return totalSteps;
     },
+    get displayStepNumber() {
+      return authStore.isLoggedIn ? currentStep : currentStep + 1;
+    },
+    get displayTotalSteps() {
+      return authStore.isLoggedIn ? totalSteps - 1 : totalSteps;
+    },
     get isResultView() {
       return isResultView;
     },
     get progress() {
-      return ((currentStep + 1) / totalSteps) * 100;
+      const effectiveStep = authStore.isLoggedIn ? currentStep - 1 : currentStep;
+      const effectiveTotal = authStore.isLoggedIn ? totalSteps - 1 : totalSteps;
+      return ((effectiveStep + 1) / effectiveTotal) * 100;
     },
     async initProfile() {
       const profile = await loadProfile();
       data.profile = profile;
+      // Logged-in users manage their profile on /profile, skip Step 0
+      if (authStore.isLoggedIn && currentStep === 0) {
+        currentStep = 1;
+      }
     },
     async initWeather() {
       const coords = await getCurrentPosition();

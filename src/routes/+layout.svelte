@@ -1,14 +1,16 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import '../app.css';
-	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
+	import Navbar from '$lib/components/Navbar.svelte';
 	import { themeStore } from '$lib/stores/theme.svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
+	import { authStore } from '$lib/stores/auth.svelte';
 
 	let { children } = $props();
 
-	onMount(() => {
+	onMount(async () => {
 		themeStore.init();
+		await authStore.init();
 		wizardStore.initProfile();
 	});
 </script>
@@ -51,5 +53,5 @@
 	})}</script>`}
 </svelte:head>
 
-<ThemeToggle />
+<Navbar />
 {@render children()}

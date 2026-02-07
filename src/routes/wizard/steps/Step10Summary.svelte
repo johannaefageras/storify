@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
+	import { authStore } from '$lib/stores/auth.svelte';
+	import { supabase } from '$lib/supabase/client';
 	import { tones } from '$lib/data/tones';
 	import { jomojiSvgMap, jomojiLabelMap } from '$lib/data/jomojis';
 	import { uniqueSvgIds } from '$lib/utils/uniqueSvgIds';
@@ -7,6 +9,7 @@
 	import type { Component } from 'svelte';
 	import { EmojiSparkles, EmojiRoseLight, EmojiRoseDark, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiArchive, EmojiEnvelopeIncoming, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiDice, EmojiTornado, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiCrystalBall, EmojiBooks, EmojiScroll, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
+	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
 	import html2canvas from 'html2canvas';
 	import { jsPDF } from 'jspdf';
@@ -19,7 +22,7 @@
 	let generatedEntry = $state('');
 	let error = $state('');
 	// References for export
-	let documentElement: HTMLDivElement = $state(null!);
+	let diaryCardRef: DiaryCard = $state(null!);
 	let pdfElement: HTMLDivElement = $state(null!);
 	let isDownloading = $state(false);
 	let isDownloadingPdf = $state(false);
@@ -29,6 +32,11 @@
 	let emailAddress = $state('');
 	let emailError = $state('');
 	let emailSent = $state(false);
+
+	// Journal save state
+	let isSavingEntry = $state(false);
+	let entrySaved = $state(false);
+	let entrySaveError = $state('');
 
 	// Random result message (selected once when entry is generated)
 	let resultMessage = $state({ title: '', subtitle: '' });
@@ -398,6 +406,7 @@ Vi ses imorgon, dagboken.`;
 	}
 
 	async function downloadAsImage() {
+		const documentElement = diaryCardRef?.getDocumentElement();
 		if (!documentElement || isDownloading) return;
 		isDownloading = true;
 
@@ -533,6 +542,55 @@ Vi ses imorgon, dagboken.`;
 			isSendingEmail = false;
 		}
 	}
+
+	const swedishMonths: Record<string, string> = {
+		januari: '01', februari: '02', mars: '03', april: '04',
+		maj: '05', juni: '06', juli: '07', augusti: '08',
+		september: '09', oktober: '10', november: '11', december: '12'
+	};
+
+	function parseSwedishDate(dateStr: string): string {
+		const parts = dateStr.trim().split(' ');
+		if (parts.length !== 3) return new Date().toISOString().split('T')[0];
+		const [day, month, year] = parts;
+		const mm = swedishMonths[month.toLowerCase()] ?? '01';
+		return `${year}-${mm}-${day.padStart(2, '0')}`;
+	}
+
+	async function saveEntryToJournal() {
+		if (!authStore.user || !generatedEntry.trim() || isSavingEntry) return;
+
+		isSavingEntry = true;
+		entrySaveError = '';
+
+		try {
+			const { error: insertError } = await supabase.from('entries').insert({
+				user_id: authStore.user.id,
+				generated_text: generatedEntry,
+				tone_id: actualToneUsed || wizardStore.data.selectedTone,
+				entry_date: parseSwedishDate(wizardStore.data.date),
+				weekday: wizardStore.data.weekday,
+				emojis: wizardStore.data.emojis,
+				mood_color: wizardStore.data.moodColor || null,
+				energy_level: wizardStore.data.energyLevel,
+				sleep_quality: wizardStore.data.sleepQuality,
+				mood_level: wizardStore.data.mood
+			});
+
+			if (insertError) {
+				entrySaveError = 'Kunde inte spara inlägget. Försök igen.';
+				console.error('Save entry error:', insertError);
+			} else {
+				entrySaved = true;
+				setTimeout(() => { entrySaved = false; }, 3000);
+			}
+		} catch (err) {
+			entrySaveError = 'Kunde inte ansluta till servern. Försök igen.';
+			console.error('Save entry error:', err);
+		} finally {
+			isSavingEntry = false;
+		}
+	}
 </script>
 
 {#if generatedEntry}
@@ -550,75 +608,38 @@ Vi ses imorgon, dagboken.`;
 		</div>
 
 		<div class="document-wrapper">
-			<div class="result-document" bind:this={documentElement}>
-				<!-- Paper texture overlay -->
-				<div class="paper-texture"></div>
-
-				<div class="document-header">
-					<div class="document-date">
-						<span class="document-weekday">{wizardStore.data.weekday}</span>
-						<span class="document-date-text">{wizardStore.data.date}</span>
-					</div>
-					<span class="document-emojis">
-						{#each wizardStore.data.emojis as emojiId}
-							{@const svg = getEmojiSvg(emojiId)}
-							{#if svg}
-								<span class="document-emoji">{@html uniqueSvgIds(svg)}</span>
-							{/if}
-						{/each}
-					</span>
-				</div>
-
-				<div class="document-content">
-					{#each renderParagraphs as paragraph}
-						{#if paragraph.type === 'horoscope-heading'}
-							{@const ZodiacIcon = getZodiacComponent()}
-							<p class="addon-heading">
-								{#if ZodiacIcon}
-									<span class="addon-icon"><UniqueEmoji><ZodiacIcon size={24} /></UniqueEmoji></span>
-								{:else}
-									<span class="addon-icon"><UniqueEmoji><EmojiCrystalBall size={24} /></UniqueEmoji></span>
-								{/if}
-								<span>{@html formatParagraph(paragraph.text)}</span>
-							</p>
-						{:else if paragraph.type === 'onthisday-heading'}
-							<p class="addon-heading">
-								<span class="addon-icon"><UniqueEmoji><EmojiScroll size={24} /></UniqueEmoji></span>
-								<span>{@html formatParagraph(paragraph.text)}</span>
-							</p>
-						{:else if paragraph.type === 'homework-heading'}
-							<p class="addon-heading">
-								<span class="addon-icon"><UniqueEmoji><EmojiBooks size={24} /></UniqueEmoji></span>
-								<span>{@html formatParagraph(paragraph.text)}</span>
-							</p>
-						{:else}
-							<p>
-								{@html formatParagraph(paragraph.text)}
-							</p>
-						{/if}
-					{/each}
-				</div>
-
-				<div class="document-footer">
-					<div class="footer-line"></div>
-					<div class="footer-content">
-						{#if actualToneUsed || selectedTone}
-							{@const actualTone = actualToneUsed ? tones.find((t) => t.id === actualToneUsed) : selectedTone}
-							{#if actualTone}
-								{@const ToneIcon = getToneIcon(actualTone.id)}
-								<div class="document-tone">
-									{#if ToneIcon}
-										<span class="tone-icon"><UniqueEmoji><ToneIcon size={30} /></UniqueEmoji></span>
-									{/if}
-									<span class="tone-name">{actualTone.name}</span>
-								</div>
-							{/if}
-						{/if}
-						<span class="brand-text">Berättat av Storify</span>
-					</div>
-				</div>
-			</div>
+			<DiaryCard
+				bind:this={diaryCardRef}
+				weekday={wizardStore.data.weekday}
+				date={wizardStore.data.date}
+				emojis={wizardStore.data.emojis}
+				toneId={actualToneUsed || wizardStore.data.selectedTone}
+				generatedText={generatedEntry}
+				birthday={wizardStore.data.profile.birthday ?? undefined}
+			/>
 		</div>
+
+		{#if authStore.isLoggedIn}
+			<div class="journal-save-container">
+				<button class="action-btn journal-save-btn" onclick={saveEntryToJournal} disabled={isSavingEntry || entrySaved}>
+					{#if isSavingEntry}
+						<span class="spinner"></span>
+						<span>Sparar...</span>
+					{:else if entrySaved}
+						<svg class="action-icon check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+							<polyline points="20 6 9 17 4 12"/>
+						</svg>
+						<span>Sparat i dagboksarkivet!</span>
+					{:else}
+						<EmojiLedger size={22} />
+						<span>Spara i dagboksarkivet</span>
+					{/if}
+				</button>
+				{#if entrySaveError}
+					<p class="journal-save-error">{entrySaveError}</p>
+				{/if}
+			</div>
+		{/if}
 
 		<div class="actions-container">
 			<div class="result-actions">
@@ -1240,188 +1261,29 @@ Vi ses imorgon, dagboken.`;
 	}
 
 	/* ==========================================================================
-	   Result Document - The main diary card
+	   Journal Save Button
 	   ========================================================================== */
 
-	.result-document {
-		position: relative;
-		display: flex;
-		flex-direction: column;
-		gap: 1.5rem;
-		padding: 2rem;
-		font-family: var(--font-primary);
-		background-color: var(--color-bg-elevated);
-		border-radius: var(--radius-md);
-		box-shadow:
-			0 1px 2px rgba(0, 0, 0, 0.04),
-			0 4px 12px rgba(0, 0, 0, 0.03),
-			0 8px 32px rgba(0, 0, 0, 0.02);
-		overflow: hidden;
-	}
-
-	.paper-texture {
-		position: absolute;
-		inset: 0;
-		background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-		opacity: 0.02;
-		pointer-events: none;
-	}
-
-	/* ==========================================================================
-	   Document Header
-	   ========================================================================== */
-
-	.document-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-start;
-		gap: 1rem;
-		padding-bottom: 1.5rem;
-		border-bottom: 1px solid var(--color-border);
-	}
-
-	.document-emojis {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-	}
-
-	.document-emoji {
-		display: flex;
-		align-items: center;
-		width: 30px;
-		height: 30px;
-	}
-
-	.document-emoji :global(svg) {
+	.journal-save-container {
 		width: 100%;
-		height: 100%;
-	}
-
-	.document-date {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		gap: 0.125rem;
-	}
-
-	.document-weekday {
-		font-size: var(--text-xl);
-		font-weight: var(--weight-medium);
-		font-stretch: 105%;
-		letter-spacing: var(--tracking-tight);
-		line-height: var(--leading-tight);
-		color: var(--color-text);
-	}
-
-	.document-date-text {
-		font-size: var(--text-sm);
-		font-weight: var(--weight-regular);
-		letter-spacing: var(--tracking-wide);
-		color: var(--color-text-muted);
-	}
-
-	/* ==========================================================================
-	   Document Content
-	   ========================================================================== */
-
-	.document-content {
-		font-size: var(--text-base);
-		font-weight: var(--weight-book);
-		line-height: var(--leading-loose);
-		letter-spacing: var(--tracking-wide);
-		color: var(--color-text);
-	}
-
-	.document-content p {
-		margin: 0 0 1.125rem 0;
-		text-indent: 0;
-	}
-
-	.document-content p:first-child {
-		font-weight: var(--weight-medium);
-	}
-
-	.document-content p:last-child {
-		margin-bottom: 0;
-	}
-
-	.document-content p.addon-heading {
-		display: flex;
-		align-items: flex-start;
-		gap: 0.5rem;
-		font-weight: var(--weight-medium);
 		margin-top: 1.5rem;
 	}
 
-	.document-content p.addon-heading:first-child {
-		margin-top: 0;
-		padding-top: 0;
-		border-top: none;
+	.journal-save-btn {
+		width: 100%;
+		padding: 1rem 1.25rem;
 	}
 
-	.addon-icon {
-		display: flex;
-		align-items: center;
-		flex-shrink: 0;
-		margin-top: 0.125rem;
-	}
-
-	/* ==========================================================================
-	   Document Footer
-	   ========================================================================== */
-
-	.document-footer {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.footer-line {
-		height: 1px;
-		background: var(--color-border);
-		margin-bottom: 1.25rem;
-	}
-
-	.footer-content {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	.document-tone {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-	}
-
-	.tone-icon {
-		display: flex;
-		align-items: center;
-	}
-
-	.tone-name {
+	.journal-save-error {
+		margin: 0.5rem 0 0 0;
+		padding: 0.75rem 1rem;
+		background-color: var(--color-error-bg);
+		border: 1px solid var(--color-error-border);
+		border-radius: var(--radius-sm);
+		color: var(--color-error);
+		font-family: var(--font-primary);
 		font-size: var(--text-sm);
-		font-weight: var(--weight-semibold);
-		font-stretch: 105%;
-		letter-spacing: var(--tracking-wider);
-		text-transform: uppercase;
-		color: var(--color-text-muted);
-	}
-
-	.brand-text {
-		font-size: var(--text-sm);
-		font-weight: var(--weight-semibold);
-		font-stretch: 110%;
-		letter-spacing: var(--tracking-widest);
-		text-transform: uppercase;
-		color: var(--color-accent-hover);
-		transition: color 0.2s ease, opacity 0.2s ease;
-		cursor: default;
-	}
-
-	.brand-text:hover {
-		color: var(--color-accent);
-		opacity: 1;
+		text-align: center;
 	}
 
 	/* ==========================================================================
@@ -1657,40 +1519,12 @@ Vi ses imorgon, dagboken.`;
 	   ========================================================================== */
 
 	@media (max-width: 640px) {
-		.result-document {
-			padding: 1.5rem;
-			gap: 1rem;
-		}
-
-		.document-header {
-			padding-bottom: 1rem;
-		}
-
-		.document-weekday {
-			font-size: var(--text-lg);
-		}
-
-		.document-emojis {
-			gap: 0.5rem;
-		}
-
-		.document-emoji :global(svg) {
-			width: 24px;
-			height: 24px;
-		}
-
 		.result-actions {
 			grid-template-columns: 1fr;
 		}
 
 		.action-btn {
 			padding: 1rem;
-		}
-
-		.footer-content {
-			flex-direction: column;
-			align-items: flex-start;
-			gap: 0.75rem;
 		}
 	}
 

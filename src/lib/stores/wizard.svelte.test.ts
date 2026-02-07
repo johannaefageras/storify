@@ -1,8 +1,20 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+
+// Use vi.hoisted for variables referenced in vi.mock factories
+const { mockSupabaseFrom, mockAuthStore, browserRef } = vi.hoisted(() => ({
+	mockSupabaseFrom: vi.fn(),
+	mockAuthStore: {
+		isLoggedIn: false,
+		user: null as { id: string } | null
+	},
+	browserRef: { value: false }
+}));
 
 // Mock dependencies before importing the store
 vi.mock('$app/environment', () => ({
-	browser: false
+	get browser() {
+		return browserRef.value;
+	}
 }));
 
 vi.mock('@capacitor/preferences', () => ({
@@ -25,8 +37,19 @@ vi.mock('$lib/utils/geocoding', () => ({
 	fetchLocationName: vi.fn().mockResolvedValue(null)
 }));
 
+vi.mock('$lib/supabase/client', () => ({
+	supabase: {
+		from: mockSupabaseFrom
+	}
+}));
+
+vi.mock('$lib/stores/auth.svelte', () => ({
+	authStore: mockAuthStore
+}));
+
 // Import after mocks are set up
 import { wizardStore } from './wizard.svelte';
+import { Preferences } from '@capacitor/preferences';
 
 describe('wizardStore', () => {
 	beforeEach(() => {
@@ -346,6 +369,138 @@ describe('wizardStore', () => {
 			wizardStore.setResultView(true);
 			wizardStore.reset();
 			expect(wizardStore.isResultView).toBe(false);
+		});
+	});
+
+	describe('dual-source profile loading', () => {
+		beforeEach(() => {
+			browserRef.value = true;
+			mockAuthStore.isLoggedIn = false;
+			mockAuthStore.user = null;
+			mockSupabaseFrom.mockReset();
+			vi.mocked(Preferences.get).mockResolvedValue({ value: null });
+			vi.mocked(Preferences.set).mockResolvedValue(undefined as any);
+		});
+
+		afterEach(() => {
+			browserRef.value = false;
+		});
+
+		it('loads from Preferences when not logged in', async () => {
+			const savedProfile = {
+				name: 'Guest User',
+				birthday: '1990-05-15',
+				pronouns: 'hen',
+				hometown: 'Stockholm',
+				family: ['Partner'],
+				pets: ['Katt'],
+				occupationType: 'working',
+				occupationDetail: ['Utvecklare'],
+				interests: ['Kodning']
+			};
+			vi.mocked(Preferences.get).mockResolvedValueOnce({
+				value: JSON.stringify(savedProfile)
+			});
+
+			await wizardStore.initProfile();
+
+			expect(Preferences.get).toHaveBeenCalledWith({ key: 'storify-profile' });
+			expect(mockSupabaseFrom).not.toHaveBeenCalled();
+			expect(wizardStore.data.profile.name).toBe('Guest User');
+			expect(wizardStore.data.profile.hometown).toBe('Stockholm');
+		});
+
+		it('loads from Supabase when logged in', async () => {
+			mockAuthStore.isLoggedIn = true;
+			mockAuthStore.user = { id: 'user-123' };
+
+			mockSupabaseFrom.mockReturnValue({
+				select: vi.fn().mockReturnValue({
+					eq: vi.fn().mockReturnValue({
+						single: vi.fn().mockResolvedValue({
+							data: {
+								name: 'Supabase User',
+								birthday: '1985-03-20',
+								pronouns: 'hon',
+								hometown: 'Göteborg',
+								family: ['Mamma'],
+								pets: [],
+								occupation_type: 'student',
+								occupation_detail: ['Medicin'],
+								interests: ['Läsning']
+							},
+							error: null
+						})
+					})
+				})
+			});
+
+			await wizardStore.initProfile();
+
+			expect(mockSupabaseFrom).toHaveBeenCalledWith('profiles');
+			expect(wizardStore.data.profile.name).toBe('Supabase User');
+			expect(wizardStore.data.profile.hometown).toBe('Göteborg');
+			expect(wizardStore.data.profile.occupationType).toBe('student');
+			expect(wizardStore.data.profile.occupationDetail).toEqual(['Medicin']);
+		});
+
+		it('returns default profile when Supabase returns error', async () => {
+			mockAuthStore.isLoggedIn = true;
+			mockAuthStore.user = { id: 'user-123' };
+
+			mockSupabaseFrom.mockReturnValue({
+				select: vi.fn().mockReturnValue({
+					eq: vi.fn().mockReturnValue({
+						single: vi.fn().mockResolvedValue({
+							data: null,
+							error: { message: 'Not found' }
+						})
+					})
+				})
+			});
+
+			await wizardStore.initProfile();
+
+			expect(wizardStore.data.profile.name).toBe('');
+			expect(wizardStore.data.profile.family).toEqual([]);
+		});
+
+		it('returns default profile when Preferences has no data', async () => {
+			vi.mocked(Preferences.get).mockResolvedValueOnce({ value: null });
+
+			await wizardStore.initProfile();
+
+			expect(wizardStore.data.profile.name).toBe('');
+			expect(wizardStore.data.profile.interests).toEqual([]);
+		});
+
+		it('saves to Supabase when logged in', async () => {
+			mockAuthStore.isLoggedIn = true;
+			mockAuthStore.user = { id: 'user-123' };
+
+			const mockUpdate = vi.fn().mockReturnValue({
+				eq: vi.fn().mockResolvedValue({ error: null })
+			});
+			mockSupabaseFrom.mockReturnValue({ update: mockUpdate });
+
+			wizardStore.updateProfile('name', 'Updated Name');
+
+			// Wait for async save
+			await vi.waitFor(() => {
+				expect(mockSupabaseFrom).toHaveBeenCalledWith('profiles');
+				expect(mockUpdate).toHaveBeenCalled();
+			});
+		});
+
+		it('saves to Preferences when not logged in', async () => {
+			wizardStore.updateProfile('name', 'Guest Updated');
+
+			await vi.waitFor(() => {
+				expect(Preferences.set).toHaveBeenCalledWith({
+					key: 'storify-profile',
+					value: expect.stringContaining('Guest Updated')
+				});
+			});
 		});
 	});
 });

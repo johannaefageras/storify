@@ -1,43 +1,6 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { FIELD_LIMITS } from '$lib/validation';
-	import { getZodiacFromBirthday, getAgeFromBirthday } from '$lib/utils/zodiac';
-	import {
-		EmojiZodiacAries,
-		EmojiZodiacTaurus,
-		EmojiZodiacGemini,
-		EmojiZodiacCancer,
-		EmojiZodiacLeo,
-		EmojiZodiacVirgo,
-		EmojiZodiacLibra,
-		EmojiZodiacScorpio,
-		EmojiZodiacSagittarius,
-		EmojiZodiacCapricorn,
-		EmojiZodiacAquarius,
-		EmojiZodiacPisces
-	} from '$lib/assets/emojis';
-	import type { Component } from 'svelte';
-
-	// Zodiac emoji components map
-	const zodiacComponents: Record<string, Component> = {
-		aries: EmojiZodiacAries,
-		taurus: EmojiZodiacTaurus,
-		gemini: EmojiZodiacGemini,
-		cancer: EmojiZodiacCancer,
-		leo: EmojiZodiacLeo,
-		virgo: EmojiZodiacVirgo,
-		libra: EmojiZodiacLibra,
-		scorpio: EmojiZodiacScorpio,
-		sagittarius: EmojiZodiacSagittarius,
-		capricorn: EmojiZodiacCapricorn,
-		aquarius: EmojiZodiacAquarius,
-		pisces: EmojiZodiacPisces
-	};
-
-	// Computed zodiac sign and age from birthday
-	let zodiacSign = $derived(getZodiacFromBirthday(wizardStore.data.profile.birthday));
-	let calculatedAge = $derived(getAgeFromBirthday(wizardStore.data.profile.birthday));
-
 	const pronounOptions = [
 		{ value: 'hon', label: 'Hon / Henne' },
 		{ value: 'han', label: 'Han / Honom' },
@@ -326,18 +289,6 @@
 						{/each}
 					</select>
 				</div>
-				{#if zodiacSign}
-					{@const ZodiacIcon = zodiacComponents[zodiacSign.id]}
-					<div class="zodiac-display">
-						{#if ZodiacIcon}
-							<span class="zodiac-icon"><ZodiacIcon size={18} /></span>
-						{/if}
-						<span class="zodiac-name">{zodiacSign.name}</span>
-						{#if calculatedAge !== null}
-							<span class="age-display">({calculatedAge} år)</span>
-						{/if}
-					</div>
-				{/if}
 			</div>
 
 			<div class="field-group compact">
@@ -584,31 +535,6 @@
 
 	.birthday-year {
 		flex: 0 0 5rem;
-	}
-
-	.zodiac-display {
-		display: flex;
-		align-items: center;
-		gap: 0.375rem;
-		margin-top: 0.375rem;
-		font-family: var(--font-primary);
-		font-size: var(--text-xs);
-		color: var(--color-text-muted);
-	}
-
-	.zodiac-icon {
-		display: flex;
-		align-items: center;
-	}
-
-	.zodiac-name {
-		font-weight: var(--weight-medium);
-		color: var(--color-text);
-	}
-
-	.age-display {
-		font-weight: var(--weight-regular);
-		color: var(--color-text-muted);
 	}
 
 	select {
