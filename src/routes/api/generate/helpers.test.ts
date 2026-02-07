@@ -39,7 +39,8 @@ const defaultProfile: UserProfile = {
   pets: [],
   occupationType: '',
   occupationDetail: [],
-  interests: []
+  interests: [],
+  avatarUrl: null
 };
 
 const createMinimalWizardData = (overrides: Partial<WizardData> = {}): WizardData => ({
@@ -134,7 +135,8 @@ describe('formatProfileForPrompt', () => {
       pets: ['Hund'],
       occupationType: 'working',
       occupationDetail: ['Utvecklare'],
-      interests: ['Kodning']
+      interests: ['Kodning'],
+      avatarUrl: null
     };
     const result = formatProfileForPrompt(profile);
     expect(result).toContain('OM SKRIBENTEN:');

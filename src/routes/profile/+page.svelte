@@ -5,8 +5,7 @@
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { FIELD_LIMITS } from '$lib/validation';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
-	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
-	import { EmojiUserSilhouette } from '$lib/assets/emojis';
+	import AvatarUpload from '$lib/components/AvatarUpload.svelte';
 
 	// Profile state
 	let name = $state('');
@@ -18,10 +17,12 @@
 	let occupationType = $state('');
 	let occupationDetail = $state<string[]>([]);
 	let interests = $state<string[]>([]);
+	let avatarUrl = $state<string | null>(null);
 
 	// UI state
 	let loading = $state(true);
 	let saving = $state(false);
+	let avatarUploading = $state(false);
 	let error = $state('');
 	let success = $state('');
 
@@ -176,6 +177,59 @@
 		addTag(interests, interestInput, (v) => (interests = v), () => (interestInput = ''));
 	}
 
+	// Avatar upload
+	async function handleAvatarUpload(file: File) {
+		if (!authStore.user) return;
+		avatarUploading = true;
+
+		try {
+			const path = `${authStore.user.id}/avatar.jpg`;
+
+			const { error: uploadError } = await supabase.storage
+				.from('avatars')
+				.upload(path, file, { upsert: true, contentType: 'image/jpeg' });
+
+			if (uploadError) {
+				error = 'Kunde inte ladda upp bilden. Försök igen.';
+				avatarUploading = false;
+				return;
+			}
+
+			const { data: urlData } = supabase.storage.from('avatars').getPublicUrl(path);
+			const newUrl = `${urlData.publicUrl}?t=${Date.now()}`;
+
+			await supabase
+				.from('profiles')
+				.update({ avatar_url: newUrl, updated_at: new Date().toISOString() })
+				.eq('id', authStore.user.id);
+
+			avatarUrl = newUrl;
+		} catch {
+			error = 'Kunde inte ladda upp bilden. Försök igen.';
+		}
+
+		avatarUploading = false;
+	}
+
+	async function handleAvatarRemove() {
+		if (!authStore.user) return;
+		avatarUploading = true;
+
+		try {
+			const path = `${authStore.user.id}/avatar.jpg`;
+			await supabase.storage.from('avatars').remove([path]);
+			await supabase
+				.from('profiles')
+				.update({ avatar_url: null, updated_at: new Date().toISOString() })
+				.eq('id', authStore.user.id);
+			avatarUrl = null;
+		} catch {
+			error = 'Kunde inte ta bort bilden. Försök igen.';
+		}
+
+		avatarUploading = false;
+	}
+
 	// Load profile from Supabase
 	async function loadProfile() {
 		if (!authStore.user) return;
@@ -202,6 +256,7 @@
 			occupationType = data.occupation_type || '';
 			occupationDetail = data.occupation_detail || [];
 			interests = data.interests || [];
+			avatarUrl = data.avatar_url || null;
 			birthdayParts = parseBirthday(birthday);
 		}
 
@@ -243,7 +298,6 @@
 	}
 
 	onMount(() => {
-		// Wait for auth to initialize, then check login status
 		const checkAuth = () => {
 			if (authStore.isLoading) {
 				setTimeout(checkAuth, 50);
@@ -259,262 +313,252 @@
 	});
 </script>
 
-<main class="auth-page">
-	<div class="profile-container">
-		<header class="auth-header">
-			<div class="step-icon"><UniqueEmoji><EmojiUserSilhouette size={48} /></UniqueEmoji></div>
-			<h1 class="auth-title">Min profil</h1>
-			<p class="auth-subtitle">Hantera dina personuppgifter</p>
-		</header>
-
-		{#if loading}
+<main class="profile-page">
+	{#if loading}
+		<div class="loading-wrapper">
 			<p class="loading-text">Laddar profil...</p>
-		{:else}
-			<form class="profile-form" onsubmit={(e) => { e.preventDefault(); handleSave(); }}>
-				{#if error}
-					<div class="auth-error">{error}</div>
-				{/if}
-				{#if success}
-					<div class="profile-success">{success}</div>
-				{/if}
-
-				<div class="form-grid">
-					<div class="field-group">
-						<label class="field-label" for="name">Tilltalsnamn</label>
-						<input
-							id="name"
-							type="text"
-							placeholder="Vad du heter eller vill bli kallad..."
-							bind:value={name}
-							maxlength={FIELD_LIMITS.name}
-						/>
-					</div>
-
-					<div class="field-row birthday-row">
-						<div class="field-group birthday-group">
-							<span class="field-label" id="birthday-label">Födelsedag</span>
-							<div class="birthday-selects" role="group" aria-labelledby="birthday-label">
-								<select
-									id="birthday-day"
-									class="birthday-day"
-									aria-label="Dag"
-									value={birthdayParts.day}
-									onchange={(e) => handleBirthdayPartChange('day', e.currentTarget.value)}
-								>
-									<option value="" disabled selected={birthdayParts.day === ''}>Dag</option>
-									{#each Array.from({ length: daysInSelectedMonth }, (_, i) => i + 1) as day}
-										<option value={day.toString()}>{day}</option>
-									{/each}
-								</select>
-								<select
-									id="birthday-month"
-									class="birthday-month"
-									aria-label="Månad"
-									value={birthdayParts.month}
-									onchange={(e) => handleBirthdayPartChange('month', e.currentTarget.value)}
-								>
-									<option value="" disabled selected={birthdayParts.month === ''}>Månad</option>
-									{#each swedishMonths as month}
-										<option value={month.value.toString()}>{month.label}</option>
-									{/each}
-								</select>
-								<select
-									id="birthday-year"
-									class="birthday-year"
-									aria-label="År"
-									value={birthdayParts.year}
-									onchange={(e) => handleBirthdayPartChange('year', e.currentTarget.value)}
-								>
-									<option value="" disabled selected={birthdayParts.year === ''}>År</option>
-									{#each yearOptions as year}
-										<option value={year.toString()}>{year}</option>
-									{/each}
-								</select>
-							</div>
-						</div>
-
-						<div class="field-group compact">
-							<label class="field-label" for="pronouns">Pronomen</label>
-							<select
-								id="pronouns"
-								bind:value={pronouns}
-							>
-								<option value="" disabled selected={pronouns === ''}>-- Välj pronomen --</option>
-								{#each pronounOptions as option}
-									<option value={option.value}>{option.label}</option>
-								{/each}
-							</select>
-						</div>
-					</div>
-
-					<div class="field-group">
-						<label class="field-label" for="hometown">Hemstad / ort</label>
-						<input
-							id="hometown"
-							type="text"
-							placeholder="Lägenhet i Göteborg, hus på landsbygden..."
-							bind:value={hometown}
-							maxlength={FIELD_LIMITS.hometown}
-						/>
-					</div>
-
-					<div class="field-group">
-						<label class="field-label" for="occupation">Sysselsättning</label>
-						<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-						<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
-							{#each occupationDetail as occupation}
-								<span class="tag">
-									{occupation}
-									<button type="button" class="tag-remove" onclick={() => removeTag(occupationDetail, occupation, (v) => (occupationDetail = v))}>×</button>
-								</span>
-							{/each}
-							<input
-								id="occupation"
-								type="text"
-								placeholder={occupationDetail.length === 0 ? 'Jobbar, pluggar, pensionär, lite av varje...' : ''}
-								bind:value={occupationInput}
-								onkeydown={(e) => handleKeydown(e, addOccupation, () => removeLastTag(occupationDetail, (v) => (occupationDetail = v)))}
-								oninput={(e) => handleCommaInput(e, (v) => (occupationInput = v), addOccupation)}
-								onblur={addOccupation}
-								maxlength={FIELD_LIMITS.occupationDetail}
-							/>
-						</div>
-					</div>
-
-					<div class="field-row">
-						<div class="field-group compact">
-							<label class="field-label" for="family">Familjemedlemmar</label>
-							<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-							<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
-								{#each family as member}
-									<span class="tag">
-										{member}
-										<button type="button" class="tag-remove" onclick={() => removeTag(family, member, (v) => (family = v))}>×</button>
-									</span>
-								{/each}
-								<input
-									id="family"
-									type="text"
-									placeholder={family.length === 0 ? 'Sambon, mormor som alltid ringer...' : ''}
-									bind:value={familyInput}
-									onkeydown={(e) => handleKeydown(e, addFamily, () => removeLastTag(family, (v) => (family = v)))}
-									oninput={(e) => handleCommaInput(e, (v) => (familyInput = v), addFamily)}
-									onblur={addFamily}
-									maxlength={FIELD_LIMITS.family}
-								/>
-							</div>
-						</div>
-
-						<div class="field-group compact">
-							<label class="field-label" for="pets">Husdjur</label>
-							<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-							<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
-								{#each pets as pet}
-									<span class="tag">
-										{pet}
-										<button type="button" class="tag-remove" onclick={() => removeTag(pets, pet, (v) => (pets = v))}>×</button>
-									</span>
-								{/each}
-								<input
-									id="pets"
-									type="text"
-									placeholder={pets.length === 0 ? 'Katten Mats, fågeln Pelle...' : ''}
-									bind:value={petInput}
-									onkeydown={(e) => handleKeydown(e, addPet, () => removeLastTag(pets, (v) => (pets = v)))}
-									oninput={(e) => handleCommaInput(e, (v) => (petInput = v), addPet)}
-									onblur={addPet}
-									maxlength={FIELD_LIMITS.pets}
-								/>
-							</div>
-						</div>
-					</div>
-
-					<div class="field-group">
-						<label class="field-label" for="interests">Intressen & hobbies</label>
-						<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-						<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
-							{#each interests as interest}
-								<span class="tag">
-									{interest}
-									<button type="button" class="tag-remove" onclick={() => removeTag(interests, interest, (v) => (interests = v))}>×</button>
-								</span>
-							{/each}
-							<input
-								id="interests"
-								type="text"
-								placeholder={interests.length === 0 ? 'Träning, WoW, TikTok, bygga appar...' : ''}
-								bind:value={interestInput}
-								onkeydown={(e) => handleKeydown(e, addInterest, () => removeLastTag(interests, (v) => (interests = v)))}
-								oninput={(e) => handleCommaInput(e, (v) => (interestInput = v), addInterest)}
-								onblur={addInterest}
-								maxlength={FIELD_LIMITS.interests}
-							/>
-						</div>
-					</div>
+		</div>
+	{:else}
+		<!-- Hero section with avatar -->
+		<div class="profile-hero">
+			<div class="hero-bg"></div>
+			<div class="hero-content">
+				<AvatarUpload
+					{avatarUrl}
+					{name}
+					size={120}
+					editable={true}
+					uploading={avatarUploading}
+					onUpload={handleAvatarUpload}
+					onRemove={handleAvatarRemove}
+				/>
+				<div class="hero-info">
+					<h1 class="hero-name">{name || 'Min profil'}</h1>
+					{#if authStore.user?.email}
+						<p class="hero-email">{authStore.user.email}</p>
+					{/if}
 				</div>
+			</div>
+		</div>
+
+		<div class="profile-body">
+			{#if error}
+				<div class="profile-alert profile-alert-error">{error}</div>
+			{/if}
+			{#if success}
+				<div class="profile-alert profile-alert-success">{success}</div>
+			{/if}
+
+			<form class="profile-form" onsubmit={(e) => { e.preventDefault(); handleSave(); }}>
+				<!-- Section 1: Basic info -->
+				<section class="profile-section">
+					<h2 class="section-title">Grundläggande uppgifter</h2>
+
+					<div class="section-fields">
+						<div class="field-group">
+							<label class="field-label" for="name">Tilltalsnamn</label>
+							<input
+								id="name"
+								type="text"
+								placeholder="Vad du heter eller vill bli kallad..."
+								bind:value={name}
+								maxlength={FIELD_LIMITS.name}
+							/>
+						</div>
+
+						<div class="field-row birthday-row">
+							<div class="field-group birthday-group">
+								<span class="field-label" id="birthday-label">Födelsedag</span>
+								<div class="birthday-selects" role="group" aria-labelledby="birthday-label">
+									<select
+										id="birthday-day"
+										class="birthday-day"
+										aria-label="Dag"
+										value={birthdayParts.day}
+										onchange={(e) => handleBirthdayPartChange('day', e.currentTarget.value)}
+									>
+										<option value="" disabled selected={birthdayParts.day === ''}>Dag</option>
+										{#each Array.from({ length: daysInSelectedMonth }, (_, i) => i + 1) as day}
+											<option value={day.toString()}>{day}</option>
+										{/each}
+									</select>
+									<select
+										id="birthday-month"
+										class="birthday-month"
+										aria-label="Månad"
+										value={birthdayParts.month}
+										onchange={(e) => handleBirthdayPartChange('month', e.currentTarget.value)}
+									>
+										<option value="" disabled selected={birthdayParts.month === ''}>Månad</option>
+										{#each swedishMonths as month}
+											<option value={month.value.toString()}>{month.label}</option>
+										{/each}
+									</select>
+									<select
+										id="birthday-year"
+										class="birthday-year"
+										aria-label="År"
+										value={birthdayParts.year}
+										onchange={(e) => handleBirthdayPartChange('year', e.currentTarget.value)}
+									>
+										<option value="" disabled selected={birthdayParts.year === ''}>År</option>
+										{#each yearOptions as year}
+											<option value={year.toString()}>{year}</option>
+										{/each}
+									</select>
+								</div>
+							</div>
+
+							<div class="field-group compact">
+								<label class="field-label" for="pronouns">Pronomen</label>
+								<select
+									id="pronouns"
+									bind:value={pronouns}
+								>
+									<option value="" disabled selected={pronouns === ''}>-- Välj pronomen --</option>
+									{#each pronounOptions as option}
+										<option value={option.value}>{option.label}</option>
+									{/each}
+								</select>
+							</div>
+						</div>
+
+						<div class="field-group">
+							<label class="field-label" for="hometown">Hemstad / ort</label>
+							<input
+								id="hometown"
+								type="text"
+								placeholder="Lägenhet i Göteborg, hus på landsbygden..."
+								bind:value={hometown}
+								maxlength={FIELD_LIMITS.hometown}
+							/>
+						</div>
+					</div>
+				</section>
+
+				<!-- Section 2: Lifestyle -->
+				<section class="profile-section">
+					<h2 class="section-title">Vardag & Intressen</h2>
+
+					<div class="section-fields">
+						<div class="field-group">
+							<label class="field-label" for="occupation">Sysselsättning</label>
+							<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+							<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
+								{#each occupationDetail as occupation}
+									<span class="tag">
+										{occupation}
+										<button type="button" class="tag-remove" onclick={() => removeTag(occupationDetail, occupation, (v) => (occupationDetail = v))}>×</button>
+									</span>
+								{/each}
+								<input
+									id="occupation"
+									type="text"
+									placeholder={occupationDetail.length === 0 ? 'Jobbar, pluggar, pensionär, lite av varje...' : ''}
+									bind:value={occupationInput}
+									onkeydown={(e) => handleKeydown(e, addOccupation, () => removeLastTag(occupationDetail, (v) => (occupationDetail = v)))}
+									oninput={(e) => handleCommaInput(e, (v) => (occupationInput = v), addOccupation)}
+									onblur={addOccupation}
+									maxlength={FIELD_LIMITS.occupationDetail}
+								/>
+							</div>
+						</div>
+
+						<div class="field-row">
+							<div class="field-group compact">
+								<label class="field-label" for="family">Familjemedlemmar</label>
+								<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+								<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
+									{#each family as member}
+										<span class="tag">
+											{member}
+											<button type="button" class="tag-remove" onclick={() => removeTag(family, member, (v) => (family = v))}>×</button>
+										</span>
+									{/each}
+									<input
+										id="family"
+										type="text"
+										placeholder={family.length === 0 ? 'Sambon, mormor som alltid ringer...' : ''}
+										bind:value={familyInput}
+										onkeydown={(e) => handleKeydown(e, addFamily, () => removeLastTag(family, (v) => (family = v)))}
+										oninput={(e) => handleCommaInput(e, (v) => (familyInput = v), addFamily)}
+										onblur={addFamily}
+										maxlength={FIELD_LIMITS.family}
+									/>
+								</div>
+							</div>
+
+							<div class="field-group compact">
+								<label class="field-label" for="pets">Husdjur</label>
+								<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+								<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
+									{#each pets as pet}
+										<span class="tag">
+											{pet}
+											<button type="button" class="tag-remove" onclick={() => removeTag(pets, pet, (v) => (pets = v))}>×</button>
+										</span>
+									{/each}
+									<input
+										id="pets"
+										type="text"
+										placeholder={pets.length === 0 ? 'Katten Mats, fågeln Pelle...' : ''}
+										bind:value={petInput}
+										onkeydown={(e) => handleKeydown(e, addPet, () => removeLastTag(pets, (v) => (pets = v)))}
+										oninput={(e) => handleCommaInput(e, (v) => (petInput = v), addPet)}
+										onblur={addPet}
+										maxlength={FIELD_LIMITS.pets}
+									/>
+								</div>
+							</div>
+						</div>
+
+						<div class="field-group">
+							<label class="field-label" for="interests">Intressen & hobbies</label>
+							<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+							<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
+								{#each interests as interest}
+									<span class="tag">
+										{interest}
+										<button type="button" class="tag-remove" onclick={() => removeTag(interests, interest, (v) => (interests = v))}>×</button>
+									</span>
+								{/each}
+								<input
+									id="interests"
+									type="text"
+									placeholder={interests.length === 0 ? 'Träning, WoW, TikTok, bygga appar...' : ''}
+									bind:value={interestInput}
+									onkeydown={(e) => handleKeydown(e, addInterest, () => removeLastTag(interests, (v) => (interests = v)))}
+									oninput={(e) => handleCommaInput(e, (v) => (interestInput = v), addInterest)}
+									onblur={addInterest}
+									maxlength={FIELD_LIMITS.interests}
+								/>
+							</div>
+						</div>
+					</div>
+				</section>
 
 				<button class="btn btn-primary btn-large profile-save" type="submit" disabled={saving}>
 					{saving ? 'Sparar...' : 'Spara profil'}
 				</button>
 			</form>
-		{/if}
-	</div>
+		</div>
+	{/if}
 	<LegalFooter />
 </main>
 
 <style>
-	.auth-page {
+	.profile-page {
 		min-height: 100vh;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding: 2rem;
-		padding-bottom: 0;
 	}
 
-	.profile-container {
+	.loading-wrapper {
 		flex: 1;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		max-width: 500px;
-		width: 100%;
-		padding-bottom: 2rem;
-	}
-
-	.auth-header {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 0.5rem;
-		text-align: center;
-		margin-bottom: 2rem;
-	}
-
-	.step-icon {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		opacity: 0.8;
-	}
-
-	.auth-title {
-		font-family: var(--font-primary);
-		font-size: var(--text-2xl);
-		font-weight: var(--weight-medium);
-		font-stretch: 105%;
-		letter-spacing: var(--tracking-tight);
-		line-height: var(--leading-snug);
-		color: var(--color-text);
-		margin-top: 0;
-	}
-
-	.auth-subtitle {
-		font-family: var(--font-primary);
-		font-size: var(--text-base);
-		color: var(--color-text-muted);
-		font-weight: var(--weight-book);
-		letter-spacing: var(--tracking-wide);
 	}
 
 	.loading-text {
@@ -523,14 +567,121 @@
 		font-size: var(--text-sm);
 	}
 
+	/* Hero section */
+	.profile-hero {
+		position: relative;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding-bottom: 1.5rem;
+	}
+
+	.hero-bg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 100px;
+		background: linear-gradient(
+			135deg,
+			color-mix(in srgb, var(--color-accent) 8%, var(--color-bg)),
+			color-mix(in srgb, var(--color-accent) 3%, var(--color-bg))
+		);
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.hero-content {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.75rem;
+		padding-top: 40px;
+	}
+
+	.hero-info {
+		text-align: center;
+	}
+
+	.hero-name {
+		font-family: var(--font-primary);
+		font-size: var(--text-xl);
+		font-weight: var(--weight-medium);
+		font-stretch: 105%;
+		letter-spacing: var(--tracking-tight);
+		line-height: var(--leading-snug);
+		color: var(--color-text);
+		margin: 0;
+	}
+
+	.hero-email {
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		color: var(--color-text-muted);
+		font-weight: var(--weight-book);
+		letter-spacing: var(--tracking-wide);
+		margin: 0.125rem 0 0;
+	}
+
+	/* Body */
+	.profile-body {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		max-width: 520px;
+		width: 100%;
+		padding: 1.5rem 1.5rem 2rem;
+		gap: 1rem;
+	}
+
+	/* Alerts */
+	.profile-alert {
+		padding: 0.75rem 1rem;
+		border-radius: var(--radius-sm);
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-medium);
+	}
+
+	.profile-alert-error {
+		background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+		color: var(--color-accent);
+	}
+
+	.profile-alert-success {
+		background: color-mix(in srgb, #22c55e 10%, transparent);
+		color: #16a34a;
+	}
+
+	/* Form */
 	.profile-form {
 		display: flex;
 		flex-direction: column;
 		gap: 1.25rem;
-		width: 100%;
 	}
 
-	.form-grid {
+	/* Sections */
+	.profile-section {
+		background: var(--color-bg-elevated);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		padding: 1.25rem;
+	}
+
+	.section-title {
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-semibold);
+		text-transform: uppercase;
+		letter-spacing: var(--tracking-widest);
+		color: var(--color-text-muted);
+		margin: 0 0 1rem;
+		padding-bottom: 0.625rem;
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.section-fields {
 		display: flex;
 		flex-direction: column;
 		gap: 0.875rem;
@@ -730,35 +881,31 @@
 		opacity: 1;
 	}
 
-	.auth-error {
-		padding: 0.75rem 1rem;
-		border-radius: var(--radius-sm);
-		background: color-mix(in srgb, var(--color-accent) 10%, transparent);
-		color: var(--color-accent);
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-medium);
-	}
-
-	.profile-success {
-		padding: 0.75rem 1rem;
-		border-radius: var(--radius-sm);
-		background: color-mix(in srgb, #22c55e 10%, transparent);
-		color: #16a34a;
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-medium);
-	}
-
 	.profile-save {
-		margin-top: 0.5rem;
+		margin-top: 0.25rem;
 		width: 100%;
 		justify-content: center;
 	}
 
 	@media (max-width: 600px) {
-		.auth-title {
-			font-size: var(--text-xl);
+		.hero-name {
+			font-size: var(--text-lg);
+		}
+
+		.hero-bg {
+			height: 80px;
+		}
+
+		.hero-content {
+			padding-top: 20px;
+		}
+
+		.profile-body {
+			padding: 1.25rem 1rem 2rem;
+		}
+
+		.profile-section {
+			padding: 1rem;
 		}
 
 		.field-row {

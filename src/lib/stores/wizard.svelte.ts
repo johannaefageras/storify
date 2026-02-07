@@ -17,6 +17,7 @@ export interface UserProfile {
   occupationType: 'student' | 'working' | 'other' | '';
   occupationDetail: string[];
   interests: string[];
+  avatarUrl: string | null;
 }
 
 export interface WizardData {
@@ -82,7 +83,8 @@ const defaultProfile: UserProfile = {
   pets: [],
   occupationType: '',
   occupationDetail: [],
-  interests: []
+  interests: [],
+  avatarUrl: null
 };
 
 function createWizardStore() {
@@ -142,7 +144,8 @@ function createWizardStore() {
             : typeof parsed.occupationDetail === 'string' && parsed.occupationDetail.trim()
               ? [parsed.occupationDetail.trim()]
               : [],
-          interests: Array.isArray(parsed.interests) ? parsed.interests : []
+          interests: Array.isArray(parsed.interests) ? parsed.interests : [],
+          avatarUrl: parsed.avatarUrl || null
         };
       }
     } catch (e) {
@@ -170,7 +173,8 @@ function createWizardStore() {
         pets: data.pets || [],
         occupationType: data.occupation_type || '',
         occupationDetail: data.occupation_detail || [],
-        interests: data.interests || []
+        interests: data.interests || [],
+        avatarUrl: data.avatar_url || null
       };
     } catch (e) {
       console.error('Failed to load profile from Supabase:', e);
