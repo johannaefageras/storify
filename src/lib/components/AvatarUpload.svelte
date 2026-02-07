@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { processAvatarImage } from '$lib/utils/imageResize';
-	import { EmojiCamera } from '$lib/assets/emojis';
 
 	const AVATAR_MAX_SIZE = 5 * 1024 * 1024;
 	const AVATAR_ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
@@ -12,7 +11,6 @@
 		editable?: boolean;
 		uploading?: boolean;
 		onUpload?: (file: File) => void;
-		onRemove?: () => void;
 	}
 
 	let {
@@ -21,32 +19,14 @@
 		size = 120,
 		editable = false,
 		uploading = false,
-		onUpload,
-		onRemove
+		onUpload
 	}: Props = $props();
 
 	let fileInput = $state<HTMLInputElement>();
 	let error = $state('');
 
-	let initials = $derived(getInitials(name));
-	let bgColor = $derived(getAvatarColor(name));
-
-	function getInitials(name: string): string {
-		if (!name.trim()) return '?';
-		const parts = name.trim().split(/\s+/);
-		if (parts.length === 1) return parts[0][0].toUpperCase();
-		return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-	}
-
-	function getAvatarColor(name: string): string {
-		if (!name.trim()) return '#9ca3af';
-		let hash = 0;
-		for (let i = 0; i < name.length; i++) {
-			hash = name.charCodeAt(i) + ((hash << 5) - hash);
-		}
-		const hue = Math.abs(hash) % 360;
-		return `hsl(${hue}, 45%, 55%)`;
-	}
+	const defaultAvatarLight = '/default-avatar-light.png';
+	const defaultAvatarDark = '/default-avatar-dark.png';
 
 	function handleClick() {
 		if (editable && !uploading) {
@@ -106,17 +86,14 @@
 		{#if avatarUrl}
 			<img src={avatarUrl} alt="Profilbild" class="avatar-img" />
 		{:else}
-			<div class="avatar-initials" style:background-color={bgColor}>
-				{initials}
-			</div>
+			<img src={defaultAvatarLight} alt="Profilbild" class="avatar-img avatar-default avatar-default-light" />
+			<img src={defaultAvatarDark} alt="Profilbild" class="avatar-img avatar-default avatar-default-dark" />
 		{/if}
 
 		{#if editable}
 			<div class="avatar-overlay">
 				{#if uploading}
 					<div class="avatar-spinner"></div>
-				{:else}
-					<EmojiCamera size={size > 80 ? 28 : 20} />
 				{/if}
 			</div>
 		{/if}
@@ -134,11 +111,6 @@
 		/>
 	{/if}
 
-	{#if editable && avatarUrl && !uploading}
-		<button class="avatar-remove" onclick={onRemove} type="button" aria-label="Ta bort profilbild">
-			Ta bort bild
-		</button>
-	{/if}
 
 	{#if error}
 		<p class="avatar-error">{error}</p>
@@ -180,18 +152,16 @@
 		display: block;
 	}
 
-	.avatar-initials {
-		width: 100%;
-		height: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-family: var(--font-primary);
-		font-size: calc(var(--avatar-size) * 0.36);
-		font-weight: var(--weight-semibold);
-		font-stretch: 105%;
-		letter-spacing: var(--tracking-tight);
-		color: white;
+	.avatar-default-dark {
+		display: none;
+	}
+
+	:global([data-theme='dark']) .avatar-default-light {
+		display: none;
+	}
+
+	:global([data-theme='dark']) .avatar-default-dark {
+		display: block;
 	}
 
 	.avatar-overlay {
@@ -200,23 +170,14 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: rgba(0, 0, 0, 0.45);
 		opacity: 0;
 		transition: opacity 0.2s ease;
 		pointer-events: none;
 	}
 
 	.avatar.uploading .avatar-overlay {
+		background: rgba(0, 0, 0, 0.45);
 		opacity: 1;
-	}
-
-	.avatar.editable:hover .avatar-overlay,
-	.avatar.editable:focus-visible .avatar-overlay {
-		opacity: 1;
-	}
-
-	.avatar-overlay :global(svg) {
-		filter: brightness(0) invert(1);
 	}
 
 	.avatar-spinner {
@@ -242,24 +203,7 @@
 		opacity: 0;
 	}
 
-	.avatar-remove {
-		background: none;
-		border: none;
-		font-family: var(--font-primary);
-		font-size: var(--text-xs);
-		font-weight: var(--weight-medium);
-		color: var(--color-text-muted);
-		cursor: pointer;
-		padding: 0.25rem 0.5rem;
-		border-radius: var(--radius-sm);
-		transition: color 0.15s ease;
-	}
-
-	.avatar-remove:hover {
-		color: var(--color-accent);
-	}
-
-	.avatar-error {
+.avatar-error {
 		font-family: var(--font-primary);
 		font-size: var(--text-xs);
 		color: var(--color-accent);

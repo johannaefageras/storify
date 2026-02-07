@@ -7,9 +7,15 @@ export function createSupabaseServerClient(cookies: Cookies) {
 		cookies: {
 			getAll: () => cookies.getAll(),
 			setAll: (cookiesToSet) => {
-				cookiesToSet.forEach(({ name, value, options }) => {
-					cookies.set(name, value, { ...options, path: '/' });
-				});
+				try {
+					cookiesToSet.forEach(({ name, value, options }) => {
+						cookies.set(name, value, { ...options, path: '/' });
+					});
+				} catch {
+					// Supabase auth may call setAll after the response has been sent
+					// (e.g. during background token refresh). Safe to ignore as the
+					// session will be refreshed on the next request.
+				}
 			}
 		}
 	});

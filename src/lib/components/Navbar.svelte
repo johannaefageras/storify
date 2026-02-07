@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { goto } from '$app/navigation';
 	import { authStore } from '$lib/stores/auth.svelte';
 	import ThemeToggle from './ThemeToggle.svelte';
 
@@ -11,12 +10,6 @@
 		menuOpen = false;
 	}
 
-	async function handleSignOut() {
-		closeMenu();
-		await authStore.signOut();
-		goto('/');
-	}
-
 	// Close menu on navigation
 	$effect(() => {
 		pathname;
@@ -24,7 +17,7 @@
 	});
 </script>
 
-<nav class="navbar">
+<nav class="navbar" class:no-border={pathname.startsWith('/wizard')}>
 	<a href="/" class="navbar-brand">Storify</a>
 
 	<button
@@ -39,12 +32,8 @@
 	</button>
 
 	<div class="navbar-menu" class:open={menuOpen}>
-		<a href="/wizard" class="navbar-link" class:active={pathname.startsWith('/wizard')} onclick={closeMenu}>Ny anteckning</a>
-
 		{#if authStore.isLoggedIn}
-			<a href="/journal" class="navbar-link" class:active={pathname === '/journal'} onclick={closeMenu}>Dagboksarkiv</a>
 			<a href="/profile" class="navbar-link" class:active={pathname === '/profile'} onclick={closeMenu}>Min profil</a>
-			<button class="navbar-link navbar-btn" onclick={handleSignOut}>Logga ut</button>
 		{:else}
 			<a href="/login" class="navbar-link" class:active={pathname === '/login'} onclick={closeMenu}>Logga in</a>
 		{/if}
@@ -71,6 +60,10 @@
 		padding-top: calc(env(safe-area-inset-top, 0px) + 0.75rem);
 		background: var(--color-bg);
 		border-bottom: 1px solid var(--color-border);
+	}
+
+	.navbar.no-border {
+		border-bottom: none;
 	}
 
 	.navbar-brand {

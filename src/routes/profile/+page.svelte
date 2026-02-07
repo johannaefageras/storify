@@ -6,6 +6,12 @@
 	import { FIELD_LIMITS } from '$lib/validation';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import AvatarUpload from '$lib/components/AvatarUpload.svelte';
+	import IconArrowRight from '$lib/assets/icons/IconArrowRight.svelte';
+
+	async function handleSignOut() {
+		await authStore.signOut();
+		goto('/');
+	}
 
 	// Profile state
 	let name = $state('');
@@ -25,6 +31,13 @@
 	let avatarUploading = $state(false);
 	let error = $state('');
 	let success = $state('');
+
+	// Password change state
+	let newPassword = $state('');
+	let confirmPassword = $state('');
+	let passwordError = $state('');
+	let passwordSuccess = $state('');
+	let changingPassword = $state(false);
 
 	// Tag inputs
 	let familyInput = $state('');
@@ -211,25 +224,6 @@
 		avatarUploading = false;
 	}
 
-	async function handleAvatarRemove() {
-		if (!authStore.user) return;
-		avatarUploading = true;
-
-		try {
-			const path = `${authStore.user.id}/avatar.jpg`;
-			await supabase.storage.from('avatars').remove([path]);
-			await supabase
-				.from('profiles')
-				.update({ avatar_url: null, updated_at: new Date().toISOString() })
-				.eq('id', authStore.user.id);
-			avatarUrl = null;
-		} catch {
-			error = 'Kunde inte ta bort bilden. Försök igen.';
-		}
-
-		avatarUploading = false;
-	}
-
 	// Load profile from Supabase
 	async function loadProfile() {
 		if (!authStore.user) return;
@@ -297,6 +291,38 @@
 		saving = false;
 	}
 
+	async function handleChangePassword() {
+		passwordError = '';
+		passwordSuccess = '';
+
+		if (newPassword.length < 6) {
+			passwordError = 'Lösenordet måste vara minst 6 tecken.';
+			return;
+		}
+
+		if (newPassword !== confirmPassword) {
+			passwordError = 'Lösenorden matchar inte.';
+			return;
+		}
+
+		changingPassword = true;
+
+		const { error: updateError } = await supabase.auth.updateUser({
+			password: newPassword
+		});
+
+		if (updateError) {
+			passwordError = 'Kunde inte ändra lösenordet. Försök igen.';
+		} else {
+			passwordSuccess = 'Lösenordet har ändrats!';
+			newPassword = '';
+			confirmPassword = '';
+			setTimeout(() => (passwordSuccess = ''), 3000);
+		}
+
+		changingPassword = false;
+	}
+
 	onMount(() => {
 		const checkAuth = () => {
 			if (authStore.isLoading) {
@@ -321,7 +347,6 @@
 	{:else}
 		<!-- Hero section with avatar -->
 		<div class="profile-hero">
-			<div class="hero-bg"></div>
 			<div class="hero-content">
 				<AvatarUpload
 					{avatarUrl}
@@ -330,15 +355,29 @@
 					editable={true}
 					uploading={avatarUploading}
 					onUpload={handleAvatarUpload}
-					onRemove={handleAvatarRemove}
 				/>
 				<div class="hero-info">
-					<h1 class="hero-name">{name || 'Min profil'}</h1>
+					<h1 class="hero-name">{name ? `${name}s Profil` : 'Min Profil'}</h1>
 					{#if authStore.user?.email}
 						<p class="hero-email">{authStore.user.email}</p>
 					{/if}
 				</div>
 			</div>
+		</div>
+
+		<div class="profile-actions">
+			<a href="/wizard" class="action-card">
+				<span class="action-label">Ny anteckning</span>
+				<IconArrowRight size={16} />
+			</a>
+			<a href="/journal" class="action-card">
+				<span class="action-label">Dagboksarkiv</span>
+				<IconArrowRight size={16} />
+			</a>
+			<button class="action-card action-card-muted" onclick={handleSignOut}>
+				<span class="action-label">Logga ut</span>
+				<IconArrowRight size={16} />
+			</button>
 		</div>
 
 		<div class="profile-body">
@@ -350,9 +389,8 @@
 			{/if}
 
 			<form class="profile-form" onsubmit={(e) => { e.preventDefault(); handleSave(); }}>
-				<!-- Section 1: Basic info -->
 				<section class="profile-section">
-					<h2 class="section-title">Grundläggande uppgifter</h2>
+					<h2 class="section-title">Profilinformation</h2>
 
 					<div class="section-fields">
 						<div class="field-group">
@@ -434,11 +472,8 @@
 							/>
 						</div>
 					</div>
-				</section>
 
-				<!-- Section 2: Lifestyle -->
-				<section class="profile-section">
-					<h2 class="section-title">Vardag & Intressen</h2>
+					<h3 class="section-subtitle">Vardag & Intressen</h3>
 
 					<div class="section-fields">
 						<div class="field-group">
@@ -535,12 +570,63 @@
 							</div>
 						</div>
 					</div>
-				</section>
 
-				<button class="btn btn-primary btn-large profile-save" type="submit" disabled={saving}>
-					{saving ? 'Sparar...' : 'Spara profil'}
-				</button>
+					<button class="btn btn-primary btn-large profile-save" type="submit" disabled={saving}>
+						{saving ? 'Sparar...' : 'Spara profil'}
+					</button>
+				</section>
 			</form>
+
+			<!-- Account settings (outside profile form) -->
+			<section class="profile-section">
+				<h2 class="section-title">Kontoinställningar</h2>
+
+				<div class="section-fields">
+					<div class="field-group">
+						<label class="field-label" for="email">E-postadress</label>
+						<input
+							id="email"
+							type="email"
+							value={authStore.user?.email ?? ''}
+							disabled
+							class="field-disabled"
+						/>
+					</div>
+
+					<form class="password-form" onsubmit={(e) => { e.preventDefault(); handleChangePassword(); }}>
+						<div class="field-group">
+							<label class="field-label" for="new-password">Nytt lösenord</label>
+							<input
+								id="new-password"
+								type="password"
+								placeholder="Minst 6 tecken..."
+								bind:value={newPassword}
+							/>
+						</div>
+
+						<div class="field-group">
+							<label class="field-label" for="confirm-password">Bekräfta lösenord</label>
+							<input
+								id="confirm-password"
+								type="password"
+								placeholder="Upprepa lösenordet..."
+								bind:value={confirmPassword}
+							/>
+						</div>
+
+						{#if passwordError}
+							<div class="profile-alert profile-alert-error">{passwordError}</div>
+						{/if}
+						{#if passwordSuccess}
+							<div class="profile-alert profile-alert-success">{passwordSuccess}</div>
+						{/if}
+
+						<button class="btn btn-secondary btn-change-password" type="submit" disabled={changingPassword || !newPassword || !confirmPassword}>
+							{changingPassword ? 'Ändrar...' : 'Ändra lösenord'}
+						</button>
+					</form>
+				</div>
+			</section>
 		</div>
 	{/if}
 	<LegalFooter />
@@ -548,10 +634,10 @@
 
 <style>
 	.profile-page {
-		min-height: 100vh;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		padding-bottom: 2rem;
 	}
 
 	.loading-wrapper {
@@ -569,35 +655,19 @@
 
 	/* Hero section */
 	.profile-hero {
-		position: relative;
+		max-width: 720px;
 		width: 100%;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding-bottom: 1.5rem;
-	}
-
-	.hero-bg {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		height: 100px;
-		background: linear-gradient(
-			135deg,
-			color-mix(in srgb, var(--color-accent) 8%, var(--color-bg)),
-			color-mix(in srgb, var(--color-accent) 3%, var(--color-bg))
-		);
-		border-bottom: 1px solid var(--color-border);
+		padding: 2rem 1.5rem 0.5rem;
 	}
 
 	.hero-content {
-		position: relative;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		gap: 0.75rem;
-		padding-top: 40px;
 	}
 
 	.hero-info {
@@ -624,14 +694,61 @@
 		margin: 0.125rem 0 0;
 	}
 
-	/* Body */
-	.profile-body {
+	/* Action buttons */
+	.profile-actions {
+		display: flex;
+		gap: 0.625rem;
+		max-width: 720px;
+		width: 100%;
+		padding: 0.75rem 1.25rem 0;
+	}
+
+	.action-card {
 		flex: 1;
 		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
+		padding: 0.75rem 1rem;
+		background: var(--color-bg-elevated);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		text-decoration: none;
+		color: var(--color-text);
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
+		cursor: pointer;
+		transition: border-color 0.15s ease, box-shadow 0.15s ease;
+	}
+
+	.action-card:hover {
+		border-color: var(--color-accent);
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 10%, transparent);
+	}
+
+	.action-card-muted {
+		color: var(--color-text-muted);
+	}
+
+	.action-card-muted:hover {
+		border-color: var(--color-border);
+		box-shadow: none;
+		color: var(--color-text);
+	}
+
+	.action-label {
+		white-space: nowrap;
+	}
+
+	/* Body */
+	.profile-body {
+		display: flex;
 		flex-direction: column;
-		max-width: 520px;
+		max-width: 720px;
 		width: 100%;
-		padding: 1.5rem 1.5rem 2rem;
+		padding: 1rem 1.25rem 2rem;
 		gap: 1rem;
 	}
 
@@ -678,6 +795,19 @@
 		color: var(--color-text-muted);
 		margin: 0 0 1rem;
 		padding-bottom: 0.625rem;
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.section-subtitle {
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-semibold);
+		text-transform: uppercase;
+		letter-spacing: var(--tracking-widest);
+		color: var(--color-text-muted);
+		margin: 1.25rem 0 0;
+		padding-bottom: 0.625rem;
+		margin-bottom: 0.875rem;
 		border-bottom: 1px solid var(--color-border);
 	}
 
@@ -760,7 +890,8 @@
 
 	.birthday-day,
 	.birthday-month,
-	.birthday-year {
+	.birthday-year,
+	#pronouns {
 		width: auto;
 		appearance: none;
 		-webkit-appearance: none;
@@ -882,7 +1013,68 @@
 	}
 
 	.profile-save {
-		margin-top: 0.25rem;
+		margin-top: 0.75rem;
+		width: 100%;
+		justify-content: center;
+	}
+
+	.field-disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+
+	input[type='password'] {
+		width: 100%;
+		height: 2.75rem;
+		padding: 0 0.875rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-regular);
+		letter-spacing: var(--tracking-normal);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		background-color: var(--color-bg-elevated);
+		color: var(--color-text);
+		outline: none;
+		transition: border-color 0.15s ease, box-shadow 0.15s ease;
+		box-sizing: border-box;
+	}
+
+	input[type='password']:focus {
+		border-color: var(--color-accent);
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
+	}
+
+	input[type='password']::placeholder {
+		color: var(--color-text-muted);
+		font-weight: var(--weight-light);
+		letter-spacing: var(--tracking-wider);
+		opacity: 0.7;
+	}
+
+	input[type='email'] {
+		width: 100%;
+		height: 2.75rem;
+		padding: 0 0.875rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-regular);
+		letter-spacing: var(--tracking-normal);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		background-color: var(--color-bg-elevated);
+		color: var(--color-text);
+		outline: none;
+		box-sizing: border-box;
+	}
+
+	.password-form {
+		display: flex;
+		flex-direction: column;
+		gap: 0.875rem;
+	}
+
+	.btn-change-password {
 		width: 100%;
 		justify-content: center;
 	}
@@ -892,12 +1084,13 @@
 			font-size: var(--text-lg);
 		}
 
-		.hero-bg {
-			height: 80px;
+		.profile-hero {
+			padding: 1.5rem 1rem 1.25rem;
 		}
 
-		.hero-content {
-			padding-top: 20px;
+		.profile-actions {
+			flex-direction: column;
+			padding: 0.75rem 1rem 0;
 		}
 
 		.profile-body {

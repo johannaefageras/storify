@@ -7,6 +7,7 @@
 	import { jomojiSvgMap } from '$lib/data/jomojis';
 	import { uniqueSvgIds } from '$lib/utils/uniqueSvgIds';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
+	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import type { Component } from 'svelte';
 	import { EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanDetective, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiClipboard } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
@@ -263,6 +264,7 @@
 			{/each}
 		{/if}
 	</div>
+	<LegalFooter />
 </div>
 
 {#if selectedEntry}
@@ -338,6 +340,7 @@
 	}
 
 	.journal-container {
+		flex: 1;
 		width: 100%;
 		max-width: 700px;
 	}

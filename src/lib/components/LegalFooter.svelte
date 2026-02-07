@@ -27,7 +27,7 @@
 
 <style>
 	.legal-footer {
-		margin-top: 3rem;
+		margin-top: 1rem;
 		padding-top: 2rem;
 		display: flex;
 		flex-direction: column;
@@ -62,14 +62,14 @@
 		text-underline-offset: 2px;
 	}
 
-	
+
 	.copyright {
 		padding-top: 1rem;
 		border-top: 1px solid var(--color-border);
 		width: 100%;
 		text-align: center;
 		color: var(--color-text-muted);
-		opacity: 0.4;
+		opacity: 0.6;
 		font-size: var(--text-xs);
 	}
 </style>
