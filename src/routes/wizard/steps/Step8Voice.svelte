@@ -3,20 +3,20 @@
 	import { tones } from '$lib/data/tones';
 	import { voiceSamples } from '$lib/data/voiceSamples';
 	import type { Component } from 'svelte';
-	import { EmojiRobot, EmojiFaceYawning, EmojiFlagUK, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiDetective, EmojiCrown, EmojiTopHat, EmojiWiltedFlower, EmojiPoo, EmojiEarth, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanMeditating, EmojiTheaterMasks, EmojiMicrophone, EmojiOpenBook, EmojiNewspaper, EmojiBrain, EmojiSatellite, EmojiMusicalNotes, EmojiDice } from '$lib/components/emojis';
+	import { EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiWomanDetective, EmojiCrown, EmojiTopHat, EmojiWiltedFlower, EmojiPoo, EmojiEarth, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanMeditating, EmojiTheaterMasks, EmojiMicrophone, EmojiOpenBook, EmojiNewspaper, EmojiBrain, EmojiSatellite, EmojiMusicalNotes, EmojiDice } from '$lib/assets/emojis';
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 
 	const toneIconMap: Record<string, Component> = {
 		'ai-robot': EmojiRobot,
 		'bored': EmojiFaceYawning,
-		'british': EmojiFlagUK,
+		'british': EmojiFlagUk,
 		'bureaucratic': EmojiArchive,
 		'cat-perspective': EmojiCat,
 		'chaotic': EmojiTornado,
 		'classic': EmojiLedger,
 		'cringe': EmojiFaceGrimacing,
 		'cynical': EmojiFaceUnamused,
-		'detective': EmojiDetective,
+		'detective': EmojiWomanDetective,
 		'drama-queen': EmojiCrown,
 		'formal': EmojiTopHat,
 		'melodramatic': EmojiWiltedFlower,

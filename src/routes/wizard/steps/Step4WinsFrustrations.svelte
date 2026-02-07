@@ -3,7 +3,7 @@
 	import {
 	EmojiTrophy,
 	EmojiCollision
-} from '$lib/components/emojis';
+} from '$lib/assets/emojis';
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 	import { FIELD_LIMITS } from '$lib/validation';
 

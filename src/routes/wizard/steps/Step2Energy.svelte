@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import type { Component } from 'svelte';
-	import { EmojiFaceBagsUnderEyes, EmojiFaceTired, EmojiFaceSleepy, EmojiFaceYawning, EmojiFaceNeutral, EmojiFaceSlightlySmiling, EmojiFaceSmilingEyes, EmojiFaceSmilingHearts, EmojiFaceGrinningSweat, EmojiFaceStarStruck, EmojiFaceSleeping, EmojiFaceCrossedOutEyes, EmojiFaceWeary, EmojiFaceSmiling, EmojiFaceGrinningSmilingEyes, EmojiFacePartying, EmojiRocket, EmojiFaceCryingLoudly, EmojiFaceCrying, EmojiFaceFrowning, EmojiFaceSlightlyFrowning, EmojiFaceRelieved, EmojiFaceLOL } from '$lib/components/emojis';
+	import { EmojiFaceBagsUnderEyes, EmojiFaceTired, EmojiFaceSleepy, EmojiFaceYawning, EmojiFaceNeutral, EmojiFaceSlightlySmiling, EmojiFaceSmilingEyes, EmojiFaceSmilingHearts, EmojiFaceGrinningSweat, EmojiFaceStarStruck, EmojiFaceSleeping, EmojiFaceCrossedOutEyes, EmojiFaceWeary, EmojiFaceSmiling, EmojiFaceGrinningSmilingEyes, EmojiFacePartying, EmojiRocket, EmojiFaceCryingLoudly, EmojiFaceCrying, EmojiFaceFrowning, EmojiFaceSlightlyFrowning, EmojiFaceRelieved, EmojiFaceLol } from '$lib/assets/emojis';
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 
 	const sleepEmojis: Component[] = [
@@ -40,7 +40,7 @@
 		EmojiFaceSmilingEyes,
 		EmojiFaceSmilingHearts,
 		EmojiFaceGrinningSweat,
-		EmojiFaceLOL
+		EmojiFaceLol
 	];
 
 	const sliders = [

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import IconAsterisk from '$lib/components/icons/IconAsterisk.svelte';
+	import IconAsterisk from '$lib/assets/icons/IconAsterisk.svelte';
 
 	let { tooltip = 'Obligatoriskt fält' } = $props();
 </script>

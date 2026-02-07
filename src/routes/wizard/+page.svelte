@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import { EmojiUserSilhouette, EmojiCompass, EmojiChart, EmojiCalendar, EmojiScale, EmojiMirrorAlt, EmojiCherries, EmojiCamera, EmojiSpeakingHead, EmojiPuzzlePieceAlt, EmojiCheck } from '$lib/components/emojis';
+	import { EmojiUserSilhouette, EmojiCompass, EmojiChart, EmojiCalendar, EmojiScale, EmojiMirror, EmojiCherries, EmojiCamera, EmojiSpeakingHead, EmojiPuzzlePiece, EmojiCheck } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import Step0Profile from './steps/Step0Profile.svelte';
 	import Step1Emojis from './steps/Step1Emojis.svelte';
@@ -16,8 +16,8 @@
 	import Step10Summary from './steps/Step10Summary.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
-	import IconArrowLeft from '$lib/components/icons/IconArrowLeft.svelte';
-	import IconArrowRight from '$lib/components/icons/IconArrowRight.svelte';
+	import IconArrowLeft from '$lib/assets/icons/IconArrowLeft.svelte';
+	import IconArrowRight from '$lib/assets/icons/IconArrowRight.svelte';
 
 	const optionalSteps = [0, 5, 6, 7, 9];
 
@@ -151,11 +151,11 @@
 		EmojiChart,
 		EmojiCalendar,
 		EmojiScale,
-		EmojiMirrorAlt,
+		EmojiMirror,
 		EmojiCherries,
 		EmojiCamera,
 		EmojiSpeakingHead,
-		EmojiPuzzlePieceAlt,
+		EmojiPuzzlePiece,
 		EmojiCheck
 	];
 

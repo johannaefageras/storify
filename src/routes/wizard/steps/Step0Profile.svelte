@@ -15,7 +15,7 @@
 		EmojiZodiacCapricorn,
 		EmojiZodiacAquarius,
 		EmojiZodiacPisces
-	} from '$lib/components/emojis';
+	} from '$lib/assets/emojis';
 	import type { Component } from 'svelte';
 
 	// Zodiac emoji components map

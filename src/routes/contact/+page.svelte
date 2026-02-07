@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { EmojiProfilePictureWaving, EmojiBouquet } from '$lib/components/emojis';
+	import { EmojiWomanWaving, EmojiBouquet } from '$lib/assets/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 
 	const FORM_ID = 'o77pouaahs4';
@@ -79,7 +79,7 @@
 <main class="legal-page">
 	<a href="/" class="back-link">&larr; Tillbaka</a>
 	<div class="page-header">
-		<EmojiProfilePictureWaving size={80} />
+		<EmojiWomanWaving size={80} />
 		<h1>Hör av dig</h1>
 	</div>
 

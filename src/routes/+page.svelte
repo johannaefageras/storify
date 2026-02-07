@@ -2,10 +2,10 @@
 	import { goto } from '$app/navigation';
 	import { themeStore } from '$lib/stores/theme.svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import { EmojiRoseLight, EmojiRoseDark } from '$lib/components/emojis';
+	import { EmojiRoseLight, EmojiRoseDark } from '$lib/assets/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
-	import IconArrowRight from '$lib/components/icons/IconArrowRight.svelte';
+	import IconArrowRight from '$lib/assets/icons/IconArrowRight.svelte';
 
 	let showTooltip = $state(false);
 

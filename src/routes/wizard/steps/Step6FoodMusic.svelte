@@ -2,9 +2,9 @@
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import {
 		EmojiShortcake,
-		EmojiHeadphonesAlt,
+		EmojiHeadphones,
 		EmojiPalette
-	} from '$lib/components/emojis';
+	} from '$lib/assets/emojis';
 	import { FIELD_LIMITS } from '$lib/validation';
 	import { moodColors } from '$lib/data/moodColors';
 
@@ -131,7 +131,7 @@
 
 	<div class="field-group">
 		<span class="field-label">
-			<span class="label-emoji"><EmojiHeadphonesAlt size={23} /></span>
+			<span class="label-emoji"><EmojiHeadphones size={23} /></span>
 			Vad var dagens soundtrack?
 		</span>
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->

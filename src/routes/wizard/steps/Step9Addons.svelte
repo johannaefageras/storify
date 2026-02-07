@@ -17,7 +17,7 @@
 		EmojiZodiacCapricorn,
 		EmojiZodiacAquarius,
 		EmojiZodiacPisces
-	} from '$lib/components/emojis';
+	} from '$lib/assets/emojis';
 	import type { Component } from 'svelte';
 
 	// Check if birthday is set

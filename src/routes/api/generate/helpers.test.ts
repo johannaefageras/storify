@@ -179,17 +179,17 @@ describe('formatWizardDataForPrompt', () => {
   });
 
   it('includes emojis with meanings', () => {
-    const data = createMinimalWizardData({ emojis: ['happy', 'tired'] });
+    const data = createMinimalWizardData({ emojis: ['face-beaming', 'face-tired'] });
     const result = formatWizardDataForPrompt(data);
     expect(result).toContain('Dagens känsla (emojis):');
-    expect(result).toContain('- Glad: Känner glädje och lycka');
-    expect(result).toContain('- Trött: Känner sig utmattad');
+    expect(result).toContain('- Strålande glad:');
+    expect(result).toContain('- Trött:');
   });
 
-  it('handles unknown emojis', () => {
-    const data = createMinimalWizardData({ emojis: ['unknown_emoji'] });
+  it('handles unknown emojis with fallback formatting', () => {
+    const data = createMinimalWizardData({ emojis: ['unknown-emoji'] });
     const result = formatWizardDataForPrompt(data);
-    expect(result).toContain('- unknown_emoji');
+    expect(result).toContain('- Unknown Emoji');
   });
 
   it('combines locations and custom locations', () => {

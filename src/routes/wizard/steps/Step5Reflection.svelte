@@ -5,7 +5,7 @@
 	EmojiWarning,
 	EmojiExclamationQuestion,
 	EmojiRedo
-} from '$lib/components/emojis';
+} from '$lib/assets/emojis';
 	import { FIELD_LIMITS } from '$lib/validation';
 
 	const fields: {

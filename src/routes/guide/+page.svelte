@@ -1,7 +1,7 @@
 <script lang="ts">
 	import {
-		EmojiProfilePictureTippingHand, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiOwl, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceUnamused, EmojiSatellite, EmojiFaceUpsideDown, EmojiArchive, EmojiTornado, EmojiWiltedFlower, EmojiFramedPictureAlt, EmojiPrinter, EmojiClipboard, EmojiEnvelopeIncoming, EmojiDiamond, EmojiPlus, EmojiMinus } from '$lib/components/emojis';
-	import { Number1, Number2, Number3, Number4, Number5, Number6, Number7, Number8 } from '$lib/components/numbers';
+		EmojiWomanTippingHand, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiOwl, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceUnamused, EmojiSatellite, EmojiFaceUpsideDown, EmojiArchive, EmojiTornado, EmojiWiltedFlower, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiEnvelopeIncoming, EmojiDiamond, EmojiPlus, EmojiMinus } from '$lib/assets/emojis';
+	import { Number1, Number2, Number3, Number4, Number5, Number6, Number7, Number8 } from '$lib/assets/numbers';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import { voiceSamples } from '$lib/data/voiceSamples';
 	import type { Snippet } from 'svelte';
@@ -41,7 +41,7 @@
 <main class="legal-page">
 	<a href="/" class="back-link">&larr; Tillbaka</a>
 	<div class="page-header">
-		<EmojiProfilePictureTippingHand size={80} />
+		<EmojiWomanTippingHand size={80} />
 		<h1>Användarguide</h1>
 	</div>
 	<p class="subtitle">Så får du ut det bästa av Storify</p>
@@ -160,7 +160,7 @@
 			{#snippet crownIcon()}<EmojiCrown size={20} />{/snippet}
 			{#snippet pooIcon()}<EmojiPoo size={20} />{/snippet}
 			{#snippet grimacingIcon()}<EmojiFaceGrimacing size={20} />{/snippet}
-			{#snippet flagUKIcon()}<EmojiFlagUK size={20} />{/snippet}
+			{#snippet flagUKIcon()}<EmojiFlagUk size={20} />{/snippet}
 			{#snippet videoGameIcon()}<EmojiVideoGame size={20} />{/snippet}
 			{#snippet yawningIcon()}<EmojiFaceYawning size={20} />{/snippet}
 			{#snippet earthIcon()}<EmojiEarth size={20} />{/snippet}
@@ -173,7 +173,7 @@
 			{#snippet nerdIcon()}<EmojiFaceNerd size={20} />{/snippet}
 			{#snippet satelliteIcon()}<EmojiSatellite size={20} />{/snippet}
 			{#snippet meditatingIcon()}<EmojiWomanMeditating size={20} />{/snippet}
-			{#snippet detectiveIcon()}<EmojiDetective size={20} />{/snippet}
+			{#snippet detectiveIcon()}<EmojiWomanDetective size={20} />{/snippet}
 			{#snippet explodingHeadIcon()}<EmojiFaceExplodingHead size={20} />{/snippet}
 			{#snippet upsideDownIcon()}<EmojiFaceUpsideDown size={20} />{/snippet}
 			{#snippet archiveIcon()}<EmojiArchive size={20} />{/snippet}
@@ -327,7 +327,7 @@
 
 		<div class="save-grid">
 			<div class="save-card">
-				<span class="save-emoji"><EmojiFramedPictureAlt size={28} /></span>
+				<span class="save-emoji"><EmojiFramedPicture size={28} /></span>
 				<div class="save-content">
 					<h3>Spara som en bild</h3>
 					<p>Spara som en bild till ditt fotoalbum.</p>

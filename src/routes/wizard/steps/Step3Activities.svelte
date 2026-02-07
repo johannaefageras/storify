@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import { EmojiPushpinRound, EmojiPushpin, EmojiHandWaving, EmojiHouse } from '$lib/components/emojis';
+	import { EmojiPushpinRound, EmojiPushpin, EmojiHandWaving, EmojiHouse } from '$lib/assets/emojis';
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 	import { FIELD_LIMITS } from '$lib/validation';
 	import { searchPlaces, getPlaceCategory, isAddress, type Place } from '$lib/utils/places';

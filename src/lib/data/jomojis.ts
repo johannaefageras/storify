@@ -1,6 +1,7 @@
 import type { JomojiCategory } from './jomojiTypes';
+import { jomojiLabels } from './jomojiLabels';
 
-const svgModules = import.meta.glob('$lib/assets/Jomojis/**/*.svg', {
+const svgModules = import.meta.glob('$lib/assets/picker/**/*.svg', {
   query: '?raw',
   eager: true,
   import: 'default'
@@ -61,10 +62,13 @@ export const jomojiCategories: JomojiCategory[] = categoryOrder
 // Lookup maps for rendering and labels
 export const jomojiSvgMap = new Map<string, string>();
 export const jomojiNameMap = new Map<string, string>();
+export const jomojiLabelMap = new Map<string, string>();
 
 for (const category of jomojiCategories) {
   for (const emoji of category.emojis) {
     jomojiSvgMap.set(emoji.id, emoji.svg);
     jomojiNameMap.set(emoji.id, emoji.name);
+    // Use Swedish labels when available, otherwise fall back to auto-generated name
+    jomojiLabelMap.set(emoji.id, jomojiLabels[emoji.id] ?? emoji.name);
   }
 }

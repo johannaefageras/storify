@@ -1,12 +1,11 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { tones } from '$lib/data/tones';
-	import { emojiLabelMap } from '$lib/data/emojis';
-	import { jomojiSvgMap, jomojiNameMap } from '$lib/data/jomojis';
+	import { jomojiSvgMap, jomojiLabelMap } from '$lib/data/jomojis';
 	import { uniqueSvgIds } from '$lib/utils/uniqueSvgIds';
 	import { getMoodColorById } from '$lib/data/moodColors';
 	import type { Component } from 'svelte';
-	import { EmojiSparklesAlt, EmojiRoseLight, EmojiRoseDark, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiArchive, EmojiEnvelopeIncoming, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUK, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiDice, EmojiTornado, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiCrystalBall, EmojiBooks, EmojiScroll, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces } from '$lib/components/emojis';
+	import { EmojiSparkles, EmojiRoseLight, EmojiRoseDark, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiArchive, EmojiEnvelopeIncoming, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiDice, EmojiTornado, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiCrystalBall, EmojiBooks, EmojiScroll, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
 	import html2canvas from 'html2canvas';
@@ -145,14 +144,14 @@ Vi ses imorgon, dagboken.`;
 	const toneIconMap: Record<string, Component> = {
 		'ai-robot': EmojiRobot,
 		'bored': EmojiFaceYawning,
-		'british': EmojiFlagUK,
+		'british': EmojiFlagUk,
 		'bureaucratic': EmojiArchive,
 		'cat-perspective': EmojiCat,
 		'chaotic': EmojiTornado,
 		'classic': EmojiLedger,
 		'cringe': EmojiFaceGrimacing,
 		'cynical': EmojiFaceUnamused,
-		'detective': EmojiDetective,
+		'detective': EmojiWomanDetective,
 		'drama-queen': EmojiCrown,
 		'formal': EmojiTopHat,
 		'melodramatic': EmojiHeartOnFire,
@@ -358,7 +357,7 @@ Vi ses imorgon, dagboken.`;
 
 		try {
 			const emojiLabels = wizardStore.data.emojis.map(
-				(emojiId) => emojiLabelMap.get(emojiId) ?? jomojiNameMap.get(emojiId) ?? emojiId
+				(emojiId) => jomojiLabelMap.get(emojiId) ?? emojiId
 			);
 
 			const response = await fetch(getApiUrl('/api/generate'), {
@@ -881,7 +880,7 @@ Vi ses imorgon, dagboken.`;
 					<span class="spinner"></span>
 					<span class="loading-phrase" class:visible={loadingPhraseVisible}>{loadingPhrase}</span>
 				{:else}
-					<span class="generate-icon"><EmojiSparklesAlt size={28} /></span>
+					<span class="generate-icon"><EmojiSparkles size={28} /></span>
 					Generera dagboksinlägg
 				{/if}
 			</button>

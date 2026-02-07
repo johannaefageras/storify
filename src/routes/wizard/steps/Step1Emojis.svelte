@@ -369,13 +369,25 @@
 		}
 	}
 
-	@media (max-width: 420px) {
+	@media (max-width: 380px) {
 		.emoji-grid {
 			grid-template-columns: repeat(4, 1fr);
 		}
 	}
 
-	@media (min-width: 480px) {
+	@media (min-width: 601px) {
+		.emoji-grid {
+			grid-template-columns: repeat(8, 1fr);
+		}
+	}
+
+	@media (min-width: 768px) {
+		.emoji-grid {
+			grid-template-columns: repeat(10, 1fr);
+		}
+	}
+
+	@media (min-width: 1024px) {
 		.emoji-grid {
 			grid-template-columns: repeat(12, 1fr);
 		}
