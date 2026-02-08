@@ -1,15 +1,14 @@
 <script lang="ts">
-	import { EmojiWomanDetective, EmojiDiamond } from '$lib/assets/emojis';
+	import { EmojiShield, EmojiDiamond } from '$lib/assets/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 </script>
 
 <main class="legal-page">
-	<a href="/" class="back-link">&larr; Tillbaka</a>
 	<div class="page-header">
-		<EmojiWomanDetective size={80} />
+		<EmojiShield size={96} />
 		<h1>Integritetspolicy</h1>
 	</div>
-	<p class="updated">Senast uppdaterad: 2 februari 2026</p>
+	<p class="updated">Senast uppdaterad: 8 februari 2026</p>
 
 	<section>
 		<h2>Vem ansvarar för dina uppgifter?</h2>
@@ -22,30 +21,61 @@
 		<div class="custom-ul">
 			<div class="custom-li">
 				<span class="list-icon"><EmojiDiamond size={12} /></span>
-				<span class="list-content"><strong>Profilinformation:</strong> namn, ålder, pronomen, hemstad, familj, husdjur, sysselsättning och intressen</span>
+				<span class="list-content"><strong>Profilinformation:</strong> Namn, födelsedag, pronomen, hemstad, familj, husdjur, sysselsättning och intressen</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><EmojiDiamond size={12} /></span>
-				<span class="list-content"><strong>Dagboksdata:</strong> datum, väder, humör, energinivå, sömnkvalitet, platser du besökt, aktiviteter, personer du träffat, reflektioner, meddelanden till ditt framtida jag (tidskapsel) och annat du väljer att dela</span>
+				<span class="list-content"><strong>Dagboksdata:</strong> Datum, väder, humör, energinivå, sömnkvalitet, emojis, platser du besökt, aktiviteter, personer du träffat, vinster, motgångar, reflektioner, mat, musik, färg, meddelanden till ditt framtida jag (tidskapsel) och annat du väljer att dela</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><EmojiDiamond size={12} /></span>
-				<span class="list-content"><strong>Platsdata:</strong> Om du väljer att aktivera väderdetektering kan appen begära tillgång till din ungefärliga position för att hämta aktuellt väder. Denna position används endast för att anropa vädertjänsten och sparas inte.</span>
+				<span class="list-content"><strong>Kontoinformation:</strong> Om du skapar ett konto sparas din e-postadress och ett krypterat lösenord hos vår databastjänst</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Platsdata:</strong> Om du väljer att aktivera väder- och platsdetektering kan appen begära tillgång till din ungefärliga position för att hämta aktuellt väder och platsnamn. Denna position används endast för dessa förfrågningar och sparas inte</span>
 			</div>
 		</div>
-		<p>All denna information lagras lokalt på din egen enhet – inte på våra servrar.</p>
+	</section>
+
+	<section>
+		<h2>Hur lagras dina uppgifter?</h2>
+		<p>Var din data lagras beror på om du använder appen med eller utan konto:</p>
+
+		<h3>Utan konto</h3>
+		<p>All din data lagras lokalt på din enhet med hjälp av enhetens inbyggda lagringsfunktioner. Vi har ingen tillgång till denna data och den lämnar aldrig din enhet förutom när du aktivt väljer att generera en dagbokstext.</p>
+		<p>Du kan när som helst radera all lokalt sparad data genom att trycka på "Rensa sparad data" på startsidan.</p>
+
+		<h3>Med konto</h3>
+		<p>Om du skapar ett konto lagras din profil och dina sparade dagboksinlägg i molnet hos vår databastjänst. Detta gör att du kan komma åt din data från olika enheter. En funktionell cookie sätts för att hålla din session aktiv.</p>
 	</section>
 
 	<section>
 		<h2>Hur används dina uppgifter?</h2>
-		<p>Din data används för ett enda syfte: att skapa en personlig dagbokstext åt dig. När du trycker på "Skapa dagboksinlägg" skickas dina uppgifter krypterat till vår AI-tjänst (Anthropic) som genererar texten. Efter att texten skapats sparas ingen data hos Anthropic – de använder inte heller din information för att träna sina AI-modeller.</p>
-		<p>Den rättsliga grunden för denna behandling enligt GDPR är ditt samtycke – du väljer själv att fylla i uppgifterna och att generera en dagbokstext.</p>
-	</section>
-
-	<section>
-		<h2>Var lagras dina uppgifter?</h2>
-		<p>All din data lagras lokalt på din enhet med hjälp av enhetens inbyggda lagringsfunktioner. Vi har ingen tillgång till denna data och den lämnar aldrig din enhet förutom när du aktivt väljer att generera en dagbokstext.</p>
-		<p>Du kan när som helst radera all sparad data genom att trycka på "Rensa sparad data" på startsidan.</p>
+		<p>Din data används för följande syften:</p>
+		<div class="custom-ul">
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Generera dagbokstexter:</strong> När du trycker på "Skapa dagboksinlägg" skickas dina uppgifter krypterat till vår AI-tjänst (Anthropic) som genererar texten. Efter att texten skapats sparas ingen data hos Anthropic – de använder inte heller din information för att träna sina AI-modeller.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Autentisering:</strong> Om du skapar ett konto används din e-postadress och lösenord för att logga in dig och hålla din session aktiv.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Journalarkiv:</strong> Om du är inloggad och väljer att spara en genererad text sparas den i ditt personliga arkiv så att du kan läsa den igen senare.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>E-postleverans:</strong> Om du väljer att skicka din dagbokstext via e-post skickas din e-postadress och texten till vår e-posttjänst för leverans.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Hastighetsbegränsning:</strong> Vi använder hastighetsbegränsning för att skydda tjänsten mot missbruk. I samband med detta behandlas en anonymiserad identifierare tillfälligt.</span>
+			</div>
+		</div>
+		<p>Den rättsliga grunden för denna behandling enligt GDPR är ditt samtycke – du väljer själv att fylla i uppgifterna, skapa konto och generera dagbokstexter.</p>
 	</section>
 
 	<section>
@@ -58,11 +88,19 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><EmojiDiamond size={12} /></span>
-				<span class="list-content"><strong>Resend:</strong> E-posttjänst som används om du väljer att skicka din dagbokstext via e-post. Din e-postadress och dagbokstexten skickas då till Resend för leverans. Vi sparar inte din e-postadress och Resend hanterar den endast för att skicka meddelandet. Resend är baserat i USA och följer lämpliga skyddsåtgärder för internationell dataöverföring. Läs mer i <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener">Resends integritetspolicy</a>.</span>
+				<span class="list-content"><strong>Databastjänst:</strong> Om du skapar ett konto lagras din profil, kontoinformation och sparade dagboksinlägg hos vår databastjänst. Tjänsten hanterar även autentisering och sätter en funktionell cookie för att hålla din session aktiv. Data lagras krypterat.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><EmojiDiamond size={12} /></span>
-				<span class="list-content"><strong>Väder-API:</strong> Om du aktiverar väderdetektering skickas din ungefärliga position till en extern vädertjänst för att hämta aktuellt väder. Positionen sparas inte och används endast för denna enstaka förfrågan.</span>
+				<span class="list-content"><strong>E-posttjänst:</strong> Om du väljer att skicka din dagbokstext via e-post skickas din e-postadress och dagbokstexten till vår e-posttjänst för leverans. Vi sparar inte din e-postadress och tjänsten hanterar den endast för att skicka meddelandet. Läs mer i <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener">e-posttjänstens integritetspolicy</a>.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Väder- och platstjänster:</strong> Om du aktiverar väder- och platsdetektering skickas din ungefärliga position till externa tjänster för att hämta aktuellt väder och platsnamn. Positionen sparas inte och används endast för dessa enstaka förfrågningar. Platsautokomplettering i formuläret använder en extern söktjänst som behandlar det du skriver i fältet.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Kontaktformulär:</strong> Om du skickar ett meddelande via kontaktsidan behandlas dina uppgifter av en extern formulärtjänst för att leverera meddelandet till oss.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><EmojiDiamond size={12} /></span>
@@ -73,11 +111,11 @@
 
 	<section>
 		<h2>Dina rättigheter enligt GDPR</h2>
-		<p>Enligt EU:s dataskyddsförordning (GDPR) har du ett antal rättigheter när det gäller dina personuppgifter. Eftersom all din data lagras lokalt på din enhet har du redan full kontroll, men här är dina rättigheter:</p>
+		<p>Enligt EU:s dataskyddsförordning (GDPR) har du ett antal rättigheter när det gäller dina personuppgifter:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
 				<span class="list-icon"><EmojiDiamond size={12} /></span>
-				<span class="list-content"><strong>Rätt till tillgång:</strong> Du kan se all din sparade data direkt i appen</span>
+				<span class="list-content"><strong>Rätt till tillgång:</strong> Du kan se all din sparade data direkt i appen – lokalt på din enhet eller i ditt konto</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><EmojiDiamond size={12} /></span>
@@ -85,11 +123,11 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><EmojiDiamond size={12} /></span>
-				<span class="list-content"><strong>Rätt till radering:</strong> Du kan radera all data via "Rensa sparad data" på startsidan</span>
+				<span class="list-content"><strong>Rätt till radering:</strong> Utan konto kan du radera all data via "Rensa sparad data" på startsidan. Om du har ett konto kan du radera enskilda dagboksinlägg i ditt journalarkiv. Vill du att all din kontodata raderas kan du kontakta oss.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><EmojiDiamond size={12} /></span>
-				<span class="list-content"><strong>Rätt till dataportabilitet:</strong> Din data finns redan på din enhet</span>
+				<span class="list-content"><strong>Rätt till dataportabilitet:</strong> Utan konto finns din data redan på din enhet. Med konto kan du exportera dina dagboksinlägg som bild, PDF eller text.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><EmojiDiamond size={12} /></span>
@@ -101,7 +139,7 @@
 
 	<section>
 		<h2>Barn och unga</h2>
-		<p>Storify kan användas av personer i alla åldrar. Vi samlar inte medvetet in mer information än nödvändigt, och all data stannar på användarens egen enhet. Vi uppmuntrar föräldrar och vårdnadshavare att vara delaktiga i yngre barns användning av appen.</p>
+		<p>Storify kan användas av personer i alla åldrar. Vi samlar inte medvetet in mer information än nödvändigt, och all data stannar på användarens egen enhet om inget konto skapas. Vi uppmuntrar föräldrar och vårdnadshavare att vara delaktiga i yngre barns användning av appen.</p>
 	</section>
 
 	<section>
@@ -124,20 +162,6 @@
 		padding: 2rem;
 		padding-top: calc(env(safe-area-inset-top, 0px) + 2rem);
 		padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 2rem);
-	}
-
-	.back-link {
-		display: inline-block;
-		margin-bottom: 2rem;
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		color: var(--color-text-muted);
-		text-decoration: none;
-		transition: color 0.2s ease;
-	}
-
-	.back-link:hover {
-		color: var(--color-text);
 	}
 
 	.page-header {
@@ -172,6 +196,19 @@
 		font-weight: var(--weight-semibold);
 		color: var(--color-text);
 		margin-bottom: 0.75rem;
+	}
+
+	h3 {
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-semibold);
+		color: var(--color-text);
+		margin-bottom: 0.5rem;
+		margin-top: 1rem;
+	}
+
+	section h3:first-of-type {
+		margin-top: 0;
 	}
 
 	section {

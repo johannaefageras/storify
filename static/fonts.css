@@ -20,3 +20,196 @@
   font-style: normal italic;
   font-display: swap;
 }
+
+/* RECKLESS */
+/* Reckless – Thin */
+
+@font-face {
+  font-family: 'Reckless';
+  src:
+    url('/fonts/reckless/Reckless-Thin.woff2') format('woff2'),
+    url('/fonts/reckless/Reckless-Thin.woff') format('woff'),
+    url('/fonts/reckless/Reckless-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Reckless';
+  src:
+    url('/fonts/reckless/Reckless-ThinItalic.woff2') format('woff2'),
+    url('/fonts/reckless/Reckless-ThinItalic.woff') format('woff'),
+    url('/fonts/reckless/Reckless-ThinItalic.ttf') format('truetype');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Reckless – Light */
+
+@font-face {
+  font-family: 'Reckless';
+  src:
+    url('/fonts/reckless/Reckless-Light.woff2') format('woff2'),
+    url('/fonts/reckless/Reckless-Light.woff') format('woff'),
+    url('/fonts/reckless/Reckless-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Reckless';
+  src:
+    url('/fonts/reckless/Reckless-LightItalic.woff2') format('woff2'),
+    url('/fonts/reckless/Reckless-LightItalic.woff') format('woff'),
+    url('/fonts/reckless/Reckless-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Reckless – Book */
+
+@font-face {
+  font-family: 'Reckless';
+  src:
+    url('/fonts/reckless/Reckless-Book.woff2') format('woff2'),
+    url('/fonts/reckless/Reckless-Book.woff') format('woff'),
+    url('/fonts/reckless/Reckless-Book.ttf') format('truetype');
+  font-weight: 350;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Reckless';
+  src:
+    url('/fonts/reckless/Reckless-BookItalic.woff2') format('woff2'),
+    url('/fonts/reckless/Reckless-BookItalic.woff') format('woff'),
+    url('/fonts/reckless/Reckless-BookItalic.ttf') format('truetype');
+  font-weight: 350;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Reckless – Regular */
+
+@font-face {
+  font-family: 'Reckless';
+  src:
+    url('/fonts/reckless/Reckless-Regular.woff2') format('woff2'),
+    url('/fonts/reckless/Reckless-Regular.woff') format('woff'),
+    url('/fonts/reckless/Reckless-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Reckless';
+  src:
+    url('/fonts/reckless/Reckless-RegularItalic.woff2') format('woff2'),
+    url('/fonts/reckless/Reckless-RegularItalic.woff') format('woff'),
+    url('/fonts/reckless/Reckless-RegularItalic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Reckless – Medium */
+
+@font-face {
+  font-family: 'Reckless';
+  src:
+    url('/fonts/reckless/Reckless-Medium.woff2') format('woff2'),
+    url('/fonts/reckless/Reckless-Medium.woff') format('woff'),
+    url('/fonts/reckless/Reckless-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Reckless';
+  src:
+    url('/fonts/reckless/Reckless-MediumItalic.woff2') format('woff2'),
+    url('/fonts/reckless/Reckless-MediumItalic.woff') format('woff'),
+    url('/fonts/reckless/Reckless-MediumItalic.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Reckless – SemiBold */
+
+@font-face {
+  font-family: 'Reckless';
+  src:
+    url('/fonts/reckless/Reckless-SemiBold.woff2') format('woff2'),
+    url('/fonts/reckless/Reckless-SemiBold.woff') format('woff'),
+    url('/fonts/reckless/Reckless-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Reckless';
+  src:
+    url('/fonts/reckless/Reckless-SemiBoldItalic.woff2') format('woff2'),
+    url('/fonts/reckless/Reckless-SemiBoldItalic.woff') format('woff'),
+    url('/fonts/reckless/Reckless-SemiBoldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Reckless – Bold */
+
+@font-face {
+  font-family: 'Reckless';
+  src:
+    url('/fonts/reckless/Reckless-Bold.woff2') format('woff2'),
+    url('/fonts/reckless/Reckless-Bold.woff') format('woff'),
+    url('/fonts/reckless/Reckless-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Reckless';
+  src:
+    url('/fonts/reckless/Reckless-BoldItalic.woff2') format('woff2'),
+    url('/fonts/reckless/Reckless-BoldItalic.woff') format('woff'),
+    url('/fonts/reckless/Reckless-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Reckless – Heavy */
+
+@font-face {
+  font-family: 'Reckless';
+  src:
+    url('/fonts/reckless/Reckless-Heavy.woff2') format('woff2'),
+    url('/fonts/reckless/Reckless-Heavy.woff') format('woff'),
+    url('/fonts/reckless/Reckless-Heavy.ttf') format('truetype');
+  font-weight: 850;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Reckless';
+  src:
+    url('/fonts/reckless/Reckless-HeavyItalic.woff2') format('woff2'),
+    url('/fonts/reckless/Reckless-HeavyItalic.woff') format('woff'),
+    url('/fonts/reckless/Reckless-HeavyItalic.ttf') format('truetype');
+  font-weight: 850;
+  font-style: italic;
+  font-display: swap;
+}

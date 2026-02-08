@@ -5,12 +5,11 @@
 </script>
 
 <main class="legal-page">
-	<a href="/" class="back-link">&larr; Tillbaka</a>
 	<div class="page-header">
 		{#if themeStore.current === 'dark'}
-			<EmojiRoseLight size={80} />
+			<EmojiRoseLight size={96} />
 		{:else}
-			<EmojiRoseDark size={80} />
+			<EmojiRoseDark size={96} />
 		{/if}
 		<h1>Om Storify</h1>
 	</div>
@@ -18,8 +17,20 @@
 	<section>
 		<h2>En dagbok för oss som aldrig skriver dagbok</h2>
 		<p>Du vet de där fina anteckningsböckerna du köpt med de bästa intentioner? De som ligger i en låda någonstans med kanske tre inlägg – varav det sista börjar med "Oj, det var länge sen..."?</p>
-		<p>Storify är för oss. För alla som vill minnas sin vardag men som inte har tid, ork eller inspiration att faktiskt sätta sig ner och skriva. Svara på några frågor, välj en röst som passar ditt humör, och låt AI:n göra det jobbiga – själva skrivandet.</p>
-		<p>Appen hämtar till och med vädret automatiskt baserat på din position, och låter dig skriva en liten tidskapsel – ett meddelande till ditt framtida jag som vävs in i dagbokstexten.</p>
+		<p>Storify är för oss. För alla som vill minnas sin vardag men som inte har tid, ork eller inspiration att faktiskt sätta sig ner och skriva. Gå igenom en guide med frågor om din dag, välj en av 28 unika röster som passar ditt humör, och låt AI:n göra det jobbiga – själva skrivandet.</p>
+	</section>
+
+	<section>
+		<h2>Vad kan appen göra?</h2>
+		<p>Storify guidar dig genom en steg-för-steg-wizard där du berättar om din dag – allt från humör och energinivå till aktiviteter, vinster, motgångar och reflektioner. Du kan välja emojis som sammanfattar din dag, beskriva vad du ätit och lyssnat på, och till och med skriva en tidskapsel – ett meddelande till ditt framtida jag som vävs in i dagbokstexten.</p>
+		<p>Appen hämtar vädret automatiskt baserat på din position och kan fylla i din plats åt dig. Vill du krydda din dagbok lite extra? Lägg till ett personligt horoskop, historiska händelser som inträffat på samma datum, eller en liten "hemläxa" – en reflektion eller utmaning baserad på din dag.</p>
+		<p>När texten är klar kan du spara den som bild eller PDF, kopiera den, eller skicka den som e-post. Skapar du ett konto kan du dessutom spara dina dagboksinlägg i ett personligt journalarkiv och komma åt dem när som helst.</p>
+		<p>Storify finns som webbapp och som Android-app.</p>
+	</section>
+
+	<section>
+		<h2>28 röster – från poetisk till pinsam</h2>
+		<p>Det som gör Storify unikt är rösterna. Välj mellan 28 helt olika skrivstilar: klassisk dagbok, sportkommentator, kattperspektiv, Shakespeare, kvällstidning, meme-språk, byråkratisk myndighetsstil – och mycket mer. Samma dag kan bli helt olika beroende på vilken röst du väljer. Kan du inte bestämma dig? Låt appen överraska dig med en slumpmässig röst.</p>
 	</section>
 
 	<section>
@@ -56,7 +67,7 @@
 
 	<section>
 		<h2>Tack för att du är här</h2>
-		<p>Att du använder något jag byggt på min fritid mellan arbetspass och kattgos betyder enormt mycket. Har du tankar, idéer eller bara vill säga hej? <a href="/contact">Hör av dig!</a></p>
+		<p>Att du använder något jag byggt på sena kvällar med för mycket kaffe betyder enormt mycket. Har du tankar, idéer eller bara vill säga hej? <a href="/contact">Hör av dig!</a></p>
 	</section>
 
 	<LegalFooter />
@@ -69,20 +80,6 @@
 		padding: 2rem;
 		padding-top: calc(env(safe-area-inset-top, 0px) + 2rem);
 		padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 2rem);
-	}
-
-	.back-link {
-		display: inline-block;
-		margin-bottom: 2rem;
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		color: var(--color-text-muted);
-		text-decoration: none;
-		transition: color 0.2s ease;
-	}
-
-	.back-link:hover {
-		color: var(--color-text);
 	}
 
 	.page-header {

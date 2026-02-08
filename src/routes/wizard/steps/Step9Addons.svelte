@@ -3,8 +3,8 @@
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
 	import {
 		EmojiCrystalBall,
-		EmojiBooks,
-		EmojiScroll,
+		EmojiLightBulb,
+		EmojiMantelpieceClock,
 		EmojiZodiacAries,
 		EmojiZodiacTaurus,
 		EmojiZodiacGemini,
@@ -105,7 +105,7 @@
 			type="button"
 		>
 			<div class="addon-icon">
-				<EmojiScroll size={40} />
+				<EmojiMantelpieceClock size={40} />
 			</div>
 			<div class="addon-content">
 				<h3 class="addon-title">På denna dag...</h3>
@@ -127,7 +127,7 @@
 			type="button"
 		>
 			<div class="addon-icon">
-				<EmojiBooks size={40} />
+				<EmojiLightBulb size={40} />
 			</div>
 			<div class="addon-content">
 				<h3 class="addon-title">Hemläxa</h3>

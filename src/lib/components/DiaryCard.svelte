@@ -3,9 +3,10 @@
 	import { jomojiSvgMap } from '$lib/data/jomojis';
 	import { uniqueSvgIds } from '$lib/utils/uniqueSvgIds';
 	import type { Component } from 'svelte';
-	import { EmojiCrystalBall, EmojiBooks, EmojiScroll, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces, EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanDetective, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFaceNerd, EmojiFaceExplodingHead } from '$lib/assets/emojis';
+	import { EmojiCrystalBall, EmojiLightBulb, EmojiMantelpieceClock, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces, EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanDetective, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFaceNerd, EmojiFaceExplodingHead } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
+	import { getRenderParagraphs, formatParagraph } from '$lib/utils/paragraphs';
 
 	interface Props {
 		weekday: string;
@@ -70,68 +71,6 @@
 		'troubadour': EmojiMusicalNotes
 	};
 
-	type ParagraphType = 'horoscope-heading' | 'onthisday-heading' | 'homework-heading' | 'regular';
-	type RenderParagraph = { type: ParagraphType; text: string };
-
-	function getParagraphType(text: string): ParagraphType {
-		const trimmed = text.trim().replace(/^\*+|\*+$/g, '');
-		if (/^Horoskop för /i.test(trimmed) || /^Horoscope for /i.test(trimmed)) {
-			return 'horoscope-heading';
-		}
-		if (
-			/^På denna dag(?:[\s.!:…—–-]*)$/i.test(trimmed) ||
-			/^On this day(?:[\s.!:…—–-]*)$/i.test(trimmed)
-		) {
-			return 'onthisday-heading';
-		}
-		if (/^Hemläxa/i.test(trimmed) || /^Homework/i.test(trimmed)) {
-			return 'homework-heading';
-		}
-		return 'regular';
-	}
-
-	function formatParagraph(text: string): string {
-		return text
-			.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-			.replace(/\*(.*?)\*/g, '<em>$1</em>')
-			.replace(/\n/g, '<br>');
-	}
-
-	function isSeparatorParagraph(text: string): boolean {
-		return /^-{3,}$/.test(text.trim());
-	}
-
-	function getRenderParagraphs(entry: string): RenderParagraph[] {
-		if (!entry) return [];
-		const paragraphs = entry.split(/\n{2,}/);
-		const result: RenderParagraph[] = [];
-
-		for (const paragraph of paragraphs) {
-			if (!paragraph.trim()) continue;
-			if (isSeparatorParagraph(paragraph)) continue;
-
-			const paragraphType = getParagraphType(paragraph);
-			if (paragraphType === 'regular') {
-				result.push({ type: 'regular', text: paragraph });
-				continue;
-			}
-
-			const lines = paragraph
-				.split('\n')
-				.map((line) => line.trim())
-				.filter((line) => line && !isSeparatorParagraph(line));
-			if (lines.length === 0) continue;
-
-			result.push({ type: paragraphType, text: lines[0] });
-
-			if (lines.length > 1) {
-				result.push({ type: 'regular', text: lines.slice(1).join('\n') });
-			}
-		}
-
-		return result;
-	}
-
 	function getEmojiSvg(emojiId: string): string | undefined {
 		return jomojiSvgMap.get(emojiId);
 	}
@@ -184,12 +123,12 @@
 				</p>
 			{:else if paragraph.type === 'onthisday-heading'}
 				<p class="addon-heading">
-					<span class="addon-icon"><UniqueEmoji><EmojiScroll size={24} /></UniqueEmoji></span>
+					<span class="addon-icon"><UniqueEmoji><EmojiMantelpieceClock size={24} /></UniqueEmoji></span>
 					<span>{@html formatParagraph(paragraph.text)}</span>
 				</p>
 			{:else if paragraph.type === 'homework-heading'}
 				<p class="addon-heading">
-					<span class="addon-icon"><UniqueEmoji><EmojiBooks size={24} /></UniqueEmoji></span>
+					<span class="addon-icon"><UniqueEmoji><EmojiLightBulb size={24} /></UniqueEmoji></span>
 					<span>{@html formatParagraph(paragraph.text)}</span>
 				</p>
 			{:else}

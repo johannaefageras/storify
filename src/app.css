@@ -91,6 +91,7 @@
 :root {
   /* Font Families */
   --font-primary: 'GT Pressura', system-ui, sans-serif;
+  --font-serif: 'Reckless', serif;
   --font-mono: 'GT Pressura Mono', ui-monospace, monospace;
 
   /* Legacy aliases for compatibility */
@@ -162,8 +163,8 @@
 	   ========================================================================== */
 
   --weight-light: 300;
-  --weight-book: 350;
-  --weight-regular: 400;
+  --weight-book: 375;
+  --weight-regular: 415;
   --weight-news: 450;
   --weight-medium: 480; /* Slightly heavier than typical 500 */
   --weight-semibold: 560; /* Between medium and bold */
@@ -323,7 +324,7 @@ em,
 i {
   /* Instead of italic, use slightly lighter weight with subtle distinction */
   font-style: normal;
-  font-weight: var(--weight-light);
+  font-weight: var(--weight-medium);
   letter-spacing: var(--tracking-wider);
 }
 

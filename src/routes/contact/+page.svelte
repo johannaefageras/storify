@@ -77,9 +77,8 @@
 <svelte:window onkeydown={handleKeydown} />
 
 <main class="legal-page">
-	<a href="/" class="back-link">&larr; Tillbaka</a>
 	<div class="page-header">
-		<EmojiWomanWaving size={80} />
+		<EmojiWomanWaving size={96} />
 		<h1>Hör av dig</h1>
 	</div>
 
@@ -230,20 +229,6 @@
 		padding: 2rem;
 		padding-top: calc(env(safe-area-inset-top, 0px) + 2rem);
 		padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 2rem);
-	}
-
-	.back-link {
-		display: inline-block;
-		margin-bottom: 2rem;
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		color: var(--color-text-muted);
-		text-decoration: none;
-		transition: color 0.2s ease;
-	}
-
-	.back-link:hover {
-		color: var(--color-text);
 	}
 
 	.page-header {

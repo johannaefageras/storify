@@ -7,12 +7,14 @@
 	import { uniqueSvgIds } from '$lib/utils/uniqueSvgIds';
 	import { getMoodColorById } from '$lib/data/moodColors';
 	import type { Component } from 'svelte';
-	import { EmojiSparkles, EmojiRoseLight, EmojiRoseDark, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiArchive, EmojiEnvelopeIncoming, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiDice, EmojiTornado, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiCrystalBall, EmojiBooks, EmojiScroll, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces } from '$lib/assets/emojis';
+	import { EmojiSparkles, EmojiRoseLight, EmojiRoseDark, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiArchive, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiDice, EmojiTornado, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiCrystalBall, EmojiLightBulb, EmojiMantelpieceClock, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
-	import html2canvas from 'html2canvas';
-	import { jsPDF } from 'jspdf';
+	import { downloadAsImage } from '$lib/utils/imageDownload';
+	import { downloadAsPdf } from '$lib/utils/pdfDownload';
+	import { isSeparatorParagraph } from '$lib/utils/paragraphs';
+	import PdfDocument from '$lib/components/PdfDocument.svelte';
 	import { getApiUrl } from '$lib/config';
 	import { goto } from '$app/navigation';
 	import resultMessages from '$lib/data/resultMessages.json';
@@ -23,7 +25,7 @@
 	let error = $state('');
 	// References for export
 	let diaryCardRef: DiaryCard = $state(null!);
-	let pdfElement: HTMLDivElement = $state(null!);
+	let pdfDocRef: PdfDocument = $state(null!);
 	let isDownloading = $state(false);
 	let isDownloadingPdf = $state(false);
 	let isCopying = $state(false);
@@ -120,30 +122,6 @@ Vi ses imorgon, dagboken.`;
 	const zodiacSign = $derived(getZodiacFromBirthday(wizardStore.data.profile.birthday));
 	const hasAddons = $derived(wizardStore.data.includeHoroscope || wizardStore.data.includeOnThisDay || wizardStore.data.includeHomework);
 
-	// Detect addon heading type for rendering with emoji icons
-	type ParagraphType = 'horoscope-heading' | 'onthisday-heading' | 'homework-heading' | 'regular';
-
-	function getParagraphType(text: string): ParagraphType {
-		// Strip markdown formatting (**, *) from start/end before checking patterns
-		const trimmed = text.trim().replace(/^\*+|\*+$/g, '');
-		// Check for horoscope heading (Swedish or English)
-		if (/^Horoskop för /i.test(trimmed) || /^Horoscope for /i.test(trimmed)) {
-			return 'horoscope-heading';
-		}
-		// Check for "on this day" heading (Swedish or English)
-		if (
-			/^På denna dag(?:[\s.!:…—–-]*)$/i.test(trimmed) ||
-			/^On this day(?:[\s.!:…—–-]*)$/i.test(trimmed)
-		) {
-			return 'onthisday-heading';
-		}
-		// Check for homework heading (Swedish or English)
-		if (/^Hemläxa/i.test(trimmed) || /^Homework/i.test(trimmed)) {
-			return 'homework-heading';
-		}
-		return 'regular';
-	}
-
 	function getZodiacComponent(): Component | undefined {
 		if (!zodiacSign) return undefined;
 		return zodiacComponents[zodiacSign.id];
@@ -219,19 +197,6 @@ Vi ses imorgon, dagboken.`;
 		| { type: 'list'; label: string; items: string[] }
 		| { type: 'color'; label: string; colorId: string; colorName: string; cssVar: string };
 
-	type RenderParagraph = { type: ParagraphType; text: string };
-
-	function formatParagraph(text: string): string {
-		return text
-			.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-			.replace(/\*(.*?)\*/g, '<em>$1</em>')
-			.replace(/\n/g, '<br>');
-	}
-
-	function isSeparatorParagraph(text: string): boolean {
-		return /^-{3,}$/.test(text.trim());
-	}
-
 	function stripSeparatorLines(entry: string): string {
 		return entry
 			.split('\n')
@@ -239,37 +204,6 @@ Vi ses imorgon, dagboken.`;
 			.join('\n')
 			.replace(/\n{3,}/g, '\n\n')
 			.trim();
-	}
-
-	function getRenderParagraphs(entry: string): RenderParagraph[] {
-		if (!entry) return [];
-		const paragraphs = entry.split(/\n{2,}/);
-		const result: RenderParagraph[] = [];
-
-		for (const paragraph of paragraphs) {
-			if (!paragraph.trim()) continue;
-			if (isSeparatorParagraph(paragraph)) continue;
-
-			const paragraphType = getParagraphType(paragraph);
-			if (paragraphType === 'regular') {
-				result.push({ type: 'regular', text: paragraph });
-				continue;
-			}
-
-			const lines = paragraph
-				.split('\n')
-				.map((line) => line.trim())
-				.filter((line) => line && !isSeparatorParagraph(line));
-			if (lines.length === 0) continue;
-
-			result.push({ type: paragraphType, text: lines[0] });
-
-			if (lines.length > 1) {
-				result.push({ type: 'regular', text: lines.slice(1).join('\n') });
-			}
-		}
-
-		return result;
 	}
 
 	function getFilledData(): SummaryItem[] {
@@ -333,7 +267,7 @@ Vi ses imorgon, dagboken.`;
 	}
 
 	const summaryData = $derived(getFilledData());
-	const renderParagraphs = $derived(getRenderParagraphs(generatedEntry));
+
 
 	$effect(() => {
 		wizardStore.setResultView(generatedEntry.trim().length > 0);
@@ -405,23 +339,15 @@ Vi ses imorgon, dagboken.`;
 		resultMessage = resultMessages[randomIndex];
 	}
 
-	async function downloadAsImage() {
-		const documentElement = diaryCardRef?.getDocumentElement();
-		if (!documentElement || isDownloading) return;
+	async function downloadAsImageHandler() {
+		const element = diaryCardRef?.getDocumentElement();
+		if (!element || isDownloading) return;
 		isDownloading = true;
 
 		try {
-			const canvas = await html2canvas(documentElement, {
-				backgroundColor: isDarkMode ? '#1c1c1f' : '#ffffff',
-				useCORS: true,
-				logging: false
-			} as Parameters<typeof html2canvas>[1] & { scale?: number });
-			// Note: scale is set via window.devicePixelRatio or canvas is scaled manually if higher DPI needed
-
-			const link = document.createElement('a');
-			link.download = `dagbok-${wizardStore.data.date?.replace(/[\s,]+/g, '-').replace(/-+/g, '-') || 'entry'}.png`;
-			link.href = canvas.toDataURL('image/png', 1.0);
-			link.click();
+			const filename = `dagbok-${wizardStore.data.date?.replace(/[\s,]+/g, '-').replace(/:/g, '').replace(/-+/g, '-') || 'entry'}.png`;
+			const exportWidth = Math.max(1200, Math.ceil(element.getBoundingClientRect().width));
+			await downloadAsImage(element, filename, { width: exportWidth, scale: 2 });
 		} catch (err) {
 			console.error('Failed to download image:', err);
 		} finally {
@@ -429,48 +355,14 @@ Vi ses imorgon, dagboken.`;
 		}
 	}
 
-	async function downloadAsPdf() {
-		if (!pdfElement || isDownloadingPdf) return;
+	async function downloadAsPdfHandler() {
+		const element = pdfDocRef?.getElement();
+		if (!element || isDownloadingPdf) return;
 		isDownloadingPdf = true;
 
 		try {
-			const a4Width = 210;
-			const a4Height = 297;
-
-			await document.fonts.ready;
-
-			const canvas = await html2canvas(pdfElement, {
-				backgroundColor: '#ffffff',
-				useCORS: true,
-				logging: false,
-				width: 720
-			} as Parameters<typeof html2canvas>[1] & { scale?: number });
-
-			const margin = 15;
-			const maxWidth = a4Width - margin * 2;
-			const maxHeight = a4Height - margin * 2;
-
-			const pxToMm = 25.4 / (96 * 3);
-			const contentWidthMm = canvas.width * pxToMm;
-			const contentHeightMm = canvas.height * pxToMm;
-
-			const scale = Math.min(maxWidth / contentWidthMm, maxHeight / contentHeightMm, 1);
-			const finalWidth = contentWidthMm * scale;
-			const finalHeight = contentHeightMm * scale;
-
-			const x = (a4Width - finalWidth) / 2;
-			const y = margin;
-
-			const pdf = new jsPDF({
-				orientation: 'portrait',
-				unit: 'mm',
-				format: 'a4'
-			});
-
-			const imgData = canvas.toDataURL('image/png', 1.0);
-			pdf.addImage(imgData, 'PNG', x, y, finalWidth, finalHeight);
-
-			pdf.save(`dagbok-${wizardStore.data.date?.replace(/[\s,]+/g, '-').replace(/-+/g, '-') || 'entry'}.pdf`);
+			const filename = `dagbok-${wizardStore.data.date?.replace(/[\s,]+/g, '-').replace(/:/g, '').replace(/-+/g, '-') || 'entry'}.pdf`;
+			await downloadAsPdf(element, filename);
 		} catch (err) {
 			console.error('Failed to download PDF:', err);
 		} finally {
@@ -550,7 +442,7 @@ Vi ses imorgon, dagboken.`;
 	};
 
 	function parseSwedishDate(dateStr: string): string {
-		// Strip time suffix (", kl HH:MM") if present
+		// Strip time suffix (", kl. HH:MM") if present
 		const datePart = dateStr.split(',')[0].trim();
 		const parts = datePart.split(' ');
 		if (parts.length !== 3) return new Date().toISOString().split('T')[0];
@@ -655,7 +547,7 @@ Vi ses imorgon, dagboken.`;
 
 		<div class="actions-container">
 			<div class="result-actions">
-				<button class="action-btn" onclick={downloadAsImage} disabled={isDownloading}>
+				<button class="action-btn" onclick={downloadAsImageHandler} disabled={isDownloading}>
 					{#if isDownloading}
 						<span class="spinner"></span>
 						<span>Sparar...</span>
@@ -664,7 +556,7 @@ Vi ses imorgon, dagboken.`;
 						<span>Spara bild</span>
 					{/if}
 				</button>
-				<button class="action-btn" onclick={downloadAsPdf} disabled={isDownloadingPdf}>
+				<button class="action-btn" onclick={downloadAsPdfHandler} disabled={isDownloadingPdf}>
 					{#if isDownloadingPdf}
 						<span class="spinner"></span>
 						<span>Skapar...</span>
@@ -685,7 +577,7 @@ Vi ses imorgon, dagboken.`;
 					{/if}
 				</button>
 				<button class="action-btn" onclick={openEmailModal}>
-					<EmojiEnvelopeIncoming size={22} />
+					<EmojiEnvelopeArrow size={22} />
 					<span>Maila</span>
 				</button>
 			</div>
@@ -727,6 +619,7 @@ Vi ses imorgon, dagboken.`;
 								<span class="spinner"></span>
 								Skickar...
 							{:else}
+								<EmojiEnvelopeEmail size={22} />
 								Skicka
 							{/if}
 						</button>
@@ -736,66 +629,15 @@ Vi ses imorgon, dagboken.`;
 		{/if}
 	</div>
 
-	<!-- Hidden PDF-optimized layout -->
-	<div class="pdf-document" bind:this={pdfElement}>
-		<div class="pdf-header">
-			<div class="pdf-emojis">
-				{#each wizardStore.data.emojis as emojiId}
-					{@const svg = getEmojiSvg(emojiId)}
-					{#if svg}
-						<span class="pdf-emoji">{@html uniqueSvgIds(svg)}</span>
-					{/if}
-				{/each}
-			</div>
-			<h1 class="pdf-title">{wizardStore.data.weekday}, {wizardStore.data.date}</h1>
-		</div>
-
-		<div class="pdf-content">
-			{#each renderParagraphs as paragraph}
-				{#if paragraph.type === 'horoscope-heading'}
-					{@const ZodiacIcon = getZodiacComponent()}
-					<p class="pdf-addon-heading">
-						{#if ZodiacIcon}
-							<span class="pdf-addon-icon"><UniqueEmoji><ZodiacIcon size={20} /></UniqueEmoji></span>
-						{:else}
-							<span class="pdf-addon-icon"><UniqueEmoji><EmojiCrystalBall size={20} /></UniqueEmoji></span>
-						{/if}
-						<span>{@html formatParagraph(paragraph.text)}</span>
-					</p>
-				{:else if paragraph.type === 'onthisday-heading'}
-					<p class="pdf-addon-heading">
-						<span class="pdf-addon-icon"><UniqueEmoji><EmojiScroll size={20} /></UniqueEmoji></span>
-						<span>{@html formatParagraph(paragraph.text)}</span>
-					</p>
-				{:else if paragraph.type === 'homework-heading'}
-					<p class="pdf-addon-heading">
-						<span class="pdf-addon-icon"><UniqueEmoji><EmojiBooks size={20} /></UniqueEmoji></span>
-						<span>{@html formatParagraph(paragraph.text)}</span>
-					</p>
-				{:else}
-					<p>
-						{@html formatParagraph(paragraph.text)}
-					</p>
-				{/if}
-			{/each}
-		</div>
-
-		<div class="pdf-footer">
-			{#if actualToneUsed || selectedTone}
-				{@const pdfActualTone = actualToneUsed ? tones.find((t) => t.id === actualToneUsed) : selectedTone}
-				{#if pdfActualTone}
-					{@const ToneIcon = getToneIcon(pdfActualTone.id)}
-					{#if ToneIcon}
-						<span class="pdf-tone-icon"><UniqueEmoji><ToneIcon size={24} /></UniqueEmoji></span>
-					{/if}
-					<span class="pdf-tone-name">{pdfActualTone.name}</span>
-				{/if}
-			{/if}
-			<span class="pdf-brand">
-				<span class="pdf-brand-text">Berättat av Storify</span>
-			</span>
-		</div>
-	</div>
+	<PdfDocument
+		bind:this={pdfDocRef}
+		weekday={wizardStore.data.weekday}
+		date={wizardStore.data.date}
+		emojis={wizardStore.data.emojis}
+		toneId={actualToneUsed || wizardStore.data.selectedTone}
+		generatedText={generatedEntry}
+		birthday={wizardStore.data.profile.birthday || ''}
+	/>
 {:else}
 	<div class="step-content">
 		<p class="step-intro">Kolla igenom dina val. Ser det bra ut? Då är det bara att trycka på knappen och låta dagboken ta form.</p>
@@ -837,12 +679,12 @@ Vi ses imorgon, dagboken.`;
 						{/if}
 						{#if wizardStore.data.includeOnThisDay}
 							<span class="addon-badge" title="På denna dag...">
-								<UniqueEmoji><EmojiScroll size={20} /></UniqueEmoji>
+								<UniqueEmoji><EmojiMantelpieceClock size={20} /></UniqueEmoji>
 							</span>
 						{/if}
 						{#if wizardStore.data.includeHomework}
 							<span class="addon-badge" title="Hemläxa">
-								<UniqueEmoji><EmojiBooks size={20} /></UniqueEmoji>
+								<UniqueEmoji><EmojiLightBulb size={20} /></UniqueEmoji>
 							</span>
 						{/if}
 					</div>
@@ -1395,135 +1237,6 @@ Vi ses imorgon, dagboken.`;
 		to {
 			transform: rotate(360deg);
 		}
-	}
-
-	/* ==========================================================================
-	   PDF Document (Hidden)
-	   ========================================================================== */
-
-	.pdf-document {
-		position: absolute;
-		left: -9999px;
-		top: 0;
-		width: 720px;
-		padding: 2.5rem 3rem;
-		background: #ffffff;
-		font-family: var(--font-primary);
-	}
-
-	.pdf-header {
-		margin-bottom: 2rem;
-	}
-
-	.pdf-emojis {
-		display: flex;
-		gap: 0.5rem;
-		margin-bottom: 0.75rem;
-	}
-
-	.pdf-emoji {
-		display: flex;
-		align-items: center;
-		width: 44px;
-		height: 44px;
-	}
-
-	.pdf-emoji :global(svg) {
-		width: 100%;
-		height: 100%;
-	}
-
-	.pdf-title {
-		font-family: var(--font-primary);
-		font-size: 32px;
-		font-weight: var(--weight-semibold);
-		font-stretch: 105%;
-		letter-spacing: var(--tracking-tight);
-		color: #1a1a1a;
-		margin: 0;
-		line-height: 1.2;
-	}
-
-	.pdf-content {
-		font-family: var(--font-primary);
-		font-size: 19px;
-		font-weight: var(--weight-book);
-		line-height: 1.75;
-		letter-spacing: var(--tracking-wide);
-		color: #1a1a1a;
-	}
-
-	.pdf-content p {
-		margin: 0 0 1.25rem 0;
-		text-align: left;
-	}
-
-	.pdf-content p:last-child {
-		margin-bottom: 0;
-	}
-
-	.pdf-content p:first-child {
-		font-weight: var(--weight-medium);
-		font-size: 21px;
-	}
-
-	.pdf-content p.pdf-addon-heading {
-		display: flex;
-		align-items: flex-start;
-		gap: 0.5rem;
-		font-weight: var(--weight-medium);
-		margin-top: 1.5rem;
-		padding-top: 1rem;
-		border-top: 1px solid #e0e0e0;
-	}
-
-	.pdf-addon-icon {
-		display: flex;
-		align-items: center;
-		flex-shrink: 0;
-		margin-top: 0.125rem;
-	}
-
-	.pdf-footer {
-		display: flex;
-		align-items: center;
-		gap: 0.375rem;
-		margin-top: 2.5rem;
-		padding-top: 1rem;
-		border-top: 1px solid #e0e0e0;
-	}
-
-	.pdf-tone-icon {
-		display: flex;
-		align-items: center;
-		opacity: 0.6;
-	}
-
-	.pdf-tone-name {
-		font-family: var(--font-primary);
-		font-size: 14px;
-		font-weight: var(--weight-semibold);
-		font-stretch: 110%;
-		letter-spacing: var(--tracking-widest);
-		text-transform: uppercase;
-		color: #666;
-	}
-
-	.pdf-brand {
-		display: flex;
-		align-items: center;
-		gap: 0.375rem;
-		margin-left: auto;
-	}
-
-	.pdf-brand-text {
-		font-family: var(--font-primary);
-		font-size: 14px;
-		font-weight: var(--weight-semibold);
-		font-stretch: 110%;
-		letter-spacing: var(--tracking-widest);
-		text-transform: uppercase;
-		color: #888;
 	}
 
 	/* ==========================================================================

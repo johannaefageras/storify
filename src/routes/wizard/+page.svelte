@@ -28,7 +28,6 @@
 	});
 
 	let currentStep = $derived(wizardStore.currentStep);
-	let progress = $derived(wizardStore.progress);
 	let isResultView = $derived(wizardStore.isResultView);
 
 	// Access data reactively to trigger re-renders
@@ -180,17 +179,13 @@
 		<!-- No header in result view - cleaner presentation -->
 	{:else}
 		<header class="wizard-header">
-			<div class="progress-container">
-				<div class="progress-bar" style="width: {progress}%"></div>
-			</div>
 			<div class="header-actions">
 				<ThemeToggle variant="inline" />
 			</div>
 			<div class="step-indicator">
-				<span class="step-number">Steg {wizardStore.displayStepNumber} av {wizardStore.displayTotalSteps}</span>
 				{#if stepIcons[currentStep]}
 					{@const StepIcon = stepIcons[currentStep]}
-					<div class="step-icon"><UniqueEmoji><StepIcon size={48} /></UniqueEmoji></div>
+					<div class="step-icon"><UniqueEmoji><StepIcon size={72} /></UniqueEmoji></div>
 				{/if}
 				<h1 class="step-title">
 					<span class="step-title-text">
@@ -265,9 +260,7 @@
 				<div></div>
 			{/if}
 		</footer>
-		<div class="footer-container">
-			<LegalFooter />
-		</div>
+		<LegalFooter />
 	{/if}
 </main>
 
@@ -288,25 +281,11 @@
 		gap: 0.75rem;
 	}
 
-	.progress-container {
-		height: 4px;
-		background-color: var(--color-neutral);
-		border-radius: 2px;
-		overflow: hidden;
-		margin-bottom: 0;
-	}
-
-	.progress-bar {
-		height: 100%;
-		background-color: var(--color-accent);
-		transition: width 0.3s ease;
-	}
-
-	.step-indicator {
+.step-indicator {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 0.5rem;
+		gap: 0.75rem;
 		text-align: center;
 	}
 
@@ -320,17 +299,7 @@
 		padding: 1.25rem 1.25rem 2rem;
 	}
 
-	.step-number {
-		font-family: var(--font-primary);
-		font-size: var(--text-xs);
-		font-weight: var(--weight-semibold);
-		font-stretch: 115%;
-		letter-spacing: var(--tracking-widest);
-		text-transform: uppercase;
-		color: var(--color-text-muted);
-	}
-
-	.step-title {
+.step-title {
 		font-family: var(--font-primary);
 		font-size: var(--text-2xl);
 		font-weight: var(--weight-medium);
@@ -388,20 +357,9 @@
 		margin-top: auto;
 	}
 
-	.footer-container {
-		align-self: center !important;
-		width: 100% !important;
-		max-width: 520px !important;
-	}
-
 	@media (max-width: 600px) {
 		.wizard {
 			padding: calc(env(safe-area-inset-top, 0px) + 1.25rem) 1rem 1.25rem;
-		}
-
-		.footer-container {
-			max-width: 100% !important;
-			padding: 0 2rem;
 		}
 
 		.wizard.result-view {

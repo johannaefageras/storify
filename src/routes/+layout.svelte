@@ -11,7 +11,7 @@
 	onMount(async () => {
 		themeStore.init();
 		await authStore.init();
-		wizardStore.initProfile();
+		await wizardStore.initProfile();
 	});
 </script>
 

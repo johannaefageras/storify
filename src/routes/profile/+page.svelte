@@ -3,8 +3,10 @@
 	import { goto } from '$app/navigation';
 	import { supabase } from '$lib/supabase/client';
 	import { authStore } from '$lib/stores/auth.svelte';
+	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { FIELD_LIMITS } from '$lib/validation';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import { profilePhrases } from '$lib/data/profilePhrases';
 	import AvatarUpload from '$lib/components/AvatarUpload.svelte';
 	import IconArrowRight from '$lib/assets/icons/IconArrowRight.svelte';
 
@@ -286,6 +288,8 @@
 		} else {
 			success = 'Profilen har sparats!';
 			setTimeout(() => (success = ''), 3000);
+			// Re-sync wizard store so profile data (e.g. birthday for horoscope) is available
+			wizardStore.initProfile();
 		}
 
 		saving = false;
@@ -358,9 +362,7 @@
 				/>
 				<div class="hero-info">
 					<h1 class="hero-name">{name ? `${name}s Profil` : 'Min Profil'}</h1>
-					{#if authStore.user?.email}
-						<p class="hero-email">{authStore.user.email}</p>
-					{/if}
+					<p class="hero-phrase">{profilePhrases[Math.floor(Math.random() * profilePhrases.length)]}</p>
 				</div>
 			</div>
 		</div>
@@ -685,11 +687,12 @@
 		margin: 0;
 	}
 
-	.hero-email {
-		font-family: var(--font-primary);
+	.hero-phrase {
+		font-family: var(--font-serif);
 		font-size: var(--text-sm);
 		color: var(--color-text-muted);
-		font-weight: var(--weight-book);
+		font-style: italic;
+		font-weight: 400;
 		letter-spacing: var(--tracking-wide);
 		margin: 0.125rem 0 0;
 	}

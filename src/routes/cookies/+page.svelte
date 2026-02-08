@@ -1,19 +1,18 @@
 <script lang="ts">
-	import { EmojiWomanGesturingNo, EmojiDiamond } from '$lib/assets/emojis';
+	import { EmojiCookie, EmojiDiamond } from '$lib/assets/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 </script>
 
 <main class="legal-page">
-	<a href="/" class="back-link">&larr; Tillbaka</a>
 	<div class="page-header">
-		<EmojiWomanGesturingNo size={80} />
+		<EmojiCookie size={96} />
 		<h1>Cookiepolicy</h1>
 	</div>
-	<p class="updated">Senast uppdaterad: 2 februari 2026</p>
+	<p class="updated">Senast uppdaterad: 8 februari 2026</p>
 
 	<section>
 		<h2>Den korta versionen</h2>
-		<p>Storify använder inga cookies. Vi spårar dig inte, vi säljer ingen data, och vi använder inga tredjepartscookies för reklam eller analys. All din information stannar på din enhet.</p>
+		<p>Storify använder inga cookies för reklam, spårning eller analys. De enda cookies som finns är de som krävs för att hålla dig inloggad om du skapar ett konto. Använder du appen utan konto sätts inga cookies alls.</p>
 	</section>
 
 	<section>
@@ -22,23 +21,9 @@
 	</section>
 
 	<section>
-		<h2>Hur Storify lagrar data istället</h2>
-		<p>Istället för cookies använder Storify lokal lagring direkt på din enhet. Det finns en viktig skillnad:</p>
-		<div class="custom-ul">
-			<div class="custom-li">
-				<span class="list-icon"><EmojiDiamond size={12} /></span>
-				<span class="list-content"><strong>Cookies:</strong> Skickas till servern vid varje förfrågan, kan läsas av webbplatsen och ibland av tredje part</span>
-			</div>
-			<div class="custom-li">
-				<span class="list-icon"><EmojiDiamond size={12} /></span>
-				<span class="list-content"><strong>Lokal lagring:</strong> Stannar på din enhet, skickas aldrig automatiskt till någon server, och är endast tillgänglig för appen själv</span>
-			</div>
-		</div>
-	</section>
-
-	<section>
-		<h2>Vad vi sparar lokalt</h2>
-		<p>Storify sparar följande information på din enhet:</p>
+		<h2>Om du använder Storify utan konto</h2>
+		<p>Använder du appen utan att logga in sätts inga cookies. Istället använder Storify lokal lagring direkt på din enhet för att spara din profil och dina inställningar. Denna data skickas aldrig automatiskt till någon server och är bara tillgänglig för appen själv.</p>
+		<p>Vi sparar följande lokalt på din enhet:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
 				<span class="list-icon"><EmojiDiamond size={12} /></span>
@@ -49,7 +34,28 @@
 				<span class="list-content"><strong>Temainställningar:</strong> Om du föredrar ljust eller mörkt läge</span>
 			</div>
 		</div>
-		<p>Denna data lagras med hjälp av enhetens inbyggda lagringsfunktioner (Capacitor Preferences i appen, eller webbläsarens lokala lagring på webben). Den lämnar aldrig din enhet om du inte aktivt väljer att generera en dagbokstext.</p>
+		<p>Du kan när som helst radera all lokalt sparad data genom att trycka på "Rensa sparad data" på startsidan.</p>
+	</section>
+
+	<section>
+		<h2>Om du skapar ett konto och loggar in</h2>
+		<p>När du loggar in sätts en funktionell cookie av vår autentiseringstjänst (Supabase) för att hålla din session aktiv. Utan den skulle du behöva logga in på nytt vid varje sidladdning.</p>
+		<p>Denna cookie:</p>
+		<div class="custom-ul">
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content">Innehåller enbart sessionsinformation – ingen personlig data</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content">Används inte för spårning, reklam eller analys</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content">Tas bort när du loggar ut</span>
+			</div>
+		</div>
+		<p>Som inloggad sparas din profil och dina dagboksinlägg i molnet (via Supabase) istället för enbart lokalt, så att du kan komma åt dem från olika enheter.</p>
 	</section>
 
 	<section>
@@ -76,14 +82,24 @@
 	</section>
 
 	<section>
-		<h2>Så raderar du sparad data</h2>
-		<p>Du kan när som helst radera all lokalt sparad data genom att trycka på "Rensa sparad data" på startsidan. Detta tar bort din profil och alla inställningar permanent från din enhet.</p>
-		<p>Om du använder webbversionen kan du även rensa data via webbläsarens inställningar under "Webbplatsdata" eller "Lokal lagring".</p>
+		<h2>Cookies kontra lokal lagring</h2>
+		<p>Det finns en viktig skillnad mellan cookies och lokal lagring:</p>
+		<div class="custom-ul">
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Cookies:</strong> Skickas till servern vid varje förfrågan, kan läsas av webbplatsen och ibland av tredje part</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Lokal lagring:</strong> Stannar på din enhet, skickas aldrig automatiskt till någon server, och är endast tillgänglig för appen själv</span>
+			</div>
+		</div>
+		<p>Storify använder lokal lagring för din profil och dina inställningar. Den enda cookien som kan sättas är den funktionella sessionscookien vid inloggning.</p>
 	</section>
 
 	<section>
-		<h2>Varför vi valt att inte använda cookies</h2>
-		<p>Vi tror att din dagbok är privat. Genom att undvika cookies och hålla all data lokalt på din enhet minimerar vi risken för dataläckor och säkerställer att du har full kontroll över din information. Det är helt enkelt det rätta sättet att bygga en dagboksapp.</p>
+		<h2>Varför vi valt att minimera cookies</h2>
+		<p>Vi tror att din dagbok är privat. Genom att undvika spårningscookies och hålla så mycket data som möjligt lokalt på din enhet minimerar vi risken för dataläckor och säkerställer att du har kontroll över din information. Det är helt enkelt det rätta sättet att bygga en dagboksapp.</p>
 	</section>
 
 	<section>
@@ -101,20 +117,6 @@
 		padding: 2rem;
 		padding-top: calc(env(safe-area-inset-top, 0px) + 2rem);
 		padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 2rem);
-	}
-
-	.back-link {
-		display: inline-block;
-		margin-bottom: 2rem;
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		color: var(--color-text-muted);
-		text-decoration: none;
-		transition: color 0.2s ease;
-	}
-
-	.back-link:hover {
-		color: var(--color-text);
 	}
 
 	.page-header {

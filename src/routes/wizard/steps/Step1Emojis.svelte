@@ -71,7 +71,7 @@
 		const weekday = weekdays[now.getDay()];
 		const hours = now.getHours().toString().padStart(2, '0');
 		const minutes = now.getMinutes().toString().padStart(2, '0');
-		const date = `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}, kl ${hours}:${minutes}`;
+		const date = `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}, kl. ${hours}:${minutes}`;
 
 		wizardStore.updateData('weekday', weekday);
 		wizardStore.updateData('date', date);

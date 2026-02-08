@@ -4,21 +4,31 @@
 </script>
 
 <main class="legal-page">
-	<a href="/" class="back-link">&larr; Tillbaka</a>
 	<div class="page-header">
-		<EmojiWomanJudge size={80} />
+		<EmojiWomanJudge size={96} />
 		<h1>Användarvillkor</h1>
 	</div>
-	<p class="updated">Senast uppdaterad: 2 februari 2026</p>
+	<p class="updated">Senast uppdaterad: 8 februari 2026</p>
 
 	<section>
 		<h2>Välkommen till Storify</h2>
-		<p>Storify är en app som hjälper dig skriva dagbok genom att ställa frågor om din dag och sedan generera en personlig text med hjälp av AI. Genom att använda appen godkänner du dessa villkor.</p>
+		<p>Storify är en app som hjälper dig skriva dagbok genom att ställa frågor om din dag och sedan generera en personlig text med hjälp av AI. Appen kan användas anonymt eller med ett konto. Genom att använda appen godkänner du dessa villkor.</p>
 	</section>
 
 	<section>
 		<h2>Så fungerar tjänsten</h2>
-		<p>Du fyller i information om din dag – allt från humör och aktiviteter till reflektioner och minnen. Sedan väljer du en skrivstil och låter vår AI skapa ett dagboksinlägg åt dig. All din data lagras lokalt på din enhet och du har full kontroll över den.</p>
+		<p>Du går igenom en guide där du fyller i information om din dag – allt från humör och aktiviteter till reflektioner och minnen. Sedan väljer du en av 28 skrivstilar och låter vår AI skapa ett dagboksinlägg åt dig. Du kan även lägga till tillägg som horoskop, historiska händelser eller en personlig hemläxa.</p>
+		<p>Den genererade texten kan sparas som bild, PDF, kopieras eller skickas som e-post. Om du har ett konto kan du dessutom spara inlägg i ditt personliga journalarkiv.</p>
+	</section>
+
+	<section>
+		<h2>Användning utan konto</h2>
+		<p>Du behöver inget konto för att använda Storify. Utan konto lagras din profil lokalt på din enhet och du har full kontroll över den. Dagboksdata skickas till AI:n för att skapa texten, men sparas inte hos oss efteråt.</p>
+	</section>
+
+	<section>
+		<h2>Användning med konto</h2>
+		<p>Om du skapar ett konto lagras din profil och dina sparade dagboksinlägg i molnet hos vår databastjänst. Du ansvarar för att hålla dina inloggningsuppgifter säkra. Genom att skapa ett konto godkänner du att din data lagras enligt vår <a href="/privacy">integritetspolicy</a>.</p>
 	</section>
 
 	<section>
@@ -37,6 +47,10 @@
 			<div class="custom-li">
 				<span class="list-icon"><EmojiDiamond size={12} /></span>
 				<span class="list-content"><strong>Ingen manipulation av AI:n:</strong> Försök inte kringgå eller manipulera AI-tjänsten på olämpliga sätt, till exempel för att generera olagligt, hatiskt eller skadligt innehåll.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Inget missbruk av tjänsten:</strong> Försök inte kringgå hastighetsbegränsningar eller på annat sätt överbelasta tjänsten.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><EmojiDiamond size={12} /></span>
@@ -66,12 +80,17 @@
 	</section>
 
 	<section>
+		<h2>Tjänstens begränsningar</h2>
+		<p>Storify använder hastighetsbegränsning för att skydda tjänsten mot missbruk. Det innebär att antalet dagbokstexter och e-postmeddelanden du kan generera under en viss tidsperiod är begränsat. Om du når gränsen kan du försöka igen efter en stund.</p>
+	</section>
+
+	<section>
 		<h2>Ansvarsbegränsning</h2>
 		<p>Storify tillhandahålls i befintligt skick ("as is"). Vi gör vårt bästa för att appen ska fungera bra, men kan inte garantera att den alltid är tillgänglig eller felfri. Vi ansvarar inte för:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
 				<span class="list-icon"><EmojiDiamond size={12} /></span>
-				<span class="list-content">Förlust av data (kom ihåg att all data lagras lokalt på din enhet)</span>
+				<span class="list-content">Förlust av data (lokalt sparad data ligger på din enhet; molndata hanteras med rimliga säkerhetsåtgärder men utan garanti)</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><EmojiDiamond size={12} /></span>
@@ -98,11 +117,15 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><EmojiDiamond size={12} /></span>
-				<span class="list-content"><strong>Resend:</strong> E-posttjänst som används för att skicka dagbokstexter via e-post (om du väljer att använda funktionen). <a href="https://resend.com/legal/terms-of-service" target="_blank" rel="noopener">Läs deras villkor</a>.</span>
+				<span class="list-content"><strong>Databastjänst:</strong> Hanterar autentisering, profillagring och journalarkiv för användare med konto.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><EmojiDiamond size={12} /></span>
-				<span class="list-content"><strong>Väder-API:</strong> Extern tjänst som tillhandahåller väderdata baserat på din position (om du väljer att aktivera funktionen).</span>
+				<span class="list-content"><strong>E-posttjänst:</strong> Används för att skicka dagbokstexter via e-post (om du väljer att använda funktionen). <a href="https://resend.com/legal/terms-of-service" target="_blank" rel="noopener">Läs deras villkor</a>.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Väder- och platstjänster:</strong> Externa tjänster som tillhandahåller väderdata och platsnamn baserat på din position, samt platsautokomplettering i formuläret (om du väljer att aktivera funktionerna).</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><EmojiDiamond size={12} /></span>
@@ -136,20 +159,6 @@
 		padding: 2rem;
 		padding-top: calc(env(safe-area-inset-top, 0px) + 2rem);
 		padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 2rem);
-	}
-
-	.back-link {
-		display: inline-block;
-		margin-bottom: 2rem;
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		color: var(--color-text-muted);
-		text-decoration: none;
-		transition: color 0.2s ease;
-	}
-
-	.back-link:hover {
-		color: var(--color-text);
 	}
 
 	.page-header {

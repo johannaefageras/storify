@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
 	import { page } from '$app/state';
+	import { authStore } from '$lib/stores/auth.svelte';
 
 	const links = [
-		{ href: '/', label: 'Start' },
 		{ href: '/about', label: 'Om' },
 		{ href: '/guide', label: 'Guide' },
 		{ href: '/contact', label: 'Kontakt' },
@@ -11,7 +11,14 @@
 		{ href: '/terms', label: 'Villkor' }
 	];
 
-	const visibleLinks = $derived(links.filter(link => link.href !== page.url.pathname));
+	const authLink = $derived(
+		authStore.isLoggedIn
+			? { href: '/profile', label: 'Profil' }
+			: { href: '/login', label: 'Logga in' }
+	);
+
+	const allLinks = $derived([authLink, ...links]);
+	const visibleLinks = $derived(allLinks.filter(link => link.href !== page.url.pathname));
 </script>
 
 <footer class="legal-footer">
