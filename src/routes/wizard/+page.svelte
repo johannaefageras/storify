@@ -301,7 +301,7 @@
 
 .step-title {
 		font-family: var(--font-primary);
-		font-size: var(--text-2xl);
+		font-size: var(--text-3xl);
 		font-weight: var(--weight-medium);
 		font-stretch: 105%;
 		letter-spacing: var(--tracking-tight);

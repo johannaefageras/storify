@@ -2,12 +2,16 @@
 	import { goto } from '$app/navigation';
 	import { themeStore } from '$lib/stores/theme.svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
+	import { authStore } from '$lib/stores/auth.svelte';
 	import { EmojiRoseLight, EmojiRoseDark } from '$lib/assets/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 	import IconArrowRight from '$lib/assets/icons/IconArrowRight.svelte';
 
 	let showTooltip = $state(false);
+
+	let isReturningUser = $derived(authStore.isLoggedIn && !!wizardStore.data.profile.name);
+	let firstName = $derived(wizardStore.data.profile.name.split(' ')[0]);
 
 	function startWizard() {
 		goto('/wizard');
@@ -36,24 +40,37 @@
 						<EmojiRoseLight size={120} />
 					{/if}
 				</div>
-				<h1 class="title">Storify</h1>
-				<p class="subtitle">Du har inte tid att skriva dagbok. Perfekt – det behöver du inte heller.</p>
+				{#if isReturningUser}
+					<h1 class="title">Hej, {firstName}!</h1>
+					<p class="subtitle">Redo att fånga dagens ögonblick?</p>
+				{:else}
+					<h1 class="title">Storify</h1>
+					<p class="subtitle">Du har inte tid att skriva dagbok. Perfekt – det behöver du inte heller.</p>
+				{/if}
 			</header>
 
 			<div class="action">
-				<button class="btn btn-primary btn-large" onclick={startWizard}>
-					Skönt, sätt igång! <IconArrowRight size={18} />
-				</button>
+				{#if isReturningUser}
+					<button class="btn btn-primary btn-large" onclick={startWizard}>
+						Skriv dagens dagbok <IconArrowRight size={18} />
+					</button>
+				{:else}
+					<button class="btn btn-primary btn-large" onclick={startWizard}>
+						Skönt, sätt igång! <IconArrowRight size={18} />
+					</button>
+				{/if}
 			</div>
 		</div>
 
 		<div class="landing-footer">
-			<div class="reset-wrapper">
-				<button class="reset-link" onclick={resetCache}>Rensa sparad data</button>
-				{#if showTooltip}
-					<span class="tooltip">Data rensad!</span>
-				{/if}
-			</div>
+			{#if !isReturningUser}
+				<div class="reset-wrapper">
+					<button class="reset-link" onclick={resetCache}>Rensa sparad data</button>
+					{#if showTooltip}
+						<span class="tooltip">Data rensad!</span>
+					{/if}
+				</div>
+			{/if}
 			<LegalFooter />
 		</div>
 	</div>
@@ -78,12 +95,13 @@
 	}
 
 	.landing {
-		min-height: 100vh;
+		flex: 1;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		padding: 2rem;
 		padding-bottom: 0;
+		overflow: hidden;
 	}
 
 	.container {
