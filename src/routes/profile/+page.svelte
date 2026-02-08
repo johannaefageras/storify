@@ -373,7 +373,7 @@
 				<IconArrowRight size={16} />
 			</a>
 			<a href="/journal" class="action-card">
-				<span class="action-label">Dagboksarkiv</span>
+				<span class="action-label">Dagböcker</span>
 				<IconArrowRight size={16} />
 			</a>
 			<button class="action-card action-card-muted" onclick={handleSignOut}>

@@ -532,10 +532,10 @@ Vi ses imorgon, dagboken.`;
 						<svg class="action-icon check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
 							<polyline points="20 6 9 17 4 12"/>
 						</svg>
-						<span>Sparat i dagboksarkivet!</span>
+						<span>Sparat dagbok!</span>
 					{:else}
 						<EmojiFloppyDisk size={22} />
-						<span>Spara i dagboksarkivet</span>
+						<span>Spara dagbok</span>
 					{/if}
 				</button>
 				{#if entrySaveError}

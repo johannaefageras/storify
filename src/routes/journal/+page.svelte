@@ -9,7 +9,7 @@
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import type { Component } from 'svelte';
-	import { EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanDetective, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiClipboard, EmojiFramedPicture, EmojiPrinter, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiCrossMark } from '$lib/assets/emojis';
+	import { EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanDetective, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiClipboard, EmojiFramedPicture, EmojiPrinter, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiCrossMark, EmojiTrash } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import { downloadAsImage } from '$lib/utils/imageDownload';
 	import { downloadAsPdf } from '$lib/utils/pdfDownload';
@@ -301,7 +301,7 @@
 			.order('entry_date', { ascending: false });
 
 		if (fetchError) {
-			error = 'Kunde inte ladda dagboksarkivet.';
+			error = 'Kunde inte ladda dagböcker.';
 			console.error('Fetch entries error:', fetchError);
 		} else {
 			entries = data || [];
@@ -331,14 +331,14 @@
 	<div class="journal-container">
 		<div class="journal-header">
 			<div class="header-icon"><UniqueEmoji><EmojiArchive size={72} /></UniqueEmoji></div>
-			<h1 class="journal-title">Dagboksarkiv</h1>
-			<p class="journal-subtitle">Dina sparade dagboksanteckningar</p>
+			<h1 class="journal-title">Dagböcker</h1>
+			<p class="journal-subtitle">Dina sparade dagböcker</p>
 		</div>
 
 		{#if isLoading}
 			<div class="journal-loading">
 				<span class="spinner"></span>
-				<p>Laddar dagboksarkivet...</p>
+				<p>Laddar dagböcker...</p>
 			</div>
 		{:else if error}
 			<div class="journal-error">{error}</div>
@@ -459,11 +459,16 @@
 					</div>
 				{:else}
 					<button class="modal-action-btn modal-delete-btn" onclick={() => showDeleteConfirm = true}>
-						<EmojiCrossMark size={18} />
+						<EmojiTrash size={18} />
 						<span>Ta bort</span>
 					</button>
 				{/if}
 			</div>
+
+			<button class="modal-close-btn" onclick={closeModal}>
+				<EmojiCrossMark size={18} />
+				<span>Stäng</span>
+			</button>
 		</div>
 	</div>
 {/if}
@@ -911,6 +916,29 @@
 
 	.delete-no:hover {
 		background: var(--color-neutral);
+	}
+
+	/* Close Button */
+
+	.modal-close-btn {
+		width: 100%;
+		margin-top: 0.75rem;
+		padding: 0.875rem 1rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-text-muted);
+		background: transparent;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		cursor: pointer;
+		transition: background 0.15s ease, color 0.15s ease;
+	}
+
+	.modal-close-btn:hover {
+		background: var(--color-neutral);
+		color: var(--color-text);
 	}
 
 	/* Spinner */

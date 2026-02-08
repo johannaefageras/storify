@@ -15,14 +15,15 @@
 	import Step8Voice from './steps/Step8Voice.svelte';
 	import Step9Addons from './steps/Step9Addons.svelte';
 	import Step10Summary from './steps/Step10Summary.svelte';
-	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
-	import LegalFooter from '$lib/components/LegalFooter.svelte';
+import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import IconArrowLeft from '$lib/assets/icons/IconArrowLeft.svelte';
 	import IconArrowRight from '$lib/assets/icons/IconArrowRight.svelte';
 
 	const optionalSteps = [0, 5, 6, 7, 9];
 
 	onMount(() => {
+		// Load profile and skip Step 0 for logged-in users
+		wizardStore.initProfile();
 		// Fetch weather silently in the background (fails silently if denied or unavailable)
 		wizardStore.initWeather();
 	});
@@ -179,9 +180,6 @@
 		<!-- No header in result view - cleaner presentation -->
 	{:else}
 		<header class="wizard-header">
-			<div class="header-actions">
-				<ThemeToggle variant="inline" />
-			</div>
 			<div class="step-indicator">
 				{#if stepIcons[currentStep]}
 					{@const StepIcon = stepIcons[currentStep]}
@@ -289,11 +287,6 @@
 		text-align: center;
 	}
 
-	.header-actions {
-		display: none;
-		justify-content: flex-end;
-		align-items: center;
-	}
 
 	.wizard.result-view {
 		padding: 1.25rem 1.25rem 2rem;
@@ -384,13 +377,6 @@
 			gap: 0.25rem;
 		}
 
-		.header-actions {
-			display: flex;
-		}
-
-		:global(.theme-toggle:not(.inline)) {
-			display: none;
-		}
 	}
 
 	@media (max-width: 480px) {

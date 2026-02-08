@@ -7,6 +7,8 @@ export { default as EmojiFloppyDisk } from './EmojiFloppyDisk.svelte';
 export { default as EmojiFolder } from './EmojiFolder.svelte';
 export { default as EmojiFolderDividers } from './EmojiFolderDividers.svelte';
 export { default as EmojiGear } from './EmojiGear.svelte';
+export { default as EmojiTrash } from './EmojiTrash.svelte';
+export { default as EmojiCrossButton } from './EmojiCrossButton.svelte';
 export { default as EmojiHandWriting } from './EmojiHandWriting.svelte';
 export { default as EmojiHandsHeart } from './EmojiHandsHeart.svelte';
 export { default as EmojiIdCard } from './EmojiIdCard.svelte';
