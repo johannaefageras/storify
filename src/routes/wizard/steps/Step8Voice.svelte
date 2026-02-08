@@ -252,9 +252,29 @@
 		}
 	}
 
+	@media (max-width: 480px) {
+		.preview {
+			padding: 0.75rem 1rem;
+		}
+
+		.surprise-card {
+			padding: 1rem;
+		}
+	}
+
 	@media (max-width: 420px) {
 		.tone-grid {
 			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 320px) {
+		.preview {
+			padding: 0.625rem 0.75rem;
+		}
+
+		.tone-card {
+			padding: 0.75rem 0.375rem;
 		}
 	}
 </style>

@@ -169,4 +169,12 @@
 		text-decoration: underline;
 		text-underline-offset: 2px;
 	}
+
+	@media (max-width: 480px) {
+		.about-johanna,
+		.contribute-box {
+			flex-direction: column;
+			text-align: center;
+		}
+	}
 </style>

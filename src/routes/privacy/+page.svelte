@@ -275,4 +275,11 @@
 		text-decoration: underline;
 		text-underline-offset: 2px;
 	}
+
+	@media (max-width: 480px) {
+		.legal-page {
+			padding-left: 1.25rem;
+			padding-right: 1.25rem;
+		}
+	}
 </style>

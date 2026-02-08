@@ -284,6 +284,13 @@
 		color: var(--color-text-muted);
 		font-weight: var(--weight-book);
 		line-height: var(--leading-relaxed);
+		word-break: break-word;
+	}
+
+	@media (max-width: 400px) {
+		.auth-page {
+			padding: 1rem;
+		}
 	}
 
 	.success-text strong {

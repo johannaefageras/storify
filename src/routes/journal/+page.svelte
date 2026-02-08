@@ -865,6 +865,7 @@
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
+		flex-wrap: wrap;
 	}
 
 	.delete-confirm-text {
@@ -973,6 +974,7 @@
 	}
 
 	.email-modal-input {
+		box-sizing: border-box;
 		width: 100%;
 		padding: 0.875rem 1rem;
 		font-family: var(--font-primary);
@@ -1058,6 +1060,12 @@
 	/* Responsive */
 
 	@media (max-width: 640px) {
+		.modal-actions {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 480px) {
 		.modal-actions {
 			grid-template-columns: 1fr;
 		}

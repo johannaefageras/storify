@@ -299,8 +299,22 @@
 	}
 
 	@media (max-width: 500px) {
+		.legal-page {
+			padding: 1rem;
+			padding-top: calc(env(safe-area-inset-top, 0px) + 1rem);
+			padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
+		}
+
+		.form-section {
+			padding: 1.25rem;
+		}
+
 		.form-row {
 			grid-template-columns: 1fr;
+		}
+
+		.modal-content h1 {
+			font-size: var(--text-lg);
 		}
 	}
 
@@ -361,10 +375,14 @@
 	.form-group select {
 		cursor: pointer;
 		appearance: none;
-		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%236b6b6b' d='M5 7L1 3h8z'/%3E%3C/svg%3E");
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%235f5f5f' d='M5 7L1 3h8z'/%3E%3C/svg%3E");
 		background-repeat: no-repeat;
 		background-position: right 0.875rem center;
 		padding-right: 2.25rem;
+	}
+
+	:global([data-theme='dark']) .form-group select {
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%23a7a7ad' d='M5 7L1 3h8z'/%3E%3C/svg%3E");
 	}
 
 	.form-group textarea {

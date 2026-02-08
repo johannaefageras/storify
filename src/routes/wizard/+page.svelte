@@ -370,6 +370,20 @@
 			font-size: var(--text-xl);
 		}
 
+		.optional-badge {
+			position: static;
+			transform: none;
+			margin-left: 0;
+			margin-top: 0.25rem;
+		}
+
+		.step-title-text {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 0.25rem;
+		}
+
 		.header-actions {
 			display: flex;
 		}

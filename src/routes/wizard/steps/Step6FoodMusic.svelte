@@ -389,9 +389,41 @@
 		}
 	}
 
+	@media (max-width: 479px) {
+		.tag-input {
+			padding: 0.375rem 0.5rem;
+		}
+
+		.tag-input input {
+			min-width: 50px;
+		}
+	}
+
+	@media (max-width: 320px) {
+		.tag-input input {
+			min-width: 40px;
+		}
+	}
+
 	@media (min-width: 480px) {
 		.color-swatches {
+			grid-template-columns: repeat(8, 1fr);
+		}
+
+		.color-swatch {
+			min-width: 2.75rem;
+			min-height: 2.75rem;
+		}
+	}
+
+	@media (min-width: 640px) {
+		.color-swatches {
 			grid-template-columns: repeat(16, 1fr);
+		}
+
+		.color-swatch {
+			min-width: 0;
+			min-height: 0;
 		}
 	}
 </style>

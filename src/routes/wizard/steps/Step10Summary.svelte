@@ -1242,13 +1242,28 @@ Vi ses imorgon, dagboken.`;
 	   Responsive Adjustments
 	   ========================================================================== */
 
-	@media (max-width: 640px) {
+	@media (max-width: 480px) {
 		.result-actions {
 			grid-template-columns: 1fr;
 		}
 
 		.action-btn {
 			padding: 1rem;
+		}
+
+		.summary-emoji {
+			width: 28px;
+			height: 28px;
+		}
+
+		.modal-content {
+			padding: 1.25rem;
+		}
+	}
+
+	@media (min-width: 481px) and (max-width: 640px) {
+		.result-actions {
+			grid-template-columns: repeat(2, 1fr);
 		}
 	}
 

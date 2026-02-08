@@ -277,4 +277,27 @@
 		margin: 0;
 		padding: 0 1rem;
 	}
+
+	@media (max-width: 480px) {
+		.addon-card {
+			padding: 1rem;
+			gap: 0.75rem;
+		}
+
+		.hint-text {
+			padding: 0 0.5rem;
+		}
+	}
+
+	@media (max-width: 320px) {
+		.addon-card {
+			padding: 0.75rem;
+			gap: 0.5rem;
+		}
+
+		.addon-icon :global(svg) {
+			width: 32px !important;
+			height: 32px !important;
+		}
+	}
 </style>

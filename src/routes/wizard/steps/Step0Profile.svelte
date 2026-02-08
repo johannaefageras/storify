@@ -665,4 +665,43 @@
 			flex: 0 0 4.5rem;
 		}
 	}
+
+	@media (max-width: 480px) {
+		input[type='text'] {
+			padding: 0 0.625rem;
+		}
+
+		select {
+			padding: 0 0.625rem;
+		}
+
+		.tag-input {
+			padding: 0.375rem 0.5rem;
+		}
+	}
+
+	@media (max-width: 360px) {
+		.birthday-selects {
+			gap: 0.375rem;
+		}
+
+		.birthday-day {
+			flex: 1 1 3rem;
+			min-width: 0;
+		}
+
+		.birthday-month {
+			flex: 2 1 4rem;
+			min-width: 0;
+		}
+
+		.birthday-year {
+			flex: 1 1 3.5rem;
+			min-width: 0;
+		}
+
+		.tag-input input {
+			min-width: 40px;
+		}
+	}
 </style>

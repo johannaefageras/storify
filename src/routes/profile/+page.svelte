@@ -82,7 +82,7 @@
 	let birthdayParts = $state(parseBirthday(null));
 
 	const currentYear = new Date().getFullYear();
-	const yearOptions = Array.from({ length: 126 }, (_, i) => 2025 - i);
+	const yearOptions = Array.from({ length: 126 }, (_, i) => currentYear - i);
 
 	function getDaysInMonth(year: number, month: number): number {
 		if (!year || !month) return 31;
@@ -993,6 +993,9 @@
 		border-radius: 0.325rem;
 		color: white;
 		white-space: nowrap;
+		max-width: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	.tag-remove {

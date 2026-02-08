@@ -603,4 +603,22 @@
 			display: none;
 		}
 	}
+
+	@media (max-width: 480px) {
+		.tag-input {
+			padding: 0.375rem 0.5rem;
+		}
+	}
+
+	@media (max-width: 400px) {
+		.tag-input input {
+			min-width: 60px;
+		}
+	}
+
+	@media (max-width: 320px) {
+		.tag-input input {
+			min-width: 40px;
+		}
+	}
 </style>

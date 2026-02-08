@@ -898,4 +898,16 @@
 		color: var(--color-text-muted);
 		margin: 0;
 	}
+
+	@media (max-width: 480px) {
+		.legal-page {
+			padding: 1.25rem;
+			padding-top: calc(env(safe-area-inset-top, 0px) + 1.25rem);
+			padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 1.25rem);
+		}
+
+		.save-grid {
+			grid-template-columns: 1fr;
+		}
+	}
 </style>

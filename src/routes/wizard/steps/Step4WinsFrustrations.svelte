@@ -196,6 +196,7 @@
 
 	.remove-btn {
 		width: 2.75rem;
+		flex-shrink: 0;
 		font-size: 1.25rem;
 		color: var(--color-text-muted);
 		background-color: var(--color-neutral);
@@ -239,12 +240,12 @@
 	}
 
 	@media (max-width: 480px) {
-		.repeater-item {
-			flex-direction: column;
+		.repeater-item input {
+			padding: 0.75rem;
 		}
 
 		.remove-btn {
-			width: 100%;
+			width: 2.5rem;
 		}
 	}
 </style>

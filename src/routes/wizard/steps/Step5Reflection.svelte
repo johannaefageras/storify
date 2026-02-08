@@ -149,4 +149,16 @@
 	.char-count.warning {
 		color: var(--color-error, #dc2626);
 	}
+
+	@media (max-width: 480px) {
+		textarea {
+			padding: 0.75rem;
+			min-height: 3.5rem;
+		}
+
+		.char-count {
+			right: 0.5rem;
+			bottom: 0.375rem;
+		}
+	}
 </style>
