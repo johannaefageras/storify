@@ -136,7 +136,7 @@
 
 	.title {
 		font-family: var(--font-primary);
-		font-size: var(--text-4xl);
+		font-size: var(--text-3xl);
 		font-weight: var(--weight-medium);
 		font-stretch: 115%;
 		letter-spacing: var(--tracking-tighter);
@@ -246,7 +246,7 @@
 
 	@media (min-width: 640px) {
 		.title {
-			font-size: 3.5rem;
+			font-size: 3rem;
 			font-stretch: 120%;
 		}
 
