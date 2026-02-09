@@ -52,7 +52,7 @@
 			<div class="action">
 				{#if isReturningUser}
 					<button class="btn btn-primary btn-large" onclick={startWizard}>
-						Skriv dagens dagbok <IconArrowRight size={18} />
+						Skriv dagboksanteckning <IconArrowRight size={18} />
 					</button>
 				{:else}
 					<button class="btn btn-primary btn-large" onclick={startWizard}>

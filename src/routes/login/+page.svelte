@@ -23,7 +23,7 @@
 			return;
 		}
 
-		goto('/wizard');
+		goto('/');
 	}
 
 	async function handleGoogleLogin() {

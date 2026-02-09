@@ -17,6 +17,7 @@
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import PdfDocument from '$lib/components/PdfDocument.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 	import IconArrowLeft from '$lib/assets/icons/IconArrowLeft.svelte';
 	import {
 		EmojiSparkles, EmojiRoseLight, EmojiRoseDark, EmojiFramedPicture, EmojiPrinter,
@@ -141,7 +142,9 @@
 	// Form validity
 	let isFormValid = $derived(
 		wizardStore.data.selectedTone.trim() !== '' &&
-		(wizardStore.data.quickText.trim() !== '' || wizardStore.data.wins.some(w => w.trim()))
+		wizardStore.data.quickText.trim() !== '' &&
+		wizardStore.data.wins.some(w => w.trim()) &&
+		wizardStore.data.moodColor.trim() !== ''
 	);
 
 	// Generation state
@@ -529,7 +532,7 @@
 			<p class="step-intro">Fånga dagens känsla på under en minut.</p>
 			<!-- Mood slider -->
 			<section class="form-section">
-				<label class="section-label" for="mood-slider">Hur var dagsformen?</label>
+				<label class="section-label" for="mood-slider">Hur var dagsformen?<RequiredIndicator /></label>
 				<div class="slider-emoji">
 					{#key wizardStore.data.mood}
 						{@const EmojiComponent = getMoodEmoji(wizardStore.data.mood)}
@@ -553,7 +556,7 @@
 
 			<!-- Free text -->
 			<section class="form-section">
-				<label class="section-label" for="quick-text">Berätta kort om din dag</label>
+				<label class="section-label" for="quick-text">Berätta kort om din dag<RequiredIndicator /></label>
 				<textarea
 					id="quick-text"
 					class="text-input"
@@ -566,7 +569,7 @@
 
 			<!-- Win -->
 			<section class="form-section">
-				<span class="section-label">Dagens medvind</span>
+				<span class="section-label">Dagens segrar (små som stora)<RequiredIndicator /></span>
 				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 				<div class="tag-input" role="group" onclick={focusWinInput} onkeydown={(e) => e.key === 'Enter' && focusWinInput(e as unknown as MouseEvent)}>
 					{#each wizardStore.data.wins.filter(w => w.trim()) as win}
@@ -589,7 +592,7 @@
 
 			<!-- Color of the day -->
 			<section class="form-section">
-				<span class="section-label">Om idag var en färg...</span>
+				<span class="section-label">Om idag var en färg...<RequiredIndicator /></span>
 				<p class="section-description">Välj den färg som bäst speglar känslan din dag.</p>
 				<div class="color-swatches">
 					{#each moodColors as color}
@@ -621,7 +624,7 @@
 
 			<!-- Voice picker -->
 			<section class="form-section">
-				<span class="section-label">Välj en röst</span>
+				<span class="section-label">Välj en röst<RequiredIndicator /></span>
 				<div class="voice-grid-compact">
 					{#each tones as tone}
 						<button

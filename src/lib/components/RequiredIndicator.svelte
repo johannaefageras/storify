@@ -1,7 +1,7 @@
 <script lang="ts">
 	import IconAsterisk from '$lib/assets/icons/IconAsterisk.svelte';
 
-	let { tooltip = 'Obligatoriskt fält' } = $props();
+	let { tooltip = 'Obligatoriskt' } = $props();
 </script>
 
 <span class="required-indicator">
