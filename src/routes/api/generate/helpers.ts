@@ -176,6 +176,8 @@ export function formatProfileForPrompt(profile: UserProfile): string {
 export function formatWizardDataForPrompt(data: WizardData): string {
 	const sections: string[] = [];
 
+	sections.push(`<user-data>`);
+
 	// Profile info (if any)
 	const profileSection = formatProfileForPrompt(data.profile);
 	if (profileSection) {
@@ -216,9 +218,11 @@ export function formatWizardDataForPrompt(data: WizardData): string {
 		sections.push(`Dagens känsla (emojis):\n${emojiDescriptions}`);
 	}
 
-	// Energy levels
-	sections.push(`Sömn: ${data.sleepQuality}/10`);
-	sections.push(`Energi: ${data.energyLevel}/10`);
+	// Energy levels (skip sleep/energy in quick mode – user never set them)
+	if (!data.quickMode) {
+		sections.push(`Sömn: ${data.sleepQuality}/10`);
+		sections.push(`Energi: ${data.energyLevel}/10`);
+	}
 	sections.push(`Humör: ${data.mood}/10`);
 
 	// Locations
@@ -273,6 +277,11 @@ export function formatWizardDataForPrompt(data: WizardData): string {
 		sections.push(`Musik/ljud: ${allSoundtracks.join(', ')}`);
 	}
 
+	// Quick mode free text
+	if (data.quickText?.trim()) {
+		sections.push(`Fri text om dagen: ${data.quickText}`);
+	}
+
 	// Mood color
 	if (data.moodColor) {
 		const moodColor = getMoodColorById(data.moodColor);
@@ -301,6 +310,8 @@ export function formatWizardDataForPrompt(data: WizardData): string {
 		}
 	}
 
+	sections.push(`</user-data>`);
+
 	return sections.join('\n');
 }
 
@@ -320,8 +331,9 @@ Apply the same writing style as the main entry: ${metadata.styleSummary}
 
 THE SECTION SHOULD:
 - Start with exactly "On this day..." as the heading (no emoji before or after)
-- Mention 1-2 interesting historical events that occurred on this date (${dateString})
-- Be factual – only use real historical events you're certain about
+- Mention 1-2 well-known historical events that occurred on or around ${dateString}
+- Only mention events you are highly confident about from your training data – do NOT guess or fabricate
+- If you cannot confidently recall any events for this date, skip this section entirely
 - Be brief and concise (2-4 sentences)
 - Match the tone and style of the main diary entry
 - Connect the event to something in today's diary if it fits naturally
@@ -332,7 +344,7 @@ EXAMPLE (in British tone):
 
 DO NOT:
 - Include any emoji in the heading – the app handles this
-- Make up events – only use facts you're certain about
+- Fabricate or guess events – if unsure, omit the section
 - Be too long or detailed
 - Force a connection to today's events if it doesn't fit naturally`;
 	}
@@ -348,8 +360,9 @@ Använd stilen: ${metadata.styleSummary}
 
 AVSNITTET SKA:
 - Börja med exakt "På denna dag..." som rubrik (ingen emoji före eller efter)
-- Nämna 1-2 intressanta historiska händelser som inträffade på detta datum (${dateString})
-- Vara faktabaserat – använd verkliga historiska händelser
+- Nämna 1-2 välkända historiska händelser som inträffade på eller kring ${dateString}
+- Bara nämna händelser du är mycket säker på från din träningsdata – hitta INTE PÅ
+- Om du inte med säkerhet kan komma på några händelser för detta datum, hoppa över hela avsnittet
 - Gärna inkludera en svensk koppling om möjligt, men internationella händelser är också bra
 - Vara kort och koncist (2-4 meningar)
 - Matcha tonen och stilen i huvuddagboken
@@ -361,7 +374,7 @@ EXEMPEL PÅ BRA "PÅ DENNA DAG":
 
 GÖR INTE:
 - Inkludera någon emoji i rubriken – appen hanterar detta
-- Hitta på händelser – använd bara fakta du är säker på
+- Hitta på eller gissa händelser – om du är osäker, utelämna avsnittet
 - Var inte för lång eller detaljerad
 - Tvinga inte en koppling till dagens händelser om det inte passar`;
 }

@@ -1,6 +1,7 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { env } from '$env/dynamic/private';
+import { checkRateLimit, getClientIdentifier } from '$lib/validation/ratelimit';
 
 // CORS headers for Capacitor native app
 const corsHeaders = {
@@ -29,10 +30,24 @@ interface AutocompleteResponse {
 	status: string;
 }
 
-export const GET: RequestHandler = async ({ url }) => {
+export const GET: RequestHandler = async ({ url, request }) => {
 	try {
-		// Skip rate limiting for places API - it's already debounced on the client
-		// and Google has its own rate limits
+		// Rate limiting
+		const clientId = getClientIdentifier(request);
+		const rateLimitResult = await checkRateLimit(`places:${clientId}`);
+
+		if (!rateLimitResult.success) {
+			return json(
+				{ success: false, error: 'Rate limit exceeded' },
+				{
+					status: 429,
+					headers: {
+						...corsHeaders,
+						'Retry-After': String(Math.ceil((rateLimitResult.reset - Date.now()) / 1000))
+					}
+				}
+			);
+		}
 
 		// Check for API key
 		if (!env.GOOGLE_MAPS_API_KEY) {

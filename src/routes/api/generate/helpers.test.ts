@@ -74,6 +74,8 @@ const createMinimalWizardData = (overrides: Partial<WizardData> = {}): WizardDat
   includeHoroscope: false,
   includeOnThisDay: false,
   includeHomework: true,
+  quickText: '',
+  quickMode: false,
   ...overrides
 });
 
@@ -325,7 +327,7 @@ describe('buildOnThisDayInstructions', () => {
   it('includes guidance for what NOT to do', () => {
     const result = buildOnThisDayInstructions('15 juni');
     expect(result).toContain('GÖR INTE');
-    expect(result).toContain('Hitta på händelser');
+    expect(result).toContain('Hitta på eller gissa händelser');
   });
 
   it('returns Swedish instructions for Swedish tones', () => {

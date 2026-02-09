@@ -70,9 +70,16 @@ export interface WizardData {
   includeHoroscope: boolean;
   includeOnThisDay: boolean;
   includeHomework: boolean;
+
+  // Quick mode
+  quickText: string;
+  quickMode: boolean;
 }
 
 const PROFILE_STORAGE_KEY = 'storify-profile';
+const WIZARD_DRAFT_KEY = 'storify-wizard-draft';
+const QUICK_DRAFT_KEY = 'storify-quick-draft';
+const DRAFT_EXPIRY_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 const defaultProfile: UserProfile = {
   name: '',
@@ -118,13 +125,71 @@ function createWizardStore() {
     selectedTone: '',
     includeHoroscope: false,
     includeOnThisDay: false,
-    includeHomework: true
+    includeHomework: true,
+    quickText: '',
+    quickMode: false
   };
 
   let data = $state<WizardData>({ ...defaultData });
   let currentStep = $state(0);
   let isResultView = $state(false);
   const totalSteps = 11;
+
+  // Draft auto-save (debounced)
+  let draftSaveTimer: ReturnType<typeof setTimeout> | null = null;
+
+  function scheduleDraftSave(key: string) {
+    if (!browser) return;
+    if (draftSaveTimer) clearTimeout(draftSaveTimer);
+    draftSaveTimer = setTimeout(() => saveDraftNow(key), 500);
+  }
+
+  async function saveDraftNow(key: string) {
+    if (!browser) return;
+    try {
+      const { profile: _profile, ...dailyData } = data;
+      await Preferences.set({
+        key,
+        value: JSON.stringify({
+          data: dailyData,
+          step: currentStep,
+          savedAt: Date.now()
+        })
+      });
+    } catch (e) {
+      console.error('Failed to save draft:', e);
+    }
+  }
+
+  async function loadDraft(key: string): Promise<{ data: Partial<WizardData>; step: number } | null> {
+    if (!browser) return null;
+    try {
+      const { value } = await Preferences.get({ key });
+      if (!value) return null;
+      const parsed = JSON.parse(value);
+      if (Date.now() - parsed.savedAt > DRAFT_EXPIRY_MS) {
+        await Preferences.remove({ key });
+        return null;
+      }
+      return { data: parsed.data, step: parsed.step };
+    } catch (e) {
+      console.error('Failed to load draft:', e);
+      return null;
+    }
+  }
+
+  async function clearDrafts() {
+    if (!browser) return;
+    if (draftSaveTimer) clearTimeout(draftSaveTimer);
+    try {
+      await Promise.all([
+        Preferences.remove({ key: WIZARD_DRAFT_KEY }),
+        Preferences.remove({ key: QUICK_DRAFT_KEY })
+      ]);
+    } catch (e) {
+      console.error('Failed to clear drafts:', e);
+    }
+  }
 
   async function loadProfileFromPreferences(): Promise<UserProfile> {
     try {
@@ -258,6 +323,18 @@ function createWizardStore() {
         currentStep = 1;
       }
     },
+    async restoreDraft(mode: 'wizard' | 'quick' = 'wizard') {
+      const key = mode === 'quick' ? QUICK_DRAFT_KEY : WIZARD_DRAFT_KEY;
+      const draft = await loadDraft(key);
+      if (!draft) return false;
+      // Restore daily data fields (not profile)
+      const currentProfile = data.profile;
+      Object.assign(data, draft.data, { profile: currentProfile });
+      if (mode === 'wizard' && draft.step > 0) {
+        currentStep = draft.step;
+      }
+      return true;
+    },
     async initWeather() {
       const coords = await getCurrentPosition();
       if (coords) {
@@ -277,20 +354,24 @@ function createWizardStore() {
     nextStep() {
       if (currentStep < totalSteps) {
         currentStep++;
+        scheduleDraftSave(data.quickMode ? QUICK_DRAFT_KEY : WIZARD_DRAFT_KEY);
       }
     },
     prevStep() {
       if (currentStep > 0) {
         currentStep--;
+        scheduleDraftSave(data.quickMode ? QUICK_DRAFT_KEY : WIZARD_DRAFT_KEY);
       }
     },
     goToStep(step: number) {
       if (step >= 0 && step <= totalSteps) {
         currentStep = step;
+        scheduleDraftSave(data.quickMode ? QUICK_DRAFT_KEY : WIZARD_DRAFT_KEY);
       }
     },
     updateData<K extends keyof WizardData>(key: K, value: WizardData[K]) {
       data[key] = value;
+      scheduleDraftSave(data.quickMode ? QUICK_DRAFT_KEY : WIZARD_DRAFT_KEY);
     },
     updateProfile<K extends keyof UserProfile>(key: K, value: UserProfile[K]) {
       data.profile[key] = value;
@@ -305,6 +386,7 @@ function createWizardStore() {
       data = { ...defaultData, profile: currentProfile };
       currentStep = 1; // Go to step 1 after reset (skip profile on restart)
       isResultView = false;
+      void clearDrafts();
     },
     fullReset() {
       // Reset all data including step position (for going back to landing page)
@@ -312,12 +394,14 @@ function createWizardStore() {
       data = { ...defaultData, profile: currentProfile };
       currentStep = 0;
       isResultView = false;
+      void clearDrafts();
     },
     async clearAll() {
       // Reset everything including profile and remove from storage
       data = { ...defaultData, profile: { ...defaultProfile } };
       currentStep = 0;
       isResultView = false;
+      await clearDrafts();
       if (browser) {
         try {
           await Preferences.remove({ key: PROFILE_STORAGE_KEY });
@@ -356,6 +440,17 @@ function createWizardStore() {
           return true;
         default:
           return true;
+      }
+    },
+    async clearDraft(mode: 'wizard' | 'quick' | 'all' = 'all') {
+      if (mode === 'all') {
+        await clearDrafts();
+      } else {
+        const key = mode === 'quick' ? QUICK_DRAFT_KEY : WIZARD_DRAFT_KEY;
+        if (browser) {
+          if (draftSaveTimer) clearTimeout(draftSaveTimer);
+          await Preferences.remove({ key });
+        }
       }
     },
     hasOptionalFieldsFilled(step: number): boolean {

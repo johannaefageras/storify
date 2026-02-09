@@ -152,11 +152,10 @@ describe('safeMarkdownToHtml', () => {
 		expect(result).toContain('<br');
 	});
 
-	it('passes through HTML tags (marked does not escape by default)', () => {
-		// Note: marked.parse with gfm:true does NOT escape HTML
-		// Callers must sanitize input before passing to this function
+	it('escapes raw HTML tags in input', () => {
 		const result = safeMarkdownToHtml('<script>alert(1)</script>');
-		expect(result).toContain('<script>');
+		expect(result).not.toContain('<script>');
+		expect(result).toContain('&lt;script&gt;');
 	});
 
 	it('converts links', () => {

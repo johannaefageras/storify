@@ -21,9 +21,11 @@ import LegalFooter from '$lib/components/LegalFooter.svelte';
 
 	const optionalSteps = [0, 5, 6, 7, 9];
 
-	onMount(() => {
+	onMount(async () => {
 		// Load profile and skip Step 0 for logged-in users
-		wizardStore.initProfile();
+		await wizardStore.initProfile();
+		// Restore any saved draft progress
+		await wizardStore.restoreDraft('wizard');
 		// Fetch weather silently in the background (fails silently if denied or unavailable)
 		wizardStore.initWeather();
 	});

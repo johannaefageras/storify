@@ -52,6 +52,9 @@ export const FIELD_LIMITS: Record<string, number> = {
 	wins: LIMITS.LIST_ITEM,
 	frustrations: LIMITS.LIST_ITEM,
 
+	// Quick mode
+	quickText: LIMITS.TIME_CAPSULE,
+
 	// Textareas
 	almostHappened: LIMITS.REFLECTION,
 	unnecessaryThing: LIMITS.REFLECTION,

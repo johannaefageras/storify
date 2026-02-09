@@ -12,7 +12,7 @@ function getRateLimiter(): Ratelimit | null {
 	const upstashToken = env.UPSTASH_REDIS_REST_TOKEN;
 
 	if (!upstashUrl || !upstashToken) {
-		console.warn('Upstash credentials not configured. Rate limiting disabled.');
+		console.error('Upstash credentials not configured. Rate limiting will fail closed.');
 		return null;
 	}
 
@@ -40,8 +40,9 @@ export async function checkRateLimit(identifier: string): Promise<RateLimitResul
 	const limiter = getRateLimiter();
 
 	if (!limiter) {
-		// Rate limiting disabled - allow all requests
-		return { success: true, remaining: -1, reset: 0 };
+		// Rate limiting not configured - fail closed to prevent abuse
+		console.error('Rate limiter unavailable. Blocking request.');
+		return { success: false, remaining: 0, reset: Date.now() + 60_000 };
 	}
 
 	try {
@@ -49,8 +50,8 @@ export async function checkRateLimit(identifier: string): Promise<RateLimitResul
 		return { success, remaining, reset };
 	} catch (error) {
 		console.error('Rate limit check failed:', error);
-		// On error, allow the request (fail open)
-		return { success: true, remaining: -1, reset: 0 };
+		// On error, fail closed to prevent abuse
+		return { success: false, remaining: 0, reset: Date.now() + 60_000 };
 	}
 }
 

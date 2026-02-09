@@ -3,7 +3,7 @@
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { supabase } from '$lib/supabase/client';
 	import { tones } from '$lib/data/tones';
-	import { jomojiSvgMap, jomojiLabelMap } from '$lib/data/jomojis';
+	import { jomojiSvgMap } from '$lib/data/jomojis';
 	import { uniqueSvgIds } from '$lib/utils/uniqueSvgIds';
 	import { getMoodColorById } from '$lib/data/moodColors';
 	import type { Component } from 'svelte';
@@ -292,22 +292,19 @@ Vi ses imorgon, dagboken.`;
 			await new Promise((resolve) => setTimeout(resolve, 5000)); // Simulate loading
 			generatedEntry = stripSeparatorLines(SAMPLE_ENTRY);
 			selectRandomMessage();
+			void wizardStore.clearDraft('wizard');
 			stopPhraseCycling();
 			isGenerating = false;
 			return;
 		}
 
 		try {
-			const emojiLabels = wizardStore.data.emojis.map(
-				(emojiId) => jomojiLabelMap.get(emojiId) ?? emojiId
-			);
-
 			const response = await fetch(getApiUrl('/api/generate'), {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ ...wizardStore.data, emojis: emojiLabels, selectedTone: toneToUse })
+				body: JSON.stringify({ ...wizardStore.data, selectedTone: toneToUse })
 			});
 
 			const result = await response.json();
@@ -315,6 +312,7 @@ Vi ses imorgon, dagboken.`;
 			if (result.success) {
 				generatedEntry = stripSeparatorLines(result.entry);
 				selectRandomMessage();
+				void wizardStore.clearDraft('wizard');
 			} else {
 				error = result.error || 'Något gick fel vid genereringen.';
 			}

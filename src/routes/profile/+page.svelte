@@ -362,7 +362,7 @@
 				/>
 				<div class="hero-info">
 					<h1 class="hero-name">{name ? `${name}s Profil` : 'Min Profil'}</h1>
-					<p class="hero-phrase">{profilePhrases[Math.floor(Math.random() * profilePhrases.length)]}</p>
+					<p class="hero-phrase">{`\u201C${profilePhrases[Math.floor(Math.random() * profilePhrases.length)]}\u201D`}</p>
 				</div>
 			</div>
 		</div>
@@ -692,7 +692,8 @@
 		font-size: var(--text-sm);
 		color: var(--color-text-muted);
 		font-style: italic;
-		font-weight: 400;
+		font-weight: var(--lyric-weight-regular);
+		font-variation-settings: var(--lyric-normal);
 		letter-spacing: var(--tracking-wide);
 		margin: 0.125rem 0 0;
 	}

@@ -18,6 +18,10 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 // Pattern to detect potential script injection attempts
 const SUSPICIOUS_PATTERN = /<script|javascript:|on\w+\s*=/i;
 
+// Pattern to detect prompt injection attempts (instruction-level attacks)
+const PROMPT_INJECTION_PATTERN =
+	/ignore\s+(all\s+)?(previous|above|prior|earlier)\s+(instructions|prompts|rules)|you\s+are\s+now\s+a|new\s+instructions?:|system\s*prompt:|forget\s+(everything|all|your)\s+(above|previous|prior)|do\s+not\s+follow|override\s+(previous|all|your)|disregard\s+(all|previous|above|prior|the)\s+(instructions|rules|prompts)/i;
+
 export function validateString(
 	value: string,
 	fieldName: string,
@@ -35,7 +39,7 @@ export function validateString(
 		};
 	}
 
-	if (SUSPICIOUS_PATTERN.test(value)) {
+	if (SUSPICIOUS_PATTERN.test(value) || PROMPT_INJECTION_PATTERN.test(value)) {
 		return {
 			field: fieldName,
 			message: 'Otillåtet innehåll',
@@ -175,6 +179,12 @@ export function validateWizardData(data: WizardData): ValidationResult {
 			const error = validateArray(value as string[], field);
 			if (error) errors.push(error);
 		}
+	}
+
+	// Quick mode text
+	if (typeof data.quickText === 'string' && data.quickText) {
+		const error = validateString(data.quickText, 'quickText');
+		if (error) errors.push(error);
 	}
 
 	// Step 7 textareas

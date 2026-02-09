@@ -91,7 +91,7 @@
 :root {
   /* Font Families */
   --font-primary: 'GT Pressura', system-ui, sans-serif;
-  --font-serif: 'Reckless', serif;
+  --font-serif: 'Lyric', serif;
   --font-mono: 'GT Pressura Mono', ui-monospace, monospace;
 
   /* Legacy aliases for compatibility */
@@ -171,6 +171,18 @@
   --weight-bold: 650; /* Robust but not too heavy */
   --weight-heavy: 750;
   --weight-black: 900;
+
+  /* Lyric font settings */
+  --lyric-weight-thin: 200;
+  --lyric-weight-light: 282.6;
+  --lyric-weight-regular: 400;
+  --lyric-weight-medium: 487.5;
+  --lyric-weight-semibold: 591.7;
+  --lyric-weight-bold: 700;
+
+  --lyric-condensed: 'wdth' 80;
+  --lyric-normal: 'wdth' 100;
+  --lyric-wide: 'wdth' 120;
 }
 
 /* ==========================================================================

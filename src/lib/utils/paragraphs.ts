@@ -7,19 +7,28 @@ export function getParagraphType(text: string): ParagraphType {
 		return 'horoscope-heading';
 	}
 	if (
-		/^På denna dag(?:[\s.!:…—–-]*)$/i.test(trimmed) ||
-		/^On this day(?:[\s.!:…—–-]*)$/i.test(trimmed)
+		/^På denna dag(?:[\s.!…—–-]*)$/i.test(trimmed) ||
+		/^On this day(?:[\s.!…—–-]*)$/i.test(trimmed)
 	) {
 		return 'onthisday-heading';
 	}
-	if (/^Hemläxa/i.test(trimmed) || /^Homework/i.test(trimmed)) {
+	if (/^Hemläxa(?:[\s.!…—–-]*)$/i.test(trimmed) || /^Homework(?:[\s.!…—–-]*)$/i.test(trimmed)) {
 		return 'homework-heading';
 	}
 	return 'regular';
 }
 
+function escapeHtml(str: string): string {
+	return str
+		.replace(/&/g, '&amp;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;')
+		.replace(/"/g, '&quot;')
+		.replace(/'/g, '&#039;');
+}
+
 export function formatParagraph(text: string): string {
-	return text
+	return escapeHtml(text)
 		.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
 		.replace(/\*(.*?)\*/g, '<em>$1</em>')
 		.replace(/\n/g, '<br>');

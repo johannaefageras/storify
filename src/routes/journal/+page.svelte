@@ -4,8 +4,7 @@
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { supabase } from '$lib/supabase/client';
 	import { tones } from '$lib/data/tones';
-	import { jomojiSvgMap } from '$lib/data/jomojis';
-	import { uniqueSvgIds } from '$lib/utils/uniqueSvgIds';
+
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import type { Component } from 'svelte';
@@ -131,16 +130,7 @@
 		return `${swedishMonths[month]} ${year}`;
 	}
 
-	function truncateText(text: string, maxLength: number): string {
-		if (text.length <= maxLength) return text;
-		return text.slice(0, maxLength).replace(/\s+\S*$/, '') + '...';
-	}
-
-	function getEmojiSvg(emojiId: string): string | undefined {
-		return jomojiSvgMap.get(emojiId);
-	}
-
-	function getToneIcon(id: string): Component | undefined {
+function getToneIcon(id: string): Component | undefined {
 		return toneIconMap[id];
 	}
 
@@ -356,24 +346,11 @@
 							{@const { weekday, date } = formatEntryDate(entry.entry_date, entry.created_at)}
 							{@const ToneIcon = getToneIcon(entry.tone_id)}
 							<button class="entry-card" onclick={() => openEntry(entry)}>
-								<div class="card-header">
-									<div class="card-date">
-										<span class="card-weekday">{weekday || entry.weekday || ''}</span>
-										<span class="card-date-text">{date}</span>
-									</div>
-									{#if entry.emojis && entry.emojis.length > 0}
-										<span class="card-emojis">
-											{#each entry.emojis.slice(0, 3) as emojiId}
-												{@const svg = getEmojiSvg(emojiId)}
-												{#if svg}
-													<span class="card-emoji">{@html uniqueSvgIds(svg)}</span>
-												{/if}
-											{/each}
-										</span>
-									{/if}
+								<div class="card-date">
+									<span class="card-weekday">{weekday || entry.weekday || ''}</span>
+									<span class="card-date-text">{date}</span>
 								</div>
-								<p class="card-preview">{truncateText(entry.generated_text, 120)}</p>
-								<div class="card-footer">
+								<div class="card-tone">
 									{#if ToneIcon}
 										<span class="card-tone-icon"><UniqueEmoji><ToneIcon size={16} /></UniqueEmoji></span>
 									{/if}
@@ -656,16 +633,17 @@
 	/* Entry Cards Grid */
 
 	.entries-grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
+		display: flex;
+		flex-direction: column;
 		gap: 0.75rem;
 	}
 
 	.entry-card {
 		display: flex;
-		flex-direction: column;
+		align-items: center;
+		justify-content: space-between;
 		gap: 0.75rem;
-		padding: 1rem 1.25rem;
+		padding: 0.875rem 1.25rem;
 		background-color: var(--color-bg-elevated);
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-md);
@@ -679,13 +657,6 @@
 	.entry-card:hover {
 		border-color: var(--color-accent);
 		box-shadow: 0 2px 8px rgba(244, 63, 122, 0.08);
-	}
-
-	.card-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-start;
-		gap: 0.5rem;
 	}
 
 	.card-date {
@@ -710,42 +681,11 @@
 		color: var(--color-text-muted);
 	}
 
-	.card-emojis {
-		display: flex;
-		align-items: center;
-		gap: 0.25rem;
-	}
-
-	.card-emoji {
-		display: flex;
-		align-items: center;
-		width: 20px;
-		height: 20px;
-	}
-
-	.card-emoji :global(svg) {
-		width: 100%;
-		height: 100%;
-	}
-
-	.card-preview {
-		font-size: var(--text-sm);
-		font-weight: var(--weight-regular);
-		line-height: var(--leading-relaxed);
-		letter-spacing: var(--tracking-wide);
-		color: var(--color-text-muted);
-		margin: 0;
-		display: -webkit-box;
-		-webkit-line-clamp: 3;
-		line-clamp: 3;
-		-webkit-box-orient: vertical;
-		overflow: hidden;
-	}
-
-	.card-footer {
+	.card-tone {
 		display: flex;
 		align-items: center;
 		gap: 0.375rem;
+		flex-shrink: 0;
 	}
 
 	.card-tone-icon {
@@ -1103,10 +1043,6 @@
 		.journal-page {
 			padding: 1rem;
 			padding-top: 0.5rem;
-		}
-
-		.entries-grid {
-			grid-template-columns: 1fr;
 		}
 
 		.modal-overlay {

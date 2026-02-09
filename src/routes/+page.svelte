@@ -59,6 +59,11 @@
 						Skönt, sätt igång! <IconArrowRight size={18} />
 					</button>
 				{/if}
+				<div class="quick-mode-wrapper">
+					<button class="quick-mode-link" onclick={() => goto('/quick')}>
+						Snabbläge <IconArrowRight size={14} />
+					</button>
+				</div>
 			</div>
 		</div>
 
@@ -156,7 +161,39 @@
 	}
 
 	.action {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1.25rem;
 		margin: 0;
+	}
+
+	.quick-mode-wrapper {
+		display: flex;
+		justify-content: center;
+	}
+
+	.quick-mode-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.375rem;
+		background: none;
+		border: none;
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-medium);
+		color: var(--color-text-muted);
+		cursor: pointer;
+		text-decoration: underline;
+		text-underline-offset: 2px;
+		transition: opacity 0.2s ease, color 0.2s ease;
+		opacity: 0.75;
+		letter-spacing: var(--tracking-wide);
+	}
+
+	.quick-mode-link:hover {
+		opacity: 1;
+		color: var(--color-text);
 	}
 
 	.landing-footer {

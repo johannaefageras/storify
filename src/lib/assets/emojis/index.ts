@@ -155,3 +155,9 @@ export { default as EmojiZodiacSagittarius } from './EmojiZodiacSagittarius.svel
 export { default as EmojiZodiacScorpio } from './EmojiZodiacScorpio.svelte';
 export { default as EmojiZodiacTaurus } from './EmojiZodiacTaurus.svelte';
 export { default as EmojiZodiacVirgo } from './EmojiZodiacVirgo.svelte';
+export { default as EmojiBatteryHigh } from './EmojiBatteryHigh.svelte';
+export { default as EmojiBatteryLow } from './EmojiBatteryLow.svelte';
+export { default as EmojiGoogle } from './EmojiGoogle.svelte';
+export { default as EmojiHighVoltage } from './EmojiHighVoltage.svelte';
+export { default as EmojiThermometer } from './EmojiThermometer.svelte';
+export { default as EmojiZzz } from './EmojiZzz.svelte';

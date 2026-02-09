@@ -44,10 +44,12 @@ export function escapeHtml(unsafe: string): string {
 }
 
 // Markdown-to-HTML conversion for emails using marked
-// Note: Does NOT escape HTML in input - callers should sanitize if needed
+// Escapes raw HTML in input before parsing markdown, so only markdown-generated
+// HTML tags appear in the output – any HTML in the source becomes inert text.
 export function safeMarkdownToHtml(text: string): string {
 	if (!text) return '';
 
-	const html = marked.parse(text, markedOptions) as string;
+	const escaped = escapeHtml(text);
+	const html = marked.parse(escaped, markedOptions) as string;
 	return html.trim();
 }
