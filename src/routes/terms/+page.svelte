@@ -8,7 +8,7 @@
 		<EmojiWomanJudge size={96} />
 		<h1>Användarvillkor</h1>
 	</div>
-	<p class="updated">Senast uppdaterad: 8 februari 2026</p>
+	<p class="updated">Senast uppdaterad: 9 februari 2026</p>
 
 	<section>
 		<h2>Välkommen till Storify</h2>
@@ -17,7 +17,7 @@
 
 	<section>
 		<h2>Så fungerar tjänsten</h2>
-		<p>Du går igenom en guide där du fyller i information om din dag – allt från humör och aktiviteter till reflektioner och minnen. Sedan väljer du en av 28 skrivstilar och låter vår AI skapa ett dagboksinlägg åt dig. Du kan även lägga till tillägg som horoskop, historiska händelser eller en personlig hemläxa.</p>
+		<p>Du kan välja mellan en fullständig guide med detaljerade frågor om din dag eller ett snabbläge där du fångar dagens känsla på under en minut. I båda lägena väljer du en av 28 skrivstilar och låter vår AI skapa ett dagboksinlägg åt dig. I den fullständiga guiden kan du även lägga till tillägg som horoskop, historiska händelser eller en personlig hemläxa.</p>
 		<p>Den genererade texten kan sparas som bild, PDF, kopieras eller skickas som e-post. Om du har ett konto kan du dessutom spara inlägg i ditt personliga journalarkiv.</p>
 	</section>
 

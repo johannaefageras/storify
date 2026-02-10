@@ -22,7 +22,8 @@
 
 	<section>
 		<h2>Vad kan appen göra?</h2>
-		<p>Storify guidar dig genom en steg-för-steg-wizard där du berättar om din dag – allt från humör och energinivå till aktiviteter, vinster, motgångar och reflektioner. Du kan välja emojis som sammanfattar din dag, beskriva vad du ätit och lyssnat på, och till och med skriva en tidskapsel – ett meddelande till ditt framtida jag som vävs in i dagbokstexten.</p>
+		<p>Storify erbjuder två sätt att skapa din dagbokstext. Den <strong>fullständiga guiden</strong> tar dig genom en steg-för-steg-wizard där du berättar om din dag – allt från humör och energinivå till aktiviteter, vinster, motgångar och reflektioner. Du kan välja emojis som sammanfattar din dag, beskriva vad du ätit och lyssnat på, och till och med skriva en tidskapsel – ett meddelande till ditt framtida jag som vävs in i dagbokstexten.</p>
+		<p>Har du ont om tid? <strong>Snabbläget</strong> låter dig fånga dagens känsla på under en minut – berätta kort om din dag, välj en röst, och få en dagbokstext direkt. Perfekt för hektiska dagar när du ändå vill hålla vanan vid liv.</p>
 		<p>Appen hämtar vädret automatiskt baserat på din position och kan fylla i din plats åt dig. Vill du krydda din dagbok lite extra? Lägg till ett personligt horoskop, historiska händelser som inträffat på samma datum, eller en liten "hemläxa" – en reflektion eller utmaning baserad på din dag.</p>
 		<p>När texten är klar kan du spara den som bild eller PDF, kopiera den, eller skicka den som e-post. Skapar du ett konto kan du dessutom spara dina dagboksinlägg i ett personligt journalarkiv och komma åt dem när som helst.</p>
 		<p>Storify finns som webbapp och som Android-app.</p>

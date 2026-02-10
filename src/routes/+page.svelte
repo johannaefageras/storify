@@ -4,6 +4,7 @@
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { EmojiRoseLight, EmojiRoseDark } from '$lib/assets/emojis';
+	import { getGreeting, getSubtitle } from '$lib/data/greetings';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 	import IconArrowRight from '$lib/assets/icons/IconArrowRight.svelte';
@@ -12,6 +13,8 @@
 
 	let isReturningUser = $derived(authStore.isLoggedIn && !!wizardStore.data.profile.name);
 	let firstName = $derived(wizardStore.data.profile.name.split(' ')[0]);
+	let greeting = $derived(isReturningUser ? getGreeting(firstName) : '');
+	let subtitle = $derived(isReturningUser ? getSubtitle() : '');
 
 	function startWizard() {
 		goto('/wizard');
@@ -41,8 +44,8 @@
 					{/if}
 				</div>
 				{#if isReturningUser}
-					<h1 class="title">Hej, {firstName}!</h1>
-					<p class="subtitle">Redo att fånga dagens ögonblick?</p>
+					<h1 class="title">{greeting}</h1>
+					<p class="subtitle">{subtitle}</p>
 				{:else}
 					<h1 class="title">Storify</h1>
 					<p class="subtitle">Du har inte tid att skriva dagbok. Perfekt – det behöver du inte heller.</p>
@@ -52,7 +55,7 @@
 			<div class="action">
 				{#if isReturningUser}
 					<button class="btn btn-primary btn-large" onclick={startWizard}>
-						Skriv dagboksanteckning <IconArrowRight size={18} />
+						Berätta om din dag <IconArrowRight size={18} />
 					</button>
 				{:else}
 					<button class="btn btn-primary btn-large" onclick={startWizard}>

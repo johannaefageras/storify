@@ -44,18 +44,58 @@
 		<h1>Användarguide</h1>
 	</div>
 	<p class="subtitle">Så får du ut det bästa av Storify</p>
-	<p class="updated">Senast uppdaterad: 8 februari 2026</p>
+	<p class="updated">Senast uppdaterad: 9 februari 2026</p>
 
 	<section>
 		<h2>Hur fungerar Storify?</h2>
-		<p>Storify hjälper dig att skriva dagbok genom att omvandla dina svar på enkla frågor till en personlig dagbokstext. Du går igenom en guide med frågor om din dag, väljer en röst som passar ditt humör, och sedan skapar AI:n en text baserad på det du berättat.</p>
+		<p>Storify hjälper dig att skriva dagbok genom att omvandla dina svar på enkla frågor till en personlig dagbokstext. Du väljer en röst som passar ditt humör, och sedan skapar AI:n en text baserad på det du berättat.</p>
 		<p>Tänk på det som att ha en personlig författare som lyssnar på din dag och sedan skriver ner den åt dig – men med din egen information och i den stil du väljer.</p>
 		<p>Appen kan även hämta aktuellt väder och din plats automatiskt, så du slipper fylla i det manuellt – ett litet sätt att fånga stämningen i din dag.</p>
+		<p>Du kan välja mellan två lägen:</p>
+		<div class="custom-ul">
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Fullständig guide</strong> – En steg-för-steg-wizard med detaljerade frågor om din dag. Passar när du har lite tid och vill skapa en rik och detaljerad dagbokstext.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Snabbläge</strong> – En enkel sida där du fångar dagens känsla på under en minut. Perfekt för hektiska dagar när du ändå vill hålla dagboksvanan vid liv.</span>
+			</div>
+		</div>
 	</section>
 
 	<section>
-		<h2>Steg för steg</h2>
-		<p>Guiden tar dig igenom följande moment:</p>
+		<h2>Snabbläge</h2>
+		<p>Snabbläget är det snabbaste sättet att skapa en dagbokstext. Allt sker på en enda sida – inga steg att klicka igenom. Du fyller i:</p>
+		<div class="custom-ul">
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Dagsform</strong> – Hur var din dag på en skala från 1 till 10?</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Berätta om din dag</strong> – En kort fritext där du beskriver vad som hände.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Dagens segrar</strong> – Små och stora vinster under dagen.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Dagens färg</strong> – Om din dag var en färg, vilken skulle det vara?</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-content"><strong>Röst</strong> – Välj en av 28 skrivstilar.</span>
+			</div>
+		</div>
+		<p>Texten som genereras i snabbläget är kortare och mer koncentrerad – ungefär 100–150 ord – men fångar ändå kärnan i din dag. Tillägg som horoskop och historiska händelser är inte tillgängliga i snabbläget.</p>
+		<p>Du hittar snabbläget via länken "Snabbläge" på startsidan, eller genom att gå direkt till <a href="/quick">/quick</a>.</p>
+	</section>
+
+	<section>
+		<h2>Fullständig guide – steg för steg</h2>
+		<p>Den fullständiga guiden tar dig igenom följande moment:</p>
 		<div class="custom-ol">
 			<div class="custom-li">
 				<span class="list-icon number-icon"><Number1 size={14} /></span>
