@@ -72,6 +72,7 @@
 
 	.copyright {
 		padding-top: 1rem;
+		padding-bottom: 1.5rem;
 		border-top: 1px solid var(--color-border);
 		width: 100%;
 		text-align: center;

@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { supabase } from '$lib/supabase/client';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import IconArrowRight from '$lib/assets/icons/IconArrowRight.svelte';
 
 	let email = $state('');
 	let password = $state('');
@@ -51,7 +52,7 @@
 			{/if}
 
 			<div class="field-group">
-				<label class="field-label" for="email">E-post</label>
+				<label class="field-label" for="email">E-postadress</label>
 				<input
 					id="email"
 					type="email"
@@ -75,7 +76,7 @@
 			</div>
 
 			<button class="btn btn-primary btn-large auth-submit" type="submit" disabled={loading}>
-				{loading ? 'Loggar in...' : 'Logga in'}
+				{loading ? 'Loggar in...' : 'Logga in'} <IconArrowRight size={18} />
 			</button>
 
 			<div class="auth-divider">
@@ -89,24 +90,22 @@
 
 		<nav class="auth-links">
 			<a href="/forgot-password">Glömt lösenordet?</a>
-			<a href="/register">Skapa konto</a>
+			<a href="/register">Skapa ett konto</a>
 		</nav>
 
-		<div class="auth-back">
-			<a href="/">Tillbaka till startsidan</a>
-		</div>
 	</div>
 	<LegalFooter />
 </main>
 
 <style>
 	.auth-page {
-		min-height: 100vh;
+		flex: 1;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding: 2rem;
+		padding: 1.25rem;
 		padding-bottom: 0;
+		overflow: hidden;
 	}
 
 	.auth-container {
@@ -121,7 +120,7 @@
 
 	.auth-header {
 		text-align: center;
-		margin-bottom: 2rem;
+		margin-bottom: 1.25rem;
 	}
 
 	.auth-title {
@@ -146,7 +145,7 @@
 	.auth-form {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: 0.75rem;
 		width: 100%;
 	}
 
@@ -190,7 +189,7 @@
 	}
 
 	.auth-submit {
-		margin-top: 0.5rem;
+		margin-top: 0.25rem;
 		width: 100%;
 		justify-content: center;
 	}
@@ -250,7 +249,7 @@
 	.auth-links {
 		display: flex;
 		gap: 1.5rem;
-		margin-top: 1.5rem;
+		margin-top: 1.25rem;
 	}
 
 	.auth-links a {
@@ -265,25 +264,6 @@
 
 	.auth-links a:hover {
 		opacity: 0.75;
-	}
-
-	.auth-back {
-		margin-top: 2rem;
-	}
-
-	.auth-back a {
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		color: var(--color-text-muted);
-		font-weight: var(--weight-medium);
-		text-decoration: underline;
-		text-underline-offset: 2px;
-		opacity: 0.75;
-		transition: opacity 0.15s ease;
-	}
-
-	.auth-back a:hover {
-		opacity: 1;
 	}
 
 	.auth-error {

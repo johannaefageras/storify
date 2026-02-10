@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { supabase } from '$lib/supabase/client';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import IconArrowRight from '$lib/assets/icons/IconArrowRight.svelte';
 
 	let email = $state('');
 	let error = $state('');
@@ -30,7 +31,7 @@
 <main class="auth-page">
 	<div class="auth-container">
 		<header class="auth-header">
-			<h1 class="auth-title">Glömt lösenord</h1>
+			<h1 class="auth-title">Glömt lösenordet?</h1>
 			<p class="auth-subtitle">Ange din e-postadress så skickar vi en återställningslänk</p>
 		</header>
 
@@ -46,7 +47,7 @@
 				{/if}
 
 				<div class="field-group">
-					<label class="field-label" for="email">E-post</label>
+					<label class="field-label" for="email">E-postadress</label>
 					<input
 						id="email"
 						type="email"
@@ -58,26 +59,27 @@
 				</div>
 
 				<button class="btn btn-primary btn-large auth-submit" type="submit" disabled={loading}>
-					{loading ? 'Skickar...' : 'Skicka återställningslänk'}
+					{loading ? 'Skickar återställningslänk...' : 'Återställ mitt lösenord'} <IconArrowRight size={18} />
 				</button>
 			</form>
 		{/if}
 
-		<div class="auth-back">
+		<nav class="auth-links">
 			<a href="/login">Tillbaka till inloggning</a>
-		</div>
+		</nav>
 	</div>
 	<LegalFooter />
 </main>
 
 <style>
 	.auth-page {
-		min-height: 100vh;
+		flex: 1;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding: 2rem;
+		padding: 1.25rem;
 		padding-bottom: 0;
+		overflow: hidden;
 	}
 
 	.auth-container {
@@ -92,7 +94,7 @@
 
 	.auth-header {
 		text-align: center;
-		margin-bottom: 2rem;
+		margin-bottom: 1.25rem;
 	}
 
 	.auth-title {
@@ -117,7 +119,7 @@
 	.auth-form {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: 0.75rem;
 		width: 100%;
 	}
 
@@ -161,28 +163,29 @@
 	}
 
 	.auth-submit {
-		margin-top: 0.5rem;
+		margin-top: 0.25rem;
 		width: 100%;
 		justify-content: center;
 	}
 
-	.auth-back {
-		margin-top: 2rem;
+	.auth-links {
+		display: flex;
+		gap: 1.5rem;
+		margin-top: 1.25rem;
 	}
 
-	.auth-back a {
+	.auth-links a {
 		font-family: var(--font-primary);
 		font-size: var(--text-sm);
-		color: var(--color-text-muted);
+		color: var(--color-accent);
 		font-weight: var(--weight-medium);
-		text-decoration: underline;
-		text-underline-offset: 2px;
-		opacity: 0.75;
+		text-decoration: none;
+		letter-spacing: var(--tracking-normal);
 		transition: opacity 0.15s ease;
 	}
 
-	.auth-back a:hover {
-		opacity: 1;
+	.auth-links a:hover {
+		opacity: 0.75;
 	}
 
 	.auth-error {

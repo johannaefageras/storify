@@ -38,9 +38,9 @@
 			<header class="hero">
 				<div class="logo">
 					{#if themeStore.current === 'dark'}
-						<EmojiRoseDark size={120} />
+						<EmojiRoseDark size={88} />
 					{:else}
-						<EmojiRoseLight size={120} />
+						<EmojiRoseLight size={88} />
 					{/if}
 				</div>
 				{#if isReturningUser}
@@ -107,7 +107,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding: 2rem;
+		padding: 1.25rem;
 		padding-bottom: 0;
 		overflow: hidden;
 	}
@@ -127,9 +127,9 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		gap: 2.5rem;
-		padding: 1.5rem 0 0;
-		margin-top: 1.25rem;
+		gap: 1.75rem;
+		padding: 0.75rem 0 0;
+		margin-top: 0;
 	}
 
 	.hero {
@@ -139,7 +139,7 @@
 	.logo {
 		display: flex;
 		justify-content: center;
-		margin-bottom: 1.5rem;
+		margin-bottom: 1rem;
 	}
 
 	.title {
@@ -149,7 +149,7 @@
 		font-stretch: 115%;
 		letter-spacing: var(--tracking-tighter);
 		line-height: var(--leading-tight);
-		margin-bottom: 1.25rem;
+		margin-bottom: 0.75rem;
 		color: var(--color-text);
 	}
 
@@ -203,13 +203,12 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		margin-bottom: 1.5rem;
 	}
 
 	.reset-wrapper {
 		position: relative;
 		display: inline-block;
-		margin-top: 3.75rem;
+		margin-top: 1.5rem;
 	}
 
 	.reset-link {

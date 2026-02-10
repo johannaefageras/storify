@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { supabase } from '$lib/supabase/client';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import IconArrowRight from '$lib/assets/icons/IconArrowRight.svelte';
 
 	let email = $state('');
 	let password = $state('');
@@ -46,7 +47,7 @@
 <main class="auth-page">
 	<div class="auth-container">
 		<header class="auth-header">
-			<h1 class="auth-title">Skapa konto</h1>
+			<h1 class="auth-title">Skapa ett konto</h1>
 			<p class="auth-subtitle">Kom igång med Storify</p>
 		</header>
 
@@ -55,9 +56,9 @@
 				<p class="success-title">Kolla din inkorg!</p>
 				<p class="success-text">Vi har skickat en bekräftelselänk till <strong>{email}</strong>. Klicka på länken för att aktivera ditt konto.</p>
 			</div>
-			<div class="auth-back">
+			<nav class="auth-links">
 				<a href="/login">Tillbaka till inloggning</a>
-			</div>
+			</nav>
 		{:else}
 			<form class="auth-form" onsubmit={handleRegister}>
 				{#if error}
@@ -65,7 +66,7 @@
 				{/if}
 
 				<div class="field-group">
-					<label class="field-label" for="email">E-post</label>
+					<label class="field-label" for="email">E-postadress</label>
 					<input
 						id="email"
 						type="email"
@@ -101,17 +102,13 @@
 				</div>
 
 				<button class="btn btn-primary btn-large auth-submit" type="submit" disabled={loading}>
-					{loading ? 'Skapar konto...' : 'Skapa konto'}
+					{loading ? 'Skapar konto...' : 'Skapa konto'} <IconArrowRight size={18} />
 				</button>
 			</form>
 
 			<nav class="auth-links">
-				<a href="/login">Har redan ett konto? Logga in</a>
+				<a href="/login">Har du redan ett konto? Logga in</a>
 			</nav>
-
-			<div class="auth-back">
-				<a href="/">Tillbaka till startsidan</a>
-			</div>
 		{/if}
 	</div>
 	<LegalFooter />
@@ -119,12 +116,13 @@
 
 <style>
 	.auth-page {
-		min-height: 100vh;
+		flex: 1;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding: 2rem;
+		padding: 1.25rem;
 		padding-bottom: 0;
+		overflow: hidden;
 	}
 
 	.auth-container {
@@ -139,7 +137,7 @@
 
 	.auth-header {
 		text-align: center;
-		margin-bottom: 2rem;
+		margin-bottom: 1.25rem;
 	}
 
 	.auth-title {
@@ -164,7 +162,7 @@
 	.auth-form {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: 0.75rem;
 		width: 100%;
 	}
 
@@ -208,7 +206,7 @@
 	}
 
 	.auth-submit {
-		margin-top: 0.5rem;
+		margin-top: 0.25rem;
 		width: 100%;
 		justify-content: center;
 	}
@@ -216,7 +214,7 @@
 	.auth-links {
 		display: flex;
 		gap: 1.5rem;
-		margin-top: 1.5rem;
+		margin-top: 1.25rem;
 	}
 
 	.auth-links a {
@@ -231,25 +229,6 @@
 
 	.auth-links a:hover {
 		opacity: 0.75;
-	}
-
-	.auth-back {
-		margin-top: 2rem;
-	}
-
-	.auth-back a {
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		color: var(--color-text-muted);
-		font-weight: var(--weight-medium);
-		text-decoration: underline;
-		text-underline-offset: 2px;
-		opacity: 0.75;
-		transition: opacity 0.15s ease;
-	}
-
-	.auth-back a:hover {
-		opacity: 1;
 	}
 
 	.auth-error {
@@ -285,12 +264,6 @@
 		font-weight: var(--weight-book);
 		line-height: var(--leading-relaxed);
 		word-break: break-word;
-	}
-
-	@media (max-width: 400px) {
-		.auth-page {
-			padding: 1rem;
-		}
 	}
 
 	.success-text strong {
