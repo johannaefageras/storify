@@ -7,7 +7,7 @@
 	import { uniqueSvgIds } from '$lib/utils/uniqueSvgIds';
 	import { getMoodColorById } from '$lib/data/moodColors';
 	import type { Component } from 'svelte';
-	import { EmojiSparkles, EmojiRosePinkLight, EmojiRosePinkDark, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiArchive, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiDice, EmojiTornado, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiCrystalBall, EmojiLightBulb, EmojiMantelpieceClock, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces, EmojiFloppyDisk } from '$lib/assets/emojis';
+	import { EmojiSparkles, EmojiRosePinkLight, EmojiRosePinkDark, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiArchive, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiDice, EmojiTornado, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiCrystalBall, EmojiLightBulb, EmojiMantelpieceClock, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces, EmojiFloppyDisk, EmojiCrossMark } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
@@ -39,6 +39,10 @@
 	let isSavingEntry = $state(false);
 	let entrySaved = $state(false);
 	let entrySaveError = $state('');
+
+	// Edit state
+	let isEditing = $state(false);
+	let editText = $state('');
 
 	// Random result message (selected once when entry is generated)
 	let resultMessage = $state({ title: '', subtitle: '' });
@@ -342,6 +346,9 @@ Vi ses imorgon, dagboken.`;
 		if (!element || isDownloading) return;
 		isDownloading = true;
 
+		const noExport = element.querySelector<HTMLElement>('[data-no-export]');
+		if (noExport) noExport.style.display = 'none';
+
 		try {
 			const filename = `dagbok-${wizardStore.data.date?.replace(/[\s,]+/g, '-').replace(/:/g, '').replace(/-+/g, '-') || 'entry'}.png`;
 			const exportWidth = Math.max(1200, Math.ceil(element.getBoundingClientRect().width));
@@ -349,6 +356,7 @@ Vi ses imorgon, dagboken.`;
 		} catch (err) {
 			console.error('Failed to download image:', err);
 		} finally {
+			if (noExport) noExport.style.display = '';
 			isDownloading = false;
 		}
 	}
@@ -449,6 +457,36 @@ Vi ses imorgon, dagboken.`;
 		return `${year}-${mm}-${day.padStart(2, '0')}`;
 	}
 
+	let editTextareaEl: HTMLTextAreaElement = $state(null!);
+
+	function autoResizeTextarea() {
+		if (!editTextareaEl) return;
+		editTextareaEl.style.height = 'auto';
+		editTextareaEl.style.height = editTextareaEl.scrollHeight + 'px';
+	}
+
+	function startEditing() {
+		editText = generatedEntry;
+		isEditing = true;
+	}
+
+	$effect(() => {
+		if (isEditing && editTextareaEl) {
+			autoResizeTextarea();
+		}
+	});
+
+	function cancelEditing() {
+		isEditing = false;
+		editText = '';
+	}
+
+	function saveEdit() {
+		generatedEntry = editText;
+		isEditing = false;
+		editText = '';
+	}
+
 	async function saveEntryToJournal() {
 		if (!authStore.user || !generatedEntry.trim() || isSavingEntry) return;
 
@@ -509,79 +547,98 @@ Vi ses imorgon, dagboken.`;
 		</div>
 
 		<div class="document-wrapper">
-			<DiaryCard
-				bind:this={diaryCardRef}
-				weekday={wizardStore.data.weekday}
-				date={wizardStore.data.date}
-				emojis={wizardStore.data.emojis}
-				toneId={actualToneUsed || wizardStore.data.selectedTone}
-				generatedText={generatedEntry}
-				birthday={wizardStore.data.profile.birthday ?? undefined}
-			/>
+			{#if isEditing}
+				<textarea class="edit-textarea" bind:value={editText} bind:this={editTextareaEl} oninput={autoResizeTextarea}></textarea>
+			{:else}
+				<DiaryCard
+					bind:this={diaryCardRef}
+					weekday={wizardStore.data.weekday}
+					date={wizardStore.data.date}
+					emojis={wizardStore.data.emojis}
+					toneId={actualToneUsed || wizardStore.data.selectedTone}
+					generatedText={generatedEntry}
+					birthday={wizardStore.data.profile.birthday ?? undefined}
+					editable={true}
+					onEdit={startEditing}
+				/>
+			{/if}
 		</div>
 
-		{#if authStore.isLoggedIn}
-			<div class="journal-save-container">
-				<button class="action-btn journal-save-btn" onclick={saveEntryToJournal} disabled={isSavingEntry || entrySaved}>
-					{#if isSavingEntry}
-						<span class="spinner"></span>
-						<span>Sparar...</span>
-					{:else if entrySaved}
-						<svg class="action-icon check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-							<polyline points="20 6 9 17 4 12"/>
-						</svg>
-						<span>Sparat dagbok!</span>
-					{:else}
-						<EmojiFloppyDisk size={22} />
-						<span>Spara dagbok</span>
-					{/if}
+		{#if isEditing}
+			<div class="edit-actions">
+				<button class="edit-btn edit-btn-cancel" onclick={cancelEditing}>
+					<EmojiCrossMark size={18} />
+					<span>Avbryt</span>
 				</button>
-				{#if entrySaveError}
-					<p class="journal-save-error">{entrySaveError}</p>
-				{/if}
+				<button class="edit-btn edit-btn-save" onclick={saveEdit}>
+					<EmojiFloppyDisk size={18} />
+					<span>Spara</span>
+				</button>
+			</div>
+		{:else}
+			{#if authStore.isLoggedIn}
+				<div class="journal-save-container">
+					<button class="action-btn journal-save-btn" onclick={saveEntryToJournal} disabled={isSavingEntry || entrySaved}>
+						{#if isSavingEntry}
+							<span class="spinner"></span>
+							<span>Sparar...</span>
+						{:else if entrySaved}
+							<svg class="action-icon check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+								<polyline points="20 6 9 17 4 12"/>
+							</svg>
+							<span>Sparat dagbok!</span>
+						{:else}
+							<EmojiFloppyDisk size={22} />
+							<span>Spara dagbok</span>
+						{/if}
+					</button>
+					{#if entrySaveError}
+						<p class="journal-save-error">{entrySaveError}</p>
+					{/if}
+				</div>
+			{/if}
+
+			<div class="actions-container">
+				<div class="result-actions">
+					<button class="action-btn" onclick={downloadAsImageHandler} disabled={isDownloading}>
+						{#if isDownloading}
+							<span class="spinner"></span>
+							<span>Sparar...</span>
+						{:else}
+							<EmojiFramedPicture size={22} />
+							<span>Spara bild</span>
+						{/if}
+					</button>
+					<button class="action-btn" onclick={downloadAsPdfHandler} disabled={isDownloadingPdf}>
+						{#if isDownloadingPdf}
+							<span class="spinner"></span>
+							<span>Skapar...</span>
+						{:else}
+							<EmojiPrinter size={22} />
+							<span>Spara PDF</span>
+						{/if}
+					</button>
+					<button class="action-btn" onclick={copyToClipboard} disabled={isCopying}>
+						{#if isCopying}
+							<svg class="action-icon check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+								<polyline points="20 6 9 17 4 12"/>
+							</svg>
+							<span>Kopierat!</span>
+						{:else}
+							<EmojiClipboard size={22} />
+							<span>Kopiera</span>
+						{/if}
+					</button>
+					<button class="action-btn" onclick={openEmailModal}>
+						<EmojiEnvelopeArrow size={22} />
+						<span>Maila</span>
+					</button>
+				</div>
+				<button class="action-btn restart-btn" onclick={handleStartOver}>
+					Börja om från början...
+				</button>
 			</div>
 		{/if}
-
-		<div class="actions-container">
-			<div class="result-actions">
-				<button class="action-btn" onclick={downloadAsImageHandler} disabled={isDownloading}>
-					{#if isDownloading}
-						<span class="spinner"></span>
-						<span>Sparar...</span>
-					{:else}
-						<EmojiFramedPicture size={22} />
-						<span>Spara bild</span>
-					{/if}
-				</button>
-				<button class="action-btn" onclick={downloadAsPdfHandler} disabled={isDownloadingPdf}>
-					{#if isDownloadingPdf}
-						<span class="spinner"></span>
-						<span>Skapar...</span>
-					{:else}
-						<EmojiPrinter size={22} />
-						<span>Spara PDF</span>
-					{/if}
-				</button>
-				<button class="action-btn" onclick={copyToClipboard} disabled={isCopying}>
-					{#if isCopying}
-						<svg class="action-icon check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-							<polyline points="20 6 9 17 4 12"/>
-						</svg>
-						<span>Kopierat!</span>
-					{:else}
-						<EmojiClipboard size={22} />
-						<span>Kopiera</span>
-					{/if}
-				</button>
-				<button class="action-btn" onclick={openEmailModal}>
-					<EmojiEnvelopeArrow size={22} />
-					<span>Maila</span>
-				</button>
-			</div>
-				<button class="action-btn restart-btn" onclick={handleStartOver}>
-				Börja om från början...
-			</button>
-		</div>
 
 		{#if showEmailModal}
 			<div class="modal-overlay" onclick={closeEmailModal} role="button" tabindex="-1" onkeydown={(e) => e.key === 'Escape' && closeEmailModal()}>
@@ -1288,6 +1345,71 @@ Vi ses imorgon, dagboken.`;
 		.energy-value {
 			width: auto;
 		}
+	}
+
+	/* ==========================================================================
+	   Edit Mode
+	   ========================================================================== */
+
+	.edit-textarea {
+		width: 100%;
+		padding: 2rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-base);
+		font-weight: var(--weight-book);
+		line-height: var(--leading-loose);
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-text);
+		background-color: var(--color-bg-elevated);
+		border: 2px solid var(--color-accent);
+		border-radius: var(--radius-md);
+		resize: none;
+		outline: none;
+		overflow: hidden;
+		box-shadow: 0 0 0 3px rgba(244, 63, 122, 0.1);
+	}
+
+	.edit-actions {
+		display: flex;
+		gap: 0.75rem;
+		margin-top: 1.5rem;
+	}
+
+	.edit-btn {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		padding: 1rem 1.5rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
+		border-radius: var(--radius-md);
+		cursor: pointer;
+		transition: all 0.15s ease;
+		border: none;
+	}
+
+	.edit-btn-cancel {
+		background: transparent;
+		color: var(--color-text-muted);
+		border: 1px solid var(--color-border);
+	}
+
+	.edit-btn-cancel:hover {
+		background: var(--color-neutral);
+		color: var(--color-text);
+	}
+
+	.edit-btn-save {
+		background: var(--color-accent);
+		color: white;
+	}
+
+	.edit-btn-save:hover {
+		background: var(--color-accent-hover);
 	}
 
 	/* ==========================================================================

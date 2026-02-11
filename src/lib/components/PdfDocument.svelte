@@ -147,9 +147,6 @@
 			{/if}
 			<span class="pdf-tone-name">{tone.name}</span>
 		{/if}
-		<span class="pdf-brand">
-			<span class="pdf-brand-text">Berättat av Storify</span>
-		</span>
 	</div>
 </div>
 
@@ -263,20 +260,4 @@
 		color: #666;
 	}
 
-	.pdf-brand {
-		display: flex;
-		align-items: center;
-		gap: 0.375rem;
-		margin-left: auto;
-	}
-
-	.pdf-brand-text {
-		font-family: var(--font-primary);
-		font-size: 14px;
-		font-weight: var(--weight-semibold);
-		font-stretch: 110%;
-		letter-spacing: var(--tracking-widest);
-		text-transform: uppercase;
-		color: #888;
-	}
 </style>

@@ -3,7 +3,7 @@
 	import { jomojiSvgMap } from '$lib/data/jomojis';
 	import { uniqueSvgIds } from '$lib/utils/uniqueSvgIds';
 	import type { Component } from 'svelte';
-	import { EmojiCrystalBall, EmojiLightBulb, EmojiMantelpieceClock, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces, EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanDetective, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFaceNerd, EmojiFaceExplodingHead } from '$lib/assets/emojis';
+	import { EmojiCrystalBall, EmojiLightBulb, EmojiMantelpieceClock, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces, EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanDetective, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiPencil, EmojiCrossMark } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
 	import { getRenderParagraphs, formatParagraph } from '$lib/utils/paragraphs';
@@ -15,9 +15,12 @@
 		toneId: string;
 		generatedText: string;
 		birthday?: string;
+		editable?: boolean;
+		onEdit?: () => void;
+		onClose?: () => void;
 	}
 
-	let { weekday, date, emojis, toneId, generatedText, birthday = '' }: Props = $props();
+	let { weekday, date, emojis, toneId, generatedText, birthday = '', editable = false, onEdit, onClose }: Props = $props();
 
 	// Expose the document element for parent image/PDF export
 	let documentElement: HTMLDivElement = $state(null!);
@@ -98,6 +101,14 @@
 		<div class="document-date">
 			<span class="document-weekday">{weekday}</span>
 			<span class="document-date-text">{date}</span>
+			{#if tone}
+				<div class="document-tone">
+					{#if ToneIcon}
+						<span class="tone-icon"><UniqueEmoji><ToneIcon size={20} /></UniqueEmoji></span>
+					{/if}
+					<span class="tone-name">{tone.name}</span>
+				</div>
+			{/if}
 		</div>
 		<span class="document-emojis">
 			{#each emojis as emojiId}
@@ -142,15 +153,18 @@
 	<div class="document-footer">
 		<div class="footer-line"></div>
 		<div class="footer-content">
-			{#if tone}
-				<div class="document-tone">
-					{#if ToneIcon}
-						<span class="tone-icon"><UniqueEmoji><ToneIcon size={30} /></UniqueEmoji></span>
-					{/if}
-					<span class="tone-name">{tone.name}</span>
-				</div>
+			{#if onClose}
+				<button class="close-btn" data-no-export onclick={onClose}>
+					<EmojiCrossMark size={20} />
+					<span>Stäng</span>
+				</button>
 			{/if}
-			<span class="brand-text">Berättat av Storify</span>
+			{#if editable && onEdit}
+				<button class="edit-btn" data-no-export onclick={onEdit}>
+					<EmojiPencil size={20} />
+					<span>Redigera</span>
+				</button>
+			{/if}
 		</div>
 	</div>
 </div>
@@ -205,6 +219,27 @@
 	.document-emoji :global(svg) {
 		width: 100%;
 		height: 100%;
+	}
+
+	.document-tone {
+		display: flex;
+		align-items: center;
+		gap: 0.375rem;
+		margin-top: 0.25rem;
+	}
+
+	.tone-icon {
+		display: flex;
+		align-items: center;
+	}
+
+	.tone-name {
+		font-size: var(--text-xs);
+		font-weight: var(--weight-semibold);
+		font-stretch: 105%;
+		letter-spacing: var(--tracking-wider);
+		text-transform: uppercase;
+		color: var(--color-text-muted);
 	}
 
 	.document-date {
@@ -289,40 +324,44 @@
 		align-items: center;
 	}
 
-	.document-tone {
+	.close-btn {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
-	}
-
-	.tone-icon {
-		display: flex;
-		align-items: center;
-	}
-
-	.tone-name {
+		gap: 0.375rem;
+		padding: 0;
+		font-family: var(--font-primary);
 		font-size: var(--text-sm);
-		font-weight: var(--weight-semibold);
-		font-stretch: 105%;
-		letter-spacing: var(--tracking-wider);
-		text-transform: uppercase;
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
 		color: var(--color-text-muted);
+		background: none;
+		border: none;
+		cursor: pointer;
+		transition: color 0.15s ease;
 	}
 
-	.brand-text {
-		font-size: var(--text-sm);
-		font-weight: var(--weight-semibold);
-		font-stretch: 110%;
-		letter-spacing: var(--tracking-widest);
-		text-transform: uppercase;
-		color: var(--color-accent-hover);
-		transition: color 0.2s ease, opacity 0.2s ease;
-		cursor: default;
-	}
-
-	.brand-text:hover {
+	.close-btn:hover {
 		color: var(--color-accent);
-		opacity: 1;
+	}
+
+	.edit-btn {
+		display: flex;
+		align-items: center;
+		gap: 0.375rem;
+		padding: 0;
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-text-muted);
+		background: none;
+		border: none;
+		cursor: pointer;
+		transition: color 0.15s ease;
+	}
+
+	.edit-btn:hover {
+		color: var(--color-accent);
 	}
 
 	@media (max-width: 640px) {

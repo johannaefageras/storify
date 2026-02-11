@@ -8,7 +8,7 @@
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import type { Component } from 'svelte';
-	import { EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanDetective, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiClipboard, EmojiFramedPicture, EmojiPrinter, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiCrossMark, EmojiTrash } from '$lib/assets/emojis';
+	import { EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanDetective, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiClipboard, EmojiFramedPicture, EmojiPrinter, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiCrossMark, EmojiTrash, EmojiFloppyDisk } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import { downloadAsImage } from '$lib/utils/imageDownload';
 	import { downloadAsPdf } from '$lib/utils/pdfDownload';
@@ -46,6 +46,12 @@
 	let emailAddress = $state('');
 	let emailError = $state('');
 	let emailSent = $state(false);
+
+	// Edit state
+	let isEditing = $state(false);
+	let editText = $state('');
+	let isSavingEdit = $state(false);
+	let editSaveError = $state('');
 
 	// References for export
 	let modalDiaryCardRef: DiaryCard = $state(null!);
@@ -163,6 +169,72 @@ function getToneIcon(id: string): Component | undefined {
 	function closeModal() {
 		selectedEntry = null;
 		showDeleteConfirm = false;
+		isEditing = false;
+		editText = '';
+		editSaveError = '';
+	}
+
+	let editTextareaEl: HTMLTextAreaElement = $state(null!);
+
+	function autoResizeTextarea() {
+		if (!editTextareaEl) return;
+		editTextareaEl.style.height = 'auto';
+		editTextareaEl.style.height = editTextareaEl.scrollHeight + 'px';
+	}
+
+	$effect(() => {
+		if (isEditing && editTextareaEl) {
+			autoResizeTextarea();
+		}
+	});
+
+	function startEditing() {
+		if (!selectedEntry) return;
+		editText = selectedEntry.generated_text;
+		isEditing = true;
+		editSaveError = '';
+	}
+
+	function cancelEditing() {
+		isEditing = false;
+		editText = '';
+		editSaveError = '';
+	}
+
+	async function saveEdit() {
+		if (!selectedEntry || isSavingEdit) return;
+		isSavingEdit = true;
+		editSaveError = '';
+
+		try {
+			const { error: updateError } = await supabase
+				.from('entries')
+				.update({
+					generated_text: editText,
+					updated_at: new Date().toISOString()
+				})
+				.eq('id', selectedEntry.id);
+
+			if (updateError) {
+				editSaveError = 'Kunde inte spara ändringarna. Försök igen.';
+				console.error('Update entry error:', updateError);
+				return;
+			}
+
+			// Update local state
+			const updatedText = editText;
+			entries = entries.map((e) =>
+				e.id === selectedEntry!.id ? { ...e, generated_text: updatedText } : e
+			);
+			selectedEntry = { ...selectedEntry, generated_text: updatedText };
+			isEditing = false;
+			editText = '';
+		} catch (err) {
+			editSaveError = 'Kunde inte ansluta till servern. Försök igen.';
+			console.error('Update entry error:', err);
+		} finally {
+			isSavingEdit = false;
+		}
 	}
 
 	async function copyToClipboard() {
@@ -206,6 +278,9 @@ function getToneIcon(id: string): Component | undefined {
 		if (!element || isDownloading || !selectedEntry) return;
 		isDownloading = true;
 
+		const noExport = element.querySelector<HTMLElement>('[data-no-export]');
+		if (noExport) noExport.style.display = 'none';
+
 		try {
 			const timeStr = selectedEntry.created_at ? `-${new Date(selectedEntry.created_at).getHours().toString().padStart(2, '0')}${new Date(selectedEntry.created_at).getMinutes().toString().padStart(2, '0')}` : '';
 			const filename = `dagbok-${selectedEntry.entry_date || 'entry'}${timeStr}.png`;
@@ -214,6 +289,7 @@ function getToneIcon(id: string): Component | undefined {
 		} catch (err) {
 			console.error('Failed to download image:', err);
 		} finally {
+			if (noExport) noExport.style.display = '';
 			isDownloading = false;
 		}
 	}
@@ -373,79 +449,103 @@ function getToneIcon(id: string): Component | undefined {
 		<!-- svelte-ignore a11y_click_events_have_key_events -->
 		<div class="modal-content" onclick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-label="Dagboksinlägg" tabindex="-1">
 			<div class="modal-diary-card">
-				<DiaryCard
-					bind:this={modalDiaryCardRef}
-					weekday={weekday || selectedEntry.weekday || ''}
-					date={date}
-					emojis={selectedEntry.emojis || []}
-					toneId={selectedEntry.tone_id}
-					generatedText={selectedEntry.generated_text}
-				/>
-			</div>
-
-			<div class="modal-actions">
-				<button class="modal-action-btn" onclick={downloadAsImageHandler} disabled={isDownloading}>
-					{#if isDownloading}
-						<span class="spinner"></span>
-						<span>Sparar...</span>
-					{:else}
-						<EmojiFramedPicture size={18} />
-						<span>Spara bild</span>
+				{#if isEditing}
+					<textarea class="edit-textarea" bind:value={editText} bind:this={editTextareaEl} oninput={autoResizeTextarea}></textarea>
+					{#if editSaveError}
+						<p class="edit-save-error">{editSaveError}</p>
 					{/if}
-				</button>
-				<button class="modal-action-btn" onclick={downloadAsPdfHandler} disabled={isDownloadingPdf}>
-					{#if isDownloadingPdf}
-						<span class="spinner"></span>
-						<span>Skapar...</span>
-					{:else}
-						<EmojiPrinter size={18} />
-						<span>Spara PDF</span>
-					{/if}
-				</button>
-				<button class="modal-action-btn" onclick={copyToClipboard} disabled={isCopying}>
-					{#if isCopying}
-						<svg class="action-icon check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-							<polyline points="20 6 9 17 4 12"/>
-						</svg>
-						<span>Kopierat!</span>
-					{:else}
-						<EmojiClipboard size={18} />
-						<span>Kopiera</span>
-					{/if}
-				</button>
-				<button class="modal-action-btn" onclick={openEmailModal}>
-					<EmojiEnvelopeArrow size={18} />
-					<span>Maila</span>
-				</button>
-			</div>
-
-			<div class="modal-delete-row">
-				{#if showDeleteConfirm}
-					<div class="delete-confirm">
-						<span class="delete-confirm-text">Ta bort anteckningen?</span>
-						<button class="delete-confirm-btn delete-yes" onclick={deleteEntry} disabled={isDeleting}>
-							{#if isDeleting}
-								<span class="spinner"></span>
-							{:else}
-								Ja, ta bort
-							{/if}
-						</button>
-						<button class="delete-confirm-btn delete-no" onclick={() => showDeleteConfirm = false}>
-							Avbryt
-						</button>
-					</div>
 				{:else}
-					<button class="modal-action-btn modal-delete-btn" onclick={() => showDeleteConfirm = true}>
-						<EmojiTrash size={18} />
-						<span>Ta bort</span>
-					</button>
+					<DiaryCard
+						bind:this={modalDiaryCardRef}
+						weekday={weekday || selectedEntry.weekday || ''}
+						date={date}
+						emojis={selectedEntry.emojis || []}
+						toneId={selectedEntry.tone_id}
+						generatedText={selectedEntry.generated_text}
+						editable={true}
+						onEdit={startEditing}
+						onClose={closeModal}
+					/>
 				{/if}
 			</div>
 
-			<button class="modal-close-btn" onclick={closeModal}>
-				<EmojiCrossMark size={18} />
-				<span>Stäng</span>
-			</button>
+			{#if isEditing}
+				<div class="edit-actions">
+					<button class="edit-btn edit-btn-cancel" onclick={cancelEditing} disabled={isSavingEdit}>
+						<EmojiCrossMark size={18} />
+						<span>Avbryt</span>
+					</button>
+					<button class="edit-btn edit-btn-save" onclick={saveEdit} disabled={isSavingEdit}>
+						{#if isSavingEdit}
+							<span class="spinner"></span>
+							<span>Sparar...</span>
+						{:else}
+							<EmojiFloppyDisk size={18} />
+							<span>Spara</span>
+						{/if}
+					</button>
+				</div>
+			{:else}
+				<div class="modal-actions">
+					<button class="modal-action-btn" onclick={downloadAsImageHandler} disabled={isDownloading}>
+						{#if isDownloading}
+							<span class="spinner"></span>
+							<span>Sparar...</span>
+						{:else}
+							<EmojiFramedPicture size={18} />
+							<span>Spara bild</span>
+						{/if}
+					</button>
+					<button class="modal-action-btn" onclick={downloadAsPdfHandler} disabled={isDownloadingPdf}>
+						{#if isDownloadingPdf}
+							<span class="spinner"></span>
+							<span>Skapar...</span>
+						{:else}
+							<EmojiPrinter size={18} />
+							<span>Spara PDF</span>
+						{/if}
+					</button>
+					<button class="modal-action-btn" onclick={copyToClipboard} disabled={isCopying}>
+						{#if isCopying}
+							<svg class="action-icon check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+								<polyline points="20 6 9 17 4 12"/>
+							</svg>
+							<span>Kopierat!</span>
+						{:else}
+							<EmojiClipboard size={18} />
+							<span>Kopiera</span>
+						{/if}
+					</button>
+					<button class="modal-action-btn" onclick={openEmailModal}>
+						<EmojiEnvelopeArrow size={18} />
+						<span>Maila</span>
+					</button>
+				</div>
+
+				<div class="modal-delete-row">
+					{#if showDeleteConfirm}
+						<div class="delete-confirm">
+							<span class="delete-confirm-text">Ta bort anteckningen?</span>
+							<button class="delete-confirm-btn delete-yes" onclick={deleteEntry} disabled={isDeleting}>
+								{#if isDeleting}
+									<span class="spinner"></span>
+								{:else}
+									Ja, ta bort
+								{/if}
+							</button>
+							<button class="delete-confirm-btn delete-no" onclick={() => showDeleteConfirm = false}>
+								Avbryt
+							</button>
+						</div>
+					{:else}
+						<button class="modal-action-btn modal-delete-btn" onclick={() => showDeleteConfirm = true}>
+							<EmojiTrash size={18} />
+							<span>Ta bort</span>
+						</button>
+					{/if}
+				</div>
+
+			{/if}
 		</div>
 	</div>
 {/if}
@@ -858,29 +958,6 @@ function getToneIcon(id: string): Component | undefined {
 		background: var(--color-neutral);
 	}
 
-	/* Close Button */
-
-	.modal-close-btn {
-		width: 100%;
-		margin-top: 0.75rem;
-		padding: 0.875rem 1rem;
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-medium);
-		letter-spacing: var(--tracking-wide);
-		color: var(--color-text-muted);
-		background: transparent;
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-md);
-		cursor: pointer;
-		transition: background 0.15s ease, color 0.15s ease;
-	}
-
-	.modal-close-btn:hover {
-		background: var(--color-neutral);
-		color: var(--color-text);
-	}
-
 	/* Spinner */
 
 	.spinner {
@@ -895,6 +972,85 @@ function getToneIcon(id: string): Component | undefined {
 
 	@keyframes spin {
 		to { transform: rotate(360deg); }
+	}
+
+	/* Edit Mode */
+
+	.edit-textarea {
+		width: 100%;
+		padding: 2rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-base);
+		font-weight: var(--weight-book);
+		line-height: var(--leading-loose);
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-text);
+		background-color: var(--color-bg-elevated);
+		border: 2px solid var(--color-accent);
+		border-radius: var(--radius-md);
+		resize: none;
+		outline: none;
+		overflow: hidden;
+		box-shadow: 0 0 0 3px rgba(244, 63, 122, 0.1);
+	}
+
+	.edit-actions {
+		display: flex;
+		gap: 0.75rem;
+		margin-top: 1rem;
+	}
+
+	.edit-btn {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		padding: 1rem 1.5rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
+		border-radius: var(--radius-md);
+		cursor: pointer;
+		transition: all 0.15s ease;
+		border: none;
+	}
+
+	.edit-btn:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+
+	.edit-btn-cancel {
+		background: transparent;
+		color: var(--color-text-muted);
+		border: 1px solid var(--color-border);
+	}
+
+	.edit-btn-cancel:hover:not(:disabled) {
+		background: var(--color-neutral);
+		color: var(--color-text);
+	}
+
+	.edit-btn-save {
+		background: var(--color-accent);
+		color: white;
+	}
+
+	.edit-btn-save:hover:not(:disabled) {
+		background: var(--color-accent-hover);
+	}
+
+	.edit-save-error {
+		margin: 0.75rem 0 0 0;
+		padding: 0.75rem 1rem;
+		background-color: color-mix(in srgb, var(--color-accent) 10%, transparent);
+		border-radius: var(--radius-sm);
+		color: var(--color-accent);
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		text-align: center;
 	}
 
 	/* Email Modal */
