@@ -9,6 +9,7 @@
 	import { profilePhrases } from '$lib/data/profilePhrases';
 	import AvatarUpload from '$lib/components/AvatarUpload.svelte';
 	import IconArrowRight from '$lib/assets/icons/IconArrowRight.svelte';
+	import AccentPicker from '$lib/components/AccentPicker.svelte';
 
 	async function handleSignOut() {
 		await authStore.signOut();
@@ -355,7 +356,7 @@
 				<AvatarUpload
 					{avatarUrl}
 					{name}
-					size={120}
+					size={130}
 					editable={true}
 					uploading={avatarUploading}
 					onUpload={handleAvatarUpload}
@@ -363,6 +364,7 @@
 				<div class="hero-info">
 					<h1 class="hero-name">{name ? `${name}s Profil` : 'Min Profil'}</h1>
 					<p class="hero-phrase">{`\u201C${profilePhrases[Math.floor(Math.random() * profilePhrases.length)]}\u201D`}</p>
+				<AccentPicker />
 				</div>
 			</div>
 		</div>
@@ -696,6 +698,11 @@
 		font-variation-settings: var(--lyric-normal);
 		letter-spacing: var(--tracking-wide);
 		margin: 0.125rem 0 0;
+	}
+
+	.hero-info :global(.accent-picker) {
+		margin-top: 0.625rem;
+		margin-bottom: -0.25rem;
 	}
 
 	/* Action buttons */

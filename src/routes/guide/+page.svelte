@@ -1,6 +1,7 @@
 <script lang="ts">
+	import { accentStore } from '$lib/stores/accent.svelte';
 	import {
-		EmojiWomanStudent, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiOwl, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceUnamused, EmojiSatellite, EmojiFaceUpsideDown, EmojiArchive, EmojiTornado, EmojiWiltedFlower, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiEnvelopeArrow, EmojiDiamond, EmojiPlus, EmojiMinus, EmojiBookmark, EmojiCrystalBall, EmojiMantelpieceClock, EmojiLightBulb } from '$lib/assets/emojis';
+		EmojiWomanStudentPink, EmojiWomanStudentAmber, EmojiWomanStudentPurple, EmojiWomanStudentBlue, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiOwl, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceUnamused, EmojiSatellite, EmojiFaceUpsideDown, EmojiArchive, EmojiTornado, EmojiWiltedFlower, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiEnvelopeArrow, EmojiDiamondPink, EmojiDiamondAmber, EmojiDiamondPurple, EmojiDiamondBlue, EmojiPlus, EmojiMinus, EmojiBookmark, EmojiCrystalBall, EmojiMantelpieceClock, EmojiLightBulb } from '$lib/assets/emojis';
 	import { Number1, Number2, Number3, Number4, Number5, Number6, Number7 } from '$lib/assets/numbers';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import { voiceSamples } from '$lib/data/voiceSamples';
@@ -12,6 +13,23 @@
 		description: string;
 		icon: Snippet;
 	}
+
+	const studentComponents = {
+		pink: EmojiWomanStudentPink,
+		amber: EmojiWomanStudentAmber,
+		purple: EmojiWomanStudentPurple,
+		blue: EmojiWomanStudentBlue
+	};
+
+	const diamondComponents = {
+		pink: EmojiDiamondPink,
+		amber: EmojiDiamondAmber,
+		purple: EmojiDiamondPurple,
+		blue: EmojiDiamondBlue
+	};
+
+	let StudentIcon = $derived(studentComponents[accentStore.current]);
+	let DiamondIcon = $derived(diamondComponents[accentStore.current]);
 
 	let selectedVoice: VoiceInfo | null = $state(null);
 
@@ -40,7 +58,7 @@
 
 <main class="legal-page">
 	<div class="page-header">
-		<EmojiWomanStudent size={96} />
+		<StudentIcon size={96} />
 		<h1>Användarguide</h1>
 	</div>
 	<p class="subtitle">Så får du ut det bästa av Storify</p>
@@ -54,11 +72,11 @@
 		<p>Du kan välja mellan två lägen:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content"><strong>Fullständig guide</strong> – En steg-för-steg-wizard med detaljerade frågor om din dag. Passar när du har lite tid och vill skapa en rik och detaljerad dagbokstext.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content"><strong>Snabbläge</strong> – En enkel sida där du fångar dagens känsla på under en minut. Perfekt för hektiska dagar när du ändå vill hålla dagboksvanan vid liv.</span>
 			</div>
 		</div>
@@ -69,23 +87,23 @@
 		<p>Snabbläget är det snabbaste sättet att skapa en dagbokstext. Allt sker på en enda sida – inga steg att klicka igenom. Du fyller i:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content"><strong>Dagsform</strong> – Hur var din dag på en skala från 1 till 10?</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content"><strong>Berätta om din dag</strong> – En kort fritext där du beskriver vad som hände.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content"><strong>Dagens segrar</strong> – Små och stora vinster under dagen.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content"><strong>Dagens färg</strong> – Om din dag var en färg, vilken skulle det vara?</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content"><strong>Röst</strong> – Välj en av 28 skrivstilar.</span>
 			</div>
 		</div>
@@ -123,7 +141,7 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon number-icon"><Number7 size={14} /></span>
-				<span class="list-content"><strong>Generera och spara</strong> – Granska en sammanfattning, tryck på knappen och låt magin hända! Spara sedan din text som bild, PDF, e-post eller i ditt journalarkiv.</span>
+				<span class="list-content"><strong>Generera och spara</strong> – Granska en sammanfattning, tryck på knappen och låt magin hända! Spara sedan din text som bild, PDF, e-post eller i ditt dagboksarkiv.</span>
 			</div>
 		</div>
 		<p>Inte alla steg är obligatoriska – fyll i det som känns relevant och hoppa över resten. AI:n arbetar med det du ger den.</p>
@@ -161,23 +179,23 @@
 		<p>I flera steg finns fritext-rutor där du kan skriva vad du vill. Använd dem! Här kan du:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content">Berätta om något roligt som hände</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content">Ventilera frustration</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content">Spela in en tanke du vill komma ihåg</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content">Beskriva ett ögonblick som betydde något</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content">Skriva ner ett citat som någon sa</span>
 			</div>
 		</div>
@@ -425,7 +443,7 @@
 				<span class="save-emoji"><EmojiArchive size={28} /></span>
 				<div class="save-content">
 					<h3>Spara på webben</h3>
-					<p>Spara i ditt personliga arkiv.</p>
+					<p>Spara i ditt personliga arkiv online.</p>
 				</div>
 			</div>
 		</div>
@@ -434,19 +452,19 @@
 	</section>
 
 	<section>
-		<h2>Skapa konto och bygg ditt journalarkiv</h2>
+		<h2>Skapa konto och bygg ditt dagboksarkiv</h2>
 		<p>Storify kan användas helt anonymt – du behöver inget konto för att generera dagbokstexter. Men skapar du ett konto får du tillgång till extra funktioner:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
-				<span class="list-content"><strong>Journalarkiv:</strong> Spara genererade dagboksinlägg och bläddra igenom dem när du vill.</span>
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-content"><strong>Dagboksarkiv:</strong> Spara genererade dagboksinlägg och bläddra igenom dem när du vill.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content"><strong>Profil i molnet:</strong> Din profil synkas och finns tillgänglig oavsett vilken enhet du använder.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content"><strong>Snabbare start:</strong> Inloggade användare hoppar direkt till dagboksfrågorna eftersom profilen redan är sparad.</span>
 			</div>
 		</div>
@@ -476,27 +494,27 @@
 		<h2>Pro-tips</h2>
 		<div class="custom-ul">
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content"><strong>Skriv samma dag</strong> – Det är lättare att komma ihåg detaljer medan de är färska.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content"><strong>Använd tidskapseln</strong> – Vad kostar en liter mjölk? Vilken låt är populär just nu? Dessa saker blir kul att läsa om några år.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content"><strong>Blanda stort och smått</strong> – Allt ifrån sensationella nyheter till vad du åt till frukost. Både och gör dagen verklig.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content"><strong>Prova olika röster</strong> – Samma dag kan bli rolig, poetisk eller dramatisk beroende på vilken röst du väljer.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
-				<span class="list-content"><strong>Spara dina favoriter</strong> – Exportera texter du gillar extra mycket, eller skapa ett konto och bygg ett journalarkiv.</span>
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-content"><strong>Spara dina favoriter</strong> – Exportera texter du gillar extra mycket, eller skapa ett konto och bygg ett dagboksarkiv.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><EmojiDiamond size={12} /></span>
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content"><strong>Ha kul!</strong> – Det här är inte en läxa. Det finns inga fel svar.</span>
 			</div>
 		</div>

@@ -131,8 +131,10 @@
 		height: var(--avatar-size);
 		border-radius: 50%;
 		overflow: hidden;
-		border: 3px solid var(--color-bg);
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 0 1px var(--color-border);
+		padding: 4px;
+		background-color: var(--color-bg-elevated);
+		border: 3px solid var(--color-accent);
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent), 0 2px 8px rgba(0, 0, 0, 0.1);
 		flex-shrink: 0;
 	}
 
@@ -150,6 +152,7 @@
 		height: 100%;
 		object-fit: cover;
 		display: block;
+		border-radius: 50%;
 	}
 
 	.avatar-default-dark {

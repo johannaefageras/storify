@@ -88,6 +88,41 @@
   --mood-white: #f4f4f5;
 }
 
+/* ==========================================================================
+   Accent Color Themes
+
+   Activated via [data-accent] attribute on <html>.
+   Pink is the default and needs no attribute. Each accent overrides
+   --color-accent and --color-accent-hover for both light and dark themes.
+   ========================================================================== */
+
+[data-accent='purple'] {
+  --color-accent: #8B3FC4;
+  --color-accent-hover: #7a35ad;
+}
+[data-accent='purple'][data-theme='dark'] {
+  --color-accent: #A55CD6;
+  --color-accent-hover: #b574e0;
+}
+
+[data-accent='amber'] {
+  --color-accent: #E8862F;
+  --color-accent-hover: #d27728;
+}
+[data-accent='amber'][data-theme='dark'] {
+  --color-accent: #F5A04A;
+  --color-accent-hover: #f7b06a;
+}
+
+[data-accent='blue'] {
+  --color-accent: #2B8DB8;
+  --color-accent-hover: #247da3;
+}
+[data-accent='blue'][data-theme='dark'] {
+  --color-accent: #42AAD6;
+  --color-accent-hover: #5fbae0;
+}
+
 :root {
   /* Font Families */
   --font-primary: 'GT Pressura', system-ui, sans-serif;

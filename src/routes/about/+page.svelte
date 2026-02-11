@@ -1,16 +1,39 @@
 <script lang="ts">
-	import { EmojiRoseLight, EmojiRoseDark, EmojiWomanLaptop, EmojiTools } from '$lib/assets/emojis';
-	import { themeStore } from '$lib/stores/theme.svelte';
+	import {
+		EmojiRosePinkLight,
+		EmojiRoseAmberLight,
+		EmojiRosePurpleLight,
+		EmojiRoseBlueLight,
+		EmojiWomanLaptopPink,
+		EmojiWomanLaptopAmber,
+		EmojiWomanLaptopPurple,
+		EmojiWomanLaptopBlue,
+		EmojiTools
+	} from '$lib/assets/emojis';
+	import { accentStore } from '$lib/stores/accent.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+
+	const roseComponents = {
+		pink: EmojiRosePinkLight,
+		amber: EmojiRoseAmberLight,
+		purple: EmojiRosePurpleLight,
+		blue: EmojiRoseBlueLight
+	};
+
+	const laptopComponents = {
+		pink: EmojiWomanLaptopPink,
+		amber: EmojiWomanLaptopAmber,
+		purple: EmojiWomanLaptopPurple,
+		blue: EmojiWomanLaptopBlue
+	};
+
+	let RoseIcon = $derived(roseComponents[accentStore.current]);
+	let LaptopIcon = $derived(laptopComponents[accentStore.current]);
 </script>
 
 <main class="legal-page">
 	<div class="page-header">
-		{#if themeStore.current === 'dark'}
-			<EmojiRoseLight size={96} />
-		{:else}
-			<EmojiRoseDark size={96} />
-		{/if}
+		<RoseIcon size={96} />
 		<h1>Om Storify</h1>
 	</div>
 
@@ -25,7 +48,7 @@
 		<p>Storify erbjuder två sätt att skapa din dagbokstext. Den <strong>fullständiga guiden</strong> tar dig genom en steg-för-steg-wizard där du berättar om din dag – allt från humör och energinivå till aktiviteter, vinster, motgångar och reflektioner. Du kan välja emojis som sammanfattar din dag, beskriva vad du ätit och lyssnat på, och till och med skriva en tidskapsel – ett meddelande till ditt framtida jag som vävs in i dagbokstexten.</p>
 		<p>Har du ont om tid? <strong>Snabbläget</strong> låter dig fånga dagens känsla på under en minut – berätta kort om din dag, välj en röst, och få en dagbokstext direkt. Perfekt för hektiska dagar när du ändå vill hålla vanan vid liv.</p>
 		<p>Appen hämtar vädret automatiskt baserat på din position och kan fylla i din plats åt dig. Vill du krydda din dagbok lite extra? Lägg till ett personligt horoskop, historiska händelser som inträffat på samma datum, eller en liten "hemläxa" – en reflektion eller utmaning baserad på din dag.</p>
-		<p>När texten är klar kan du spara den som bild eller PDF, kopiera den, eller skicka den som e-post. Skapar du ett konto kan du dessutom spara dina dagboksinlägg i ett personligt journalarkiv och komma åt dem när som helst.</p>
+		<p>När texten är klar kan du spara den som bild eller PDF, kopiera den, eller skicka den som e-post. Skapar du ett konto kan du dessutom spara dina dagboksinlägg i ett personligt dagboksarkiv online och komma åt dem när som helst.</p>
 		<p>Storify finns som webbapp och som Android-app.</p>
 	</section>
 
@@ -38,7 +61,7 @@
 		<h2>Varför jag byggde det här</h2>
 		<div class="about-johanna">
 			<div class="johanna-avatar">
-				<EmojiWomanLaptop size={96} />
+				<LaptopIcon size={96} />
 			</div>
 			<div class="johanna-text">
 				<p>Jag heter Johanna, är 36 år och bor i Göteborg. På fritiden kodar jag (självlärd, på hobbynivå), syr mina egna kläder, och försöker hålla mina krukväxter vid liv. Ibland lyckas jag med alla tre samtidigt.</p>

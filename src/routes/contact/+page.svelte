@@ -1,7 +1,23 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { EmojiWomanWaving, EmojiBouquet } from '$lib/assets/emojis';
+	import {
+		EmojiWomanWavingPink,
+		EmojiWomanWavingAmber,
+		EmojiWomanWavingPurple,
+		EmojiWomanWavingBlue,
+		EmojiBouquet
+	} from '$lib/assets/emojis';
+	import { accentStore } from '$lib/stores/accent.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+
+	const wavingComponents = {
+		pink: EmojiWomanWavingPink,
+		amber: EmojiWomanWavingAmber,
+		purple: EmojiWomanWavingPurple,
+		blue: EmojiWomanWavingBlue
+	};
+
+	let WavingIcon = $derived(wavingComponents[accentStore.current]);
 
 	const FORM_ID = 'o77pouaahs4';
 	let forminit: any;
@@ -78,7 +94,7 @@
 
 <main class="legal-page">
 	<div class="page-header">
-		<EmojiWomanWaving size={96} />
+		<WavingIcon size={96} />
 		<h1>Hör av dig</h1>
 	</div>
 

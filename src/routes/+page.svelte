@@ -3,7 +3,22 @@
 	import { themeStore } from '$lib/stores/theme.svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { authStore } from '$lib/stores/auth.svelte';
-	import { EmojiRoseLight, EmojiRoseDark } from '$lib/assets/emojis';
+	import { accentStore } from '$lib/stores/accent.svelte';
+	import {
+		EmojiRosePinkLight,
+		EmojiRoseAmberLight,
+		EmojiRosePurpleLight,
+		EmojiRoseBlueLight
+	} from '$lib/assets/emojis';
+
+	const roseComponents = {
+		pink: EmojiRosePinkLight,
+		amber: EmojiRoseAmberLight,
+		purple: EmojiRosePurpleLight,
+		blue: EmojiRoseBlueLight
+	};
+
+	let RoseIcon = $derived(roseComponents[accentStore.current]);
 	import { getGreeting, getSubtitle } from '$lib/data/greetings';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
@@ -37,11 +52,7 @@
 		<div class="landing-main">
 			<header class="hero">
 				<div class="logo">
-					{#if themeStore.current === 'dark'}
-						<EmojiRoseDark size={88} />
-					{:else}
-						<EmojiRoseLight size={88} />
-					{/if}
+					<RoseIcon size={96} />
 				</div>
 				{#if isReturningUser}
 					<h1 class="title">{greeting}</h1>

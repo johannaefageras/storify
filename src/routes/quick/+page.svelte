@@ -20,14 +20,50 @@
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 	import IconArrowLeft from '$lib/assets/icons/IconArrowLeft.svelte';
 	import {
-		EmojiSparkles, EmojiRoseLight, EmojiRoseDark, EmojiFramedPicture, EmojiPrinter,
+		EmojiSparkles, EmojiRosePinkLight, EmojiRosePinkDark, EmojiFramedPicture, EmojiPrinter,
 		EmojiClipboard, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiFloppyDisk, EmojiRocket,
 		EmojiFaceCryingLoudly, EmojiFaceCrying, EmojiFaceFrowning, EmojiFaceSlightlyFrowning,
 		EmojiFaceNeutral, EmojiFaceRelieved, EmojiFaceSmilingEyes, EmojiFaceSmilingHearts,
 		EmojiFaceGrinningSweat, EmojiFaceLol,
-		EmojiChart, EmojiCalendar, EmojiTrophy, EmojiPalette, EmojiSpeakingHead
+		EmojiChart, EmojiCalendar, EmojiTrophy, EmojiPalette, EmojiSpeakingHead,
+		EmojiLedger, EmojiOpenBook, EmojiOwl, EmojiMicrophone, EmojiCat, EmojiFaceUnamused,
+		EmojiCrown, EmojiPoo, EmojiFaceGrimacing, EmojiFlagUk, EmojiVideoGame, EmojiFaceYawning,
+		EmojiEarth, EmojiBrain, EmojiRobot, EmojiTheaterMasks, EmojiNewspaper, EmojiBlackNib,
+		EmojiMusicalNotes, EmojiFaceNerd, EmojiSatellite, EmojiWomanMeditating, EmojiWomanDetective,
+		EmojiFaceExplodingHead, EmojiFaceUpsideDown, EmojiArchive, EmojiTornado, EmojiWiltedFlower
 	} from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
+
+	const toneEmojiMap: Record<string, Component> = {
+		'classic': EmojiLedger,
+		'storytelling': EmojiOpenBook,
+		'philosophical': EmojiOwl,
+		'sportscaster': EmojiMicrophone,
+		'cat-perspective': EmojiCat,
+		'cynical': EmojiFaceUnamused,
+		'drama-queen': EmojiCrown,
+		'meme': EmojiPoo,
+		'cringe': EmojiFaceGrimacing,
+		'british': EmojiFlagUk,
+		'quest-log': EmojiVideoGame,
+		'bored': EmojiFaceYawning,
+		'nature-documentary': EmojiEarth,
+		'therapist': EmojiBrain,
+		'ai-robot': EmojiRobot,
+		'shakespeare': EmojiTheaterMasks,
+		'tabloid': EmojiNewspaper,
+		'formal': EmojiBlackNib,
+		'troubadour': EmojiMusicalNotes,
+		'nerd': EmojiFaceNerd,
+		'tinfoil-hat': EmojiSatellite,
+		'self-help': EmojiWomanMeditating,
+		'detective': EmojiWomanDetective,
+		'overthinker': EmojiFaceExplodingHead,
+		'passive-aggressive': EmojiFaceUpsideDown,
+		'bureaucratic': EmojiArchive,
+		'chaotic': EmojiTornado,
+		'melodramatic': EmojiWiltedFlower,
+	};
 
 	// Mood emoji array (same as Step2Energy mood slider)
 	const moodEmojis: Component[] = [
@@ -403,9 +439,9 @@
 			<div class="result-intro">
 				<div class="result-icon">
 					{#if isDarkMode}
-						<EmojiRoseDark size={48} />
+						<EmojiRosePinkDark size={48} />
 					{:else}
-						<EmojiRoseLight size={48} />
+						<EmojiRosePinkLight size={48} />
 					{/if}
 				</div>
 				<h1 class="result-title">{resultMessage.title}</h1>
@@ -627,12 +663,19 @@
 				<span class="section-label">Välj en röst<RequiredIndicator /></span>
 				<div class="voice-grid-compact">
 					{#each tones as tone}
+						{@const ToneEmoji = toneEmojiMap[tone.id]}
 						<button
 							class="voice-chip"
 							class:selected={wizardStore.data.selectedTone === tone.id}
 							onclick={() => wizardStore.updateData('selectedTone', tone.id)}
 						>
-							<span class="voice-chip-emoji">{tone.emoji}</span>
+							<span class="voice-chip-emoji">
+								{#if ToneEmoji}
+									<ToneEmoji size={20} />
+								{:else}
+									{tone.emoji}
+								{/if}
+							</span>
 							<span class="voice-chip-name">{tone.name}</span>
 						</button>
 					{/each}
