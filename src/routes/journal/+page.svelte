@@ -977,6 +977,7 @@ function getToneIcon(id: string): Component | undefined {
 	/* Edit Mode */
 
 	.edit-textarea {
+		box-sizing: border-box;
 		width: 100%;
 		padding: 2rem;
 		font-family: var(--font-primary);
@@ -1192,6 +1193,14 @@ function getToneIcon(id: string): Component | undefined {
 	@media (max-width: 480px) {
 		.modal-actions {
 			grid-template-columns: 1fr;
+		}
+
+		.edit-textarea {
+			padding: 1.25rem;
+		}
+
+		.edit-btn {
+			padding: 0.875rem 1rem;
 		}
 	}
 

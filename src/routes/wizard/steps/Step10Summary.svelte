@@ -1352,6 +1352,7 @@ Vi ses imorgon, dagboken.`;
 	   ========================================================================== */
 
 	.edit-textarea {
+		box-sizing: border-box;
 		width: 100%;
 		padding: 2rem;
 		font-family: var(--font-primary);
@@ -1410,6 +1411,20 @@ Vi ses imorgon, dagboken.`;
 
 	.edit-btn-save:hover {
 		background: var(--color-accent-hover);
+	}
+
+	@media (max-width: 480px) {
+		.edit-textarea {
+			padding: 1.25rem;
+		}
+
+		.edit-actions {
+			margin-top: 1rem;
+		}
+
+		.edit-btn {
+			padding: 0.875rem 1rem;
+		}
 	}
 
 	/* ==========================================================================

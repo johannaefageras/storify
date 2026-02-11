@@ -21,7 +21,7 @@
 	import IconArrowLeft from '$lib/assets/icons/IconArrowLeft.svelte';
 	import {
 		EmojiSparkles, EmojiRosePinkLight, EmojiRosePinkDark, EmojiFramedPicture, EmojiPrinter,
-		EmojiClipboard, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiFloppyDisk, EmojiRocket,
+		EmojiClipboard, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiFloppyDisk, EmojiRocket, EmojiPencil, EmojiCrossMark,
 		EmojiFaceCryingLoudly, EmojiFaceCrying, EmojiFaceFrowning, EmojiFaceSlightlyFrowning,
 		EmojiFaceNeutral, EmojiFaceRelieved, EmojiFaceSmilingEyes, EmojiFaceSmilingHearts,
 		EmojiFaceGrinningSweat, EmojiFaceLol,
@@ -204,6 +204,39 @@
 	let entrySaved = $state(false);
 	let entrySaveError = $state('');
 	let resultMessage = $state({ title: '', subtitle: '' });
+
+	// Edit state
+	let isEditing = $state(false);
+	let editText = $state('');
+	let editTextareaEl: HTMLTextAreaElement = $state(null!);
+
+	function autoResizeTextarea() {
+		if (!editTextareaEl) return;
+		editTextareaEl.style.height = 'auto';
+		editTextareaEl.style.height = editTextareaEl.scrollHeight + 'px';
+	}
+
+	function startEditing() {
+		editText = generatedEntry;
+		isEditing = true;
+	}
+
+	$effect(() => {
+		if (isEditing && editTextareaEl) {
+			autoResizeTextarea();
+		}
+	});
+
+	function cancelEditing() {
+		isEditing = false;
+		editText = '';
+	}
+
+	function saveEdit() {
+		generatedEntry = editText;
+		isEditing = false;
+		editText = '';
+	}
 
 	// Loading phrases
 	let loadingPhrase = $state('');
@@ -449,16 +482,35 @@
 			</div>
 
 			<div class="document-wrapper">
-				<DiaryCard
-					bind:this={diaryCardRef}
-					weekday={wizardStore.data.weekday}
-					date={wizardStore.data.date}
-					emojis={[]}
-					toneId={actualToneUsed || wizardStore.data.selectedTone}
-					generatedText={generatedEntry}
-					birthday={wizardStore.data.profile.birthday ?? undefined}
-				/>
+				{#if isEditing}
+					<textarea class="edit-textarea" bind:value={editText} bind:this={editTextareaEl} oninput={autoResizeTextarea}></textarea>
+				{:else}
+					<DiaryCard
+						bind:this={diaryCardRef}
+						weekday={wizardStore.data.weekday}
+						date={wizardStore.data.date}
+						emojis={[]}
+						toneId={actualToneUsed || wizardStore.data.selectedTone}
+						generatedText={generatedEntry}
+						birthday={wizardStore.data.profile.birthday ?? undefined}
+						editable={true}
+						onEdit={startEditing}
+					/>
+				{/if}
 			</div>
+
+			{#if isEditing}
+				<div class="edit-actions">
+					<button class="edit-btn edit-btn-cancel" onclick={cancelEditing}>
+						<EmojiCrossMark size={18} />
+						<span>Avbryt</span>
+					</button>
+					<button class="edit-btn edit-btn-save" onclick={saveEdit}>
+						<EmojiFloppyDisk size={18} />
+						<span>Spara</span>
+					</button>
+				</div>
+			{/if}
 
 			{#if authStore.isLoggedIn}
 				<div class="journal-save-container">
@@ -1506,6 +1558,72 @@
 	}
 
 	/* ==========================================================================
+	   Edit Mode
+	   ========================================================================== */
+
+	.edit-textarea {
+		box-sizing: border-box;
+		width: 100%;
+		padding: 2rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-base);
+		font-weight: var(--weight-book);
+		line-height: var(--leading-loose);
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-text);
+		background-color: var(--color-bg-elevated);
+		border: 2px solid var(--color-accent);
+		border-radius: var(--radius-md);
+		resize: none;
+		outline: none;
+		overflow: hidden;
+		box-shadow: 0 0 0 3px rgba(244, 63, 122, 0.1);
+	}
+
+	.edit-actions {
+		display: flex;
+		gap: 0.75rem;
+		margin-top: 1.5rem;
+	}
+
+	.edit-btn {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		padding: 1rem 1.5rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
+		border-radius: var(--radius-md);
+		cursor: pointer;
+		transition: all 0.15s ease;
+		border: none;
+	}
+
+	.edit-btn-cancel {
+		background: transparent;
+		color: var(--color-text-muted);
+		border: 1px solid var(--color-border);
+	}
+
+	.edit-btn-cancel:hover {
+		background: var(--color-neutral);
+		color: var(--color-text);
+	}
+
+	.edit-btn-save {
+		background: var(--color-accent);
+		color: white;
+	}
+
+	.edit-btn-save:hover {
+		background: var(--color-accent-hover);
+	}
+
+	/* ==========================================================================
 	   Responsive
 	   ========================================================================== */
 
@@ -1574,6 +1692,18 @@
 
 		.modal-content {
 			padding: 1.25rem;
+		}
+
+		.edit-textarea {
+			padding: 1.25rem;
+		}
+
+		.edit-actions {
+			margin-top: 1rem;
+		}
+
+		.edit-btn {
+			padding: 0.875rem 1rem;
 		}
 	}
 

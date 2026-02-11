@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import {
-		EmojiWomanStudentPink, EmojiWomanStudentAmber, EmojiWomanStudentPurple, EmojiWomanStudentBlue, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiOwl, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceUnamused, EmojiSatellite, EmojiFaceUpsideDown, EmojiArchive, EmojiTornado, EmojiWiltedFlower, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiEnvelopeArrow, EmojiDiamondPink, EmojiDiamondAmber, EmojiDiamondPurple, EmojiDiamondBlue, EmojiPlus, EmojiMinus, EmojiBookmark, EmojiCrystalBall, EmojiMantelpieceClock, EmojiLightBulb } from '$lib/assets/emojis';
+		EmojiWomanStudentPink, EmojiWomanStudentAmber, EmojiWomanStudentPurple, EmojiWomanStudentBlue, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiOwl, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceUnamused, EmojiSatellite, EmojiFaceUpsideDown, EmojiArchive, EmojiTornado, EmojiWiltedFlower, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiEnvelopeArrow, EmojiPencil, EmojiDiamondPink, EmojiDiamondAmber, EmojiDiamondPurple, EmojiDiamondBlue, EmojiPlus, EmojiMinus, EmojiBookmark, EmojiCrystalBall, EmojiMantelpieceClock, EmojiLightBulb } from '$lib/assets/emojis';
 	import { Number1, Number2, Number3, Number4, Number5, Number6, Number7 } from '$lib/assets/numbers';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import { voiceSamples } from '$lib/data/voiceSamples';
@@ -407,10 +407,24 @@
 	</section>
 
 	<section>
-		<h2>Spara din dagbokstext</h2>
-		<p>När din text har genererats finns det flera sätt att spara och dela den:</p>
+		<h2>Redigera och spara din dagbokstext</h2>
+		<p>När din text har genererats finns det flera sätt att redigera, spara och dela den:</p>
 
 		<div class="save-grid">
+			<div class="save-card">
+				<span class="save-emoji"><EmojiPencil size={28} /></span>
+				<div class="save-content">
+					<h3>Redigera inlägget</h3>
+					<p>Justera texten innan du sparar.</p>
+				</div>
+			</div>
+			<div class="save-card">
+				<span class="save-emoji"><EmojiArchive size={28} /></span>
+				<div class="save-content">
+					<h3>Spara på webben</h3>
+					<p>Spara i ditt personliga arkiv online.</p>
+				</div>
+			</div>
 			<div class="save-card">
 				<span class="save-emoji"><EmojiFramedPicture size={28} /></span>
 				<div class="save-content">
@@ -437,13 +451,6 @@
 				<div class="save-content">
 					<h3>Skicka som e-post</h3>
 					<p>Mejla dagboken till vem du vill.</p>
-				</div>
-			</div>
-			<div class="save-card">
-				<span class="save-emoji"><EmojiArchive size={28} /></span>
-				<div class="save-content">
-					<h3>Spara på webben</h3>
-					<p>Spara i ditt personliga arkiv online.</p>
 				</div>
 			</div>
 		</div>
