@@ -1,0 +1,558 @@
+{
+  "foundry": "Klim Type Foundry",
+  "foundry_url": "https://klim.co.nz/",
+  "fonts_index_url": "https://klim.co.nz/fonts/",
+  "blog_url": "https://klim.co.nz/blog/",
+  "in_use_url": "https://klim.co.nz/in-use/",
+  "description": "Independent typeface design studio led by Kris Sowersby, based in Wellington, New Zealand",
+  "typefaces": [
+    {
+      "family": "American Grotesk",
+      "slug": "american-grotesk",
+      "classification": "Sans-serif / Gothic",
+      "sub_families": [
+        {
+          "name": "American Grotesk",
+          "page_url": "https://klim.co.nz/fonts/american-grotesk/"
+        },
+        {
+          "name": "American Grotesk Condensed",
+          "page_url": "https://klim.co.nz/fonts/american-grotesk-condensed/"
+        },
+        {
+          "name": "American Grotesk Compressed",
+          "page_url": "https://klim.co.nz/fonts/american-grotesk-compressed/"
+        }
+      ],
+      "collection_url": "https://klim.co.nz/collections/american-grotesk/",
+      "design_info_url": "https://klim.co.nz/blog/american-grotesk-design-information/",
+      "description": "A reprisal of Franklin Gothic, honouring its identity by turning the disparate Benton gothics into a coherent family. Retains Franklin Gothic's medium stroke contrast and its place in American graphic vernacular history, notably in persuasive communication.",
+      "character": "Persuasive American gothic with medium contrast. Authentic, vernacular, direct.",
+      "best_for": ["headlines", "editorial", "branding", "persuasive communication", "display"],
+      "mood": ["persuasive", "American", "direct", "authentic", "vernacular", "bold"]
+    },
+    {
+      "family": "Calibre",
+      "slug": "calibre",
+      "classification": "Sans-serif / Neo-grotesk",
+      "sub_families": [
+        {
+          "name": "Calibre",
+          "page_url": "https://klim.co.nz/fonts/calibre/"
+        }
+      ],
+      "design_info_url": "https://klim.co.nz/blog/metric-and-calibre-design-information/",
+      "description": "A neo-grotesk sans serif inspired by lettering on West Berlin street signs. Gently tempers the engineer's geometric tendencies by applying typographic principles of optical correction. Takes rationality from Nebiolo's Recta, resulting in a contemporary and crisp finish. Designed alongside Metric — they share fundamental geometry but differ in key letterforms.",
+      "character": "Crisp neo-grotesk. Engineered elegance, optically corrected.",
+      "best_for": ["body text", "UI", "branding", "editorial", "web"],
+      "mood": ["crisp", "rational", "contemporary", "clean", "elegant", "engineered"]
+    },
+    {
+      "family": "Die Grotesk",
+      "slug": "die-grotesk",
+      "classification": "Sans-serif / Grotesk / Variable",
+      "sub_families": [
+        {
+          "name": "Die Grotesk",
+          "page_url": "https://klim.co.nz/fonts/die-grotesk/"
+        }
+      ],
+      "design_info_url": "https://klim.co.nz/blog/die-grotesk-design-information/",
+      "description": "Shaped in the long shadow of Helvetica — a typeface so familiar it feels like air. Klim's first public variable font with an optical size slider controlling letter spacing. Designed for perfect typographic texture across all sizes, like the original metal cuts of Neue Haas Grotesk. The display cuts are spaced and kerned for headlines and logotypes.",
+      "character": "Helvetica's heir. Variable, precise, designed for perfect lockups.",
+      "best_for": ["logotypes", "headlines", "branding", "body text", "display"],
+      "mood": ["authoritative", "modernist", "precise", "inevitable", "Swiss"]
+    },
+    {
+      "family": "Domaine",
+      "slug": "domaine",
+      "classification": "Serif / Latin",
+      "sub_families": [
+        {
+          "name": "Domaine Display",
+          "page_url": "https://klim.co.nz/fonts/domaine-display/"
+        },
+        {
+          "name": "Domaine Display Narrow",
+          "page_url": "https://klim.co.nz/fonts/domaine-display-narrow/"
+        },
+        {
+          "name": "Domaine Display Condensed",
+          "page_url": "https://klim.co.nz/fonts/domaine-display-condensed/"
+        },
+        {
+          "name": "Domaine Text",
+          "page_url": "https://klim.co.nz/fonts/domaine-text/"
+        }
+      ],
+      "collection_url": "https://klim.co.nz/collections/domaine/",
+      "design_info_url": "https://klim.co.nz/blog/domaine-design-information/",
+      "description": "A sharp, elegant serif that blends traditional French and British genres into a contemporary aesthetic. Curvaceous Latin detailing centres upon gently bracketed triangular serifs, complemented by distinctive hooked terminals. Contemporary, curvaceous Latin detailing on a Scotch skeleton.",
+      "character": "Sharp elegant Latin serif. Curvaceous, distinctive, refined.",
+      "best_for": ["display", "editorial", "luxury branding", "wine labels", "fashion"],
+      "mood": ["elegant", "sharp", "curvaceous", "refined", "contemporary", "distinctive"]
+    },
+    {
+      "family": "Domaine Sans",
+      "slug": "domaine-sans",
+      "classification": "Sans-serif / High-contrast",
+      "sub_families": [
+        {
+          "name": "Domaine Sans Fine",
+          "page_url": "https://klim.co.nz/fonts/domaine-sans-fine/"
+        },
+        {
+          "name": "Domaine Sans Display",
+          "page_url": "https://klim.co.nz/fonts/domaine-sans-display/"
+        },
+        {
+          "name": "Domaine Sans Text",
+          "page_url": "https://klim.co.nz/fonts/domaine-sans-text/"
+        }
+      ],
+      "collection_url": "https://klim.co.nz/collections/domaine-sans/",
+      "design_info_url": "https://klim.co.nz/blog/domaine-sans-design-information/",
+      "description": "Delves into the unpopular genre of sans serifs with contrast. A refined, contrasted sans serif that ranges from extreme contrast (Fine) to high contrast (Display) to functional text contrast (Text). Pairs naturally with Domaine serif.",
+      "character": "High-contrast sans serif. Refined, dramatic, genre-defying.",
+      "best_for": ["display", "editorial", "luxury branding", "fashion", "art direction"],
+      "mood": ["refined", "dramatic", "contrasted", "sophisticated", "unusual"]
+    },
+    {
+      "family": "Epicene",
+      "slug": "epicene",
+      "classification": "Serif / Baroque",
+      "sub_families": [
+        {
+          "name": "Epicene Display",
+          "page_url": "https://klim.co.nz/fonts/epicene-display/"
+        },
+        {
+          "name": "Epicene Text",
+          "page_url": "https://klim.co.nz/fonts/epicene-text/"
+        }
+      ],
+      "collection_url": "https://klim.co.nz/collections/epicene/",
+      "design_info_url": "https://klim.co.nz/blog/epicene-design-information/",
+      "description": "Baroque typefaces inspired by 18th century maestros J-F. Rosart and J.M. Fleischmann. Exaggerated details add rigour at small sizes and vigour at large sizes. An experiment in modernising Baroque letterforms without muzzling their ornamental idiosyncrasy. Culturally, Epicene says one thing: typefaces have no gender.",
+      "character": "Baroque, ornamental, gender-transcendent. Generous curves meet sharp points.",
+      "best_for": ["editorial", "books", "display", "literary journals", "cultural projects"],
+      "mood": ["baroque", "ornamental", "vigorous", "gender-fluid", "exaggerated", "historical"]
+    },
+    {
+      "family": "Family",
+      "slug": "family",
+      "classification": "Serif / Transitional",
+      "sub_families": [
+        {
+          "name": "Family",
+          "page_url": "https://klim.co.nz/fonts/family/"
+        }
+      ],
+      "design_info_url": "https://klim.co.nz/blog/family-design-information/",
+      "description": "An everyday typeface based on Clearface — originally designed by father and son, Morris Fuller and Linn Boyd Benton. Keeps Clearface's easy-going curves and idiosyncrasies while updating it for modern use.",
+      "character": "Everyday, warm serif. Easy-going curves, inherited charm.",
+      "best_for": ["body text", "editorial", "books", "branding", "everyday typography"],
+      "mood": ["warm", "everyday", "easy-going", "familial", "approachable", "idiosyncratic"]
+    },
+    {
+      "family": "Feijoa",
+      "slug": "feijoa",
+      "classification": "Serif / Display & Text",
+      "sub_families": [
+        {
+          "name": "Feijoa",
+          "page_url": "https://klim.co.nz/fonts/feijoa/"
+        }
+      ],
+      "design_info_url": null,
+      "description": "The first typeface issued by Klim Type Foundry. Based on the principle that 'a straight line is a dead line', which explains the warm, curvaceous nature of the individual letterforms. Relieves letterforms from sharp points and angles detrimental to digital type, humanising the visual impression.",
+      "character": "Warm, curvaceous, humanist. No straight lines — all curves.",
+      "best_for": ["book typography", "extended reading", "display (16pt+)", "editorial"],
+      "mood": ["warm", "curvaceous", "humanist", "organic", "gentle", "pioneering"]
+    },
+    {
+      "family": "Financier",
+      "slug": "financier",
+      "classification": "Serif / Transitional",
+      "sub_families": [
+        {
+          "name": "Financier Display",
+          "page_url": "https://klim.co.nz/fonts/financier-display/"
+        },
+        {
+          "name": "Financier Text",
+          "page_url": "https://klim.co.nz/fonts/financier-text/"
+        }
+      ],
+      "collection_url": "https://klim.co.nz/collections/financier/",
+      "design_info_url": "https://klim.co.nz/blog/financier-design-information/",
+      "description": "An elegant, authoritative serif with an undeniable British heritage. Drawn for the redesign of the Financial Times, inspired by Eric Gill's classic letterforms. Versatile enough to handle news and features in arts, science, sport and finance across media, from broadsheets to mobile screens.",
+      "character": "Authoritative British serif. Elegant, trustworthy, versatile.",
+      "best_for": ["newspapers", "editorial", "financial publications", "long-form text", "cross-media"],
+      "mood": ["authoritative", "British", "elegant", "trustworthy", "serious", "versatile"]
+    },
+    {
+      "family": "Founders Grotesk",
+      "slug": "founders-grotesk",
+      "classification": "Sans-serif / Grotesk",
+      "sub_families": [
+        {
+          "name": "Founders Grotesk",
+          "page_url": "https://klim.co.nz/fonts/founders-grotesk/"
+        },
+        {
+          "name": "Founders Grotesk Condensed",
+          "page_url": "https://klim.co.nz/fonts/founders-grotesk-condensed/"
+        },
+        {
+          "name": "Founders Grotesk X-Condensed",
+          "page_url": "https://klim.co.nz/fonts/founders-grotesk-x-condensed/"
+        },
+        {
+          "name": "Founders Grotesk Text",
+          "page_url": "https://klim.co.nz/fonts/founders-grotesk-text/"
+        },
+        {
+          "name": "Founders Grotesk Mono",
+          "page_url": "https://klim.co.nz/fonts/founders-grotesk-mono/"
+        }
+      ],
+      "collection_url": "https://klim.co.nz/collections/founders-grotesk/",
+      "design_info_url": "https://klim.co.nz/blog/founders-grotesk-design-information/",
+      "description": "A contemporary amalgamation of classic grotesks. Millar & Richard's early 20th century Grotesque series provided rudimentary geometry, serpentine curves, and narrow apertures. Coupled with tight spacing strategies from Helvetica's Halbfett metal cuts. Not a strict revival — resolves the best details from the last century into a large family for modern typography.",
+      "character": "Contemporary classic grotesk. Serpentine curves, tight spacing, versatile.",
+      "best_for": ["editorial", "headlines", "body text", "branding", "magazines"],
+      "mood": ["classic", "serpentine", "tight", "daring", "versatile", "contemporary"]
+    },
+    {
+      "family": "Geograph",
+      "slug": "geograph",
+      "classification": "Sans-serif / Geometric",
+      "sub_families": [
+        {
+          "name": "Geograph",
+          "page_url": "https://klim.co.nz/fonts/geograph/"
+        }
+      ],
+      "design_info_url": "https://klim.co.nz/blog/geograph-design-information/",
+      "description": "A contemporary geometric sans serif originally designed for National Geographic. Draws upon the idealism of Futura and the pragmatism of Super Grotesk. Suite of alternate letterforms enables flexible typographic textures and tones. A bridging style that complements numerous other typefaces.",
+      "character": "Idealistic geometric with pragmatic foundations. Flexible, exploratory.",
+      "best_for": ["branding", "editorial", "display", "magazines", "cross-media"],
+      "mood": ["exploratory", "idealistic", "pragmatic", "flexible", "geographic", "authoritative"]
+    },
+    {
+      "family": "Heldane",
+      "slug": "heldane",
+      "classification": "Serif / Garalde / Renaissance",
+      "sub_families": [
+        {
+          "name": "Heldane Display",
+          "page_url": "https://klim.co.nz/fonts/heldane-display/"
+        },
+        {
+          "name": "Heldane Text",
+          "page_url": "https://klim.co.nz/fonts/heldane-text/"
+        }
+      ],
+      "collection_url": "https://klim.co.nz/collections/heldane/",
+      "design_info_url": "https://klim.co.nz/blog/heldane-design-information/",
+      "description": "A contemporary serif family inspired by the renaissance works of Hendrik van den Keere, Claude Garamont, Robert Granjon and Simon de Colines. Over a decade in development. Rather than emulating a specific font, Heldane amalgamates the best details from these sources into a cohesive whole. Classical typographic foundations refined with rigorous digital drawing.",
+      "character": "Renaissance serif amalgamation. Ancient elusive form captured in digital vectors.",
+      "best_for": ["books", "editorial", "literary magazines", "fine typography", "display"],
+      "mood": ["classical", "renaissance", "refined", "scholarly", "ancient", "rigorous"]
+    },
+    {
+      "family": "Karbon",
+      "slug": "karbon",
+      "classification": "Sans-serif / Geometric",
+      "sub_families": [
+        {
+          "name": "Karbon",
+          "page_url": "https://klim.co.nz/fonts/karbon/"
+        },
+        {
+          "name": "Karbon Slab Stencil",
+          "page_url": "https://klim.co.nz/fonts/karbon-slab-stencil/"
+        }
+      ],
+      "collection_url": "https://klim.co.nz/collections/karbon/",
+      "design_info_url": null,
+      "description": "An open, geometric sans serif with a contemporary spartan finish. An exploration of Paul Renner's reductionist Futura concept channelled through the proportions of Eric Gill's sans, with a nod towards Jan Tschichold's Uhertype sans-serif. Karbon Slab Stencil extends the spartan linework into slab-serif territory with logical program of breaks referencing industrial heritage.",
+      "character": "Spartan geometric. Reductionist, open, industrial edge.",
+      "best_for": ["branding", "display", "industrial design", "signage", "stencil applications"],
+      "mood": ["spartan", "reductionist", "open", "industrial", "geometric", "minimal"]
+    },
+    {
+      "family": "Maelstrom",
+      "slug": "maelstrom",
+      "classification": "Serif & Sans / Reversed-stress / Display",
+      "sub_families": [
+        {
+          "name": "Maelstrom",
+          "page_url": "https://klim.co.nz/fonts/maelstrom/"
+        },
+        {
+          "name": "Maelstrom Sans",
+          "page_url": "https://klim.co.nz/fonts/maelstrom-sans/"
+        }
+      ],
+      "collection_url": "https://klim.co.nz/collections/maelstrom/",
+      "design_info_url": "https://klim.co.nz/blog/maelstrom-design-information/",
+      "description": "Reversed-stress typefaces. 'Perverse', to be sure, but that's exactly their charm. Belonging to a genre destined to be a perpetual typographic outsider — never fashionable yet never abandoned. Massive slabs, thin hairlines, razor-thin spacing forming narrow strips of light sparkling through the black mass. Maelstrom Sans feels fragile, like it could splinter at any moment.",
+      "character": "Perverse reversed-stress display. Forceful yet fragile, outsider charm.",
+      "best_for": ["display", "posters", "fashion", "art direction", "experimental design"],
+      "mood": ["perverse", "forceful", "fragile", "outsider", "dramatic", "sparkling"]
+    },
+    {
+      "family": "Mānuka",
+      "slug": "manuka",
+      "classification": "Sans-serif / Wood type / Display",
+      "sub_families": [
+        {
+          "name": "Mānuka",
+          "page_url": "https://klim.co.nz/fonts/manuka/"
+        },
+        {
+          "name": "Mānuka Condensed",
+          "page_url": "https://klim.co.nz/fonts/manuka-condensed/"
+        },
+        {
+          "name": "Mānuka Slab",
+          "page_url": "https://klim.co.nz/fonts/manuka-slab/"
+        }
+      ],
+      "collection_url": "https://klim.co.nz/collections/manuka/",
+      "design_info_url": "https://klim.co.nz/blog/manuka-design-information/",
+      "description": "New growth from old wood. With deviant details pilfered from Teutonic timber type, Mānuka grafts a contemporary antipodean aesthetic onto 19th century German root-stock. A compressed display font for large sizes.",
+      "character": "Antipodean wood type. Deviant, compressed, new growth from old roots.",
+      "best_for": ["display", "posters", "headlines", "cultural branding", "large sizes"],
+      "mood": ["deviant", "compressed", "rooted", "antipodean", "bold", "cultural"]
+    },
+    {
+      "family": "Martina Plantijn",
+      "slug": "martina-plantijn",
+      "classification": "Serif / Old-style",
+      "sub_families": [
+        {
+          "name": "Martina Plantijn",
+          "page_url": "https://klim.co.nz/fonts/martina-plantijn/"
+        }
+      ],
+      "design_info_url": "https://klim.co.nz/blog/martina-plantijn-design-information/",
+      "description": "A better Plantin. Informed by the workhorse qualities of Frank Hinman Pierpont's typeface and expanding upon his research of 16th century type at the Plantin-Moretus Museum in Antwerp. Makes decisive digital updates across its roman and italic cuts.",
+      "character": "Definitive Plantin for the digital age. Workhorse, historically grounded.",
+      "best_for": ["body text", "books", "editorial", "long-form reading", "classic typography"],
+      "mood": ["workhorse", "historical", "robust", "decisive", "scholarly", "grounded"]
+    },
+    {
+      "family": "Metric",
+      "slug": "metric",
+      "classification": "Sans-serif / Geometric-humanist",
+      "sub_families": [
+        {
+          "name": "Metric",
+          "page_url": "https://klim.co.nz/fonts/metric/"
+        }
+      ],
+      "design_info_url": "https://klim.co.nz/blog/metric-and-calibre-design-information/",
+      "description": "A geometric, humanist sans serif inspired by lettering on West Berlin street signs. Monoline construction feels rational and unpretentious. Gently tempers the engineer's geometric tendencies by applying typographic principles. Designed alongside Calibre — they share fundamental geometry but differ in key letterforms. Metric has a humanist finish where Calibre has a neo-grotesk finish.",
+      "character": "Geometric humanist. Rational, unpretentious, Berlin-inspired.",
+      "best_for": ["branding", "UI", "body text", "corporate identity", "web"],
+      "mood": ["rational", "unpretentious", "humanist", "geometric", "contemporary", "clear"]
+    },
+    {
+      "family": "National",
+      "slug": "national",
+      "classification": "Sans-serif",
+      "sub_families": [
+        {
+          "name": "National",
+          "page_url": "https://klim.co.nz/fonts/national/"
+        }
+      ],
+      "design_info_url": null,
+      "description": "A deceptively simple sans with a distinctive personality.",
+      "character": "Deceptively simple. Distinctive personality behind plain exterior.",
+      "best_for": ["branding", "editorial", "UI", "body text"],
+      "mood": ["simple", "distinctive", "understated", "personal", "deceptive"]
+    },
+    {
+      "family": "National 2",
+      "slug": "national-2",
+      "classification": "Sans-serif",
+      "sub_families": [
+        {
+          "name": "National 2",
+          "page_url": "https://klim.co.nz/fonts/national-2/"
+        },
+        {
+          "name": "National 2 Narrow",
+          "page_url": "https://klim.co.nz/fonts/national-2-narrow/"
+        },
+        {
+          "name": "National 2 Condensed",
+          "page_url": "https://klim.co.nz/fonts/national-2-condensed/"
+        },
+        {
+          "name": "National 2 Compressed",
+          "page_url": "https://klim.co.nz/fonts/national-2-compressed/"
+        }
+      ],
+      "collection_url": "https://klim.co.nz/collections/national-2/",
+      "design_info_url": "https://klim.co.nz/blog/national-2-design-information/",
+      "description": "A comprehensive expansion of National's original aesthetic concept. 64 fonts over 4 widths — a deceptively simple sans with a distinctive personality, now available in a massive typographic system.",
+      "character": "National expanded. Deceptively simple, now comprehensive and systematic.",
+      "best_for": ["editorial systems", "branding", "display", "headlines", "body text"],
+      "mood": ["simple", "distinctive", "systematic", "comprehensive", "understated"]
+    },
+    {
+      "family": "Newzald",
+      "slug": "newzald",
+      "classification": "Serif / Transitional / Text",
+      "sub_families": [
+        {
+          "name": "Newzald",
+          "page_url": "https://klim.co.nz/fonts/newzald/"
+        }
+      ],
+      "design_info_url": null,
+      "description": "A hardworking text typeface designed for the international editorial environment. Economical rigour drawn from classic Dutch typefaces by masters J.F. Rosart and J.M. Fleischman. Large x-height and slightly condensed forms allow many words to a column without looking cramped or ungainly.",
+      "character": "Hardworking Dutch-inspired text face. Economical, rigorous, editorial.",
+      "best_for": ["newspapers", "editorial", "body text", "columns", "international typography"],
+      "mood": ["hardworking", "economical", "rigorous", "Dutch", "dependable", "brisk"]
+    },
+    {
+      "family": "Pitch",
+      "slug": "pitch",
+      "classification": "Monospace / Slab-serif",
+      "sub_families": [
+        {
+          "name": "Pitch",
+          "page_url": "https://klim.co.nz/fonts/pitch/"
+        },
+        {
+          "name": "Pitch Sans",
+          "page_url": "https://klim.co.nz/fonts/pitch-sans/"
+        }
+      ],
+      "collection_url": "https://klim.co.nz/collections/pitch/",
+      "design_info_url": "https://klim.co.nz/blog/pitch-design-information/",
+      "description": "A love letter to the typewriter. A synthesis of digital and analogue that evokes — not emulates — typewritten text. Pitch Sans extends the family into sans-serif monospace territory.",
+      "character": "Typewriter evocation. Analogue warmth in digital form.",
+      "best_for": ["code", "editorial", "screenplays", "literary design", "technical documents"],
+      "mood": ["analogue", "typewritten", "literary", "nostalgic", "mechanical", "warm"]
+    },
+    {
+      "family": "Signifier",
+      "slug": "signifier",
+      "classification": "Serif / Brutalist / Transitional",
+      "sub_families": [
+        {
+          "name": "Signifier",
+          "page_url": "https://klim.co.nz/fonts/signifier/"
+        }
+      ],
+      "design_info_url": "https://klim.co.nz/blog/signifier-design-information/",
+      "description": "A Brutalist response to 17th century typefaces. Signifier's digital immateriality draws on a deeply material past. Acknowledging the processes and tools of digital form-making, working consciously with the computer to recast the lead, antimony, and tin of the Fell Types into ones and zeros. Sharp vectors determined by machine logic and a Brutalist ethos. Sharpness behaves like optical masters — obvious at large sizes, subsumed when small.",
+      "character": "Brutalist digital alchemy. Sharp vectors from ancient material. Machine logic meets Fell Types.",
+      "best_for": ["editorial", "display", "intellectual publications", "tech branding", "art direction"],
+      "mood": ["brutalist", "sharp", "digital", "intellectual", "alchemical", "philosophical"]
+    },
+    {
+      "family": "Söhne",
+      "slug": "soehne",
+      "classification": "Sans-serif / Grotesk",
+      "sub_families": [
+        {
+          "name": "Söhne",
+          "page_url": "https://klim.co.nz/fonts/soehne/"
+        },
+        {
+          "name": "Söhne Mono",
+          "page_url": "https://klim.co.nz/fonts/soehne-mono/"
+        },
+        {
+          "name": "Söhne Schmal",
+          "page_url": "https://klim.co.nz/fonts/soehne-schmal/"
+        },
+        {
+          "name": "Söhne Breit",
+          "page_url": "https://klim.co.nz/fonts/soehne-breit/"
+        }
+      ],
+      "collection_url": "https://klim.co.nz/collections/soehne/",
+      "design_info_url": "https://klim.co.nz/blog/soehne-design-information/",
+      "description": "The memory of Akzidenz-Grotesk framed through the reality of Helvetica. Captures the analogue materiality of 'Standard Medium' used in Unimark's legendary wayfinding system for the NYC Subway. Available in four widths: standard, Mono, Schmal (narrow), and Breit (wide).",
+      "character": "Akzidenz memory, Helvetica reality. Analogue materiality in digital form.",
+      "best_for": ["UI", "branding", "body text", "wayfinding", "tech", "editorial"],
+      "mood": ["material", "systematic", "analogue", "modern", "reliable", "wayfinding"]
+    },
+    {
+      "family": "The Future",
+      "slug": "the-future",
+      "classification": "Sans-serif / Geometric",
+      "sub_families": [
+        {
+          "name": "The Future",
+          "page_url": "https://klim.co.nz/fonts/the-future/"
+        },
+        {
+          "name": "The Future Mono",
+          "page_url": "https://klim.co.nz/fonts/the-future-mono/"
+        }
+      ],
+      "collection_url": "https://klim.co.nz/collections/the-future/",
+      "design_info_url": "https://klim.co.nz/blog/the-future-design-information/",
+      "description": "A homage to Futura, Paul Renner's progressive classic. Working from original production drawings, The Future is a careful observation of Futura's geometric architecture and avant-garde alternates. The Future Mono reimagines Futura as a typewriter font commissioned by Kyota Sugimoto — speculative design fiction.",
+      "character": "Futura homage. Progressive geometric architecture, avant-garde spirit.",
+      "best_for": ["display", "branding", "editorial", "avant-garde design", "speculative projects"],
+      "mood": ["progressive", "geometric", "avant-garde", "idealistic", "speculative", "classic-modern"]
+    },
+    {
+      "family": "Tiempos",
+      "slug": "tiempos",
+      "classification": "Serif / Transitional / Editorial",
+      "sub_families": [
+        {
+          "name": "Tiempos Fine",
+          "page_url": "https://klim.co.nz/fonts/tiempos-fine/"
+        },
+        {
+          "name": "Tiempos Headline",
+          "page_url": "https://klim.co.nz/fonts/tiempos-headline/"
+        },
+        {
+          "name": "Tiempos Text",
+          "page_url": "https://klim.co.nz/fonts/tiempos-text/"
+        }
+      ],
+      "collection_url": "https://klim.co.nz/collections/tiempos/",
+      "design_info_url": "https://klim.co.nz/blog/tiempos-design-information/",
+      "description": "A hardworking, modern serif family for editorial typography. Updates the functionality of Plantin and Times for contemporary use. Tiempos Text is robust and clear, perfect for economic and legible typesetting. Tiempos Headline is optimised for display use. Tiempos Fine is a sharpened, refined elegant cut.",
+      "character": "Modern editorial workhorse serif. Plantin and Times updated for today.",
+      "best_for": ["newspapers", "editorial", "magazines", "body text", "headlines"],
+      "mood": ["hardworking", "modern", "robust", "editorial", "clear", "economical"]
+    },
+    {
+      "family": "Untitled",
+      "slug": "untitled",
+      "classification": "Sans-serif & Serif / Neo-grotesk & Old-style",
+      "sub_families": [
+        {
+          "name": "Untitled Sans",
+          "page_url": "https://klim.co.nz/fonts/untitled-sans/"
+        },
+        {
+          "name": "Untitled Serif",
+          "page_url": "https://klim.co.nz/fonts/untitled-serif/"
+        }
+      ],
+      "collection_url": "https://klim.co.nz/collections/untitled/",
+      "design_info_url": "https://klim.co.nz/blog/untitled-sans-serif-design-information/",
+      "description": "Quotidian typefaces. Untitled Sans is a plain neo-grotesk validated by Morrison and Fukasawa's Super Normal project. Untitled Serif is drawn from the old-style genre — the post-Caslon, pre-Times workhorses. Related by concept only: a deliberate aesthetic of not being designed by anyone in particular.",
+      "character": "Super Normal. Deliberately un-designed, quotidian, invisible.",
+      "best_for": ["body text", "UI", "web", "institutional design", "when type should disappear"],
+      "mood": ["quotidian", "normal", "invisible", "plain", "humble", "unconscious"]
+    }
+  ]
+}

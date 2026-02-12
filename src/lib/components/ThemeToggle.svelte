@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { themeStore } from '$lib/stores/theme.svelte';
+	import { EmojiSun, EmojiMoonQuarter } from '$lib/assets/emojis';
 
 	export let variant: 'fixed' | 'inline' = 'fixed';
 </script>
@@ -7,13 +8,15 @@
 <button
 	class="theme-toggle"
 	class:inline={variant === 'inline'}
-	class:dark={themeStore.current === 'dark'}
 	onclick={() => themeStore.toggle()}
 	aria-label={themeStore.current === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
 	title={themeStore.current === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
 >
-	<span class="toggle-track">
-		<span class="toggle-thumb"></span>
+	<span class="icon" class:visible={themeStore.current === 'light'}>
+		<EmojiSun size={36} />
+	</span>
+	<span class="icon" class:visible={themeStore.current === 'dark'}>
+		<EmojiMoonQuarter size={36} />
 	</span>
 </button>
 
@@ -23,13 +26,13 @@
 		top: calc(env(safe-area-inset-top, 0px) + 1.25rem);
 		right: calc(env(safe-area-inset-right, 0px) + 1.25rem);
 		z-index: 100;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0.25rem;
-		background-color: var(--color-bg-elevated);
-		border: 1px solid var(--color-border);
-		border-radius: 999px;
+		display: grid;
+		place-items: center;
+		width: 2.5rem;
+		height: 2.5rem;
+		padding: 0;
+		background: none;
+		border: none;
 		cursor: pointer;
 		transition:
 			background-color 0.15s ease,
@@ -38,11 +41,11 @@
 	}
 
 	.theme-toggle:hover {
-		background-color: var(--color-neutral);
+		opacity: 0.8;
 	}
 
 	.theme-toggle:active {
-		transform: scale(0.95);
+		transform: scale(0.9);
 	}
 
 	.theme-toggle.inline {
@@ -51,33 +54,20 @@
 		right: auto;
 	}
 
-	.toggle-track {
-		display: block;
-		width: 2.25rem;
-		height: 1.25rem;
-		background-color: var(--color-neutral);
-		border-radius: 999px;
-		position: relative;
-		transition: background-color 0.2s ease;
+	.icon {
+		grid-area: 1 / 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 0;
+		transform: scale(0.5) rotate(-90deg);
+		transition:
+			opacity 0.2s ease,
+			transform 0.2s ease;
 	}
 
-	.theme-toggle.dark .toggle-track {
-		background-color: var(--color-accent);
-	}
-
-	.toggle-thumb {
-		position: absolute;
-		top: 0.125rem;
-		left: 0.125rem;
-		width: 1rem;
-		height: 1rem;
-		background-color: var(--color-bg-elevated);
-		border-radius: 50%;
-		transition: transform 0.2s ease;
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-	}
-
-	.theme-toggle.dark .toggle-thumb {
-		transform: translateX(1rem);
+	.icon.visible {
+		opacity: 1;
+		transform: scale(1) rotate(0deg);
 	}
 </style>

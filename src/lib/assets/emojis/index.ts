@@ -183,3 +183,7 @@ export { default as EmojiGoogle } from './EmojiGoogle.svelte';
 export { default as EmojiHighVoltage } from './EmojiHighVoltage.svelte';
 export { default as EmojiThermometer } from './EmojiThermometer.svelte';
 export { default as EmojiZzz } from './EmojiZzz.svelte';
+export { default as EmojiSun } from './EmojiSun.svelte';
+export { default as EmojiMoonFull } from './EmojiMoonFull.svelte';
+export { default as EmojiMoonNew } from './EmojiMoonNew.svelte';
+export { default as EmojiMoonQuarter } from './EmojiMoonQuarter.svelte';

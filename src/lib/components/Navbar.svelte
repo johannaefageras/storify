@@ -9,7 +9,7 @@
 	<div class="navbar-inner">
 		<a href="/" class="navbar-brand">Storify</a>
 
-		<div class="navbar-theme">
+		<div class="navbar-actions">
 			<ThemeToggle variant="inline" />
 		</div>
 	</div>
@@ -48,10 +48,11 @@
 		text-decoration: none;
 	}
 
-	.navbar-theme {
+	.navbar-actions {
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
 	}
+
 
 </style>
