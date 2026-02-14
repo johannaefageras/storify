@@ -102,6 +102,34 @@ export function validateEmail(email: string): FieldError | null {
 export function validateWizardData(data: WizardData): ValidationResult {
 	const errors: FieldError[] = [];
 
+	// Chat mode: validate transcript instead of structured fields
+	if (data.chatMode) {
+		if (!data.chatTranscript || data.chatTranscript.trim().length === 0) {
+			errors.push({
+				field: 'chatTranscript',
+				message: 'Konversationsloggen saknas.',
+				code: 'INVALID_FORMAT'
+			});
+		} else if (data.chatTranscript.length > LIMITS.CHAT_TRANSCRIPT) {
+			errors.push({
+				field: 'chatTranscript',
+				message: `Konversationsloggen överskrider ${LIMITS.CHAT_TRANSCRIPT} tecken.`,
+				code: 'TOO_LONG'
+			});
+		} else if (SUSPICIOUS_PATTERN.test(data.chatTranscript) || PROMPT_INJECTION_PATTERN.test(data.chatTranscript)) {
+			errors.push({
+				field: 'chatTranscript',
+				message: 'Otillåtet innehåll i konversationsloggen.',
+				code: 'SUSPICIOUS_CONTENT'
+			});
+		}
+
+		return {
+			valid: errors.length === 0,
+			errors
+		};
+	}
+
 	// Profile validation
 	const profile = data.profile;
 	if (profile) {
@@ -210,6 +238,54 @@ export function validateWizardData(data: WizardData): ValidationResult {
 		valid: errors.length === 0,
 		errors
 	};
+}
+
+export interface ChatMessagePayload {
+	role: 'user' | 'assistant';
+	content: string;
+}
+
+export interface ChatValidationResult {
+	valid: boolean;
+	error?: string;
+}
+
+export function validateChatMessages(messages: ChatMessagePayload[]): ChatValidationResult {
+	if (!Array.isArray(messages) || messages.length === 0) {
+		return { valid: false, error: 'Inga meddelanden skickade.' };
+	}
+
+	if (messages.length > LIMITS.CHAT_MAX_MESSAGES) {
+		return { valid: false, error: 'Konversationen har nått maxgränsen.' };
+	}
+
+	for (let i = 0; i < messages.length; i++) {
+		const msg = messages[i];
+
+		if (!msg || typeof msg.content !== 'string' || !['user', 'assistant'].includes(msg.role)) {
+			return { valid: false, error: 'Ogiltigt meddelandeformat.' };
+		}
+
+		if (msg.role === 'user') {
+			if (msg.content.trim().length === 0) {
+				return { valid: false, error: 'Tomt meddelande.' };
+			}
+
+			if (msg.content.length > LIMITS.CHAT_MESSAGE) {
+				return { valid: false, error: `Meddelandet överskrider ${LIMITS.CHAT_MESSAGE} tecken.` };
+			}
+
+			if (SUSPICIOUS_PATTERN.test(msg.content)) {
+				return { valid: false, error: 'Otillåtet innehåll.' };
+			}
+
+			if (PROMPT_INJECTION_PATTERN.test(msg.content)) {
+				return { valid: false, error: 'Otillåtet innehåll.' };
+			}
+		}
+	}
+
+	return { valid: true };
 }
 
 export function validatePayloadSize(data: unknown): boolean {

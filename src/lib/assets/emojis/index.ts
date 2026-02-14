@@ -187,3 +187,4 @@ export { default as EmojiSun } from './EmojiSun.svelte';
 export { default as EmojiMoonFull } from './EmojiMoonFull.svelte';
 export { default as EmojiMoonNew } from './EmojiMoonNew.svelte';
 export { default as EmojiMoonQuarter } from './EmojiMoonQuarter.svelte';
+export { default as EmojiSpeechBalloon } from './EmojiSpeechBalloon.svelte';

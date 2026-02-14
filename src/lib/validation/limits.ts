@@ -20,6 +20,11 @@ export const LIMITS = {
 	MAX_ARRAY_SIZE: 10,
 	MAX_EMOJIS: 5,
 
+	// Chat (interview mode)
+	CHAT_MESSAGE: 1000, // Max chars per chat message
+	CHAT_MAX_MESSAGES: 30, // Max messages per conversation (15 user + 15 assistant)
+	CHAT_TRANSCRIPT: 50000, // Max chars for formatted chat transcript sent to /api/generate
+
 	// Payload
 	MAX_PAYLOAD_BYTES: 50000 // 50KB
 } as const;

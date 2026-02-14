@@ -174,6 +174,25 @@ export function formatProfileForPrompt(profile: UserProfile): string {
 }
 
 export function formatWizardDataForPrompt(data: WizardData): string {
+	// Chat mode: format conversation transcript instead of structured wizard fields
+	if (data.chatMode && data.chatTranscript) {
+		const sections: string[] = [];
+
+		sections.push(`<user-data>`);
+
+		const profileSection = formatProfileForPrompt(data.profile);
+		if (profileSection) {
+			sections.push(profileSection);
+			sections.push('');
+		}
+
+		sections.push('KONVERSATION MED ANVÄNDAREN:');
+		sections.push(data.chatTranscript);
+		sections.push(`</user-data>`);
+
+		return sections.join('\n');
+	}
+
 	const sections: string[] = [];
 
 	sections.push(`<user-data>`);

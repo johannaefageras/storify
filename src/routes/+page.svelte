@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { themeStore } from '$lib/stores/theme.svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { accentStore } from '$lib/stores/accent.svelte';
@@ -8,8 +6,13 @@
 		EmojiRosePinkLight,
 		EmojiRoseAmberLight,
 		EmojiRosePurpleLight,
-		EmojiRoseBlueLight
+		EmojiRoseBlueLight,
+		EmojiCompass,
+		EmojiRocket,
+		EmojiSpeakingHead,
+		EmojiFountainPen
 	} from '$lib/assets/emojis';
+	import type { Component } from 'svelte';
 
 	const roseComponents = {
 		pink: EmojiRosePinkLight,
@@ -22,7 +25,6 @@
 	import { getGreeting, getSubtitle } from '$lib/data/greetings';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
-	import IconArrowRight from '$lib/assets/icons/IconArrowRight.svelte';
 
 	let showTooltip = $state(false);
 
@@ -31,9 +33,49 @@
 	let greeting = $derived(isReturningUser ? getGreeting(firstName) : '');
 	let subtitle = $derived(isReturningUser ? getSubtitle() : '');
 
-	function startWizard() {
-		goto('/wizard');
+	interface ModeCard {
+		id: string;
+		title: string;
+		description: string;
+		href: string;
+		icon: Component<{ size: number }>;
+		comingSoon: boolean;
 	}
+
+	const modeCards: ModeCard[] = [
+		{
+			id: 'wizard',
+			title: 'Steg-för-steg',
+			description: 'Svara på frågor om din dag och få en detaljerad dagbokstext.',
+			href: '/wizard',
+			icon: EmojiCompass,
+			comingSoon: false
+		},
+		{
+			id: 'quick',
+			title: 'Snabbläge',
+			description: 'Fånga dagens känsla på under en minut.',
+			href: '/quick',
+			icon: EmojiRocket,
+			comingSoon: false
+		},
+		{
+			id: 'interview',
+			title: 'AI-intervju',
+			description: 'Chatta med AI som ställer frågor om din dag.',
+			href: '/interview',
+			icon: EmojiSpeakingHead,
+			comingSoon: false
+		},
+		{
+			id: 'editor',
+			title: 'Fri skrivning',
+			description: 'Skriv fritt med AI-stöd som förfinar din text.',
+			href: '/editor',
+			icon: EmojiFountainPen,
+			comingSoon: true
+		}
+	];
 
 	async function resetCache() {
 		await wizardStore.clearAll();
@@ -63,21 +105,21 @@
 				{/if}
 			</header>
 
-			<div class="action">
-				{#if isReturningUser}
-					<button class="btn btn-primary btn-large" onclick={startWizard}>
-						Berätta om din dag <IconArrowRight size={18} />
-					</button>
-				{:else}
-					<button class="btn btn-primary btn-large" onclick={startWizard}>
-						Skönt, sätt igång! <IconArrowRight size={18} />
-					</button>
-				{/if}
-				<div class="quick-mode-wrapper">
-					<button class="quick-mode-link" onclick={() => goto('/quick')}>
-						Snabbläge <IconArrowRight size={14} />
-					</button>
-				</div>
+			<div class="mode-grid">
+				{#each modeCards as card}
+					<a href={card.href} class="mode-card" class:coming-soon={card.comingSoon}>
+						<div class="mode-card-icon">
+							<card.icon size={36} />
+						</div>
+						<div class="mode-card-content">
+							<h2 class="mode-card-title">{card.title}</h2>
+							<p class="mode-card-description">{card.description}</p>
+						</div>
+						{#if card.comingSoon}
+							<span class="mode-card-badge">Snart</span>
+						{/if}
+					</a>
+				{/each}
 			</div>
 		</div>
 
@@ -114,17 +156,19 @@
 	}
 
 	.landing {
-		flex: 1;
+		flex: 1 1 auto;
+		min-height: 0;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		padding: 1.25rem;
 		padding-bottom: 0;
-		overflow: hidden;
+		overflow-y: auto;
 	}
 
 	.container {
-		flex: 1;
+		flex: 1 1 auto;
+		min-height: 100%;
 		display: flex;
 		flex-direction: column;
 		text-align: center;
@@ -133,13 +177,14 @@
 	}
 
 	.landing-main {
-		flex: 1;
+		flex: 1 1 auto;
+		min-height: 0;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		gap: 1.75rem;
-		padding: 0.75rem 0 0;
+		gap: clamp(1rem, 2.25vh, 1.75rem);
+		padding: clamp(0.25rem, 1.4vh, 0.75rem) 0 0;
 		margin-top: 0;
 	}
 
@@ -174,46 +219,103 @@
 		letter-spacing: var(--tracking-wide);
 	}
 
-	.action {
+	.mode-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0.75rem;
+		width: 100%;
+	}
+
+	.mode-card {
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 1.25rem;
-		margin: 0;
+		gap: 0.625rem;
+		padding: clamp(0.8rem, 1.9vh, 1.25rem) 1rem;
+		background: var(--color-bg-elevated);
+		border-radius: var(--radius-md);
+		text-decoration: none;
+		color: inherit;
+		transition: transform 0.15s ease, box-shadow 0.15s ease;
+		cursor: pointer;
 	}
 
-	.quick-mode-wrapper {
+	.mode-card:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+		text-decoration: none;
+	}
+
+	.mode-card:active {
+		transform: scale(0.98);
+	}
+
+	.mode-card.coming-soon {
+		opacity: 0.6;
+	}
+
+	.mode-card.coming-soon:hover {
+		opacity: 0.75;
+	}
+
+	.mode-card-icon {
 		display: flex;
+		align-items: center;
 		justify-content: center;
 	}
 
-	.quick-mode-link {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.375rem;
-		background: none;
-		border: none;
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-medium);
-		color: var(--color-text-muted);
-		cursor: pointer;
-		text-decoration: underline;
-		text-underline-offset: 2px;
-		transition: opacity 0.2s ease, color 0.2s ease;
-		opacity: 0.75;
-		letter-spacing: var(--tracking-wide);
+	.mode-card-content {
+		text-align: center;
 	}
 
-	.quick-mode-link:hover {
-		opacity: 1;
+	.mode-card-title {
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-semibold);
+		font-stretch: 105%;
+		letter-spacing: var(--tracking-tight);
 		color: var(--color-text);
+		margin-bottom: 0.25rem;
+	}
+
+	.mode-card-description {
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-regular);
+		letter-spacing: var(--tracking-wide);
+		line-height: var(--leading-relaxed);
+		color: var(--color-text-muted);
+		margin: 0;
+	}
+
+	.mode-card-badge {
+		position: absolute;
+		top: 0.5rem;
+		right: 0.5rem;
+		font-family: var(--font-primary);
+		font-size: 0.7rem;
+		font-weight: var(--weight-semibold);
+		font-stretch: 110%;
+		letter-spacing: var(--tracking-widest);
+		text-transform: uppercase;
+		color: var(--color-accent);
+		background: color-mix(in srgb, var(--color-accent) 10%, var(--color-bg-elevated));
+		padding: 0.15rem 0.4rem;
+		border-radius: var(--radius-sm);
+	}
+
+	@media (max-width: 380px) {
+		.mode-grid {
+			grid-template-columns: 1fr;
+		}
 	}
 
 	.landing-footer {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
 	}
 
 	.reset-wrapper {
@@ -302,6 +404,56 @@
 
 		.subtitle {
 			font-size: var(--text-xl);
+		}
+	}
+
+	@media (max-height: 860px) {
+		.logo {
+			margin-bottom: 0.6rem;
+		}
+
+		.title {
+			margin-bottom: 0.35rem;
+		}
+
+		.mode-grid {
+			gap: 0.55rem;
+		}
+
+		.mode-card-description {
+			line-height: var(--leading-base);
+		}
+
+		.reset-wrapper {
+			margin-top: 1rem;
+		}
+
+		.landing-footer :global(.legal-footer) {
+			margin-top: 1rem;
+		}
+	}
+
+	@media (max-height: 760px) {
+		.landing {
+			padding-top: 0.85rem;
+		}
+
+		.mode-card-icon :global(svg) {
+			width: 28px;
+			height: 28px;
+		}
+
+		.mode-card {
+			gap: 0.45rem;
+			padding: 0.65rem 0.8rem;
+		}
+
+		.mode-card-title {
+			font-size: var(--text-xs);
+		}
+
+		.mode-card-description {
+			font-size: 0.75rem;
 		}
 	}
 </style>

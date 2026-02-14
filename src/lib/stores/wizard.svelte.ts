@@ -74,6 +74,10 @@ export interface WizardData {
   // Quick mode
   quickText: string;
   quickMode: boolean;
+
+  // Chat / interview mode
+  chatMode: boolean;
+  chatTranscript: string;
 }
 
 const PROFILE_STORAGE_KEY = 'storify-profile';
@@ -127,7 +131,9 @@ function createWizardStore() {
     includeOnThisDay: false,
     includeHomework: true,
     quickText: '',
-    quickMode: false
+    quickMode: false,
+    chatMode: false,
+    chatTranscript: ''
   };
 
   let data = $state<WizardData>({ ...defaultData });

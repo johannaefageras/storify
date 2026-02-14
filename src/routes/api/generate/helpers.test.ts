@@ -76,6 +76,8 @@ const createMinimalWizardData = (overrides: Partial<WizardData> = {}): WizardDat
   includeHomework: true,
   quickText: '',
   quickMode: false,
+  chatMode: false,
+  chatTranscript: '',
   ...overrides
 });
 
@@ -466,5 +468,136 @@ describe('getToneMetadata', () => {
       const metadata = getToneMetadata(toneId);
       expect(metadata.language).toBe('swedish');
     }
+  });
+});
+
+describe('formatWizardDataForPrompt (chat mode)', () => {
+  it('uses chat transcript instead of structured fields', () => {
+    const transcript = 'Användaren: Hej!\n\nIntervjuaren: Hej! Hur har din dag varit?\n\nAnvändaren: Bra, jag var på jobbet.';
+    const data = createMinimalWizardData({
+      chatMode: true,
+      chatTranscript: transcript
+    });
+    const result = formatWizardDataForPrompt(data);
+
+    expect(result).toContain('KONVERSATION MED ANVÄNDAREN:');
+    expect(result).toContain(transcript);
+    // Should NOT contain structured wizard sections
+    expect(result).not.toContain('DAGENS INFORMATION:');
+    expect(result).not.toContain('Sömn:');
+    expect(result).not.toContain('Energi:');
+  });
+
+  it('wraps output in user-data tags', () => {
+    const data = createMinimalWizardData({
+      chatMode: true,
+      chatTranscript: 'Användaren: Hej!'
+    });
+    const result = formatWizardDataForPrompt(data);
+
+    expect(result).toContain('<user-data>');
+    expect(result).toContain('</user-data>');
+  });
+
+  it('includes profile section when profile has data', () => {
+    const data = createMinimalWizardData({
+      chatMode: true,
+      chatTranscript: 'Användaren: Hej!',
+      profile: {
+        ...defaultProfile,
+        name: 'Alice',
+        hometown: 'Stockholm'
+      }
+    });
+    const result = formatWizardDataForPrompt(data);
+
+    expect(result).toContain('OM SKRIBENTEN:');
+    expect(result).toContain('Namn: Alice');
+    expect(result).toContain('Bor i: Stockholm');
+    expect(result).toContain('KONVERSATION MED ANVÄNDAREN:');
+  });
+
+  it('omits profile section when profile is empty', () => {
+    const data = createMinimalWizardData({
+      chatMode: true,
+      chatTranscript: 'Användaren: Hej!'
+    });
+    const result = formatWizardDataForPrompt(data);
+
+    expect(result).not.toContain('OM SKRIBENTEN:');
+    expect(result).toContain('KONVERSATION MED ANVÄNDAREN:');
+  });
+
+  it('falls back to structured format when chatMode is false', () => {
+    const data = createMinimalWizardData({
+      chatMode: false,
+      chatTranscript: 'Some transcript that should be ignored'
+    });
+    const result = formatWizardDataForPrompt(data);
+
+    expect(result).toContain('DAGENS INFORMATION:');
+    expect(result).not.toContain('KONVERSATION MED ANVÄNDAREN:');
+  });
+
+  it('falls back to structured format when chatTranscript is empty', () => {
+    const data = createMinimalWizardData({
+      chatMode: true,
+      chatTranscript: ''
+    });
+    const result = formatWizardDataForPrompt(data);
+
+    expect(result).toContain('DAGENS INFORMATION:');
+    expect(result).not.toContain('KONVERSATION MED ANVÄNDAREN:');
+  });
+
+  it('preserves multi-turn conversation formatting', () => {
+    const transcript = [
+      'Användaren: Idag var speciell.',
+      'Intervjuaren: Berätta mer! Vad hände?',
+      'Användaren: Jag fick jobb!',
+      'Intervjuaren: Grattis! Hur kändes det?',
+      'Användaren: Fantastiskt, jag firade med familjen.'
+    ].join('\n\n');
+
+    const data = createMinimalWizardData({
+      chatMode: true,
+      chatTranscript: transcript
+    });
+    const result = formatWizardDataForPrompt(data);
+
+    expect(result).toContain('Användaren: Idag var speciell.');
+    expect(result).toContain('Användaren: Jag fick jobb!');
+    expect(result).toContain('Intervjuaren: Grattis! Hur kändes det?');
+    expect(result).toContain('Användaren: Fantastiskt, jag firade med familjen.');
+  });
+});
+
+describe('short-transcript instruction', () => {
+  it('transcript message count is correctly parsed by splitting on message boundaries', () => {
+    // This tests the same pattern used in +server.ts for short-transcript detection
+    const shortTranscript = 'Användaren: Hej!\n\nIntervjuaren: Hej! Hur var din dag?\n\nAnvändaren: Bra.';
+    const messageCount = shortTranscript.split(/\n\n(?=Användaren: |Intervjuaren: )/).length;
+    expect(messageCount).toBe(3);
+    expect(messageCount).toBeLessThan(5);
+  });
+
+  it('longer conversation exceeds the short-transcript threshold', () => {
+    const longTranscript = [
+      'Användaren: Hej!',
+      'Intervjuaren: Hej! Hur har din dag varit?',
+      'Användaren: Bra, jag var på jobbet.',
+      'Intervjuaren: Vad jobbar du med?',
+      'Användaren: Jag är utvecklare.',
+      'Intervjuaren: Spännande! Berätta mer.'
+    ].join('\n\n');
+    const messageCount = longTranscript.split(/\n\n(?=Användaren: |Intervjuaren: )/).length;
+    expect(messageCount).toBe(6);
+    expect(messageCount).toBeGreaterThanOrEqual(5);
+  });
+
+  it('single message counts as 1', () => {
+    const singleMessage = 'Användaren: Min dag var bra.';
+    const messageCount = singleMessage.split(/\n\n(?=Användaren: |Intervjuaren: )/).length;
+    expect(messageCount).toBe(1);
   });
 });

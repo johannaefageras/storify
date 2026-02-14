@@ -119,6 +119,17 @@ export const POST: RequestHandler = async ({ request }) => {
     const toneId = data.selectedTone || 'classic';
     let systemPrompt = buildTonePrompt(toneId, data.profile);
 
+    // Chat mode: short-transcript instruction when fewer than 5 messages
+    if (data.chatMode && data.chatTranscript) {
+      const messageCount = data.chatTranscript.split(/\n\n(?=Användaren: |Intervjuaren: )/).length;
+      if (messageCount < 5) {
+        systemPrompt += `\n\nVIKTIGT – KORT KONVERSATION:
+Användaren hade ett kort samtal med intervjuaren. Du har begränsad information.
+Skriv ett kortare dagboksinlägg på ca 100-150 ord. Fokusera på det väsentliga
+och hitta INTE PÅ detaljer som inte finns i konversationen.`;
+      }
+    }
+
     // Quick mode: instruct shorter output with context about available data
     if (data.quickMode) {
       systemPrompt += `\n\nVIKTIGT – SNABBLÄGE:

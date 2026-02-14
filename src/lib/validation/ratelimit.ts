@@ -30,6 +30,35 @@ function getRateLimiter(): Ratelimit | null {
 	return ratelimit;
 }
 
+// Separate rate limiter for chat messages (50 req/hr vs 10 req/hr for generate)
+let chatRatelimit: Ratelimit | null = null;
+
+function getChatRateLimiter(): Ratelimit | null {
+	if (chatRatelimit) return chatRatelimit;
+
+	const upstashUrl = env.UPSTASH_REDIS_REST_URL;
+	const upstashToken = env.UPSTASH_REDIS_REST_TOKEN;
+
+	if (!upstashUrl || !upstashToken) {
+		console.error('Upstash credentials not configured. Rate limiting will fail closed.');
+		return null;
+	}
+
+	const redis = new Redis({
+		url: upstashUrl,
+		token: upstashToken
+	});
+
+	chatRatelimit = new Ratelimit({
+		redis,
+		limiter: Ratelimit.slidingWindow(50, '1 h'), // 50 requests per hour
+		analytics: true,
+		prefix: 'ratelimit:chat'
+	});
+
+	return chatRatelimit;
+}
+
 export interface RateLimitResult {
 	success: boolean;
 	remaining: number;
@@ -51,6 +80,23 @@ export async function checkRateLimit(identifier: string): Promise<RateLimitResul
 	} catch (error) {
 		console.error('Rate limit check failed:', error);
 		// On error, fail closed to prevent abuse
+		return { success: false, remaining: 0, reset: Date.now() + 60_000 };
+	}
+}
+
+export async function checkChatRateLimit(identifier: string): Promise<RateLimitResult> {
+	const limiter = getChatRateLimiter();
+
+	if (!limiter) {
+		console.error('Chat rate limiter unavailable. Blocking request.');
+		return { success: false, remaining: 0, reset: Date.now() + 60_000 };
+	}
+
+	try {
+		const { success, remaining, reset } = await limiter.limit(identifier);
+		return { success, remaining, reset };
+	} catch (error) {
+		console.error('Chat rate limit check failed:', error);
 		return { success: false, remaining: 0, reset: Date.now() + 60_000 };
 	}
 }
