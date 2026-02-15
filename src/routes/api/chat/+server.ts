@@ -90,9 +90,14 @@ export const POST: RequestHandler = async ({ request }) => {
 		// 5. Build system prompt (with wrap-up instruction near limit)
 		let systemPrompt = buildInterviewerPrompt(profile);
 
-		if (sanitizedMessages.length >= 26) {
+		if (sanitizedMessages.length >= 34) {
+			// Very close to limit (2-3 messages left) - explicit wrap-up
 			systemPrompt += `\n\nVIKTIGT — SAMTALET NÄRMAR SIG SLUTET:
-Samtalet har pågått länge. Börja naturligt runda av. Ställ en avslutande fråga som "Finns det något mer du vill ha med?" eller "Något du inte vill glömma från idag?". Var kortfattad och signalera att det snart är dags att skapa dagboken.`;
+Ni har bara några meddelanden kvar. Ställ en naturlig avslutande fråga som "Finns det något mer du vill ha med?" eller "Något du inte vill glömma från idag?" och förberedd användaren på att det snart är dags att runda av och skapa dagboken.`;
+		} else if (sanitizedMessages.length >= 30) {
+			// Approaching limit (6-7 messages left) - gentle nudge toward wrapping up
+			systemPrompt += `\n\nVIKTIGT — SAMTALET BÖRJAR NÄRMA SIG SLUTET:
+Intervjun har pågått ett tag. Börja sakta styra mot en naturlig avrundning. Du kan nämna detta subtilt, t.ex. "Vi börjar närma oss slutet — finns det något mer från idag du vill ta med?" Fortsätt vara nyfiken, men fokusera på att fånga de sista viktiga detaljerna.`;
 		}
 
 		// 6. Format messages for Anthropic API

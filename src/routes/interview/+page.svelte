@@ -12,6 +12,7 @@
 	import { getApiUrl } from '$lib/config';
 	import { goto } from '$app/navigation';
 	import { tones } from '$lib/data/tones';
+	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import { isSeparatorParagraph } from '$lib/utils/paragraphs';
 	import { getLoadingPhrases } from '$lib/data/loadingPhrases';
 	import { downloadAsImage } from '$lib/utils/imageDownload';
@@ -708,6 +709,7 @@
 				birthday={wizardStore.data.profile.birthday || ''}
 			/>
 		{/if}
+
 	</div>
 
 	{#if chatStore.phase === 'empty' || chatStore.phase === 'chatting'}
@@ -721,6 +723,8 @@
 			<ChatInput onSend={handleSend} onExitChat={handleExitChat} />
 		</div>
 	{/if}
+
+	<LegalFooter />
 </main>
 
 <style>
@@ -776,6 +780,12 @@
 		padding: 0;
 		padding-bottom: 0.25rem;
 		width: 100%;
+	}
+
+	.interview-page > :global(.legal-footer) {
+		flex-shrink: 0;
+		margin-top: 0.5rem;
+		padding-top: 0.5rem;
 	}
 
 	.interview-footer {

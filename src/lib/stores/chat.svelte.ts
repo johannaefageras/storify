@@ -107,10 +107,10 @@ function createChatStore() {
 			return messages.length;
 		},
 		get isNearLimit() {
-			return messages.length >= 26;
+			return messages.length >= 30;
 		},
 		get isAtLimit() {
-			return messages.length >= 30;
+			return messages.length >= 36;
 		},
 
 		// Conversation

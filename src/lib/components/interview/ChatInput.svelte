@@ -66,6 +66,7 @@
 			onkeydown={handleKeydown}
 			placeholder={chatStore.isAtLimit ? 'Samtalet har nått maxgränsen' : 'Skriv ett meddelande...'}
 			rows="1"
+			autofocus
 			disabled={chatStore.isStreaming || chatStore.isAtLimit}
 			maxlength={LIMITS.CHAT_MESSAGE + 50}
 		></textarea>

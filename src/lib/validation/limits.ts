@@ -22,7 +22,7 @@ export const LIMITS = {
 
 	// Chat (interview mode)
 	CHAT_MESSAGE: 1000, // Max chars per chat message
-	CHAT_MAX_MESSAGES: 30, // Max messages per conversation (15 user + 15 assistant)
+	CHAT_MAX_MESSAGES: 36, // Max messages per conversation (18 user + 18 assistant)
 	CHAT_TRANSCRIPT: 50000, // Max chars for formatted chat transcript sent to /api/generate
 
 	// Payload

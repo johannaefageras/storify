@@ -310,42 +310,42 @@ describe('chatStore', () => {
 			expect(chatStore.messageCount).toBe(2);
 		});
 
-		it('isNearLimit is false below 26 messages', () => {
-			for (let i = 0; i < 12; i++) addMessagePair(i);
-			// 24 messages
-			expect(chatStore.messageCount).toBe(24);
-			expect(chatStore.isNearLimit).toBe(false);
-		});
-
-		it('isNearLimit is true at 26 messages', () => {
-			for (let i = 0; i < 13; i++) addMessagePair(i);
-			// 26 messages
-			expect(chatStore.messageCount).toBe(26);
-			expect(chatStore.isNearLimit).toBe(true);
-		});
-
-		it('isAtLimit is false below 30 messages', () => {
+		it('isNearLimit is false below 30 messages', () => {
 			for (let i = 0; i < 14; i++) addMessagePair(i);
 			// 28 messages
 			expect(chatStore.messageCount).toBe(28);
-			expect(chatStore.isAtLimit).toBe(false);
+			expect(chatStore.isNearLimit).toBe(false);
 		});
 
-		it('isAtLimit is true at 30 messages', () => {
+		it('isNearLimit is true at 30 messages', () => {
 			for (let i = 0; i < 15; i++) addMessagePair(i);
 			// 30 messages
 			expect(chatStore.messageCount).toBe(30);
+			expect(chatStore.isNearLimit).toBe(true);
+		});
+
+		it('isAtLimit is false below 36 messages', () => {
+			for (let i = 0; i < 17; i++) addMessagePair(i);
+			// 34 messages
+			expect(chatStore.messageCount).toBe(34);
+			expect(chatStore.isAtLimit).toBe(false);
+		});
+
+		it('isAtLimit is true at 36 messages', () => {
+			for (let i = 0; i < 18; i++) addMessagePair(i);
+			// 36 messages
+			expect(chatStore.messageCount).toBe(36);
 			expect(chatStore.isAtLimit).toBe(true);
 		});
 
 		it('isNearLimit is also true when isAtLimit', () => {
-			for (let i = 0; i < 15; i++) addMessagePair(i);
+			for (let i = 0; i < 18; i++) addMessagePair(i);
 			expect(chatStore.isNearLimit).toBe(true);
 			expect(chatStore.isAtLimit).toBe(true);
 		});
 
 		it('reset clears message count and cap flags', () => {
-			for (let i = 0; i < 15; i++) addMessagePair(i);
+			for (let i = 0; i < 18; i++) addMessagePair(i);
 			expect(chatStore.isAtLimit).toBe(true);
 
 			chatStore.reset();
