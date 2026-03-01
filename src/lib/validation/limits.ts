@@ -20,6 +20,9 @@ export const LIMITS = {
 	MAX_ARRAY_SIZE: 10,
 	MAX_EMOJIS: 5,
 
+	// Editor (free writing mode)
+	FREE_TEXT: 10000, // HTML content from rich text editor
+
 	// Chat (interview mode)
 	CHAT_MESSAGE: 1000, // Max chars per chat message
 	CHAT_MAX_MESSAGES: 36, // Max messages per conversation (18 user + 18 assistant)
@@ -59,6 +62,9 @@ export const FIELD_LIMITS: Record<string, number> = {
 
 	// Quick mode
 	quickText: LIMITS.TIME_CAPSULE,
+
+	// Editor mode
+	freeText: LIMITS.FREE_TEXT,
 
 	// Textareas
 	almostHappened: LIMITS.REFLECTION,

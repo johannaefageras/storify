@@ -78,6 +78,8 @@ const createMinimalWizardData = (overrides: Partial<WizardData> = {}): WizardDat
   quickMode: false,
   chatMode: false,
   chatTranscript: '',
+  editorMode: false,
+  freeText: '',
   ...overrides
 });
 

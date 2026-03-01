@@ -73,7 +73,7 @@
 			description: 'Skriv fritt med AI-stöd som förfinar din text.',
 			href: '/editor',
 			icon: EmojiFountainPen,
-			comingSoon: true
+			comingSoon: false
 		}
 	];
 

@@ -173,7 +173,44 @@ export function formatProfileForPrompt(profile: UserProfile): string {
 	return '';
 }
 
+export function buildEditorModePrompt(profile: UserProfile): string {
+	const profileSection = formatProfileForPrompt(profile);
+	return `Du är en skicklig språkgranskare och textredigerare.
+
+Din uppgift är att förfina användarens dagbokstext. Du ska:
+- Rätta grammatik, stavning och interpunktion
+- Förbättra textflöde och läsbarhet
+- Behålla användarens EGNA röst, ton och personlighet
+- Behålla samma språk som användaren skriver på (svenska, engelska, etc.)
+- INTE lägga till innehåll som användaren inte skrev
+- INTE ändra mening eller avsikt
+- INTE skriva om texten i en annan stil
+- Returnera den förfinade texten som ren text (inte HTML eller markdown)
+
+${profileSection ? profileSection + '\n\n' : ''}Skriv den förfinade texten direkt utan förklaringar eller kommentarer.`;
+}
+
 export function formatWizardDataForPrompt(data: WizardData): string {
+	// Editor mode: format free text instead of structured wizard fields
+	if (data.editorMode && data.freeText) {
+		const plainText = data.freeText.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+		const sections: string[] = [];
+
+		sections.push('<user-data>');
+
+		const profileSection = formatProfileForPrompt(data.profile);
+		if (profileSection) {
+			sections.push(profileSection);
+			sections.push('');
+		}
+
+		sections.push('ANVÄNDARENS TEXT:');
+		sections.push(plainText);
+		sections.push('</user-data>');
+
+		return sections.join('\n');
+	}
+
 	// Chat mode: format conversation transcript instead of structured wizard fields
 	if (data.chatMode && data.chatTranscript) {
 		const sections: string[] = [];

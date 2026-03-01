@@ -102,6 +102,34 @@ export function validateEmail(email: string): FieldError | null {
 export function validateWizardData(data: WizardData): ValidationResult {
 	const errors: FieldError[] = [];
 
+	// Editor mode: validate free text instead of structured fields
+	if (data.editorMode) {
+		if (!data.freeText || data.freeText.trim().length === 0) {
+			errors.push({
+				field: 'freeText',
+				message: 'Texten saknas.',
+				code: 'INVALID_FORMAT'
+			});
+		} else if (data.freeText.length > LIMITS.FREE_TEXT) {
+			errors.push({
+				field: 'freeText',
+				message: `Texten överskrider ${LIMITS.FREE_TEXT} tecken.`,
+				code: 'TOO_LONG'
+			});
+		} else if (SUSPICIOUS_PATTERN.test(data.freeText) || PROMPT_INJECTION_PATTERN.test(data.freeText)) {
+			errors.push({
+				field: 'freeText',
+				message: 'Otillåtet innehåll i texten.',
+				code: 'SUSPICIOUS_CONTENT'
+			});
+		}
+
+		return {
+			valid: errors.length === 0,
+			errors
+		};
+	}
+
 	// Chat mode: validate transcript instead of structured fields
 	if (data.chatMode) {
 		if (!data.chatTranscript || data.chatTranscript.trim().length === 0) {

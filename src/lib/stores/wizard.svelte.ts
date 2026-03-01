@@ -78,11 +78,16 @@ export interface WizardData {
   // Chat / interview mode
   chatMode: boolean;
   chatTranscript: string;
+
+  // Editor / free writing mode
+  editorMode: boolean;
+  freeText: string;
 }
 
 const PROFILE_STORAGE_KEY = 'storify-profile';
 const WIZARD_DRAFT_KEY = 'storify-wizard-draft';
 const QUICK_DRAFT_KEY = 'storify-quick-draft';
+const EDITOR_DRAFT_KEY = 'storify-editor-draft';
 const DRAFT_EXPIRY_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 const defaultProfile: UserProfile = {
@@ -133,7 +138,9 @@ function createWizardStore() {
     quickText: '',
     quickMode: false,
     chatMode: false,
-    chatTranscript: ''
+    chatTranscript: '',
+    editorMode: false,
+    freeText: ''
   };
 
   let data = $state<WizardData>({ ...defaultData });
@@ -190,7 +197,8 @@ function createWizardStore() {
     try {
       await Promise.all([
         Preferences.remove({ key: WIZARD_DRAFT_KEY }),
-        Preferences.remove({ key: QUICK_DRAFT_KEY })
+        Preferences.remove({ key: QUICK_DRAFT_KEY }),
+        Preferences.remove({ key: EDITOR_DRAFT_KEY })
       ]);
     } catch (e) {
       console.error('Failed to clear drafts:', e);
@@ -329,8 +337,8 @@ function createWizardStore() {
         currentStep = 1;
       }
     },
-    async restoreDraft(mode: 'wizard' | 'quick' = 'wizard') {
-      const key = mode === 'quick' ? QUICK_DRAFT_KEY : WIZARD_DRAFT_KEY;
+    async restoreDraft(mode: 'wizard' | 'quick' | 'editor' = 'wizard') {
+      const key = mode === 'editor' ? EDITOR_DRAFT_KEY : mode === 'quick' ? QUICK_DRAFT_KEY : WIZARD_DRAFT_KEY;
       const draft = await loadDraft(key);
       if (!draft) return false;
       // Restore daily data fields (not profile)
@@ -360,24 +368,24 @@ function createWizardStore() {
     nextStep() {
       if (currentStep < totalSteps) {
         currentStep++;
-        scheduleDraftSave(data.quickMode ? QUICK_DRAFT_KEY : WIZARD_DRAFT_KEY);
+        scheduleDraftSave(data.editorMode ? EDITOR_DRAFT_KEY : data.quickMode ? QUICK_DRAFT_KEY : WIZARD_DRAFT_KEY);
       }
     },
     prevStep() {
       if (currentStep > 0) {
         currentStep--;
-        scheduleDraftSave(data.quickMode ? QUICK_DRAFT_KEY : WIZARD_DRAFT_KEY);
+        scheduleDraftSave(data.editorMode ? EDITOR_DRAFT_KEY : data.quickMode ? QUICK_DRAFT_KEY : WIZARD_DRAFT_KEY);
       }
     },
     goToStep(step: number) {
       if (step >= 0 && step <= totalSteps) {
         currentStep = step;
-        scheduleDraftSave(data.quickMode ? QUICK_DRAFT_KEY : WIZARD_DRAFT_KEY);
+        scheduleDraftSave(data.editorMode ? EDITOR_DRAFT_KEY : data.quickMode ? QUICK_DRAFT_KEY : WIZARD_DRAFT_KEY);
       }
     },
     updateData<K extends keyof WizardData>(key: K, value: WizardData[K]) {
       data[key] = value;
-      scheduleDraftSave(data.quickMode ? QUICK_DRAFT_KEY : WIZARD_DRAFT_KEY);
+      scheduleDraftSave(data.editorMode ? EDITOR_DRAFT_KEY : data.quickMode ? QUICK_DRAFT_KEY : WIZARD_DRAFT_KEY);
     },
     updateProfile<K extends keyof UserProfile>(key: K, value: UserProfile[K]) {
       data.profile[key] = value;
@@ -448,11 +456,11 @@ function createWizardStore() {
           return true;
       }
     },
-    async clearDraft(mode: 'wizard' | 'quick' | 'all' = 'all') {
+    async clearDraft(mode: 'wizard' | 'quick' | 'editor' | 'all' = 'all') {
       if (mode === 'all') {
         await clearDrafts();
       } else {
-        const key = mode === 'quick' ? QUICK_DRAFT_KEY : WIZARD_DRAFT_KEY;
+        const key = mode === 'editor' ? EDITOR_DRAFT_KEY : mode === 'quick' ? QUICK_DRAFT_KEY : WIZARD_DRAFT_KEY;
         if (browser) {
           if (draftSaveTimer) clearTimeout(draftSaveTimer);
           await Preferences.remove({ key });

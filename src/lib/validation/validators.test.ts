@@ -288,6 +288,46 @@ const defaultProfile: UserProfile = {
 	avatarUrl: null
 };
 
+const createEditorWizardData = (overrides: Partial<WizardData> = {}): WizardData => ({
+	profile: { ...defaultProfile },
+	date: '2024-06-15',
+	weekday: 'Lördag',
+	weather: null,
+	locationName: null,
+	emojis: [],
+	sleepQuality: 5.48,
+	energyLevel: 5.48,
+	mood: 5.48,
+	locations: [],
+	customLocations: [],
+	activities: [],
+	customActivities: [],
+	people: [],
+	wins: [''],
+	frustrations: [''],
+	almostHappened: '',
+	unnecessaryThing: '',
+	wouldRedo: '',
+	meals: [],
+	customMeals: [],
+	soundtracks: [],
+	customSoundtracks: [],
+	moodColor: '',
+	memoryFor10Years: '',
+	messageToFutureSelf: '',
+	selectedTone: '',
+	includeHoroscope: false,
+	includeOnThisDay: false,
+	includeHomework: false,
+	quickText: '',
+	quickMode: false,
+	chatMode: false,
+	chatTranscript: '',
+	editorMode: true,
+	freeText: '<p>Idag var en fin dag. Jag gick en promenad i parken.</p>',
+	...overrides
+});
+
 const createChatWizardData = (overrides: Partial<WizardData> = {}): WizardData => ({
 	profile: { ...defaultProfile },
 	date: '2024-06-15',
@@ -323,6 +363,8 @@ const createChatWizardData = (overrides: Partial<WizardData> = {}): WizardData =
 	quickMode: false,
 	chatMode: true,
 	chatTranscript: 'Användaren: Hej!\nIntervjuaren: Hej! Hur har din dag varit?',
+	editorMode: false,
+	freeText: '',
 	...overrides
 });
 
@@ -394,5 +436,55 @@ describe('validateWizardData (chat mode)', () => {
 		});
 		const result = validateWizardData(data);
 		expect(result.valid).toBe(false);
+	});
+});
+
+describe('validateWizardData (editor mode)', () => {
+	it('returns valid for editor mode with valid free text', () => {
+		const data = createEditorWizardData();
+		const result = validateWizardData(data);
+		expect(result.valid).toBe(true);
+		expect(result.errors).toEqual([]);
+	});
+
+	it('rejects editor mode with empty free text', () => {
+		const data = createEditorWizardData({ freeText: '' });
+		const result = validateWizardData(data);
+		expect(result.valid).toBe(false);
+		expect(result.errors[0].field).toBe('freeText');
+		expect(result.errors[0].code).toBe('INVALID_FORMAT');
+	});
+
+	it('rejects editor mode with whitespace-only free text', () => {
+		const data = createEditorWizardData({ freeText: '   \n\n  ' });
+		const result = validateWizardData(data);
+		expect(result.valid).toBe(false);
+		expect(result.errors[0].code).toBe('INVALID_FORMAT');
+	});
+
+	it('rejects editor mode with free text exceeding limit', () => {
+		const longText = 'a'.repeat(LIMITS.FREE_TEXT + 1);
+		const data = createEditorWizardData({ freeText: longText });
+		const result = validateWizardData(data);
+		expect(result.valid).toBe(false);
+		expect(result.errors[0].field).toBe('freeText');
+		expect(result.errors[0].code).toBe('TOO_LONG');
+	});
+
+	it('rejects editor mode with suspicious content', () => {
+		const data = createEditorWizardData({
+			freeText: '<script>alert("xss")</script>'
+		});
+		const result = validateWizardData(data);
+		expect(result.valid).toBe(false);
+		expect(result.errors[0].code).toBe('SUSPICIOUS_CONTENT');
+	});
+
+	it('skips structured field validation in editor mode', () => {
+		const data = createEditorWizardData({
+			wins: ['a'.repeat(LIMITS.LIST_ITEM + 100)]
+		});
+		const result = validateWizardData(data);
+		expect(result.valid).toBe(true);
 	});
 });
