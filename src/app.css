@@ -97,36 +97,36 @@
    ========================================================================== */
 
 [data-accent='purple'] {
-  --color-accent: #8B3FC4;
+  --color-accent: #8b3fc4;
   --color-accent-hover: #7a35ad;
 }
 [data-accent='purple'][data-theme='dark'] {
-  --color-accent: #A55CD6;
+  --color-accent: #a55cd6;
   --color-accent-hover: #b574e0;
 }
 
 [data-accent='amber'] {
-  --color-accent: #E8862F;
+  --color-accent: #e8862f;
   --color-accent-hover: #d27728;
 }
 [data-accent='amber'][data-theme='dark'] {
-  --color-accent: #F5A04A;
+  --color-accent: #f5a04a;
   --color-accent-hover: #f7b06a;
 }
 
 [data-accent='blue'] {
-  --color-accent: #2B8DB8;
+  --color-accent: #2b8db8;
   --color-accent-hover: #247da3;
 }
 [data-accent='blue'][data-theme='dark'] {
-  --color-accent: #42AAD6;
+  --color-accent: #42aad6;
   --color-accent-hover: #5fbae0;
 }
 
 :root {
   /* Font Families */
   --font-primary: 'GT Pressura', system-ui, sans-serif;
-  --font-serif: 'Lyric', serif;
+  --font-serif: 'Domaine Display', serif;
   --font-mono: 'GT Pressura Mono', ui-monospace, monospace;
 
   /* Legacy aliases for compatibility */
@@ -208,14 +208,13 @@
   --weight-black: 900;
 
   /* Lyric font settings */
-  --lyric-weight-thin: 200;
-  --lyric-weight-light: 282.6;
   --lyric-weight-regular: 400;
-  --lyric-weight-medium: 487.5;
-  --lyric-weight-semibold: 591.7;
+  --lyric-weight-medium: 500;
+  --lyric-weight-semibold: 600;
   --lyric-weight-bold: 700;
+  --lyric-weight-extrabold: 800;
+  --lyric-weight-black: 900;
 
-  --lyric-condensed: 'wdth' 80;
   --lyric-normal: 'wdth' 100;
   --lyric-wide: 'wdth' 120;
 }

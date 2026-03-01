@@ -695,7 +695,6 @@
 		color: var(--color-text-muted);
 		font-style: italic;
 		font-weight: var(--lyric-weight-regular);
-		font-variation-settings: var(--lyric-normal);
 		letter-spacing: var(--tracking-wide);
 		margin: 0.125rem 0 0;
 	}
