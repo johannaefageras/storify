@@ -10,6 +10,21 @@
 	import AvatarUpload from '$lib/components/AvatarUpload.svelte';
 	import IconArrowRight from '$lib/assets/icons/IconArrowRight.svelte';
 	import AccentPicker from '$lib/components/AccentPicker.svelte';
+	import { EmojiCompass, EmojiRocket, EmojiSpeakingHead, EmojiPencil } from '$lib/assets/emojis';
+
+	// Writing mode modal
+	let showModeModal = $state(false);
+
+	const writingModes = [
+		{ id: 'wizard', title: 'Steg-för-steg', icon: EmojiCompass, href: '/wizard' },
+		{ id: 'quick', title: 'Snabbläge', icon: EmojiRocket, href: '/quick' },
+		{ id: 'interview', title: 'AI-intervju', icon: EmojiSpeakingHead, href: '/interview' },
+		{ id: 'editor', title: 'Skriv fritt', icon: EmojiPencil, href: '/editor' }
+	];
+
+	function closeModeModal() {
+		showModeModal = false;
+	}
 
 	async function handleSignOut() {
 		await authStore.signOut();
@@ -370,18 +385,18 @@
 		</div>
 
 		<div class="profile-actions">
-			<a href="/wizard" class="action-card">
+			<button class="action-card" onclick={() => showModeModal = true}>
 				<span class="action-label">Ny anteckning</span>
 				<IconArrowRight size={16} />
-			</a>
+			</button>
 			<a href="/journal" class="action-card">
 				<span class="action-label">Dagböcker</span>
 				<IconArrowRight size={16} />
 			</a>
-			<button class="action-card action-card-muted" onclick={handleSignOut}>
-				<span class="action-label">Logga ut</span>
+			<a href="/calendar" class="action-card">
+				<span class="action-label">Kalender</span>
 				<IconArrowRight size={16} />
-			</button>
+			</a>
 		</div>
 
 		<div class="profile-body">
@@ -631,17 +646,42 @@
 					</form>
 				</div>
 			</section>
+
+			<button class="btn-logout" onclick={handleSignOut}>
+				Logga ut
+			</button>
 		</div>
 	{/if}
 	<LegalFooter />
 </main>
+
+{#if showModeModal}
+	<!-- svelte-ignore a11y_click_events_have_key_events -->
+	<div class="modal-overlay" onclick={closeModeModal} role="button" tabindex="-1">
+		<!-- svelte-ignore a11y_click_events_have_key_events -->
+		<div class="modal-content" onclick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="mode-modal-title" tabindex="-1">
+			<h2 id="mode-modal-title" class="modal-title">Skriv en dagbok</h2>
+			<p class="modal-description">Välj hur du vill skriva dagens anteckning.</p>
+			<div class="mode-grid">
+				{#each writingModes as mode}
+					<a href={mode.href} class="mode-card" onclick={closeModeModal}>
+						<div class="mode-card-icon">
+							<mode.icon size={36} />
+						</div>
+						<span class="mode-card-title">{mode.title}</span>
+					</a>
+				{/each}
+			</div>
+		</div>
+	</div>
+{/if}
 
 <style>
 	.profile-page {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding-bottom: 2rem;
+		padding-bottom: 0;
 	}
 
 	.loading-wrapper {
@@ -738,17 +778,7 @@
 		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 10%, transparent);
 	}
 
-	.action-card-muted {
-		color: var(--color-text-muted);
-	}
-
-	.action-card-muted:hover {
-		border-color: var(--color-border);
-		box-shadow: none;
-		color: var(--color-text);
-	}
-
-	.action-label {
+.action-label {
 		white-space: nowrap;
 	}
 
@@ -758,7 +788,7 @@
 		flex-direction: column;
 		max-width: 720px;
 		width: 100%;
-		padding: 1rem 1.25rem 2rem;
+		padding: 1rem 1.25rem 0;
 		gap: 1rem;
 	}
 
@@ -1092,6 +1122,30 @@
 		justify-content: center;
 	}
 
+	.btn-logout {
+		width: 100%;
+		height: 2.75rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.75rem 1rem;
+		background: var(--color-bg-elevated);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		color: var(--color-text);
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
+		cursor: pointer;
+		transition: border-color 0.15s ease, box-shadow 0.15s ease;
+	}
+
+	.btn-logout:hover {
+		border-color: var(--color-accent);
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 10%, transparent);
+	}
+
 	@media (max-width: 600px) {
 		.hero-name {
 			font-size: var(--text-lg);
@@ -1107,7 +1161,7 @@
 		}
 
 		.profile-body {
-			padding: 1.25rem 1rem 2rem;
+			padding: 1.25rem 1rem 0;
 		}
 
 		.profile-section {
@@ -1138,5 +1192,105 @@
 		.birthday-year {
 			flex: 0 0 4.5rem;
 		}
+	}
+
+	/* Writing mode modal */
+	.modal-overlay {
+		position: fixed;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.4);
+		backdrop-filter: blur(8px);
+		-webkit-backdrop-filter: blur(8px);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 1000;
+		animation: fadeIn 0.15s ease;
+		padding: 1rem;
+	}
+
+	.modal-content {
+		background: var(--color-bg);
+		border-radius: var(--radius-lg);
+		padding: 1.5rem;
+		width: 100%;
+		max-width: 400px;
+		animation: slideUp 0.2s ease;
+	}
+
+	.modal-title {
+		font-family: var(--font-primary);
+		font-size: var(--text-xl);
+		font-weight: var(--weight-medium);
+		font-stretch: 110%;
+		letter-spacing: var(--tracking-tight);
+		color: var(--color-text);
+		margin: 0 0 0.375rem 0;
+		text-align: center;
+	}
+
+	.modal-description {
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-book);
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-text-muted);
+		margin: 0 0 1.25rem 0;
+		text-align: center;
+	}
+
+	.mode-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0.75rem;
+	}
+
+	.mode-card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.625rem;
+		padding: 1.25rem 1rem;
+		background: var(--color-bg-elevated);
+		border-radius: var(--radius-md);
+		text-decoration: none;
+		color: inherit;
+		cursor: pointer;
+		transition: transform 0.15s ease, box-shadow 0.15s ease;
+	}
+
+	.mode-card:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+		text-decoration: none;
+	}
+
+	.mode-card:active {
+		transform: scale(0.98);
+	}
+
+	.mode-card-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.mode-card-title {
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-semibold);
+		font-stretch: 105%;
+		letter-spacing: var(--tracking-tight);
+		color: var(--color-text);
+	}
+
+	@keyframes fadeIn {
+		from { opacity: 0; }
+		to { opacity: 1; }
+	}
+
+	@keyframes slideUp {
+		from { opacity: 0; transform: translateY(8px); }
+		to { opacity: 1; transform: translateY(0); }
 	}
 </style>

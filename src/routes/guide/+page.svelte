@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import {
-		EmojiWomanStudentPink, EmojiWomanStudentAmber, EmojiWomanStudentPurple, EmojiWomanStudentBlue, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiOwl, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceUnamused, EmojiSatellite, EmojiFaceUpsideDown, EmojiArchive, EmojiTornado, EmojiWiltedFlower, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiEnvelopeArrow, EmojiPencil, EmojiDiamondPink, EmojiDiamondAmber, EmojiDiamondPurple, EmojiDiamondBlue, EmojiPlus, EmojiMinus, EmojiBookmark, EmojiCrystalBall, EmojiMantelpieceClock, EmojiLightBulb } from '$lib/assets/emojis';
+		EmojiWomanStudentPink, EmojiWomanStudentAmber, EmojiWomanStudentBlue, EmojiWomanStudentLime, EmojiWomanStudentRed, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiOwl, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceUnamused, EmojiSatellite, EmojiFaceUpsideDown, EmojiArchive, EmojiTornado, EmojiWiltedFlower, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiEnvelopeArrow, EmojiPencil, EmojiDiamondPink, EmojiDiamondAmber, EmojiDiamondBlue, EmojiDiamondLime, EmojiDiamondRed, EmojiPlus, EmojiMinus, EmojiBookmark, EmojiCrystalBall, EmojiMantelpieceClock, EmojiLightBulb } from '$lib/assets/emojis';
 	import { Number1, Number2, Number3, Number4, Number5, Number6, Number7 } from '$lib/assets/numbers';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import { voiceSamples } from '$lib/data/voiceSamples';
@@ -17,15 +17,17 @@
 	const studentComponents = {
 		pink: EmojiWomanStudentPink,
 		amber: EmojiWomanStudentAmber,
-		purple: EmojiWomanStudentPurple,
-		blue: EmojiWomanStudentBlue
+		blue: EmojiWomanStudentBlue,
+		lime: EmojiWomanStudentLime,
+		red: EmojiWomanStudentRed
 	};
 
 	const diamondComponents = {
 		pink: EmojiDiamondPink,
 		amber: EmojiDiamondAmber,
-		purple: EmojiDiamondPurple,
-		blue: EmojiDiamondBlue
+		blue: EmojiDiamondBlue,
+		lime: EmojiDiamondLime,
+		red: EmojiDiamondRed
 	};
 
 	let StudentIcon = $derived(studentComponents[accentStore.current]);
@@ -85,7 +87,7 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
-				<span class="list-content"><strong>Fri skrivning</strong> – Skriv fritt i en textredigerare med AI-stöd som kan förfina och polera din text när du är klar.</span>
+				<span class="list-content"><strong>Skriv fritt</strong> – Skriv fritt i en textredigerare med AI-stöd som kan förfina och polera din text när du är klar.</span>
 			</div>
 		</div>
 	</section>
@@ -481,6 +483,10 @@
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content"><strong>Snabbare start:</strong> Inloggade användare hoppar direkt till dagboksfrågorna eftersom profilen redan är sparad.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-content"><strong>Kalender och streak:</strong> Följ din skrivresa i en kalender med heatmap, se din nuvarande och längsta streak, och få statistik över hur ofta du skriver.</span>
 			</div>
 		</div>
 		<p>Du skapar ett konto via <a href="/register">registreringssidan</a> eller loggar in via <a href="/login">inloggningssidan</a>.</p>

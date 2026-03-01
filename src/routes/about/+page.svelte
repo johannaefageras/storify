@@ -1,30 +1,34 @@
 <script lang="ts">
 	import {
-		EmojiRosePinkLight,
-		EmojiRoseAmberLight,
-		EmojiRosePurpleLight,
-		EmojiRoseBlueLight,
+		EmojiRosePink,
+		EmojiRoseAmber,
+		EmojiRoseBlue,
+		EmojiRoseLime,
+		EmojiRoseRed,
 		EmojiWomanLaptopPink,
 		EmojiWomanLaptopAmber,
-		EmojiWomanLaptopPurple,
 		EmojiWomanLaptopBlue,
+		EmojiWomanLaptopLime,
+		EmojiWomanLaptopRed,
 		EmojiTools
 	} from '$lib/assets/emojis';
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 
 	const roseComponents = {
-		pink: EmojiRosePinkLight,
-		amber: EmojiRoseAmberLight,
-		purple: EmojiRosePurpleLight,
-		blue: EmojiRoseBlueLight
+		pink: EmojiRosePink,
+		amber: EmojiRoseAmber,
+		blue: EmojiRoseBlue,
+		lime: EmojiRoseLime,
+		red: EmojiRoseRed
 	};
 
 	const laptopComponents = {
 		pink: EmojiWomanLaptopPink,
 		amber: EmojiWomanLaptopAmber,
-		purple: EmojiWomanLaptopPurple,
-		blue: EmojiWomanLaptopBlue
+		blue: EmojiWomanLaptopBlue,
+		lime: EmojiWomanLaptopLime,
+		red: EmojiWomanLaptopRed
 	};
 
 	let RoseIcon = $derived(roseComponents[accentStore.current]);
@@ -48,9 +52,9 @@
 		<p>Storify erbjuder fyra sätt att skapa din dagbokstext. Den <strong>fullständiga guiden</strong> tar dig genom en steg-för-steg-wizard där du berättar om din dag – allt från humör och energinivå till aktiviteter, vinster, motgångar och reflektioner. Du kan välja emojis som sammanfattar din dag, beskriva vad du ätit och lyssnat på, och till och med skriva en tidskapsel – ett meddelande till ditt framtida jag som vävs in i dagbokstexten.</p>
 		<p>Har du ont om tid? <strong>Snabbläget</strong> låter dig fånga dagens känsla på under en minut – berätta kort om din dag, välj en röst, och få en dagbokstext direkt. Perfekt för hektiska dagar när du ändå vill hålla vanan vid liv.</p>
 		<p>Föredrar du att prata istället för att fylla i fält? I <strong>AI-intervjun</strong> chattar du med en AI som ställer frågor om din dag – som att prata med en nyfiken vän som vill veta allt. När samtalet är klart skapas din dagbokstext utifrån det ni pratat om.</p>
-		<p>Vill du skriva själv? <strong>Fri skrivning</strong> ger dig en textredigerare där du skriver fritt, med AI-stöd som kan förfina och polera din text när du är klar.</p>
+		<p>Vill du skriva själv? <strong>Skriv fritt</strong> ger dig en textredigerare där du skriver fritt, med AI-stöd som kan förfina och polera din text när du är klar.</p>
 		<p>Appen hämtar vädret automatiskt baserat på din position och kan fylla i din plats åt dig. Vill du krydda din dagbok lite extra? Lägg till ett personligt horoskop, historiska händelser som inträffat på samma datum, eller en liten "hemläxa" – en reflektion eller utmaning baserad på din dag.</p>
-		<p>När texten är klar kan du spara den som bild eller PDF, kopiera den, eller skicka den som e-post. Skapar du ett konto kan du dessutom spara dina dagboksinlägg i ett personligt dagboksarkiv online och komma åt dem när som helst.</p>
+		<p>När texten är klar kan du spara den som bild eller PDF, kopiera den, eller skicka den som e-post. Skapar du ett konto kan du dessutom spara dina dagboksinlägg i ett personligt dagboksarkiv online och komma åt dem när som helst. Du får även tillgång till en kalender där du kan följa din skrivresa, se din streak och få en överblick över hur ofta du skriver.</p>
 		<p>Storify finns som webbapp och som Android-app.</p>
 	</section>
 

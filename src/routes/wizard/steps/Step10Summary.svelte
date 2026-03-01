@@ -7,7 +7,7 @@
 	import { uniqueSvgIds } from '$lib/utils/uniqueSvgIds';
 	import { getMoodColorById } from '$lib/data/moodColors';
 	import type { Component } from 'svelte';
-	import { EmojiSparkles, EmojiRosePinkLight, EmojiRosePinkDark, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiArchive, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiDice, EmojiTornado, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiCrystalBall, EmojiLightBulb, EmojiMantelpieceClock, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces, EmojiFloppyDisk, EmojiCrossMark } from '$lib/assets/emojis';
+	import { EmojiSparkles, EmojiRosePink, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiArchive, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiDice, EmojiTornado, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiCrystalBall, EmojiLightBulb, EmojiMantelpieceClock, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces, EmojiFloppyDisk, EmojiCrossMark } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
@@ -520,11 +520,7 @@ Vi ses imorgon, dagboken.`;
 	<div class="result-view">
 		<div class="result-intro">
 			<div class="result-icon">
-				{#if isDarkMode}
-					<EmojiRosePinkDark size={48} />
-				{:else}
-					<EmojiRosePinkLight size={48} />
-				{/if}
+					<EmojiRosePink size={48} />
 			</div>
 			<h1 class="result-title">{resultMessage.title}</h1>
 			<p class="result-subtitle">{resultMessage.subtitle}</p>

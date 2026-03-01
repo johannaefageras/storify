@@ -3,27 +3,31 @@
 	import {
 		EmojiWomanJudgePink,
 		EmojiWomanJudgeAmber,
-		EmojiWomanJudgePurple,
 		EmojiWomanJudgeBlue,
+		EmojiWomanJudgeLime,
+		EmojiWomanJudgeRed,
 		EmojiDiamondPink,
 		EmojiDiamondAmber,
-		EmojiDiamondPurple,
-		EmojiDiamondBlue
+		EmojiDiamondBlue,
+		EmojiDiamondLime,
+		EmojiDiamondRed
 	} from '$lib/assets/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 
 	const judgeComponents = {
 		pink: EmojiWomanJudgePink,
 		amber: EmojiWomanJudgeAmber,
-		purple: EmojiWomanJudgePurple,
-		blue: EmojiWomanJudgeBlue
+		blue: EmojiWomanJudgeBlue,
+		lime: EmojiWomanJudgeLime,
+		red: EmojiWomanJudgeRed
 	};
 
 	const diamondComponents = {
 		pink: EmojiDiamondPink,
 		amber: EmojiDiamondAmber,
-		purple: EmojiDiamondPurple,
-		blue: EmojiDiamondBlue
+		blue: EmojiDiamondBlue,
+		lime: EmojiDiamondLime,
+		red: EmojiDiamondRed
 	};
 
 	let JudgeIcon = $derived(judgeComponents[accentStore.current]);
@@ -44,8 +48,8 @@
 
 	<section>
 		<h2>Så fungerar tjänsten</h2>
-		<p>Du kan välja mellan fyra lägen: en fullständig guide med detaljerade frågor om din dag, ett snabbläge där du fångar dagens känsla på under en minut, en AI-intervju där du chattar med en AI som ställer frågor om din dag, eller fri skrivning där du skriver själv med AI-stöd. I samtliga lägen väljer du en av 28 skrivstilar och låter vår AI skapa eller förfina ett dagboksinlägg åt dig. I den fullständiga guiden kan du även lägga till tillägg som horoskop, historiska händelser eller en personlig hemläxa.</p>
-		<p>Den genererade texten kan sparas som bild, PDF, kopieras eller skickas som e-post. Om du har ett konto kan du dessutom spara inlägg i ditt personliga dagboksarkiv.</p>
+		<p>Du kan välja mellan fyra lägen: en fullständig guide med detaljerade frågor om din dag, ett snabbläge där du fångar dagens känsla på under en minut, en AI-intervju där du chattar med en AI som ställer frågor om din dag, eller Skriv fritt där du skriver själv med AI-stöd. I samtliga lägen väljer du en av 28 skrivstilar och låter vår AI skapa eller förfina ett dagboksinlägg åt dig. I den fullständiga guiden kan du även lägga till tillägg som horoskop, historiska händelser eller en personlig hemläxa.</p>
+		<p>Den genererade texten kan sparas som bild, PDF, kopieras eller skickas som e-post. Om du har ett konto kan du dessutom spara inlägg i ditt personliga dagboksarkiv och följa din skrivresa i en kalender med streak-statistik.</p>
 	</section>
 
 	<section>

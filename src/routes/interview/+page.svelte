@@ -19,7 +19,7 @@
 	import { downloadAsPdf } from '$lib/utils/pdfDownload';
 	import resultMessages from '$lib/data/resultMessages.json';
 	import {
-		EmojiRosePinkLight, EmojiRosePinkDark,
+		EmojiRosePink,
 		EmojiFramedPicture, EmojiPrinter, EmojiClipboard,
 		EmojiEnvelopeArrow, EmojiEnvelopeEmail,
 		EmojiFloppyDisk, EmojiCrossMark, EmojiSparkles
@@ -540,11 +540,7 @@
 			<div class="interview-result">
 				<div class="result-intro">
 					<div class="result-icon">
-						{#if isDarkMode}
-							<EmojiRosePinkDark size={48} />
-						{:else}
-							<EmojiRosePinkLight size={48} />
-						{/if}
+							<EmojiRosePink size={48} />
 					</div>
 					<h1 class="result-title">{resultMessage.title}</h1>
 					<p class="result-subtitle">{resultMessage.subtitle}</p>

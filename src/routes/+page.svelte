@@ -3,10 +3,11 @@
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import {
-		EmojiRosePinkLight,
-		EmojiRoseAmberLight,
-		EmojiRosePurpleLight,
-		EmojiRoseBlueLight,
+		EmojiRosePink,
+		EmojiRoseAmber,
+		EmojiRoseBlue,
+		EmojiRoseLime,
+		EmojiRoseRed,
 		EmojiCompass,
 		EmojiRocket,
 		EmojiSpeakingHead,
@@ -15,10 +16,11 @@
 	import type { Component } from 'svelte';
 
 	const roseComponents = {
-		pink: EmojiRosePinkLight,
-		amber: EmojiRoseAmberLight,
-		purple: EmojiRosePurpleLight,
-		blue: EmojiRoseBlueLight
+		pink: EmojiRosePink,
+		amber: EmojiRoseAmber,
+		blue: EmojiRoseBlue,
+		lime: EmojiRoseLime,
+		red: EmojiRoseRed
 	};
 
 	let RoseIcon = $derived(roseComponents[accentStore.current]);
@@ -67,7 +69,7 @@
 		},
 		{
 			id: 'editor',
-			title: 'Fri skrivning',
+			title: 'Skriv fritt',
 			description: 'Skriv fritt med AI-stöd som förfinar din text.',
 			href: '/editor',
 			icon: EmojiPencil,

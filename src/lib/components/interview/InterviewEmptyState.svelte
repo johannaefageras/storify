@@ -1,13 +1,31 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import { EmojiSpeechBalloon } from '$lib/assets/emojis';
-	import EmojiLightBulb from '$lib/assets/emojis/EmojiLightBulb.svelte';
+	import { accentStore } from '$lib/stores/accent.svelte';
+
+	import {
+		EmojiSpeechBalloon,
+		EmojiRosePink,
+		EmojiRoseBlue,
+		EmojiRoseAmber,
+		EmojiRoseLime,
+		EmojiRoseRed
+	} from '$lib/assets/emojis';
 
 	interface Props {
 		onSend: (message: string) => void;
 	}
 
 	let { onSend }: Props = $props();
+
+	const roseMap = {
+		pink: EmojiRosePink,
+		blue: EmojiRoseBlue,
+		amber: EmojiRoseAmber,
+		lime: EmojiRoseLime,
+		red: EmojiRoseRed
+	} as const;
+
+	let RoseIcon = $derived(roseMap[accentStore.current]);
 
 	const starters = [
 		{ label: 'Berätta vad jag borde skriva om!', message: 'Berätta vad jag borde skriva om!' },
@@ -42,7 +60,7 @@
 		{#each starters as starter}
 			<button class="starter-chip" onclick={() => onSend(starter.message)}>
 				<span class="chip-icon">
-					<EmojiLightBulb size={20} />
+					<RoseIcon size={20} />
 				</span>
 				<span class="chip-text">{starter.label}</span>
 			</button>

@@ -14,7 +14,7 @@
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 
 	import {
-		EmojiRosePinkLight, EmojiRosePinkDark, EmojiFramedPicture, EmojiPrinter,
+		EmojiRosePink, EmojiFramedPicture, EmojiPrinter,
 		EmojiClipboard, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiFloppyDisk, EmojiPencil, EmojiCrossMark,
 		EmojiFountainPen
 	} from '$lib/assets/emojis';
@@ -95,6 +95,7 @@
 		// Initialize Tiptap
 		editor = new Editor({
 			element: editorElement,
+			autofocus: 'start',
 			extensions: [
 				StarterKit,
 				Underline,
@@ -387,11 +388,7 @@
 		<div class="result-view-content">
 			<div class="result-intro">
 				<div class="result-icon">
-					{#if isDarkMode}
-						<EmojiRosePinkDark size={48} />
-					{:else}
-						<EmojiRosePinkLight size={48} />
-					{/if}
+					<EmojiRosePink size={48} />
 				</div>
 				<h1 class="result-title">{resultMessage.title}</h1>
 				<p class="result-subtitle">{resultMessage.subtitle}</p>
@@ -542,7 +539,7 @@
 		<header class="editor-header">
 			<div class="step-indicator">
 				<div class="step-icon"><UniqueEmoji><EmojiPencil size={72} /></UniqueEmoji></div>
-				<h1 class="step-title">Fri skrivning</h1>
+				<h1 class="step-title">Skriv fritt</h1>
 			</div>
 		</header>
 

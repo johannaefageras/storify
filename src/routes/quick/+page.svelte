@@ -20,7 +20,7 @@
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 	import IconArrowLeft from '$lib/assets/icons/IconArrowLeft.svelte';
 	import {
-		EmojiSparkles, EmojiRosePinkLight, EmojiRosePinkDark, EmojiFramedPicture, EmojiPrinter,
+		EmojiSparkles, EmojiRosePink, EmojiFramedPicture, EmojiPrinter,
 		EmojiClipboard, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiFloppyDisk, EmojiRocket, EmojiPencil, EmojiCrossMark,
 		EmojiFaceCryingLoudly, EmojiFaceCrying, EmojiFaceFrowning, EmojiFaceSlightlyFrowning,
 		EmojiFaceNeutral, EmojiFaceRelieved, EmojiFaceSmilingEyes, EmojiFaceSmilingHearts,
@@ -457,11 +457,7 @@
 		<div class="result-view-content">
 			<div class="result-intro">
 				<div class="result-icon">
-					{#if isDarkMode}
-						<EmojiRosePinkDark size={48} />
-					{:else}
-						<EmojiRosePinkLight size={48} />
-					{/if}
+						<EmojiRosePink size={48} />
 				</div>
 				<h1 class="result-title">{resultMessage.title}</h1>
 				<p class="result-subtitle">{resultMessage.subtitle}</p>

@@ -4,16 +4,18 @@
 		EmojiCookie,
 		EmojiDiamondPink,
 		EmojiDiamondAmber,
-		EmojiDiamondPurple,
-		EmojiDiamondBlue
+		EmojiDiamondBlue,
+		EmojiDiamondLime,
+		EmojiDiamondRed
 	} from '$lib/assets/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 
 	const diamondComponents = {
 		pink: EmojiDiamondPink,
 		amber: EmojiDiamondAmber,
-		purple: EmojiDiamondPurple,
-		blue: EmojiDiamondBlue
+		blue: EmojiDiamondBlue,
+		lime: EmojiDiamondLime,
+		red: EmojiDiamondRed
 	};
 
 	let DiamondIcon = $derived(diamondComponents[accentStore.current]);

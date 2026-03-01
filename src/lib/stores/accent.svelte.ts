@@ -3,19 +3,20 @@ import { Preferences } from '@capacitor/preferences';
 import { supabase } from '$lib/supabase/client';
 import { authStore } from '$lib/stores/auth.svelte';
 
-export type Accent = 'pink' | 'purple' | 'amber' | 'blue';
+export type Accent = 'pink' | 'amber' | 'blue' | 'lime' | 'red';
 
 export const ACCENTS: { id: Accent; color: string }[] = [
 	{ id: 'pink', color: '#f43f7a' },
-	{ id: 'purple', color: '#8B3FC4' },
 	{ id: 'amber', color: '#E8862F' },
-	{ id: 'blue', color: '#2B8DB8' }
+	{ id: 'blue', color: '#2B8DB8' },
+	{ id: 'lime', color: '#7cb342' },
+	{ id: 'red', color: '#e52020' }
 ];
 
 const ACCENT_STORAGE_KEY = 'accent';
 
 function isValidAccent(value: string | null): value is Accent {
-	return value === 'pink' || value === 'purple' || value === 'amber' || value === 'blue';
+	return value === 'pink' || value === 'amber' || value === 'blue' || value === 'lime' || value === 'red';
 }
 
 function createAccentStore() {

@@ -3,8 +3,9 @@
 	import {
 		EmojiWomanWavingPink,
 		EmojiWomanWavingAmber,
-		EmojiWomanWavingPurple,
 		EmojiWomanWavingBlue,
+		EmojiWomanWavingLime,
+		EmojiWomanWavingRed,
 		EmojiBouquet
 	} from '$lib/assets/emojis';
 	import { accentStore } from '$lib/stores/accent.svelte';
@@ -13,8 +14,9 @@
 	const wavingComponents = {
 		pink: EmojiWomanWavingPink,
 		amber: EmojiWomanWavingAmber,
-		purple: EmojiWomanWavingPurple,
-		blue: EmojiWomanWavingBlue
+		blue: EmojiWomanWavingBlue,
+		lime: EmojiWomanWavingLime,
+		red: EmojiWomanWavingRed
 	};
 
 	let WavingIcon = $derived(wavingComponents[accentStore.current]);

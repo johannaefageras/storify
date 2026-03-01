@@ -7,8 +7,9 @@
 
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import IconArrowLeft from '$lib/assets/icons/IconArrowLeft.svelte';
 	import type { Component } from 'svelte';
-	import { EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanDetective, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiClipboard, EmojiFramedPicture, EmojiPrinter, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiCrossMark, EmojiTrash, EmojiFloppyDisk } from '$lib/assets/emojis';
+	import { EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanDetective, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiClipboard, EmojiFramedPicture, EmojiPrinter, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiCrossMark, EmojiTrash, EmojiFloppyDisk, EmojiCompass, EmojiRocket, EmojiSpeakingHead, EmojiPencil } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import { downloadAsImage } from '$lib/utils/imageDownload';
 	import { downloadAsPdf } from '$lib/utils/pdfDownload';
@@ -34,6 +35,9 @@
 	let entries = $state<Entry[]>([]);
 	let error = $state('');
 
+	// Date filter from calendar navigation
+	let filterDate = $state<string | null>(null);
+
 	// Modal state
 	let selectedEntry = $state<Entry | null>(null);
 	let showDeleteConfirm = $state(false);
@@ -44,6 +48,20 @@
 	let isSendingEmail = $state(false);
 	let showEmailModal = $state(false);
 	let emailAddress = $state('');
+
+	// Writing mode modal state
+	let showModeModal = $state(false);
+
+	const writingModes = [
+		{ id: 'wizard', title: 'Steg-för-steg', icon: EmojiCompass, href: '/wizard' },
+		{ id: 'quick', title: 'Snabbläge', icon: EmojiRocket, href: '/quick' },
+		{ id: 'interview', title: 'AI-intervju', icon: EmojiSpeakingHead, href: '/interview' },
+		{ id: 'editor', title: 'Skriv fritt', icon: EmojiPencil, href: '/editor' }
+	];
+
+	function closeModeModal() {
+		showModeModal = false;
+	}
 	let emailError = $state('');
 	let emailSent = $state(false);
 
@@ -144,11 +162,15 @@ function getToneIcon(id: string): Component | undefined {
 		return tones.find((t) => t.id === id)?.name || id;
 	}
 
+	const filteredEntries = $derived(
+		filterDate ? entries.filter((e) => e.entry_date === filterDate) : entries
+	);
+
 	const groupedEntries = $derived.by(() => {
 		const groups: { month: string; entries: Entry[] }[] = [];
 		let currentMonth = '';
 
-		for (const entry of entries) {
+		for (const entry of filteredEntries) {
 			const month = getMonthKey(entry.entry_date);
 			if (month !== currentMonth) {
 				currentMonth = month;
@@ -375,7 +397,21 @@ function getToneIcon(id: string): Component | undefined {
 		isLoading = false;
 	}
 
+	function clearDateFilter() {
+		filterDate = null;
+		// Remove query param from URL without navigation
+		const url = new URL(window.location.href);
+		url.searchParams.delete('date');
+		window.history.replaceState({}, '', url.toString());
+	}
+
 	onMount(() => {
+		// Read date filter from URL
+		const dateParam = new URL(window.location.href).searchParams.get('date');
+		if (dateParam && /^\d{4}-\d{2}-\d{2}$/.test(dateParam)) {
+			filterDate = dateParam;
+		}
+
 		const checkAuth = () => {
 			if (authStore.isLoading) {
 				setTimeout(checkAuth, 50);
@@ -398,8 +434,15 @@ function getToneIcon(id: string): Component | undefined {
 		<div class="journal-header">
 			<div class="header-icon"><UniqueEmoji><EmojiArchive size={72} /></UniqueEmoji></div>
 			<h1 class="journal-title">Dagböcker</h1>
-			<p class="journal-subtitle">Dina sparade dagböcker</p>
+			<p class="journal-subtitle">Dina sparade dagboksanteckningar</p>
 		</div>
+
+		{#if filterDate}
+			<div class="date-filter-bar">
+				<span class="filter-text">Visar inlägg för {filterDate}</span>
+				<button class="filter-clear" onclick={clearDateFilter}>Visa alla</button>
+			</div>
+		{/if}
 
 		{#if isLoading}
 			<div class="journal-loading">
@@ -411,7 +454,7 @@ function getToneIcon(id: string): Component | undefined {
 		{:else if entries.length === 0}
 			<div class="journal-empty">
 				<p class="empty-text">Du har inga sparade dagboksanteckningar ännu.</p>
-				<a href="/wizard" class="empty-link">Skapa din första dagboksanteckning</a>
+				<button class="empty-link" onclick={() => showModeModal = true}>Skapa din första dagboksanteckning</button>
 			</div>
 		{:else}
 			{#each groupedEntries as group}
@@ -438,9 +481,32 @@ function getToneIcon(id: string): Component | undefined {
 				</div>
 			{/each}
 		{/if}
+
+		<footer class="journal-footer">
+			<a href="/profile" class="btn btn-secondary"><IconArrowLeft size={16} /> Tillbaka</a>
+		</footer>
 	</div>
 	<LegalFooter />
 </div>
+
+{#if showModeModal}
+	<div class="mode-modal-overlay" onclick={closeModeModal} role="button" tabindex="-1" onkeydown={(e) => e.key === 'Escape' && closeModeModal()}>
+		<div class="mode-modal-content" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.key === 'Escape' && closeModeModal()} role="dialog" aria-modal="true" aria-labelledby="mode-modal-title" tabindex="-1">
+			<h2 id="mode-modal-title" class="mode-modal-title">Skriv en dagbok</h2>
+			<p class="mode-modal-description">Välj hur du vill skriva dagens anteckning.</p>
+			<div class="mode-grid">
+				{#each writingModes as mode}
+					<a href={mode.href} class="mode-card" onclick={closeModeModal}>
+						<div class="mode-card-icon">
+							<mode.icon size={36} />
+						</div>
+						<span class="mode-card-title">{mode.title}</span>
+					</a>
+				{/each}
+			</div>
+		</div>
+	</div>
+{/if}
 
 {#if selectedEntry}
 	{@const { weekday, date } = formatEntryDate(selectedEntry.entry_date, selectedEntry.created_at)}
@@ -605,6 +671,45 @@ function getToneIcon(id: string): Component | undefined {
 {/if}
 
 <style>
+	.date-filter-bar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0.625rem 1rem;
+		margin-bottom: 1rem;
+		background: color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-elevated));
+		border: 1px solid color-mix(in srgb, var(--color-accent) 25%, var(--color-border));
+		border-radius: var(--radius-md);
+	}
+
+	.filter-text {
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-text);
+	}
+
+	.filter-clear {
+		padding: 0.25rem 0.625rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-semibold);
+		letter-spacing: var(--tracking-wide);
+		text-transform: uppercase;
+		color: var(--color-accent);
+		background: none;
+		border: 1px solid var(--color-accent);
+		border-radius: var(--radius-sm);
+		cursor: pointer;
+		transition: background-color 0.15s ease, color 0.15s ease;
+	}
+
+	.filter-clear:hover {
+		background: var(--color-accent);
+		color: white;
+	}
+
 	.journal-page {
 		min-height: 100vh;
 		display: flex;
@@ -616,6 +721,8 @@ function getToneIcon(id: string): Component | undefined {
 
 	.journal-container {
 		flex: 1;
+		display: flex;
+		flex-direction: column;
 		width: 100%;
 		max-width: 700px;
 	}
@@ -707,6 +814,10 @@ function getToneIcon(id: string): Component | undefined {
 		color: var(--color-accent);
 		text-decoration: none;
 		letter-spacing: var(--tracking-wide);
+		background: none;
+		border: none;
+		padding: 0;
+		cursor: pointer;
 	}
 
 	.empty-link:hover {
@@ -801,7 +912,103 @@ function getToneIcon(id: string): Component | undefined {
 		color: var(--color-text-muted);
 	}
 
-	/* Modal */
+	/* Writing mode modal */
+
+	.mode-modal-overlay {
+		position: fixed;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.4);
+		backdrop-filter: blur(8px);
+		-webkit-backdrop-filter: blur(8px);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 1000;
+		animation: fadeIn 0.15s ease;
+		padding: 1rem;
+	}
+
+	.mode-modal-content {
+		background: var(--color-bg);
+		border-radius: var(--radius-lg);
+		padding: 1.5rem;
+		width: 100%;
+		max-width: 400px;
+		animation: slideUp 0.2s ease;
+	}
+
+	.mode-modal-title {
+		font-family: var(--font-primary);
+		font-size: var(--text-xl);
+		font-weight: var(--weight-medium);
+		font-stretch: 110%;
+		letter-spacing: var(--tracking-tight);
+		color: var(--color-text);
+		margin: 0 0 0.375rem 0;
+		text-align: center;
+	}
+
+	.mode-modal-description {
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-book);
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-text-muted);
+		margin: 0 0 1.25rem 0;
+		text-align: center;
+	}
+
+	.mode-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0.75rem;
+	}
+
+	.mode-card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.625rem;
+		padding: 1.25rem 1rem;
+		background: var(--color-bg-elevated);
+		border-radius: var(--radius-md);
+		text-decoration: none;
+		color: inherit;
+		cursor: pointer;
+		transition: transform 0.15s ease, box-shadow 0.15s ease;
+	}
+
+	.mode-card:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+		text-decoration: none;
+	}
+
+	.mode-card:active {
+		transform: scale(0.98);
+	}
+
+	.mode-card-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.mode-card-title {
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-semibold);
+		font-stretch: 105%;
+		letter-spacing: var(--tracking-tight);
+		color: var(--color-text);
+	}
+
+	@keyframes slideUp {
+		from { opacity: 0; transform: translateY(8px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+
+	/* Entry modal */
 
 	.modal-overlay {
 		position: fixed;
@@ -1183,6 +1390,13 @@ function getToneIcon(id: string): Component | undefined {
 	}
 
 	/* Responsive */
+
+	.journal-footer {
+		display: flex;
+		justify-content: flex-start;
+		padding-top: 2.25rem;
+		margin-top: auto;
+	}
 
 	@media (max-width: 640px) {
 		.modal-actions {

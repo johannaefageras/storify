@@ -1,5 +1,13 @@
 <script lang="ts">
 	import { processAvatarImage } from '$lib/utils/imageResize';
+	import { accentStore } from '$lib/stores/accent.svelte';
+	import {
+		EmojiUserSilhouettePink,
+		EmojiUserSilhouetteAmber,
+		EmojiUserSilhouetteBlue,
+		EmojiUserSilhouetteLime,
+		EmojiUserSilhouetteRed
+	} from '$lib/assets/emojis';
 
 	const AVATAR_MAX_SIZE = 5 * 1024 * 1024;
 	const AVATAR_ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
@@ -22,11 +30,18 @@
 		onUpload
 	}: Props = $props();
 
+	const silhouetteComponents = {
+		pink: EmojiUserSilhouettePink,
+		amber: EmojiUserSilhouetteAmber,
+		blue: EmojiUserSilhouetteBlue,
+		lime: EmojiUserSilhouetteLime,
+		red: EmojiUserSilhouetteRed
+	};
+
+	let SilhouetteIcon = $derived(silhouetteComponents[accentStore.current]);
+
 	let fileInput = $state<HTMLInputElement>();
 	let error = $state('');
-
-	const defaultAvatarLight = '/default-avatar-light.png';
-	const defaultAvatarDark = '/default-avatar-dark.png';
 
 	function handleClick() {
 		if (editable && !uploading) {
@@ -86,8 +101,9 @@
 		{#if avatarUrl}
 			<img src={avatarUrl} alt="Profilbild" class="avatar-img" />
 		{:else}
-			<img src={defaultAvatarLight} alt="Profilbild" class="avatar-img avatar-default avatar-default-light" />
-			<img src={defaultAvatarDark} alt="Profilbild" class="avatar-img avatar-default avatar-default-dark" />
+			<div class="avatar-default-emoji">
+				<SilhouetteIcon />
+			</div>
 		{/if}
 
 		{#if editable}
@@ -155,16 +171,20 @@
 		border-radius: 50%;
 	}
 
-	.avatar-default-dark {
-		display: none;
+	.avatar-default-emoji {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		overflow: hidden;
 	}
 
-	:global([data-theme='dark']) .avatar-default-light {
-		display: none;
-	}
-
-	:global([data-theme='dark']) .avatar-default-dark {
-		display: block;
+	.avatar-default-emoji :global(svg) {
+		width: 92%;
+		height: 92%;
+		transform: translateY(5%);
 	}
 
 	.avatar-overlay {
