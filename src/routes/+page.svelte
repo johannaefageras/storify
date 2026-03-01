@@ -10,7 +10,7 @@
 		EmojiCompass,
 		EmojiRocket,
 		EmojiSpeakingHead,
-		EmojiFountainPen
+		EmojiPencil
 	} from '$lib/assets/emojis';
 	import type { Component } from 'svelte';
 
@@ -25,8 +25,6 @@
 	import { getGreeting, getSubtitle } from '$lib/data/greetings';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
-
-	let showTooltip = $state(false);
 
 	let isReturningUser = $derived(authStore.isLoggedIn && !!wizardStore.data.profile.name);
 	let firstName = $derived(wizardStore.data.profile.name.split(' ')[0]);
@@ -72,18 +70,20 @@
 			title: 'Fri skrivning',
 			description: 'Skriv fritt med AI-stöd som förfinar din text.',
 			href: '/editor',
-			icon: EmojiFountainPen,
+			icon: EmojiPencil,
 			comingSoon: false
 		}
 	];
 
 	async function resetCache() {
 		await wizardStore.clearAll();
-		showTooltip = true;
-		setTimeout(() => {
-			showTooltip = false;
-		}, 2500);
 	}
+
+	const resetAction = {
+		label: 'Rensa data',
+		feedbackLabel: 'Rensat!',
+		onclick: resetCache
+	};
 </script>
 
 <main class="landing">
@@ -124,15 +124,7 @@
 		</div>
 
 		<div class="landing-footer">
-			{#if !isReturningUser}
-				<div class="reset-wrapper">
-					<button class="reset-link" onclick={resetCache}>Rensa sparad data</button>
-					{#if showTooltip}
-						<span class="tooltip">Data rensad!</span>
-					{/if}
-				</div>
-			{/if}
-			<LegalFooter />
+			<LegalFooter actionLinks={isReturningUser ? [] : [resetAction]} />
 		</div>
 	</div>
 </main>
@@ -211,7 +203,7 @@
 
 	.subtitle {
 		font-family: var(--font-primary);
-		font-size: var(--text-lg);
+		font-size: var(--text-sm);
 		line-height: var(--leading-base);
 		color: var(--color-text-muted);
 		font-weight: var(--weight-book);
@@ -315,85 +307,11 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
-	}
-
-	.reset-wrapper {
-		position: relative;
-		display: inline-block;
-		margin-top: 1.5rem;
-	}
-
-	.reset-link {
-		background: none;
-		border: none;
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		color: var(--color-text-muted);
-		opacity: 0.75;
-		cursor: pointer;
-		text-decoration: underline;
-		text-underline-offset: 2px;
-		transition: opacity 0.2s ease;
-		font-weight: var(--weight-medium);
-	}
-
-	.reset-link:hover {
-		opacity: 1;
+		padding-bottom: max(0.35rem, env(safe-area-inset-bottom, 0px));
 	}
 
 	.landing-footer :global(.legal-footer) {
 		margin-top: 1.5rem;
-	}
-
-	.tooltip {
-		position: absolute;
-		bottom: calc(100% + 0.5rem);
-		left: 50%;
-		transform: translateX(-50%);
-		background: var(--color-text);
-		color: var(--color-bg);
-		font-family: var(--font-primary);
-		font-size: var(--text-xs);
-		font-weight: var(--weight-medium);
-		letter-spacing: var(--tracking-normal);
-		text-transform: none;
-		padding: 0.4rem 0.75rem;
-		border-radius: 0.375rem;
-		white-space: nowrap;
-		animation: tooltip-in 0.2s ease, tooltip-out 0.3s ease 2.2s forwards;
-	}
-
-	.tooltip::after {
-		content: '';
-		position: absolute;
-		top: 100%;
-		left: 50%;
-		transform: translateX(-50%);
-		border: 5px solid transparent;
-		border-top-color: var(--color-text);
-	}
-
-	@keyframes tooltip-in {
-		from {
-			opacity: 0;
-			transform: translateX(-50%) translateY(4px);
-		}
-		to {
-			opacity: 1;
-			transform: translateX(-50%) translateY(0);
-		}
-	}
-
-	@keyframes tooltip-out {
-		from {
-			opacity: 1;
-			transform: translateX(-50%) translateY(0);
-		}
-		to {
-			opacity: 0;
-			transform: translateX(-50%) translateY(4px);
-		}
 	}
 
 	@media (min-width: 640px) {
@@ -403,7 +321,7 @@
 		}
 
 		.subtitle {
-			font-size: var(--text-xl);
+			font-size: var(--text-lg);
 		}
 	}
 
@@ -422,10 +340,6 @@
 
 		.mode-card-description {
 			line-height: var(--leading-base);
-		}
-
-		.reset-wrapper {
-			margin-top: 1rem;
 		}
 
 		.landing-footer :global(.legal-footer) {

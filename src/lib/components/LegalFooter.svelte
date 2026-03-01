@@ -2,6 +2,24 @@
 	import { page } from '$app/state';
 	import { authStore } from '$lib/stores/auth.svelte';
 
+	interface ActionLink {
+		label: string;
+		feedbackLabel: string;
+		onclick: () => void | Promise<void>;
+	}
+
+	let { actionLinks = [] }: { actionLinks?: ActionLink[] } = $props();
+
+	let feedbackIndex = $state<number | null>(null);
+
+	async function handleAction(action: ActionLink, index: number) {
+		await action.onclick();
+		feedbackIndex = index;
+		setTimeout(() => {
+			feedbackIndex = null;
+		}, 2000);
+	}
+
 	const links = [
 		{ href: '/about', label: 'Om' },
 		{ href: '/guide', label: 'Guide' },
@@ -25,6 +43,11 @@
 	<nav class="legal-links">
 		{#each visibleLinks as link}
 			<a href={link.href}>{link.label}</a>
+		{/each}
+		{#each actionLinks as action, i}
+			<button class="action-link" onclick={() => handleAction(action, i)}>
+				{feedbackIndex === i ? action.feedbackLabel : action.label}
+			</button>
 		{/each}
 	</nav>
 	<div class="copyright">
@@ -63,12 +86,26 @@
 		white-space: nowrap;
 	}
 
-	.legal-links a:hover {
+	.legal-links a:hover,
+	.action-link:hover {
 		opacity: 1;
 		text-decoration: underline;
 		text-underline-offset: 2px;
 	}
 
+	.action-link {
+		background: none;
+		border: none;
+		padding: 0;
+		color: var(--color-text-muted);
+		opacity: 0.5;
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		cursor: pointer;
+		text-decoration: none;
+		transition: opacity 0.2s ease;
+		white-space: nowrap;
+	}
 
 	.copyright {
 		padding-top: 1rem;

@@ -541,7 +541,7 @@
 		<!-- Editor form -->
 		<header class="editor-header">
 			<div class="step-indicator">
-				<div class="step-icon"><UniqueEmoji><EmojiFountainPen size={72} /></UniqueEmoji></div>
+				<div class="step-icon"><UniqueEmoji><EmojiPencil size={72} /></UniqueEmoji></div>
 				<h1 class="step-title">Fri skrivning</h1>
 			</div>
 		</header>
@@ -696,7 +696,7 @@
 					<div class="error-message">{error}</div>
 				{/if}
 				<button class="generate-btn" onclick={handleCreateEntry} disabled={!hasEditorContent}>
-					<span class="generate-icon"><EmojiFountainPen size={28} /></span>
+					<span class="generate-icon"><EmojiPencil size={28} /></span>
 					Skriv anteckning
 				</button>
 			</section>
