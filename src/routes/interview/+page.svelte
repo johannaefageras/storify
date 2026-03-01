@@ -281,6 +281,7 @@
 				includeHoroscope: chatStore.includeHoroscope,
 				includeOnThisDay: chatStore.includeOnThisDay,
 				includeHomework: chatStore.includeHomework,
+				includeDailyChallenge: chatStore.includeDailyChallenge,
 				quickMode: false,
 				quickText: ''
 			};

@@ -5,6 +5,7 @@
 		EmojiCrystalBall,
 		EmojiLightBulb,
 		EmojiMantelpieceClock,
+		EmojiSeedling,
 		EmojiZodiacAries,
 		EmojiZodiacTaurus,
 		EmojiZodiacGemini,
@@ -52,6 +53,10 @@
 
 	function toggleHomework() {
 		wizardStore.updateData('includeHomework', !wizardStore.data.includeHomework);
+	}
+
+	function toggleDailyChallenge() {
+		wizardStore.updateData('includeDailyChallenge', !wizardStore.data.includeDailyChallenge);
 	}
 </script>
 
@@ -137,6 +142,28 @@
 			</div>
 			<div class="addon-toggle">
 				<div class="toggle-track" class:active={wizardStore.data.includeHomework}>
+					<div class="toggle-thumb"></div>
+				</div>
+			</div>
+		</button>
+
+		<button
+			class="addon-card"
+			class:selected={wizardStore.data.includeDailyChallenge}
+			onclick={toggleDailyChallenge}
+			type="button"
+		>
+			<div class="addon-icon">
+				<EmojiSeedling size={40} />
+			</div>
+			<div class="addon-content">
+				<h3 class="addon-title">Dagens utmaning</h3>
+				<p class="addon-description">
+					Få en liten snäll utmaning att ta med dig till imorgon.
+				</p>
+			</div>
+			<div class="addon-toggle">
+				<div class="toggle-track" class:active={wizardStore.data.includeDailyChallenge}>
 					<div class="toggle-thumb"></div>
 				</div>
 			</div>

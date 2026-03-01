@@ -15,7 +15,7 @@
 	import Step8Voice from './steps/Step8Voice.svelte';
 	import Step9Addons from './steps/Step9Addons.svelte';
 	import Step10Summary from './steps/Step10Summary.svelte';
-import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import IconArrowLeft from '$lib/assets/icons/IconArrowLeft.svelte';
 	import IconArrowRight from '$lib/assets/icons/IconArrowRight.svelte';
 

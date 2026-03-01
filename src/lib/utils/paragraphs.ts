@@ -1,4 +1,4 @@
-export type ParagraphType = 'horoscope-heading' | 'onthisday-heading' | 'homework-heading' | 'regular';
+export type ParagraphType = 'horoscope-heading' | 'onthisday-heading' | 'homework-heading' | 'dailychallenge-heading' | 'regular';
 export type RenderParagraph = { type: ParagraphType; text: string };
 
 export function getParagraphType(text: string): ParagraphType {
@@ -14,6 +14,9 @@ export function getParagraphType(text: string): ParagraphType {
 	}
 	if (/^Hemläxa(?:[\s.!…—–-]*)$/i.test(trimmed) || /^Homework(?:[\s.!…—–-]*)$/i.test(trimmed)) {
 		return 'homework-heading';
+	}
+	if (/^Dagens utmaning(?:[\s.!…—–-]*)$/i.test(trimmed) || /^Daily challenge(?:[\s.!…—–-]*)$/i.test(trimmed)) {
+		return 'dailychallenge-heading';
 	}
 	return 'regular';
 }

@@ -39,6 +39,7 @@
 		EmojiCrystalBall,
 		EmojiLightBulb,
 		EmojiMantelpieceClock,
+		EmojiSeedling,
 		EmojiZodiacAries,
 		EmojiZodiacTaurus,
 		EmojiZodiacGemini,
@@ -291,6 +292,26 @@
 				</div>
 				<div class="addon-toggle">
 					<div class="toggle-track" class:active={chatStore.includeHomework}>
+						<div class="toggle-thumb"></div>
+					</div>
+				</div>
+			</button>
+
+			<button
+				class="addon-card"
+				class:selected={chatStore.includeDailyChallenge}
+				onclick={() => chatStore.setAddon('dailyChallenge', !chatStore.includeDailyChallenge)}
+				type="button"
+			>
+				<div class="addon-icon">
+					<EmojiSeedling size={36} />
+				</div>
+				<div class="addon-content">
+					<span class="addon-title">Dagens utmaning</span>
+					<span class="addon-description">Få en liten snäll utmaning att ta med dig till imorgon.</span>
+				</div>
+				<div class="addon-toggle">
+					<div class="toggle-track" class:active={chatStore.includeDailyChallenge}>
 						<div class="toggle-thumb"></div>
 					</div>
 				</div>
