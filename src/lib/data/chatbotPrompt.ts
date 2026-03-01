@@ -2,55 +2,55 @@ import type { UserProfile } from '$lib/stores/wizard.svelte';
 import { getAgeFromBirthday } from '$lib/utils/zodiac';
 
 function formatProfileContext(profile: UserProfile): string {
-	const lines: string[] = [];
+  const lines: string[] = [];
 
-	if (profile.name) {
-		lines.push(`Namn: ${profile.name}`);
-	}
-	if (profile.birthday) {
-		const age = getAgeFromBirthday(profile.birthday);
-		if (age !== null) {
-			lines.push(`Ålder: ${age} år`);
-		}
-	}
-	if (profile.pronouns === 'hon') {
-		lines.push(`Pronomen: hon/henne`);
-	} else if (profile.pronouns === 'han') {
-		lines.push(`Pronomen: han/honom`);
-	} else if (profile.pronouns === 'hen') {
-		lines.push(`Pronomen: hen/henom`);
-	}
-	if (profile.hometown) {
-		lines.push(`Bor i: ${profile.hometown}`);
-	}
-	if (profile.occupationType === 'student') {
-		lines.push(`Sysselsättning: Studerande`);
-	} else if (profile.occupationType === 'working') {
-		lines.push(`Sysselsättning: Arbetar`);
-	}
-	if (profile.occupationDetail.length > 0) {
-		lines.push(`Detalj: ${profile.occupationDetail.join(', ')}`);
-	}
-	if (profile.family.length > 0) {
-		lines.push(`Familj: ${profile.family.join(', ')}`);
-	}
-	if (profile.pets.length > 0) {
-		lines.push(`Husdjur: ${profile.pets.join(', ')}`);
-	}
-	if (profile.interests.length > 0) {
-		lines.push(`Intressen: ${profile.interests.join(', ')}`);
-	}
+  if (profile.name) {
+    lines.push(`Namn: ${profile.name}`);
+  }
+  if (profile.birthday) {
+    const age = getAgeFromBirthday(profile.birthday);
+    if (age !== null) {
+      lines.push(`Ålder: ${age} år`);
+    }
+  }
+  if (profile.pronouns === 'hon') {
+    lines.push(`Pronomen: hon/henne`);
+  } else if (profile.pronouns === 'han') {
+    lines.push(`Pronomen: han/honom`);
+  } else if (profile.pronouns === 'hen') {
+    lines.push(`Pronomen: hen/henom`);
+  }
+  if (profile.hometown) {
+    lines.push(`Bor i: ${profile.hometown}`);
+  }
+  if (profile.occupationType === 'student') {
+    lines.push(`Sysselsättning: Studerande`);
+  } else if (profile.occupationType === 'working') {
+    lines.push(`Sysselsättning: Arbetar`);
+  }
+  if (profile.occupationDetail.length > 0) {
+    lines.push(`Detalj: ${profile.occupationDetail.join(', ')}`);
+  }
+  if (profile.family.length > 0) {
+    lines.push(`Familj: ${profile.family.join(', ')}`);
+  }
+  if (profile.pets.length > 0) {
+    lines.push(`Husdjur: ${profile.pets.join(', ')}`);
+  }
+  if (profile.interests.length > 0) {
+    lines.push(`Intressen: ${profile.interests.join(', ')}`);
+  }
 
-	if (lines.length > 0) {
-		return `\nOM ANVÄNDAREN:\n${lines.join('\n')}\n`;
-	}
-	return '';
+  if (lines.length > 0) {
+    return `\nOM ANVÄNDAREN:\n${lines.join('\n')}\n`;
+  }
+  return '';
 }
 
 export function buildInterviewerPrompt(profile: UserProfile): string {
-	const profileContext = formatProfileContext(profile);
+  const profileContext = formatProfileContext(profile);
 
-	return `Du är en dagboksintervjuare i appen Storify. Din uppgift är att hjälpa användaren reflektera över sin dag genom ett naturligt samtal. Du samlar material som sedan används för att skriva ett dagboksinlägg — men det är inte du som skriver inlägget. Du intervjuar. En annan AI-skribent tar vid efteråt och förvandlar samtalet till text.
+  return `Du är en dagboksintervjuare i appen Storify. Din uppgift är att hjälpa användaren reflektera över sin dag genom ett naturligt samtal. Du samlar material som sedan används för att skriva ett dagboksinlägg — men det är inte du som skriver inlägget. Du intervjuar. En annan AI-skribent tar vid efteråt och förvandlar samtalet till text.
 
 Tänk skicklig podcastvärd som anpassar sig efter gästen, inte tvärtom. Du är nyfiken, varm, och bra på att få människor att berätta mer än de tänkt sig — inte genom att pressa, utan genom att lyssna ordentligt och ställa rätt följdfråga.
 ${profileContext}
@@ -302,12 +302,6 @@ Användaren kan ibland starta samtalet genom att trycka på en fördefinierad st
 
 "Gräv fram något intressant ur min dag"
 → Ställ en nyfiken, riktad fråga som letar efter det ovanliga i det vardagliga: "Hade du någon konversation idag som överraskade dig?" eller "Hände det något idag som bröt mönstret?"
-
-"Jag behöver ventilera lite..."
-→ Öppna upp ett tryggt utrymme utan att pressa. Sakta ner tempot och bjud in: "Kör på, jag lyssnar. Vad ligger på?" Var extra noga med att validera utan att överdriva, och följ deras lead.
-
-"Idag känner jag mig..."
-→ Användaren har börjat en mening men inte avslutat den. Bjud in dem att fortsätta: "Berätta! Hur känner du dig?" eller "Kör på, avsluta meningen!" Kort, inbjudande, utan att förutsätta känslan.
 
 Generellt för alla starters:
 - Svara naturligt och direkt — ingen hälsning eller "Hej [namn]!" när de redan tagit initiativet

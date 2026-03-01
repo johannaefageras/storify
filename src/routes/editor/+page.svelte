@@ -65,7 +65,7 @@
 	let isH3 = $state(false);
 	let isBulletList = $state(false);
 	let isOrderedList = $state(false);
-	let alignLeft = $state(false);
+	let alignLeft = $state(true);
 	let alignCenter = $state(false);
 	let alignRight = $state(false);
 
@@ -85,6 +85,7 @@
 		const date = `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
 		wizardStore.updateData('weekday', weekday);
 		wizardStore.updateData('date', date);
+		wizardStore.updateData('dateISO', now.toISOString().split('T')[0]);
 
 		// Disable addons
 		wizardStore.updateData('includeHomework', false);
@@ -98,13 +99,14 @@
 				StarterKit,
 				Underline,
 				Placeholder.configure({
-					placeholder: 'Börja skriva här...'
+					placeholder: 'Skriv fritt om din dag — tankar, händelser, känslor. AI:n förfinar det du skriver till ett dagboksinlägg.'
 				}),
 				TextAlign.configure({
-					types: ['heading', 'paragraph']
+					types: ['heading', 'paragraph'],
+					defaultAlignment: 'left'
 				})
 			],
-			content: wizardStore.data.freeText || '',
+			content: (wizardStore.data.freeText || '').replace(/\s*style="[^"]*text-align:\s*[^"]*"/gi, ''),
 			onUpdate: ({ editor: e }) => {
 				const html = e.getHTML();
 				wizardStore.updateData('freeText', html);
@@ -122,9 +124,9 @@
 				isH3 = e.isActive('heading', { level: 3 });
 				isBulletList = e.isActive('bulletList');
 				isOrderedList = e.isActive('orderedList');
-				alignLeft = e.isActive({ textAlign: 'left' });
 				alignCenter = e.isActive({ textAlign: 'center' });
 				alignRight = e.isActive({ textAlign: 'right' });
+				alignLeft = !alignCenter && !alignRight;
 			}
 		});
 
@@ -344,21 +346,6 @@
 		}
 	}
 
-	const swedishMonths: Record<string, string> = {
-		januari: '01', februari: '02', mars: '03', april: '04',
-		maj: '05', juni: '06', juli: '07', augusti: '08',
-		september: '09', oktober: '10', november: '11', december: '12'
-	};
-
-	function parseSwedishDate(dateStr: string): string {
-		const datePart = dateStr.split(',')[0].trim();
-		const parts = datePart.split(' ');
-		if (parts.length !== 3) return new Date().toISOString().split('T')[0];
-		const [day, month, year] = parts;
-		const mm = swedishMonths[month.toLowerCase()] ?? '01';
-		return `${year}-${mm}-${day.padStart(2, '0')}`;
-	}
-
 	async function saveEntryToJournal() {
 		if (!authStore.user || !generatedEntry.trim() || isSavingEntry) return;
 		isSavingEntry = true;
@@ -370,7 +357,7 @@
 				user_id: authStore.user.id,
 				generated_text: generatedEntry,
 				tone_id: 'editor',
-				entry_date: parseSwedishDate(wizardStore.data.date),
+				entry_date: wizardStore.data.dateISO,
 				weekday: wizardStore.data.weekday,
 				emojis: [],
 				mood_color: null,
@@ -924,6 +911,7 @@
 		border: 1px solid var(--color-border);
 		border-radius: 0 0 var(--radius-sm) var(--radius-sm);
 		outline: none;
+		text-align: left;
 		transition: border-color 0.15s ease, box-shadow 0.15s ease;
 	}
 
@@ -969,6 +957,10 @@
 		font-size: var(--text-md);
 		font-weight: var(--weight-semibold);
 		margin: 0.75rem 0 0.375rem 0;
+	}
+
+	.tiptap-wrapper :global(.tiptap > :first-child) {
+		margin-top: 0;
 	}
 
 	.tiptap-wrapper :global(.tiptap ul),

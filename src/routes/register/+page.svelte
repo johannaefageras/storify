@@ -3,6 +3,7 @@
 	import { supabase } from '$lib/supabase/client';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import IconArrowRight from '$lib/assets/icons/IconArrowRight.svelte';
+	import googleIcon from '$lib/assets/svg/google.svg';
 
 	let email = $state('');
 	let password = $state('');
@@ -10,6 +11,17 @@
 	let error = $state('');
 	let success = $state(false);
 	let loading = $state(false);
+
+	async function handleGoogleLogin() {
+		const { error: authError } = await supabase.auth.signInWithOAuth({
+			provider: 'google',
+			options: { redirectTo: `${window.location.origin}/auth/callback` }
+		});
+
+		if (authError) {
+			error = authError.message;
+		}
+	}
 
 	async function handleRegister(e: SubmitEvent) {
 		e.preventDefault();
@@ -103,6 +115,15 @@
 
 				<button class="btn btn-primary btn-large auth-submit" type="submit" disabled={loading}>
 					{loading ? 'Skapar konto...' : 'Skapa konto'} <IconArrowRight size={18} />
+				</button>
+
+				<div class="auth-divider">
+					<span>eller</span>
+				</div>
+
+				<button class="btn btn-outline" type="button" onclick={handleGoogleLogin}>
+					<img src={googleIcon} alt="" width="18" height="18" />
+					Fortsätt med Google
 				</button>
 			</form>
 
@@ -209,6 +230,59 @@
 		margin-top: 0.25rem;
 		width: 100%;
 		justify-content: center;
+	}
+
+	.auth-divider {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		margin: 0.25rem 0;
+	}
+
+	.auth-divider::before,
+	.auth-divider::after {
+		content: '';
+		flex: 1;
+		height: 1px;
+		background: var(--color-border);
+	}
+
+	.auth-divider span {
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		color: var(--color-text-muted);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
+	}
+
+	.btn-outline {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		width: 100%;
+		height: 2.75rem;
+		padding: 0.625rem 1.25rem;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		background: var(--color-bg);
+		color: var(--color-text);
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-semibold);
+		font-stretch: 105%;
+		letter-spacing: var(--tracking-wider);
+		cursor: pointer;
+		transition: border-color 0.15s ease, background 0.15s ease;
+	}
+
+	.btn-outline:hover {
+		border-color: var(--color-text-muted);
+		background: var(--color-surface);
+	}
+
+	.btn-outline:active {
+		transform: scale(0.98);
 	}
 
 	.auth-links {

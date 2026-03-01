@@ -441,22 +441,6 @@ Vi ses imorgon, dagboken.`;
 		}
 	}
 
-	const swedishMonths: Record<string, string> = {
-		januari: '01', februari: '02', mars: '03', april: '04',
-		maj: '05', juni: '06', juli: '07', augusti: '08',
-		september: '09', oktober: '10', november: '11', december: '12'
-	};
-
-	function parseSwedishDate(dateStr: string): string {
-		// Strip time suffix (", kl. HH:MM") if present
-		const datePart = dateStr.split(',')[0].trim();
-		const parts = datePart.split(' ');
-		if (parts.length !== 3) return new Date().toISOString().split('T')[0];
-		const [day, month, year] = parts;
-		const mm = swedishMonths[month.toLowerCase()] ?? '01';
-		return `${year}-${mm}-${day.padStart(2, '0')}`;
-	}
-
 	let editTextareaEl: HTMLTextAreaElement = $state(null!);
 
 	function autoResizeTextarea() {
@@ -505,7 +489,7 @@ Vi ses imorgon, dagboken.`;
 				user_id: authStore.user.id,
 				generated_text: generatedEntry,
 				tone_id: actualToneUsed || wizardStore.data.selectedTone,
-				entry_date: parseSwedishDate(wizardStore.data.date),
+				entry_date: wizardStore.data.dateISO,
 				weekday: wizardStore.data.weekday,
 				emojis: wizardStore.data.emojis,
 				mood_color: wizardStore.data.moodColor || null,

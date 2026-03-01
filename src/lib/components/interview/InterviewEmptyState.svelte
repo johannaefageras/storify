@@ -22,14 +22,6 @@
 		{
 			label: 'Gräv fram något intressant ur min dag',
 			message: 'Gräv fram något intressant ur min dag'
-		},
-		{
-			label: 'Jag behöver ventilera lite...',
-			message: 'Jag behöver ventilera lite...'
-		},
-		{
-			label: 'Idag känner jag mig...',
-			message: 'Idag känner jag mig...'
 		}
 	] as const;
 

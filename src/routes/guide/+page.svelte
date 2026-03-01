@@ -69,7 +69,7 @@
 		<p>Storify hjälper dig att skriva dagbok genom att omvandla dina svar på enkla frågor till en personlig dagbokstext. Du väljer en röst som passar ditt humör, och sedan skapar AI:n en text baserad på det du berättat.</p>
 		<p>Tänk på det som att ha en personlig författare som lyssnar på din dag och sedan skriver ner den åt dig – men med din egen information och i den stil du väljer.</p>
 		<p>Appen kan även hämta aktuellt väder och din plats automatiskt, så du slipper fylla i det manuellt – ett litet sätt att fånga stämningen i din dag.</p>
-		<p>Du kan välja mellan två lägen:</p>
+		<p>Du kan välja mellan fyra lägen:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
@@ -78,6 +78,14 @@
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content"><strong>Snabbläge</strong> – En enkel sida där du fångar dagens känsla på under en minut. Perfekt för hektiska dagar när du ändå vill hålla dagboksvanan vid liv.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-content"><strong>AI-intervju</strong> – Chatta med en AI som ställer frågor om din dag. Känns som att prata med en nyfiken vän – och efteråt skapas din dagbokstext utifrån samtalet.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-content"><strong>Fri skrivning</strong> – Skriv fritt i en textredigerare med AI-stöd som kan förfina och polera din text när du är klar.</span>
 			</div>
 		</div>
 	</section>

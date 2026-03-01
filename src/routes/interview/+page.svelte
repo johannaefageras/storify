@@ -30,6 +30,7 @@
 	let error = $state('');
 	let actualToneUsed = $state<string | null>(null);
 	let interviewDate = $state('');
+	let interviewDateISO = $state('');
 	let interviewWeekday = $state('');
 
 	// Component refs for export
@@ -91,7 +92,7 @@
 
 	// --- Helpers ---
 
-	function computeTodayDate(): { weekday: string; date: string } {
+	function computeTodayDate(): { weekday: string; date: string; dateISO: string } {
 		const now = new Date();
 		const weekdays = ['Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag'];
 		const months = [
@@ -100,7 +101,8 @@
 		];
 		return {
 			weekday: weekdays[now.getDay()],
-			date: `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`
+			date: `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`,
+			dateISO: now.toISOString().split('T')[0]
 		};
 	}
 
@@ -160,21 +162,6 @@
 	function selectRandomMessage() {
 		const randomIndex = Math.floor(Math.random() * resultMessages.length);
 		resultMessage = resultMessages[randomIndex];
-	}
-
-	const swedishMonths: Record<string, string> = {
-		januari: '01', februari: '02', mars: '03', april: '04',
-		maj: '05', juni: '06', juli: '07', augusti: '08',
-		september: '09', oktober: '10', november: '11', december: '12'
-	};
-
-	function parseSwedishDate(dateStr: string): string {
-		const datePart = dateStr.split(',')[0].trim();
-		const parts = datePart.split(' ');
-		if (parts.length !== 3) return new Date().toISOString().split('T')[0];
-		const [day, month, year] = parts;
-		const mm = swedishMonths[month.toLowerCase()] ?? '01';
-		return `${year}-${mm}-${day.padStart(2, '0')}`;
 	}
 
 	function autoResizeTextarea() {
@@ -269,6 +256,7 @@
 
 		const today = computeTodayDate();
 		interviewDate = today.date;
+		interviewDateISO = today.dateISO;
 		interviewWeekday = today.weekday;
 
 		let toneToUse = chatStore.selectedTone;
@@ -456,7 +444,7 @@
 				user_id: authStore.user.id,
 				generated_text: generatedEntry,
 				tone_id: actualToneUsed || chatStore.selectedTone,
-				entry_date: parseSwedishDate(interviewDate),
+				entry_date: interviewDateISO,
 				weekday: interviewWeekday,
 				emojis: [],
 				mood_color: null,

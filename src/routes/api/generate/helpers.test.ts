@@ -46,6 +46,7 @@ const defaultProfile: UserProfile = {
 const createMinimalWizardData = (overrides: Partial<WizardData> = {}): WizardData => ({
   profile: { ...defaultProfile },
   date: '2024-06-15',
+  dateISO: '2024-06-15',
   weekday: 'Lördag',
   weather: null,
   locationName: null,

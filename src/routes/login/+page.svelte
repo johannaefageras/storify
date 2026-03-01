@@ -3,6 +3,7 @@
 	import { supabase } from '$lib/supabase/client';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import IconArrowRight from '$lib/assets/icons/IconArrowRight.svelte';
+	import googleIcon from '$lib/assets/svg/google.svg';
 
 	let email = $state('');
 	let password = $state('');
@@ -84,6 +85,7 @@
 			</div>
 
 			<button class="btn btn-outline" type="button" onclick={handleGoogleLogin}>
+				<img src={googleIcon} alt="" width="18" height="18" />
 				Fortsätt med Google
 			</button>
 		</form>
@@ -221,6 +223,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		gap: 0.5rem;
 		width: 100%;
 		height: 2.75rem;
 		padding: 0.625rem 1.25rem;

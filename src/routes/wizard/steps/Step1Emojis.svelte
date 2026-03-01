@@ -73,6 +73,7 @@
 
 		wizardStore.updateData('weekday', weekday);
 		wizardStore.updateData('date', date);
+		wizardStore.updateData('dateISO', now.toISOString().split('T')[0]);
 	});
 
 	function toggleEmoji(emojiId: string) {

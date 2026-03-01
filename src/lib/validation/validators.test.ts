@@ -291,6 +291,7 @@ const defaultProfile: UserProfile = {
 const createEditorWizardData = (overrides: Partial<WizardData> = {}): WizardData => ({
 	profile: { ...defaultProfile },
 	date: '2024-06-15',
+	dateISO: '2024-06-15',
 	weekday: 'Lördag',
 	weather: null,
 	locationName: null,
@@ -331,6 +332,7 @@ const createEditorWizardData = (overrides: Partial<WizardData> = {}): WizardData
 const createChatWizardData = (overrides: Partial<WizardData> = {}): WizardData => ({
 	profile: { ...defaultProfile },
 	date: '2024-06-15',
+	dateISO: '2024-06-15',
 	weekday: 'Lördag',
 	weather: null,
 	locationName: null,

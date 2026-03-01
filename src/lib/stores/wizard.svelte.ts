@@ -26,6 +26,7 @@ export interface WizardData {
 
   // Step 1: Date & Emojis
   date: string;
+  dateISO: string;
   weekday: string;
   weather: WeatherData | null;
   locationName: string | null; // e.g., "Södermalm, Stockholm"
@@ -107,6 +108,7 @@ function createWizardStore() {
   const defaultData: WizardData = {
     profile: { ...defaultProfile },
     date: '',
+    dateISO: '',
     weekday: '',
     weather: null,
     locationName: null,

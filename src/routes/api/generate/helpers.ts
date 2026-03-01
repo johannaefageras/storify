@@ -193,7 +193,15 @@ ${profileSection ? profileSection + '\n\n' : ''}Skriv den förfinade texten dire
 export function formatWizardDataForPrompt(data: WizardData): string {
 	// Editor mode: format free text instead of structured wizard fields
 	if (data.editorMode && data.freeText) {
-		const plainText = data.freeText.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+		const plainText = data.freeText
+			.replace(/<br\s*\/?>/gi, '\n')
+			.replace(/<\/(p|div|h[1-6]|li|blockquote|tr)>/gi, '\n')
+			.replace(/<(ul|ol)>/gi, '\n')
+			.replace(/<[^>]+>/g, '')
+			.replace(/[ \t]+/g, ' ')
+			.replace(/\n /g, '\n')
+			.replace(/\n{3,}/g, '\n\n')
+			.trim();
 		const sections: string[] = [];
 
 		sections.push('<user-data>');
