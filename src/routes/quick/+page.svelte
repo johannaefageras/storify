@@ -16,6 +16,7 @@
 	import type { Component } from 'svelte';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import PdfDocument from '$lib/components/PdfDocument.svelte';
+	import TonePickerDropdown from '$lib/components/TonePickerDropdown.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 	import IconArrowLeft from '$lib/assets/icons/IconArrowLeft.svelte';
@@ -206,6 +207,10 @@
 	let entrySaveError = $state('');
 	let resultMessage = $state({ title: '', subtitle: '' });
 
+	// Regenerate state
+	let isRegenerating = $state(false);
+	let regenerateError = $state('');
+
 	// Edit state
 	let isEditing = $state(false);
 	let editText = $state('');
@@ -215,6 +220,40 @@
 		if (!editTextareaEl) return;
 		editTextareaEl.style.height = 'auto';
 		editTextareaEl.style.height = editTextareaEl.scrollHeight + 'px';
+	}
+
+	async function regenerateWithTone(newToneId: string) {
+		if (!generatedEntry || isRegenerating) return;
+		isRegenerating = true;
+		regenerateError = '';
+
+		try {
+			const response = await fetch(getApiUrl('/api/generate'), {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					retoneMode: true,
+					existingText: generatedEntry,
+					newToneId
+				})
+			});
+
+			const result = await response.json();
+
+			if (!result.success) {
+				regenerateError = result.error || 'Kunde inte generera om inlägget.';
+				return;
+			}
+
+			generatedEntry = result.entry;
+			actualToneUsed = newToneId;
+			entrySaved = false;
+		} catch (err) {
+			regenerateError = 'Kunde inte ansluta till servern. Försök igen.';
+			console.error('Regenerate error:', err);
+		} finally {
+			isRegenerating = false;
+		}
 	}
 
 	function startEditing() {
@@ -464,6 +503,18 @@
 			</div>
 
 			<div class="document-wrapper">
+				{#if !isEditing}
+					<div class="regenerate-corner">
+						<TonePickerDropdown
+							currentToneId={actualToneUsed || wizardStore.data.selectedTone}
+							{isRegenerating}
+							onSelectTone={regenerateWithTone}
+						/>
+					</div>
+				{/if}
+				{#if regenerateError}
+					<p class="regenerate-error">{regenerateError}</p>
+				{/if}
 				{#if isEditing}
 					<textarea class="edit-textarea" bind:value={editText} bind:this={editTextareaEl} oninput={autoResizeTextarea}></textarea>
 				{:else}
@@ -1283,6 +1334,25 @@
 	.document-wrapper {
 		width: 100%;
 		position: relative;
+	}
+
+	.regenerate-corner {
+		position: absolute;
+		top: 0.625rem;
+		right: 0.625rem;
+		z-index: 5;
+	}
+
+	.regenerate-error {
+		margin: 0 0 0.75rem 0;
+		padding: 0.5rem 0.75rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-accent);
+		background: color-mix(in srgb, var(--color-accent) 8%, transparent);
+		border-radius: var(--radius-sm);
 	}
 
 	.journal-save-container {

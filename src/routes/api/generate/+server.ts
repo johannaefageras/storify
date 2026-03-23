@@ -97,7 +97,23 @@ export const POST: RequestHandler = async ({ request }) => {
     }
 
     // 2. Parse and validate payload size
-    const data: WizardData = await request.json();
+    const rawData = await request.json();
+
+    // Retone mode: rewrite an existing entry in a different tone (separate flow)
+    if (rawData.retoneMode && rawData.existingText && rawData.newToneId) {
+      const existingText = String(rawData.existingText).slice(0, 10000);
+      const newToneId = String(rawData.newToneId);
+      const emptyProfile = { name: '', birthday: null, pronouns: '', hometown: '', family: [], pets: [], occupationType: '' as const, occupationDetail: [], interests: [], avatarUrl: null };
+      const retoneSystemPrompt = buildTonePrompt(newToneId, emptyProfile);
+      const retoneInstruction = `Följande är ett befintligt dagboksinlägg inramat i <user-data>-taggar. Skriv om det i din röst och stil, men behåll ALLT innehåll, alla detaljer och händelser. Ändra bara tonen/stilen – hitta inte på nytt innehåll.\n\n<user-data>\n${existingText}\n</user-data>\n\nSkriv om dagboksinlägget i din stil.`;
+      const result = await generateWithFallback(retoneSystemPrompt, '', retoneInstruction);
+      return json(
+        { success: true, entry: result.text },
+        { headers: corsHeaders }
+      );
+    }
+
+    const data: WizardData = rawData;
 
     if (!validatePayloadSize(data)) {
       return json(

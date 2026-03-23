@@ -73,7 +73,6 @@ No more staring at a blank page – just answer a few questions and get a beauti
 ### 📱 Multi-Platform Support
 
 - 🌐 **Web App** – Works in any modern browser
-- 📱 **Android App** – Native app via Capacitor
 - 🌙 **Dark Mode** – Easy on the eyes, day or night
 - 📬 **Email Delivery** – Send entries to your inbox
 
@@ -96,7 +95,6 @@ No more staring at a blank page – just answer a few questions and get a beauti
 | 📬 Email     | [Resend API](https://resend.com)                                         |
 | 🌤️ Weather   | [SMHI Open Data](https://opendata.smhi.se)                               |
 | 📦 Build     | [Vite 7.x](https://vitejs.dev)                                           |
-| 📱 Mobile    | [Capacitor 8.x](https://capacitorjs.com)                                 |
 | 🚀 Hosting   | [Vercel](https://vercel.com)                                             |
 
 ---
@@ -143,21 +141,6 @@ npm run build
 npm run preview
 ```
 
-### Android Build
-
-```bash
-# Build static site for Capacitor
-npm run build
-
-# Sync with Android project
-npx cap sync android
-
-# Open in Android Studio
-npx cap open android
-```
-
----
-
 ## ⚙️ Environment Variables
 
 Create a `.env` file in the root directory:
@@ -169,8 +152,6 @@ ANTHROPIC_API_KEY=sk-ant-xxxxxxxxxxxxx
 # Required: Email delivery (Resend)
 RESEND_API_KEY=re-xxxxxxxxxxxxx
 
-# Optional: API base URL for Capacitor native app
-VITE_API_BASE_URL=https://mystorify.se
 ```
 
 ---
@@ -200,9 +181,7 @@ storify/
 │       └── 📂 components/            # Reusable components
 │           └── 📂 emojis/            # Custom emoji SVGs
 ├── 📂 tones/                         # Detailed tone instructions                  # Tone overview
-├── 📂 android/                       # Capacitor Android project
 ├── 📂 static/                        # Static assets & fonts
-├── 📄 capacitor.config.ts            # Capacitor configuration
 ├── 📄 svelte.config.js               # SvelteKit configuration
 ├── 📄 vite.config.ts                 # Vite configuration
 └── 📄 package.json
@@ -244,8 +223,6 @@ The app is primarily in **Swedish** 🇸🇪 (UI text, tone instructions, genera
 | Component         | Status        |
 | ----------------- | ------------- |
 | 🌐 Web App        | ✅ Production |
-| 📱 Android App    | ✅ Production |
-| 🍎 iOS App        | 🔜 Planned    |
 | 🌍 Multi-language | 🔜 Planned    |
 | 💾 Entry History  | 🔜 Planned    |
 
@@ -271,7 +248,6 @@ This project is proprietary software. All rights reserved.
 
 - 🤖 Powered by [Anthropic's Claude](https://anthropic.com)
 - ⚡ Built with [SvelteKit](https://kit.svelte.dev)
-- 📱 Mobile support via [Capacitor](https://capacitorjs.com)
 
 ---
 

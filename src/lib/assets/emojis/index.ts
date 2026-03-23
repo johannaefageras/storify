@@ -201,3 +201,8 @@ export { default as EmojiUserSilhouetteBlue } from './EmojiUserSilhouetteBlue.sv
 export { default as EmojiUserSilhouetteLime } from './EmojiUserSilhouetteLime.svelte';
 export { default as EmojiUserSilhouettePink } from './EmojiUserSilhouettePink.svelte';
 export { default as EmojiUserSilhouetteRed } from './EmojiUserSilhouetteRed.svelte';
+export { default as EmojiRegenerateAmber } from './EmojiRegenerateAmber.svelte';
+export { default as EmojiRegeneratePink } from './EmojiRegeneratePink.svelte';
+export { default as EmojiRegenerateGreen } from './EmojiRegenerateGreen.svelte';
+export { default as EmojiRegenerateBlue } from './EmojiRegenerateBlue.svelte';
+export { default as EmojiRegenerateRed } from './EmojiRegenerateRed.svelte';

@@ -14,6 +14,7 @@
 	import { downloadAsImage } from '$lib/utils/imageDownload';
 	import { downloadAsPdf } from '$lib/utils/pdfDownload';
 	import PdfDocument from '$lib/components/PdfDocument.svelte';
+	import TonePickerDropdown from '$lib/components/TonePickerDropdown.svelte';
 	import { getApiUrl } from '$lib/config';
 
 	interface Entry {
@@ -64,6 +65,10 @@
 	}
 	let emailError = $state('');
 	let emailSent = $state(false);
+
+	// Regenerate state
+	let isRegenerating = $state(false);
+	let regenerateError = $state('');
 
 	// Edit state
 	let isEditing = $state(false);
@@ -194,6 +199,7 @@ function getToneIcon(id: string): Component | undefined {
 		isEditing = false;
 		editText = '';
 		editSaveError = '';
+		regenerateError = '';
 	}
 
 	let editTextareaEl: HTMLTextAreaElement = $state(null!);
@@ -382,6 +388,58 @@ function getToneIcon(id: string): Component | undefined {
 		}
 	}
 
+	async function regenerateWithTone(newToneId: string) {
+		if (!selectedEntry || isRegenerating) return;
+		isRegenerating = true;
+		regenerateError = '';
+
+		try {
+			const response = await fetch(getApiUrl('/api/generate'), {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					retoneMode: true,
+					existingText: selectedEntry.generated_text,
+					newToneId
+				})
+			});
+
+			const result = await response.json();
+
+			if (!result.success) {
+				regenerateError = result.error || 'Kunde inte generera om inlägget.';
+				return;
+			}
+
+			// Update in Supabase
+			const { error: updateError } = await supabase
+				.from('entries')
+				.update({
+					generated_text: result.entry,
+					tone_id: newToneId,
+					updated_at: new Date().toISOString()
+				})
+				.eq('id', selectedEntry.id);
+
+			if (updateError) {
+				regenerateError = 'Texten genererades men kunde inte sparas.';
+				console.error('Update entry error:', updateError);
+				return;
+			}
+
+			// Update local state
+			entries = entries.map((e) =>
+				e.id === selectedEntry!.id ? { ...e, generated_text: result.entry, tone_id: newToneId } : e
+			);
+			selectedEntry = { ...selectedEntry, generated_text: result.entry, tone_id: newToneId };
+		} catch (err) {
+			regenerateError = 'Kunde inte ansluta till servern. Försök igen.';
+			console.error('Regenerate error:', err);
+		} finally {
+			isRegenerating = false;
+		}
+	}
+
 	async function loadEntries() {
 		const { data, error: fetchError } = await supabase
 			.from('entries')
@@ -515,6 +573,18 @@ function getToneIcon(id: string): Component | undefined {
 		<!-- svelte-ignore a11y_click_events_have_key_events -->
 		<div class="modal-content" onclick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-label="Dagboksinlägg" tabindex="-1">
 			<div class="modal-diary-card">
+				{#if !isEditing}
+					<div class="regenerate-corner">
+						<TonePickerDropdown
+							currentToneId={selectedEntry.tone_id}
+							{isRegenerating}
+							onSelectTone={regenerateWithTone}
+						/>
+					</div>
+				{/if}
+				{#if regenerateError}
+					<p class="regenerate-error">{regenerateError}</p>
+				{/if}
 				{#if isEditing}
 					<textarea class="edit-textarea" bind:value={editText} bind:this={editTextareaEl} oninput={autoResizeTextarea}></textarea>
 					{#if editSaveError}
@@ -1047,7 +1117,27 @@ function getToneIcon(id: string): Component | undefined {
 	}
 
 	.modal-diary-card {
+		position: relative;
 		margin-bottom: 1rem;
+	}
+
+	.regenerate-corner {
+		position: absolute;
+		top: 0.625rem;
+		right: 0.625rem;
+		z-index: 5;
+	}
+
+	.regenerate-error {
+		margin: 0 0 0.75rem 0;
+		padding: 0.5rem 0.75rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-accent);
+		background: color-mix(in srgb, var(--color-accent) 8%, transparent);
+		border-radius: var(--radius-sm);
 	}
 
 	.modal-actions {
