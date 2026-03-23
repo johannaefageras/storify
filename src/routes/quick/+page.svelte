@@ -231,11 +231,7 @@
 			const response = await fetch(getApiUrl('/api/generate'), {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
-					retoneMode: true,
-					existingText: generatedEntry,
-					newToneId
-				})
+				body: JSON.stringify({ ...wizardStore.data, selectedTone: newToneId })
 			});
 
 			const result = await response.json();
@@ -245,7 +241,7 @@
 				return;
 			}
 
-			generatedEntry = result.entry;
+			generatedEntry = stripSeparatorLines(result.entry);
 			actualToneUsed = newToneId;
 			entrySaved = false;
 		} catch (err) {

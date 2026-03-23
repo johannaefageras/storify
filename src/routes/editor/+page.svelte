@@ -204,7 +204,7 @@
 				return;
 			}
 
-			generatedEntry = result.entry;
+			generatedEntry = stripSeparatorLines(result.entry);
 			currentToneId = newToneId;
 			entrySaved = false;
 		} catch (err) {

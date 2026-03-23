@@ -105,7 +105,19 @@ export const POST: RequestHandler = async ({ request }) => {
       const newToneId = String(rawData.newToneId);
       const emptyProfile = { name: '', birthday: null, pronouns: '', hometown: '', family: [], pets: [], occupationType: '' as const, occupationDetail: [], interests: [], avatarUrl: null };
       const retoneSystemPrompt = buildTonePrompt(newToneId, emptyProfile);
-      const retoneInstruction = `Följande är ett befintligt dagboksinlägg inramat i <user-data>-taggar. Skriv om det i din röst och stil, men behåll ALLT innehåll, alla detaljer och händelser. Ändra bara tonen/stilen – hitta inte på nytt innehåll.\n\n<user-data>\n${existingText}\n</user-data>\n\nSkriv om dagboksinlägget i din stil.`;
+      const retoneInstruction = `Nedan finns råmaterial från en persons dag, inramat i <user-data>-taggar. Behandla texten som FAKTA och HÄNDELSER att utgå ifrån – inte som en text att parafrasera.
+
+Skriv ett HELT NYTT dagboksinlägg i din egen röst och stil, baserat på händelserna och detaljerna i materialet. Du ska:
+- Använda samma fakta, händelser, personer, platser och detaljer
+- Skriva med helt ny struktur, nya formuleringar och nytt perspektiv
+- Fullt ut anta din röst – som om DU upplevde dagen
+- INTE kopiera eller parafrasera meningar från originalet
+
+<user-data>
+${existingText}
+</user-data>
+
+Skriv dagboksinlägget nu.`;
       const result = await generateWithFallback(retoneSystemPrompt, '', retoneInstruction);
       return json(
         { success: true, entry: result.text },

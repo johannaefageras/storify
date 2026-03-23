@@ -422,14 +422,26 @@
 		regenerateError = '';
 
 		try {
+			const chatTranscript = formatChatTranscript();
+			const payload = {
+				...wizardStore.data,
+				chatMode: true,
+				chatTranscript,
+				selectedTone: newToneId,
+				date: interviewDate,
+				weekday: interviewWeekday,
+				includeHoroscope: chatStore.includeHoroscope,
+				includeOnThisDay: chatStore.includeOnThisDay,
+				includeHomework: chatStore.includeHomework,
+				includeDailyChallenge: chatStore.includeDailyChallenge,
+				quickMode: false,
+				quickText: ''
+			};
+
 			const response = await fetch(getApiUrl('/api/generate'), {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
-					retoneMode: true,
-					existingText: generatedEntry,
-					newToneId
-				})
+				body: JSON.stringify(payload)
 			});
 
 			const result = await response.json();
@@ -439,7 +451,7 @@
 				return;
 			}
 
-			generatedEntry = result.entry;
+			generatedEntry = stripSeparatorLines(result.entry);
 			actualToneUsed = newToneId;
 			entrySaved = false;
 		} catch (err) {
