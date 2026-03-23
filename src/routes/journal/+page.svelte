@@ -1123,9 +1123,16 @@ function getToneIcon(id: string): Component | undefined {
 
 	.regenerate-corner {
 		position: absolute;
-		top: 0.625rem;
-		right: 0.625rem;
+		top: 1.75rem;
+		right: 1.75rem;
 		z-index: 5;
+	}
+
+	@media (max-width: 640px) {
+		.regenerate-corner {
+			top: 1.25rem;
+			right: 1.25rem;
+		}
 	}
 
 	.regenerate-error {

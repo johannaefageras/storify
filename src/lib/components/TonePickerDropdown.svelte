@@ -93,7 +93,7 @@
 		class="regenerate-btn"
 		onclick={(e) => { e.stopPropagation(); isOpen = !isOpen; }}
 		disabled={isRegenerating}
-		title="Byt ton och generera om"
+		title="Byt röst och generera om"
 		aria-expanded={isOpen}
 		aria-haspopup="true"
 		data-no-export
@@ -109,7 +109,7 @@
 		<!-- svelte-ignore a11y_click_events_have_key_events -->
 		<div class="tone-dropdown" role="listbox" tabindex="-1" aria-label="Välj ny ton" onclick={(e) => e.stopPropagation()}>
 			<div class="dropdown-header">
-				<span class="dropdown-title">Byt ton</span>
+				<span class="dropdown-title">Byt röst</span>
 			</div>
 			<div class="tone-grid">
 				{#each tones as tone}
