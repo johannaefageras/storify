@@ -44,6 +44,14 @@
 
 	const modeCards: ModeCard[] = [
 		{
+			id: 'interview',
+			title: 'AI-intervju',
+			description: 'Chatta med AI som ställer frågor om din dag.',
+			href: '/interview',
+			icon: EmojiSpeakingHead,
+			comingSoon: false
+		},
+		{
 			id: 'wizard',
 			title: 'Steg-för-steg',
 			description: 'Svara på frågor om din dag och få en detaljerad dagbokstext.',
@@ -57,14 +65,6 @@
 			description: 'Fånga dagens känsla på under en minut.',
 			href: '/quick',
 			icon: EmojiRocket,
-			comingSoon: false
-		},
-		{
-			id: 'interview',
-			title: 'AI-intervju',
-			description: 'Chatta med AI som ställer frågor om din dag.',
-			href: '/interview',
-			icon: EmojiSpeakingHead,
 			comingSoon: false
 		},
 		{

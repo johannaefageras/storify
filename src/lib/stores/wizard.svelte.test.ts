@@ -17,13 +17,16 @@ vi.mock('$app/environment', () => ({
 	}
 }));
 
-vi.mock('@capacitor/preferences', () => ({
-	Preferences: {
-		get: vi.fn().mockResolvedValue({ value: null }),
-		set: vi.fn().mockResolvedValue(undefined),
-		remove: vi.fn().mockResolvedValue(undefined)
-	}
-}));
+const localStorageMock = (() => {
+	let store: Record<string, string> = {};
+	return {
+		getItem: vi.fn((key: string) => store[key] ?? null),
+		setItem: vi.fn((key: string, value: string) => { store[key] = value; }),
+		removeItem: vi.fn((key: string) => { delete store[key]; }),
+		clear: () => { store = {}; }
+	};
+})();
+Object.defineProperty(globalThis, 'localStorage', { value: localStorageMock });
 
 vi.mock('$lib/utils/weather', () => ({
 	fetchWeather: vi.fn().mockResolvedValue(null)
@@ -49,7 +52,6 @@ vi.mock('$lib/stores/auth.svelte', () => ({
 
 // Import after mocks are set up
 import { wizardStore } from './wizard.svelte';
-import { Preferences } from '@capacitor/preferences';
 
 describe('wizardStore', () => {
 	beforeEach(() => {
@@ -378,15 +380,15 @@ describe('wizardStore', () => {
 			mockAuthStore.isLoggedIn = false;
 			mockAuthStore.user = null;
 			mockSupabaseFrom.mockReset();
-			vi.mocked(Preferences.get).mockResolvedValue({ value: null });
-			vi.mocked(Preferences.set).mockResolvedValue(undefined as any);
+			localStorageMock.clear();
+			vi.clearAllMocks();
 		});
 
 		afterEach(() => {
 			browserRef.value = false;
 		});
 
-		it('loads from Preferences when not logged in', async () => {
+		it('loads from localStorage when not logged in', async () => {
 			const savedProfile = {
 				name: 'Guest User',
 				birthday: '1990-05-15',
@@ -398,13 +400,11 @@ describe('wizardStore', () => {
 				occupationDetail: ['Utvecklare'],
 				interests: ['Kodning']
 			};
-			vi.mocked(Preferences.get).mockResolvedValueOnce({
-				value: JSON.stringify(savedProfile)
-			});
+			localStorageMock.getItem.mockReturnValueOnce(JSON.stringify(savedProfile));
 
 			await wizardStore.initProfile();
 
-			expect(Preferences.get).toHaveBeenCalledWith({ key: 'storify-profile' });
+			expect(localStorageMock.getItem).toHaveBeenCalledWith('storify-profile');
 			expect(mockSupabaseFrom).not.toHaveBeenCalled();
 			expect(wizardStore.data.profile.name).toBe('Guest User');
 			expect(wizardStore.data.profile.hometown).toBe('Stockholm');
@@ -465,9 +465,7 @@ describe('wizardStore', () => {
 			expect(wizardStore.data.profile.family).toEqual([]);
 		});
 
-		it('returns default profile when Preferences has no data', async () => {
-			vi.mocked(Preferences.get).mockResolvedValueOnce({ value: null });
-
+		it('returns default profile when localStorage has no data', async () => {
 			await wizardStore.initProfile();
 
 			expect(wizardStore.data.profile.name).toBe('');
@@ -492,14 +490,14 @@ describe('wizardStore', () => {
 			});
 		});
 
-		it('saves to Preferences when not logged in', async () => {
+		it('saves to localStorage when not logged in', async () => {
 			wizardStore.updateProfile('name', 'Guest Updated');
 
 			await vi.waitFor(() => {
-				expect(Preferences.set).toHaveBeenCalledWith({
-					key: 'storify-profile',
-					value: expect.stringContaining('Guest Updated')
-				});
+				expect(localStorageMock.setItem).toHaveBeenCalledWith(
+					'storify-profile',
+					expect.stringContaining('Guest Updated')
+				);
 			});
 		});
 	});

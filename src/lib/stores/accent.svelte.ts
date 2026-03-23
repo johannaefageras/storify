@@ -1,5 +1,4 @@
 import { browser } from '$app/environment';
-import { Preferences } from '@capacitor/preferences';
 import { supabase } from '$lib/supabase/client';
 import { authStore } from '$lib/stores/auth.svelte';
 
@@ -25,13 +24,9 @@ function createAccentStore() {
 	async function init() {
 		if (!browser) return;
 
-		try {
-			const { value } = await Preferences.get({ key: ACCENT_STORAGE_KEY });
-			if (isValidAccent(value)) {
-				accent = value;
-			}
-		} catch {
-			// Default to pink
+		const value = localStorage.getItem(ACCENT_STORAGE_KEY);
+		if (isValidAccent(value)) {
+			accent = value;
 		}
 		applyAccent();
 	}
@@ -66,11 +61,7 @@ function createAccentStore() {
 
 	async function saveAccent() {
 		if (!browser) return;
-		try {
-			await Preferences.set({ key: ACCENT_STORAGE_KEY, value: accent });
-		} catch (e) {
-			console.error('Failed to save accent to Preferences:', e);
-		}
+		localStorage.setItem(ACCENT_STORAGE_KEY, accent);
 
 		if (authStore.isLoggedIn && authStore.user) {
 			try {

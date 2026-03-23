@@ -1,23 +1,26 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { Preferences } from '@capacitor/preferences';
 
 vi.mock('$app/environment', () => ({
 	browser: true
 }));
 
-vi.mock('@capacitor/preferences', () => ({
-	Preferences: {
-		get: vi.fn().mockResolvedValue({ value: null }),
-		set: vi.fn().mockResolvedValue(undefined),
-		remove: vi.fn().mockResolvedValue(undefined)
-	}
-}));
+const localStorageMock = (() => {
+	let store: Record<string, string> = {};
+	return {
+		getItem: vi.fn((key: string) => store[key] ?? null),
+		setItem: vi.fn((key: string, value: string) => { store[key] = value; }),
+		removeItem: vi.fn((key: string) => { delete store[key]; }),
+		clear: () => { store = {}; }
+	};
+})();
+Object.defineProperty(globalThis, 'localStorage', { value: localStorageMock });
 
 import { chatStore } from './chat.svelte';
 
 describe('chatStore', () => {
 	beforeEach(() => {
 		chatStore.reset();
+		localStorageMock.clear();
 		vi.clearAllMocks();
 		vi.useFakeTimers();
 	});
@@ -460,15 +463,15 @@ describe('chatStore', () => {
 			chatStore.startChatting();
 			chatStore.addUserMessage('Hello');
 
-			expect(Preferences.set).not.toHaveBeenCalled();
+			expect(localStorageMock.setItem).not.toHaveBeenCalled();
 
 			// Advance past debounce timer
 			await vi.advanceTimersByTimeAsync(500);
 
-			expect(Preferences.set).toHaveBeenCalledWith({
-				key: 'storify-chat-draft',
-				value: expect.stringContaining('Hello')
-			});
+			expect(localStorageMock.setItem).toHaveBeenCalledWith(
+				'storify-chat-draft',
+				expect.stringContaining('Hello')
+			);
 		});
 
 		it('debounces multiple rapid saves', async () => {
@@ -480,9 +483,9 @@ describe('chatStore', () => {
 			await vi.advanceTimersByTimeAsync(500);
 
 			// Should only save once despite 3 messages
-			expect(Preferences.set).toHaveBeenCalledTimes(1);
+			expect(localStorageMock.setItem).toHaveBeenCalledTimes(1);
 			const savedValue = JSON.parse(
-				vi.mocked(Preferences.set).mock.calls[0][0].value
+				localStorageMock.setItem.mock.calls[0][1]
 			);
 			expect(savedValue.messages).toHaveLength(3);
 		});
@@ -491,7 +494,7 @@ describe('chatStore', () => {
 			chatStore.startChatting();
 			chatStore.addUserMessage('Hello');
 			await vi.advanceTimersByTimeAsync(500);
-			vi.mocked(Preferences.set).mockClear();
+			localStorageMock.setItem.mockClear();
 
 			chatStore.setStreaming(true);
 			chatStore.addAssistantMessage('');
@@ -500,9 +503,9 @@ describe('chatStore', () => {
 
 			await vi.advanceTimersByTimeAsync(500);
 
-			expect(Preferences.set).toHaveBeenCalledTimes(1);
+			expect(localStorageMock.setItem).toHaveBeenCalledTimes(1);
 			const savedValue = JSON.parse(
-				vi.mocked(Preferences.set).mock.calls[0][0].value
+				localStorageMock.setItem.mock.calls[0][1]
 			);
 			expect(savedValue.messages).toHaveLength(2);
 		});
@@ -512,9 +515,9 @@ describe('chatStore', () => {
 
 			await vi.advanceTimersByTimeAsync(500);
 
-			expect(Preferences.set).toHaveBeenCalledTimes(1);
+			expect(localStorageMock.setItem).toHaveBeenCalledTimes(1);
 			const savedValue = JSON.parse(
-				vi.mocked(Preferences.set).mock.calls[0][0].value
+				localStorageMock.setItem.mock.calls[0][1]
 			);
 			expect(savedValue.selectedTone).toBe('classic');
 		});
@@ -525,7 +528,7 @@ describe('chatStore', () => {
 			await vi.advanceTimersByTimeAsync(500);
 
 			const savedValue = JSON.parse(
-				vi.mocked(Preferences.set).mock.calls[0][0].value
+				localStorageMock.setItem.mock.calls[0][1]
 			);
 			expect(savedValue.includeHoroscope).toBe(true);
 		});
@@ -544,9 +547,7 @@ describe('chatStore', () => {
 				savedAt: Date.now()
 			};
 
-			vi.mocked(Preferences.get).mockResolvedValueOnce({
-				value: JSON.stringify(draft)
-			});
+			localStorageMock.getItem.mockReturnValueOnce(JSON.stringify(draft));
 
 			const loaded = await chatStore.loadDraft();
 
@@ -561,8 +562,6 @@ describe('chatStore', () => {
 		});
 
 		it('loadDraft returns false when no draft exists', async () => {
-			vi.mocked(Preferences.get).mockResolvedValueOnce({ value: null });
-
 			const loaded = await chatStore.loadDraft();
 
 			expect(loaded).toBe(false);
@@ -581,21 +580,19 @@ describe('chatStore', () => {
 				savedAt: Date.now() - 25 * 60 * 60 * 1000 // 25 hours ago
 			};
 
-			vi.mocked(Preferences.get).mockResolvedValueOnce({
-				value: JSON.stringify(expiredDraft)
-			});
+			localStorageMock.getItem.mockReturnValueOnce(JSON.stringify(expiredDraft));
 
 			const loaded = await chatStore.loadDraft();
 
 			expect(loaded).toBe(false);
-			expect(Preferences.remove).toHaveBeenCalledWith({ key: 'storify-chat-draft' });
+			expect(localStorageMock.removeItem).toHaveBeenCalledWith('storify-chat-draft');
 			expect(chatStore.messages).toEqual([]);
 		});
 
-		it('clearDraft removes the draft from Preferences', async () => {
+		it('clearDraft removes the draft from localStorage', async () => {
 			await chatStore.clearDraft();
 
-			expect(Preferences.remove).toHaveBeenCalledWith({ key: 'storify-chat-draft' });
+			expect(localStorageMock.removeItem).toHaveBeenCalledWith('storify-chat-draft');
 		});
 
 		it('clearDraft cancels pending debounced saves', async () => {
@@ -605,9 +602,9 @@ describe('chatStore', () => {
 			await chatStore.clearDraft();
 			await vi.advanceTimersByTimeAsync(500);
 
-			// Preferences.set should NOT have been called (debounce was cancelled)
-			expect(Preferences.set).not.toHaveBeenCalled();
-			expect(Preferences.remove).toHaveBeenCalledWith({ key: 'storify-chat-draft' });
+			// setItem should NOT have been called (debounce was cancelled)
+			expect(localStorageMock.setItem).not.toHaveBeenCalled();
+			expect(localStorageMock.removeItem).toHaveBeenCalledWith('storify-chat-draft');
 		});
 
 		it('saved draft includes savedAt timestamp', async () => {
@@ -617,7 +614,7 @@ describe('chatStore', () => {
 			await vi.advanceTimersByTimeAsync(500);
 
 			const savedValue = JSON.parse(
-				vi.mocked(Preferences.set).mock.calls[0][0].value
+				localStorageMock.setItem.mock.calls[0][1]
 			);
 			expect(savedValue.savedAt).toBeGreaterThanOrEqual(now);
 		});

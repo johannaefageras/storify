@@ -1,5 +1,4 @@
 import { browser } from '$app/environment';
-import { Preferences } from '@capacitor/preferences';
 
 export interface ChatMessage {
 	id: string;
@@ -63,10 +62,7 @@ function createChatStore() {
 				includeDailyChallenge,
 				savedAt: Date.now()
 			};
-			await Preferences.set({
-				key: CHAT_DRAFT_KEY,
-				value: JSON.stringify(draft)
-			});
+			localStorage.setItem(CHAT_DRAFT_KEY, JSON.stringify(draft));
 		} catch (e) {
 			console.error('Failed to save chat draft:', e);
 		}
@@ -204,11 +200,11 @@ function createChatStore() {
 		async loadDraft(): Promise<boolean> {
 			if (!browser) return false;
 			try {
-				const { value } = await Preferences.get({ key: CHAT_DRAFT_KEY });
+				const value = localStorage.getItem(CHAT_DRAFT_KEY);
 				if (!value) return false;
 				const draft: ChatDraft = JSON.parse(value);
 				if (Date.now() - draft.savedAt > DRAFT_EXPIRY_MS) {
-					await Preferences.remove({ key: CHAT_DRAFT_KEY });
+					localStorage.removeItem(CHAT_DRAFT_KEY);
 					return false;
 				}
 				messages = draft.messages;
@@ -228,7 +224,7 @@ function createChatStore() {
 			if (!browser) return;
 			if (draftSaveTimer) clearTimeout(draftSaveTimer);
 			try {
-				await Preferences.remove({ key: CHAT_DRAFT_KEY });
+				localStorage.removeItem(CHAT_DRAFT_KEY);
 			} catch (e) {
 				console.error('Failed to clear chat draft:', e);
 			}

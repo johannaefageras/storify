@@ -1,5 +1,4 @@
 import { browser } from '$app/environment';
-import { Preferences } from '@capacitor/preferences';
 import type { WeatherData } from '$lib/utils/weather';
 import { fetchWeather } from '$lib/utils/weather';
 import { getCurrentPosition } from '$lib/utils/geolocation';
@@ -165,14 +164,11 @@ function createWizardStore() {
     if (!browser) return;
     try {
       const { profile: _profile, ...dailyData } = data;
-      await Preferences.set({
-        key,
-        value: JSON.stringify({
-          data: dailyData,
-          step: currentStep,
-          savedAt: Date.now()
-        })
-      });
+      localStorage.setItem(key, JSON.stringify({
+        data: dailyData,
+        step: currentStep,
+        savedAt: Date.now()
+      }));
     } catch (e) {
       console.error('Failed to save draft:', e);
     }
@@ -181,11 +177,11 @@ function createWizardStore() {
   async function loadDraft(key: string): Promise<{ data: Partial<WizardData>; step: number } | null> {
     if (!browser) return null;
     try {
-      const { value } = await Preferences.get({ key });
+      const value = localStorage.getItem(key);
       if (!value) return null;
       const parsed = JSON.parse(value);
       if (Date.now() - parsed.savedAt > DRAFT_EXPIRY_MS) {
-        await Preferences.remove({ key });
+        localStorage.removeItem(key);
         return null;
       }
       return { data: parsed.data, step: parsed.step };
@@ -199,11 +195,9 @@ function createWizardStore() {
     if (!browser) return;
     if (draftSaveTimer) clearTimeout(draftSaveTimer);
     try {
-      await Promise.all([
-        Preferences.remove({ key: WIZARD_DRAFT_KEY }),
-        Preferences.remove({ key: QUICK_DRAFT_KEY }),
-        Preferences.remove({ key: EDITOR_DRAFT_KEY })
-      ]);
+      localStorage.removeItem(WIZARD_DRAFT_KEY);
+      localStorage.removeItem(QUICK_DRAFT_KEY);
+      localStorage.removeItem(EDITOR_DRAFT_KEY);
     } catch (e) {
       console.error('Failed to clear drafts:', e);
     }
@@ -211,7 +205,7 @@ function createWizardStore() {
 
   async function loadProfileFromPreferences(): Promise<UserProfile> {
     try {
-      const { value } = await Preferences.get({ key: PROFILE_STORAGE_KEY });
+      const value = localStorage.getItem(PROFILE_STORAGE_KEY);
       if (value) {
         const parsed = JSON.parse(value);
         return {
@@ -299,10 +293,7 @@ function createWizardStore() {
       }
     } else {
       try {
-        await Preferences.set({
-          key: PROFILE_STORAGE_KEY,
-          value: JSON.stringify(profile)
-        });
+        localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(profile));
       } catch (e) {
         console.error('Failed to save profile to Preferences:', e);
       }
@@ -422,7 +413,7 @@ function createWizardStore() {
       await clearDrafts();
       if (browser) {
         try {
-          await Preferences.remove({ key: PROFILE_STORAGE_KEY });
+          localStorage.removeItem(PROFILE_STORAGE_KEY);
         } catch (e) {
           console.error('Failed to remove profile from Preferences:', e);
         }
@@ -467,7 +458,7 @@ function createWizardStore() {
         const key = mode === 'editor' ? EDITOR_DRAFT_KEY : mode === 'quick' ? QUICK_DRAFT_KEY : WIZARD_DRAFT_KEY;
         if (browser) {
           if (draftSaveTimer) clearTimeout(draftSaveTimer);
-          await Preferences.remove({ key });
+          localStorage.removeItem(key);
         }
       }
     },
