@@ -8,7 +8,6 @@ import { validateWizardData, validatePayloadSize } from '$lib/validation';
 import { checkRateLimit, getClientIdentifier } from '$lib/validation/ratelimit';
 import { getZodiacFromBirthday } from '$lib/utils/zodiac';
 import {
-  buildDailyChallengeInstructions,
   buildEditorModePrompt,
   buildHomeworkInstructions,
   buildHoroscopeInstructions,
@@ -206,11 +205,6 @@ Skriv ett kortare dagboksinlägg på ca 100-150 ord (1-3 korta stycken). Fokuser
     // Append homework instructions if enabled (pass toneId so addon matches the voice)
     if (data.includeHomework) {
       systemPrompt += buildHomeworkInstructions(toneId);
-    }
-
-    // Append daily challenge instructions if enabled (pass toneId so addon matches the voice)
-    if (data.includeDailyChallenge) {
-      systemPrompt += buildDailyChallengeInstructions(toneId);
     }
 
     const userContent = formatWizardDataForPrompt(data);

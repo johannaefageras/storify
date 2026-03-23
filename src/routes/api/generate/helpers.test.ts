@@ -75,7 +75,6 @@ const createMinimalWizardData = (overrides: Partial<WizardData> = {}): WizardDat
   includeHoroscope: false,
   includeOnThisDay: false,
   includeHomework: true,
-  includeDailyChallenge: false,
   quickText: '',
   quickMode: false,
   chatMode: false,

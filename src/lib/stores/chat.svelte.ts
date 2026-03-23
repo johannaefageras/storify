@@ -19,7 +19,6 @@ interface ChatDraft {
 	includeHoroscope: boolean;
 	includeOnThisDay: boolean;
 	includeHomework: boolean;
-	includeDailyChallenge: boolean;
 	savedAt: number;
 }
 
@@ -38,7 +37,6 @@ function createChatStore() {
 	let includeHoroscope = $state(false);
 	let includeOnThisDay = $state(false);
 	let includeHomework = $state(true);
-	let includeDailyChallenge = $state(false);
 	let error = $state('');
 
 	let draftSaveTimer: ReturnType<typeof setTimeout> | null = null;
@@ -59,7 +57,6 @@ function createChatStore() {
 				includeHoroscope,
 				includeOnThisDay,
 				includeHomework,
-				includeDailyChallenge,
 				savedAt: Date.now()
 			};
 			localStorage.setItem(CHAT_DRAFT_KEY, JSON.stringify(draft));
@@ -92,9 +89,6 @@ function createChatStore() {
 		},
 		get includeHomework() {
 			return includeHomework;
-		},
-		get includeDailyChallenge() {
-			return includeDailyChallenge;
 		},
 		get error() {
 			return error;
@@ -178,7 +172,7 @@ function createChatStore() {
 			selectedTone = toneId;
 			scheduleDraftSave();
 		},
-		setAddon(key: 'horoscope' | 'onThisDay' | 'homework' | 'dailyChallenge', value: boolean) {
+		setAddon(key: 'horoscope' | 'onThisDay' | 'homework', value: boolean) {
 			switch (key) {
 				case 'horoscope':
 					includeHoroscope = value;
@@ -188,9 +182,6 @@ function createChatStore() {
 					break;
 				case 'homework':
 					includeHomework = value;
-					break;
-				case 'dailyChallenge':
-					includeDailyChallenge = value;
 					break;
 			}
 			scheduleDraftSave();
@@ -213,7 +204,6 @@ function createChatStore() {
 				includeHoroscope = draft.includeHoroscope;
 				includeOnThisDay = draft.includeOnThisDay;
 				includeHomework = draft.includeHomework;
-				includeDailyChallenge = draft.includeDailyChallenge ?? false;
 				return true;
 			} catch (e) {
 				console.error('Failed to load chat draft:', e);
@@ -240,7 +230,6 @@ function createChatStore() {
 			includeHoroscope = false;
 			includeOnThisDay = false;
 			includeHomework = true;
-			includeDailyChallenge = false;
 			error = '';
 		}
 	};

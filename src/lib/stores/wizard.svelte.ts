@@ -70,7 +70,6 @@ export interface WizardData {
   includeHoroscope: boolean;
   includeOnThisDay: boolean;
   includeHomework: boolean;
-  includeDailyChallenge: boolean;
 
   // Quick mode
   quickText: string;
@@ -137,7 +136,6 @@ function createWizardStore() {
     includeHoroscope: false,
     includeOnThisDay: false,
     includeHomework: true,
-    includeDailyChallenge: false,
     quickText: '',
     quickMode: false,
     chatMode: false,
@@ -494,7 +492,7 @@ function createWizardStore() {
         case 7: // Time Capsule
           return data.memoryFor10Years.trim() !== '' || data.messageToFutureSelf.trim() !== '';
         case 9: // Add-ons
-          return data.includeHoroscope || data.includeOnThisDay || data.includeHomework || data.includeDailyChallenge;
+          return data.includeHoroscope || data.includeOnThisDay || data.includeHomework;
         default:
           return false;
       }

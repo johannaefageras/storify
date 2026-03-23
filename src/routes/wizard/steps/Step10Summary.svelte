@@ -7,7 +7,7 @@
 	import { uniqueSvgIds } from '$lib/utils/uniqueSvgIds';
 	import { getMoodColorById } from '$lib/data/moodColors';
 	import type { Component } from 'svelte';
-	import { EmojiSparkles, EmojiRosePink, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiArchive, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiDice, EmojiTornado, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiCrystalBall, EmojiLightBulb, EmojiMantelpieceClock, EmojiSeedling, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces, EmojiFloppyDisk, EmojiCrossMark } from '$lib/assets/emojis';
+	import { EmojiSparkles, EmojiRosePink, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiArchive, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiDice, EmojiTornado, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiCrystalBall, EmojiLightBulb, EmojiMantelpieceClock, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces, EmojiFloppyDisk, EmojiCrossMark } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
@@ -129,7 +129,7 @@ Vi ses imorgon, dagboken.`;
 	};
 
 	const zodiacSign = $derived(getZodiacFromBirthday(wizardStore.data.profile.birthday));
-	const hasAddons = $derived(wizardStore.data.includeHoroscope || wizardStore.data.includeOnThisDay || wizardStore.data.includeHomework || wizardStore.data.includeDailyChallenge);
+	const hasAddons = $derived(wizardStore.data.includeHoroscope || wizardStore.data.includeOnThisDay || wizardStore.data.includeHomework);
 
 	function getZodiacComponent(): Component | undefined {
 		if (!zodiacSign) return undefined;
@@ -768,12 +768,7 @@ Vi ses imorgon, dagboken.`;
 								<UniqueEmoji><EmojiLightBulb size={20} /></UniqueEmoji>
 							</span>
 						{/if}
-						{#if wizardStore.data.includeDailyChallenge}
-							<span class="addon-badge" title="Dagens utmaning">
-								<UniqueEmoji><EmojiSeedling size={20} /></UniqueEmoji>
-							</span>
-						{/if}
-					</div>
+						</div>
 				{/if}
 			</div>
 			<span class="summary-emojis">

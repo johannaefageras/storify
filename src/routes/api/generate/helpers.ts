@@ -1,7 +1,6 @@
 import type { WizardData, UserProfile } from '$lib/stores/wizard.svelte';
 import { getZodiacFromBirthday, getAgeFromBirthday } from '$lib/utils/zodiac';
 import jomojiMeanings from '$lib/data/jomojiMeanings.json';
-import actsData from '../../../../acts/acts.json';
 import type { ToneId } from '$lib/data/tonePrompts/types';
 import { getMoodColorById } from '$lib/data/moodColors';
 
@@ -597,71 +596,3 @@ GÖR INTE:
 - Ge inte flera uppgifter – bara EN fokuserad sak`;
 }
 
-function getRandomAct(): { id: number; text: string } {
-	const acts = actsData.acts;
-	return acts[Math.floor(Math.random() * acts.length)];
-}
-
-export function buildDailyChallengeInstructions(toneId?: string): string {
-	const metadata = getToneMetadata(toneId || 'classic');
-	const isEnglish = metadata.language === 'english';
-	const act = getRandomAct();
-
-	if (isEnglish) {
-		return `
-
-"DAILY CHALLENGE" SECTION:
-
-After the diary entry (and any other addons), add a SEPARATE section with the heading "Daily Challenge" (without any emoji - the app will add the icon).
-
-IMPORTANT: Write this section in ENGLISH, matching the diary's language and tone.
-Apply the same writing style as the main entry: ${metadata.styleSummary}
-
-You have been given a random act of kindness/well-being. Your job is to REWRITE it in the diary's tone and voice as a small challenge for tomorrow. Keep the core idea and spirit of the act, but make it sound like the diary's narrator is suggesting it.
-
-THE ORIGINAL ACT (in Swedish):
-"${act.text}"
-
-THIS SECTION SHOULD:
-- Start with exactly "Daily Challenge" as the heading (no emoji before or after)
-- Rewrite the act in the diary's tone — translate to English and adapt the voice
-- Frame it as a gentle challenge for tomorrow ("Tomorrow, try..." or similar)
-- Keep the warmth, humour, and spirit of the original act
-- Be 1-3 sentences long
-- Feel like a natural suggestion from the diary's narrator, not a generic tip
-
-DO NOT:
-- Include any emoji in the heading – the app handles this
-- Copy the original Swedish text verbatim – rewrite it in the diary's voice
-- Add unrelated advice or expand beyond the original act's idea
-- Be preachy or demanding – keep it light and inviting`;
-	}
-
-	return `
-
-"DAGENS UTMANING"-TILLÄGG:
-
-Efter dagboksinlägget (och eventuella andra tillägg), lägg till ett SEPARAT avsnitt med rubriken "Dagens utmaning" (utan emoji - appen lägger till ikonen).
-
-VIKTIGT: Skriv detta avsnitt med SAMMA ton och stil som dagboksinlägget.
-Använd stilen: ${metadata.styleSummary}
-
-Du har fått en slumpmässig snäll handling/välmående-utmaning. Din uppgift är att SKRIVA OM den i dagbokens ton och röst som en liten utmaning för imorgon. Behåll kärnidén och andan i handlingen, men få det att låta som dagbokens berättare föreslår det.
-
-DEN URSPRUNGLIGA HANDLINGEN:
-"${act.text}"
-
-AVSNITTET SKA:
-- Börja med exakt "Dagens utmaning" som rubrik (ingen emoji före eller efter)
-- Skriva om handlingen i dagbokens ton och röst
-- Rama in det som en mjuk utmaning för imorgon ("Imorgon, prova att..." eller liknande)
-- Behålla värmen, humorn och andan i den ursprungliga handlingen
-- Vara 1-3 meningar långt
-- Kännas som ett naturligt förslag från dagbokens berättare, inte ett generiskt tips
-
-GÖR INTE:
-- Inkludera någon emoji i rubriken – appen hanterar detta
-- Kopiera originaltexten ordagrant – skriv om den i dagbokens röst
-- Lägg inte till orelaterade råd eller expandera bortom den ursprungliga handlingens idé
-- Var inte predikande eller krävande – håll det lätt och inbjudande`;
-}
