@@ -29,7 +29,7 @@ The journaling app collects information about a user's day through a wizard form
 | 🎭 **Shakespeare**      | [shakespeare.md](./shakespeare.md)               | Swedish   | Dramatic monologue with archaic Swedish and theater flair    |
 | 🗞️ **Kvällstidning**    | [tabloid.md](./tabloid.md)                       | Swedish   | Sensational tabloid headlines about mundane events           |
 | 🧠 **Psykolog**         | [therapist.md](./therapist.md)                   | Swedish   | Clinical therapist notes with warm insight                   |
-| 🎶 **Trubadur**         | [troubadour.md](./troubadour.md)                 | Swedish   | Song lyrics/ballad with verses and chorus                    |
+| ☕ **Mysig**             | [cozy.md](./cozy.md)                             | Swedish   | Soft, warm retrospection from under a blanket                |
 
 ## File Structure
 
@@ -144,7 +144,7 @@ Drama Queen → Sportkommentator → Meme → Quest Log → Klassisk → Brittis
 
 ### Language Output
 
-- **Swedish**: Klassisk Dagbok, Berättelse, Filosofisk, Sportkommentator, Kattperspektiv, Sarkastisk, Drama Queen, Cringe, Quest Log, Uttråkad, AI-Robot, Formell, Naturdokumentär, Nörd, Shakespeare, Kvällstidning, Psykolog, Trubadur
+- **Swedish**: Klassisk Dagbok, Berättelse, Filosofisk, Sportkommentator, Kattperspektiv, Sarkastisk, Drama Queen, Cringe, Quest Log, Uttråkad, AI-Robot, Formell, Naturdokumentär, Nörd, Shakespeare, Kvällstidning, Psykolog, Mysig
 - **Swenglish**: Meme (mix of Swedish and English)
 - **English**: Brittisk
 

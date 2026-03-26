@@ -109,10 +109,10 @@ export const tones: Tone[] = [
     preview: 'Undertecknad får härmed meddela att dagens förehavanden nu dokumenteras.'
   },
   {
-    id: 'troubadour',
-    name: 'Trubadur',
-    emoji: '🎶',
-    preview: 'Hör min sång om denna dag, om solljus och om regn...'
+    id: 'cozy',
+    name: 'Mysig',
+    emoji: '☕',
+    preview: 'Ligger i sängen nu. Filten är varm. Dagen är över, och det känns bra.'
   },
   {
     id: 'nerd',
@@ -174,5 +174,29 @@ export const tones: Tone[] = [
     name: 'Byråkratisk',
     emoji: '📋',
     preview: 'Ärendet avslutas. Med vänlig hälsning, Undertecknad, Handläggare.'
+  },
+  {
+    id: 'fairy-tale',
+    name: 'Saga',
+    emoji: '🏰',
+    preview: 'Det var en gång, i ett land inte så långt härifrån...'
+  },
+  {
+    id: 'grandma',
+    name: 'Mormor',
+    emoji: '👵',
+    preview: 'Lilla vansen, idag ska jag berätta om din dag...'
+  },
+  {
+    id: 'hr-review',
+    name: 'Utvecklingssamtal',
+    emoji: '📝',
+    preview: 'Vi tar en snabb avstämning kring dagens prestation och utvecklingsområden.'
+  },
+  {
+    id: 'ikea',
+    name: 'IKEA-manual',
+    emoji: '🔧',
+    preview: 'Steg 1: Vakna. Steg 2: Kontrollera att alla delar finns. Steg 3: Börja dagen.'
   }
 ];

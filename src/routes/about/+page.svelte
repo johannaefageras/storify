@@ -44,7 +44,7 @@
 	<section>
 		<h2>En dagbok för oss som aldrig skriver dagbok</h2>
 		<p>Du vet de där fina anteckningsböckerna du köpt med de bästa intentioner? De som ligger i en låda någonstans med kanske tre inlägg – varav det sista börjar med "Oj, det var länge sen..."?</p>
-		<p>Storify är för oss. För alla som vill minnas sin vardag men som inte har tid, ork eller inspiration att faktiskt sätta sig ner och skriva. Gå igenom en guide med frågor om din dag, välj en av 28 unika röster som passar ditt humör, och låt AI:n göra det jobbiga – själva skrivandet.</p>
+		<p>Storify är för oss. För alla som vill minnas sin vardag men som inte har tid, ork eller inspiration att faktiskt sätta sig ner och skriva. Gå igenom en guide med frågor om din dag, välj en av 32 unika röster som passar ditt humör, och låt AI:n göra det jobbiga – själva skrivandet.</p>
 	</section>
 
 	<section>
@@ -59,8 +59,8 @@
 	</section>
 
 	<section>
-		<h2>28 röster – från poetisk till pinsam</h2>
-		<p>Det som gör Storify unikt är rösterna. Välj mellan 28 helt olika skrivstilar: klassisk dagbok, sportkommentator, kattperspektiv, Shakespeare, kvällstidning, meme-språk, byråkratisk myndighetsstil – och mycket mer. Samma dag kan bli helt olika beroende på vilken röst du väljer. Kan du inte bestämma dig? Låt appen överraska dig med en slumpmässig röst.</p>
+		<h2>32 röster – från poetisk till pinsam</h2>
+		<p>Det som gör Storify unikt är rösterna. Välj mellan 32 helt olika skrivstilar: klassisk dagbok, sportkommentator, kattperspektiv, Shakespeare, kvällstidning, meme-språk, byråkratisk myndighetsstil – och mycket mer. Samma dag kan bli helt olika beroende på vilken röst du väljer. Kan du inte bestämma dig? Låt appen överraska dig med en slumpmässig röst.</p>
 	</section>
 
 	<section>
@@ -105,11 +105,12 @@
 
 <style>
 	.legal-page {
+		flex: 1;
 		max-width: 720px;
 		margin: 0 auto;
 		padding: 2rem;
 		padding-top: calc(env(safe-area-inset-top, 0px) + 2rem);
-		padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 2rem);
+		padding-bottom: 0;
 	}
 
 	.page-header {

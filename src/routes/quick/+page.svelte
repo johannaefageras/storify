@@ -30,7 +30,7 @@
 		EmojiLedger, EmojiOpenBook, EmojiOwl, EmojiMicrophone, EmojiCat, EmojiFaceUnamused,
 		EmojiCrown, EmojiPoo, EmojiFaceGrimacing, EmojiFlagUk, EmojiVideoGame, EmojiFaceYawning,
 		EmojiEarth, EmojiBrain, EmojiRobot, EmojiTheaterMasks, EmojiNewspaper, EmojiBlackNib,
-		EmojiMusicalNotes, EmojiFaceNerd, EmojiSatellite, EmojiWomanMeditating, EmojiWomanDetective,
+		EmojiHotBeverage, EmojiFaceNerd, EmojiSatellite, EmojiWomanMeditating, EmojiWomanDetective,
 		EmojiFaceExplodingHead, EmojiFaceUpsideDown, EmojiArchive, EmojiTornado, EmojiWiltedFlower
 	} from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
@@ -54,7 +54,7 @@
 		'shakespeare': EmojiTheaterMasks,
 		'tabloid': EmojiNewspaper,
 		'formal': EmojiBlackNib,
-		'troubadour': EmojiMusicalNotes,
+		'cozy': EmojiHotBeverage,
 		'nerd': EmojiFaceNerd,
 		'tinfoil-hat': EmojiSatellite,
 		'self-help': EmojiWomanMeditating,
@@ -793,16 +793,17 @@
 	   ========================================================================== */
 
 	.quick {
-		min-height: 100vh;
+		flex: 1;
+		min-height: 0;
 		display: flex;
 		flex-direction: column;
 		max-width: 720px;
 		margin: 0 auto;
-		padding: 1.75rem 1.25rem;
+		padding: 1.75rem 1.25rem 0;
 	}
 
 	.quick.result-view {
-		padding: 1.25rem 1.25rem 2rem;
+		padding: 1.25rem 1.25rem 0;
 	}
 
 	/* ==========================================================================
@@ -1684,11 +1685,11 @@
 
 	@media (max-width: 600px) {
 		.quick {
-			padding: calc(env(safe-area-inset-top, 0px) + 1.25rem) 1rem 1.25rem;
+			padding: calc(env(safe-area-inset-top, 0px) + 1.25rem) 1rem 0;
 		}
 
 		.quick.result-view {
-			padding: calc(env(safe-area-inset-top, 0px) + 1rem) 1rem 1.5rem;
+			padding: calc(env(safe-area-inset-top, 0px) + 1rem) 1rem 0;
 		}
 
 		.step-title {

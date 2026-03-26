@@ -3,7 +3,7 @@
 	import { tones } from '$lib/data/tones';
 	import { voiceSamples } from '$lib/data/voiceSamples';
 	import type { Component } from 'svelte';
-	import { EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiWomanDetective, EmojiCrown, EmojiTopHat, EmojiWiltedFlower, EmojiPoo, EmojiEarth, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanMeditating, EmojiTheaterMasks, EmojiMicrophone, EmojiOpenBook, EmojiNewspaper, EmojiBrain, EmojiSatellite, EmojiMusicalNotes, EmojiDice } from '$lib/assets/emojis';
+	import { EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiWomanDetective, EmojiCrown, EmojiTopHat, EmojiWiltedFlower, EmojiPoo, EmojiEarth, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanMeditating, EmojiTheaterMasks, EmojiMicrophone, EmojiOpenBook, EmojiNewspaper, EmojiBrain, EmojiSatellite, EmojiHotBeverage, EmojiDice } from '$lib/assets/emojis';
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 
 	const toneIconMap: Record<string, Component> = {
@@ -34,7 +34,7 @@
 		'tabloid': EmojiNewspaper,
 		'therapist': EmojiBrain,
 		'tinfoil-hat': EmojiSatellite,
-		'troubadour': EmojiMusicalNotes
+		'cozy': EmojiHotBeverage
 	};
 
 	function getToneIcon(toneId: string): Component | undefined {

@@ -62,7 +62,7 @@ No more staring at a blank page – just answer a few questions and get a beauti
 | 🎭 **Shakespeare**                      | Dramatic monologue with archaic flair    |
 | 📰 **Kvällstidning** (Tabloid)          | Sensational tabloid headlines            |
 | 🏛️ **Formell** (Formal)                 | Overly formal official letter            |
-| 🎶 **Trubadur** (Troubadour)            | Song lyrics/ballad format                |
+| ☕ **Mysig** (Cozy)                      | Soft retrospection from under a blanket  |
 | 🤓 **Nördig** (Nerdy)                   | Over-explains everything with facts      |
 | 🎩 **Foliehatt** (Tinfoil Hat)          | Conspiracy theories everywhere           |
 | ✨ **Livscoach** (Life Coach)           | Uplifting advice and encouragement       |

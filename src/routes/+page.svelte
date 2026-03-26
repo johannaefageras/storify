@@ -26,7 +26,6 @@
 	let RoseIcon = $derived(roseComponents[accentStore.current]);
 	import { getGreeting, getSubtitle } from '$lib/data/greetings';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
-	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 
 	let isReturningUser = $derived(authStore.isLoggedIn && !!wizardStore.data.profile.name);
 	let firstName = $derived(wizardStore.data.profile.name.split(' ')[0]);
@@ -77,21 +76,9 @@
 		}
 	];
 
-	async function resetCache() {
-		await wizardStore.clearAll();
-	}
-
-	const resetAction = {
-		label: 'Rensa data',
-		feedbackLabel: 'Rensat!',
-		onclick: resetCache
-	};
 </script>
 
 <main class="landing">
-	<div class="landing-header">
-		<ThemeToggle variant="inline" />
-	</div>
 	<div class="container">
 		<div class="landing-main">
 			<header class="hero">
@@ -126,29 +113,12 @@
 		</div>
 
 		<div class="landing-footer">
-			<LegalFooter actionLinks={isReturningUser ? [] : [resetAction]} />
+			<LegalFooter />
 		</div>
 	</div>
 </main>
 
 <style>
-	.landing-header {
-		position: absolute;
-		top: calc(env(safe-area-inset-top, 0px) + 1.25rem);
-		right: calc(env(safe-area-inset-right, 0px) + 1.25rem);
-		display: none;
-	}
-
-	@media (max-width: 600px) {
-		.landing-header {
-			display: block;
-		}
-
-		:global(.theme-toggle:not(.inline)) {
-			display: none;
-		}
-	}
-
 	.landing {
 		flex: 1 1 auto;
 		min-height: 0;

@@ -14,8 +14,9 @@
 		EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire,
 		EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanDetective, EmojiCrown,
 		EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite,
-		EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks,
-		EmojiFaceNerd, EmojiFaceExplodingHead
+		EmojiWomanMeditating, EmojiNewspaper, EmojiHotBeverage, EmojiTheaterMasks,
+		EmojiFaceNerd, EmojiFaceExplodingHead,
+		EmojiCastle, EmojiOldWoman, EmojiMemo, EmojiTools
 	} from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 
@@ -78,7 +79,11 @@
 		'tabloid': EmojiNewspaper,
 		'therapist': EmojiBrain,
 		'tinfoil-hat': EmojiSatellite,
-		'troubadour': EmojiMusicalNotes
+		'cozy': EmojiHotBeverage,
+		'fairy-tale': EmojiCastle,
+		'grandma': EmojiOldWoman,
+		'hr-review': EmojiMemo,
+		'ikea': EmojiTools
 	};
 
 	function getEmojiSvg(emojiId: string): string | undefined {

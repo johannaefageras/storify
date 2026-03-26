@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import {
-		EmojiWomanStudentPink, EmojiWomanStudentAmber, EmojiWomanStudentBlue, EmojiWomanStudentLime, EmojiWomanStudentRed, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiOwl, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceUnamused, EmojiSatellite, EmojiFaceUpsideDown, EmojiArchive, EmojiTornado, EmojiWiltedFlower, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiEnvelopeArrow, EmojiPencil, EmojiDiamondPink, EmojiDiamondAmber, EmojiDiamondBlue, EmojiDiamondLime, EmojiDiamondRed, EmojiPlus, EmojiMinus, EmojiBookmark, EmojiCrystalBall, EmojiMantelpieceClock, EmojiLightBulb } from '$lib/assets/emojis';
+		EmojiWomanStudentPink, EmojiWomanStudentAmber, EmojiWomanStudentBlue, EmojiWomanStudentLime, EmojiWomanStudentRed, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiHotBeverage, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiOwl, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceUnamused, EmojiSatellite, EmojiFaceUpsideDown, EmojiArchive, EmojiTornado, EmojiWiltedFlower, EmojiCastle, EmojiOldWoman, EmojiMemo, EmojiTools, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiEnvelopeArrow, EmojiPencil, EmojiDiamondPink, EmojiDiamondAmber, EmojiDiamondBlue, EmojiDiamondLime, EmojiDiamondRed, EmojiPlus, EmojiMinus, EmojiBookmark, EmojiCrystalBall, EmojiMantelpieceClock, EmojiLightBulb } from '$lib/assets/emojis';
 	import { Number1, Number2, Number3, Number4, Number5, Number6, Number7 } from '$lib/assets/numbers';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import { voiceSamples } from '$lib/data/voiceSamples';
@@ -114,7 +114,7 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
-				<span class="list-content"><strong>Röst</strong> – Välj en av 28 skrivstilar.</span>
+				<span class="list-content"><strong>Röst</strong> – Välj en av 32 skrivstilar.</span>
 			</div>
 		</div>
 		<p>Texten som genereras i snabbläget är kortare och mer koncentrerad – ungefär 100–150 ord – men fångar ändå kärnan i din dag. Tillägg som horoskop och historiska händelser är inte tillgängliga i snabbläget.</p>
@@ -147,7 +147,7 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon number-icon"><Number6 size={14} /></span>
-				<span class="list-content"><strong>Välj röst och tillägg</strong> – Välj vem som ska skriva din dagbok (28 unika röster!) och krydda med valfria tillägg som horoskop, historiska händelser eller en personlig hemläxa.</span>
+				<span class="list-content"><strong>Välj röst och tillägg</strong> – Välj vem som ska skriva din dagbok (32 unika röster!) och krydda med valfria tillägg som horoskop, historiska händelser eller en personlig hemläxa.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon number-icon"><Number7 size={14} /></span>
@@ -235,7 +235,7 @@
 			{#snippet theaterMasksIcon()}<EmojiTheaterMasks size={20} />{/snippet}
 			{#snippet newspaperIcon()}<EmojiNewspaper size={20} />{/snippet}
 			{#snippet blackNibIcon()}<EmojiBlackNib size={20} />{/snippet}
-			{#snippet musicalNotesIcon()}<EmojiMusicalNotes size={20} />{/snippet}
+			{#snippet hotBeverageIcon()}<EmojiHotBeverage size={20} />{/snippet}
 			{#snippet nerdIcon()}<EmojiFaceNerd size={20} />{/snippet}
 			{#snippet satelliteIcon()}<EmojiSatellite size={20} />{/snippet}
 			{#snippet meditatingIcon()}<EmojiWomanMeditating size={20} />{/snippet}
@@ -244,6 +244,10 @@
 			{#snippet upsideDownIcon()}<EmojiFaceUpsideDown size={20} />{/snippet}
 			{#snippet archiveIcon()}<EmojiArchive size={20} />{/snippet}
 			{#snippet tornadoIcon()}<EmojiTornado size={20} />{/snippet}
+			{#snippet castleIcon()}<EmojiCastle size={20} />{/snippet}
+			{#snippet oldWomanIcon()}<EmojiOldWoman size={20} />{/snippet}
+			{#snippet memoIcon()}<EmojiMemo size={20} />{/snippet}
+			{#snippet toolsIcon()}<EmojiTools size={20} />{/snippet}
 			{#snippet wiltedFlowerIcon()}<EmojiWiltedFlower size={20} />{/snippet}
 			<button class="voice-chip" onclick={() => openModal({ id: 'classic', name: 'Klassisk Dagbok', description: 'En rak, varm berättelse om din dag. Perfekt för alla tillfällen.', icon: ledgerIcon })}>
 				<span class="voice-chip-emoji">{@render ledgerIcon()}</span>
@@ -317,9 +321,9 @@
 				<span class="voice-chip-emoji">{@render blackNibIcon()}</span>
 				<span class="voice-chip-name">Formell</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'troubadour', name: 'Trubadur', description: 'Din dag sjungen som en ballad. Med rim och melodi.', icon: musicalNotesIcon })}>
-				<span class="voice-chip-emoji">{@render musicalNotesIcon()}</span>
-				<span class="voice-chip-name">Trubadur</span>
+			<button class="voice-chip" onclick={() => openModal({ id: 'cozy', name: 'Mysig', description: 'Din dag återberättad inifrån en filt, med en kopp te och regn mot rutan.', icon: hotBeverageIcon })}>
+				<span class="voice-chip-emoji">{@render hotBeverageIcon()}</span>
+				<span class="voice-chip-name">Mysig</span>
 			</button>
 			<button class="voice-chip" onclick={() => openModal({ id: 'nerd', name: 'Nördig', description: 'Fakta, statistik och djupdykningar i varje liten detalj.', icon: nerdIcon })}>
 				<span class="voice-chip-emoji">{@render nerdIcon()}</span>
@@ -356,6 +360,22 @@
 			<button class="voice-chip" onclick={() => openModal({ id: 'melodramatic', name: 'Melodramatisk', description: 'Varje ögonblick är livsavgörande. Tårar, suckar och dramatiska pauser.', icon: wiltedFlowerIcon })}>
 				<span class="voice-chip-emoji">{@render wiltedFlowerIcon()}</span>
 				<span class="voice-chip-name">Melodramatisk</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'fairy-tale', name: 'Saga', description: 'Din dag som en magisk saga med prinsar, prinsessor och äventyr.', icon: castleIcon })}>
+				<span class="voice-chip-emoji">{@render castleIcon()}</span>
+				<span class="voice-chip-name">Saga</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'grandma', name: 'Mormor', description: 'Din dag återberättad av en kärleksfull mormor med bullar i ugnen.', icon: oldWomanIcon })}>
+				<span class="voice-chip-emoji">{@render oldWomanIcon()}</span>
+				<span class="voice-chip-name">Mormor</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'hr-review', name: 'Utvecklingssamtal', description: 'Dagens prestation utvärderas med KPI:er, feedback och utvecklingsplan.', icon: memoIcon })}>
+				<span class="voice-chip-emoji">{@render memoIcon()}</span>
+				<span class="voice-chip-name">Utvecklingssamtal</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'ikea', name: 'IKEA-manual', description: 'Din dag som en monteringsanvisning. Steg för steg, med varningar.', icon: toolsIcon })}>
+				<span class="voice-chip-emoji">{@render toolsIcon()}</span>
+				<span class="voice-chip-name">IKEA-manual</span>
 			</button>
 		</div>
 
@@ -551,11 +571,12 @@
 
 <style>
 	.legal-page {
+		flex: 1;
 		max-width: 720px;
 		margin: 0 auto;
 		padding: 2rem;
 		padding-top: calc(env(safe-area-inset-top, 0px) + 2rem);
-		padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 2rem);
+		padding-bottom: 0;
 	}
 
 	.page-header {
@@ -982,7 +1003,7 @@
 		.legal-page {
 			padding: 1.25rem;
 			padding-top: calc(env(safe-area-inset-top, 0px) + 1.25rem);
-			padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 1.25rem);
+			padding-bottom: 0;
 		}
 
 		.save-grid {

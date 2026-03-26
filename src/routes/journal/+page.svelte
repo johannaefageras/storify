@@ -9,7 +9,7 @@
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import IconArrowLeft from '$lib/assets/icons/IconArrowLeft.svelte';
 	import type { Component } from 'svelte';
-	import { EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanDetective, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiClipboard, EmojiFramedPicture, EmojiPrinter, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiCrossMark, EmojiTrash, EmojiFloppyDisk, EmojiCompass, EmojiRocket, EmojiSpeakingHead, EmojiPencil } from '$lib/assets/emojis';
+	import { EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanDetective, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiWomanMeditating, EmojiNewspaper, EmojiHotBeverage, EmojiTheaterMasks, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiClipboard, EmojiFramedPicture, EmojiPrinter, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiCrossMark, EmojiTrash, EmojiFloppyDisk, EmojiCompass, EmojiRocket, EmojiSpeakingHead, EmojiPencil } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import { downloadAsImage } from '$lib/utils/imageDownload';
 	import { downloadAsPdf } from '$lib/utils/pdfDownload';
@@ -124,7 +124,7 @@
 		'tabloid': EmojiNewspaper,
 		'therapist': EmojiBrain,
 		'tinfoil-hat': EmojiSatellite,
-		'troubadour': EmojiMusicalNotes
+		'cozy': EmojiHotBeverage
 	};
 
 	const swedishMonths: Record<string, string> = {

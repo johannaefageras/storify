@@ -3,7 +3,7 @@
 	import { jomojiSvgMap } from '$lib/data/jomojis';
 	import { uniqueSvgIds } from '$lib/utils/uniqueSvgIds';
 	import type { Component } from 'svelte';
-	import { EmojiCrystalBall, EmojiLightBulb, EmojiMantelpieceClock, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces, EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanDetective, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiWomanMeditating, EmojiNewspaper, EmojiMusicalNotes, EmojiTheaterMasks, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiPencil, EmojiCrossMark } from '$lib/assets/emojis';
+	import { EmojiCrystalBall, EmojiLightBulb, EmojiMantelpieceClock, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces, EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanDetective, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiWomanMeditating, EmojiNewspaper, EmojiHotBeverage, EmojiTheaterMasks, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiPencil, EmojiCrossMark, EmojiCastle, EmojiOldWoman, EmojiMemo, EmojiTools } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
 	import { getRenderParagraphs, formatParagraph } from '$lib/utils/paragraphs';
@@ -71,7 +71,11 @@
 		'tabloid': EmojiNewspaper,
 		'therapist': EmojiBrain,
 		'tinfoil-hat': EmojiSatellite,
-		'troubadour': EmojiMusicalNotes
+		'cozy': EmojiHotBeverage,
+		'fairy-tale': EmojiCastle,
+		'grandma': EmojiOldWoman,
+		'hr-review': EmojiMemo,
+		'ikea': EmojiTools
 	};
 
 	function getEmojiSvg(emojiId: string): string | undefined {

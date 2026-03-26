@@ -34,7 +34,11 @@
 		EmojiNewspaper,
 		EmojiBrain,
 		EmojiSatellite,
-		EmojiMusicalNotes,
+		EmojiHotBeverage,
+		EmojiCastle,
+		EmojiOldWoman,
+		EmojiMemo,
+		EmojiTools,
 		EmojiDice,
 		EmojiCrystalBall,
 		EmojiLightBulb,
@@ -87,7 +91,11 @@
 		tabloid: EmojiNewspaper,
 		therapist: EmojiBrain,
 		'tinfoil-hat': EmojiSatellite,
-		troubadour: EmojiMusicalNotes
+		cozy: EmojiHotBeverage,
+		'fairy-tale': EmojiCastle,
+		grandma: EmojiOldWoman,
+		'hr-review': EmojiMemo,
+		ikea: EmojiTools
 	};
 
 	const zodiacComponents: Record<string, Component> = {

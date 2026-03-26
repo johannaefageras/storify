@@ -462,7 +462,7 @@ describe('getToneMetadata', () => {
       'classic', 'storytelling', 'philosophical', 'sportscaster',
       'cat-perspective', 'cynical', 'drama-queen', 'meme', 'cringe',
       'quest-log', 'bored', 'nature-documentary', 'therapist', 'ai-robot',
-      'shakespeare', 'tabloid', 'formal', 'troubadour', 'nerd',
+      'shakespeare', 'tabloid', 'formal', 'cozy', 'nerd',
       'tinfoil-hat', 'self-help', 'detective', 'passive-aggressive',
       'melodramatic', 'chaotic', 'bureaucratic', 'overthinker'
     ];

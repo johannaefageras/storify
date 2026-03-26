@@ -1,16 +1,20 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import ThemeToggle from './ThemeToggle.svelte';
+	import HamburgerMenu from './HamburgerMenu.svelte';
 
 	let pathname: string = $derived(page.url.pathname);
 </script>
 
 <nav class="navbar" class:no-border={pathname.startsWith('/wizard')}>
 	<div class="navbar-inner">
-		<a href="/" class="navbar-brand">Storify</a>
+		<div class="navbar-left">
+			<ThemeToggle variant="inline" />
+			<a href="/" class="navbar-brand">Storify</a>
+		</div>
 
 		<div class="navbar-actions">
-			<ThemeToggle variant="inline" />
+			<HamburgerMenu />
 		</div>
 	</div>
 </nav>
@@ -38,12 +42,22 @@
 		border-bottom: none;
 	}
 
+	.navbar-left {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+	}
+
 	.navbar-brand {
+		display: flex;
+		align-items: center;
+		min-height: 2.5rem;
 		font-family: var(--font-primary);
-		font-size: var(--text-lg);
+		font-size: var(--text-xl);
 		font-weight: var(--weight-medium);
 		font-stretch: 115%;
 		letter-spacing: var(--tracking-tighter);
+		line-height: 1;
 		color: var(--color-text);
 		text-decoration: none;
 	}
@@ -53,6 +67,4 @@
 		align-items: center;
 		gap: 0.5rem;
 	}
-
-
 </style>

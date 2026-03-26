@@ -90,9 +90,9 @@ const toneMetadata: Record<ToneId, ToneMetadata> = {
 		language: 'swedish',
 		styleSummary: 'formell och professionell'
 	},
-	troubadour: {
+	cozy: {
 		language: 'swedish',
-		styleSummary: 'som en medeltida trubadur med rim och vers'
+		styleSummary: 'mjuk, varm och lugn — som att sjunka ner i en filt efter en lång dag'
 	},
 	nerd: {
 		language: 'swedish',
@@ -129,6 +129,22 @@ const toneMetadata: Record<ToneId, ToneMetadata> = {
 	overthinker: {
 		language: 'swedish',
 		styleSummary: 'övertänkande med många parenteser och sidonoteringar'
+	},
+	'fairy-tale': {
+		language: 'swedish',
+		styleSummary: 'som en magisk sagoberättelse med prinsessor, drakar och äventyr'
+	},
+	grandma: {
+		language: 'swedish',
+		styleSummary: 'varm och kärleksfull som en mormor som berättar om sitt barnbarn'
+	},
+	'hr-review': {
+		language: 'swedish',
+		styleSummary: 'formell som ett utvecklingssamtal med KPI:er och prestationsbedömning'
+	},
+	ikea: {
+		language: 'swedish',
+		styleSummary: 'som en IKEA-monteringsanvisning med steg-för-steg-instruktioner'
 	}
 };
 

@@ -4,7 +4,7 @@
 
 Interview mode is a conversational journaling experience — a third way to create journal entries alongside the wizard (structured, 11-step) and quick mode (fast, minimal). It lives at its own dedicated route (`/interview`) as a full-page AI chat interface, similar to ChatGPT or Claude.ai in layout and feel.
 
-The user navigates to `/interview`, lands on a clean centered chat interface with conversation starters, has a natural back-and-forth with an AI interviewer about their day, then generates a journal entry using any of the 28 existing writing tones. The interview and the generation are two distinct AI interactions with different system prompts and purposes.
+The user navigates to `/interview`, lands on a clean centered chat interface with conversation starters, has a natural back-and-forth with an AI interviewer about their day, then generates a journal entry using any of the 32 existing writing tones. The interview and the generation are two distinct AI interactions with different system prompts and purposes.
 
 ## Purpose
 
@@ -144,7 +144,7 @@ The starters disappear once the conversation begins (any message is sent).
 4. Natural back-and-forth conversation — the interviewer asks follow-up questions, digs deeper where appropriate, notices themes
 5. The user can end the conversation at any time — after 1 message or 20. No fixed step count
 6. When the user signals they're done (via "Jag är klar — skapa dagbok" button that is always visible during the conversation), the page transitions to the tone picker view
-7. Tone picker: same 28 tones as wizard/quick mode, including "Överraskning" (surprise/random). Also shows addon toggles. "Tillbaka" button to return to the conversation if the user wants to add more
+7. Tone picker: same 32 tones as wizard/quick mode, including "Överraskning" (surprise/random). Also shows addon toggles. "Tillbaka" button to return to the conversation if the user wants to add more
 8. The user selects a tone and taps "Generera dagboksinlägg"
 9. Journal entry is generated using the `/api/generate` endpoint with the conversation transcript as input
 10. Result view is shown on the same page with the same export options as wizard/quick mode: save to journal, download as image/PDF, copy, email

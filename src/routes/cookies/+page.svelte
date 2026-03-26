@@ -130,11 +130,12 @@
 
 <style>
 	.legal-page {
+		flex: 1;
 		max-width: 720px;
 		margin: 0 auto;
 		padding: 2rem;
 		padding-top: calc(env(safe-area-inset-top, 0px) + 2rem);
-		padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 2rem);
+		padding-bottom: 0;
 	}
 
 	.page-header {

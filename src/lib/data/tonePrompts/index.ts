@@ -20,7 +20,7 @@ import { buildPrompt as aiRobotPrompt } from './ai-robot';
 import { buildPrompt as shakespearePrompt } from './shakespeare';
 import { buildPrompt as tabloidPrompt } from './tabloid';
 import { buildPrompt as formalPrompt } from './formal';
-import { buildPrompt as troubadourPrompt } from './troubadour';
+import { buildPrompt as cozyPrompt } from './cozy';
 import { buildPrompt as nerdPrompt } from './nerd';
 import { buildPrompt as tinfoilHatPrompt } from './tinfoil-hat';
 import { buildPrompt as selfHelpPrompt } from './self-help';
@@ -30,6 +30,10 @@ import { buildPrompt as passiveAggressivePrompt } from './passive-aggressive';
 import { buildPrompt as melodramaticPrompt } from './melodramatic';
 import { buildPrompt as chaoticPrompt } from './chaotic';
 import { buildPrompt as bureaucraticPrompt } from './bureaucratic';
+import { buildPrompt as fairyTalePrompt } from './fairy-tale';
+import { buildPrompt as grandmaPrompt } from './grandma';
+import { buildPrompt as hrReviewPrompt } from './hr-review';
+import { buildPrompt as ikeaPrompt } from './ikea';
 
 // Registry of all tone prompt builders
 const toneBuilders: Record<ToneId, TonePromptBuilder> = {
@@ -51,7 +55,7 @@ const toneBuilders: Record<ToneId, TonePromptBuilder> = {
   shakespeare: shakespearePrompt,
   tabloid: tabloidPrompt,
   formal: formalPrompt,
-  troubadour: troubadourPrompt,
+  cozy: cozyPrompt,
   nerd: nerdPrompt,
   'tinfoil-hat': tinfoilHatPrompt,
   'self-help': selfHelpPrompt,
@@ -60,7 +64,11 @@ const toneBuilders: Record<ToneId, TonePromptBuilder> = {
   'passive-aggressive': passiveAggressivePrompt,
   melodramatic: melodramaticPrompt,
   chaotic: chaoticPrompt,
-  bureaucratic: bureaucraticPrompt
+  bureaucratic: bureaucraticPrompt,
+  'fairy-tale': fairyTalePrompt,
+  grandma: grandmaPrompt,
+  'hr-review': hrReviewPrompt,
+  ikea: ikeaPrompt
 };
 
 /**

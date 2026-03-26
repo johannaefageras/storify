@@ -20,7 +20,7 @@ export type ToneId =
   | 'shakespeare'
   | 'tabloid'
   | 'formal'
-  | 'troubadour'
+  | 'cozy'
   | 'nerd'
   | 'tinfoil-hat'
   | 'self-help'
@@ -29,7 +29,11 @@ export type ToneId =
   | 'melodramatic'
   | 'chaotic'
   | 'bureaucratic'
-  | 'overthinker';
+  | 'overthinker'
+  | 'fairy-tale'
+  | 'grandma'
+  | 'hr-review'
+  | 'ikea';
 
 export type TonePromptBuilder = (baseIntro: string) => string;
 

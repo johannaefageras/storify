@@ -266,12 +266,13 @@
 
 <style>
 	.wizard {
-		min-height: 100vh;
+		flex: 1;
+		min-height: 0;
 		display: flex;
 		flex-direction: column;
 		max-width: 720px;
 		margin: 0 auto;
-		padding: 1.75rem 1.25rem;
+		padding: 1.75rem 1.25rem 0;
 	}
 
 	.wizard-header {
@@ -291,7 +292,7 @@
 
 
 	.wizard.result-view {
-		padding: 1.25rem 1.25rem 2rem;
+		padding: 1.25rem 1.25rem 0;
 	}
 
 .step-title {
@@ -354,11 +355,11 @@
 
 	@media (max-width: 600px) {
 		.wizard {
-			padding: calc(env(safe-area-inset-top, 0px) + 1.25rem) 1rem 1.25rem;
+			padding: calc(env(safe-area-inset-top, 0px) + 1.25rem) 1rem 0;
 		}
 
 		.wizard.result-view {
-			padding: calc(env(safe-area-inset-top, 0px) + 1rem) 1rem 1.5rem;
+			padding: calc(env(safe-area-inset-top, 0px) + 1rem) 1rem 0;
 		}
 
 		.step-title {
