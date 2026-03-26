@@ -42,7 +42,10 @@
 		EmojiMemo,
 		EmojiTools,
 		EmojiCrossMark,
-		EmojiUsersSilhouette
+		EmojiUsersSilhouette,
+		EmojiCrystalBall,
+		EmojiMantelpieceClock,
+		EmojiLightBulb
 	} from '$lib/assets/emojis';
 
 	interface CommunityEntry {
@@ -309,7 +312,24 @@
 
 			<div class="modal-body">
 				{#each renderParagraphs as paragraph}
-					<p>{@html formatParagraph(paragraph.text)}</p>
+					{#if paragraph.type === 'horoscope-heading'}
+						<p class="addon-heading">
+							<span class="addon-icon"><UniqueEmoji><EmojiCrystalBall size={24} /></UniqueEmoji></span>
+							<span>{@html formatParagraph(paragraph.text)}</span>
+						</p>
+					{:else if paragraph.type === 'onthisday-heading'}
+						<p class="addon-heading">
+							<span class="addon-icon"><UniqueEmoji><EmojiMantelpieceClock size={24} /></UniqueEmoji></span>
+							<span>{@html formatParagraph(paragraph.text)}</span>
+						</p>
+					{:else if paragraph.type === 'homework-heading'}
+						<p class="addon-heading">
+							<span class="addon-icon"><UniqueEmoji><EmojiLightBulb size={24} /></UniqueEmoji></span>
+							<span>{@html formatParagraph(paragraph.text)}</span>
+						</p>
+					{:else}
+						<p>{@html formatParagraph(paragraph.text)}</p>
+					{/if}
 				{/each}
 			</div>
 
@@ -697,6 +717,27 @@
 
 	.modal-body p:last-child {
 		margin-bottom: 0;
+	}
+
+	.modal-body p.addon-heading {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.5rem;
+		font-weight: var(--weight-medium);
+		margin-top: 1.5rem;
+	}
+
+	.modal-body p.addon-heading:first-child {
+		margin-top: 0;
+		padding-top: 0;
+		border-top: none;
+	}
+
+	.addon-icon {
+		display: flex;
+		align-items: center;
+		flex-shrink: 0;
+		margin-top: 0.125rem;
 	}
 
 	.modal-footer {
