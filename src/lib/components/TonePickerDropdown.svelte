@@ -106,7 +106,7 @@
 		{#if isRegenerating}
 			<span class="regenerate-spinner"></span>
 		{:else}
-			<RegenerateIcon size={32} />
+			<RegenerateIcon size={28} />
 		{/if}
 	</button>
 
@@ -148,8 +148,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 36px;
-		height: 36px;
+		width: 28px;
+		height: 28px;
 		padding: 0;
 		background: none;
 		border: none;
@@ -186,7 +186,7 @@
 
 	.tone-dropdown {
 		position: absolute;
-		top: calc(100% + 8px);
+		bottom: calc(100% + 8px);
 		right: 0;
 		width: 280px;
 		max-height: 360px;
@@ -200,7 +200,7 @@
 	}
 
 	@keyframes dropdownIn {
-		from { opacity: 0; transform: translateY(-4px); }
+		from { opacity: 0; transform: translateY(4px); }
 		to { opacity: 1; transform: translateY(0); }
 	}
 

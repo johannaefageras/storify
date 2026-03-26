@@ -2,8 +2,8 @@
 	import { tones } from '$lib/data/tones';
 	import { jomojiSvgMap } from '$lib/data/jomojis';
 	import { uniqueSvgIds } from '$lib/utils/uniqueSvgIds';
-	import type { Component } from 'svelte';
-	import { EmojiCrystalBall, EmojiLightBulb, EmojiMantelpieceClock, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces, EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanDetective, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiWomanMeditating, EmojiNewspaper, EmojiHotBeverage, EmojiTheaterMasks, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiPencil, EmojiCrossMark, EmojiCastle, EmojiOldWoman, EmojiMemo, EmojiTools } from '$lib/assets/emojis';
+	import type { Component, Snippet } from 'svelte';
+	import { EmojiCrystalBall, EmojiLightBulb, EmojiMantelpieceClock, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces, EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanDetective, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiWomanMeditating, EmojiNewspaper, EmojiHotBeverage, EmojiTheaterMasks, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiPencil, EmojiCrossMark, EmojiCastle, EmojiOldWoman, EmojiMemo, EmojiTools, EmojiUsersSilhouette } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
 	import { getRenderParagraphs, formatParagraph } from '$lib/utils/paragraphs';
@@ -18,9 +18,11 @@
 		editable?: boolean;
 		onEdit?: () => void;
 		onClose?: () => void;
+		onShare?: () => void;
+		regenerateSnippet?: Snippet;
 	}
 
-	let { weekday, date, emojis, toneId, generatedText, birthday = '', editable = false, onEdit, onClose }: Props = $props();
+	let { weekday, date, emojis, toneId, generatedText, birthday = '', editable = false, onEdit, onClose, onShare, regenerateSnippet }: Props = $props();
 
 	// Expose the document element for parent image/PDF export
 	let documentElement: HTMLDivElement = $state(null!);
@@ -158,17 +160,25 @@
 		<div class="footer-line"></div>
 		<div class="footer-content">
 			{#if onClose}
-				<button class="close-btn" data-no-export onclick={onClose}>
-					<EmojiCrossMark size={20} />
-					<span>Stäng</span>
+				<button class="close-btn" data-no-export onclick={onClose} title="Stäng">
+					<EmojiCrossMark size={28} />
 				</button>
 			{/if}
-			{#if editable && onEdit}
-				<button class="edit-btn" data-no-export onclick={onEdit}>
-					<EmojiPencil size={20} />
-					<span>Redigera</span>
-				</button>
-			{/if}
+			<div class="footer-right" data-no-export>
+				{#if editable && onEdit}
+					<button class="edit-btn" data-no-export onclick={onEdit} title="Redigera">
+						<EmojiPencil size={28} />
+					</button>
+				{/if}
+				{#if regenerateSnippet}
+					{@render regenerateSnippet()}
+				{/if}
+				{#if onShare}
+					<button class="share-btn" data-no-export onclick={onShare} title="Dela">
+						<EmojiUsersSilhouette size={28} />
+					</button>
+				{/if}
+			</div>
 		</div>
 	</div>
 </div>
@@ -328,44 +338,39 @@
 		align-items: center;
 	}
 
-	.close-btn {
+	.footer-right {
 		display: flex;
 		align-items: center;
-		gap: 0.375rem;
-		padding: 0;
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-medium);
-		letter-spacing: var(--tracking-wide);
-		color: var(--color-text-muted);
-		background: none;
-		border: none;
-		cursor: pointer;
-		transition: color 0.15s ease;
+		gap: 0.5rem;
+		margin-left: auto;
 	}
 
-	.close-btn:hover {
-		color: var(--color-accent);
-	}
-
-	.edit-btn {
+	.close-btn,
+	.edit-btn,
+	.share-btn {
 		display: flex;
 		align-items: center;
-		gap: 0.375rem;
+		justify-content: center;
+		width: 28px;
+		height: 28px;
 		padding: 0;
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-medium);
-		letter-spacing: var(--tracking-wide);
-		color: var(--color-text-muted);
 		background: none;
 		border: none;
+		border-radius: var(--radius-sm);
 		cursor: pointer;
-		transition: color 0.15s ease;
+		transition: transform 0.2s ease, opacity 0.15s ease;
 	}
 
-	.edit-btn:hover {
-		color: var(--color-accent);
+	.close-btn:hover,
+	.edit-btn:hover,
+	.share-btn:hover {
+		transform: scale(1.1);
+	}
+
+	.close-btn:active,
+	.edit-btn:active,
+	.share-btn:active {
+		transform: scale(0.95);
 	}
 
 	@media (max-width: 640px) {
@@ -392,9 +397,8 @@
 		}
 
 		.footer-content {
-			flex-direction: column;
-			align-items: flex-start;
-			gap: 0.75rem;
+			flex-direction: row;
+			align-items: center;
 		}
 	}
 </style>

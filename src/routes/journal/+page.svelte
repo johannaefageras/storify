@@ -9,12 +9,13 @@
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import IconArrowLeft from '$lib/assets/icons/IconArrowLeft.svelte';
 	import type { Component } from 'svelte';
-	import { EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanDetective, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiWomanMeditating, EmojiNewspaper, EmojiHotBeverage, EmojiTheaterMasks, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiClipboard, EmojiFramedPicture, EmojiPrinter, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiCrossMark, EmojiTrash, EmojiFloppyDisk, EmojiCompass, EmojiRocket, EmojiSpeakingHead, EmojiPencil } from '$lib/assets/emojis';
+	import { EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanDetective, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiWomanMeditating, EmojiNewspaper, EmojiHotBeverage, EmojiTheaterMasks, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiClipboard, EmojiFramedPicture, EmojiPrinter, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiCrossMark, EmojiTrash, EmojiFloppyDisk, EmojiCompass, EmojiRocket, EmojiSpeakingHead, EmojiPencil, EmojiUsersSilhouette } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import { downloadAsImage } from '$lib/utils/imageDownload';
 	import { downloadAsPdf } from '$lib/utils/pdfDownload';
 	import PdfDocument from '$lib/components/PdfDocument.svelte';
 	import TonePickerDropdown from '$lib/components/TonePickerDropdown.svelte';
+	import ShareToCommunity from '$lib/components/ShareToCommunity.svelte';
 	import { getApiUrl } from '$lib/config';
 
 	interface Entry {
@@ -48,6 +49,7 @@
 	let isDownloadingPdf = $state(false);
 	let isSendingEmail = $state(false);
 	let showEmailModal = $state(false);
+	let showShareModal = $state(false);
 	let emailAddress = $state('');
 
 	// Writing mode modal state
@@ -573,15 +575,6 @@ function getToneIcon(id: string): Component | undefined {
 		<!-- svelte-ignore a11y_click_events_have_key_events -->
 		<div class="modal-content" onclick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-label="Dagboksinlägg" tabindex="-1">
 			<div class="modal-diary-card">
-				{#if !isEditing}
-					<div class="regenerate-corner">
-						<TonePickerDropdown
-							currentToneId={selectedEntry.tone_id}
-							{isRegenerating}
-							onSelectTone={regenerateWithTone}
-						/>
-					</div>
-				{/if}
 				{#if regenerateError}
 					<p class="regenerate-error">{regenerateError}</p>
 				{/if}
@@ -601,7 +594,16 @@ function getToneIcon(id: string): Component | undefined {
 						editable={true}
 						onEdit={startEditing}
 						onClose={closeModal}
-					/>
+						onShare={() => showShareModal = true}
+					>
+						{#snippet regenerateSnippet()}
+							<TonePickerDropdown
+								currentToneId={selectedEntry!.tone_id}
+								{isRegenerating}
+								onSelectTone={regenerateWithTone}
+							/>
+						{/snippet}
+					</DiaryCard>
 				{/if}
 			</div>
 
@@ -684,6 +686,18 @@ function getToneIcon(id: string): Component | undefined {
 			{/if}
 		</div>
 	</div>
+{/if}
+
+{#if showShareModal && selectedEntry}
+	{@const { weekday: shareWeekday } = formatEntryDate(selectedEntry.entry_date)}
+	<ShareToCommunity
+		generatedText={selectedEntry.generated_text}
+		toneId={selectedEntry.tone_id}
+		entryDate={selectedEntry.entry_date}
+		emojis={selectedEntry.emojis || []}
+		weekday={shareWeekday || selectedEntry.weekday || ''}
+		onClose={() => showShareModal = false}
+	/>
 {/if}
 
 {#if showEmailModal}
@@ -1121,19 +1135,6 @@ function getToneIcon(id: string): Component | undefined {
 		margin-bottom: 1rem;
 	}
 
-	.regenerate-corner {
-		position: absolute;
-		top: 1.75rem;
-		right: 1.75rem;
-		z-index: 5;
-	}
-
-	@media (max-width: 640px) {
-		.regenerate-corner {
-			top: 1.25rem;
-			right: 1.25rem;
-		}
-	}
 
 	.regenerate-error {
 		margin: 0 0 0.75rem 0;

@@ -435,15 +435,6 @@
 			</div>
 
 			<div class="document-wrapper">
-				{#if !isEditing}
-					<div class="regenerate-corner">
-						<TonePickerDropdown
-							{currentToneId}
-							{isRegenerating}
-							onSelectTone={regenerateWithTone}
-						/>
-					</div>
-				{/if}
 				{#if regenerateError}
 					<p class="regenerate-error">{regenerateError}</p>
 				{/if}
@@ -460,7 +451,15 @@
 						birthday={wizardStore.data.profile.birthday ?? undefined}
 						editable={true}
 						onEdit={startEditing}
-					/>
+					>
+						{#snippet regenerateSnippet()}
+							<TonePickerDropdown
+								{currentToneId}
+								{isRegenerating}
+								onSelectTone={regenerateWithTone}
+							/>
+						{/snippet}
+					</DiaryCard>
 				{/if}
 			</div>
 
@@ -1130,19 +1129,6 @@
 		position: relative;
 	}
 
-	.regenerate-corner {
-		position: absolute;
-		top: 1.75rem;
-		right: 1.75rem;
-		z-index: 5;
-	}
-
-	@media (max-width: 640px) {
-		.regenerate-corner {
-			top: 1.25rem;
-			right: 1.25rem;
-		}
-	}
 
 	.regenerate-error {
 		margin: 0 0 0.75rem 0;

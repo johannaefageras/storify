@@ -217,3 +217,4 @@ export { default as EmojiMenuLime } from './EmojiMenuLime.svelte';
 export { default as EmojiMenuBlue } from './EmojiMenuBlue.svelte';
 export { default as EmojiMenuRed } from './EmojiMenuRed.svelte';
 export { default as EmojiMenuPink } from './EmojiMenuPink.svelte';
+export { default as EmojiGlobeMeridians } from './EmojiGlobeMeridians.svelte';

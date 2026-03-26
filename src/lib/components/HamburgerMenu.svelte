@@ -25,6 +25,7 @@
 	let open = $state(false);
 
 	const links = [
+		{ href: '/community', label: 'Community' },
 		{ href: '/about', label: 'Om Storify' },
 		{ href: '/guide', label: 'Användarguide' },
 		{ href: '/contact', label: 'Kontaktsida' },
