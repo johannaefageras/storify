@@ -15,6 +15,7 @@
 	import resultMessages from '$lib/data/resultMessages.json';
 	import type { Component } from 'svelte';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
+	import ShareToCommunity from '$lib/components/ShareToCommunity.svelte';
 	import PdfDocument from '$lib/components/PdfDocument.svelte';
 	import TonePickerDropdown from '$lib/components/TonePickerDropdown.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
@@ -198,6 +199,7 @@
 	let isDownloadingPdf = $state(false);
 	let isCopying = $state(false);
 	let isSendingEmail = $state(false);
+	let showShareModal = $state(false);
 	let showEmailModal = $state(false);
 	let emailAddress = $state('');
 	let emailError = $state('');
@@ -515,6 +517,7 @@
 						birthday={wizardStore.data.profile.birthday ?? undefined}
 						editable={true}
 						onEdit={startEditing}
+						onShare={() => showShareModal = true}
 					>
 						{#snippet regenerateSnippet()}
 							<TonePickerDropdown
@@ -596,6 +599,17 @@
 					Börja om från början...
 				</button>
 			</div>
+
+			{#if showShareModal && generatedEntry}
+				<ShareToCommunity
+					generatedText={generatedEntry}
+					toneId={actualToneUsed || wizardStore.data.selectedTone}
+					entryDate={wizardStore.data.dateISO}
+					emojis={[]}
+					weekday={wizardStore.data.weekday}
+					onClose={() => showShareModal = false}
+				/>
+			{/if}
 
 			{#if showEmailModal}
 				<div class="modal-overlay" onclick={closeEmailModal} role="button" tabindex="-1" onkeydown={(e) => e.key === 'Escape' && closeEmailModal()}>

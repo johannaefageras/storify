@@ -10,6 +10,7 @@
 	import { EmojiSparkles, EmojiRosePink, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiArchive, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiHotBeverage, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiDice, EmojiTornado, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiCrystalBall, EmojiLightBulb, EmojiMantelpieceClock, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces, EmojiFloppyDisk, EmojiCrossMark } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
+	import ShareToCommunity from '$lib/components/ShareToCommunity.svelte';
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
 	import { downloadAsImage } from '$lib/utils/imageDownload';
 	import { downloadAsPdf } from '$lib/utils/pdfDownload';
@@ -31,6 +32,7 @@
 	let isDownloadingPdf = $state(false);
 	let isCopying = $state(false);
 	let isSendingEmail = $state(false);
+	let showShareModal = $state(false);
 	let showEmailModal = $state(false);
 	let emailAddress = $state('');
 	let emailError = $state('');
@@ -578,6 +580,7 @@ Vi ses imorgon, dagboken.`;
 					birthday={wizardStore.data.profile.birthday ?? undefined}
 					editable={true}
 					onEdit={startEditing}
+					onShare={() => showShareModal = true}
 				>
 					{#snippet regenerateSnippet()}
 						<TonePickerDropdown
@@ -664,6 +667,17 @@ Vi ses imorgon, dagboken.`;
 					Börja om från början...
 				</button>
 			</div>
+		{/if}
+
+		{#if showShareModal && generatedEntry}
+			<ShareToCommunity
+				generatedText={generatedEntry}
+				toneId={actualToneUsed || wizardStore.data.selectedTone}
+				entryDate={wizardStore.data.dateISO}
+				emojis={wizardStore.data.emojis}
+				weekday={wizardStore.data.weekday}
+				onClose={() => showShareModal = false}
+			/>
 		{/if}
 
 		{#if showEmailModal}

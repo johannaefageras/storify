@@ -4,6 +4,7 @@
 	import ChatInput from '$lib/components/interview/ChatInput.svelte';
 	import ToneSelection from '$lib/components/interview/ToneSelection.svelte';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
+	import ShareToCommunity from '$lib/components/ShareToCommunity.svelte';
 	import PdfDocument from '$lib/components/PdfDocument.svelte';
 	import { chatStore } from '$lib/stores/chat.svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
@@ -43,6 +44,7 @@
 	let isDownloadingPdf = $state(false);
 	let isCopying = $state(false);
 	let isSendingEmail = $state(false);
+	let showShareModal = $state(false);
 	let showEmailModal = $state(false);
 	let emailAddress = $state('');
 	let emailError = $state('');
@@ -613,6 +615,7 @@
 							birthday={wizardStore.data.profile.birthday ?? undefined}
 							editable={true}
 							onEdit={startEditing}
+							onShare={() => showShareModal = true}
 						>
 							{#snippet regenerateSnippet()}
 								<TonePickerDropdown
@@ -699,6 +702,17 @@
 							Börja om från början...
 						</button>
 					</div>
+				{/if}
+
+				{#if showShareModal && generatedEntry}
+					<ShareToCommunity
+						generatedText={generatedEntry}
+						toneId={actualToneUsed || chatStore.selectedTone}
+						entryDate={interviewDateISO}
+						emojis={[]}
+						weekday={interviewWeekday}
+						onClose={() => showShareModal = false}
+					/>
 				{/if}
 
 				{#if showEmailModal}
