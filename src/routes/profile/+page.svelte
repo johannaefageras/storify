@@ -699,7 +699,7 @@
 
 	/* Hero section */
 	.profile-hero {
-		max-width: 720px;
+		max-width: var(--content-width);
 		width: 100%;
 		display: flex;
 		flex-direction: column;
@@ -748,7 +748,7 @@
 	.profile-actions {
 		display: flex;
 		gap: 0.625rem;
-		max-width: 720px;
+		max-width: var(--content-width);
 		width: 100%;
 		padding: 0.75rem 1.25rem 0;
 	}
@@ -786,7 +786,7 @@
 	.profile-body {
 		display: flex;
 		flex-direction: column;
-		max-width: 720px;
+		max-width: var(--content-width);
 		width: 100%;
 		padding: 1rem 1.25rem 0;
 		gap: 1rem;

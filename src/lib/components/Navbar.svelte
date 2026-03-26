@@ -33,7 +33,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		max-width: 720px;
+		max-width: var(--content-width);
 		margin: 0 auto;
 		width: 100%;
 	}

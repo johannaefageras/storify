@@ -186,7 +186,7 @@
 <style>
 	.legal-page {
 		flex: 1;
-		max-width: 720px;
+		max-width: var(--content-width);
 		margin: 0 auto;
 		padding: 2rem;
 		padding-top: calc(env(safe-area-inset-top, 0px) + 2rem);

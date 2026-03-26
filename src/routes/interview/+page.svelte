@@ -778,7 +778,7 @@
 		flex-direction: column;
 		flex: 1 1 auto;
 		min-height: 0;
-		max-width: 720px;
+		max-width: var(--content-width);
 		margin: 0 auto;
 		width: 100%;
 		overflow: hidden;

@@ -63,7 +63,7 @@
 	<!-- svelte-ignore a11y_click_events_have_key_events -->
 	<div class="share-modal" onclick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="share-modal-title" tabindex="-1">
 		<div class="share-icon"><EmojiUsersSilhouette size={36} /></div>
-		<h2 id="share-modal-title" class="share-title">Dela till Community</h2>
+		<h2 id="share-modal-title" class="share-title">Dela till Gemenskapen</h2>
 		<p class="share-description">
 			Din dagboksanteckning delas publikt så att andra Storify-användare kan läsa den.
 		</p>

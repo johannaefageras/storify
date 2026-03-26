@@ -15,6 +15,9 @@
    ========================================================================== */
 
 :root {
+  /* Layout */
+  --content-width: 800px;
+
   /* Colors - Light Theme (default) */
   --color-bg: #fafafa;
   --color-bg-elevated: #ffffff;

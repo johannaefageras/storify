@@ -387,7 +387,7 @@
 	.calendar-container {
 		flex: 1;
 		width: 100%;
-		max-width: 700px;
+		max-width: var(--content-width);
 	}
 
 	.calendar-header {

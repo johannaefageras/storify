@@ -228,7 +228,7 @@
 	<div class="community-container">
 		<div class="community-header">
 			<div class="header-icon"><UniqueEmoji><EmojiUsersSilhouette size={72} /></UniqueEmoji></div>
-			<h1 class="community-title">Community</h1>
+			<h1 class="community-title">Gemenskapen</h1>
 			<p class="community-subtitle">Dagboksanteckningar delade av Storify-användare</p>
 		</div>
 
@@ -371,7 +371,7 @@
 		display: flex;
 		flex-direction: column;
 		width: 100%;
-		max-width: 800px;
+		max-width: var(--content-width);
 	}
 
 	/* ===== Header ===== */
@@ -622,7 +622,7 @@
 
 	.modal-content {
 		width: 100%;
-		max-width: 720px;
+		max-width: var(--content-width);
 		background: var(--color-bg-elevated);
 		border-radius: var(--radius-md);
 		padding: 2rem;

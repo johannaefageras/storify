@@ -808,7 +808,7 @@ function getToneIcon(id: string): Component | undefined {
 		display: flex;
 		flex-direction: column;
 		width: 100%;
-		max-width: 700px;
+		max-width: var(--content-width);
 	}
 
 	.journal-header {
@@ -1117,7 +1117,7 @@ function getToneIcon(id: string): Component | undefined {
 	.modal-content {
 		position: relative;
 		width: 100%;
-		max-width: 720px;
+		max-width: var(--content-width);
 		background: var(--color-bg-elevated);
 		border-radius: var(--radius-md);
 		padding: 1.25rem;

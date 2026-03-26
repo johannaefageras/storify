@@ -765,7 +765,7 @@
 		display: flex;
 		flex-direction: column;
 		width: 100%;
-		max-width: 720px;
+		max-width: var(--content-width);
 		margin: 0 auto;
 		padding: 1.75rem 1.25rem 0;
 	}
