@@ -1,4 +1,83 @@
-@import '/fonts.css';
+@font-face {
+  font-family: 'GT Pressura';
+  src:
+    url('./lib/assets/fonts/GTPressura.woff2') format('woff2'),
+    url('./lib/assets/fonts/GTPressura.woff') format('woff');
+  font-weight: 300 900;
+  font-stretch: 100% 150%;
+  font-style: normal italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GT Pressura Mono';
+  src:
+    url('./lib/assets/fonts/GTPressuraMono.woff2') format('woff2'),
+    url('./lib/assets/fonts/GTPressuraMono.woff') format('woff');
+  font-weight: 300 900;
+  font-style: normal italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Miller Text';
+  src:
+    url('./lib/assets/fonts/MillerText-Regular.woff2') format('woff2'),
+    url('./lib/assets/fonts/MillerText-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Miller Text';
+  src:
+    url('./lib/assets/fonts/MillerText-RegularItalic.woff2') format('woff2'),
+    url('./lib/assets/fonts/MillerText-RegularItalic.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Miller Text';
+  src:
+    url('./lib/assets/fonts/MillerText-SemiBold.woff2') format('woff2'),
+    url('./lib/assets/fonts/MillerText-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Miller Text';
+  src:
+    url('./lib/assets/fonts/MillerText-SemiBoldItalic.woff2') format('woff2'),
+    url('./lib/assets/fonts/MillerText-SemiBoldItalic.woff') format('woff');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Miller Text';
+  src:
+    url('./lib/assets/fonts/MillerText-Bold.woff2') format('woff2'),
+    url('./lib/assets/fonts/MillerText-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Miller Text';
+  src:
+    url('./lib/assets/fonts/MillerText-BoldItalic.woff2') format('woff2'),
+    url('./lib/assets/fonts/MillerText-BoldItalic.woff') format('woff');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
 
 /* ==========================================================================
    GT Pressura Typography System

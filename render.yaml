@@ -5,7 +5,7 @@ services:
     plan: pro
     region: frankfurt # Closest to Sweden
     buildCommand: npm install && USE_NODE_ADAPTER=true npm run build
-    startCommand: node build
+    startCommand: node server.js
     healthCheckPath: /
     envVars:
       - key: NODE_VERSION
