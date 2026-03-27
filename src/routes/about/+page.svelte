@@ -10,7 +10,8 @@
 		EmojiWomanLaptopBlue,
 		EmojiWomanLaptopLime,
 		EmojiWomanLaptopRed,
-		EmojiTools
+		EmojiTools,
+		EmojiUsersSilhouette
 	} from '$lib/assets/emojis';
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
@@ -55,7 +56,22 @@
 		<p>Vill du skriva själv? <strong>Skriv fritt</strong> ger dig en textredigerare där du skriver fritt, med AI-stöd som kan förfina och polera din text när du är klar.</p>
 		<p>Appen hämtar vädret automatiskt baserat på din position och kan fylla i din plats åt dig. Vill du krydda din dagbok lite extra? Lägg till ett personligt horoskop, historiska händelser som inträffat på samma datum, eller en liten "hemläxa" – en reflektion eller utmaning baserad på din dag.</p>
 		<p>När texten är klar kan du spara den som bild eller PDF, kopiera den, eller skicka den som e-post. Skapar du ett konto kan du dessutom spara dina dagboksinlägg i ett personligt dagboksarkiv online och komma åt dem när som helst. Du får även tillgång till en kalender där du kan följa din skrivresa, se din streak och få en överblick över hur ofta du skriver.</p>
+		<p>Och nu finns också <strong>Gemenskapen</strong>: ett frivilligt community där du kan dela färdiga dagboksanteckningar publikt och läsa sådant andra Storify-användare valt att dela. Du kan dela med visningsnamn eller anonymt direkt efter att en text skapats, eller från ditt sparade dagboksarkiv.</p>
 		<p>Storify finns som webbapp och som Android-app.</p>
+	</section>
+
+	<section>
+		<h2>Nytt: Gemenskapen</h2>
+		<div class="community-box">
+			<div class="community-icon">
+				<EmojiUsersSilhouette size={64} />
+			</div>
+			<div class="community-text">
+				<p>Storify har inte längre bara plats för dina privata minnen, utan också för de berättelser du faktiskt vill dela vidare. I Gemenskapen kan du bläddra bland publika dagboksanteckningar från andra användare och se hur olika röster, dagar och perspektiv tar form.</p>
+				<p>Det är helt valfritt att dela. Om du gör det väljer du själv vilket visningsnamn som ska synas, och du kan förstås också vara anonym. Tanken är enkel: ibland vill man skriva bara för sig själv, och ibland vill man känna att någon annan där ute också hade en märklig tisdag.</p>
+				<p>Besök <a href="/community">Gemenskapen</a> för att läsa delade inlägg, eller skapa en dagbok och dela en text när det känns rätt.</p>
+			</div>
+		</div>
 	</section>
 
 	<section>
@@ -165,6 +181,27 @@
 		margin-bottom: 0.5rem;
 	}
 
+	.community-box {
+		display: flex;
+		gap: 1.25rem;
+		align-items: center;
+		background: var(--color-bg-elevated);
+		padding: 1.25rem;
+		border-radius: var(--radius-md);
+	}
+
+	.community-icon {
+		flex-shrink: 0;
+	}
+
+	.community-text p {
+		margin-bottom: 0.75rem;
+	}
+
+	.community-text p:last-child {
+		margin-bottom: 0;
+	}
+
 	h2 {
 		font-family: var(--font-primary);
 		font-size: var(--text-base);
@@ -203,6 +240,7 @@
 
 	@media (max-width: 480px) {
 		.about-johanna,
+		.community-box,
 		.contribute-box {
 			flex-direction: column;
 			text-align: center;

@@ -1,10 +1,11 @@
-import html2canvas from 'html2canvas';
-import { jsPDF } from 'jspdf';
-
 export async function downloadAsPdf(element: HTMLDivElement, filename: string): Promise<void> {
 	const a4WidthMm = 210;
 	const a4HeightMm = 297;
 	const margin = 15; // mm margin on each page
+	const [{ default: html2canvas }, { jsPDF }] = await Promise.all([
+		import('html2canvas'),
+		import('jspdf')
+	]);
 
 	await document.fonts.ready;
 

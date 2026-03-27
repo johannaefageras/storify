@@ -1,5 +1,3 @@
-import html2canvas from 'html2canvas';
-
 type ImageDownloadOptions = {
 	width?: number;
 	scale?: number;
@@ -11,6 +9,8 @@ export async function downloadAsImage(
 	filename: string,
 	options: ImageDownloadOptions = {}
 ): Promise<void> {
+	const { default: html2canvas } = await import('html2canvas');
+
 	await document.fonts.ready;
 
 	const rect = element.getBoundingClientRect();

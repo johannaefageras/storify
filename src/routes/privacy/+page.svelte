@@ -26,7 +26,7 @@
 		<EmojiShield size={96} />
 		<h1>Integritetspolicy</h1>
 	</div>
-	<p class="updated">Senast uppdaterad: 8 februari 2026</p>
+	<p class="updated">Senast uppdaterad: 27 mars 2026</p>
 
 	<section>
 		<h2>Vem ansvarar för dina uppgifter?</h2>
@@ -53,6 +53,10 @@
 				<span class="list-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content"><strong>Platsdata:</strong> Om du väljer att aktivera väder- och platsdetektering kan appen begära tillgång till din ungefärliga position för att hämta aktuellt väder och platsnamn. Denna position används endast för dessa förfrågningar och sparas inte</span>
 			</div>
+			<div class="custom-li">
+				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-content"><strong>Uppgifter för Gemenskapen:</strong> Om du väljer att dela en dagboksanteckning publikt behandlar vi även visningsnamn, genererad text, kort utdrag, vald röst, datum, emojis och veckodag för att kunna visa inlägget för andra användare</span>
+			</div>
 		</div>
 	</section>
 
@@ -62,10 +66,20 @@
 
 		<h3>Utan konto</h3>
 		<p>All din data lagras lokalt på din enhet med hjälp av enhetens inbyggda lagringsfunktioner. Vi har ingen tillgång till denna data och den lämnar aldrig din enhet förutom när du aktivt väljer att generera en dagbokstext.</p>
+		<p>Om du utan konto väljer att dela en dagboksanteckning till Gemenskapen lagras just det delade inlägget i molnet för att kunna visas publikt i appen. Inlägget kan visas med det visningsnamn du anger, eller som "Anonym" om du lämnar fältet tomt.</p>
 		<p>Du kan när som helst radera all lokalt sparad data genom att trycka på "Rensa sparad data" på startsidan.</p>
 
 		<h3>Med konto</h3>
 		<p>Om du skapar ett konto lagras din profil och dina sparade dagboksinlägg i molnet hos vår databastjänst. Detta gör att du kan komma åt din data från olika enheter. En funktionell cookie sätts för att hålla din session aktiv.</p>
+		<p>Om du delar till Gemenskapen som inloggad lagras även kopplingen mellan inlägget och ditt konto, så att du kan hantera och ta bort ditt delade inlägg senare.</p>
+	</section>
+
+	<section>
+		<h2>När du delar till Gemenskapen</h2>
+		<p>Gemenskapen är en publik del av Storify. En dagboksanteckning blir aldrig offentlig automatiskt, utan bara om du själv aktivt väljer att dela den.</p>
+		<p>När du delar ett inlägg kan följande information bli synlig för andra användare: din genererade dagbokstext, ett kort utdrag ur texten, valt visningsnamn eller "Anonym", datum för anteckningen, vald röst, emojis och veckodag.</p>
+		<p>Om du delar som inloggad användare kopplas inlägget till ditt konto i bakgrunden. Om du delar utan konto sparas inget användarkonto tillsammans med inlägget, men själva innehållet blir ändå publikt i Gemenskapen.</p>
+		<p>Dela därför inte information i Gemenskapen som du inte vill ska kunna läsas av andra användare. Om du har delat anonymt och vill begära radering i efterhand kan du kontakta oss.</p>
 	</section>
 
 	<section>
@@ -83,6 +97,10 @@
 			<div class="custom-li">
 				<span class="list-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content"><strong>Dagboksarkiv:</strong> Om du är inloggad och väljer att spara en genererad text sparas den i ditt personliga arkiv så att du kan läsa den igen senare.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-content"><strong>Gemenskapen:</strong> Om du väljer att dela en dagboksanteckning används uppgifterna för att publicera och visa inlägget i Gemenskapen, samt för att koppla inlägget till ditt konto om du är inloggad.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><DiamondIcon size={12} /></span>
@@ -106,7 +124,7 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><DiamondIcon size={12} /></span>
-				<span class="list-content"><strong>Databastjänst:</strong> Om du skapar ett konto lagras din profil, kontoinformation och sparade dagboksinlägg hos vår databastjänst. Tjänsten hanterar även autentisering och sätter en funktionell cookie för att hålla din session aktiv. Data lagras krypterat.</span>
+				<span class="list-content"><strong>Databastjänst:</strong> Om du skapar ett konto lagras din profil, kontoinformation och sparade dagboksinlägg hos vår databastjänst. Tjänsten hanterar även autentisering och sätter en funktionell cookie för att hålla din session aktiv. Om du delar till Gemenskapen lagras även det publika inlägget där. Data lagras krypterat.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><DiamondIcon size={12} /></span>
@@ -141,7 +159,7 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><DiamondIcon size={12} /></span>
-				<span class="list-content"><strong>Rätt till radering:</strong> Utan konto kan du radera all data via "Rensa sparad data" på startsidan. Om du har ett konto kan du radera enskilda dagboksinlägg i ditt dagboksarkiv. Vill du att all din kontodata raderas kan du kontakta oss.</span>
+				<span class="list-content"><strong>Rätt till radering:</strong> Utan konto kan du radera all data via "Rensa sparad data" på startsidan. Om du har ett konto kan du radera enskilda dagboksinlägg i ditt dagboksarkiv och dina egna delade inlägg i Gemenskapen. Vill du att all din kontodata raderas kan du kontakta oss. Har du delat anonymt till Gemenskapen kan du också kontakta oss för att begära radering.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><DiamondIcon size={12} /></span>
@@ -157,7 +175,7 @@
 
 	<section>
 		<h2>Barn och unga</h2>
-		<p>Storify kan användas av personer i alla åldrar. Vi samlar inte medvetet in mer information än nödvändigt, och all data stannar på användarens egen enhet om inget konto skapas. Vi uppmuntrar föräldrar och vårdnadshavare att vara delaktiga i yngre barns användning av appen.</p>
+		<p>Storify kan användas av personer i alla åldrar. Vi samlar inte medvetet in mer information än nödvändigt, och all data stannar på användarens egen enhet om inget konto skapas, så länge användaren inte själv väljer att dela ett inlägg till Gemenskapen. Vi uppmuntrar föräldrar och vårdnadshavare att vara delaktiga i yngre barns användning av appen, särskilt vid publik delning.</p>
 	</section>
 
 	<section>

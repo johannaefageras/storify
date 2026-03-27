@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import {
-		EmojiWomanStudentPink, EmojiWomanStudentAmber, EmojiWomanStudentBlue, EmojiWomanStudentLime, EmojiWomanStudentRed, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiHotBeverage, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiOwl, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceUnamused, EmojiSatellite, EmojiFaceUpsideDown, EmojiArchive, EmojiTornado, EmojiWiltedFlower, EmojiCastle, EmojiOldWoman, EmojiMemo, EmojiTools, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiEnvelopeArrow, EmojiPencil, EmojiDiamondPink, EmojiDiamondAmber, EmojiDiamondBlue, EmojiDiamondLime, EmojiDiamondRed, EmojiPlus, EmojiMinus, EmojiBookmark, EmojiCrystalBall, EmojiMantelpieceClock, EmojiLightBulb } from '$lib/assets/emojis';
+		EmojiWomanStudentPink, EmojiWomanStudentAmber, EmojiWomanStudentBlue, EmojiWomanStudentLime, EmojiWomanStudentRed, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiHotBeverage, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiOwl, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceUnamused, EmojiSatellite, EmojiFaceUpsideDown, EmojiArchive, EmojiTornado, EmojiWiltedFlower, EmojiCastle, EmojiOldWoman, EmojiMemo, EmojiTools, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiEnvelopeArrow, EmojiPencil, EmojiDiamondPink, EmojiDiamondAmber, EmojiDiamondBlue, EmojiDiamondLime, EmojiDiamondRed, EmojiPlus, EmojiMinus, EmojiBookmark, EmojiCrystalBall, EmojiMantelpieceClock, EmojiLightBulb, EmojiUsersSilhouette } from '$lib/assets/emojis';
 	import { Number1, Number2, Number3, Number4, Number5, Number6, Number7 } from '$lib/assets/numbers';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import { voiceSamples } from '$lib/data/voiceSamples';
@@ -64,13 +64,14 @@
 		<h1>Användarguide</h1>
 	</div>
 	<p class="subtitle">Så får du ut det bästa av Storify</p>
-	<p class="updated">Senast uppdaterad: 9 februari 2026</p>
+	<p class="updated">Senast uppdaterad: 27 mars 2026</p>
 
 	<section>
 		<h2>Hur fungerar Storify?</h2>
 		<p>Storify hjälper dig att skriva dagbok genom att omvandla dina svar på enkla frågor till en personlig dagbokstext. Du väljer en röst som passar ditt humör, och sedan skapar AI:n en text baserad på det du berättat.</p>
 		<p>Tänk på det som att ha en personlig författare som lyssnar på din dag och sedan skriver ner den åt dig – men med din egen information och i den stil du väljer.</p>
 		<p>Appen kan även hämta aktuellt väder och din plats automatiskt, så du slipper fylla i det manuellt – ett litet sätt att fånga stämningen i din dag.</p>
+		<p>Vill du ibland dela mer än bara med dig själv? Storify har också <strong>Gemenskapen</strong>, där du frivilligt kan publicera utvalda dagboksanteckningar och läsa sådant andra användare valt att dela.</p>
 		<p>Du kan välja mellan fyra lägen:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
@@ -151,7 +152,7 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon number-icon"><Number7 size={14} /></span>
-				<span class="list-content"><strong>Generera och spara</strong> – Granska en sammanfattning, tryck på knappen och låt magin hända! Spara sedan din text som bild, PDF, e-post eller i ditt dagboksarkiv.</span>
+				<span class="list-content"><strong>Generera och spara</strong> – Granska en sammanfattning, tryck på knappen och låt magin hända! Spara sedan din text som bild, PDF, e-post, i ditt dagboksarkiv eller dela den till Gemenskapen.</span>
 			</div>
 		</div>
 		<p>Inte alla steg är obligatoriska – fyll i det som känns relevant och hoppa över resten. AI:n arbetar med det du ger den.</p>
@@ -483,9 +484,24 @@
 					<p>Mejla dagboken till vem du vill.</p>
 				</div>
 			</div>
+			<div class="save-card">
+				<span class="save-emoji"><EmojiUsersSilhouette size={28} /></span>
+				<div class="save-content">
+					<h3>Dela till Gemenskapen</h3>
+					<p>Publicera texten frivilligt så att andra Storify-användare kan läsa den.</p>
+				</div>
+			</div>
 		</div>
 
-		<p>Alla alternativ hittar du längst ner på sidan efter att din text har genererats. Du kan använda flera alternativ på samma text!</p>
+		<p>Alla alternativ hittar du längst ner på sidan efter att din text har genererats eller öppnats i appen. Du kan använda flera alternativ på samma text!</p>
+		<p>När du delar till Gemenskapen kan du ange ett visningsnamn eller lämna fältet tomt för att publicera anonymt. Delning är alltid valfri och påverkar inte dina privata dagboksinlägg.</p>
+	</section>
+
+	<section>
+		<h2>Gemenskapen</h2>
+		<p>Gemenskapen är Storifys publika flöde för dagboksanteckningar som användare själva valt att dela. Där kan du upptäcka olika röster, läsa andras vardagsberättelser och få inspiration till hur samma slags dag kan låta i helt olika toner.</p>
+		<p>Du kan dela direkt efter att du skapat en text i guiden, snabbläget, AI-intervjun eller Skriv fritt. Har du redan sparat en anteckning i ditt dagboksarkiv kan du också dela den därifrån senare.</p>
+		<p>För att läsa delade inlägg går du till <a href="/community">Gemenskapen</a>. För att publicera väljer du knappen för delning när du är klar med din text.</p>
 	</section>
 
 	<section>
@@ -508,7 +524,12 @@
 				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content"><strong>Kalender och streak:</strong> Följ din skrivresa i en kalender med heatmap, se din nuvarande och längsta streak, och få statistik över hur ofta du skriver.</span>
 			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-content"><strong>Ägarskap över delade inlägg:</strong> Om du delar till Gemenskapen som inloggad kopplas inlägget till ditt konto, vilket gör att du kan ta bort det senare.</span>
+			</div>
 		</div>
+		<p>Du kan dela till Gemenskapen även utan konto, men då publiceras texten anonymt eller med det visningsnamn du anger och utan koppling till ett användarkonto.</p>
 		<p>Du skapar ett konto via <a href="/register">registreringssidan</a> eller loggar in via <a href="/login">inloggningssidan</a>.</p>
 	</section>
 
@@ -523,6 +544,12 @@
 
 		<h3>Sparas min data?</h3>
 		<p>Om du använder appen utan konto sparas din profil lokalt på din enhet och skickas bara till AI:n när du genererar en text. Om du har ett konto sparas din profil och dina journalinlägg i molnet (via Supabase) så att du kan komma åt dem från olika enheter. Läs mer i vår <a href="/privacy">integritetspolicy</a>.</p>
+
+		<h3>Måste jag ha konto för att dela till Gemenskapen?</h3>
+		<p>Nej. Du kan dela både som inloggad och anonym användare. Om du inte är inloggad kan du ändå ange ett visningsnamn, eller lämna det tomt för att publicera som "Anonym".</p>
+
+		<h3>Blir allt jag skriver offentligt?</h3>
+		<p>Nej. Dina dagboksanteckningar är privata som standard. En text blir bara publik om du aktivt väljer att dela den till Gemenskapen.</p>
 
 		<h3>Varför blev texten konstig?</h3>
 		<p>Ibland gör AI:n misstag eller tolkar saker annorlunda än du tänkte. Prova att ge mer kontext, formulera om, eller helt enkelt generera igen. Varje generering är unik!</p>
@@ -553,6 +580,10 @@
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content"><strong>Spara dina favoriter</strong> – Exportera texter du gillar extra mycket, eller skapa ett konto och bygg ett dagboksarkiv.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-content"><strong>Dela selektivt</strong> – Gemenskapen blir roligast när du delar det som faktiskt känns kul, fint eller märkligt nog att bjuda på.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>

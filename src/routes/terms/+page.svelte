@@ -39,32 +39,54 @@
 		<JudgeIcon size={96} />
 		<h1>Användarvillkor</h1>
 	</div>
-	<p class="updated">Senast uppdaterad: 9 februari 2026</p>
+	<p class="updated">Senast uppdaterad: 27 mars 2026</p>
 
 	<section>
 		<h2>Välkommen till Storify</h2>
-		<p>Storify är en app som hjälper dig skriva dagbok genom att ställa frågor om din dag och sedan generera en personlig text med hjälp av AI. Appen kan användas anonymt eller med ett konto. Genom att använda appen godkänner du dessa villkor.</p>
+		<p>Storify är en app som hjälper dig skriva dagbok genom att ställa frågor om din dag och sedan generera en personlig text med hjälp av AI. Appen kan användas anonymt eller med ett konto, och innehåller även en frivillig publik funktion kallad Gemenskapen där användare kan dela dagboksanteckningar med andra. Genom att använda appen godkänner du dessa villkor.</p>
 	</section>
 
 	<section>
 		<h2>Så fungerar tjänsten</h2>
-		<p>Du kan välja mellan fyra lägen: en fullständig guide med detaljerade frågor om din dag, ett snabbläge där du fångar dagens känsla på under en minut, en AI-intervju där du chattar med en AI som ställer frågor om din dag, eller Skriv fritt där du skriver själv med AI-stöd. I samtliga lägen väljer du en av 28 skrivstilar och låter vår AI skapa eller förfina ett dagboksinlägg åt dig. I den fullständiga guiden kan du även lägga till tillägg som horoskop, historiska händelser eller en personlig hemläxa.</p>
-		<p>Den genererade texten kan sparas som bild, PDF, kopieras eller skickas som e-post. Om du har ett konto kan du dessutom spara inlägg i ditt personliga dagboksarkiv och följa din skrivresa i en kalender med streak-statistik.</p>
+		<p>Du kan välja mellan fyra lägen: en fullständig guide med detaljerade frågor om din dag, ett snabbläge där du fångar dagens känsla på under en minut, en AI-intervju där du chattar med en AI som ställer frågor om din dag, eller Skriv fritt där du skriver själv med AI-stöd. I samtliga lägen väljer du en av 32 skrivstilar och låter vår AI skapa eller förfina ett dagboksinlägg åt dig. I den fullständiga guiden kan du även lägga till tillägg som horoskop, historiska händelser eller en personlig hemläxa.</p>
+		<p>Den genererade texten kan sparas som bild, PDF, kopieras, skickas som e-post eller delas till Gemenskapen. Om du har ett konto kan du dessutom spara inlägg i ditt personliga dagboksarkiv och följa din skrivresa i en kalender med streak-statistik.</p>
 	</section>
 
 	<section>
 		<h2>Användning utan konto</h2>
-		<p>Du behöver inget konto för att använda Storify. Utan konto lagras din profil lokalt på din enhet och du har full kontroll över den. Dagboksdata skickas till AI:n för att skapa texten, men sparas inte hos oss efteråt.</p>
+		<p>Du behöver inget konto för att använda Storify. Utan konto lagras din profil lokalt på din enhet och du har full kontroll över den. Dagboksdata skickas till AI:n för att skapa texten, men sparas inte hos oss efteråt, förutom om du själv väljer att dela ett inlägg till Gemenskapen.</p>
 	</section>
 
 	<section>
 		<h2>Användning med konto</h2>
-		<p>Om du skapar ett konto lagras din profil och dina sparade dagboksinlägg i molnet hos vår databastjänst. Du ansvarar för att hålla dina inloggningsuppgifter säkra. Genom att skapa ett konto godkänner du att din data lagras enligt vår <a href="/privacy">integritetspolicy</a>.</p>
+		<p>Om du skapar ett konto lagras din profil och dina sparade dagboksinlägg i molnet hos vår databastjänst. Du ansvarar för att hålla dina inloggningsuppgifter säkra. Genom att skapa ett konto godkänner du att din data lagras enligt vår <a href="/privacy">integritetspolicy</a>. Om du delar ett inlägg till Gemenskapen som inloggad användare kopplas det delade inlägget till ditt konto så att du kan hantera det senare.</p>
 	</section>
 
 	<section>
 		<h2>Ditt innehåll och dina rättigheter</h2>
 		<p>All data du matar in och alla dagbokstexter som genereras tillhör dig. Vi gör inga anspråk på ditt innehåll. Du är fri att använda, spara, dela eller radera dina dagbokstexter precis som du vill.</p>
+		<p>Om du väljer att dela en dagboksanteckning till Gemenskapen ger du Storify rätt att visa det innehållet publikt i appen tillsammans med valt visningsnamn eller som "Anonym". Denna rättighet gäller endast för att driva och visa Gemenskapen.</p>
+		<p>Du ansvarar själv för det innehåll du väljer att dela publikt. Dela därför inte material som du inte har rätt att publicera, eller uppgifter om dig själv eller andra som du inte vill ska bli synliga för andra användare.</p>
+	</section>
+
+	<section>
+		<h2>Regler för Gemenskapen</h2>
+		<p>Gemenskapen är till för frivilligt delade dagboksanteckningar. För att hålla den trygg och användbar för alla får du inte dela innehåll som är olagligt, hotfullt, trakasserande, hatiskt, pornografiskt, vilseledande eller på annat sätt skadligt.</p>
+		<div class="custom-ul">
+			<div class="custom-li">
+				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-content"><strong>Ingen publicering av andras känsliga uppgifter:</strong> Dela inte personuppgifter eller privat information om andra personer utan deras samtycke.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-content"><strong>Inget olagligt eller skadligt innehåll:</strong> Inlägg får inte innehålla hot, hat, uppvigling, sexuellt exploaterande material eller annat som bryter mot lag eller rimliga säkerhetskrav.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-content"><strong>Ingen spam eller masspublicering:</strong> Gemenskapen får inte användas för reklam, spam, automatiserad masspublicering eller annat missbruk.</span>
+			</div>
+		</div>
+		<p>Vi förbehåller oss rätten att ta bort delade inlägg som bryter mot dessa villkor eller som vi bedömer kan skada andra användare eller tjänsten.</p>
 	</section>
 
 	<section>
@@ -86,6 +108,10 @@
 			<div class="custom-li">
 				<span class="list-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content"><strong>Respektera andras integritet:</strong> Om du skriver om andra personer i din dagbok, tänk på deras integritet om du väljer att dela texterna offentligt.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-content"><strong>Ingen kringgående av moderering eller borttagning:</strong> Försök inte återpublicera innehåll som tagits bort, eller använda flera inlägg för att kringgå reglerna för Gemenskapen.</span>
 			</div>
 		</div>
 	</section>
@@ -135,6 +161,10 @@
 				<span class="list-icon"><DiamondIcon size={12} /></span>
 				<span class="list-content">Problem orsakade av tredjepartstjänster</span>
 			</div>
+			<div class="custom-li">
+				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-content">Hur andra användare tolkar eller reagerar på innehåll som du själv valt att dela publikt i Gemenskapen</span>
+			</div>
 		</div>
 	</section>
 
@@ -148,7 +178,7 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><DiamondIcon size={12} /></span>
-				<span class="list-content"><strong>Databastjänst:</strong> Hanterar autentisering, profillagring och dagboksarkiv för användare med konto.</span>
+				<span class="list-content"><strong>Databastjänst:</strong> Hanterar autentisering, profillagring, dagboksarkiv för användare med konto och lagring av delade inlägg i Gemenskapen.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><DiamondIcon size={12} /></span>
