@@ -9,11 +9,12 @@
 		entryDate: string;
 		emojis?: string[];
 		weekday?: string;
+		alreadySaved?: boolean;
 		onClose: () => void;
 		onShared?: () => void;
 	}
 
-	let { generatedText, toneId, entryDate, emojis = [], weekday = '', onClose, onShared }: Props = $props();
+	let { generatedText, toneId, entryDate, emojis = [], weekday = '', alreadySaved = false, onClose, onShared }: Props = $props();
 
 	let displayName = $state(authStore.isLoggedIn ? '' : '');
 	let isSharing = $state(false);
@@ -44,6 +45,23 @@
 			if (!data.success) {
 				shareError = data.error || 'Kunde inte dela inlägget.';
 				return;
+			}
+
+			// Auto-save to journal if logged in and not already saved
+			if (!alreadySaved && authStore.isLoggedIn && authStore.user) {
+				try {
+					const { supabase } = await import('$lib/supabase/client');
+					await supabase.from('entries').insert({
+						user_id: authStore.user.id,
+						generated_text: generatedText,
+						tone_id: toneId,
+						entry_date: entryDate,
+						weekday,
+						emojis
+					});
+				} catch (err) {
+					console.error('Auto-save to journal failed:', err);
+				}
 			}
 
 			shareSuccess = true;

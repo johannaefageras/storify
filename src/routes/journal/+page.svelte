@@ -5,6 +5,8 @@
 	import { supabase } from '$lib/supabase/client';
 	import { tones } from '$lib/data/tones';
 
+	import chevronLeftSvg from '$lib/assets/svg/chevronLeft.svg?raw';
+	import chevronRightSvg from '$lib/assets/svg/chevronRight.svg?raw';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import IconArrowLeft from '$lib/assets/icons/IconArrowLeft.svelte';
@@ -36,6 +38,8 @@
 	let isLoading = $state(true);
 	let entries = $state<Entry[]>([]);
 	let error = $state('');
+	let currentPage = $state(1);
+	const PAGE_SIZE = 9;
 
 	// Date filter from calendar navigation
 	let filterDate = $state<string | null>(null);
@@ -173,11 +177,19 @@ function getToneIcon(id: string): Component | undefined {
 		filterDate ? entries.filter((e) => e.entry_date === filterDate) : entries
 	);
 
+	const totalPages = $derived(Math.max(1, Math.ceil(filteredEntries.length / PAGE_SIZE)));
+	const hasPrev = $derived(currentPage > 1);
+	const hasNext = $derived(currentPage < totalPages);
+
+	const paginatedEntries = $derived(
+		filteredEntries.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
+	);
+
 	const groupedEntries = $derived.by(() => {
 		const groups: { month: string; entries: Entry[] }[] = [];
 		let currentMonth = '';
 
-		for (const entry of filteredEntries) {
+		for (const entry of paginatedEntries) {
 			const month = getMonthKey(entry.entry_date);
 			if (month !== currentMonth) {
 				currentMonth = month;
@@ -189,6 +201,12 @@ function getToneIcon(id: string): Component | undefined {
 
 		return groups;
 	});
+
+	function goToPage(page: number) {
+		if (page < 1 || page > totalPages || page === currentPage) return;
+		currentPage = page;
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+	}
 
 	function openEntry(entry: Entry) {
 		selectedEntry = entry;
@@ -459,6 +477,7 @@ function getToneIcon(id: string): Component | undefined {
 
 	function clearDateFilter() {
 		filterDate = null;
+		currentPage = 1;
 		// Remove query param from URL without navigation
 		const url = new URL(window.location.href);
 		url.searchParams.delete('date');
@@ -525,21 +544,38 @@ function getToneIcon(id: string): Component | undefined {
 							{@const { weekday, date } = formatEntryDate(entry.entry_date, entry.created_at)}
 							{@const ToneIcon = getToneIcon(entry.tone_id)}
 							<button class="entry-card" onclick={() => openEntry(entry)}>
-								<div class="card-date">
-									<span class="card-weekday">{weekday || entry.weekday || ''}</span>
-									<span class="card-date-text">{date}</span>
+								<div class="card-top">
+									<div class="card-tone">
+										{#if ToneIcon}
+											<span class="card-tone-icon"><UniqueEmoji><ToneIcon size={16} /></UniqueEmoji></span>
+										{/if}
+										<span class="card-tone-name">{getToneName(entry.tone_id)}</span>
+									</div>
+									<span class="card-time">{weekday || entry.weekday || ''}</span>
 								</div>
-								<div class="card-tone">
-									{#if ToneIcon}
-										<span class="card-tone-icon"><UniqueEmoji><ToneIcon size={16} /></UniqueEmoji></span>
-									{/if}
-									<span class="card-tone-name">{getToneName(entry.tone_id)}</span>
+
+								<p class="card-excerpt">{entry.generated_text}</p>
+
+								<div class="card-bottom">
+									<span class="card-date-text">{date}</span>
 								</div>
 							</button>
 						{/each}
 					</div>
 				</div>
 			{/each}
+
+			{#if totalPages > 1}
+				<div class="pagination">
+					<button class="pagination-btn" onclick={() => goToPage(currentPage - 1)} disabled={!hasPrev} aria-label="Föregående sida">
+						<span class="pagination-icon">{@html chevronLeftSvg}</span>
+					</button>
+					<span class="pagination-info">Sida {currentPage} av {totalPages}</span>
+					<button class="pagination-btn" onclick={() => goToPage(currentPage + 1)} disabled={!hasNext} aria-label="Nästa sida">
+						<span class="pagination-icon">{@html chevronRightSvg}</span>
+					</button>
+				</div>
+			{/if}
 		{/if}
 
 		<footer class="journal-footer">
@@ -696,6 +732,7 @@ function getToneIcon(id: string): Component | undefined {
 		entryDate={selectedEntry.entry_date}
 		emojis={selectedEntry.emojis || []}
 		weekday={shareWeekday || selectedEntry.weekday || ''}
+		alreadySaved={true}
 		onClose={() => showShareModal = false}
 	/>
 {/if}
@@ -808,7 +845,7 @@ function getToneIcon(id: string): Component | undefined {
 		display: flex;
 		flex-direction: column;
 		width: 100%;
-		max-width: var(--content-width);
+		max-width: 1100px;
 	}
 
 	.journal-header {
@@ -928,59 +965,59 @@ function getToneIcon(id: string): Component | undefined {
 	/* Entry Cards Grid */
 
 	.entries-grid {
-		display: flex;
-		flex-direction: column;
-		gap: 0.75rem;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 0.875rem;
+	}
+
+	@media (max-width: 750px) {
+		.entries-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 600px) {
+		.entries-grid {
+			grid-template-columns: 1fr;
+		}
 	}
 
 	.entry-card {
 		display: flex;
-		align-items: center;
-		justify-content: space-between;
+		flex-direction: column;
 		gap: 0.75rem;
-		padding: 0.875rem 1.25rem;
+		min-width: 0;
+		padding: 1rem 1.125rem;
 		background-color: var(--color-bg-elevated);
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-md);
 		cursor: pointer;
-		transition: border-color 0.15s ease, box-shadow 0.15s ease;
 		text-align: left;
 		font-family: var(--font-primary);
 		color: var(--color-text);
+		transition:
+			border-color 0.15s ease,
+			box-shadow 0.15s ease,
+			transform 0.15s ease;
 	}
 
 	.entry-card:hover {
 		border-color: var(--color-accent);
-		box-shadow: 0 2px 8px rgba(244, 63, 122, 0.08);
+		box-shadow: 0 4px 16px rgba(244, 63, 122, 0.06);
+		transform: translateY(-1px);
 	}
 
-	.card-date {
+	.card-top {
 		display: flex;
-		flex-direction: column;
-		gap: 0.0625rem;
-	}
-
-	.card-weekday {
-		font-size: var(--text-base);
-		font-weight: var(--weight-medium);
-		font-stretch: 105%;
-		letter-spacing: var(--tracking-tight);
-		line-height: var(--leading-snug);
-		color: var(--color-text);
-	}
-
-	.card-date-text {
-		font-size: var(--text-xs);
-		font-weight: var(--weight-regular);
-		letter-spacing: var(--tracking-wide);
-		color: var(--color-text-muted);
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
 	}
 
 	.card-tone {
 		display: flex;
 		align-items: center;
-		gap: 0.375rem;
-		flex-shrink: 0;
+		gap: 0.3rem;
 	}
 
 	.card-tone-icon {
@@ -993,6 +1030,47 @@ function getToneIcon(id: string): Component | undefined {
 		font-weight: var(--weight-semibold);
 		letter-spacing: var(--tracking-wider);
 		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	.card-time {
+		font-size: var(--text-xs);
+		font-weight: var(--weight-regular);
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-text-muted);
+		opacity: 0.7;
+		white-space: nowrap;
+	}
+
+	.card-excerpt {
+		flex: 1;
+		font-size: var(--text-sm);
+		font-weight: var(--weight-book);
+		line-height: var(--leading-relaxed);
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-text);
+		margin: 0;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		overflow-wrap: break-word;
+		word-break: break-word;
+	}
+
+	.card-bottom {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
+		padding-top: 0.5rem;
+		border-top: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+	}
+
+	.card-date-text {
+		font-size: var(--text-xs);
+		font-weight: var(--weight-regular);
+		letter-spacing: var(--tracking-wide);
 		color: var(--color-text-muted);
 	}
 
@@ -1488,6 +1566,62 @@ function getToneIcon(id: string): Component | undefined {
 	}
 
 	/* Responsive */
+
+	/* ===== Pagination ===== */
+
+	.pagination {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+		padding-top: 1.5rem;
+	}
+
+	.pagination-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.25rem;
+		height: 2.25rem;
+		padding: 0;
+		background: var(--color-bg-elevated);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		cursor: pointer;
+		color: var(--color-text);
+		transition: border-color 0.15s ease, color 0.15s ease;
+	}
+
+	.pagination-btn:hover:not(:disabled) {
+		border-color: var(--color-accent);
+		color: var(--color-accent);
+	}
+
+	.pagination-btn:disabled {
+		opacity: 0.3;
+		cursor: not-allowed;
+	}
+
+	.pagination-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 16px;
+		height: 16px;
+	}
+
+	.pagination-icon :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.pagination-info {
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-text-muted);
+	}
 
 	.journal-footer {
 		display: flex;

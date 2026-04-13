@@ -5,6 +5,8 @@
 	import { getApiUrl } from '$lib/config';
 	import { getRenderParagraphs, formatParagraph } from '$lib/utils/paragraphs';
 
+	import chevronLeftSvg from '$lib/assets/svg/chevronLeft.svg?raw';
+	import chevronRightSvg from '$lib/assets/svg/chevronRight.svg?raw';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import type { Component } from 'svelte';
@@ -66,8 +68,7 @@
 	let error = $state('');
 	let currentPage = $state(1);
 	let totalEntries = $state(0);
-	let isLoadingMore = $state(false);
-	const LIMIT = 20;
+	const LIMIT = 9;
 
 	// Modal state
 	let selectedEntry = $state<CommunityEntry | null>(null);
@@ -145,9 +146,13 @@
 		return tones.find((t) => t.id === id)?.name || id;
 	}
 
-	const hasMore = $derived(entries.length < totalEntries);
+	const totalPages = $derived(Math.max(1, Math.ceil(totalEntries / LIMIT)));
+	const hasPrev = $derived(currentPage > 1);
+	const hasNext = $derived(currentPage < totalPages);
 
 	async function loadEntries(page: number) {
+		isLoading = true;
+		error = '';
 		try {
 			const res = await fetch(getApiUrl(`/api/community?page=${page}&limit=${LIMIT}`));
 			const data = await res.json();
@@ -157,23 +162,20 @@
 				return;
 			}
 
-			if (page === 1) {
-				entries = data.entries;
-			} else {
-				entries = [...entries, ...data.entries];
-			}
+			entries = data.entries;
 			totalEntries = data.total;
 		} catch {
 			error = 'Kunde inte ansluta till servern.';
+		} finally {
+			isLoading = false;
 		}
 	}
 
-	async function loadMore() {
-		if (isLoadingMore || !hasMore) return;
-		isLoadingMore = true;
-		currentPage++;
-		await loadEntries(currentPage);
-		isLoadingMore = false;
+	async function goToPage(page: number) {
+		if (page < 1 || page > totalPages || page === currentPage) return;
+		currentPage = page;
+		await loadEntries(page);
+		window.scrollTo({ top: 0, behavior: 'smooth' });
 	}
 
 	function openEntry(entry: CommunityEntry) {
@@ -216,9 +218,8 @@
 			authStore.user?.id === selectedEntry.user_id
 	);
 
-	onMount(async () => {
-		await loadEntries(1);
-		isLoading = false;
+	onMount(() => {
+		loadEntries(1);
 	});
 </script>
 
@@ -269,15 +270,14 @@
 				{/each}
 			</div>
 
-			{#if hasMore}
-				<div class="load-more-row">
-					<button class="load-more-btn" onclick={loadMore} disabled={isLoadingMore}>
-						{#if isLoadingMore}
-							<span class="spinner"></span>
-							Laddar...
-						{:else}
-							Visa fler
-						{/if}
+			{#if totalPages > 1}
+				<div class="pagination">
+					<button class="pagination-btn" onclick={() => goToPage(currentPage - 1)} disabled={!hasPrev} aria-label="Föregående sida">
+						<span class="pagination-icon">{@html chevronLeftSvg}</span>
+					</button>
+					<span class="pagination-info">Sida {currentPage} av {totalPages}</span>
+					<button class="pagination-btn" onclick={() => goToPage(currentPage + 1)} disabled={!hasNext} aria-label="Nästa sida">
+						<span class="pagination-icon">{@html chevronRightSvg}</span>
 					</button>
 				</div>
 			{/if}
@@ -371,7 +371,7 @@
 		display: flex;
 		flex-direction: column;
 		width: 100%;
-		max-width: var(--content-width);
+		max-width: 1100px;
 	}
 
 	/* ===== Header ===== */
@@ -470,14 +470,21 @@
 
 	.entries-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		grid-template-columns: repeat(3, 1fr);
 		gap: 0.875rem;
+	}
+
+	@media (max-width: 750px) {
+		.entries-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
 	}
 
 	.community-card {
 		display: flex;
 		flex-direction: column;
 		gap: 0.75rem;
+		min-width: 0;
 		padding: 1rem 1.125rem;
 		background-color: var(--color-bg-elevated);
 		border: 1px solid var(--color-border);
@@ -534,6 +541,7 @@
 	}
 
 	.card-excerpt {
+		flex: 1;
 		font-size: var(--text-sm);
 		font-weight: var(--weight-book);
 		line-height: var(--leading-relaxed);
@@ -544,6 +552,8 @@
 		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
+		overflow-wrap: break-word;
+		word-break: break-word;
 	}
 
 	.card-bottom {
@@ -569,38 +579,60 @@
 		color: var(--color-text-muted);
 	}
 
-	/* ===== Load More ===== */
+	/* ===== Pagination ===== */
 
-	.load-more-row {
+	.pagination {
 		display: flex;
+		align-items: center;
 		justify-content: center;
+		gap: 1rem;
 		padding-top: 1.5rem;
 	}
 
-	.load-more-btn {
+	.pagination-btn {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
-		padding: 0.75rem 1.5rem;
+		justify-content: center;
+		width: 2.25rem;
+		height: 2.25rem;
+		padding: 0;
+		background: var(--color-bg-elevated);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		cursor: pointer;
+		color: var(--color-text);
+		transition: border-color 0.15s ease, color 0.15s ease;
+	}
+
+	.pagination-btn:hover:not(:disabled) {
+		border-color: var(--color-accent);
+		color: var(--color-accent);
+	}
+
+	.pagination-btn:disabled {
+		opacity: 0.3;
+		cursor: not-allowed;
+	}
+
+	.pagination-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 16px;
+		height: 16px;
+	}
+
+	.pagination-icon :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.pagination-info {
 		font-family: var(--font-primary);
 		font-size: var(--text-sm);
 		font-weight: var(--weight-medium);
 		letter-spacing: var(--tracking-wide);
-		color: var(--color-text);
-		background: var(--color-bg-elevated);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-md);
-		cursor: pointer;
-		transition: border-color 0.15s ease;
-	}
-
-	.load-more-btn:hover:not(:disabled) {
-		border-color: var(--color-accent);
-	}
-
-	.load-more-btn:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
+		color: var(--color-text-muted);
 	}
 
 	/* ===== Detail Modal ===== */
