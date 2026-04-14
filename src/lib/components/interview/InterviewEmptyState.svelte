@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { accentStore } from '$lib/stores/accent.svelte';
 
 	import { Emoji } from '$lib/assets/emojis';
+	import { getRandomWelcomeMessage } from '$lib/data/welcomeMessages';
 
 	interface Props {
 		onSend: (message: string) => void;
@@ -10,50 +10,39 @@
 
 	let { onSend }: Props = $props();
 
-	const roseMap = {
-		pink: 'rose-pink',
-		blue: 'rose-blue',
-		amber: 'rose-amber',
-		lime: 'rose-lime',
-		red: 'rose-red'
-	} as const;
-
-	let RoseIcon = $derived(roseMap[accentStore.current]);
-
 	const starters = [
-		{ label: 'Berätta vad jag borde skriva om!', message: 'Berätta vad jag borde skriva om!' },
+		{ label: 'Ge mig tips på vad jag borde skriva om..', message: 'Ge mig tips på vad jag borde skriva om!' },
 		{
-			label: 'Ställ en fråga jag inte väntar mig',
-			message: 'Ställ en fråga jag inte väntar mig'
+			label: 'Ställ mig en fråga jag inte väntar mig..',
+			message: 'Ställ mig en fråga jag inte väntar mig'
 		},
 		{
-			label: 'Hjälp mig att komma ihåg den här dagen',
+			label: 'Hjälp mig att komma ihåg den här dagen..',
 			message: 'Hjälp mig att komma ihåg den här dagen'
 		},
 		{
-			label: 'Gräv fram något intressant ur min dag',
+			label: 'Gräv fram något intressant ur min dag..',
 			message: 'Gräv fram något intressant ur min dag'
 		}
 	] as const;
 
-	let firstName = $derived(wizardStore.data.profile.name.split(' ')[0]);
-	let greeting = $derived(firstName ? `Hej där, ${firstName}!` : 'Hej där!');
+	const welcome = getRandomWelcomeMessage();
 </script>
 
 <div class="empty-state">
 	<div class="empty-greeting">
 		<div class="greeting-icon">
-			<Emoji name="speech-balloon" size={96} />
+			<Emoji name="hand-waving" size={96} />
 		</div>
-		<p class="greeting-text">{greeting}</p>
-		<p class="greeting-sub">Stort eller smått, roligt eller tungt – allt är värt att skriva om. Var vill du börja?</p>
+		<p class="greeting-text">{welcome.title}</p>
+		<p class="greeting-sub">{welcome.greeting}</p>
 	</div>
 
 	<div class="starter-grid">
 		{#each starters as starter}
 			<button class="starter-chip" onclick={() => onSend(starter.message)}>
 				<span class="chip-icon">
-					<Emoji name={RoseIcon} size={20} />
+					<Emoji name="speech-balloon" size={24} />
 				</span>
 				<span class="chip-text">{starter.label}</span>
 			</button>
@@ -78,6 +67,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;
+		margin-bottom: 0.75rem;
 	}
 
 	.greeting-icon {
@@ -88,7 +78,7 @@
 
 	.greeting-text {
 		font-family: var(--font-primary);
-		font-size: var(--text-xl);
+		font-size: var(--text-2xl) !important;
 		font-weight: var(--weight-semibold);
 		letter-spacing: var(--tracking-wide);
 		color: var(--color-text);

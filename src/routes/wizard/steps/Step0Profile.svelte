@@ -295,6 +295,7 @@
 				<label class="field-label" for="pronouns">Pronomen</label>
 				<select
 					id="pronouns"
+					class="pronouns"
 					value={wizardStore.data.profile.pronouns}
 					onchange={(e) => wizardStore.updateProfile('pronouns', e.currentTarget.value)}
 				>
@@ -514,7 +515,8 @@
 
 	.birthday-day,
 	.birthday-month,
-	.birthday-year {
+	.birthday-year,
+	.pronouns {
 		width: auto;
 		appearance: none;
 		-webkit-appearance: none;
