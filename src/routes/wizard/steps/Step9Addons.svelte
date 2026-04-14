@@ -1,43 +1,25 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
-	import {
-		EmojiCrystalBall,
-		EmojiLightBulb,
-		EmojiMantelpieceClock,
-		EmojiZodiacAries,
-		EmojiZodiacTaurus,
-		EmojiZodiacGemini,
-		EmojiZodiacCancer,
-		EmojiZodiacLeo,
-		EmojiZodiacVirgo,
-		EmojiZodiacLibra,
-		EmojiZodiacScorpio,
-		EmojiZodiacSagittarius,
-		EmojiZodiacCapricorn,
-		EmojiZodiacAquarius,
-		EmojiZodiacPisces
-	} from '$lib/assets/emojis';
-	import type { Component } from 'svelte';
-
+	import { Emoji } from '$lib/assets/emojis';
 	// Check if birthday is set
 	let hasBirthday = $derived(wizardStore.data.profile.birthday !== null);
 	let zodiacSign = $derived(getZodiacFromBirthday(wizardStore.data.profile.birthday));
 
 	// Map zodiac ID to component
-	const zodiacComponents: Record<string, Component> = {
-		aries: EmojiZodiacAries,
-		taurus: EmojiZodiacTaurus,
-		gemini: EmojiZodiacGemini,
-		cancer: EmojiZodiacCancer,
-		leo: EmojiZodiacLeo,
-		virgo: EmojiZodiacVirgo,
-		libra: EmojiZodiacLibra,
-		scorpio: EmojiZodiacScorpio,
-		sagittarius: EmojiZodiacSagittarius,
-		capricorn: EmojiZodiacCapricorn,
-		aquarius: EmojiZodiacAquarius,
-		pisces: EmojiZodiacPisces
+	const zodiacComponents: Record<string, string> = {
+		aries: 'zodiac-aries',
+		taurus: 'zodiac-taurus',
+		gemini: 'zodiac-gemini',
+		cancer: 'zodiac-cancer',
+		leo: 'zodiac-leo',
+		virgo: 'zodiac-virgo',
+		libra: 'zodiac-libra',
+		scorpio: 'zodiac-scorpio',
+		sagittarius: 'zodiac-sagittarius',
+		capricorn: 'zodiac-capricorn',
+		aquarius: 'zodiac-aquarius',
+		pisces: 'zodiac-pisces'
 	};
 
 	function toggleHoroscope() {
@@ -74,12 +56,12 @@
 				{#if zodiacSign}
 					{@const ZodiacIcon = zodiacComponents[zodiacSign.id]}
 					{#if ZodiacIcon}
-						<ZodiacIcon size={40} />
+						<Emoji name={ZodiacIcon} size={40} />
 					{:else}
-						<EmojiCrystalBall size={40} />
+						<Emoji name="crystal-ball" size={40} />
 					{/if}
 				{:else}
-					<EmojiCrystalBall size={40} />
+					<Emoji name="crystal-ball" size={40} />
 				{/if}
 			</div>
 			<div class="addon-content">
@@ -106,7 +88,7 @@
 			type="button"
 		>
 			<div class="addon-icon">
-				<EmojiMantelpieceClock size={40} />
+				<Emoji name="mantelpiece-clock" size={40} />
 			</div>
 			<div class="addon-content">
 				<h3 class="addon-title">På denna dag...</h3>
@@ -128,7 +110,7 @@
 			type="button"
 		>
 			<div class="addon-icon">
-				<EmojiLightBulb size={40} />
+				<Emoji name="light-bulb" size={40} />
 			</div>
 			<div class="addon-content">
 				<h3 class="addon-title">Hemläxa</h3>

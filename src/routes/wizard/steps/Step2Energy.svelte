@@ -1,46 +1,45 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import type { Component } from 'svelte';
-	import { EmojiFaceBagsUnderEyes, EmojiFaceTired, EmojiFaceSleepy, EmojiFaceYawning, EmojiFaceNeutral, EmojiFaceSlightlySmiling, EmojiFaceSmilingEyes, EmojiFaceSmilingHearts, EmojiFaceGrinningSweat, EmojiFaceStarStruck, EmojiFaceSleeping, EmojiFaceCrossedOutEyes, EmojiFaceWeary, EmojiFaceSmiling, EmojiFaceGrinningSmilingEyes, EmojiFacePartying, EmojiRocket, EmojiFaceCryingLoudly, EmojiFaceCrying, EmojiFaceFrowning, EmojiFaceSlightlyFrowning, EmojiFaceRelieved, EmojiFaceLol } from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 
-	const sleepEmojis: Component[] = [
-		EmojiFaceBagsUnderEyes,
-		EmojiFaceTired,
-		EmojiFaceSleepy,
-		EmojiFaceYawning,
-		EmojiFaceNeutral,
-		EmojiFaceSlightlySmiling,
-		EmojiFaceSmilingEyes,
-		EmojiFaceSmilingHearts,
-		EmojiFaceGrinningSweat,
-		EmojiFaceStarStruck
+	const sleepEmojis: string[] = [
+		'face-bags-under-eyes',
+		'face-tired',
+		'face-sleepy',
+		'face-yawning',
+		'face-neutral',
+		'face-slightly-smiling',
+		'face-smiling-eyes',
+		'face-smiling-hearts',
+		'face-grinning-sweat',
+		'face-star-struck'
 	];
 
-	const energyEmojis: Component[] = [
-		EmojiFaceSleeping,
-		EmojiFaceCrossedOutEyes,
-		EmojiFaceWeary,
-		EmojiFaceYawning,
-		EmojiFaceNeutral,
-		EmojiFaceSmiling,
-		EmojiFaceGrinningSmilingEyes,
-		EmojiFacePartying,
-		EmojiFaceStarStruck,
-		EmojiRocket
+	const energyEmojis: string[] = [
+		'face-sleeping',
+		'face-crossed-out-eyes',
+		'face-weary',
+		'face-yawning',
+		'face-neutral',
+		'face-smiling',
+		'face-grinning-smiling-eyes',
+		'face-partying',
+		'face-star-struck',
+		'rocket'
 	];
 
-	const moodEmojis: Component[] = [
-		EmojiFaceCryingLoudly,
-		EmojiFaceCrying,
-		EmojiFaceFrowning,
-		EmojiFaceSlightlyFrowning,
-		EmojiFaceNeutral,
-		EmojiFaceRelieved,
-		EmojiFaceSmilingEyes,
-		EmojiFaceSmilingHearts,
-		EmojiFaceGrinningSweat,
-		EmojiFaceLol
+	const moodEmojis: string[] = [
+		'face-crying-loudly',
+		'face-crying',
+		'face-frowning',
+		'face-slightly-frowning',
+		'face-neutral',
+		'face-relieved',
+		'face-smiling-eyes',
+		'face-smiling-hearts',
+		'face-grinning-sweat',
+		'face-lol'
 	];
 
 	const sliders = [
@@ -70,7 +69,7 @@
 		}
 	];
 
-	function getEmojiComponent(emojis: Component[], value: number): Component {
+	function getEmojiComponent(emojis: string[], value: number): string {
 		// value is 1-10, array is 0-indexed, round for smooth slider
 		const index = Math.round(value) - 1;
 		return emojis[Math.min(Math.max(index, 0), 9)];
@@ -89,7 +88,7 @@
 			<div class="slider-emoji">
 				{#key wizardStore.data[slider.key]}
 					{@const EmojiComponent = getEmojiComponent(slider.emojis, wizardStore.data[slider.key])}
-					<EmojiComponent size={32} />
+					<Emoji name={EmojiComponent} size={32} />
 				{/key}
 			</div>
 

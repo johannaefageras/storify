@@ -2,42 +2,41 @@
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { tones } from '$lib/data/tones';
 	import { voiceSamples } from '$lib/data/voiceSamples';
-	import type { Component } from 'svelte';
-	import { EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiWomanDetective, EmojiCrown, EmojiTopHat, EmojiWiltedFlower, EmojiPoo, EmojiEarth, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanMeditating, EmojiTheaterMasks, EmojiMicrophone, EmojiOpenBook, EmojiNewspaper, EmojiBrain, EmojiSatellite, EmojiHotBeverage, EmojiDice } from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 
-	const toneIconMap: Record<string, Component> = {
-		'ai-robot': EmojiRobot,
-		'bored': EmojiFaceYawning,
-		'british': EmojiFlagUk,
-		'bureaucratic': EmojiArchive,
-		'cat-perspective': EmojiCat,
-		'chaotic': EmojiTornado,
-		'classic': EmojiLedger,
-		'cringe': EmojiFaceGrimacing,
-		'cynical': EmojiFaceUnamused,
-		'detective': EmojiWomanDetective,
-		'drama-queen': EmojiCrown,
-		'formal': EmojiTopHat,
-		'melodramatic': EmojiWiltedFlower,
-		'meme': EmojiPoo,
-		'nature-documentary': EmojiEarth,
-		'nerd': EmojiFaceNerd,
-		'overthinker': EmojiFaceExplodingHead,
-		'passive-aggressive': EmojiFaceUpsideDown,
-		'philosophical': EmojiOwl,
-		'quest-log': EmojiVideoGame,
-		'self-help': EmojiWomanMeditating,
-		'shakespeare': EmojiTheaterMasks,
-		'sportscaster': EmojiMicrophone,
-		'storytelling': EmojiOpenBook,
-		'tabloid': EmojiNewspaper,
-		'therapist': EmojiBrain,
-		'tinfoil-hat': EmojiSatellite,
-		'cozy': EmojiHotBeverage
+	const toneIconMap: Record<string, string> = {
+		'ai-robot': 'robot',
+		'bored': 'face-yawning',
+		'british': 'flag-uk',
+		'bureaucratic': 'archive',
+		'cat-perspective': 'cat',
+		'chaotic': 'tornado',
+		'classic': 'ledger',
+		'cringe': 'face-grimacing',
+		'cynical': 'face-unamused',
+		'detective': 'woman-detective',
+		'drama-queen': 'crown',
+		'formal': 'top-hat',
+		'melodramatic': 'wilted-flower',
+		'meme': 'poo',
+		'nature-documentary': 'earth',
+		'nerd': 'face-nerd',
+		'overthinker': 'face-exploding-head',
+		'passive-aggressive': 'face-upside-down',
+		'philosophical': 'owl',
+		'quest-log': 'video-game',
+		'self-help': 'woman-meditating',
+		'shakespeare': 'theater-masks',
+		'sportscaster': 'microphone',
+		'storytelling': 'open-book',
+		'tabloid': 'newspaper',
+		'therapist': 'brain',
+		'tinfoil-hat': 'satellite',
+		'cozy': 'hot-beverage'
 	};
 
-	function getToneIcon(toneId: string): Component | undefined {
+	function getToneIcon(toneId: string): string | undefined {
 		return toneIconMap[toneId];
 	}
 
@@ -111,7 +110,7 @@
 			>
 				<span class="tone-emoji">
 					{#if ToneIcon}
-						<ToneIcon size={36} />
+						<Emoji name={ToneIcon} size={36} />
 					{:else}
 						{tone.emoji}
 					{/if}
@@ -125,7 +124,7 @@
 			onclick={() => wizardStore.updateData('selectedTone', wizardStore.data.selectedTone === 'surprise' ? '' : 'surprise')}
 		>
 			<span class="tone-emoji">
-				<EmojiDice size={36} />
+				<Emoji name="dice" size={36} />
 			</span>
 			<span class="tone-name">Överraska mig!</span>
 		</button>

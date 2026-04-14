@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import { EmojiPushpinRound, EmojiPushpin, EmojiHandWaving, EmojiHouse } from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 	import { FIELD_LIMITS } from '$lib/validation';
 	import { searchPlaces, getPlaceCategory, isAddress, type Place } from '$lib/utils/places';
@@ -259,7 +259,7 @@
 
 	<div class="field-group">
 		<span class="field-label">
-			<span class="label-emoji"><EmojiHouse size={23} /></span>
+			<span class="label-emoji"><Emoji name="house" size={23} /></span>
 			<span>Var har du varit idag?<RequiredIndicator tooltip="Lägg till minst en plats" /></span>
 		</span>
 
@@ -304,9 +304,9 @@
 						>
 							<span class="place-icon">
 								{#if isAddress(place.types)}
-									<EmojiPushpinRound size={22} />
+									<Emoji name="pushpin-round" size={22} />
 								{:else}
-									<EmojiPushpinRound size={22} />
+									<Emoji name="pushpin-round" size={22} />
 								{/if}
 							</span>
 							<span class="place-info">
@@ -327,7 +327,7 @@
 
 	<div class="field-group">
 		<span class="field-label">
-			<span class="label-emoji"><EmojiPushpin size={23} /></span>
+			<span class="label-emoji"><Emoji name="pushpin" size={23} /></span>
 			<span>Vad hände idag?<RequiredIndicator tooltip="Lägg till minst en händelse" /></span>
 		</span>
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
@@ -352,7 +352,7 @@
 
 	<div class="field-group">
 		<span class="field-label">
-			<span class="label-emoji"><EmojiHandWaving size={23} /></span>
+			<span class="label-emoji"><Emoji name="hand-waving" size={23} /></span>
 			Vilka var med idag?
 		</span>
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->

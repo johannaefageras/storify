@@ -1,35 +1,22 @@
 <script lang="ts">
-	import {
-		EmojiRosePink,
-		EmojiRoseAmber,
-		EmojiRoseBlue,
-		EmojiRoseLime,
-		EmojiRoseRed,
-		EmojiWomanLaptopPink,
-		EmojiWomanLaptopAmber,
-		EmojiWomanLaptopBlue,
-		EmojiWomanLaptopLime,
-		EmojiWomanLaptopRed,
-		EmojiTools,
-		EmojiUsersSilhouette
-	} from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 
 	const roseComponents = {
-		pink: EmojiRosePink,
-		amber: EmojiRoseAmber,
-		blue: EmojiRoseBlue,
-		lime: EmojiRoseLime,
-		red: EmojiRoseRed
+		pink: 'rose-pink',
+		amber: 'rose-amber',
+		blue: 'rose-blue',
+		lime: 'rose-lime',
+		red: 'rose-red'
 	};
 
 	const laptopComponents = {
-		pink: EmojiWomanLaptopPink,
-		amber: EmojiWomanLaptopAmber,
-		blue: EmojiWomanLaptopBlue,
-		lime: EmojiWomanLaptopLime,
-		red: EmojiWomanLaptopRed
+		pink: 'woman-laptop-pink',
+		amber: 'woman-laptop-amber',
+		blue: 'woman-laptop-blue',
+		lime: 'woman-laptop-lime',
+		red: 'woman-laptop-red'
 	};
 
 	let RoseIcon = $derived(roseComponents[accentStore.current]);
@@ -38,7 +25,7 @@
 
 <main class="legal-page">
 	<div class="page-header">
-		<RoseIcon size={96} />
+		<Emoji name={RoseIcon} size={96} />
 		<h1>Om Storify</h1>
 	</div>
 
@@ -64,7 +51,7 @@
 		<h2>Nytt: Gemenskapen</h2>
 		<div class="community-box">
 			<div class="community-icon">
-				<EmojiUsersSilhouette size={64} />
+				<Emoji name="users-silhouette" size={64} />
 			</div>
 			<div class="community-text">
 				<p>Storify har inte längre bara plats för dina privata minnen, utan också för de berättelser du faktiskt vill dela vidare. I Gemenskapen kan du bläddra bland publika dagboksanteckningar från andra användare och se hur olika röster, dagar och perspektiv tar form.</p>
@@ -83,7 +70,7 @@
 		<h2>Varför jag byggde det här</h2>
 		<div class="about-johanna">
 			<div class="johanna-avatar">
-				<LaptopIcon size={96} />
+				<Emoji name={LaptopIcon} size={96} />
 			</div>
 			<div class="johanna-text">
 				<p>Jag heter Johanna, är 36 år och bor i Göteborg. På fritiden kodar jag (självlärd, på hobbynivå), syr mina egna kläder, och försöker hålla mina krukväxter vid liv. Ibland lyckas jag med alla tre samtidigt.</p>
@@ -96,7 +83,7 @@
 		<h2>Vill du vara med och utveckla projektet?</h2>
 		<div class="contribute-box">
 			<div class="contribute-icon">
-				<EmojiTools size={64} />
+				<Emoji name="tools" size={64} />
 			</div>
 			<div class="contribute-text">
 				<p>Storify är open source! Har du idéer, hittat en bugg, eller vill bidra med kod? Projektet finns på GitHub och alla bidrag är välkomna.</p>

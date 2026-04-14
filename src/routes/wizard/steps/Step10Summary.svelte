@@ -6,8 +6,7 @@
 	import { jomojiSvgMap } from '$lib/data/jomojis';
 	import { uniqueSvgIds } from '$lib/utils/uniqueSvgIds';
 	import { getMoodColorById } from '$lib/data/moodColors';
-	import type { Component } from 'svelte';
-	import { EmojiSparkles, EmojiRosePink, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiArchive, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiHotBeverage, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiDice, EmojiTornado, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiCrystalBall, EmojiLightBulb, EmojiMantelpieceClock, EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer, EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio, EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces, EmojiFloppyDisk, EmojiCrossMark } from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import ShareToCommunity from '$lib/components/ShareToCommunity.svelte';
@@ -115,65 +114,65 @@ Nu är det kväll och jag är trött, men den goda sorten av trött. Imorgon är
 
 Vi ses imorgon, dagboken.`;
 
-	const zodiacComponents: Record<string, Component> = {
-		aries: EmojiZodiacAries,
-		taurus: EmojiZodiacTaurus,
-		gemini: EmojiZodiacGemini,
-		cancer: EmojiZodiacCancer,
-		leo: EmojiZodiacLeo,
-		virgo: EmojiZodiacVirgo,
-		libra: EmojiZodiacLibra,
-		scorpio: EmojiZodiacScorpio,
-		sagittarius: EmojiZodiacSagittarius,
-		capricorn: EmojiZodiacCapricorn,
-		aquarius: EmojiZodiacAquarius,
-		pisces: EmojiZodiacPisces
+	const zodiacComponents: Record<string, string> = {
+		aries: 'zodiac-aries',
+		taurus: 'zodiac-taurus',
+		gemini: 'zodiac-gemini',
+		cancer: 'zodiac-cancer',
+		leo: 'zodiac-leo',
+		virgo: 'zodiac-virgo',
+		libra: 'zodiac-libra',
+		scorpio: 'zodiac-scorpio',
+		sagittarius: 'zodiac-sagittarius',
+		capricorn: 'zodiac-capricorn',
+		aquarius: 'zodiac-aquarius',
+		pisces: 'zodiac-pisces'
 	};
 
 	const zodiacSign = $derived(getZodiacFromBirthday(wizardStore.data.profile.birthday));
 	const hasAddons = $derived(wizardStore.data.includeHoroscope || wizardStore.data.includeOnThisDay || wizardStore.data.includeHomework);
 
-	function getZodiacComponent(): Component | undefined {
+	function getZodiacComponent(): string | undefined {
 		if (!zodiacSign) return undefined;
 		return zodiacComponents[zodiacSign.id];
 	}
 
-	const toneIconMap: Record<string, Component> = {
-		'ai-robot': EmojiRobot,
-		'bored': EmojiFaceYawning,
-		'british': EmojiFlagUk,
-		'bureaucratic': EmojiArchive,
-		'cat-perspective': EmojiCat,
-		'chaotic': EmojiTornado,
-		'classic': EmojiLedger,
-		'cringe': EmojiFaceGrimacing,
-		'cynical': EmojiFaceUnamused,
-		'detective': EmojiWomanDetective,
-		'drama-queen': EmojiCrown,
-		'formal': EmojiTopHat,
-		'melodramatic': EmojiHeartOnFire,
-		'meme': EmojiPoo,
-		'nature-documentary': EmojiEarth,
-		'nerd': EmojiFaceNerd,
-		'overthinker': EmojiFaceExplodingHead,
-		'passive-aggressive': EmojiFaceUpsideDown,
-		'philosophical': EmojiOwl,
-		'quest-log': EmojiVideoGame,
-		'self-help': EmojiWomanMeditating,
-		'shakespeare': EmojiTheaterMasks,
-		'sportscaster': EmojiMicrophone,
-		'storytelling': EmojiOpenBook,
-		'tabloid': EmojiNewspaper,
-		'therapist': EmojiBrain,
-		'tinfoil-hat': EmojiSatellite,
-		'cozy': EmojiHotBeverage
+	const toneIconMap: Record<string, string> = {
+		'ai-robot': 'robot',
+		'bored': 'face-yawning',
+		'british': 'flag-uk',
+		'bureaucratic': 'archive',
+		'cat-perspective': 'cat',
+		'chaotic': 'tornado',
+		'classic': 'ledger',
+		'cringe': 'face-grimacing',
+		'cynical': 'face-unamused',
+		'detective': 'woman-detective',
+		'drama-queen': 'crown',
+		'formal': 'top-hat',
+		'melodramatic': 'heart-on-fire',
+		'meme': 'poo',
+		'nature-documentary': 'earth',
+		'nerd': 'face-nerd',
+		'overthinker': 'face-exploding-head',
+		'passive-aggressive': 'face-upside-down',
+		'philosophical': 'owl',
+		'quest-log': 'video-game',
+		'self-help': 'woman-meditating',
+		'shakespeare': 'theater-masks',
+		'sportscaster': 'microphone',
+		'storytelling': 'open-book',
+		'tabloid': 'newspaper',
+		'therapist': 'brain',
+		'tinfoil-hat': 'satellite',
+		'cozy': 'hot-beverage'
 	};
 
 	function getEmojiSvg(emojiId: string): string | undefined {
 		return jomojiSvgMap.get(emojiId);
 	}
 
-	function getToneIcon(toneId: string): Component | undefined {
+	function getToneIcon(toneId: string): string | undefined {
 		return toneIconMap[toneId];
 	}
 
@@ -557,7 +556,7 @@ Vi ses imorgon, dagboken.`;
 	<div class="result-view">
 		<div class="result-intro">
 			<div class="result-icon">
-					<EmojiRosePink size={48} />
+					<Emoji name="rose-pink" size={48} />
 			</div>
 			<h1 class="result-title">{resultMessage.title}</h1>
 			<p class="result-subtitle">{resultMessage.subtitle}</p>
@@ -596,11 +595,11 @@ Vi ses imorgon, dagboken.`;
 		{#if isEditing}
 			<div class="edit-actions">
 				<button class="edit-btn edit-btn-cancel" onclick={cancelEditing}>
-					<EmojiCrossMark size={18} />
+					<Emoji name="cross-mark" size={18} />
 					<span>Avbryt</span>
 				</button>
 				<button class="edit-btn edit-btn-save" onclick={saveEdit}>
-					<EmojiFloppyDisk size={18} />
+					<Emoji name="floppy-disk" size={18} />
 					<span>Spara</span>
 				</button>
 			</div>
@@ -617,7 +616,7 @@ Vi ses imorgon, dagboken.`;
 							</svg>
 							<span>Sparat dagbok!</span>
 						{:else}
-							<EmojiFloppyDisk size={22} />
+							<Emoji name="floppy-disk" size={22} />
 							<span>Spara dagbok</span>
 						{/if}
 					</button>
@@ -634,7 +633,7 @@ Vi ses imorgon, dagboken.`;
 							<span class="spinner"></span>
 							<span>Sparar...</span>
 						{:else}
-							<EmojiFramedPicture size={22} />
+							<Emoji name="framed-picture" size={22} />
 							<span>Spara bild</span>
 						{/if}
 					</button>
@@ -643,7 +642,7 @@ Vi ses imorgon, dagboken.`;
 							<span class="spinner"></span>
 							<span>Skapar...</span>
 						{:else}
-							<EmojiPrinter size={22} />
+							<Emoji name="printer" size={22} />
 							<span>Spara PDF</span>
 						{/if}
 					</button>
@@ -654,12 +653,12 @@ Vi ses imorgon, dagboken.`;
 							</svg>
 							<span>Kopierat!</span>
 						{:else}
-							<EmojiClipboard size={22} />
+							<Emoji name="clipboard" size={22} />
 							<span>Kopiera</span>
 						{/if}
 					</button>
 					<button class="action-btn" onclick={openEmailModal}>
-						<EmojiEnvelopeArrow size={22} />
+						<Emoji name="envelope-arrow" size={22} />
 						<span>Maila</span>
 					</button>
 				</div>
@@ -713,7 +712,7 @@ Vi ses imorgon, dagboken.`;
 								<span class="spinner"></span>
 								Skickar...
 							{:else}
-								<EmojiEnvelopeEmail size={22} />
+								<Emoji name="envelope-email" size={22} />
 								Skicka
 							{/if}
 						</button>
@@ -738,14 +737,14 @@ Vi ses imorgon, dagboken.`;
 
 		{#if wizardStore.data.selectedTone === 'surprise'}
 			<span class="voice-indicator">
-				<span class="voice-icon"><EmojiDice size={20} /></span>
+				<span class="voice-icon"><Emoji name="dice" size={20} /></span>
 				Överraskning
 			</span>
 		{:else if selectedTone}
 			{@const ToneIcon = getToneIcon(selectedTone.id)}
 			<span class="voice-indicator">
 				{#if ToneIcon}
-					<span class="voice-icon"><UniqueEmoji><ToneIcon size={20} /></UniqueEmoji></span>
+					<span class="voice-icon"><UniqueEmoji><Emoji name={ToneIcon} size={20} /></UniqueEmoji></span>
 				{/if}
 				{selectedTone.name}
 			</span>
@@ -762,23 +761,23 @@ Vi ses imorgon, dagboken.`;
 								{#if zodiacSign}
 									{@const ZodiacIcon = zodiacComponents[zodiacSign.id]}
 									{#if ZodiacIcon}
-										<UniqueEmoji><ZodiacIcon size={20} /></UniqueEmoji>
+										<UniqueEmoji><Emoji name={ZodiacIcon} size={20} /></UniqueEmoji>
 									{:else}
-										<UniqueEmoji><EmojiCrystalBall size={20} /></UniqueEmoji>
+										<UniqueEmoji><Emoji name="crystal-ball" size={20} /></UniqueEmoji>
 									{/if}
 								{:else}
-									<UniqueEmoji><EmojiCrystalBall size={20} /></UniqueEmoji>
+									<UniqueEmoji><Emoji name="crystal-ball" size={20} /></UniqueEmoji>
 								{/if}
 							</span>
 						{/if}
 						{#if wizardStore.data.includeOnThisDay}
 							<span class="addon-badge" title="På denna dag...">
-								<UniqueEmoji><EmojiMantelpieceClock size={20} /></UniqueEmoji>
+								<UniqueEmoji><Emoji name="mantelpiece-clock" size={20} /></UniqueEmoji>
 							</span>
 						{/if}
 						{#if wizardStore.data.includeHomework}
 							<span class="addon-badge" title="Hemläxa">
-								<UniqueEmoji><EmojiLightBulb size={20} /></UniqueEmoji>
+								<UniqueEmoji><Emoji name="light-bulb" size={20} /></UniqueEmoji>
 							</span>
 						{/if}
 						</div>
@@ -849,7 +848,7 @@ Vi ses imorgon, dagboken.`;
 					<span class="spinner"></span>
 					<span class="loading-phrase" class:visible={loadingPhraseVisible}>{loadingPhrase}</span>
 				{:else}
-					<span class="generate-icon"><EmojiSparkles size={28} /></span>
+					<span class="generate-icon"><Emoji name="sparkles" size={28} /></span>
 					Generera dagboksinlägg
 				{/if}
 			</button>

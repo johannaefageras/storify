@@ -1,22 +1,15 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import {
-		EmojiWomanWavingPink,
-		EmojiWomanWavingAmber,
-		EmojiWomanWavingBlue,
-		EmojiWomanWavingLime,
-		EmojiWomanWavingRed,
-		EmojiBouquet
-	} from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 
 	const wavingComponents = {
-		pink: EmojiWomanWavingPink,
-		amber: EmojiWomanWavingAmber,
-		blue: EmojiWomanWavingBlue,
-		lime: EmojiWomanWavingLime,
-		red: EmojiWomanWavingRed
+		pink: 'woman-waving-pink',
+		amber: 'woman-waving-amber',
+		blue: 'woman-waving-blue',
+		lime: 'woman-waving-lime',
+		red: 'woman-waving-red'
 	};
 
 	let WavingIcon = $derived(wavingComponents[accentStore.current]);
@@ -96,7 +89,7 @@
 
 <main class="legal-page">
 	<div class="page-header">
-		<WavingIcon size={96} />
+		<Emoji name={WavingIcon} size={96} />
 		<h1>Hör av dig</h1>
 	</div>
 
@@ -231,7 +224,7 @@
 				&times;
 			</button>
 			<div class="modal-header">
-				<EmojiBouquet size={80} />
+				<Emoji name="bouquet" size={80} />
 				<h1>Tack för ditt meddelande!</h1>
 			</div>
 			<p>Ditt meddelande är mottaget och jag återkommer så snart jag kan – vanligtvis inom ett par dagar.</p>

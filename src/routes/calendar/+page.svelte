@@ -3,7 +3,7 @@
 	import { goto } from '$app/navigation';
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { supabase } from '$lib/supabase/client';
-	import { EmojiCalendar, EmojiCompass, EmojiRocket, EmojiSpeakingHead, EmojiPencil } from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import IconArrowLeft from '$lib/assets/icons/IconArrowLeft.svelte';
@@ -189,10 +189,10 @@
 	let selectedDate = $state('');
 
 	const writingModes = [
-		{ id: 'wizard', title: 'Steg-för-steg', icon: EmojiCompass, href: '/wizard' },
-		{ id: 'quick', title: 'Snabbläge', icon: EmojiRocket, href: '/quick' },
-		{ id: 'interview', title: 'AI-intervju', icon: EmojiSpeakingHead, href: '/interview' },
-		{ id: 'editor', title: 'Skriv fritt', icon: EmojiPencil, href: '/editor' }
+		{ id: 'wizard', title: 'Steg-för-steg', icon: 'compass', href: '/wizard' },
+		{ id: 'quick', title: 'Snabbläge', icon: 'rocket', href: '/quick' },
+		{ id: 'interview', title: 'AI-intervju', icon: 'speaking-head', href: '/interview' },
+		{ id: 'editor', title: 'Skriv fritt', icon: 'pencil', href: '/editor' }
 	];
 
 	function handleDayClick(dateStr: string, isCurrentMonth: boolean) {
@@ -262,7 +262,7 @@
 <div class="calendar-page">
 	<div class="calendar-container">
 		<div class="calendar-header">
-			<div class="header-icon"><UniqueEmoji><EmojiCalendar size={72} /></UniqueEmoji></div>
+			<div class="header-icon"><UniqueEmoji><Emoji name="calendar" size={72} /></UniqueEmoji></div>
 			<h1 class="calendar-title">Kalender</h1>
 			<p class="calendar-subtitle">Följ din skrivresa och bygg upp din streak dag för dag</p>
 		</div>
@@ -364,7 +364,7 @@
 				{#each writingModes as mode}
 					<a href={mode.href} class="mode-card" onclick={closeModeModal}>
 						<div class="mode-card-icon">
-							<mode.icon size={36} />
+							<Emoji name={mode.icon} size={36} />
 						</div>
 						<span class="mode-card-title">{mode.title}</span>
 					</a>

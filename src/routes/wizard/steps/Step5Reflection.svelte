@@ -1,39 +1,34 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import type { Component } from 'svelte';
-	import {
-	EmojiWarning,
-	EmojiExclamationQuestion,
-	EmojiRedo
-} from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 	import { FIELD_LIMITS } from '$lib/validation';
 
 	const fields: {
 		key: 'almostHappened' | 'unnecessaryThing' | 'wouldRedo';
 		label: string;
 		placeholder: string;
-		icon: Component;
+		icon: string;
 		limit: number;
 	}[] = [
 		{
 			key: 'almostHappened',
 			label: 'Något som var nära på att hända idag',
 			placeholder: 'Råkade nästan sms:a fel person, köpte nästan något onödigt...',
-			icon: EmojiWarning,
+			icon: 'warning',
 			limit: FIELD_LIMITS.almostHappened
 		},
 		{
 			key: 'unnecessaryThing',
 			label: 'Varför gjorde du ens det här?',
 			placeholder: 'Scrollade på TikTok i 2 timmar, köpte energidryck nummer 3...',
-			icon: EmojiExclamationQuestion,
+			icon: 'exclamation-question',
 			limit: FIELD_LIMITS.unnecessaryThing
 		},
 		{
 			key: 'wouldRedo',
 			label: 'Vad skulle du vilja göra om idag om du fick chansen?',
 			placeholder: 'Stressat mindre, stannat kvar lite längre, eller gått tidigare...',
-			icon: EmojiRedo,
+			icon: 'redo',
 			limit: FIELD_LIMITS.wouldRedo
 		}
 	];
@@ -47,7 +42,7 @@
 		{@const remaining = field.limit - value.length}
 		<div class="field-group">
 			<label class="field-label" for={field.key}>
-				<span class="label-emoji"><field.icon size={23} /></span>
+				<span class="label-emoji"><Emoji name={field.icon} size={23} /></span>
 				{field.label}
 			</label>
 			<div class="textarea-wrapper">

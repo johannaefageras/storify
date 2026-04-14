@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { getApiUrl } from '$lib/config';
-	import { EmojiUsersSilhouette, EmojiCrossMark } from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 
 	interface Props {
 		generatedText: string;
@@ -80,7 +80,7 @@
 <div class="share-overlay" onclick={onClose} role="button" tabindex="-1" onkeydown={(e) => e.key === 'Escape' && onClose()}>
 	<!-- svelte-ignore a11y_click_events_have_key_events -->
 	<div class="share-modal" onclick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="share-modal-title" tabindex="-1">
-		<div class="share-icon"><EmojiUsersSilhouette size={36} /></div>
+		<div class="share-icon"><Emoji name="users-silhouette" size={36} /></div>
 		<h2 id="share-modal-title" class="share-title">Dela till Gemenskapen</h2>
 		<p class="share-description">
 			Din dagboksanteckning delas publikt så att andra Storify-användare kan läsa den.
@@ -107,7 +107,7 @@
 
 		<div class="share-actions">
 			<button class="share-btn share-btn-cancel" onclick={onClose} disabled={isSharing}>
-				<EmojiCrossMark size={16} />
+				<Emoji name="cross-mark" size={16} />
 				Avbryt
 			</button>
 			<button class="share-btn share-btn-confirm" onclick={shareToCommunity} disabled={isSharing || shareSuccess}>
@@ -120,7 +120,7 @@
 					<span class="spinner"></span>
 					Delar...
 				{:else}
-					<EmojiUsersSilhouette size={18} />
+					<Emoji name="users-silhouette" size={18} />
 					Dela
 				{/if}
 			</button>

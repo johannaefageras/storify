@@ -4,58 +4,8 @@
 	import { tones } from '$lib/data/tones';
 	import { voiceSamples } from '$lib/data/voiceSamples';
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
-	import type { Component } from 'svelte';
 	import IconArrowLeft from '$lib/assets/icons/IconArrowLeft.svelte';
-	import {
-		EmojiRobot,
-		EmojiFaceYawning,
-		EmojiFlagUk,
-		EmojiArchive,
-		EmojiCat,
-		EmojiTornado,
-		EmojiLedger,
-		EmojiFaceGrimacing,
-		EmojiFaceUnamused,
-		EmojiWomanDetective,
-		EmojiCrown,
-		EmojiTopHat,
-		EmojiWiltedFlower,
-		EmojiPoo,
-		EmojiEarth,
-		EmojiFaceNerd,
-		EmojiFaceExplodingHead,
-		EmojiFaceUpsideDown,
-		EmojiOwl,
-		EmojiVideoGame,
-		EmojiWomanMeditating,
-		EmojiTheaterMasks,
-		EmojiMicrophone,
-		EmojiOpenBook,
-		EmojiNewspaper,
-		EmojiBrain,
-		EmojiSatellite,
-		EmojiHotBeverage,
-		EmojiCastle,
-		EmojiOldWoman,
-		EmojiMemo,
-		EmojiTools,
-		EmojiDice,
-		EmojiCrystalBall,
-		EmojiLightBulb,
-		EmojiMantelpieceClock,
-		EmojiZodiacAries,
-		EmojiZodiacTaurus,
-		EmojiZodiacGemini,
-		EmojiZodiacCancer,
-		EmojiZodiacLeo,
-		EmojiZodiacVirgo,
-		EmojiZodiacLibra,
-		EmojiZodiacScorpio,
-		EmojiZodiacSagittarius,
-		EmojiZodiacCapricorn,
-		EmojiZodiacAquarius,
-		EmojiZodiacPisces
-	} from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 
 	interface Props {
 		onGenerate: () => void;
@@ -63,57 +13,57 @@
 
 	let { onGenerate }: Props = $props();
 
-	const toneIconMap: Record<string, Component> = {
-		'ai-robot': EmojiRobot,
-		bored: EmojiFaceYawning,
-		british: EmojiFlagUk,
-		bureaucratic: EmojiArchive,
-		'cat-perspective': EmojiCat,
-		chaotic: EmojiTornado,
-		classic: EmojiLedger,
-		cringe: EmojiFaceGrimacing,
-		cynical: EmojiFaceUnamused,
-		detective: EmojiWomanDetective,
-		'drama-queen': EmojiCrown,
-		formal: EmojiTopHat,
-		melodramatic: EmojiWiltedFlower,
-		meme: EmojiPoo,
-		'nature-documentary': EmojiEarth,
-		nerd: EmojiFaceNerd,
-		overthinker: EmojiFaceExplodingHead,
-		'passive-aggressive': EmojiFaceUpsideDown,
-		philosophical: EmojiOwl,
-		'quest-log': EmojiVideoGame,
-		'self-help': EmojiWomanMeditating,
-		shakespeare: EmojiTheaterMasks,
-		sportscaster: EmojiMicrophone,
-		storytelling: EmojiOpenBook,
-		tabloid: EmojiNewspaper,
-		therapist: EmojiBrain,
-		'tinfoil-hat': EmojiSatellite,
-		cozy: EmojiHotBeverage,
-		'fairy-tale': EmojiCastle,
-		grandma: EmojiOldWoman,
-		'hr-review': EmojiMemo,
-		ikea: EmojiTools
+	const toneIconMap: Record<string, string> = {
+		'ai-robot': 'robot',
+		bored: 'face-yawning',
+		british: 'flag-uk',
+		bureaucratic: 'archive',
+		'cat-perspective': 'cat',
+		chaotic: 'tornado',
+		classic: 'ledger',
+		cringe: 'face-grimacing',
+		cynical: 'face-unamused',
+		detective: 'woman-detective',
+		'drama-queen': 'crown',
+		formal: 'top-hat',
+		melodramatic: 'wilted-flower',
+		meme: 'poo',
+		'nature-documentary': 'earth',
+		nerd: 'face-nerd',
+		overthinker: 'face-exploding-head',
+		'passive-aggressive': 'face-upside-down',
+		philosophical: 'owl',
+		'quest-log': 'video-game',
+		'self-help': 'woman-meditating',
+		shakespeare: 'theater-masks',
+		sportscaster: 'microphone',
+		storytelling: 'open-book',
+		tabloid: 'newspaper',
+		therapist: 'brain',
+		'tinfoil-hat': 'satellite',
+		cozy: 'hot-beverage',
+		'fairy-tale': 'castle',
+		grandma: 'old-woman',
+		'hr-review': 'memo',
+		ikea: 'tools'
 	};
 
-	const zodiacComponents: Record<string, Component> = {
-		aries: EmojiZodiacAries,
-		taurus: EmojiZodiacTaurus,
-		gemini: EmojiZodiacGemini,
-		cancer: EmojiZodiacCancer,
-		leo: EmojiZodiacLeo,
-		virgo: EmojiZodiacVirgo,
-		libra: EmojiZodiacLibra,
-		scorpio: EmojiZodiacScorpio,
-		sagittarius: EmojiZodiacSagittarius,
-		capricorn: EmojiZodiacCapricorn,
-		aquarius: EmojiZodiacAquarius,
-		pisces: EmojiZodiacPisces
+	const zodiacComponents: Record<string, string> = {
+		aries: 'zodiac-aries',
+		taurus: 'zodiac-taurus',
+		gemini: 'zodiac-gemini',
+		cancer: 'zodiac-cancer',
+		leo: 'zodiac-leo',
+		virgo: 'zodiac-virgo',
+		libra: 'zodiac-libra',
+		scorpio: 'zodiac-scorpio',
+		sagittarius: 'zodiac-sagittarius',
+		capricorn: 'zodiac-capricorn',
+		aquarius: 'zodiac-aquarius',
+		pisces: 'zodiac-pisces'
 	};
 
-	function getToneIcon(toneId: string): Component | undefined {
+	function getToneIcon(toneId: string): string | undefined {
 		return toneIconMap[toneId];
 	}
 
@@ -203,7 +153,7 @@
 			>
 				<span class="tone-emoji">
 					{#if ToneIcon}
-						<ToneIcon size={36} />
+						<Emoji name={ToneIcon} size={36} />
 					{:else}
 						{tone.emoji}
 					{/if}
@@ -217,7 +167,7 @@
 			onclick={() => selectTone('surprise')}
 		>
 			<span class="tone-emoji">
-				<EmojiDice size={36} />
+				<Emoji name="dice" size={36} />
 			</span>
 			<span class="tone-name">Överraska mig!</span>
 		</button>
@@ -239,12 +189,12 @@
 					{#if zodiacSign}
 						{@const ZodiacIcon = zodiacComponents[zodiacSign.id]}
 						{#if ZodiacIcon}
-							<ZodiacIcon size={36} />
+							<Emoji name={ZodiacIcon} size={36} />
 						{:else}
-							<EmojiCrystalBall size={36} />
+							<Emoji name="crystal-ball" size={36} />
 						{/if}
 					{:else}
-						<EmojiCrystalBall size={36} />
+						<Emoji name="crystal-ball" size={36} />
 					{/if}
 				</div>
 				<div class="addon-content">
@@ -271,7 +221,7 @@
 				type="button"
 			>
 				<div class="addon-icon">
-					<EmojiMantelpieceClock size={36} />
+					<Emoji name="mantelpiece-clock" size={36} />
 				</div>
 				<div class="addon-content">
 					<span class="addon-title">På denna dag...</span>
@@ -291,7 +241,7 @@
 				type="button"
 			>
 				<div class="addon-icon">
-					<EmojiLightBulb size={36} />
+					<Emoji name="light-bulb" size={36} />
 				</div>
 				<div class="addon-content">
 					<span class="addon-title">Hemläxa</span>

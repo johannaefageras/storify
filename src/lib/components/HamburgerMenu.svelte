@@ -3,21 +3,14 @@
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import type { Accent } from '$lib/stores/accent.svelte';
-	import type { Component } from 'svelte';
-	import {
-		EmojiMenuPink,
-		EmojiMenuAmber,
-		EmojiMenuBlue,
-		EmojiMenuLime,
-		EmojiMenuRed
-	} from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 
-	const hamburgerComponents: Record<Accent, Component<{ size: number }>> = {
-		pink: EmojiMenuPink,
-		amber: EmojiMenuAmber,
-		blue: EmojiMenuBlue,
-		lime: EmojiMenuLime,
-		red: EmojiMenuRed
+	const hamburgerComponents: Record<Accent, string> = {
+		pink: 'menu-pink',
+		amber: 'menu-amber',
+		blue: 'menu-blue',
+		lime: 'menu-lime',
+		red: 'menu-red'
 	};
 
 	let HamburgerIcon = $derived(hamburgerComponents[accentStore.current]);
@@ -64,7 +57,7 @@
 		aria-label={open ? 'Stäng meny' : 'Öppna meny'}
 		aria-expanded={open}
 	>
-		<HamburgerIcon size={30} />
+		<Emoji name={HamburgerIcon} size={30} />
 	</button>
 
 	{#if open}

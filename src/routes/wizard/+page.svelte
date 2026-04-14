@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { authStore } from '$lib/stores/auth.svelte';
-	import { EmojiUserSilhouette, EmojiCompass, EmojiChart, EmojiCalendar, EmojiScale, EmojiMirror, EmojiCherries, EmojiCamera, EmojiSpeakingHead, EmojiPuzzlePiece, EmojiCheck } from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import Step0Profile from './steps/Step0Profile.svelte';
 	import Step1Emojis from './steps/Step1Emojis.svelte';
@@ -149,17 +149,17 @@
 		'Allt på plats'
 	];
 	const stepIcons = [
-		EmojiUserSilhouette,
-		EmojiCompass,
-		EmojiChart,
-		EmojiCalendar,
-		EmojiScale,
-		EmojiMirror,
-		EmojiCherries,
-		EmojiCamera,
-		EmojiSpeakingHead,
-		EmojiPuzzlePiece,
-		EmojiCheck
+		'user-silhouette',
+		'compass',
+		'chart',
+		'calendar',
+		'scale',
+		'mirror',
+		'cherries',
+		'camera',
+		'speaking-head',
+		'puzzle-piece',
+		'check'
 	];
 
 	function isOptional(step: number): boolean {
@@ -185,7 +185,7 @@
 			<div class="step-indicator">
 				{#if stepIcons[currentStep]}
 					{@const StepIcon = stepIcons[currentStep]}
-					<div class="step-icon"><UniqueEmoji><StepIcon size={72} /></UniqueEmoji></div>
+					<div class="step-icon"><UniqueEmoji><Emoji name={StepIcon} size={72} /></UniqueEmoji></div>
 				{/if}
 				<h1 class="step-title">
 					<span class="step-title-text">

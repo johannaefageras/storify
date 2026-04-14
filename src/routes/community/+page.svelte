@@ -9,46 +9,7 @@
 	import chevronRightSvg from '$lib/assets/svg/chevronRight.svg?raw';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
-	import type { Component } from 'svelte';
-	import {
-		EmojiEarth,
-		EmojiRobot,
-		EmojiFaceYawning,
-		EmojiFlagUk,
-		EmojiArchive,
-		EmojiCat,
-		EmojiTornado,
-		EmojiLedger,
-		EmojiFaceGrimacing,
-		EmojiFaceUnamused,
-		EmojiTopHat,
-		EmojiHeartOnFire,
-		EmojiFaceUpsideDown,
-		EmojiOwl,
-		EmojiVideoGame,
-		EmojiWomanDetective,
-		EmojiCrown,
-		EmojiMicrophone,
-		EmojiPoo,
-		EmojiBrain,
-		EmojiOpenBook,
-		EmojiSatellite,
-		EmojiWomanMeditating,
-		EmojiNewspaper,
-		EmojiHotBeverage,
-		EmojiTheaterMasks,
-		EmojiFaceNerd,
-		EmojiFaceExplodingHead,
-		EmojiCastle,
-		EmojiOldWoman,
-		EmojiMemo,
-		EmojiTools,
-		EmojiCrossMark,
-		EmojiUsersSilhouette,
-		EmojiCrystalBall,
-		EmojiMantelpieceClock,
-		EmojiLightBulb
-	} from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 
 	interface CommunityEntry {
 		id: string;
@@ -70,43 +31,54 @@
 	let totalEntries = $state(0);
 	const LIMIT = 9;
 
+	// Filter state
+	let searchQuery = $state('');
+	let selectedTone = $state('');
+	let dateFrom = $state('');
+	let dateTo = $state('');
+	let searchTimeout: ReturnType<typeof setTimeout> | undefined;
+
+	const hasActiveFilters = $derived(
+		searchQuery !== '' || selectedTone !== '' || dateFrom !== '' || dateTo !== ''
+	);
+
 	// Modal state
 	let selectedEntry = $state<CommunityEntry | null>(null);
 	let isDeleting = $state(false);
 
-	const toneIconMap: Record<string, Component> = {
-		'ai-robot': EmojiRobot,
-		'bored': EmojiFaceYawning,
-		'british': EmojiFlagUk,
-		'bureaucratic': EmojiArchive,
-		'cat-perspective': EmojiCat,
-		'chaotic': EmojiTornado,
-		'classic': EmojiLedger,
-		'cringe': EmojiFaceGrimacing,
-		'cynical': EmojiFaceUnamused,
-		'detective': EmojiWomanDetective,
-		'drama-queen': EmojiCrown,
-		'formal': EmojiTopHat,
-		'melodramatic': EmojiHeartOnFire,
-		'meme': EmojiPoo,
-		'nature-documentary': EmojiEarth,
-		'nerd': EmojiFaceNerd,
-		'overthinker': EmojiFaceExplodingHead,
-		'passive-aggressive': EmojiFaceUpsideDown,
-		'philosophical': EmojiOwl,
-		'quest-log': EmojiVideoGame,
-		'self-help': EmojiWomanMeditating,
-		'shakespeare': EmojiTheaterMasks,
-		'sportscaster': EmojiMicrophone,
-		'storytelling': EmojiOpenBook,
-		'tabloid': EmojiNewspaper,
-		'therapist': EmojiBrain,
-		'tinfoil-hat': EmojiSatellite,
-		'cozy': EmojiHotBeverage,
-		'fairy-tale': EmojiCastle,
-		'grandma': EmojiOldWoman,
-		'hr-review': EmojiMemo,
-		'ikea': EmojiTools
+	const toneIconMap: Record<string, string> = {
+		'ai-robot': 'robot',
+		'bored': 'face-yawning',
+		'british': 'flag-uk',
+		'bureaucratic': 'archive',
+		'cat-perspective': 'cat',
+		'chaotic': 'tornado',
+		'classic': 'ledger',
+		'cringe': 'face-grimacing',
+		'cynical': 'face-unamused',
+		'detective': 'woman-detective',
+		'drama-queen': 'crown',
+		'formal': 'top-hat',
+		'melodramatic': 'heart-on-fire',
+		'meme': 'poo',
+		'nature-documentary': 'earth',
+		'nerd': 'face-nerd',
+		'overthinker': 'face-exploding-head',
+		'passive-aggressive': 'face-upside-down',
+		'philosophical': 'owl',
+		'quest-log': 'video-game',
+		'self-help': 'woman-meditating',
+		'shakespeare': 'theater-masks',
+		'sportscaster': 'microphone',
+		'storytelling': 'open-book',
+		'tabloid': 'newspaper',
+		'therapist': 'brain',
+		'tinfoil-hat': 'satellite',
+		'cozy': 'hot-beverage',
+		'fairy-tale': 'castle',
+		'grandma': 'old-woman',
+		'hr-review': 'memo',
+		'ikea': 'tools'
 	};
 
 	const swedishMonths: Record<string, string> = {
@@ -138,7 +110,7 @@
 		return formatDate(isoStr.slice(0, 10));
 	}
 
-	function getToneIcon(id: string): Component | undefined {
+	function getToneIcon(id: string): string | undefined {
 		return toneIconMap[id];
 	}
 
@@ -154,7 +126,13 @@
 		isLoading = true;
 		error = '';
 		try {
-			const res = await fetch(getApiUrl(`/api/community?page=${page}&limit=${LIMIT}`));
+			const params = new URLSearchParams({ page: String(page), limit: String(LIMIT) });
+			if (searchQuery) params.set('search', searchQuery);
+			if (selectedTone) params.set('tone', selectedTone);
+			if (dateFrom) params.set('from', dateFrom);
+			if (dateTo) params.set('to', dateTo);
+
+			const res = await fetch(getApiUrl(`/api/community?${params}`));
 			const data = await res.json();
 
 			if (!data.success) {
@@ -169,6 +147,24 @@
 		} finally {
 			isLoading = false;
 		}
+	}
+
+	function applyFilters() {
+		currentPage = 1;
+		loadEntries(1);
+	}
+
+	function handleSearchInput() {
+		clearTimeout(searchTimeout);
+		searchTimeout = setTimeout(applyFilters, 400);
+	}
+
+	function clearFilters() {
+		searchQuery = '';
+		selectedTone = '';
+		dateFrom = '';
+		dateTo = '';
+		applyFilters();
 	}
 
 	async function goToPage(page: number) {
@@ -228,9 +224,33 @@
 <div class="community-page">
 	<div class="community-container">
 		<div class="community-header">
-			<div class="header-icon"><UniqueEmoji><EmojiUsersSilhouette size={72} /></UniqueEmoji></div>
+			<div class="header-icon"><UniqueEmoji><Emoji name="users-silhouette" size={72} /></UniqueEmoji></div>
 			<h1 class="community-title">Gemenskapen</h1>
 			<p class="community-subtitle">Dagboksanteckningar delade av Storify-användare</p>
+		</div>
+
+		<div class="filters-bar">
+			<input
+				type="search"
+				class="filter-search"
+				placeholder="Sök i inlägg..."
+				bind:value={searchQuery}
+				oninput={handleSearchInput}
+			/>
+			<select class="filter-select" bind:value={selectedTone} onchange={applyFilters}>
+				<option value="">Alla röster</option>
+				{#each tones as tone (tone.id)}
+					<option value={tone.id}>{tone.emoji} {tone.name}</option>
+				{/each}
+			</select>
+			<div class="date-range">
+				<input type="date" class="filter-date" bind:value={dateFrom} onchange={applyFilters} aria-label="Från datum" />
+				<span class="date-separator">–</span>
+				<input type="date" class="filter-date" bind:value={dateTo} onchange={applyFilters} aria-label="Till datum" />
+			</div>
+			{#if hasActiveFilters}
+				<button class="clear-filters-btn" onclick={clearFilters}>Rensa</button>
+			{/if}
 		</div>
 
 		{#if isLoading}
@@ -242,8 +262,13 @@
 			<div class="community-error">{error}</div>
 		{:else if entries.length === 0}
 			<div class="community-empty">
-				<p class="empty-text">Inga delade dagboksanteckningar ännu.</p>
-				<p class="empty-hint">Bli först! Skapa en dagbok och dela den med communityn.</p>
+				{#if hasActiveFilters}
+					<p class="empty-text">Inga inlägg matchade din sökning.</p>
+					<p class="empty-hint"><button class="clear-link" onclick={clearFilters}>Rensa filter</button> och försök igen.</p>
+				{:else}
+					<p class="empty-text">Inga delade dagboksanteckningar ännu.</p>
+					<p class="empty-hint">Bli först! Skapa en dagbok och dela den med communityn.</p>
+				{/if}
 			</div>
 		{:else}
 			<div class="entries-grid">
@@ -253,7 +278,7 @@
 						<div class="card-top">
 							<div class="card-tone-badge">
 								{#if ToneIcon}
-									<span class="card-tone-icon"><UniqueEmoji><ToneIcon size={16} /></UniqueEmoji></span>
+									<span class="card-tone-icon"><UniqueEmoji><Emoji name={ToneIcon} size={16} /></UniqueEmoji></span>
 								{/if}
 								<span class="card-tone-name">{getToneName(entry.tone_id)}</span>
 							</div>
@@ -298,7 +323,7 @@
 				<div class="modal-meta">
 					<div class="modal-tone">
 						{#if ToneIcon}
-							<span class="modal-tone-icon"><UniqueEmoji><ToneIcon size={20} /></UniqueEmoji></span>
+							<span class="modal-tone-icon"><UniqueEmoji><Emoji name={ToneIcon} size={20} /></UniqueEmoji></span>
 						{/if}
 						<span class="modal-tone-name">{getToneName(selectedEntry.tone_id)}</span>
 					</div>
@@ -314,17 +339,17 @@
 				{#each renderParagraphs as paragraph}
 					{#if paragraph.type === 'horoscope-heading'}
 						<p class="addon-heading">
-							<span class="addon-icon"><UniqueEmoji><EmojiCrystalBall size={24} /></UniqueEmoji></span>
+							<span class="addon-icon"><UniqueEmoji><Emoji name="crystal-ball" size={24} /></UniqueEmoji></span>
 							<span>{@html formatParagraph(paragraph.text)}</span>
 						</p>
 					{:else if paragraph.type === 'onthisday-heading'}
 						<p class="addon-heading">
-							<span class="addon-icon"><UniqueEmoji><EmojiMantelpieceClock size={24} /></UniqueEmoji></span>
+							<span class="addon-icon"><UniqueEmoji><Emoji name="mantelpiece-clock" size={24} /></UniqueEmoji></span>
 							<span>{@html formatParagraph(paragraph.text)}</span>
 						</p>
 					{:else if paragraph.type === 'homework-heading'}
 						<p class="addon-heading">
-							<span class="addon-icon"><UniqueEmoji><EmojiLightBulb size={24} /></UniqueEmoji></span>
+							<span class="addon-icon"><UniqueEmoji><Emoji name="light-bulb" size={24} /></UniqueEmoji></span>
 							<span>{@html formatParagraph(paragraph.text)}</span>
 						</p>
 					{:else}
@@ -335,7 +360,7 @@
 
 			<div class="modal-footer">
 				<button class="modal-close-btn" onclick={closeModal}>
-					<EmojiCrossMark size={18} />
+					<Emoji name="cross-mark" size={18} />
 					<span>Stäng</span>
 				</button>
 				{#if canDelete}
@@ -464,6 +489,119 @@
 		letter-spacing: var(--tracking-wide);
 		margin: 0;
 		opacity: 0.7;
+	}
+
+	/* ===== Filters ===== */
+
+	.filters-bar {
+		display: flex;
+		align-items: center;
+		gap: 0.625rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.filter-search,
+	.filter-select,
+	.filter-date {
+		height: 2.75rem;
+		padding: 0 0.875rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-regular);
+		letter-spacing: var(--tracking-normal);
+		color: var(--color-text);
+		background-color: var(--color-bg-elevated);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		outline: none;
+		box-sizing: border-box;
+		transition:
+			border-color 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+
+	.filter-search:focus,
+	.filter-select:focus,
+	.filter-date:focus {
+		border-color: var(--color-accent);
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
+	}
+
+	.filter-search {
+		flex: 1;
+		min-width: 0;
+	}
+
+	.filter-search::placeholder {
+		color: var(--color-text-muted);
+		font-weight: var(--weight-light);
+		letter-spacing: var(--tracking-wider);
+		opacity: 0.7;
+	}
+
+	.filter-select {
+		min-width: 11rem;
+		padding-right: 2rem;
+		appearance: none;
+		-webkit-appearance: none;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: right 0.75rem center;
+		cursor: pointer;
+	}
+
+	.date-range {
+		display: flex;
+		align-items: center;
+		gap: 0.375rem;
+	}
+
+	.date-separator {
+		font-size: var(--text-sm);
+		color: var(--color-text-muted);
+		opacity: 0.5;
+		user-select: none;
+	}
+
+	.clear-filters-btn {
+		height: 2.75rem;
+		padding: 0 0.875rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-semibold);
+		letter-spacing: var(--tracking-wider);
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+		background: none;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		cursor: pointer;
+		white-space: nowrap;
+		box-sizing: border-box;
+		transition:
+			border-color 0.15s ease,
+			color 0.15s ease;
+	}
+
+	.clear-filters-btn:hover {
+		border-color: var(--color-accent);
+		color: var(--color-accent);
+	}
+
+	.clear-link {
+		padding: 0;
+		font-family: var(--font-primary);
+		font-size: inherit;
+		font-weight: var(--weight-medium);
+		color: var(--color-accent);
+		background: none;
+		border: none;
+		cursor: pointer;
+		text-decoration: underline;
+	}
+
+	.clear-link:hover {
+		opacity: 0.8;
 	}
 
 	/* ===== Card Grid ===== */
@@ -873,6 +1011,29 @@
 			padding: 1rem;
 			padding-top: 0.5rem;
 			padding-bottom: 0;
+		}
+
+		.filters-bar {
+			flex-wrap: wrap;
+		}
+
+		.filter-search {
+			flex-basis: 100%;
+		}
+
+		.filter-select {
+			min-width: 0;
+			flex: 1;
+		}
+
+		.date-range {
+			flex-basis: 100%;
+			order: 3;
+		}
+
+		.filter-date {
+			flex: 1;
+			min-width: 0;
 		}
 
 		.entries-grid {

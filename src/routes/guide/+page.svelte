@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { accentStore } from '$lib/stores/accent.svelte';
-	import {
-		EmojiWomanStudentPink, EmojiWomanStudentAmber, EmojiWomanStudentBlue, EmojiWomanStudentLime, EmojiWomanStudentRed, EmojiVideoGame, EmojiFaceGrimacing, EmojiCat, EmojiFaceYawning, EmojiFaceExplodingHead, EmojiFaceNerd, EmojiRobot, EmojiWomanDetective, EmojiLedger, EmojiWomanMeditating, EmojiNewspaper, EmojiBlackNib, EmojiHotBeverage, EmojiTheaterMasks, EmojiFlagUk, EmojiCrown, EmojiOwl, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiFaceUnamused, EmojiSatellite, EmojiFaceUpsideDown, EmojiArchive, EmojiTornado, EmojiWiltedFlower, EmojiCastle, EmojiOldWoman, EmojiMemo, EmojiTools, EmojiFramedPicture, EmojiPrinter, EmojiClipboard, EmojiEnvelopeArrow, EmojiPencil, EmojiDiamondPink, EmojiDiamondAmber, EmojiDiamondBlue, EmojiDiamondLime, EmojiDiamondRed, EmojiPlus, EmojiMinus, EmojiBookmark, EmojiCrystalBall, EmojiMantelpieceClock, EmojiLightBulb, EmojiUsersSilhouette } from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 	import { Number1, Number2, Number3, Number4, Number5, Number6, Number7 } from '$lib/assets/numbers';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import { voiceSamples } from '$lib/data/voiceSamples';
@@ -15,19 +14,19 @@
 	}
 
 	const studentComponents = {
-		pink: EmojiWomanStudentPink,
-		amber: EmojiWomanStudentAmber,
-		blue: EmojiWomanStudentBlue,
-		lime: EmojiWomanStudentLime,
-		red: EmojiWomanStudentRed
+		pink: 'woman-student-pink',
+		amber: 'woman-student-amber',
+		blue: 'woman-student-blue',
+		lime: 'woman-student-lime',
+		red: 'woman-student-red'
 	};
 
 	const diamondComponents = {
-		pink: EmojiDiamondPink,
-		amber: EmojiDiamondAmber,
-		blue: EmojiDiamondBlue,
-		lime: EmojiDiamondLime,
-		red: EmojiDiamondRed
+		pink: 'diamond-pink',
+		amber: 'diamond-amber',
+		blue: 'diamond-blue',
+		lime: 'diamond-lime',
+		red: 'diamond-red'
 	};
 
 	let StudentIcon = $derived(studentComponents[accentStore.current]);
@@ -60,7 +59,7 @@
 
 <main class="legal-page">
 	<div class="page-header">
-		<StudentIcon size={96} />
+		<Emoji name={StudentIcon} size={96} />
 		<h1>Användarguide</h1>
 	</div>
 	<p class="subtitle">Så får du ut det bästa av Storify</p>
@@ -75,19 +74,19 @@
 		<p>Du kan välja mellan fyra lägen:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Fullständig guide</strong> – En steg-för-steg-wizard med detaljerade frågor om din dag. Passar när du har lite tid och vill skapa en rik och detaljerad dagbokstext.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Snabbläge</strong> – En enkel sida där du fångar dagens känsla på under en minut. Perfekt för hektiska dagar när du ändå vill hålla dagboksvanan vid liv.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>AI-intervju</strong> – Chatta med en AI som ställer frågor om din dag. Känns som att prata med en nyfiken vän – och efteråt skapas din dagbokstext utifrån samtalet.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Skriv fritt</strong> – Skriv fritt i en textredigerare med AI-stöd som kan förfina och polera din text när du är klar.</span>
 			</div>
 		</div>
@@ -98,23 +97,23 @@
 		<p>Snabbläget är det snabbaste sättet att skapa en dagbokstext. Allt sker på en enda sida – inga steg att klicka igenom. Du fyller i:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Dagsform</strong> – Hur var din dag på en skala från 1 till 10?</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Berätta om din dag</strong> – En kort fritext där du beskriver vad som hände.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Dagens segrar</strong> – Små och stora vinster under dagen.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Dagens färg</strong> – Om din dag var en färg, vilken skulle det vara?</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Röst</strong> – Välj en av 32 skrivstilar.</span>
 			</div>
 		</div>
@@ -164,14 +163,14 @@
 
 		<div class="tip-box">
 			<h3>Var specifik</h3>
-			<p><span class="icon-badge bad"><EmojiMinus size={14} /></span> "Träffade en kompis"</p>
-			<p><span class="icon-badge good"><EmojiPlus size={14} /></span> "Fika med Emma på Espresso House, pratade om hennes nya jobb"</p>
+			<p><span class="icon-badge bad"><Emoji name="minus" size={14} /></span> "Träffade en kompis"</p>
+			<p><span class="icon-badge good"><Emoji name="plus" size={14} /></span> "Fika med Emma på Espresso House, pratade om hennes nya jobb"</p>
 		</div>
 
 		<div class="tip-box">
 			<h3>Inkludera känslor</h3>
-			<p><span class="icon-badge bad"><EmojiMinus size={14} /></span> "Jobbade"</p>
-			<p><span class="icon-badge good"><EmojiPlus size={14} /></span> "Stressigt på jobbet, men kände mig stolt efter presentationen"</p>
+			<p><span class="icon-badge bad"><Emoji name="minus" size={14} /></span> "Jobbade"</p>
+			<p><span class="icon-badge good"><Emoji name="plus" size={14} /></span> "Stressigt på jobbet, men kände mig stolt efter presentationen"</p>
 		</div>
 
 		<div class="tip-box">
@@ -190,23 +189,23 @@
 		<p>I flera steg finns fritext-rutor där du kan skriva vad du vill. Använd dem! Här kan du:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content">Berätta om något roligt som hände</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content">Ventilera frustration</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content">Spela in en tanke du vill komma ihåg</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content">Beskriva ett ögonblick som betydde något</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content">Skriva ner ett citat som någon sa</span>
 			</div>
 		</div>
@@ -218,38 +217,38 @@
 		<p>Rösten du väljer påverkar stilen på din dagbokstext. Klicka på en röst för att läsa mer och se exempel:</p>
 
 		<div class="voice-grid-compact">
-			{#snippet ledgerIcon()}<EmojiLedger size={20} />{/snippet}
-			{#snippet openBookIcon()}<EmojiOpenBook size={20} />{/snippet}
-			{#snippet owlIcon()}<EmojiOwl size={20} />{/snippet}
-			{#snippet microphoneIcon()}<EmojiMicrophone size={20} />{/snippet}
-			{#snippet catIcon()}<EmojiCat size={20} />{/snippet}
-			{#snippet unamusedIcon()}<EmojiFaceUnamused size={20} />{/snippet}
-			{#snippet crownIcon()}<EmojiCrown size={20} />{/snippet}
-			{#snippet pooIcon()}<EmojiPoo size={20} />{/snippet}
-			{#snippet grimacingIcon()}<EmojiFaceGrimacing size={20} />{/snippet}
-			{#snippet flagUKIcon()}<EmojiFlagUk size={20} />{/snippet}
-			{#snippet videoGameIcon()}<EmojiVideoGame size={20} />{/snippet}
-			{#snippet yawningIcon()}<EmojiFaceYawning size={20} />{/snippet}
-			{#snippet earthIcon()}<EmojiEarth size={20} />{/snippet}
-			{#snippet brainIcon()}<EmojiBrain size={20} />{/snippet}
-			{#snippet robotIcon()}<EmojiRobot size={20} />{/snippet}
-			{#snippet theaterMasksIcon()}<EmojiTheaterMasks size={20} />{/snippet}
-			{#snippet newspaperIcon()}<EmojiNewspaper size={20} />{/snippet}
-			{#snippet blackNibIcon()}<EmojiBlackNib size={20} />{/snippet}
-			{#snippet hotBeverageIcon()}<EmojiHotBeverage size={20} />{/snippet}
-			{#snippet nerdIcon()}<EmojiFaceNerd size={20} />{/snippet}
-			{#snippet satelliteIcon()}<EmojiSatellite size={20} />{/snippet}
-			{#snippet meditatingIcon()}<EmojiWomanMeditating size={20} />{/snippet}
-			{#snippet detectiveIcon()}<EmojiWomanDetective size={20} />{/snippet}
-			{#snippet explodingHeadIcon()}<EmojiFaceExplodingHead size={20} />{/snippet}
-			{#snippet upsideDownIcon()}<EmojiFaceUpsideDown size={20} />{/snippet}
-			{#snippet archiveIcon()}<EmojiArchive size={20} />{/snippet}
-			{#snippet tornadoIcon()}<EmojiTornado size={20} />{/snippet}
-			{#snippet castleIcon()}<EmojiCastle size={20} />{/snippet}
-			{#snippet oldWomanIcon()}<EmojiOldWoman size={20} />{/snippet}
-			{#snippet memoIcon()}<EmojiMemo size={20} />{/snippet}
-			{#snippet toolsIcon()}<EmojiTools size={20} />{/snippet}
-			{#snippet wiltedFlowerIcon()}<EmojiWiltedFlower size={20} />{/snippet}
+			{#snippet ledgerIcon()}<Emoji name="ledger" size={20} />{/snippet}
+			{#snippet openBookIcon()}<Emoji name="open-book" size={20} />{/snippet}
+			{#snippet owlIcon()}<Emoji name="owl" size={20} />{/snippet}
+			{#snippet microphoneIcon()}<Emoji name="microphone" size={20} />{/snippet}
+			{#snippet catIcon()}<Emoji name="cat" size={20} />{/snippet}
+			{#snippet unamusedIcon()}<Emoji name="face-unamused" size={20} />{/snippet}
+			{#snippet crownIcon()}<Emoji name="crown" size={20} />{/snippet}
+			{#snippet pooIcon()}<Emoji name="poo" size={20} />{/snippet}
+			{#snippet grimacingIcon()}<Emoji name="face-grimacing" size={20} />{/snippet}
+			{#snippet flagUKIcon()}<Emoji name="flag-uk" size={20} />{/snippet}
+			{#snippet videoGameIcon()}<Emoji name="video-game" size={20} />{/snippet}
+			{#snippet yawningIcon()}<Emoji name="face-yawning" size={20} />{/snippet}
+			{#snippet earthIcon()}<Emoji name="earth" size={20} />{/snippet}
+			{#snippet brainIcon()}<Emoji name="brain" size={20} />{/snippet}
+			{#snippet robotIcon()}<Emoji name="robot" size={20} />{/snippet}
+			{#snippet theaterMasksIcon()}<Emoji name="theater-masks" size={20} />{/snippet}
+			{#snippet newspaperIcon()}<Emoji name="newspaper" size={20} />{/snippet}
+			{#snippet blackNibIcon()}<Emoji name="black-nib" size={20} />{/snippet}
+			{#snippet hotBeverageIcon()}<Emoji name="hot-beverage" size={20} />{/snippet}
+			{#snippet nerdIcon()}<Emoji name="face-nerd" size={20} />{/snippet}
+			{#snippet satelliteIcon()}<Emoji name="satellite" size={20} />{/snippet}
+			{#snippet meditatingIcon()}<Emoji name="woman-meditating" size={20} />{/snippet}
+			{#snippet detectiveIcon()}<Emoji name="woman-detective" size={20} />{/snippet}
+			{#snippet explodingHeadIcon()}<Emoji name="face-exploding-head" size={20} />{/snippet}
+			{#snippet upsideDownIcon()}<Emoji name="face-upside-down" size={20} />{/snippet}
+			{#snippet archiveIcon()}<Emoji name="archive" size={20} />{/snippet}
+			{#snippet tornadoIcon()}<Emoji name="tornado" size={20} />{/snippet}
+			{#snippet castleIcon()}<Emoji name="castle" size={20} />{/snippet}
+			{#snippet oldWomanIcon()}<Emoji name="old-woman" size={20} />{/snippet}
+			{#snippet memoIcon()}<Emoji name="memo" size={20} />{/snippet}
+			{#snippet toolsIcon()}<Emoji name="tools" size={20} />{/snippet}
+			{#snippet wiltedFlowerIcon()}<Emoji name="wilted-flower" size={20} />{/snippet}
 			<button class="voice-chip" onclick={() => openModal({ id: 'classic', name: 'Klassisk Dagbok', description: 'En rak, varm berättelse om din dag. Perfekt för alla tillfällen.', icon: ledgerIcon })}>
 				<span class="voice-chip-emoji">{@render ledgerIcon()}</span>
 				<span class="voice-chip-name">Klassisk Dagbok</span>
@@ -414,21 +413,21 @@
 
 		<div class="addon-info-grid">
 			<div class="addon-info-card">
-				<span class="addon-info-emoji"><EmojiCrystalBall size={28} /></span>
+				<span class="addon-info-emoji"><Emoji name="crystal-ball" size={28} /></span>
 				<div class="addon-info-content">
 					<h3>Horoskop</h3>
 					<p>Ett personligt horoskop baserat på ditt stjärntecken och dagens händelser. Kräver att du angett födelsedag i din profil.</p>
 				</div>
 			</div>
 			<div class="addon-info-card">
-				<span class="addon-info-emoji"><EmojiMantelpieceClock size={28} /></span>
+				<span class="addon-info-emoji"><Emoji name="mantelpiece-clock" size={28} /></span>
 				<div class="addon-info-content">
 					<h3>På denna dag</h3>
 					<p>Intressanta historiska händelser som inträffat på samma datum. Ett kul sätt att sätta din dag i ett större perspektiv.</p>
 				</div>
 			</div>
 			<div class="addon-info-card">
-				<span class="addon-info-emoji"><EmojiLightBulb size={28} /></span>
+				<span class="addon-info-emoji"><Emoji name="light-bulb" size={28} /></span>
 				<div class="addon-info-content">
 					<h3>Hemläxa</h3>
 					<p>En specifik reflektion eller utmaning baserad på just din dag. Kan vara handlingsinriktad eller eftertänksam – tonen styr.</p>
@@ -443,49 +442,49 @@
 
 		<div class="save-grid">
 			<div class="save-card">
-				<span class="save-emoji"><EmojiPencil size={28} /></span>
+				<span class="save-emoji"><Emoji name="pencil" size={28} /></span>
 				<div class="save-content">
 					<h3>Redigera inlägget</h3>
 					<p>Justera texten innan du sparar.</p>
 				</div>
 			</div>
 			<div class="save-card">
-				<span class="save-emoji"><EmojiArchive size={28} /></span>
+				<span class="save-emoji"><Emoji name="archive" size={28} /></span>
 				<div class="save-content">
 					<h3>Spara på webben</h3>
 					<p>Spara i ditt personliga arkiv online.</p>
 				</div>
 			</div>
 			<div class="save-card">
-				<span class="save-emoji"><EmojiFramedPicture size={28} /></span>
+				<span class="save-emoji"><Emoji name="framed-picture" size={28} /></span>
 				<div class="save-content">
 					<h3>Spara som bild</h3>
 					<p>Spara som en bild till ditt fotoalbum.</p>
 				</div>
 			</div>
 			<div class="save-card">
-				<span class="save-emoji"><EmojiPrinter size={28} /></span>
+				<span class="save-emoji"><Emoji name="printer" size={28} /></span>
 				<div class="save-content">
 					<h3>Spara som PDF</h3>
 					<p>Perfekt för utskrift och arkivering.</p>
 				</div>
 			</div>
 			<div class="save-card">
-				<span class="save-emoji"><EmojiClipboard size={28} /></span>
+				<span class="save-emoji"><Emoji name="clipboard" size={28} /></span>
 				<div class="save-content">
 					<h3>Kopiera texten</h3>
 					<p>Kopiera och klistra in var du vill.</p>
 				</div>
 			</div>
 			<div class="save-card">
-				<span class="save-emoji"><EmojiEnvelopeArrow size={28} /></span>
+				<span class="save-emoji"><Emoji name="envelope-arrow" size={28} /></span>
 				<div class="save-content">
 					<h3>Skicka som e-post</h3>
 					<p>Mejla dagboken till vem du vill.</p>
 				</div>
 			</div>
 			<div class="save-card">
-				<span class="save-emoji"><EmojiUsersSilhouette size={28} /></span>
+				<span class="save-emoji"><Emoji name="users-silhouette" size={28} /></span>
 				<div class="save-content">
 					<h3>Dela till Gemenskapen</h3>
 					<p>Publicera texten frivilligt så att andra Storify-användare kan läsa den.</p>
@@ -509,23 +508,23 @@
 		<p>Storify kan användas helt anonymt – du behöver inget konto för att generera dagbokstexter. Men skapar du ett konto får du tillgång till extra funktioner:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Dagboksarkiv:</strong> Spara genererade dagboksinlägg och bläddra igenom dem när du vill.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Profil i molnet:</strong> Din profil synkas och finns tillgänglig oavsett vilken enhet du använder.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Snabbare start:</strong> Inloggade användare hoppar direkt till dagboksfrågorna eftersom profilen redan är sparad.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Kalender och streak:</strong> Följ din skrivresa i en kalender med heatmap, se din nuvarande och längsta streak, och få statistik över hur ofta du skriver.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Ägarskap över delade inlägg:</strong> Om du delar till Gemenskapen som inloggad kopplas inlägget till ditt konto, vilket gör att du kan ta bort det senare.</span>
 			</div>
 		</div>
@@ -562,31 +561,31 @@
 		<h2>Pro-tips</h2>
 		<div class="custom-ul">
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Skriv samma dag</strong> – Det är lättare att komma ihåg detaljer medan de är färska.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Använd tidskapseln</strong> – Vad kostar en liter mjölk? Vilken låt är populär just nu? Dessa saker blir kul att läsa om några år.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Blanda stort och smått</strong> – Allt ifrån sensationella nyheter till vad du åt till frukost. Både och gör dagen verklig.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Prova olika röster</strong> – Samma dag kan bli rolig, poetisk eller dramatisk beroende på vilken röst du väljer.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Spara dina favoriter</strong> – Exportera texter du gillar extra mycket, eller skapa ett konto och bygg ett dagboksarkiv.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Dela selektivt</strong> – Gemenskapen blir roligast när du delar det som faktiskt känns kul, fint eller märkligt nog att bjuda på.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon bullet-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Ha kul!</strong> – Det här är inte en läxa. Det finns inga fel svar.</span>
 			</div>
 		</div>

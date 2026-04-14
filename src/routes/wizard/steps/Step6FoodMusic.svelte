@@ -1,10 +1,6 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import {
-		EmojiShortcake,
-		EmojiHeadphones,
-		EmojiPalette
-	} from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 	import { FIELD_LIMITS } from '$lib/validation';
 	import { moodColors } from '$lib/data/moodColors';
 
@@ -106,7 +102,7 @@
 
 	<div class="field-group">
 		<span class="field-label">
-			<span class="label-emoji"><EmojiShortcake size={23} /></span>
+			<span class="label-emoji"><Emoji name="shortcake" size={23} /></span>
 			Vad har du ätit idag?
 		</span>
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
@@ -131,7 +127,7 @@
 
 	<div class="field-group">
 		<span class="field-label">
-			<span class="label-emoji"><EmojiHeadphones size={23} /></span>
+			<span class="label-emoji"><Emoji name="headphones" size={23} /></span>
 			Vad var dagens soundtrack?
 		</span>
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
@@ -156,7 +152,7 @@
 
 	<div class="field-group">
 		<span class="field-label">
-			<span class="label-emoji"><EmojiPalette size={23} /></span>
+			<span class="label-emoji"><Emoji name="palette" size={23} /></span>
 			Om idag var en färg...
 		</span>
 		<p class="field-description">Välj den färg som bäst speglar känslan av din dag.</p>

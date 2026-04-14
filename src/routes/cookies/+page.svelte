@@ -1,21 +1,14 @@
 <script lang="ts">
 	import { accentStore } from '$lib/stores/accent.svelte';
-	import {
-		EmojiCookie,
-		EmojiDiamondPink,
-		EmojiDiamondAmber,
-		EmojiDiamondBlue,
-		EmojiDiamondLime,
-		EmojiDiamondRed
-	} from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 
 	const diamondComponents = {
-		pink: EmojiDiamondPink,
-		amber: EmojiDiamondAmber,
-		blue: EmojiDiamondBlue,
-		lime: EmojiDiamondLime,
-		red: EmojiDiamondRed
+		pink: 'diamond-pink',
+		amber: 'diamond-amber',
+		blue: 'diamond-blue',
+		lime: 'diamond-lime',
+		red: 'diamond-red'
 	};
 
 	let DiamondIcon = $derived(diamondComponents[accentStore.current]);
@@ -23,7 +16,7 @@
 
 <main class="legal-page">
 	<div class="page-header">
-		<EmojiCookie size={96} />
+		<Emoji name="cookie" size={96} />
 		<h1>Cookiepolicy</h1>
 	</div>
 	<p class="updated">Senast uppdaterad: 8 februari 2026</p>
@@ -44,11 +37,11 @@
 		<p>Vi sparar följande lokalt på din enhet:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Din profil:</strong> Namn, ålder, intressen och annan information du fyller i för att personalisera dina dagbokstexter</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Temainställningar:</strong> Om du föredrar ljust eller mörkt läge</span>
 			</div>
 		</div>
@@ -61,15 +54,15 @@
 		<p>Denna cookie:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content">Innehåller enbart sessionsinformation – ingen personlig data</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content">Används inte för spårning, reklam eller analys</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content">Tas bort när du loggar ut</span>
 			</div>
 		</div>
@@ -81,19 +74,19 @@
 		<p>Vi använder inga tredjepartscookies. Det betyder:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content">Ingen spårning från reklamtjänster</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content">Inga analysverktyg som Google Analytics</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content">Inga sociala media-knappar som laddar externa cookies</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content">Ingen delning av din data med annonsörer</span>
 			</div>
 		</div>
@@ -104,11 +97,11 @@
 		<p>Det finns en viktig skillnad mellan cookies och lokal lagring:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Cookies:</strong> Skickas till servern vid varje förfrågan, kan läsas av webbplatsen och ibland av tredje part</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Lokal lagring:</strong> Stannar på din enhet, skickas aldrig automatiskt till någon server, och är endast tillgänglig för appen själv</span>
 			</div>
 		</div>

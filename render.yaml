@@ -4,15 +4,33 @@ services:
     runtime: node
     plan: pro
     region: frankfurt # Closest to Sweden
-    buildCommand: npm install && USE_NODE_ADAPTER=true npm run build
+    buildCommand: npm install && npm run build
     startCommand: node server.js
     healthCheckPath: /
     envVars:
       - key: NODE_VERSION
         value: 20
-      - key: USE_NODE_ADAPTER
-        value: "true"
       - key: ANTHROPIC_API_KEY
         sync: false # Set manually in Render dashboard
       - key: RESEND_API_KEY
         sync: false # Set manually in Render dashboard
+      - key: UPSTASH_REDIS_REST_URL
+        sync: false # Required for server-side rate limiting
+      - key: UPSTASH_REDIS_REST_TOKEN
+        sync: false # Required for server-side rate limiting
+      - key: PUBLIC_SUPABASE_URL
+        sync: false # Set manually in Render dashboard
+      - key: PUBLIC_SUPABASE_ANON_KEY
+        sync: false # Set manually in Render dashboard
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false # Set manually in Render dashboard
+      - key: CHAT_MODEL
+        value: claude-sonnet-4-6
+      - key: CHAT_MAX_TOKENS
+        value: "512"
+      - key: GENERATE_PRIMARY_MODEL
+        value: claude-opus-4-6
+      - key: GENERATE_FALLBACK_MODEL
+        value: claude-sonnet-4-6
+      - key: GENERATE_MAX_TOKENS
+        value: "2048"

@@ -10,16 +10,16 @@
 	import AvatarUpload from '$lib/components/AvatarUpload.svelte';
 	import IconArrowRight from '$lib/assets/icons/IconArrowRight.svelte';
 	import AccentPicker from '$lib/components/AccentPicker.svelte';
-	import { EmojiCompass, EmojiRocket, EmojiSpeakingHead, EmojiPencil } from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 
 	// Writing mode modal
 	let showModeModal = $state(false);
 
 	const writingModes = [
-		{ id: 'wizard', title: 'Steg-för-steg', icon: EmojiCompass, href: '/wizard' },
-		{ id: 'quick', title: 'Snabbläge', icon: EmojiRocket, href: '/quick' },
-		{ id: 'interview', title: 'AI-intervju', icon: EmojiSpeakingHead, href: '/interview' },
-		{ id: 'editor', title: 'Skriv fritt', icon: EmojiPencil, href: '/editor' }
+		{ id: 'wizard', title: 'Steg-för-steg', icon: 'compass', href: '/wizard' },
+		{ id: 'quick', title: 'Snabbläge', icon: 'rocket', href: '/quick' },
+		{ id: 'interview', title: 'AI-intervju', icon: 'speaking-head', href: '/interview' },
+		{ id: 'editor', title: 'Skriv fritt', icon: 'pencil', href: '/editor' }
 	];
 
 	function closeModeModal() {
@@ -666,7 +666,7 @@
 				{#each writingModes as mode}
 					<a href={mode.href} class="mode-card" onclick={closeModeModal}>
 						<div class="mode-card-icon">
-							<mode.icon size={36} />
+							<Emoji name={mode.icon} size={36} />
 						</div>
 						<span class="mode-card-title">{mode.title}</span>
 					</a>

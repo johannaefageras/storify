@@ -47,12 +47,13 @@ describe('buildInterviewerPrompt', () => {
 		it('contains interviewer style instructions', () => {
 			const prompt = buildInterviewerPrompt(emptyProfile);
 			expect(prompt).toContain('INTERVJUARSTIL:');
-			expect(prompt).toContain('Ställ EN fråga åt gången');
+			expect(prompt).toContain('FRÅGOTEKNIK:');
+			expect(prompt).toContain('EN fråga per meddelande');
 		});
 
 		it('contains conversation structure instructions', () => {
 			const prompt = buildInterviewerPrompt(emptyProfile);
-			expect(prompt).toContain('SAMTALSSTRUKTUR:');
+			expect(prompt).toContain('SAMTALSFLÖDE:');
 		});
 
 		it('contains boundary instructions', () => {
@@ -64,9 +65,9 @@ describe('buildInterviewerPrompt', () => {
 
 		it('contains message formatting instructions', () => {
 			const prompt = buildInterviewerPrompt(emptyProfile);
-			expect(prompt).toContain('MEDDELANDEN:');
+			expect(prompt).toContain('MEDDELANDEFORMAT:');
 			expect(prompt).toContain('1-3 meningar');
-			expect(prompt).toContain('Ingen markdown-formatering');
+			expect(prompt).toContain('Ingen markdown');
 		});
 
 		it('contains language instructions', () => {
@@ -116,7 +117,8 @@ describe('buildInterviewerPrompt', () => {
 
 		it('includes occupation', () => {
 			const prompt = buildInterviewerPrompt(fullProfile);
-			expect(prompt).toContain('Sysselsättning: Utvecklare');
+			expect(prompt).toContain('Sysselsättning: Arbetar');
+			expect(prompt).toContain('Detalj: Utvecklare');
 		});
 
 		it('includes family', () => {

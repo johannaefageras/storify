@@ -1,13 +1,7 @@
 <script lang="ts">
 	import { processAvatarImage } from '$lib/utils/imageResize';
 	import { accentStore } from '$lib/stores/accent.svelte';
-	import {
-		EmojiUserSilhouettePink,
-		EmojiUserSilhouetteAmber,
-		EmojiUserSilhouetteBlue,
-		EmojiUserSilhouetteLime,
-		EmojiUserSilhouetteRed
-	} from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 
 	const AVATAR_MAX_SIZE = 5 * 1024 * 1024;
 	const AVATAR_ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
@@ -31,11 +25,11 @@
 	}: Props = $props();
 
 	const silhouetteComponents = {
-		pink: EmojiUserSilhouettePink,
-		amber: EmojiUserSilhouetteAmber,
-		blue: EmojiUserSilhouetteBlue,
-		lime: EmojiUserSilhouetteLime,
-		red: EmojiUserSilhouetteRed
+		pink: 'user-silhouette-pink',
+		amber: 'user-silhouette-amber',
+		blue: 'user-silhouette-blue',
+		lime: 'user-silhouette-lime',
+		red: 'user-silhouette-red'
 	};
 
 	let SilhouetteIcon = $derived(silhouetteComponents[accentStore.current]);
@@ -102,7 +96,7 @@
 			<img src={avatarUrl} alt="Profilbild" class="avatar-img" />
 		{:else}
 			<div class="avatar-default-emoji">
-				<SilhouetteIcon />
+				<Emoji name={SilhouetteIcon}  />
 			</div>
 		{/if}
 

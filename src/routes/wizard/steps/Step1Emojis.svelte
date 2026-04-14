@@ -5,6 +5,7 @@
 	import type { Jomoji } from '$lib/data/jomojiTypes';
 	import { shuffleAndPick } from '$lib/utils/shuffleAndPick';
 	import { uniqueSvgIds } from '$lib/utils/uniqueSvgIds';
+	import { getSwedishDiaryDate } from '$lib/utils/localDate';
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 
 	const EMOJIS_PER_CATEGORY = 96;
@@ -20,22 +21,6 @@
 		}
 		return uniqueEmojiSvgCache.get(emojiId)!;
 	}
-
-	const weekdays = ['Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag'];
-	const months = [
-		'januari',
-		'februari',
-		'mars',
-		'april',
-		'maj',
-		'juni',
-		'juli',
-		'augusti',
-		'september',
-		'oktober',
-		'november',
-		'december'
-	];
 
 	let activeTab = $state(0);
 
@@ -67,13 +52,11 @@
 	let currentEmojis: Jomoji[] = $derived(getDisplayedEmojis(activeTab));
 
 	onMount(() => {
-		const now = new Date();
-		const weekday = weekdays[now.getDay()];
-		const date = `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+		const today = getSwedishDiaryDate();
 
-		wizardStore.updateData('weekday', weekday);
-		wizardStore.updateData('date', date);
-		wizardStore.updateData('dateISO', now.toISOString().split('T')[0]);
+		wizardStore.updateData('weekday', today.weekday);
+		wizardStore.updateData('date', today.date);
+		wizardStore.updateData('dateISO', today.dateISO);
 	});
 
 	function toggleEmoji(emojiId: string) {

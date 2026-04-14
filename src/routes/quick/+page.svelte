@@ -10,10 +10,10 @@
 	import { isSeparatorParagraph } from '$lib/utils/paragraphs';
 	import { downloadAsImage } from '$lib/utils/imageDownload';
 	import { downloadAsPdf } from '$lib/utils/pdfDownload';
+	import { getSwedishDiaryDate } from '$lib/utils/localDate';
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
 	import { getLoadingPhrases } from '$lib/data/loadingPhrases';
 	import resultMessages from '$lib/data/resultMessages.json';
-	import type { Component } from 'svelte';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import ShareToCommunity from '$lib/components/ShareToCommunity.svelte';
 	import PdfDocument from '$lib/components/PdfDocument.svelte';
@@ -21,70 +21,51 @@
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 	import IconArrowLeft from '$lib/assets/icons/IconArrowLeft.svelte';
-	import {
-		EmojiSparkles, EmojiRosePink, EmojiFramedPicture, EmojiPrinter,
-		EmojiClipboard, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiFloppyDisk, EmojiRocket, EmojiPencil, EmojiCrossMark,
-		EmojiFaceCryingLoudly, EmojiFaceCrying, EmojiFaceFrowning, EmojiFaceSlightlyFrowning,
-		EmojiFaceNeutral, EmojiFaceRelieved, EmojiFaceSmilingEyes, EmojiFaceSmilingHearts,
-		EmojiFaceGrinningSweat, EmojiFaceLol,
-		EmojiChart, EmojiCalendar, EmojiTrophy, EmojiPalette, EmojiSpeakingHead,
-		EmojiLedger, EmojiOpenBook, EmojiOwl, EmojiMicrophone, EmojiCat, EmojiFaceUnamused,
-		EmojiCrown, EmojiPoo, EmojiFaceGrimacing, EmojiFlagUk, EmojiVideoGame, EmojiFaceYawning,
-		EmojiEarth, EmojiBrain, EmojiRobot, EmojiTheaterMasks, EmojiNewspaper, EmojiBlackNib,
-		EmojiHotBeverage, EmojiFaceNerd, EmojiSatellite, EmojiWomanMeditating, EmojiWomanDetective,
-		EmojiFaceExplodingHead, EmojiFaceUpsideDown, EmojiArchive, EmojiTornado, EmojiWiltedFlower
-	} from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 
-	const toneEmojiMap: Record<string, Component> = {
-		'classic': EmojiLedger,
-		'storytelling': EmojiOpenBook,
-		'philosophical': EmojiOwl,
-		'sportscaster': EmojiMicrophone,
-		'cat-perspective': EmojiCat,
-		'cynical': EmojiFaceUnamused,
-		'drama-queen': EmojiCrown,
-		'meme': EmojiPoo,
-		'cringe': EmojiFaceGrimacing,
-		'british': EmojiFlagUk,
-		'quest-log': EmojiVideoGame,
-		'bored': EmojiFaceYawning,
-		'nature-documentary': EmojiEarth,
-		'therapist': EmojiBrain,
-		'ai-robot': EmojiRobot,
-		'shakespeare': EmojiTheaterMasks,
-		'tabloid': EmojiNewspaper,
-		'formal': EmojiBlackNib,
-		'cozy': EmojiHotBeverage,
-		'nerd': EmojiFaceNerd,
-		'tinfoil-hat': EmojiSatellite,
-		'self-help': EmojiWomanMeditating,
-		'detective': EmojiWomanDetective,
-		'overthinker': EmojiFaceExplodingHead,
-		'passive-aggressive': EmojiFaceUpsideDown,
-		'bureaucratic': EmojiArchive,
-		'chaotic': EmojiTornado,
-		'melodramatic': EmojiWiltedFlower,
+	const toneEmojiMap: Record<string, string> = {
+		'classic': 'ledger',
+		'storytelling': 'open-book',
+		'philosophical': 'owl',
+		'sportscaster': 'microphone',
+		'cat-perspective': 'cat',
+		'cynical': 'face-unamused',
+		'drama-queen': 'crown',
+		'meme': 'poo',
+		'cringe': 'face-grimacing',
+		'british': 'flag-uk',
+		'quest-log': 'video-game',
+		'bored': 'face-yawning',
+		'nature-documentary': 'earth',
+		'therapist': 'brain',
+		'ai-robot': 'robot',
+		'shakespeare': 'theater-masks',
+		'tabloid': 'newspaper',
+		'formal': 'black-nib',
+		'cozy': 'hot-beverage',
+		'nerd': 'face-nerd',
+		'tinfoil-hat': 'satellite',
+		'self-help': 'woman-meditating',
+		'detective': 'woman-detective',
+		'overthinker': 'face-exploding-head',
+		'passive-aggressive': 'face-upside-down',
+		'bureaucratic': 'archive',
+		'chaotic': 'tornado',
+		'melodramatic': 'wilted-flower',
 	};
 
 	// Mood emoji array (same as Step2Energy mood slider)
-	const moodEmojis: Component[] = [
-		EmojiFaceCryingLoudly, EmojiFaceCrying, EmojiFaceFrowning, EmojiFaceSlightlyFrowning,
-		EmojiFaceNeutral, EmojiFaceRelieved, EmojiFaceSmilingEyes, EmojiFaceSmilingHearts,
-		EmojiFaceGrinningSweat, EmojiFaceLol
+	const moodEmojis: string[] = [
+		'face-crying-loudly', 'face-crying', 'face-frowning', 'face-slightly-frowning',
+		'face-neutral', 'face-relieved', 'face-smiling-eyes', 'face-smiling-hearts',
+		'face-grinning-sweat', 'face-lol'
 	];
 
-	function getMoodEmoji(value: number): Component {
+	function getMoodEmoji(value: number): string {
 		const index = Math.round(value) - 1;
 		return moodEmojis[Math.min(Math.max(index, 0), 9)];
 	}
-
-	// Date initialization (same as Step1Emojis)
-	const weekdays = ['Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag'];
-	const months = [
-		'januari', 'februari', 'mars', 'april', 'maj', 'juni',
-		'juli', 'augusti', 'september', 'oktober', 'november', 'december'
-	];
 
 	onMount(async () => {
 		await wizardStore.initProfile();
@@ -100,12 +81,10 @@
 			winInput = '';
 		}
 
-		const now = new Date();
-		const weekday = weekdays[now.getDay()];
-		const date = `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
-		wizardStore.updateData('weekday', weekday);
-		wizardStore.updateData('date', date);
-		wizardStore.updateData('dateISO', now.toISOString().split('T')[0]);
+		const today = getSwedishDiaryDate();
+		wizardStore.updateData('weekday', today.weekday);
+		wizardStore.updateData('date', today.date);
+		wizardStore.updateData('dateISO', today.dateISO);
 
 		// Default tone (only if not restored from draft)
 		if (!wizardStore.data.selectedTone) {
@@ -494,7 +473,7 @@
 		<div class="result-view-content">
 			<div class="result-intro">
 				<div class="result-icon">
-						<EmojiRosePink size={48} />
+						<Emoji name="rose-pink" size={48} />
 				</div>
 				<h1 class="result-title">{resultMessage.title}</h1>
 				<p class="result-subtitle">{resultMessage.subtitle}</p>
@@ -533,11 +512,11 @@
 			{#if isEditing}
 				<div class="edit-actions">
 					<button class="edit-btn edit-btn-cancel" onclick={cancelEditing}>
-						<EmojiCrossMark size={18} />
+						<Emoji name="cross-mark" size={18} />
 						<span>Avbryt</span>
 					</button>
 					<button class="edit-btn edit-btn-save" onclick={saveEdit}>
-						<EmojiFloppyDisk size={18} />
+						<Emoji name="floppy-disk" size={18} />
 						<span>Spara</span>
 					</button>
 				</div>
@@ -555,7 +534,7 @@
 							</svg>
 							<span>Sparat dagbok!</span>
 						{:else}
-							<EmojiFloppyDisk size={22} />
+							<Emoji name="floppy-disk" size={22} />
 							<span>Spara dagbok</span>
 						{/if}
 					</button>
@@ -571,14 +550,14 @@
 						{#if isDownloading}
 							<span class="spinner"></span><span>Sparar...</span>
 						{:else}
-							<EmojiFramedPicture size={22} /><span>Spara bild</span>
+							<Emoji name="framed-picture" size={22} /><span>Spara bild</span>
 						{/if}
 					</button>
 					<button class="action-btn" onclick={downloadAsPdfHandler} disabled={isDownloadingPdf}>
 						{#if isDownloadingPdf}
 							<span class="spinner"></span><span>Skapar...</span>
 						{:else}
-							<EmojiPrinter size={22} /><span>Spara PDF</span>
+							<Emoji name="printer" size={22} /><span>Spara PDF</span>
 						{/if}
 					</button>
 					<button class="action-btn" onclick={copyToClipboard} disabled={isCopying}>
@@ -588,11 +567,11 @@
 							</svg>
 							<span>Kopierat!</span>
 						{:else}
-							<EmojiClipboard size={22} /><span>Kopiera</span>
+							<Emoji name="clipboard" size={22} /><span>Kopiera</span>
 						{/if}
 					</button>
 					<button class="action-btn" onclick={openEmailModal}>
-						<EmojiEnvelopeArrow size={22} /><span>Maila</span>
+						<Emoji name="envelope-arrow" size={22} /><span>Maila</span>
 					</button>
 				</div>
 				<button class="action-btn restart-btn" onclick={handleStartOver}>
@@ -630,7 +609,7 @@
 									<span class="spinner"></span>
 									Skickar...
 								{:else}
-									<EmojiEnvelopeEmail size={22} />
+									<Emoji name="envelope-email" size={22} />
 									Skicka
 								{/if}
 							</button>
@@ -653,7 +632,7 @@
 		<!-- Quick mode form -->
 		<header class="quick-header">
 			<div class="step-indicator">
-				<div class="step-icon"><UniqueEmoji><EmojiRocket size={72} /></UniqueEmoji></div>
+				<div class="step-icon"><UniqueEmoji><Emoji name="rocket" size={72} /></UniqueEmoji></div>
 				<h1 class="step-title">Snabbläge</h1>
 			</div>
 		</header>
@@ -666,7 +645,7 @@
 				<div class="slider-emoji">
 					{#key wizardStore.data.mood}
 						{@const EmojiComponent = getMoodEmoji(wizardStore.data.mood)}
-						<EmojiComponent size={32} />
+						<Emoji name={EmojiComponent} size={32} />
 					{/key}
 				</div>
 				<div class="slider-container">
@@ -765,7 +744,7 @@
 						>
 							<span class="voice-chip-emoji">
 								{#if ToneEmoji}
-									<ToneEmoji size={20} />
+									<Emoji name={ToneEmoji} size={20} />
 								{:else}
 									{tone.emoji}
 								{/if}
@@ -786,7 +765,7 @@
 						<span class="spinner"></span>
 						<span class="loading-phrase" class:visible={loadingPhraseVisible}>{loadingPhrase}</span>
 					{:else}
-						<span class="generate-icon"><EmojiSparkles size={28} /></span>
+						<span class="generate-icon"><Emoji name="sparkles" size={28} /></span>
 						Generera dagboksinlägg
 					{/if}
 				</button>

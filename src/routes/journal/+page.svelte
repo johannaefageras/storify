@@ -10,8 +10,7 @@
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import IconArrowLeft from '$lib/assets/icons/IconArrowLeft.svelte';
-	import type { Component } from 'svelte';
-	import { EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanDetective, EmojiCrown, EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiWomanMeditating, EmojiNewspaper, EmojiHotBeverage, EmojiTheaterMasks, EmojiFaceNerd, EmojiFaceExplodingHead, EmojiClipboard, EmojiFramedPicture, EmojiPrinter, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiCrossMark, EmojiTrash, EmojiFloppyDisk, EmojiCompass, EmojiRocket, EmojiSpeakingHead, EmojiPencil, EmojiUsersSilhouette } from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import { downloadAsImage } from '$lib/utils/imageDownload';
 	import { downloadAsPdf } from '$lib/utils/pdfDownload';
@@ -60,10 +59,10 @@
 	let showModeModal = $state(false);
 
 	const writingModes = [
-		{ id: 'wizard', title: 'Steg-för-steg', icon: EmojiCompass, href: '/wizard' },
-		{ id: 'quick', title: 'Snabbläge', icon: EmojiRocket, href: '/quick' },
-		{ id: 'interview', title: 'AI-intervju', icon: EmojiSpeakingHead, href: '/interview' },
-		{ id: 'editor', title: 'Skriv fritt', icon: EmojiPencil, href: '/editor' }
+		{ id: 'wizard', title: 'Steg-för-steg', icon: 'compass', href: '/wizard' },
+		{ id: 'quick', title: 'Snabbläge', icon: 'rocket', href: '/quick' },
+		{ id: 'interview', title: 'AI-intervju', icon: 'speaking-head', href: '/interview' },
+		{ id: 'editor', title: 'Skriv fritt', icon: 'pencil', href: '/editor' }
 	];
 
 	function closeModeModal() {
@@ -102,35 +101,35 @@
 		}
 	});
 
-	const toneIconMap: Record<string, Component> = {
-		'ai-robot': EmojiRobot,
-		'bored': EmojiFaceYawning,
-		'british': EmojiFlagUk,
-		'bureaucratic': EmojiArchive,
-		'cat-perspective': EmojiCat,
-		'chaotic': EmojiTornado,
-		'classic': EmojiLedger,
-		'cringe': EmojiFaceGrimacing,
-		'cynical': EmojiFaceUnamused,
-		'detective': EmojiWomanDetective,
-		'drama-queen': EmojiCrown,
-		'formal': EmojiTopHat,
-		'melodramatic': EmojiHeartOnFire,
-		'meme': EmojiPoo,
-		'nature-documentary': EmojiEarth,
-		'nerd': EmojiFaceNerd,
-		'overthinker': EmojiFaceExplodingHead,
-		'passive-aggressive': EmojiFaceUpsideDown,
-		'philosophical': EmojiOwl,
-		'quest-log': EmojiVideoGame,
-		'self-help': EmojiWomanMeditating,
-		'shakespeare': EmojiTheaterMasks,
-		'sportscaster': EmojiMicrophone,
-		'storytelling': EmojiOpenBook,
-		'tabloid': EmojiNewspaper,
-		'therapist': EmojiBrain,
-		'tinfoil-hat': EmojiSatellite,
-		'cozy': EmojiHotBeverage
+	const toneIconMap: Record<string, string> = {
+		'ai-robot': 'robot',
+		'bored': 'face-yawning',
+		'british': 'flag-uk',
+		'bureaucratic': 'archive',
+		'cat-perspective': 'cat',
+		'chaotic': 'tornado',
+		'classic': 'ledger',
+		'cringe': 'face-grimacing',
+		'cynical': 'face-unamused',
+		'detective': 'woman-detective',
+		'drama-queen': 'crown',
+		'formal': 'top-hat',
+		'melodramatic': 'heart-on-fire',
+		'meme': 'poo',
+		'nature-documentary': 'earth',
+		'nerd': 'face-nerd',
+		'overthinker': 'face-exploding-head',
+		'passive-aggressive': 'face-upside-down',
+		'philosophical': 'owl',
+		'quest-log': 'video-game',
+		'self-help': 'woman-meditating',
+		'shakespeare': 'theater-masks',
+		'sportscaster': 'microphone',
+		'storytelling': 'open-book',
+		'tabloid': 'newspaper',
+		'therapist': 'brain',
+		'tinfoil-hat': 'satellite',
+		'cozy': 'hot-beverage'
 	};
 
 	const swedishMonths: Record<string, string> = {
@@ -165,7 +164,7 @@
 		return `${swedishMonths[month]} ${year}`;
 	}
 
-function getToneIcon(id: string): Component | undefined {
+function getToneIcon(id: string): string | undefined {
 		return toneIconMap[id];
 	}
 
@@ -511,7 +510,7 @@ function getToneIcon(id: string): Component | undefined {
 <div class="journal-page">
 	<div class="journal-container">
 		<div class="journal-header">
-			<div class="header-icon"><UniqueEmoji><EmojiArchive size={72} /></UniqueEmoji></div>
+			<div class="header-icon"><UniqueEmoji><Emoji name="archive" size={72} /></UniqueEmoji></div>
 			<h1 class="journal-title">Dagböcker</h1>
 			<p class="journal-subtitle">Dina sparade dagboksanteckningar</p>
 		</div>
@@ -547,7 +546,7 @@ function getToneIcon(id: string): Component | undefined {
 								<div class="card-top">
 									<div class="card-tone">
 										{#if ToneIcon}
-											<span class="card-tone-icon"><UniqueEmoji><ToneIcon size={16} /></UniqueEmoji></span>
+											<span class="card-tone-icon"><UniqueEmoji><Emoji name={ToneIcon} size={16} /></UniqueEmoji></span>
 										{/if}
 										<span class="card-tone-name">{getToneName(entry.tone_id)}</span>
 									</div>
@@ -594,7 +593,7 @@ function getToneIcon(id: string): Component | undefined {
 				{#each writingModes as mode}
 					<a href={mode.href} class="mode-card" onclick={closeModeModal}>
 						<div class="mode-card-icon">
-							<mode.icon size={36} />
+							<Emoji name={mode.icon} size={36} />
 						</div>
 						<span class="mode-card-title">{mode.title}</span>
 					</a>
@@ -646,7 +645,7 @@ function getToneIcon(id: string): Component | undefined {
 			{#if isEditing}
 				<div class="edit-actions">
 					<button class="edit-btn edit-btn-cancel" onclick={cancelEditing} disabled={isSavingEdit}>
-						<EmojiCrossMark size={18} />
+						<Emoji name="cross-mark" size={18} />
 						<span>Avbryt</span>
 					</button>
 					<button class="edit-btn edit-btn-save" onclick={saveEdit} disabled={isSavingEdit}>
@@ -654,7 +653,7 @@ function getToneIcon(id: string): Component | undefined {
 							<span class="spinner"></span>
 							<span>Sparar...</span>
 						{:else}
-							<EmojiFloppyDisk size={18} />
+							<Emoji name="floppy-disk" size={18} />
 							<span>Spara</span>
 						{/if}
 					</button>
@@ -666,7 +665,7 @@ function getToneIcon(id: string): Component | undefined {
 							<span class="spinner"></span>
 							<span>Sparar...</span>
 						{:else}
-							<EmojiFramedPicture size={18} />
+							<Emoji name="framed-picture" size={18} />
 							<span>Spara bild</span>
 						{/if}
 					</button>
@@ -675,7 +674,7 @@ function getToneIcon(id: string): Component | undefined {
 							<span class="spinner"></span>
 							<span>Skapar...</span>
 						{:else}
-							<EmojiPrinter size={18} />
+							<Emoji name="printer" size={18} />
 							<span>Spara PDF</span>
 						{/if}
 					</button>
@@ -686,12 +685,12 @@ function getToneIcon(id: string): Component | undefined {
 							</svg>
 							<span>Kopierat!</span>
 						{:else}
-							<EmojiClipboard size={18} />
+							<Emoji name="clipboard" size={18} />
 							<span>Kopiera</span>
 						{/if}
 					</button>
 					<button class="modal-action-btn" onclick={openEmailModal}>
-						<EmojiEnvelopeArrow size={18} />
+						<Emoji name="envelope-arrow" size={18} />
 						<span>Maila</span>
 					</button>
 				</div>
@@ -713,7 +712,7 @@ function getToneIcon(id: string): Component | undefined {
 						</div>
 					{:else}
 						<button class="modal-action-btn modal-delete-btn" onclick={() => showDeleteConfirm = true}>
-							<EmojiTrash size={18} />
+							<Emoji name="trash" size={18} />
 							<span>Ta bort</span>
 						</button>
 					{/if}
@@ -770,7 +769,7 @@ function getToneIcon(id: string): Component | undefined {
 						<span class="spinner"></span>
 						Skickar...
 					{:else}
-						<EmojiEnvelopeEmail size={22} />
+						<Emoji name="envelope-email" size={22} />
 						Skicka
 					{/if}
 				</button>

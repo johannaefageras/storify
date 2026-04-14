@@ -33,11 +33,9 @@ create policy "Community entries are publicly readable"
   for select
   using (true);
 
--- Anyone can insert (both logged-in and anonymous via anon key)
-create policy "Anyone can share to community"
-  on community_entries
-  for insert
-  with check (true);
+-- Inserts go through the SvelteKit API, which rate-limits and validates input
+-- before writing with the Supabase service role. Do not allow direct anon/auth
+-- client inserts, or callers can bypass app-level abuse controls.
 
 -- Only the author can delete their own entry (logged-in users only)
 create policy "Authors can delete own community entries"

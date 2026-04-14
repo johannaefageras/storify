@@ -2,6 +2,7 @@ import type { RequestHandler } from './$types';
 import Anthropic from '@anthropic-ai/sdk';
 import type { UserProfile } from '$lib/stores/wizard.svelte';
 import { ANTHROPIC_API_KEY } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { buildInterviewerPrompt } from '$lib/data/chatbotPrompt';
 import { validateChatMessages, type ChatMessagePayload } from '$lib/validation';
 import { sanitizeString } from '$lib/validation/sanitizers';
@@ -23,7 +24,8 @@ const client = new Anthropic({
 	apiKey: ANTHROPIC_API_KEY
 });
 
-const MODEL = 'claude-sonnet-4-5-20250929';
+const MODEL = env.CHAT_MODEL || 'claude-sonnet-4-6';
+const MAX_TOKENS = parseInt(env.CHAT_MAX_TOKENS || '512', 10);
 
 interface ChatRequestBody {
 	messages: ChatMessagePayload[];
@@ -109,7 +111,7 @@ Intervjun har pågått ett tag. Börja sakta styra mot en naturlig avrundning. D
 		// 7. Stream response via SSE
 		const stream = client.messages.stream({
 			model: MODEL,
-			max_tokens: 512,
+			max_tokens: MAX_TOKENS,
 			system: systemPrompt,
 			messages: anthropicMessages
 		});

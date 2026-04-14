@@ -1,22 +1,8 @@
 <script lang="ts">
 	import { tones } from '$lib/data/tones';
 	import { accentStore, type Accent } from '$lib/stores/accent.svelte';
-	import {
-		EmojiRegenerateAmber,
-		EmojiRegeneratePink,
-		EmojiRegenerateGreen,
-		EmojiRegenerateBlue,
-		EmojiRegenerateRed,
-		EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado, EmojiLedger,
-		EmojiFaceGrimacing, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire, EmojiFaceUpsideDown,
-		EmojiOwl, EmojiVideoGame, EmojiWomanDetective, EmojiCrown, EmojiEarth, EmojiMicrophone,
-		EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite, EmojiWomanMeditating, EmojiNewspaper,
-		EmojiHotBeverage, EmojiTheaterMasks, EmojiFaceNerd, EmojiFaceExplodingHead,
-		EmojiCastle, EmojiOldWoman, EmojiMemo, EmojiTools
-	} from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
-	import type { Component } from 'svelte';
-
 	interface Props {
 		currentToneId: string;
 		isRegenerating?: boolean;
@@ -27,50 +13,50 @@
 
 	let isOpen = $state(false);
 
-	const regenerateIcons: Record<Accent, Component> = {
-		pink: EmojiRegeneratePink,
-		amber: EmojiRegenerateAmber,
-		blue: EmojiRegenerateBlue,
-		lime: EmojiRegenerateGreen,
-		red: EmojiRegenerateRed
+	const regenerateIcons: Record<Accent, string> = {
+		pink: 'regenerate-pink',
+		amber: 'regenerate-amber',
+		blue: 'regenerate-blue',
+		lime: 'regenerate-lime',
+		red: 'regenerate-red'
 	};
 
-	const toneIconMap: Record<string, Component> = {
-		'ai-robot': EmojiRobot,
-		'bored': EmojiFaceYawning,
-		'british': EmojiFlagUk,
-		'bureaucratic': EmojiArchive,
-		'cat-perspective': EmojiCat,
-		'chaotic': EmojiTornado,
-		'classic': EmojiLedger,
-		'cringe': EmojiFaceGrimacing,
-		'cynical': EmojiFaceUnamused,
-		'detective': EmojiWomanDetective,
-		'drama-queen': EmojiCrown,
-		'formal': EmojiTopHat,
-		'melodramatic': EmojiHeartOnFire,
-		'meme': EmojiPoo,
-		'nature-documentary': EmojiEarth,
-		'nerd': EmojiFaceNerd,
-		'overthinker': EmojiFaceExplodingHead,
-		'passive-aggressive': EmojiFaceUpsideDown,
-		'philosophical': EmojiOwl,
-		'quest-log': EmojiVideoGame,
-		'self-help': EmojiWomanMeditating,
-		'shakespeare': EmojiTheaterMasks,
-		'sportscaster': EmojiMicrophone,
-		'storytelling': EmojiOpenBook,
-		'tabloid': EmojiNewspaper,
-		'therapist': EmojiBrain,
-		'tinfoil-hat': EmojiSatellite,
-		'cozy': EmojiHotBeverage,
-		'fairy-tale': EmojiCastle,
-		'grandma': EmojiOldWoman,
-		'hr-review': EmojiMemo,
-		'ikea': EmojiTools
+	const toneIconMap: Record<string, string> = {
+		'ai-robot': 'robot',
+		'bored': 'face-yawning',
+		'british': 'flag-uk',
+		'bureaucratic': 'archive',
+		'cat-perspective': 'cat',
+		'chaotic': 'tornado',
+		'classic': 'ledger',
+		'cringe': 'face-grimacing',
+		'cynical': 'face-unamused',
+		'detective': 'woman-detective',
+		'drama-queen': 'crown',
+		'formal': 'top-hat',
+		'melodramatic': 'heart-on-fire',
+		'meme': 'poo',
+		'nature-documentary': 'earth',
+		'nerd': 'face-nerd',
+		'overthinker': 'face-exploding-head',
+		'passive-aggressive': 'face-upside-down',
+		'philosophical': 'owl',
+		'quest-log': 'video-game',
+		'self-help': 'woman-meditating',
+		'shakespeare': 'theater-masks',
+		'sportscaster': 'microphone',
+		'storytelling': 'open-book',
+		'tabloid': 'newspaper',
+		'therapist': 'brain',
+		'tinfoil-hat': 'satellite',
+		'cozy': 'hot-beverage',
+		'fairy-tale': 'castle',
+		'grandma': 'old-woman',
+		'hr-review': 'memo',
+		'ikea': 'tools'
 	};
 
-	const RegenerateIcon = $derived(regenerateIcons[accentStore.current] || EmojiRegeneratePink);
+	const RegenerateIcon = $derived(regenerateIcons[accentStore.current] || 'regenerate-pink');
 
 	function handleSelect(toneId: string) {
 		isOpen = false;
@@ -106,7 +92,7 @@
 		{#if isRegenerating}
 			<span class="regenerate-spinner"></span>
 		{:else}
-			<RegenerateIcon size={28} />
+			<Emoji name={RegenerateIcon} size={28} />
 		{/if}
 	</button>
 
@@ -129,7 +115,7 @@
 						title={tone.name}
 					>
 						{#if ToneIcon}
-							<span class="tone-option-icon"><UniqueEmoji><ToneIcon size={22} /></UniqueEmoji></span>
+							<span class="tone-option-icon"><UniqueEmoji><Emoji name={ToneIcon} size={22} /></UniqueEmoji></span>
 						{/if}
 						<span class="tone-option-name">{tone.name}</span>
 					</button>

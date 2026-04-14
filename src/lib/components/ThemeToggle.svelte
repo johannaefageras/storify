@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { themeStore } from '$lib/stores/theme.svelte';
-	import { EmojiSun, EmojiMoon } from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 
 	export let variant: 'fixed' | 'inline' = 'fixed';
 </script>
@@ -13,10 +13,10 @@
 	title={themeStore.current === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
 >
 	<span class="icon" class:visible={themeStore.current === 'light'}>
-		<EmojiSun size={32} class="theme-icon" />
+		<Emoji name="sun" size={32} class="theme-icon" />
 	</span>
 	<span class="icon" class:visible={themeStore.current === 'dark'}>
-		<EmojiMoon size={32} class="theme-icon" />
+		<Emoji name="moon" size={32} class="theme-icon" />
 	</span>
 </button>
 

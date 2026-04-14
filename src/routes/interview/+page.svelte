@@ -15,16 +15,12 @@
 	import { tones } from '$lib/data/tones';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import { isSeparatorParagraph } from '$lib/utils/paragraphs';
+	import { getSwedishDiaryDate } from '$lib/utils/localDate';
 	import { getLoadingPhrases } from '$lib/data/loadingPhrases';
 	import { downloadAsImage } from '$lib/utils/imageDownload';
 	import { downloadAsPdf } from '$lib/utils/pdfDownload';
 	import resultMessages from '$lib/data/resultMessages.json';
-	import {
-		EmojiRosePink,
-		EmojiFramedPicture, EmojiPrinter, EmojiClipboard,
-		EmojiEnvelopeArrow, EmojiEnvelopeEmail,
-		EmojiFloppyDisk, EmojiCrossMark, EmojiSparkles
-	} from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 	import TonePickerDropdown from '$lib/components/TonePickerDropdown.svelte';
 
 	// Generation state
@@ -35,7 +31,7 @@
 	let interviewDateISO = $state('');
 	let interviewWeekday = $state('');
 
-	// Component refs for export
+	// string refs for export
 	let diaryCardRef: DiaryCard = $state(null!);
 	let pdfDocRef: PdfDocument = $state(null!);
 
@@ -100,17 +96,7 @@
 	// --- Helpers ---
 
 	function computeTodayDate(): { weekday: string; date: string; dateISO: string } {
-		const now = new Date();
-		const weekdays = ['Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag'];
-		const months = [
-			'januari', 'februari', 'mars', 'april', 'maj', 'juni',
-			'juli', 'augusti', 'september', 'oktober', 'november', 'december'
-		];
-		return {
-			weekday: weekdays[now.getDay()],
-			date: `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`,
-			dateISO: now.toISOString().split('T')[0]
-		};
+		return getSwedishDiaryDate();
 	}
 
 	function formatChatTranscript(): string {
@@ -578,7 +564,7 @@
 				{#if error}
 					<div class="error-message">{error}</div>
 					<button class="generate-btn" onclick={handleGenerate}>
-						<span class="generate-icon"><EmojiSparkles size={28} /></span>
+						<span class="generate-icon"><Emoji name="sparkles" size={28} /></span>
 						Försök igen
 					</button>
 				{:else}
@@ -592,7 +578,7 @@
 			<div class="interview-result">
 				<div class="result-intro">
 					<div class="result-icon">
-							<EmojiRosePink size={48} />
+							<Emoji name="rose-pink" size={48} />
 					</div>
 					<h1 class="result-title">{resultMessage.title}</h1>
 					<p class="result-subtitle">{resultMessage.subtitle}</p>
@@ -631,11 +617,11 @@
 				{#if isEditing}
 					<div class="edit-actions">
 						<button class="edit-btn edit-btn-cancel" onclick={cancelEditing}>
-							<EmojiCrossMark size={18} />
+							<Emoji name="cross-mark" size={18} />
 							<span>Avbryt</span>
 						</button>
 						<button class="edit-btn edit-btn-save" onclick={saveEdit}>
-							<EmojiFloppyDisk size={18} />
+							<Emoji name="floppy-disk" size={18} />
 							<span>Spara</span>
 						</button>
 					</div>
@@ -652,7 +638,7 @@
 									</svg>
 									<span>Sparat dagbok!</span>
 								{:else}
-									<EmojiFloppyDisk size={22} />
+									<Emoji name="floppy-disk" size={22} />
 									<span>Spara dagbok</span>
 								{/if}
 							</button>
@@ -669,7 +655,7 @@
 									<span class="spinner"></span>
 									<span>Sparar...</span>
 								{:else}
-									<EmojiFramedPicture size={22} />
+									<Emoji name="framed-picture" size={22} />
 									<span>Spara bild</span>
 								{/if}
 							</button>
@@ -678,7 +664,7 @@
 									<span class="spinner"></span>
 									<span>Skapar...</span>
 								{:else}
-									<EmojiPrinter size={22} />
+									<Emoji name="printer" size={22} />
 									<span>Spara PDF</span>
 								{/if}
 							</button>
@@ -689,12 +675,12 @@
 									</svg>
 									<span>Kopierat!</span>
 								{:else}
-									<EmojiClipboard size={22} />
+									<Emoji name="clipboard" size={22} />
 									<span>Kopiera</span>
 								{/if}
 							</button>
 							<button class="action-btn" onclick={openEmailModal}>
-								<EmojiEnvelopeArrow size={22} />
+								<Emoji name="envelope-arrow" size={22} />
 								<span>Maila</span>
 							</button>
 						</div>
@@ -748,7 +734,7 @@
 										<span class="spinner"></span>
 										Skickar...
 									{:else}
-										<EmojiEnvelopeEmail size={22} />
+										<Emoji name="envelope-email" size={22} />
 										Skicka
 									{/if}
 								</button>

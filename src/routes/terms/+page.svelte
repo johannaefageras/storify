@@ -1,33 +1,22 @@
 <script lang="ts">
 	import { accentStore } from '$lib/stores/accent.svelte';
-	import {
-		EmojiWomanJudgePink,
-		EmojiWomanJudgeAmber,
-		EmojiWomanJudgeBlue,
-		EmojiWomanJudgeLime,
-		EmojiWomanJudgeRed,
-		EmojiDiamondPink,
-		EmojiDiamondAmber,
-		EmojiDiamondBlue,
-		EmojiDiamondLime,
-		EmojiDiamondRed
-	} from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 
 	const judgeComponents = {
-		pink: EmojiWomanJudgePink,
-		amber: EmojiWomanJudgeAmber,
-		blue: EmojiWomanJudgeBlue,
-		lime: EmojiWomanJudgeLime,
-		red: EmojiWomanJudgeRed
+		pink: 'woman-judge-pink',
+		amber: 'woman-judge-amber',
+		blue: 'woman-judge-blue',
+		lime: 'woman-judge-lime',
+		red: 'woman-judge-red'
 	};
 
 	const diamondComponents = {
-		pink: EmojiDiamondPink,
-		amber: EmojiDiamondAmber,
-		blue: EmojiDiamondBlue,
-		lime: EmojiDiamondLime,
-		red: EmojiDiamondRed
+		pink: 'diamond-pink',
+		amber: 'diamond-amber',
+		blue: 'diamond-blue',
+		lime: 'diamond-lime',
+		red: 'diamond-red'
 	};
 
 	let JudgeIcon = $derived(judgeComponents[accentStore.current]);
@@ -36,7 +25,7 @@
 
 <main class="legal-page">
 	<div class="page-header">
-		<JudgeIcon size={96} />
+		<Emoji name={JudgeIcon} size={96} />
 		<h1>Användarvillkor</h1>
 	</div>
 	<p class="updated">Senast uppdaterad: 27 mars 2026</p>
@@ -74,15 +63,15 @@
 		<p>Gemenskapen är till för frivilligt delade dagboksanteckningar. För att hålla den trygg och användbar för alla får du inte dela innehåll som är olagligt, hotfullt, trakasserande, hatiskt, pornografiskt, vilseledande eller på annat sätt skadligt.</p>
 		<div class="custom-ul">
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Ingen publicering av andras känsliga uppgifter:</strong> Dela inte personuppgifter eller privat information om andra personer utan deras samtycke.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Inget olagligt eller skadligt innehåll:</strong> Inlägg får inte innehålla hot, hat, uppvigling, sexuellt exploaterande material eller annat som bryter mot lag eller rimliga säkerhetskrav.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Ingen spam eller masspublicering:</strong> Gemenskapen får inte användas för reklam, spam, automatiserad masspublicering eller annat missbruk.</span>
 			</div>
 		</div>
@@ -94,23 +83,23 @@
 		<p>För att Storify ska fungera bra för alla ber vi dig att respektera följande:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Ingen kommersiell användning:</strong> Appen är avsedd för personligt bruk. Du får inte använda tjänsten för att massproducera innehåll i kommersiellt syfte.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Ingen manipulation av AI:n:</strong> Försök inte kringgå eller manipulera AI-tjänsten på olämpliga sätt, till exempel för att generera olagligt, hatiskt eller skadligt innehåll.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Inget missbruk av tjänsten:</strong> Försök inte kringgå hastighetsbegränsningar eller på annat sätt överbelasta tjänsten.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Respektera andras integritet:</strong> Om du skriver om andra personer i din dagbok, tänk på deras integritet om du väljer att dela texterna offentligt.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Ingen kringgående av moderering eller borttagning:</strong> Försök inte återpublicera innehåll som tagits bort, eller använda flera inlägg för att kringgå reglerna för Gemenskapen.</span>
 			</div>
 		</div>
@@ -121,15 +110,15 @@
 		<p>Dagbokstexterna skapas av en AI-modell baserat på den information du fyller i. Även om vi strävar efter hög kvalitet kan vi inte garantera att texterna alltid är felfria, korrekta eller passar dina förväntningar. AI:n kan ibland:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content">Missförstå eller feltolka den information du gett</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content">Lägga till detaljer som inte stämmer</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content">Producera text som inte matchar den valda stilen perfekt</span>
 			</div>
 		</div>
@@ -146,23 +135,23 @@
 		<p>Storify tillhandahålls i befintligt skick ("as is"). Vi gör vårt bästa för att appen ska fungera bra, men kan inte garantera att den alltid är tillgänglig eller felfri. Vi ansvarar inte för:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content">Förlust av data (lokalt sparad data ligger på din enhet; molndata hanteras med rimliga säkerhetsåtgärder men utan garanti)</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content">Eventuella fel eller brister i AI-genererat innehåll</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content">Skador som kan uppstå vid användning av appen</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content">Problem orsakade av tredjepartstjänster</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content">Hur andra användare tolkar eller reagerar på innehåll som du själv valt att dela publikt i Gemenskapen</span>
 			</div>
 		</div>
@@ -173,23 +162,23 @@
 		<p>Storify använder externa tjänster för att fungera. Genom att använda appen godkänner du även dessa tjänsters villkor:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Anthropic:</strong> AI-tjänsten som genererar dagbokstexter. <a href="https://www.anthropic.com/terms" target="_blank" rel="noopener">Läs deras villkor</a>.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Databastjänst:</strong> Hanterar autentisering, profillagring, dagboksarkiv för användare med konto och lagring av delade inlägg i Gemenskapen.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>E-posttjänst:</strong> Används för att skicka dagbokstexter via e-post (om du väljer att använda funktionen). <a href="https://resend.com/legal/terms-of-service" target="_blank" rel="noopener">Läs deras villkor</a>.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Väder- och platstjänster:</strong> Externa tjänster som tillhandahåller väderdata och platsnamn baserat på din position, samt platsautokomplettering i formuläret (om du väljer att aktivera funktionerna).</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon"><DiamondIcon size={12} /></span>
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Google Play:</strong> Om du laddat ner appen därifrån. <a href="https://play.google.com/intl/sv/about/play-terms/" target="_blank" rel="noopener">Läs deras villkor</a>.</span>
 			</div>
 		</div>

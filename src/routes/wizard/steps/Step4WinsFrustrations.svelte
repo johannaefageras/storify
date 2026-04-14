@@ -1,9 +1,6 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import {
-	EmojiTrophy,
-	EmojiCollision
-} from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 	import { FIELD_LIMITS } from '$lib/validation';
 
@@ -67,7 +64,7 @@
 
 	<div class="field-group">
 		<span class="field-label">
-			<span class="label-emoji"><EmojiTrophy size={23} /></span>
+			<span class="label-emoji"><Emoji name="trophy" size={23} /></span>
 			<span>Dagens små segrar<RequiredIndicator tooltip="Ange minst en bra sak från idag" /></span>
 		</span>
 		<div class="repeater">
@@ -93,7 +90,7 @@
 
 	<div class="field-group">
 		<span class="field-label">
-			<span class="label-emoji"><EmojiCollision size={23} /></span>
+			<span class="label-emoji"><Emoji name="collision" size={23} /></span>
 			Dagens irritationsmoment
 		</span>
 		<div class="repeater">

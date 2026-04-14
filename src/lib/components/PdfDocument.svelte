@@ -4,20 +4,7 @@
 	import { uniqueSvgIds } from '$lib/utils/uniqueSvgIds';
 	import { getRenderParagraphs, formatParagraph } from '$lib/utils/paragraphs';
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
-	import type { Component } from 'svelte';
-	import {
-		EmojiCrystalBall, EmojiLightBulb, EmojiMantelpieceClock,
-		EmojiZodiacAries, EmojiZodiacTaurus, EmojiZodiacGemini, EmojiZodiacCancer,
-		EmojiZodiacLeo, EmojiZodiacVirgo, EmojiZodiacLibra, EmojiZodiacScorpio,
-		EmojiZodiacSagittarius, EmojiZodiacCapricorn, EmojiZodiacAquarius, EmojiZodiacPisces,
-		EmojiRobot, EmojiFaceYawning, EmojiFlagUk, EmojiArchive, EmojiCat, EmojiTornado,
-		EmojiLedger, EmojiFaceGrimacing, EmojiFaceUnamused, EmojiTopHat, EmojiHeartOnFire,
-		EmojiFaceUpsideDown, EmojiOwl, EmojiVideoGame, EmojiWomanDetective, EmojiCrown,
-		EmojiEarth, EmojiMicrophone, EmojiPoo, EmojiBrain, EmojiOpenBook, EmojiSatellite,
-		EmojiWomanMeditating, EmojiNewspaper, EmojiHotBeverage, EmojiTheaterMasks,
-		EmojiFaceNerd, EmojiFaceExplodingHead,
-		EmojiCastle, EmojiOldWoman, EmojiMemo, EmojiTools
-	} from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 
 	interface Props {
@@ -36,61 +23,61 @@
 		return element;
 	}
 
-	const zodiacComponents: Record<string, Component> = {
-		aries: EmojiZodiacAries,
-		taurus: EmojiZodiacTaurus,
-		gemini: EmojiZodiacGemini,
-		cancer: EmojiZodiacCancer,
-		leo: EmojiZodiacLeo,
-		virgo: EmojiZodiacVirgo,
-		libra: EmojiZodiacLibra,
-		scorpio: EmojiZodiacScorpio,
-		sagittarius: EmojiZodiacSagittarius,
-		capricorn: EmojiZodiacCapricorn,
-		aquarius: EmojiZodiacAquarius,
-		pisces: EmojiZodiacPisces
+	const zodiacComponents: Record<string, string> = {
+		aries: 'zodiac-aries',
+		taurus: 'zodiac-taurus',
+		gemini: 'zodiac-gemini',
+		cancer: 'zodiac-cancer',
+		leo: 'zodiac-leo',
+		virgo: 'zodiac-virgo',
+		libra: 'zodiac-libra',
+		scorpio: 'zodiac-scorpio',
+		sagittarius: 'zodiac-sagittarius',
+		capricorn: 'zodiac-capricorn',
+		aquarius: 'zodiac-aquarius',
+		pisces: 'zodiac-pisces'
 	};
 
-	const toneIconMap: Record<string, Component> = {
-		'ai-robot': EmojiRobot,
-		'bored': EmojiFaceYawning,
-		'british': EmojiFlagUk,
-		'bureaucratic': EmojiArchive,
-		'cat-perspective': EmojiCat,
-		'chaotic': EmojiTornado,
-		'classic': EmojiLedger,
-		'cringe': EmojiFaceGrimacing,
-		'cynical': EmojiFaceUnamused,
-		'detective': EmojiWomanDetective,
-		'drama-queen': EmojiCrown,
-		'formal': EmojiTopHat,
-		'melodramatic': EmojiHeartOnFire,
-		'meme': EmojiPoo,
-		'nature-documentary': EmojiEarth,
-		'nerd': EmojiFaceNerd,
-		'overthinker': EmojiFaceExplodingHead,
-		'passive-aggressive': EmojiFaceUpsideDown,
-		'philosophical': EmojiOwl,
-		'quest-log': EmojiVideoGame,
-		'self-help': EmojiWomanMeditating,
-		'shakespeare': EmojiTheaterMasks,
-		'sportscaster': EmojiMicrophone,
-		'storytelling': EmojiOpenBook,
-		'tabloid': EmojiNewspaper,
-		'therapist': EmojiBrain,
-		'tinfoil-hat': EmojiSatellite,
-		'cozy': EmojiHotBeverage,
-		'fairy-tale': EmojiCastle,
-		'grandma': EmojiOldWoman,
-		'hr-review': EmojiMemo,
-		'ikea': EmojiTools
+	const toneIconMap: Record<string, string> = {
+		'ai-robot': 'robot',
+		'bored': 'face-yawning',
+		'british': 'flag-uk',
+		'bureaucratic': 'archive',
+		'cat-perspective': 'cat',
+		'chaotic': 'tornado',
+		'classic': 'ledger',
+		'cringe': 'face-grimacing',
+		'cynical': 'face-unamused',
+		'detective': 'woman-detective',
+		'drama-queen': 'crown',
+		'formal': 'top-hat',
+		'melodramatic': 'heart-on-fire',
+		'meme': 'poo',
+		'nature-documentary': 'earth',
+		'nerd': 'face-nerd',
+		'overthinker': 'face-exploding-head',
+		'passive-aggressive': 'face-upside-down',
+		'philosophical': 'owl',
+		'quest-log': 'video-game',
+		'self-help': 'woman-meditating',
+		'shakespeare': 'theater-masks',
+		'sportscaster': 'microphone',
+		'storytelling': 'open-book',
+		'tabloid': 'newspaper',
+		'therapist': 'brain',
+		'tinfoil-hat': 'satellite',
+		'cozy': 'hot-beverage',
+		'fairy-tale': 'castle',
+		'grandma': 'old-woman',
+		'hr-review': 'memo',
+		'ikea': 'tools'
 	};
 
 	function getEmojiSvg(emojiId: string): string | undefined {
 		return jomojiSvgMap.get(emojiId);
 	}
 
-	function getZodiacComponent(): Component | undefined {
+	function getZodiacComponent(): string | undefined {
 		if (!birthday) return undefined;
 		const sign = getZodiacFromBirthday(birthday);
 		if (!sign) return undefined;
@@ -121,20 +108,20 @@
 				{@const ZodiacIcon = getZodiacComponent()}
 				<p class="pdf-addon-heading">
 					{#if ZodiacIcon}
-						<span class="pdf-addon-icon"><UniqueEmoji><ZodiacIcon size={20} /></UniqueEmoji></span>
+						<span class="pdf-addon-icon"><UniqueEmoji><Emoji name={ZodiacIcon} size={20} /></UniqueEmoji></span>
 					{:else}
-						<span class="pdf-addon-icon"><UniqueEmoji><EmojiCrystalBall size={20} /></UniqueEmoji></span>
+						<span class="pdf-addon-icon"><UniqueEmoji><Emoji name="crystal-ball" size={20} /></UniqueEmoji></span>
 					{/if}
 					<span>{@html formatParagraph(paragraph.text)}</span>
 				</p>
 			{:else if paragraph.type === 'onthisday-heading'}
 				<p class="pdf-addon-heading">
-					<span class="pdf-addon-icon"><UniqueEmoji><EmojiMantelpieceClock size={20} /></UniqueEmoji></span>
+					<span class="pdf-addon-icon"><UniqueEmoji><Emoji name="mantelpiece-clock" size={20} /></UniqueEmoji></span>
 					<span>{@html formatParagraph(paragraph.text)}</span>
 				</p>
 			{:else if paragraph.type === 'homework-heading'}
 				<p class="pdf-addon-heading">
-					<span class="pdf-addon-icon"><UniqueEmoji><EmojiLightBulb size={20} /></UniqueEmoji></span>
+					<span class="pdf-addon-icon"><UniqueEmoji><Emoji name="light-bulb" size={20} /></UniqueEmoji></span>
 					<span>{@html formatParagraph(paragraph.text)}</span>
 				</p>
 			{:else}
@@ -148,7 +135,7 @@
 	<div class="pdf-footer">
 		{#if tone}
 			{#if ToneIcon}
-				<span class="pdf-tone-icon"><UniqueEmoji><ToneIcon size={24} /></UniqueEmoji></span>
+				<span class="pdf-tone-icon"><UniqueEmoji><Emoji name={ToneIcon} size={24} /></UniqueEmoji></span>
 			{/if}
 			<span class="pdf-tone-name">{tone.name}</span>
 		{/if}

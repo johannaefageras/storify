@@ -8,6 +8,7 @@
 	import { isSeparatorParagraph } from '$lib/utils/paragraphs';
 	import { downloadAsImage } from '$lib/utils/imageDownload';
 	import { downloadAsPdf } from '$lib/utils/pdfDownload';
+	import { getSwedishDiaryDate } from '$lib/utils/localDate';
 	import resultMessages from '$lib/data/resultMessages.json';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import ShareToCommunity from '$lib/components/ShareToCommunity.svelte';
@@ -15,11 +16,7 @@
 	import TonePickerDropdown from '$lib/components/TonePickerDropdown.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 
-	import {
-		EmojiRosePink, EmojiFramedPicture, EmojiPrinter,
-		EmojiClipboard, EmojiEnvelopeArrow, EmojiEnvelopeEmail, EmojiFloppyDisk, EmojiPencil, EmojiCrossMark,
-		EmojiFountainPen
-	} from '$lib/assets/emojis';
+	import { Emoji } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import { Editor } from '@tiptap/core';
 	import StarterKit from '@tiptap/starter-kit';
@@ -41,13 +38,6 @@
 	import alignRightSvg from '$lib/assets/svg/alignRight.svg?raw';
 	import horizontalRuleSvg from '$lib/assets/svg/horizontalRule.svg?raw';
 	import aiSparklesSvg from '$lib/assets/svg/aiSparkles.svg?raw';
-
-	// Date initialization
-	const weekdays = ['Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag'];
-	const months = [
-		'januari', 'februari', 'mars', 'april', 'maj', 'juni',
-		'juli', 'augusti', 'september', 'oktober', 'november', 'december'
-	];
 
 	// Tiptap editor
 	let editor: Editor | null = $state(null);
@@ -82,12 +72,10 @@
 		// Try to restore a saved draft
 		await wizardStore.restoreDraft('editor');
 
-		const now = new Date();
-		const weekday = weekdays[now.getDay()];
-		const date = `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
-		wizardStore.updateData('weekday', weekday);
-		wizardStore.updateData('date', date);
-		wizardStore.updateData('dateISO', now.toISOString().split('T')[0]);
+		const today = getSwedishDiaryDate();
+		wizardStore.updateData('weekday', today.weekday);
+		wizardStore.updateData('date', today.date);
+		wizardStore.updateData('dateISO', today.dateISO);
 
 		// Disable addons
 		wizardStore.updateData('includeHomework', false);
@@ -430,7 +418,7 @@
 		<div class="result-view-content">
 			<div class="result-intro">
 				<div class="result-icon">
-					<EmojiRosePink size={48} />
+					<Emoji name="rose-pink" size={48} />
 				</div>
 				<h1 class="result-title">{resultMessage.title}</h1>
 				<p class="result-subtitle">{resultMessage.subtitle}</p>
@@ -469,11 +457,11 @@
 			{#if isEditing}
 				<div class="edit-actions">
 					<button class="edit-btn edit-btn-cancel" onclick={cancelEditing}>
-						<EmojiCrossMark size={18} />
+						<Emoji name="cross-mark" size={18} />
 						<span>Avbryt</span>
 					</button>
 					<button class="edit-btn edit-btn-save" onclick={saveEdit}>
-						<EmojiFloppyDisk size={18} />
+						<Emoji name="floppy-disk" size={18} />
 						<span>Spara</span>
 					</button>
 				</div>
@@ -491,7 +479,7 @@
 							</svg>
 							<span>Sparat dagbok!</span>
 						{:else}
-							<EmojiFloppyDisk size={22} />
+							<Emoji name="floppy-disk" size={22} />
 							<span>Spara dagbok</span>
 						{/if}
 					</button>
@@ -507,14 +495,14 @@
 						{#if isDownloading}
 							<span class="spinner"></span><span>Sparar...</span>
 						{:else}
-							<EmojiFramedPicture size={22} /><span>Spara bild</span>
+							<Emoji name="framed-picture" size={22} /><span>Spara bild</span>
 						{/if}
 					</button>
 					<button class="action-btn" onclick={downloadAsPdfHandler} disabled={isDownloadingPdf}>
 						{#if isDownloadingPdf}
 							<span class="spinner"></span><span>Skapar...</span>
 						{:else}
-							<EmojiPrinter size={22} /><span>Spara PDF</span>
+							<Emoji name="printer" size={22} /><span>Spara PDF</span>
 						{/if}
 					</button>
 					<button class="action-btn" onclick={copyToClipboard} disabled={isCopying}>
@@ -524,11 +512,11 @@
 							</svg>
 							<span>Kopierat!</span>
 						{:else}
-							<EmojiClipboard size={22} /><span>Kopiera</span>
+							<Emoji name="clipboard" size={22} /><span>Kopiera</span>
 						{/if}
 					</button>
 					<button class="action-btn" onclick={openEmailModal}>
-						<EmojiEnvelopeArrow size={22} /><span>Maila</span>
+						<Emoji name="envelope-arrow" size={22} /><span>Maila</span>
 					</button>
 				</div>
 				{#if showRestartConfirm}
@@ -580,7 +568,7 @@
 									<span class="spinner"></span>
 									Skickar...
 								{:else}
-									<EmojiEnvelopeEmail size={22} />
+									<Emoji name="envelope-email" size={22} />
 									Skicka
 								{/if}
 							</button>
@@ -603,7 +591,7 @@
 		<!-- Editor form -->
 		<header class="editor-header">
 			<div class="step-indicator">
-				<div class="step-icon"><UniqueEmoji><EmojiPencil size={72} /></UniqueEmoji></div>
+				<div class="step-icon"><UniqueEmoji><Emoji name="pencil" size={72} /></UniqueEmoji></div>
 				<h1 class="step-title">Skriv fritt</h1>
 			</div>
 		</header>
@@ -758,7 +746,7 @@
 					<div class="error-message">{error}</div>
 				{/if}
 				<button class="generate-btn" onclick={handleCreateEntry} disabled={!hasEditorContent}>
-					<span class="generate-icon"><EmojiPencil size={28} /></span>
+					<span class="generate-icon"><Emoji name="pencil" size={28} /></span>
 					Skriv anteckning
 				</button>
 			</section>

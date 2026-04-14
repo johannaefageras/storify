@@ -3,6 +3,7 @@ import type { RequestHandler } from './$types';
 import Anthropic from '@anthropic-ai/sdk';
 import type { WizardData } from '$lib/stores/wizard.svelte';
 import { ANTHROPIC_API_KEY } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { buildTonePrompt } from '$lib/data/tonePrompts';
 import { validateWizardData, validatePayloadSize } from '$lib/validation';
 import { checkRateLimit, getClientIdentifier } from '$lib/validation/ratelimit';
@@ -31,8 +32,9 @@ const client = new Anthropic({
   apiKey: ANTHROPIC_API_KEY
 });
 
-const PRIMARY_MODEL = 'claude-opus-4-6';
-const FALLBACK_MODEL = 'claude-sonnet-4-6';
+const PRIMARY_MODEL = env.GENERATE_PRIMARY_MODEL || 'claude-opus-4-6';
+const FALLBACK_MODEL = env.GENERATE_FALLBACK_MODEL || 'claude-sonnet-4-6';
+const MAX_TOKENS = parseInt(env.GENERATE_MAX_TOKENS || '2048', 10);
 
 async function generateWithFallback(
   systemPrompt: string,
@@ -43,7 +45,7 @@ async function generateWithFallback(
   const createMessage = async (model: string) => {
     return client.messages.create({
       model,
-      max_tokens: 2048,
+      max_tokens: MAX_TOKENS,
       system: systemPrompt,
       messages: [
         {

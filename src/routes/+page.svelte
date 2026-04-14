@@ -2,25 +2,14 @@
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { accentStore } from '$lib/stores/accent.svelte';
-	import {
-		EmojiRosePink,
-		EmojiRoseAmber,
-		EmojiRoseBlue,
-		EmojiRoseLime,
-		EmojiRoseRed,
-		EmojiCompass,
-		EmojiRocket,
-		EmojiSpeakingHead,
-		EmojiPencil
-	} from '$lib/assets/emojis';
-	import type { Component } from 'svelte';
+	import { Emoji } from '$lib/assets/emojis';
 
 	const roseComponents = {
-		pink: EmojiRosePink,
-		amber: EmojiRoseAmber,
-		blue: EmojiRoseBlue,
-		lime: EmojiRoseLime,
-		red: EmojiRoseRed
+		pink: 'rose-pink',
+		amber: 'rose-amber',
+		blue: 'rose-blue',
+		lime: 'rose-lime',
+		red: 'rose-red'
 	};
 
 	let RoseIcon = $derived(roseComponents[accentStore.current]);
@@ -37,7 +26,7 @@
 		title: string;
 		description: string;
 		href: string;
-		icon: Component<{ size: number }>;
+		icon: string;
 		comingSoon: boolean;
 	}
 
@@ -47,7 +36,7 @@
 			title: 'AI-intervju',
 			description: 'Chatta med AI som ställer frågor om din dag.',
 			href: '/interview',
-			icon: EmojiSpeakingHead,
+			icon: 'speaking-head',
 			comingSoon: false
 		},
 		{
@@ -55,7 +44,7 @@
 			title: 'Steg-för-steg',
 			description: 'Svara på frågor om din dag och få en detaljerad dagbokstext.',
 			href: '/wizard',
-			icon: EmojiCompass,
+			icon: 'compass',
 			comingSoon: false
 		},
 		{
@@ -63,7 +52,7 @@
 			title: 'Snabbläge',
 			description: 'Fånga dagens känsla på under en minut.',
 			href: '/quick',
-			icon: EmojiRocket,
+			icon: 'rocket',
 			comingSoon: false
 		},
 		{
@@ -71,7 +60,7 @@
 			title: 'Skriv fritt',
 			description: 'Skriv fritt med AI-stöd som förfinar din text.',
 			href: '/editor',
-			icon: EmojiPencil,
+			icon: 'pencil',
 			comingSoon: false
 		}
 	];
@@ -83,7 +72,7 @@
 		<div class="landing-main">
 			<header class="hero">
 				<div class="logo">
-					<RoseIcon size={96} />
+					<Emoji name={RoseIcon} size={96} />
 				</div>
 				{#if isReturningUser}
 					<h1 class="title">{greeting}</h1>
@@ -98,7 +87,7 @@
 				{#each modeCards as card}
 					<a href={card.href} class="mode-card" class:coming-soon={card.comingSoon}>
 						<div class="mode-card-icon">
-							<card.icon size={36} />
+							<Emoji name={card.icon} size={36} />
 						</div>
 						<div class="mode-card-content">
 							<h2 class="mode-card-title">{card.title}</h2>
