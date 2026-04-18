@@ -366,7 +366,7 @@ interface Props {
 
 **Struktur:**
 
-- Hälsningstext ovanför: "Välj din intervjuare" + underrubrik: "Hen styr samtalet. Valet syns bara här — dagboksinlägget får du välja ton för i nästa steg."
+- Hälsningstext ovanför: "Välj din intervjuare" + underrubrik: "Hen styr samtalet. Valet syns bara här — dagboksinlägget får du välja röst för i nästa steg."
 - Kortgrid: desktop 3 kolumner, mobil 1 kolumn (full bredd). Använd samma elevation och radius som `.starter-chip` i [InterviewEmptyState.svelte](src/lib/components/interview/InterviewEmptyState.svelte#L112-L132) som visuell förlaga.
 - Varje kort:
   - Stor emoji (från `InterviewerMeta.emoji`, t.ex. storlek 48)

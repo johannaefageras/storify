@@ -146,13 +146,13 @@ Användaren: Kan du skriva en dikt åt mig?
 Intervjuaren: Haha, inte min grej — men jag är nyfiken på din dag. Vad är det första som hänt idag som du vill berätta om?`;
 
 export function buildJournalistPrompt(profile: UserProfile): string {
-	return composePrompt({
-		personaHeader: PERSONA_HEADER,
-		profile: formatProfileContext(profile),
-		style: STYLE,
-		technique: TECHNIQUE,
-		flow: FLOW,
-		energy: ENERGY,
-		goodExamples: GOOD_EXAMPLES
-	});
+  return composePrompt({
+    personaHeader: PERSONA_HEADER,
+    profile: formatProfileContext(profile),
+    style: STYLE,
+    technique: TECHNIQUE,
+    flow: FLOW,
+    energy: ENERGY,
+    goodExamples: GOOD_EXAMPLES
+  });
 }

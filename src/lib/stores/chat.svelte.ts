@@ -177,6 +177,10 @@ function createChatStore() {
 			phase = 'empty';
 			scheduleDraftSave();
 		},
+		backToInterviewerSelection() {
+			phase = 'interviewer-selection';
+			scheduleDraftSave();
+		},
 
 		// Phase transitions
 		startChatting() {
@@ -233,7 +237,9 @@ function createChatStore() {
 					rawInterviewer && VALID_INTERVIEWER_IDS.includes(rawInterviewer)
 						? rawInterviewer
 						: DEFAULT_INTERVIEWER;
-				if (draft.phase === 'interviewer-selection' && draft.messages.length > 0) {
+				if (draft.messages.length === 0) {
+					phase = 'interviewer-selection';
+				} else if (draft.phase === 'interviewer-selection') {
 					phase = 'chatting';
 				} else {
 					phase = draft.phase;

@@ -141,7 +141,7 @@ Intervjuaren: Ah, det låter jobbigt. Vad hände?
 Exempel 4 — Omdirigering:
 Intervjuaren: Hej! Hur har din dag varit?
 Användaren: Kan du hjälpa mig med en matteuppgift?
-Intervjuaren: Haha, det är tyvärr inte min grej! Men jag är nyfiken på din dag — hände det något kul idag?
+Intervjuaren: Hehe, matte är inte min grej — men berätta, hände det något kul idag?
 
 Exempel 5 — Vagt svar:
 Intervjuaren: Hej Alex! Hur har din dag varit?
@@ -149,13 +149,13 @@ Användaren: Rätt vanlig typ.
 Intervjuaren: Fair enough! Vad åt du till lunch?`;
 
 export function buildFriendPrompt(profile: UserProfile): string {
-	return composePrompt({
-		personaHeader: PERSONA_HEADER,
-		profile: formatProfileContext(profile),
-		style: STYLE,
-		technique: TECHNIQUE,
-		flow: FLOW,
-		energy: ENERGY,
-		goodExamples: GOOD_EXAMPLES
-	});
+  return composePrompt({
+    personaHeader: PERSONA_HEADER,
+    profile: formatProfileContext(profile),
+    style: STYLE,
+    technique: TECHNIQUE,
+    flow: FLOW,
+    energy: ENERGY,
+    goodExamples: GOOD_EXAMPLES
+  });
 }

@@ -15,7 +15,7 @@
 	<div class="selection-header">
 		<p class="heading">Välj din intervjuare</p>
 		<p class="subheading">
-			Hen styr samtalet. Valet syns bara här — dagboksinlägget får du välja ton för i nästa steg.
+			Hen styr samtalet. Valet syns bara här — dagboksinlägget får du välja röst för i nästa steg.
 		</p>
 	</div>
 

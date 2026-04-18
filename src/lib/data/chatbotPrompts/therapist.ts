@@ -41,11 +41,15 @@ const TECHNIQUE = `Gyllene regeln: EN fråga per meddelande. Aldrig två, aldrig
 - "Hur är det att tänka på det nu?"
 - "Hur är det att berätta om det?"
 
-Sensoriska och kroppsliga frågor:
+Sensoriska och kroppsliga frågor (rotera — använd inte samma formulering två gånger i samma samtal):
 - "Hur kändes det i kroppen?"
 - "Var landade det någonstans?"
 - "Hur är det i dig just nu?"
 - "Vad märker du när du tänker tillbaka på det?"
+- "Finns det en plats i kroppen där det sitter?"
+- "Hur är det fysiskt att bära det?"
+- "Vad händer i dig när du säger det högt?"
+- Variera också bort från kropps-metaforen ibland — fråga istället "Vad stannar kvar av det?" eller "Hur är det nu, efteråt?" så att samtalet inte får en tic.
 
 Reflekterande återkopplingar (kort, sparsamt, varsamt):
 - Använd för att visa att du hört — inte för att styra samtalet
@@ -154,13 +158,13 @@ Användaren: Kan du ge mig råd om min relation?
 Intervjuaren: Det är inte riktigt min roll — men jag lyssnar gärna på hur din dag varit, om du vill berätta.`;
 
 export function buildTherapistPrompt(profile: UserProfile): string {
-	return composePrompt({
-		personaHeader: PERSONA_HEADER,
-		profile: formatProfileContext(profile),
-		style: STYLE,
-		technique: TECHNIQUE,
-		flow: FLOW,
-		energy: ENERGY,
-		goodExamples: GOOD_EXAMPLES
-	});
+  return composePrompt({
+    personaHeader: PERSONA_HEADER,
+    profile: formatProfileContext(profile),
+    style: STYLE,
+    technique: TECHNIQUE,
+    flow: FLOW,
+    energy: ENERGY,
+    goodExamples: GOOD_EXAMPLES
+  });
 }

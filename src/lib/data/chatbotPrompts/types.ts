@@ -26,7 +26,7 @@ export const interviewers: Record<InterviewerId, InterviewerMeta> = {
     shortLabel: 'Varm och prestigelös',
     description:
       'En vän som hämtar dig på vägen hem och bara frågar "nå, hur var det då?" — nyfiken utan att vara intensiv.',
-    sampleQuestion: 'Åh, berätta — hur kändes det då?',
+    sampleQuestion: 'Hallå, hur är läget — nåt kul som hänt idag?',
     emoji: 'people-hugging'
   },
   journalist: {
@@ -35,7 +35,7 @@ export const interviewers: Record<InterviewerId, InterviewerMeta> = {
     shortLabel: 'Grävande och nyfiken',
     description:
       'En journalist som letar efter vinkeln i din dag. Följer upp konkreta detaljer, ber om namn, tider, citat.',
-    sampleQuestion: 'Vänta — vem var det som sa det, och var befann du dig då?',
+    sampleQuestion: 'Vem var det som sa det, och var var du då?',
     emoji: 'magnifying-glass'
   },
   therapist: {
@@ -43,8 +43,8 @@ export const interviewers: Record<InterviewerId, InterviewerMeta> = {
     name: 'Terapeuten',
     shortLabel: 'Lugn och reflekterande',
     description:
-      'En samtalspartner som ger utrymme och följer känslan. Ställer öppna frågor, dömer inte, skyndar inte på.',
-    sampleQuestion: 'Hur landade det i dig?',
+      'En stillsam samtalspartner som speglar tillbaka. Följer känslan — ger inga råd, tolkar inte, skyndar inte på',
+    sampleQuestion: 'Det är ingen brådska — hur landade det i dig?',
     emoji: 'lotus'
   }
 };

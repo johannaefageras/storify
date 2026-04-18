@@ -3,7 +3,8 @@
 
 	import { Emoji } from '$lib/assets/emojis';
 	import { getRandomWelcomeMessage } from '$lib/data/welcomeMessages';
-	import { STARTER_LABELS, type StarterId } from '$lib/data/interviewOpeners';
+	import { STARTER_IDS, pickStarterLabel, type StarterId } from '$lib/data/interviewOpeners';
+	import { chatStore } from '$lib/stores/chat.svelte';
 
 	interface Props {
 		onStarter: (starter: StarterId) => void;
@@ -11,11 +12,14 @@
 
 	let { onStarter }: Props = $props();
 
-	const starters = (Object.entries(STARTER_LABELS) as [StarterId, string][]).map(
-		([id, label]) => ({ id, label })
-	);
+	const interviewerId = chatStore.selectedInterviewer;
 
-	const welcome = getRandomWelcomeMessage();
+	const starters = STARTER_IDS.map((id) => ({
+		id,
+		label: pickStarterLabel(interviewerId, id)
+	}));
+
+	const welcome = getRandomWelcomeMessage(interviewerId);
 </script>
 
 <div class="empty-state">
