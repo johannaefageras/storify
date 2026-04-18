@@ -35,7 +35,7 @@
 		{#each starters as starter}
 			<button class="starter-chip" onclick={() => onStarter(starter.id)}>
 				<span class="chip-icon">
-					<Emoji name="speech-balloon" size={24} />
+					<Emoji name="speech-balloon" size={32} />
 				</span>
 				<span class="chip-text">{starter.label}</span>
 			</button>
