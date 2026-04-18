@@ -133,7 +133,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
     const { error } = await resend.emails.send({
       from: 'Storify <din@dagbok.mystorify.se>',
-      replyTo: 'responses@mystorify.se',
+      replyTo: 'hi@mystorify.se',
       to: email,
       subject: `Din dagbok: ${weekday}${date ? `, ${date}` : ''}`,
       html: htmlContent

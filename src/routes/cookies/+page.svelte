@@ -115,7 +115,7 @@
 
 	<section>
 		<h2>Frågor?</h2>
-		<p>Har du funderingar kring hur vi hanterar data? Kontakta oss på <a href="mailto:johanna@mystorify.se">johanna@mystorify.se</a>.</p>
+		<p>Har du funderingar kring hur vi hanterar data? Kontakta oss på <a href="mailto:hi@mystorify.se">hi@mystorify.se</a>.</p>
 	</section>
 
 	<LegalFooter />

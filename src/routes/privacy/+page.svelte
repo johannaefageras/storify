@@ -23,7 +23,7 @@
 
 	<section>
 		<h2>Vem ansvarar för dina uppgifter?</h2>
-		<p>Storify drivs av Johanna Fagerås. Om du har frågor om hur vi hanterar dina uppgifter kan du kontakta oss på <a href="mailto:johanna@mystorify.se">johanna@mystorify.se</a>.</p>
+		<p>Storify drivs av Johanna Fagerås. Om du har frågor om hur vi hanterar dina uppgifter kan du kontakta oss på <a href="mailto:hi@mystorify.se">hi@mystorify.se</a>.</p>
 	</section>
 
 	<section>
@@ -178,7 +178,7 @@
 
 	<section>
 		<h2>Kontakt</h2>
-		<p>Har du frågor eller funderingar om din integritet? Kontakta oss på <a href="mailto:johanna@mystorify.se">johanna@mystorify.se</a>.</p>
+		<p>Har du frågor eller funderingar om din integritet? Kontakta oss på <a href="mailto:hi@mystorify.se">hi@mystorify.se</a>.</p>
 	</section>
 
 	<LegalFooter />

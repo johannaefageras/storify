@@ -191,7 +191,7 @@
 
 	<section>
 		<h2>Kontakt</h2>
-		<p>Har du frågor om villkoren? Kontakta oss på <a href="mailto:johanna@mystorify.se">johanna@mystorify.se</a>.</p>
+		<p>Har du frågor om villkoren? Kontakta oss på <a href="mailto:hi@mystorify.se">hi@mystorify.se</a>.</p>
 	</section>
 
 	<section>
