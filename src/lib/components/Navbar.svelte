@@ -60,6 +60,15 @@
 		line-height: 1;
 		color: var(--color-text);
 		text-decoration: none;
+		background-image: linear-gradient(var(--color-accent), var(--color-accent));
+		background-size: 0% 3px;
+		background-repeat: no-repeat;
+		background-position: 0 94%;
+		transition: background-size 0.3s ease;
+	}
+
+	.navbar-brand:hover {
+		background-size: 100% 3px;
 	}
 
 	.navbar-actions {

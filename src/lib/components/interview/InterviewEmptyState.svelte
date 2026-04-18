@@ -3,28 +3,17 @@
 
 	import { Emoji } from '$lib/assets/emojis';
 	import { getRandomWelcomeMessage } from '$lib/data/welcomeMessages';
+	import { STARTER_LABELS, type StarterId } from '$lib/data/interviewOpeners';
 
 	interface Props {
-		onSend: (message: string) => void;
+		onStarter: (starter: StarterId) => void;
 	}
 
-	let { onSend }: Props = $props();
+	let { onStarter }: Props = $props();
 
-	const starters = [
-		{ label: 'Ge mig tips på vad jag borde skriva om..', message: 'Ge mig tips på vad jag borde skriva om!' },
-		{
-			label: 'Ställ mig en fråga jag inte väntar mig..',
-			message: 'Ställ mig en fråga jag inte väntar mig'
-		},
-		{
-			label: 'Hjälp mig att komma ihåg den här dagen..',
-			message: 'Hjälp mig att komma ihåg den här dagen'
-		},
-		{
-			label: 'Gräv fram något intressant ur min dag..',
-			message: 'Gräv fram något intressant ur min dag'
-		}
-	] as const;
+	const starters = (Object.entries(STARTER_LABELS) as [StarterId, string][]).map(
+		([id, label]) => ({ id, label })
+	);
 
 	const welcome = getRandomWelcomeMessage();
 </script>
@@ -40,7 +29,7 @@
 
 	<div class="starter-grid">
 		{#each starters as starter}
-			<button class="starter-chip" onclick={() => onSend(starter.message)}>
+			<button class="starter-chip" onclick={() => onStarter(starter.id)}>
 				<span class="chip-icon">
 					<Emoji name="speech-balloon" size={24} />
 				</span>

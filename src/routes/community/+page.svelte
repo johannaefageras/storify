@@ -78,7 +78,11 @@
 		'fairy-tale': 'castle',
 		'grandma': 'old-woman',
 		'hr-review': 'memo',
-		'ikea': 'tools'
+		'ikea': 'tools',
+		'killen-hela-dan': 'shorts',
+		'actionhjalten': 'collision',
+		'influencern': 'loudspeaker',
+		'sexaringen': 'teddy-bear'
 	};
 
 	const swedishMonths: Record<string, string> = {
@@ -233,7 +237,7 @@
 			<input
 				type="search"
 				class="filter-search"
-				placeholder="Sök i inlägg..."
+				placeholder="Sök i gemenskapen..."
 				bind:value={searchQuery}
 				oninput={handleSearchInput}
 			/>
@@ -518,6 +522,10 @@
 		transition:
 			border-color 0.15s ease,
 			box-shadow 0.15s ease;
+	}
+
+	:global([data-theme='dark']) .filter-date::-webkit-calendar-picker-indicator {
+		filter: invert(1);
 	}
 
 	.filter-search:focus,

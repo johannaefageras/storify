@@ -33,7 +33,15 @@
 		'tabloid': 'newspaper',
 		'therapist': 'brain',
 		'tinfoil-hat': 'satellite',
-		'cozy': 'hot-beverage'
+		'cozy': 'hot-beverage',
+		'fairy-tale': 'castle',
+		'grandma': 'old-woman',
+		'hr-review': 'memo',
+		'ikea': 'tools',
+		'killen-hela-dan': 'shorts',
+		'actionhjalten': 'collision',
+		'influencern': 'loudspeaker',
+		'sexaringen': 'teddy-bear'
 	};
 
 	function getToneIcon(toneId: string): string | undefined {

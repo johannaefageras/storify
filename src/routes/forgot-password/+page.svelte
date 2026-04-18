@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { supabase } from '$lib/supabase/client';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
-	import IconArrowRight from '$lib/assets/icons/IconArrowRight.svelte';
+	import arrowRightSvg from '$lib/assets/icons/arrow-right.svg?raw';
 
 	let email = $state('');
 	let error = $state('');
@@ -59,7 +59,7 @@
 				</div>
 
 				<button class="btn btn-primary btn-large auth-submit" type="submit" disabled={loading}>
-					{loading ? 'Skickar återställningslänk...' : 'Återställ mitt lösenord'} <IconArrowRight size={18} />
+					{loading ? 'Skickar återställningslänk...' : 'Återställ mitt lösenord'} <span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;">{@html arrowRightSvg}</span>
 				</button>
 			</form>
 		{/if}

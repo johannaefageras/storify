@@ -34,6 +34,10 @@ import { buildPrompt as fairyTalePrompt } from './fairy-tale';
 import { buildPrompt as grandmaPrompt } from './grandma';
 import { buildPrompt as hrReviewPrompt } from './hr-review';
 import { buildPrompt as ikeaPrompt } from './ikea';
+import { buildPrompt as killenHelaDanPrompt } from './killen-hela-dan';
+import { buildPrompt as actionhjaltenPrompt } from './actionhjalten';
+import { buildPrompt as influencernPrompt } from './influencern';
+import { buildPrompt as sexaringenPrompt } from './sexaringen';
 
 // Registry of all tone prompt builders
 const toneBuilders: Record<ToneId, TonePromptBuilder> = {
@@ -68,7 +72,11 @@ const toneBuilders: Record<ToneId, TonePromptBuilder> = {
   'fairy-tale': fairyTalePrompt,
   grandma: grandmaPrompt,
   'hr-review': hrReviewPrompt,
-  ikea: ikeaPrompt
+  ikea: ikeaPrompt,
+  'killen-hela-dan': killenHelaDanPrompt,
+  actionhjalten: actionhjaltenPrompt,
+  influencern: influencernPrompt,
+  sexaringen: sexaringenPrompt
 };
 
 /**

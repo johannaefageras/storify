@@ -5,6 +5,7 @@
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { supabase } from '$lib/supabase/client';
 	import { getApiUrl } from '$lib/config';
+	import { streamEntry } from '$lib/utils/streamEntry';
 	import { isSeparatorParagraph } from '$lib/utils/paragraphs';
 	import { downloadAsImage } from '$lib/utils/imageDownload';
 	import { downloadAsPdf } from '$lib/utils/pdfDownload';
@@ -12,6 +13,7 @@
 	import resultMessages from '$lib/data/resultMessages.json';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import ShareToCommunity from '$lib/components/ShareToCommunity.svelte';
+	import ShareLinkButton from '$lib/components/ShareLinkButton.svelte';
 	import PdfDocument from '$lib/components/PdfDocument.svelte';
 	import TonePickerDropdown from '$lib/components/TonePickerDropdown.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
@@ -23,21 +25,21 @@
 	import Placeholder from '@tiptap/extension-placeholder';
 	import TextAlign from '@tiptap/extension-text-align';
 	import Underline from '@tiptap/extension-underline';
-	import undoSvg from '$lib/assets/svg/undo.svg?raw';
-	import redoSvg from '$lib/assets/svg/redo.svg?raw';
-	import boldSvg from '$lib/assets/svg/bold.svg?raw';
-	import italicSvg from '$lib/assets/svg/italic.svg?raw';
-	import underlineSvg from '$lib/assets/svg/underline.svg?raw';
-	import h1Svg from '$lib/assets/svg/h1.svg?raw';
-	import h2Svg from '$lib/assets/svg/h2.svg?raw';
-	import h3Svg from '$lib/assets/svg/h3.svg?raw';
-	import listUnorderedSvg from '$lib/assets/svg/listUnordered.svg?raw';
-	import listOrderedSvg from '$lib/assets/svg/listOrdered.svg?raw';
-	import alignLeftSvg from '$lib/assets/svg/alignLeft.svg?raw';
-	import alignCenterSvg from '$lib/assets/svg/alignCenter.svg?raw';
-	import alignRightSvg from '$lib/assets/svg/alignRight.svg?raw';
-	import horizontalRuleSvg from '$lib/assets/svg/horizontalRule.svg?raw';
-	import aiSparklesSvg from '$lib/assets/svg/aiSparkles.svg?raw';
+	import undoSvg from '$lib/assets/icons/undo.svg?raw';
+	import redoSvg from '$lib/assets/icons/redo.svg?raw';
+	import boldSvg from '$lib/assets/icons/bold.svg?raw';
+	import italicSvg from '$lib/assets/icons/italic.svg?raw';
+	import underlineSvg from '$lib/assets/icons/underline.svg?raw';
+	import h1Svg from '$lib/assets/icons/h1.svg?raw';
+	import h2Svg from '$lib/assets/icons/h2.svg?raw';
+	import h3Svg from '$lib/assets/icons/h3.svg?raw';
+	import listUnorderedSvg from '$lib/assets/icons/list-unordered.svg?raw';
+	import listOrderedSvg from '$lib/assets/icons/list-ordered.svg?raw';
+	import alignLeftSvg from '$lib/assets/icons/align-left.svg?raw';
+	import alignCenterSvg from '$lib/assets/icons/align-center.svg?raw';
+	import alignRightSvg from '$lib/assets/icons/align-right.svg?raw';
+	import horizontalRuleSvg from '$lib/assets/icons/horizontal-rule.svg?raw';
+	import aiSparklesSvg from '$lib/assets/icons/sparkles.svg?raw';
 
 	// Tiptap editor
 	let editor: Editor | null = $state(null);
@@ -177,28 +179,22 @@
 		regenerateError = '';
 
 		try {
-			const response = await fetch(getApiUrl('/api/generate'), {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
-					retoneMode: true,
-					existingText: generatedEntry,
-					newToneId
-				})
-			});
+			const existingText = generatedEntry;
+			generatedEntry = '';
+			const { entry } = await streamEntry(
+				{ retoneMode: true, existingText, newToneId },
+				{
+					onChunk: (_chunk, accumulated) => {
+						generatedEntry = accumulated;
+					}
+				}
+			);
 
-			const result = await response.json();
-
-			if (!result.success) {
-				regenerateError = result.error || 'Kunde inte generera om inlägget.';
-				return;
-			}
-
-			generatedEntry = stripSeparatorLines(result.entry);
+			generatedEntry = stripSeparatorLines(entry);
 			currentToneId = newToneId;
 			entrySaved = false;
 		} catch (err) {
-			regenerateError = 'Kunde inte ansluta till servern. Försök igen.';
+			regenerateError = err instanceof Error ? err.message : 'Kunde inte ansluta till servern. Försök igen.';
 			console.error('Regenerate error:', err);
 		} finally {
 			isRegenerating = false;
@@ -255,22 +251,13 @@
 		error = '';
 
 		try {
-			const response = await fetch(getApiUrl('/api/generate'), {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(wizardStore.data)
-			});
-			const result = await response.json();
-			if (result.success) {
-				const refined = stripSeparatorLines(result.entry);
-				editor.commands.setContent(refined);
-				wizardStore.updateData('freeText', editor.getHTML());
-				hasEditorContent = !editor.isEmpty;
-			} else {
-				error = result.error || 'Något gick fel vid förfiningen.';
-			}
+			const { entry } = await streamEntry(wizardStore.data);
+			const refined = stripSeparatorLines(entry);
+			editor.commands.setContent(refined);
+			wizardStore.updateData('freeText', editor.getHTML());
+			hasEditorContent = !editor.isEmpty;
 		} catch (err) {
-			error = 'Kunde inte ansluta till servern. Försök igen.';
+			error = err instanceof Error ? err.message : 'Kunde inte ansluta till servern. Försök igen.';
 			console.error('Refine error:', err);
 		} finally {
 			isRefining = false;
@@ -518,6 +505,15 @@
 					<button class="action-btn" onclick={openEmailModal}>
 						<Emoji name="envelope-arrow" size={22} /><span>Maila</span>
 					</button>
+					<ShareLinkButton
+						className="action-btn"
+						freshInput={{
+							generated_text: generatedEntry,
+							tone_id: currentToneId,
+							entry_date: wizardStore.data.dateISO,
+							weekday: wizardStore.data.weekday
+						}}
+					/>
 				</div>
 				{#if showRestartConfirm}
 					<div class="restart-confirm">

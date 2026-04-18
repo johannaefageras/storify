@@ -126,6 +126,7 @@ function createChatStore() {
 				content,
 				timestamp: Date.now()
 			});
+			scheduleDraftSave();
 		},
 		appendToLastAssistantMessage(chunk: string) {
 			const lastMessage = messages[messages.length - 1];

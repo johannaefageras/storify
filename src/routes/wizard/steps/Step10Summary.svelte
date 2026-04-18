@@ -10,6 +10,7 @@
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import ShareToCommunity from '$lib/components/ShareToCommunity.svelte';
+	import ShareLinkButton from '$lib/components/ShareLinkButton.svelte';
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
 	import { downloadAsImage } from '$lib/utils/imageDownload';
 	import { downloadAsPdf } from '$lib/utils/pdfDownload';
@@ -17,6 +18,7 @@
 	import PdfDocument from '$lib/components/PdfDocument.svelte';
 	import TonePickerDropdown from '$lib/components/TonePickerDropdown.svelte';
 	import { getApiUrl } from '$lib/config';
+	import { streamEntry } from '$lib/utils/streamEntry';
 	import { goto } from '$app/navigation';
 	import resultMessages from '$lib/data/resultMessages.json';
 	import { getLoadingPhrases } from '$lib/data/loadingPhrases';
@@ -165,7 +167,10 @@ Vi ses imorgon, dagboken.`;
 		'tabloid': 'newspaper',
 		'therapist': 'brain',
 		'tinfoil-hat': 'satellite',
-		'cozy': 'hot-beverage'
+		'cozy': 'hot-beverage',
+		'actionhjalten': 'collision',
+		'influencern': 'loudspeaker',
+		'sexaringen': 'teddy-bear'
 	};
 
 	function getEmojiSvg(emojiId: string): string | undefined {
@@ -309,25 +314,27 @@ Vi ses imorgon, dagboken.`;
 		}
 
 		try {
-			const response = await fetch(getApiUrl('/api/generate'), {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ ...wizardStore.data, selectedTone: toneToUse })
-			});
+			let firstChunkSeen = false;
+			const { entry } = await streamEntry(
+				{ ...wizardStore.data, selectedTone: toneToUse },
+				{
+					onChunk: (_chunk, accumulated) => {
+						if (!firstChunkSeen) {
+							firstChunkSeen = true;
+							selectRandomMessage();
+							stopPhraseCycling();
+						}
+						generatedEntry = accumulated;
+					}
+				}
+			);
 
-			const result = await response.json();
-
-			if (result.success) {
-				generatedEntry = stripSeparatorLines(result.entry);
-				selectRandomMessage();
-				void wizardStore.clearDraft('wizard');
-			} else {
-				error = result.error || 'Något gick fel vid genereringen.';
-			}
+			generatedEntry = stripSeparatorLines(entry);
+			if (!firstChunkSeen) selectRandomMessage();
+			void wizardStore.clearDraft('wizard');
 		} catch (err) {
-			error = 'Kunde inte ansluta till servern. Försök igen.';
+			error = err instanceof Error ? err.message : 'Kunde inte ansluta till servern. Försök igen.';
+			generatedEntry = '';
 			console.error('Generation error:', err);
 		} finally {
 			stopPhraseCycling();
@@ -461,24 +468,21 @@ Vi ses imorgon, dagboken.`;
 		regenerateError = '';
 
 		try {
-			const response = await fetch(getApiUrl('/api/generate'), {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ ...wizardStore.data, selectedTone: newToneId })
-			});
+			generatedEntry = '';
+			const { entry } = await streamEntry(
+				{ ...wizardStore.data, selectedTone: newToneId },
+				{
+					onChunk: (_chunk, accumulated) => {
+						generatedEntry = accumulated;
+					}
+				}
+			);
 
-			const result = await response.json();
-
-			if (!result.success) {
-				regenerateError = result.error || 'Kunde inte generera om inlägget.';
-				return;
-			}
-
-			generatedEntry = stripSeparatorLines(result.entry);
+			generatedEntry = stripSeparatorLines(entry);
 			actualToneUsed = newToneId;
 			entrySaved = false;
 		} catch (err) {
-			regenerateError = 'Kunde inte ansluta till servern. Försök igen.';
+			regenerateError = err instanceof Error ? err.message : 'Kunde inte ansluta till servern. Försök igen.';
 			console.error('Regenerate error:', err);
 		} finally {
 			isRegenerating = false;
@@ -661,6 +665,16 @@ Vi ses imorgon, dagboken.`;
 						<Emoji name="envelope-arrow" size={22} />
 						<span>Maila</span>
 					</button>
+					<ShareLinkButton
+						className="action-btn"
+						freshInput={{
+							generated_text: generatedEntry,
+							tone_id: actualToneUsed || wizardStore.data.selectedTone,
+							entry_date: wizardStore.data.dateISO,
+							emojis: wizardStore.data.emojis,
+							weekday: wizardStore.data.weekday
+						}}
+					/>
 				</div>
 				<button class="action-btn restart-btn" onclick={handleStartOver}>
 					Börja om från början...

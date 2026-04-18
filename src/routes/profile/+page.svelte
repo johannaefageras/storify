@@ -8,7 +8,7 @@
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import { profilePhrases } from '$lib/data/profilePhrases';
 	import AvatarUpload from '$lib/components/AvatarUpload.svelte';
-	import IconArrowRight from '$lib/assets/icons/IconArrowRight.svelte';
+	import arrowRightSvg from '$lib/assets/icons/arrow-right.svg?raw';
 	import AccentPicker from '$lib/components/AccentPicker.svelte';
 	import { Emoji } from '$lib/assets/emojis';
 
@@ -387,15 +387,15 @@
 		<div class="profile-actions">
 			<button class="action-card" onclick={() => showModeModal = true}>
 				<span class="action-label">Ny anteckning</span>
-				<IconArrowRight size={16} />
+				<span style="display:inline-flex;width:16px;height:16px;flex-shrink:0;">{@html arrowRightSvg}</span>
 			</button>
 			<a href="/journal" class="action-card">
 				<span class="action-label">Dagböcker</span>
-				<IconArrowRight size={16} />
+				<span style="display:inline-flex;width:16px;height:16px;flex-shrink:0;">{@html arrowRightSvg}</span>
 			</a>
 			<a href="/calendar" class="action-card">
 				<span class="action-label">Kalender</span>
-				<IconArrowRight size={16} />
+				<span style="display:inline-flex;width:16px;height:16px;flex-shrink:0;">{@html arrowRightSvg}</span>
 			</a>
 		</div>
 

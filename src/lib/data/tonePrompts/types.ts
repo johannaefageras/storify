@@ -33,7 +33,11 @@ export type ToneId =
   | 'fairy-tale'
   | 'grandma'
   | 'hr-review'
-  | 'ikea';
+  | 'ikea'
+  | 'killen-hela-dan'
+  | 'actionhjalten'
+  | 'influencern'
+  | 'sexaringen';
 
 export type TonePromptBuilder = (baseIntro: string) => string;
 

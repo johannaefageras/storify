@@ -4,7 +4,7 @@
 	import { tones } from '$lib/data/tones';
 	import { voiceSamples } from '$lib/data/voiceSamples';
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
-	import IconArrowLeft from '$lib/assets/icons/IconArrowLeft.svelte';
+	import arrowLeftSvg from '$lib/assets/icons/arrow-left.svg?raw';
 	import { Emoji } from '$lib/assets/emojis';
 
 	interface Props {
@@ -45,7 +45,11 @@
 		'fairy-tale': 'castle',
 		grandma: 'old-woman',
 		'hr-review': 'memo',
-		ikea: 'tools'
+		ikea: 'tools',
+		'killen-hela-dan': 'shorts',
+		actionhjalten: 'collision',
+		influencern: 'loudspeaker',
+		sexaringen: 'teddy-bear'
 	};
 
 	const zodiacComponents: Record<string, string> = {
@@ -108,7 +112,7 @@
 <div class="tone-selection">
 	<div class="tone-header">
 		<button class="back-button" onclick={() => chatStore.backToInterview()}>
-			<IconArrowLeft size={16} />
+			<span style="display:inline-flex;width:16px;height:16px;flex-shrink:0;">{@html arrowLeftSvg}</span>
 			Tillbaka
 		</button>
 		<h2 class="tone-title">Välj röst & tillägg</h2>

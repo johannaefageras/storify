@@ -77,7 +77,11 @@
 		'fairy-tale': 'castle',
 		'grandma': 'old-woman',
 		'hr-review': 'memo',
-		'ikea': 'tools'
+		'ikea': 'tools',
+		'killen-hela-dan': 'shorts',
+		'actionhjalten': 'collision',
+		'influencern': 'loudspeaker',
+		'sexaringen': 'teddy-bear'
 	};
 
 	function getEmojiSvg(emojiId: string): string | undefined {

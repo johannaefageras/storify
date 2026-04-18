@@ -16,8 +16,8 @@
 	import Step9Addons from './steps/Step9Addons.svelte';
 	import Step10Summary from './steps/Step10Summary.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
-	import IconArrowLeft from '$lib/assets/icons/IconArrowLeft.svelte';
-	import IconArrowRight from '$lib/assets/icons/IconArrowRight.svelte';
+	import arrowLeftSvg from '$lib/assets/icons/arrow-left.svg?raw';
+	import arrowRightSvg from '$lib/assets/icons/arrow-right.svg?raw';
 
 	const optionalSteps = [0, 5, 6, 7, 9];
 
@@ -229,10 +229,10 @@
 		<footer class="wizard-footer">
 			{#if currentStep > 0 && !(authStore.isLoggedIn && currentStep === 1)}
 				<button class="btn btn-secondary" onclick={() => wizardStore.prevStep()}>
-					<IconArrowLeft size={16} /> Tillbaka
+					<span style="display:inline-flex;width:16px;height:16px;flex-shrink:0;">{@html arrowLeftSvg}</span> Tillbaka
 				</button>
 			{:else}
-				<a href="/" class="btn btn-secondary"><IconArrowLeft size={16} /> Tillbaka</a>
+				<a href="/" class="btn btn-secondary"><span style="display:inline-flex;width:16px;height:16px;flex-shrink:0;">{@html arrowLeftSvg}</span> Tillbaka</a>
 			{/if}
 
 			{#if showNextButton}
@@ -250,7 +250,7 @@
 						}}
 						aria-disabled={nextButtonDisabled}
 					>
-						{nextButtonText} <IconArrowRight size={16} />
+						{nextButtonText} <span style="display:inline-flex;width:16px;height:16px;flex-shrink:0;">{@html arrowRightSvg}</span>
 					</button>
 					{#if nextButtonDisabled}
 						<span class="disabled-tooltip">{disabledTooltip}</span>

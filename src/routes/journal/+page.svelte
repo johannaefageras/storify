@@ -9,7 +9,7 @@
 	import chevronRightSvg from '$lib/assets/svg/chevronRight.svg?raw';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
-	import IconArrowLeft from '$lib/assets/icons/IconArrowLeft.svelte';
+	import arrowLeftSvg from '$lib/assets/icons/arrow-left.svg?raw';
 	import { Emoji } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import { downloadAsImage } from '$lib/utils/imageDownload';
@@ -17,7 +17,9 @@
 	import PdfDocument from '$lib/components/PdfDocument.svelte';
 	import TonePickerDropdown from '$lib/components/TonePickerDropdown.svelte';
 	import ShareToCommunity from '$lib/components/ShareToCommunity.svelte';
+	import ShareLinkButton from '$lib/components/ShareLinkButton.svelte';
 	import { getApiUrl } from '$lib/config';
+	import { streamEntry } from '$lib/utils/streamEntry';
 
 	interface Entry {
 		id: string;
@@ -129,7 +131,10 @@
 		'tabloid': 'newspaper',
 		'therapist': 'brain',
 		'tinfoil-hat': 'satellite',
-		'cozy': 'hot-beverage'
+		'cozy': 'hot-beverage',
+		'actionhjalten': 'collision',
+		'influencern': 'loudspeaker',
+		'sexaringen': 'teddy-bear'
 	};
 
 	const swedishMonths: Record<string, string> = {
@@ -413,32 +418,28 @@ function getToneIcon(id: string): string | undefined {
 		regenerateError = '';
 
 		try {
-			const response = await fetch(getApiUrl('/api/generate'), {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
-					retoneMode: true,
-					existingText: selectedEntry.generated_text,
-					newToneId
-				})
-			});
-
-			const result = await response.json();
-
-			if (!result.success) {
-				regenerateError = result.error || 'Kunde inte generera om inlägget.';
-				return;
-			}
+			const existingText = selectedEntry.generated_text;
+			const entryId = selectedEntry.id;
+			const { entry } = await streamEntry(
+				{ retoneMode: true, existingText, newToneId },
+				{
+					onChunk: (_chunk, accumulated) => {
+						if (selectedEntry && selectedEntry.id === entryId) {
+							selectedEntry = { ...selectedEntry, generated_text: accumulated, tone_id: newToneId };
+						}
+					}
+				}
+			);
 
 			// Update in Supabase
 			const { error: updateError } = await supabase
 				.from('entries')
 				.update({
-					generated_text: result.entry,
+					generated_text: entry,
 					tone_id: newToneId,
 					updated_at: new Date().toISOString()
 				})
-				.eq('id', selectedEntry.id);
+				.eq('id', entryId);
 
 			if (updateError) {
 				regenerateError = 'Texten genererades men kunde inte sparas.';
@@ -448,11 +449,13 @@ function getToneIcon(id: string): string | undefined {
 
 			// Update local state
 			entries = entries.map((e) =>
-				e.id === selectedEntry!.id ? { ...e, generated_text: result.entry, tone_id: newToneId } : e
+				e.id === entryId ? { ...e, generated_text: entry, tone_id: newToneId } : e
 			);
-			selectedEntry = { ...selectedEntry, generated_text: result.entry, tone_id: newToneId };
+			if (selectedEntry && selectedEntry.id === entryId) {
+				selectedEntry = { ...selectedEntry, generated_text: entry, tone_id: newToneId };
+			}
 		} catch (err) {
-			regenerateError = 'Kunde inte ansluta till servern. Försök igen.';
+			regenerateError = err instanceof Error ? err.message : 'Kunde inte ansluta till servern. Försök igen.';
 			console.error('Regenerate error:', err);
 		} finally {
 			isRegenerating = false;
@@ -578,7 +581,7 @@ function getToneIcon(id: string): string | undefined {
 		{/if}
 
 		<footer class="journal-footer">
-			<a href="/profile" class="btn btn-secondary"><IconArrowLeft size={16} /> Tillbaka</a>
+			<a href="/profile" class="btn btn-secondary"><span style="display:inline-flex;width:16px;height:16px;flex-shrink:0;">{@html arrowLeftSvg}</span> Tillbaka</a>
 		</footer>
 	</div>
 	<LegalFooter />
@@ -693,6 +696,7 @@ function getToneIcon(id: string): string | undefined {
 						<Emoji name="envelope-arrow" size={18} />
 						<span>Maila</span>
 					</button>
+					<ShareLinkButton entryId={selectedEntry.id} className="modal-action-btn" />
 				</div>
 
 				<div class="modal-delete-row">

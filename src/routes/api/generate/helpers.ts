@@ -145,6 +145,22 @@ const toneMetadata: Record<ToneId, ToneMetadata> = {
 	ikea: {
 		language: 'swedish',
 		styleSummary: 'som en IKEA-monteringsanvisning med steg-för-steg-instruktioner'
+	},
+	'killen-hela-dan': {
+		language: 'swedish',
+		styleSummary: 'som en svensk dokusåpa-brat med grindset, boys-snack och charmigt skev självbild'
+	},
+	actionhjalten: {
+		language: 'swedish',
+		styleSummary: 'som en trött 80-tals actionhjälte som gör vardagen till ett taktiskt uppdrag'
+	},
+	influencern: {
+		language: 'swedish',
+		styleSummary: 'som en svensk mikro-influencer med curated autenticitet, Swenglish och content-hjärna'
+	},
+	sexaringen: {
+		language: 'swedish',
+		styleSummary: 'som en varm, bokstavlig sexåring med stora känslor, sidospår och skeva proportioner'
 	}
 };
 
@@ -611,4 +627,3 @@ GÖR INTE:
 - Föreslå inte saker som inte relaterar till det som faktiskt hänt idag
 - Ge inte flera uppgifter – bara EN fokuserad sak`;
 }
-

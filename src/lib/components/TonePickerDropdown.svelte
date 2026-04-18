@@ -53,7 +53,11 @@
 		'fairy-tale': 'castle',
 		'grandma': 'old-woman',
 		'hr-review': 'memo',
-		'ikea': 'tools'
+		'ikea': 'tools',
+		'killen-hela-dan': 'shorts',
+		'actionhjalten': 'collision',
+		'influencern': 'loudspeaker',
+		'sexaringen': 'teddy-bear'
 	};
 
 	const RegenerateIcon = $derived(regenerateIcons[accentStore.current] || 'regenerate-pink');

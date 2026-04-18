@@ -5,14 +5,17 @@
 	import ToneSelection from '$lib/components/interview/ToneSelection.svelte';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import ShareToCommunity from '$lib/components/ShareToCommunity.svelte';
+	import ShareLinkButton from '$lib/components/ShareLinkButton.svelte';
 	import PdfDocument from '$lib/components/PdfDocument.svelte';
 	import { chatStore } from '$lib/stores/chat.svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { supabase } from '$lib/supabase/client';
 	import { getApiUrl } from '$lib/config';
+	import { streamEntry } from '$lib/utils/streamEntry';
 	import { goto } from '$app/navigation';
 	import { tones } from '$lib/data/tones';
+	import { pickOpener, type StarterId } from '$lib/data/interviewOpeners';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import { isSeparatorParagraph } from '$lib/utils/paragraphs';
 	import { getSwedishDiaryDate } from '$lib/utils/localDate';
@@ -241,6 +244,11 @@
 		streamResponse();
 	}
 
+	function handleStarter(starter: StarterId) {
+		chatStore.startChatting();
+		chatStore.addAssistantMessage(pickOpener(starter));
+	}
+
 	// --- Generation ---
 
 	async function handleGenerate() {
@@ -278,24 +286,24 @@
 				quickText: ''
 			};
 
-			const response = await fetch(getApiUrl('/api/generate'), {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(payload)
+			let switchedToResult = false;
+			const { entry } = await streamEntry(payload, {
+				onChunk: (_chunk, accumulated) => {
+					if (!switchedToResult) {
+						switchedToResult = true;
+						selectRandomMessage();
+						stopPhraseCycling();
+						chatStore.showResult('');
+					}
+					generatedEntry = accumulated;
+				}
 			});
 
-			const result = await response.json();
-
-			if (result.success) {
-				generatedEntry = stripSeparatorLines(result.entry);
-				selectRandomMessage();
-				chatStore.showResult(generatedEntry);
-				chatStore.clearDraft();
-			} else {
-				error = result.error || 'Något gick fel vid genereringen.';
-			}
+			generatedEntry = stripSeparatorLines(entry);
+			chatStore.showResult(generatedEntry);
+			chatStore.clearDraft();
 		} catch (err) {
-			error = 'Kunde inte ansluta till servern. Försök igen.';
+			error = err instanceof Error ? err.message : 'Kunde inte ansluta till servern. Försök igen.';
 			console.error('Generation error:', err);
 		} finally {
 			stopPhraseCycling();
@@ -424,24 +432,18 @@
 				quickText: ''
 			};
 
-			const response = await fetch(getApiUrl('/api/generate'), {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(payload)
+			generatedEntry = '';
+			const { entry } = await streamEntry(payload, {
+				onChunk: (_chunk, accumulated) => {
+					generatedEntry = accumulated;
+				}
 			});
 
-			const result = await response.json();
-
-			if (!result.success) {
-				regenerateError = result.error || 'Kunde inte generera om inlägget.';
-				return;
-			}
-
-			generatedEntry = stripSeparatorLines(result.entry);
+			generatedEntry = stripSeparatorLines(entry);
 			actualToneUsed = newToneId;
 			entrySaved = false;
 		} catch (err) {
-			regenerateError = 'Kunde inte ansluta till servern. Försök igen.';
+			regenerateError = err instanceof Error ? err.message : 'Kunde inte ansluta till servern. Försök igen.';
 			console.error('Regenerate error:', err);
 		} finally {
 			isRegenerating = false;
@@ -549,7 +551,7 @@
 	<div class="interview-body">
 		{#if chatStore.phase === 'empty'}
 			<div class="interview-empty">
-				<InterviewEmptyState onSend={handleSend} />
+				<InterviewEmptyState onStarter={handleStarter} />
 			</div>
 		{:else if chatStore.phase === 'chatting'}
 			<div class="interview-chat">
@@ -683,6 +685,15 @@
 								<Emoji name="envelope-arrow" size={22} />
 								<span>Maila</span>
 							</button>
+							<ShareLinkButton
+								className="action-btn"
+								freshInput={{
+									generated_text: generatedEntry,
+									tone_id: actualToneUsed || chatStore.selectedTone,
+									entry_date: interviewDateISO,
+									weekday: interviewWeekday
+								}}
+							/>
 						</div>
 						<button class="action-btn restart-btn" onclick={handleStartOver}>
 							Börja om från början...

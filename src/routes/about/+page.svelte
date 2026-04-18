@@ -51,7 +51,7 @@
 		<h2>Nytt: Gemenskapen</h2>
 		<div class="community-box">
 			<div class="community-icon">
-				<Emoji name="users-silhouette" size={64} />
+				<Emoji name="users-silhouette" size={96} />
 			</div>
 			<div class="community-text">
 				<p>Storify har inte längre bara plats för dina privata minnen, utan också för de berättelser du faktiskt vill dela vidare. I Gemenskapen kan du bläddra bland publika dagboksanteckningar från andra användare och se hur olika röster, dagar och perspektiv tar form.</p>
@@ -83,7 +83,7 @@
 		<h2>Vill du vara med och utveckla projektet?</h2>
 		<div class="contribute-box">
 			<div class="contribute-icon">
-				<Emoji name="tools" size={64} />
+				<Emoji name="tools" size={96} />
 			</div>
 			<div class="contribute-text">
 				<p>Storify är open source! Har du idéer, hittat en bugg, eller vill bidra med kod? Projektet finns på GitHub och alla bidrag är välkomna.</p>
@@ -169,16 +169,20 @@
 	}
 
 	.community-box {
-		display: flex;
-		gap: 1.25rem;
-		align-items: center;
 		background: var(--color-bg-elevated);
 		padding: 1.25rem;
 		border-radius: var(--radius-md);
 	}
 
+	.community-box::after {
+		content: '';
+		display: block;
+		clear: both;
+	}
+
 	.community-icon {
-		flex-shrink: 0;
+		float: left;
+		margin: 0 1.25rem 0.5rem 0;
 	}
 
 	.community-text p {
@@ -227,7 +231,6 @@
 
 	@media (max-width: 480px) {
 		.about-johanna,
-		.community-box,
 		.contribute-box {
 			flex-direction: column;
 			text-align: center;

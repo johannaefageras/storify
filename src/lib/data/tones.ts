@@ -198,5 +198,29 @@ export const tones: Tone[] = [
     name: 'IKEA-manual',
     emoji: '🔧',
     preview: 'Steg 1: Vakna. Steg 2: Kontrollera att alla delar finns. Steg 3: Börja dagen.'
+  },
+  {
+    id: 'killen-hela-dan',
+    name: 'Killen Hela Dan',
+    emoji: '🩳',
+    preview: 'Ass boys, vaknade 06:00 för padel. Grind mode. Inte för att skryta men.'
+  },
+  {
+    id: 'actionhjalten',
+    name: 'Actionhjälten',
+    emoji: '💥',
+    preview: '06:47. Stockholm. Jag satte på fuel. Svart. Inget annat räknas.'
+  },
+  {
+    id: 'influencern',
+    name: 'Influencern',
+    emoji: '📣',
+    preview: 'Okej ni. Jag måste bara dela — det där magiska med en grå tisdag. ✨'
+  },
+  {
+    id: 'sexaringen',
+    name: 'Sexåringen',
+    emoji: '🧸',
+    preview: 'Idag hände det JÄTTEMYCKET. Typ hundra grejer. Fast mest bara två.'
   }
 ];

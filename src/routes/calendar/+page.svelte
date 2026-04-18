@@ -6,7 +6,7 @@
 	import { Emoji } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
-	import IconArrowLeft from '$lib/assets/icons/IconArrowLeft.svelte';
+	import arrowLeftSvg from '$lib/assets/icons/arrow-left.svg?raw';
 
 	function getNow(): Date {
 		return new Date();
@@ -349,7 +349,7 @@
 		{/if}
 
 		<footer class="calendar-footer">
-			<a href="/profile" class="btn btn-secondary"><IconArrowLeft size={16} /> Tillbaka</a>
+			<a href="/profile" class="btn btn-secondary"><span style="display:inline-flex;width:16px;height:16px;flex-shrink:0;">{@html arrowLeftSvg}</span> Tillbaka</a>
 		</footer>
 	</div>
 	<LegalFooter />

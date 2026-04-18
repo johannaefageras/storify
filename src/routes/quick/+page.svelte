@@ -7,6 +7,7 @@
 	import { tones } from '$lib/data/tones';
 	import { moodColors } from '$lib/data/moodColors';
 	import { getApiUrl } from '$lib/config';
+	import { streamEntry } from '$lib/utils/streamEntry';
 	import { isSeparatorParagraph } from '$lib/utils/paragraphs';
 	import { downloadAsImage } from '$lib/utils/imageDownload';
 	import { downloadAsPdf } from '$lib/utils/pdfDownload';
@@ -16,11 +17,12 @@
 	import resultMessages from '$lib/data/resultMessages.json';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import ShareToCommunity from '$lib/components/ShareToCommunity.svelte';
+	import ShareLinkButton from '$lib/components/ShareLinkButton.svelte';
 	import PdfDocument from '$lib/components/PdfDocument.svelte';
 	import TonePickerDropdown from '$lib/components/TonePickerDropdown.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
-	import IconArrowLeft from '$lib/assets/icons/IconArrowLeft.svelte';
+	import arrowLeftSvg from '$lib/assets/icons/arrow-left.svg?raw';
 	import { Emoji } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 
@@ -53,6 +55,14 @@
 		'bureaucratic': 'archive',
 		'chaotic': 'tornado',
 		'melodramatic': 'wilted-flower',
+		'fairy-tale': 'castle',
+		'grandma': 'old-woman',
+		'hr-review': 'memo',
+		'ikea': 'tools',
+		'killen-hela-dan': 'shorts',
+		'actionhjalten': 'collision',
+		'influencern': 'loudspeaker',
+		'sexaringen': 'teddy-bear'
 	};
 
 	// Mood emoji array (same as Step2Energy mood slider)
@@ -209,24 +219,21 @@
 		regenerateError = '';
 
 		try {
-			const response = await fetch(getApiUrl('/api/generate'), {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ ...wizardStore.data, selectedTone: newToneId })
-			});
+			generatedEntry = '';
+			const { entry } = await streamEntry(
+				{ ...wizardStore.data, selectedTone: newToneId },
+				{
+					onChunk: (_chunk, accumulated) => {
+						generatedEntry = accumulated;
+					}
+				}
+			);
 
-			const result = await response.json();
-
-			if (!result.success) {
-				regenerateError = result.error || 'Kunde inte generera om inlägget.';
-				return;
-			}
-
-			generatedEntry = stripSeparatorLines(result.entry);
+			generatedEntry = stripSeparatorLines(entry);
 			actualToneUsed = newToneId;
 			entrySaved = false;
 		} catch (err) {
-			regenerateError = 'Kunde inte ansluta till servern. Försök igen.';
+			regenerateError = err instanceof Error ? err.message : 'Kunde inte ansluta till servern. Försök igen.';
 			console.error('Regenerate error:', err);
 		} finally {
 			isRegenerating = false;
@@ -324,21 +331,27 @@
 		startPhraseCycling(toneToUse);
 
 		try {
-			const response = await fetch(getApiUrl('/api/generate'), {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ ...wizardStore.data, selectedTone: toneToUse })
-			});
-			const result = await response.json();
-			if (result.success) {
-				generatedEntry = stripSeparatorLines(result.entry);
-				selectRandomMessage();
-				void wizardStore.clearDraft('quick');
-			} else {
-				error = result.error || 'Något gick fel vid genereringen.';
-			}
+			let firstChunkSeen = false;
+			const { entry } = await streamEntry(
+				{ ...wizardStore.data, selectedTone: toneToUse },
+				{
+					onChunk: (_chunk, accumulated) => {
+						if (!firstChunkSeen) {
+							firstChunkSeen = true;
+							selectRandomMessage();
+							stopPhraseCycling();
+						}
+						generatedEntry = accumulated;
+					}
+				}
+			);
+
+			generatedEntry = stripSeparatorLines(entry);
+			if (!firstChunkSeen) selectRandomMessage();
+			void wizardStore.clearDraft('quick');
 		} catch (err) {
-			error = 'Kunde inte ansluta till servern. Försök igen.';
+			error = err instanceof Error ? err.message : 'Kunde inte ansluta till servern. Försök igen.';
+			generatedEntry = '';
 			console.error('Generation error:', err);
 		} finally {
 			stopPhraseCycling();
@@ -573,6 +586,15 @@
 					<button class="action-btn" onclick={openEmailModal}>
 						<Emoji name="envelope-arrow" size={22} /><span>Maila</span>
 					</button>
+					<ShareLinkButton
+						className="action-btn"
+						freshInput={{
+							generated_text: generatedEntry,
+							tone_id: actualToneUsed || wizardStore.data.selectedTone,
+							entry_date: wizardStore.data.dateISO,
+							weekday: wizardStore.data.weekday
+						}}
+					/>
 				</div>
 				<button class="action-btn restart-btn" onclick={handleStartOver}>
 					Börja om från början...
@@ -773,7 +795,7 @@
 		</div>
 
 		<footer class="quick-footer">
-			<a href="/" class="btn btn-secondary"><IconArrowLeft size={16} /> Tillbaka</a>
+			<a href="/" class="btn btn-secondary"><span style="display:inline-flex;width:16px;height:16px;flex-shrink:0;">{@html arrowLeftSvg}</span> Tillbaka</a>
 		</footer>
 		<LegalFooter />
 	{/if}

@@ -43,6 +43,11 @@
 	function close() {
 		open = false;
 	}
+
+	async function handleSignOut() {
+		await authStore.signOut();
+		close();
+	}
 </script>
 
 {#if open}
@@ -75,6 +80,14 @@
 						<span class="dropdown-link-trim" aria-hidden="true"></span>
 					</a>
 				{/each}
+
+				{#if authStore.isLoggedIn}
+					<button type="button" class="dropdown-link dropdown" onclick={handleSignOut}>
+						<span class="dropdown-link-marker" aria-hidden="true"></span>
+						<span class="dropdown-link-label">Logga ut</span>
+						<span class="dropdown-link-trim" aria-hidden="true"></span>
+					</button>
+				{/if}
 			</div>
 		</nav>
 	{/if}

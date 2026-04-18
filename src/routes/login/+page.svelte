@@ -2,8 +2,8 @@
 	import { goto } from '$app/navigation';
 	import { supabase } from '$lib/supabase/client';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
-	import IconArrowRight from '$lib/assets/icons/IconArrowRight.svelte';
-	import googleIcon from '$lib/assets/svg/google.svg';
+	import arrowRightSvg from '$lib/assets/icons/arrow-right.svg?raw';
+	import googleIcon from '$lib/assets/icons/google.svg';
 
 	let email = $state('');
 	let password = $state('');
@@ -77,7 +77,7 @@
 			</div>
 
 			<button class="btn btn-primary btn-large auth-submit" type="submit" disabled={loading}>
-				{loading ? 'Loggar in...' : 'Logga in'} <IconArrowRight size={18} />
+				{loading ? 'Loggar in...' : 'Logga in'} <span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;">{@html arrowRightSvg}</span>
 			</button>
 
 			<div class="auth-divider">

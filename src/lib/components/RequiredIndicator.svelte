@@ -1,11 +1,11 @@
 <script lang="ts">
-	import IconAsterisk from '$lib/assets/icons/IconAsterisk.svelte';
+	import asteriskSvg from '$lib/assets/icons/asterisk.svg?raw';
 
 	let { tooltip = 'Obligatoriskt' } = $props();
 </script>
 
 <span class="required-indicator">
-	<IconAsterisk size={10} class="required-icon" />
+	<span class="required-icon">{@html asteriskSvg}</span>
 	<span class="tooltip">{tooltip}</span>
 </span>
 
@@ -18,7 +18,11 @@
 		cursor: help;
 	}
 
-	.required-indicator :global(.required-icon) {
+	.required-icon {
+		display: inline-flex;
+		width: 10px;
+		height: 10px;
+		flex-shrink: 0;
 		color: var(--color-accent);
 	}
 
