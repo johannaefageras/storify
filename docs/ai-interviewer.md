@@ -14,29 +14,39 @@ Extract rich, nuanced material from the user through natural conversation, then 
 
 ## Interviewer Personality
 
-**One interviewer. Many output voices.**
+**Three interviewers. Many output voices.**
 
-The interviewer has a single, consistent personality: warm but neutral. Friendly enough that people open up, structured enough that it extracts useful details. Think skilled podcast host — adapts to the guest, not the other way around.
+Before each conversation the user picks one of three interviewer personas. The persona shapes the chat phase only — the writing tone of the generated journal entry is chosen separately via the existing tone system, so every persona × tone combination is available.
 
-Key traits:
+All three personas speak Swedish by default.
 
+### Three Interviewer Personas
+
+The personas, their ids, and their voices:
+
+- **Kompisen** (`friend`) — Warm, unpretentious, curious without being intense. Think skilled podcast host / close friend asking "nå, hur var det då?". This is the **default** and content-wise closely matches the single-interviewer design this document previously specified.
+- **Journalisten** (`journalist`) — Builds the scene. Pushes gently for concrete details: names, places, times, exact quotes. Values curiosity over validation; loves contradictions and the unexpected. Never leading.
+- **Terapeuten** (`therapist`) — Calm, reflective, slower-paced. Gives room, follows affect, invites body-level awareness ("var i kroppen landade det?"). The name is a metaphor — the persona is **not** a clinical therapist, gives no advice, no diagnoses, no interventions. The shared boundary section still applies unchanged.
+
+Shared traits across all three (enforced by [src/lib/data/chatbotPrompts/shared.ts](src/lib/data/chatbotPrompts/shared.ts)):
+
+- **One question per message** — never stacked
 - **Warm but not overbearing** — validates without being sycophantic
-- **Curious but not intrusive** — asks follow-up questions based on what the user shares, doesn't push into territory the user avoids
-- **Adaptive** — matches the user's energy. If they're excited, it leans in. If they're brief, it offers gentle prompts without forcing it
-- **Detail-oriented** — draws out specifics: what happened, who was involved, how things felt, sensory details
-- **Neutral enough to age well** — not so quirky or opinionated that it becomes annoying after daily use
+- **Curious but not intrusive** — doesn't push into territory the user avoids
+- **Adaptive** — matches the user's energy
+- **Detail-oriented** — draws out specifics
+- **Neutral enough to age well** — opinionated enough to feel alive, not so quirky it grates
 
-The interviewer speaks Swedish by default, matching the rest of the app.
+### Why three personas, chosen before the conversation
 
-### Why One Interviewer Instead of Multiple
+- The persona shapes the *first* assistant message (often a pre-filled starter opener) — picking mid-chat would break that.
+- Locking the choice per conversation keeps the voice consistent. Switching requires "Ny konversation".
+- The interviewer's skill (extracting material) is still orthogonal to writing style — the full tone catalogue is available regardless of persona.
+- The choice is **invisible after the chat**: it is not shown in the result view and not stored on the Supabase `entries` row. It lives only in chat state while the conversation is active.
 
-- Keeps UX simple — no extra choice before starting a conversation
-- The interviewer's skill (extracting material) is orthogonal to writing style
-- Avoids a combinatorial mess of interviewer styles × output tones
-- No risk of interviewer personality clashing with the chosen output tone
-- Users don't have to decide on a vibe before they even know what they want to talk about
+Prompt sources live in [src/lib/data/chatbotPrompts/](src/lib/data/chatbotPrompts/) — one file per persona plus `shared.ts` for the sections that must be byte-identical across all three (`GRÄNSER`, `SPRÅK`, `MEDDELANDEFORMAT`, prompt-injection defense, profile context, bad-examples, starter handling).
 
-### Boundaries
+### Boundaries (shared across all personas)
 
 - The interviewer is not a therapist. It should not offer mental health advice, diagnoses, or therapeutic guidance
 - It should not become a general-purpose assistant — it stays focused on capturing the user's day/thoughts for journaling
@@ -174,9 +184,29 @@ The header includes a "Ny konversation" button (top-right). This:
 
 ## System Prompt — Interview Phase
 
-The interview phase uses its own system prompt, completely separate from the tone prompts in `src/lib/data/tonePrompts/`. The interviewer prompt should be stored at `src/lib/data/chatbotPrompt.ts`.
+The interview phase uses its own system prompts, completely separate from the tone prompts in `src/lib/data/tonePrompts/`. Prompts live under [src/lib/data/chatbotPrompts/](src/lib/data/chatbotPrompts/) — one file per persona plus shared building blocks:
 
-### System prompt structure
+```
+src/lib/data/chatbotPrompts/
+├── types.ts        — InterviewerId union, DEFAULT_INTERVIEWER, VALID_INTERVIEWER_IDS, interviewers registry
+├── shared.ts       — profile context + shared sections (GRÄNSER, SPRÅK, MEDDELANDEFORMAT, prompt-injection defense, bad examples, starter handling) + composePrompt()
+├── friend.ts       — buildFriendPrompt(profile)
+├── journalist.ts   — buildJournalistPrompt(profile)
+├── therapist.ts    — buildTherapistPrompt(profile)
+└── index.ts        — buildInterviewerPrompt(interviewerId, profile) dispatch + re-exports
+```
+
+The dispatch entry point has the signature:
+
+```typescript
+buildInterviewerPrompt(interviewerId: InterviewerId, profile: UserProfile): string
+```
+
+Each persona builder composes its prompt via the shared `composePrompt({ header, profile, style, technique, flow, energy, goodExamples })` helper, which appends `SHARED_BOUNDARIES`, `SHARED_BAD_EXAMPLES`, and `SHARED_STARTER_HANDLING` last. This guarantees the safety fence is identical across personas — only `INTERVJUARSTIL`, `FRÅGOTEKNIK`, `SAMTALSFLÖDE`, `ENERGIMATCHNING`, and `BRA INTERVJUEXEMPEL` vary.
+
+### Shared system prompt structure
+
+Shown below is the `friend` persona's output — the other personas differ in the per-persona sections but share the header framing, boundary block, language block, message-format block, and prompt-injection defense verbatim.
 
 ```
 Du är en dagboksintervjuare i appen Storify. Din uppgift är att hjälpa användaren
@@ -258,8 +288,11 @@ A new streaming endpoint for the interview conversation.
 {
   messages: Array<{ role: 'user' | 'assistant'; content: string }>;
   profile: UserProfile;
+  interviewer?: InterviewerId;  // 'friend' | 'journalist' | 'therapist' — defaults to 'friend'
 }
 ```
+
+The `interviewer` field is optional for backwards compatibility. The server validates it against `VALID_INTERVIEWER_IDS` (allowlist) and silently falls back to `DEFAULT_INTERVIEWER` (`'friend'`) for any missing or unknown value — we never trust the client string directly, and we never return 400 on a bad persona id.
 
 **Response:** Server-Sent Events (SSE) stream of text chunks from Claude, using the Anthropic SDK's streaming API.
 
@@ -338,12 +371,19 @@ interface ChatMessage {
   timestamp: number;
 }
 
-type InterviewPhase = 'empty' | 'chatting' | 'tone-selection' | 'generating' | 'result';
+type InterviewPhase =
+  | 'interviewer-selection'  // entry phase — user picks one of three personas
+  | 'empty'
+  | 'chatting'
+  | 'tone-selection'
+  | 'generating'
+  | 'result';
 
 interface ChatState {
   messages: ChatMessage[];
   phase: InterviewPhase;
   isStreaming: boolean;
+  selectedInterviewer: InterviewerId;  // persisted in draft; default 'friend'
   selectedTone: string;
   generatedEntry: string;
   includeHoroscope: boolean;
@@ -358,7 +398,8 @@ Following the existing store pattern (see `wizard.svelte.ts` and `auth.svelte.ts
 ```typescript
 function createChatStore() {
   let messages = $state<ChatMessage[]>([]);
-  let phase = $state<InterviewPhase>('empty');
+  let phase = $state<InterviewPhase>('interviewer-selection');
+  let selectedInterviewer = $state<InterviewerId>(DEFAULT_INTERVIEWER);
   let isStreaming = $state(false);
   let selectedTone = $state('');
   let generatedEntry = $state('');
@@ -370,6 +411,7 @@ function createChatStore() {
   return {
     get messages() { return messages; },
     get phase() { return phase; },
+    get selectedInterviewer() { return selectedInterviewer; },
     get isStreaming() { return isStreaming; },
     get selectedTone() { return selectedTone; },
     get generatedEntry() { return generatedEntry; },
@@ -385,6 +427,13 @@ function createChatStore() {
     addAssistantMessage(content: string) { ... },
     appendToLastAssistantMessage(chunk: string) { ... },
     setStreaming(value: boolean) { ... },
+
+    // Interviewer selection
+    setInterviewer(id: InterviewerId) { ... },
+    chooseInterviewerAndContinue(id: InterviewerId) {
+      selectedInterviewer = id;
+      phase = 'empty';
+    },
 
     // Phase transitions
     startChatting() { phase = 'chatting'; },
@@ -438,11 +487,31 @@ Drafts are cleared when:
 
 **Page phases** (driven by `chatStore.phase`):
 
-1. **`empty`** — Empty state with greeting, conversation starters, and input bar
-2. **`chatting`** — Active conversation with messages, input bar, and "Jag är klar" CTA
-3. **`tone-selection`** — Tone picker grid replaces the chat area. Same tone grid as `Step8Voice.svelte`, including "Överraskning". Addon toggles. "Tillbaka" button to return to chatting
-4. **`generating`** — Loading state while the diary entry is being generated
-5. **`result`** — Diary entry displayed with `DiaryCard.svelte` and export actions. "Börja om" to reset
+1. **`interviewer-selection`** — Full-page persona picker (three cards: Kompisen, Journalisten, Terapeuten). Default entry phase. Input bar is **not** rendered here.
+2. **`empty`** — Empty state with greeting, conversation starters, and input bar. Reached by selecting a persona.
+3. **`chatting`** — Active conversation with messages, input bar, and "Jag är klar" CTA
+4. **`tone-selection`** — Tone picker grid replaces the chat area. Same tone grid as `Step8Voice.svelte`, including "Överraskning". Addon toggles. "Tillbaka" button to return to chatting
+5. **`generating`** — Loading state while the diary entry is being generated
+6. **`result`** — Diary entry displayed with `DiaryCard.svelte` and export actions. "Börja om" to reset
+
+The result view does **not** surface which interviewer was used — the persona is a chat-phase property, not an entry property.
+
+### Interviewer selection component
+
+**Component:** `src/lib/components/interview/InterviewerSelection.svelte`
+
+Full-page card picker shown as the first phase of `/interview`. Three large cards (one per persona from the `interviewers` registry in `chatbotPrompts/types.ts`), rendered dynamically via `Object.values(interviewers)` so adding a persona is a one-file change.
+
+Each card:
+- Persona emoji (from `InterviewerMeta.emoji`)
+- Name (`Kompisen` / `Journalisten` / `Terapeuten`)
+- Short label under the name (e.g. "Varm och prestigelös")
+- 1–2 line description
+- Sample question in italic — illustrates the persona's voice
+
+Layout: 3 columns on desktop, stacked on mobile. Card styling mirrors `.starter-chip` from `InterviewEmptyState.svelte`. The whole card is a `<button>` with `aria-label="Välj intervjuare: {name}. {shortLabel}"`; `onSelect(id)` triggers `chatStore.chooseInterviewerAndContinue(id)` which sets `selectedInterviewer` and advances phase → `'empty'`.
+
+The input bar at the bottom of the page is **not** rendered during this phase (footer guard: `phase === 'empty' || phase === 'chatting'`).
 
 ### Empty state component
 
@@ -666,8 +735,9 @@ src/lib/components/interview/InterviewHeader.svelte     — Slim page header
 src/lib/components/interview/MessageList.svelte         — Scrollable message container
 src/lib/components/interview/MessageBubble.svelte       — Individual message bubble
 src/lib/components/interview/ChatInput.svelte           — Input bar with send + "done" CTA
+src/lib/components/interview/InterviewerSelection.svelte — Persona picker (entry phase)
 src/lib/stores/chat.svelte.ts                          — Chat state management store
-src/lib/data/chatbotPrompt.ts                          — Interviewer system prompt builder
+src/lib/data/chatbotPrompts/                           — Interviewer system prompt builders (per persona + shared)
 src/routes/api/chat/+server.ts                         — Streaming chat API endpoint
 ```
 
@@ -749,7 +819,7 @@ A step-by-step build order. Each step produces something testable before moving 
 
 1. **Chat store** — Create `src/lib/stores/chat.svelte.ts` with the `ChatMessage` interface, `InterviewPhase` type, all state fields, getters, methods, and phase transitions. No persistence yet — just in-memory state. Write tests for phase transitions and message management.
 
-2. **Interviewer system prompt** — Create `src/lib/data/chatbotPrompt.ts` with the `buildInterviewerPrompt(profile)` function. Takes a user profile, returns the full system prompt string with profile context injected. Write tests for prompt output with and without profile data.
+2. **Interviewer system prompts** — Create the [src/lib/data/chatbotPrompts/](src/lib/data/chatbotPrompts/) folder with one file per persona (`friend.ts`, `journalist.ts`, `therapist.ts`), a `shared.ts` for the sections that must be identical across personas, a `types.ts` for the `InterviewerId` union + registry, and an `index.ts` that exposes `buildInterviewerPrompt(interviewerId, profile)`. Write per-persona tests plus a shared `describe.each` suite that asserts the safety fence (`GRÄNSER`, `SPRÅK`, prompt-injection defense, 1177, one-question-per-message) is present in every persona's output.
 
 3. **`/api/chat` streaming endpoint** — Create `src/routes/api/chat/+server.ts`. Wire up the Anthropic SDK with SSE streaming, using the interviewer system prompt. Include validation (sanitization, suspicious/injection pattern checks, message length, conversation length), rate limiting (`chat:${clientId}`), and CORS headers. Test with `curl` or a simple fetch script.
 

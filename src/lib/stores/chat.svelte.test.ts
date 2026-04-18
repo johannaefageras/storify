@@ -30,8 +30,12 @@ describe('chatStore', () => {
 	});
 
 	describe('initial state', () => {
-		it('starts in empty phase', () => {
-			expect(chatStore.phase).toBe('empty');
+		it('starts in interviewer-selection phase', () => {
+			expect(chatStore.phase).toBe('interviewer-selection');
+		});
+
+		it('starts with default interviewer (friend)', () => {
+			expect(chatStore.selectedInterviewer).toBe('friend');
 		});
 
 		it('starts with no messages', () => {
@@ -63,8 +67,8 @@ describe('chatStore', () => {
 			expect(chatStore.error).toBe('');
 		});
 
-		it('isEmpty is true', () => {
-			expect(chatStore.isEmpty).toBe(true);
+		it('isEmpty is false before the user picks an interviewer', () => {
+			expect(chatStore.isEmpty).toBe(false);
 		});
 
 		it('hasMessages is false', () => {
@@ -232,7 +236,10 @@ describe('chatStore', () => {
 			expect(chatStore.generatedEntry).toBe('Dear diary...');
 		});
 
-		it('full happy path: empty → chatting → tone-selection → generating → result', () => {
+		it('full happy path: interviewer-selection → empty → chatting → tone-selection → generating → result', () => {
+			expect(chatStore.phase).toBe('interviewer-selection');
+
+			chatStore.chooseInterviewerAndContinue('friend');
 			expect(chatStore.phase).toBe('empty');
 
 			chatStore.startChatting();
@@ -260,6 +267,30 @@ describe('chatStore', () => {
 			chatStore.backToInterview();
 			expect(chatStore.phase).toBe('chatting');
 			expect(chatStore.messages).toHaveLength(2);
+		});
+	});
+
+	describe('interviewer selection', () => {
+		it('setInterviewer updates selectedInterviewer without changing phase', () => {
+			chatStore.setInterviewer('journalist');
+			expect(chatStore.selectedInterviewer).toBe('journalist');
+			expect(chatStore.phase).toBe('interviewer-selection');
+		});
+
+		it('chooseInterviewerAndContinue sets interviewer and moves to empty', () => {
+			chatStore.chooseInterviewerAndContinue('therapist');
+			expect(chatStore.selectedInterviewer).toBe('therapist');
+			expect(chatStore.phase).toBe('empty');
+		});
+
+		it('chooseInterviewerAndContinue persists the choice to the draft', async () => {
+			chatStore.chooseInterviewerAndContinue('journalist');
+
+			await vi.advanceTimersByTimeAsync(500);
+
+			const savedValue = JSON.parse(localStorageMock.setItem.mock.calls[0][1]);
+			expect(savedValue.selectedInterviewer).toBe('journalist');
+			expect(savedValue.phase).toBe('empty');
 		});
 	});
 
@@ -375,7 +406,8 @@ describe('chatStore', () => {
 			chatStore.reset();
 
 			expect(chatStore.messages).toEqual([]);
-			expect(chatStore.phase).toBe('empty');
+			expect(chatStore.phase).toBe('interviewer-selection');
+			expect(chatStore.selectedInterviewer).toBe('friend');
 			expect(chatStore.isStreaming).toBe(false);
 			expect(chatStore.selectedTone).toBe('');
 			expect(chatStore.generatedEntry).toBe('');
@@ -384,7 +416,7 @@ describe('chatStore', () => {
 			expect(chatStore.includeHomework).toBe(true);
 			expect(chatStore.error).toBe('');
 			expect(chatStore.hasMessages).toBe(false);
-			expect(chatStore.isEmpty).toBe(true);
+			expect(chatStore.isEmpty).toBe(false);
 		});
 
 		it('reset after showResult clears generated entry', () => {
@@ -396,7 +428,7 @@ describe('chatStore', () => {
 			chatStore.reset();
 
 			expect(chatStore.generatedEntry).toBe('');
-			expect(chatStore.phase).toBe('empty');
+			expect(chatStore.phase).toBe('interviewer-selection');
 		});
 	});
 
@@ -566,7 +598,91 @@ describe('chatStore', () => {
 
 			expect(loaded).toBe(false);
 			expect(chatStore.messages).toEqual([]);
-			expect(chatStore.phase).toBe('empty');
+			expect(chatStore.phase).toBe('interviewer-selection');
+		});
+
+		it('loadDraft falls back to friend when selectedInterviewer is missing', async () => {
+			const legacyDraft = {
+				messages: [
+					{ id: 'msg-1', role: 'user', content: 'Hello', timestamp: 1000 }
+				],
+				phase: 'chatting',
+				selectedTone: '',
+				includeHoroscope: false,
+				includeOnThisDay: false,
+				includeHomework: true,
+				savedAt: Date.now()
+			};
+
+			localStorageMock.getItem.mockReturnValueOnce(JSON.stringify(legacyDraft));
+
+			const loaded = await chatStore.loadDraft();
+
+			expect(loaded).toBe(true);
+			expect(chatStore.selectedInterviewer).toBe('friend');
+			expect(chatStore.phase).toBe('chatting');
+		});
+
+		it('loadDraft falls back to friend when selectedInterviewer is invalid', async () => {
+			const corruptDraft = {
+				messages: [],
+				phase: 'interviewer-selection',
+				selectedInterviewer: 'hacker-persona',
+				selectedTone: '',
+				includeHoroscope: false,
+				includeOnThisDay: false,
+				includeHomework: true,
+				savedAt: Date.now()
+			};
+
+			localStorageMock.getItem.mockReturnValueOnce(JSON.stringify(corruptDraft));
+
+			const loaded = await chatStore.loadDraft();
+
+			expect(loaded).toBe(true);
+			expect(chatStore.selectedInterviewer).toBe('friend');
+		});
+
+		it('loadDraft bumps interviewer-selection phase to chatting when messages exist', async () => {
+			const draft = {
+				messages: [
+					{ id: 'msg-1', role: 'user', content: 'Hello', timestamp: 1000 }
+				],
+				phase: 'interviewer-selection',
+				selectedInterviewer: 'therapist',
+				selectedTone: '',
+				includeHoroscope: false,
+				includeOnThisDay: false,
+				includeHomework: true,
+				savedAt: Date.now()
+			};
+
+			localStorageMock.getItem.mockReturnValueOnce(JSON.stringify(draft));
+
+			await chatStore.loadDraft();
+
+			expect(chatStore.phase).toBe('chatting');
+			expect(chatStore.selectedInterviewer).toBe('therapist');
+		});
+
+		it('loadDraft keeps interviewer-selection phase when the draft has no messages', async () => {
+			const draft = {
+				messages: [],
+				phase: 'interviewer-selection',
+				selectedInterviewer: 'journalist',
+				selectedTone: '',
+				includeHoroscope: false,
+				includeOnThisDay: false,
+				includeHomework: true,
+				savedAt: Date.now()
+			};
+
+			localStorageMock.getItem.mockReturnValueOnce(JSON.stringify(draft));
+
+			await chatStore.loadDraft();
+
+			expect(chatStore.phase).toBe('interviewer-selection');
+			expect(chatStore.selectedInterviewer).toBe('journalist');
 		});
 
 		it('loadDraft discards expired drafts (>24h)', async () => {

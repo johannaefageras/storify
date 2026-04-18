@@ -3,7 +3,12 @@ import Anthropic from '@anthropic-ai/sdk';
 import type { UserProfile } from '$lib/stores/wizard.svelte';
 import { ANTHROPIC_API_KEY } from '$env/static/private';
 import { env } from '$env/dynamic/private';
-import { buildInterviewerPrompt } from '$lib/data/chatbotPrompt';
+import {
+	buildInterviewerPrompt,
+	DEFAULT_INTERVIEWER,
+	VALID_INTERVIEWER_IDS,
+	type InterviewerId
+} from '$lib/data/chatbotPrompts';
 import { validateChatMessages, type ChatMessagePayload } from '$lib/validation';
 import { sanitizeString } from '$lib/validation/sanitizers';
 import { checkChatRateLimit, getClientIdentifier } from '$lib/validation/ratelimit';
@@ -30,6 +35,7 @@ const MAX_TOKENS = parseInt(env.CHAT_MAX_TOKENS || '512', 10);
 interface ChatRequestBody {
 	messages: ChatMessagePayload[];
 	profile: UserProfile;
+	interviewer?: InterviewerId;
 }
 
 export const POST: RequestHandler = async ({ request }) => {
@@ -74,6 +80,11 @@ export const POST: RequestHandler = async ({ request }) => {
 			});
 		}
 
+		const requestedInterviewer = body.interviewer ?? DEFAULT_INTERVIEWER;
+		const interviewer: InterviewerId = VALID_INTERVIEWER_IDS.includes(requestedInterviewer)
+			? requestedInterviewer
+			: DEFAULT_INTERVIEWER;
+
 		// 3. Sanitize user messages
 		const sanitizedMessages: ChatMessagePayload[] = messages.map((msg) => ({
 			role: msg.role,
@@ -90,7 +101,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		}
 
 		// 5. Build system prompt (with wrap-up instruction near limit)
-		let systemPrompt = buildInterviewerPrompt(profile);
+		let systemPrompt = buildInterviewerPrompt(interviewer, profile);
 
 		if (sanitizedMessages.length >= 34) {
 			// Very close to limit (2-3 messages left) - explicit wrap-up

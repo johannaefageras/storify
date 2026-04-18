@@ -1,4 +1,9 @@
 import { browser } from '$app/environment';
+import {
+	DEFAULT_INTERVIEWER,
+	VALID_INTERVIEWER_IDS,
+	type InterviewerId
+} from '$lib/data/chatbotPrompts';
 
 export interface ChatMessage {
 	id: string;
@@ -7,7 +12,13 @@ export interface ChatMessage {
 	timestamp: number;
 }
 
-export type InterviewPhase = 'empty' | 'chatting' | 'tone-selection' | 'generating' | 'result';
+export type InterviewPhase =
+	| 'interviewer-selection'
+	| 'empty'
+	| 'chatting'
+	| 'tone-selection'
+	| 'generating'
+	| 'result';
 
 const CHAT_DRAFT_KEY = 'storify-chat-draft';
 const DRAFT_EXPIRY_MS = 24 * 60 * 60 * 1000; // 24 hours
@@ -15,6 +26,7 @@ const DRAFT_EXPIRY_MS = 24 * 60 * 60 * 1000; // 24 hours
 interface ChatDraft {
 	messages: ChatMessage[];
 	phase: InterviewPhase;
+	selectedInterviewer: InterviewerId;
 	selectedTone: string;
 	includeHoroscope: boolean;
 	includeOnThisDay: boolean;
@@ -30,8 +42,9 @@ function generateMessageId(): string {
 
 function createChatStore() {
 	let messages = $state<ChatMessage[]>([]);
-	let phase = $state<InterviewPhase>('empty');
+	let phase = $state<InterviewPhase>('interviewer-selection');
 	let isStreaming = $state(false);
+	let selectedInterviewer = $state<InterviewerId>(DEFAULT_INTERVIEWER);
 	let selectedTone = $state('');
 	let generatedEntry = $state('');
 	let includeHoroscope = $state(false);
@@ -53,6 +66,7 @@ function createChatStore() {
 			const draft: ChatDraft = {
 				messages: messages.map((m) => ({ ...m })),
 				phase,
+				selectedInterviewer,
 				selectedTone,
 				includeHoroscope,
 				includeOnThisDay,
@@ -74,6 +88,9 @@ function createChatStore() {
 		},
 		get isStreaming() {
 			return isStreaming;
+		},
+		get selectedInterviewer() {
+			return selectedInterviewer;
 		},
 		get selectedTone() {
 			return selectedTone;
@@ -150,6 +167,17 @@ function createChatStore() {
 			error = value;
 		},
 
+		// Interviewer selection
+		setInterviewer(id: InterviewerId) {
+			selectedInterviewer = id;
+			scheduleDraftSave();
+		},
+		chooseInterviewerAndContinue(id: InterviewerId) {
+			selectedInterviewer = id;
+			phase = 'empty';
+			scheduleDraftSave();
+		},
+
 		// Phase transitions
 		startChatting() {
 			phase = 'chatting';
@@ -200,7 +228,16 @@ function createChatStore() {
 					return false;
 				}
 				messages = draft.messages;
-				phase = draft.phase;
+				const rawInterviewer = draft.selectedInterviewer as InterviewerId | undefined;
+				selectedInterviewer =
+					rawInterviewer && VALID_INTERVIEWER_IDS.includes(rawInterviewer)
+						? rawInterviewer
+						: DEFAULT_INTERVIEWER;
+				if (draft.phase === 'interviewer-selection' && draft.messages.length > 0) {
+					phase = 'chatting';
+				} else {
+					phase = draft.phase;
+				}
 				selectedTone = draft.selectedTone;
 				includeHoroscope = draft.includeHoroscope;
 				includeOnThisDay = draft.includeOnThisDay;
@@ -224,8 +261,9 @@ function createChatStore() {
 		// Lifecycle
 		reset() {
 			messages = [];
-			phase = 'empty';
+			phase = 'interviewer-selection';
 			isStreaming = false;
+			selectedInterviewer = DEFAULT_INTERVIEWER;
 			selectedTone = '';
 			generatedEntry = '';
 			includeHoroscope = false;

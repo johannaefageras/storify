@@ -1,5 +1,6 @@
 <script lang="ts">
 	import InterviewEmptyState from '$lib/components/interview/InterviewEmptyState.svelte';
+	import InterviewerSelection from '$lib/components/interview/InterviewerSelection.svelte';
 	import MessageList from '$lib/components/interview/MessageList.svelte';
 	import ChatInput from '$lib/components/interview/ChatInput.svelte';
 	import ToneSelection from '$lib/components/interview/ToneSelection.svelte';
@@ -178,7 +179,8 @@
 				messages: chatStore.messages
 					.filter((m) => m.content.length > 0)
 					.map((m) => ({ role: m.role, content: m.content })),
-				profile: wizardStore.data.profile
+				profile: wizardStore.data.profile,
+				interviewer: chatStore.selectedInterviewer
 			};
 
 			const response = await fetch(getApiUrl('/api/chat'), {
@@ -246,7 +248,7 @@
 
 	function handleStarter(starter: StarterId) {
 		chatStore.startChatting();
-		chatStore.addAssistantMessage(pickOpener(starter));
+		chatStore.addAssistantMessage(pickOpener(chatStore.selectedInterviewer, starter));
 	}
 
 	// --- Generation ---
@@ -549,7 +551,13 @@
 
 <main class="interview-page">
 	<div class="interview-body">
-		{#if chatStore.phase === 'empty'}
+		{#if chatStore.phase === 'interviewer-selection'}
+			<div class="interview-select">
+				<InterviewerSelection
+					onSelect={(id) => chatStore.chooseInterviewerAndContinue(id)}
+				/>
+			</div>
+		{:else if chatStore.phase === 'empty'}
 			<div class="interview-empty">
 				<InterviewEmptyState onStarter={handleStarter} />
 			</div>
@@ -804,7 +812,8 @@
 		min-height: 0;
 	}
 
-	.interview-empty {
+	.interview-empty,
+	.interview-select {
 		display: flex;
 		flex: 1 1 auto;
 		min-height: 0;
