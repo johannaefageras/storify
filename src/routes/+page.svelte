@@ -71,13 +71,13 @@
 	<div class="container">
 		<div class="landing-main">
 			<header class="hero">
-				<div class="logo">
-					<Emoji name={RoseIcon} size={96} />
-				</div>
 				{#if isReturningUser}
 					<h1 class="title">{greeting}</h1>
 					<p class="subtitle">{subtitle}</p>
 				{:else}
+					<div class="logo">
+						<Emoji name={RoseIcon} size={96} />
+					</div>
 					<h1 class="title">Storify</h1>
 					<p class="subtitle">Du har inte tid att skriva dagbok. Perfekt – det behöver du inte heller.</p>
 				{/if}

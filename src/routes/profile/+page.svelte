@@ -6,7 +6,6 @@
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { FIELD_LIMITS } from '$lib/validation';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
-	import { profilePhrases } from '$lib/data/profilePhrases';
 	import AvatarUpload from '$lib/components/AvatarUpload.svelte';
 	import arrowRightSvg from '$lib/assets/icons/arrow-right.svg?raw';
 	import AccentPicker from '$lib/components/AccentPicker.svelte';
@@ -496,7 +495,6 @@
 				/>
 				<div class="hero-info">
 					<h1 class="hero-name">{name ? `${name}s Profil` : 'Min Profil'}</h1>
-					<p class="hero-phrase">{`\u201C${profilePhrases[Math.floor(Math.random() * profilePhrases.length)]}\u201D`}</p>
 				<AccentPicker />
 				</div>
 			</div>
@@ -899,16 +897,6 @@
 		line-height: var(--leading-snug);
 		color: var(--color-text);
 		margin: 0;
-	}
-
-	.hero-phrase {
-		font-family: var(--font-serif);
-		font-size: var(--text-sm);
-		color: var(--color-text-muted);
-		font-style: italic;
-		font-weight: var(--lyric-weight-regular);
-		letter-spacing: var(--tracking-wide);
-		margin: 0.125rem 0 0;
 	}
 
 	.hero-info :global(.accent-picker) {

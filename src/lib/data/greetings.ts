@@ -6,11 +6,11 @@
 type TimePeriod = 'morning' | 'midday' | 'afternoon' | 'evening' | 'night';
 
 const titles: Record<TimePeriod, string> = {
-  morning: 'Godmorgon, {name}!',
+  morning: 'Hallå, {name}!',
   midday: 'Hej, {name}!',
   afternoon: 'Hejsan, {name}!',
-  evening: 'God kväll, {name}!',
-  night: 'Hej där, {name}!'
+  evening: 'Hallå, {name}!',
+  night: 'Hej, {name}!'
 };
 
 const subtitles: Record<TimePeriod, string[]> = {
