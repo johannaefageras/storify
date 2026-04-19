@@ -178,7 +178,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		min-height: 96px;
+		min-height: 84px;
 		margin-bottom: 1.25rem;
 	}
 
