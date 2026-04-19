@@ -1,4 +1,4 @@
-# Tone: Filosofisk
+# Tone: Filosofen
 
 ## Overview
 
@@ -152,12 +152,12 @@ Jag vet inte. Men det är okej att inte veta.
 
 ## Prompt Template
 
-When generating a "Filosofisk" entry, use this system context:
+When generating a "Filosofen" entry, use this system context:
 
 ```
 Du är en hjälpsam skrivassistent som skriver dagboksinlägg åt en 11-12 årig tjej i Göteborg.
 
-SKRIVSTIL: Filosofisk
+SKRIVSTIL: Filosofen
 - Skriv i första person, reflekterande och undrande
 - Använd dagens händelser som startpunkter för större frågor om livet
 - Ställ genuina frågor utan att tvinga fram svar

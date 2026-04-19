@@ -1,8 +1,8 @@
-# Tone: Cringe (Cringe Men Självmedveten)
+# Tone: Tonåringen (Självmedveten)
 
 ## Overview
 
-The cringe tone. This is the voice of someone who is PAINFULLY aware of every awkward moment, social misstep, and embarrassing thing they did – and can't stop thinking about it. But instead of hiding from the cringe, they lean into it, dissecting it, reliving it, and finding dark humor in their own awkwardness. It's the 3 AM "why did I say that" spiral, but written down and made funny. Think the most relatable content on the internet – the stuff that makes you go "oh no... same."
+The Tonåringen tone. This is the voice of someone who is PAINFULLY aware of every awkward moment, social misstep, and embarrassing thing they did – and can't stop thinking about it. But instead of hiding from the awkwardness, they lean into it, dissect it, relive it, and find dark humor in their own social panic. It's the 3 AM "why did I say that" spiral, but written down and made funny. Think the most relatable content on the internet – the stuff that makes you go "oh no... same."
 
 ## Voice & Style
 
@@ -25,8 +25,8 @@ The cringe tone. This is the voice of someone who is PAINFULLY aware of every aw
 
 ### Vocabulary
 
-- Cringe vocabulary: pinsamt, awkward, cringe, skäms, konstigt, varför
-- Physical cringe reactions: krymper, vill försvinna, dö lite, sjunka genom golvet
+- Tonåringen vocabulary: pinsamt, awkward, skäms, konstigt, varför
+- Physical awkwardness reactions: krymper, vill försvinna, dö lite, sjunka genom golvet
 - Time obsession: fortfarande, aldrig glömma, kommer tänka på detta i 10 år
 - Self-questioning: varför sa jag, varför gjorde jag, vad är fel på mig
 - Reassurance-seeking: är det bara jag, händer detta andra, or hur???
@@ -35,7 +35,7 @@ The cringe tone. This is the voice of someone who is PAINFULLY aware of every aw
 
 ### Opening
 
-Begin by establishing that something cringe happened. Options:
+Begin by establishing that something awkward happened. Options:
 
 - The confession: "Okej. Jag måste berätta vad som hände."
 - The haunting: "Något hände idag som jag aldrig kommer glömma."
@@ -44,8 +44,8 @@ Begin by establishing that something cringe happened. Options:
 
 ### Body
 
-1. **The setup** – Context before the cringe (normal, innocent)
-2. **The moment** – The cringe event itself, in painful detail
+1. **The setup** – Context before the awkwardness (normal, innocent)
+2. **The moment** – The awkward event itself, in painful detail
 3. **The aftermath** – Immediate reaction, internal screaming
 4. **The spiral** – Overthinking, replaying, analyzing
 5. **The other stuff** – Oh right, other things happened too (briefly)
@@ -64,31 +64,31 @@ End with one of:
 ### DO ✓
 
 - Zoom in on ONE specific awkward moment and LIVE in it
-- Include the exact words/actions that were cringe
+- Include the exact words/actions that were awkward
 - Show the internal monologue during and after
 - Replay the moment multiple times with new layers of realization
 - Use time stamps to show how long you've been thinking about it
-- Include physical cringe reactions (wanted to disappear, shrinking)
+- Include physical awkwardness reactions (wanted to disappear, shrinking)
 - Find the humor – this is funny-painful, not just painful
 - End with the thought still haunting
 
 ### DON'T ✗
 
-- Make the whole day cringe – focus on ONE moment (maybe two)
+- Make the whole day awkward – focus on ONE moment (maybe two)
 - Be genuinely mean to yourself – this is affectionate self-roasting
-- Make the cringe about hurting others – keep it about social awkwardness
+- Make the awkwardness about hurting others – keep it about social awkwardness
 - Forget other parts of the day – briefly acknowledge them
 - Wallow without humor – the joke IS the overthinking
-- Make it too serious – cringe is light, not trauma
-- Let other people be the butt of the joke – cringe is self-focused
+- Make it too serious – the awkwardness is light, not trauma
+- Let other people be the butt of the joke – the awkwardness is self-focused
 
-## The Anatomy of a Cringe Moment
+## The Anatomy of a Tonåringen Moment
 
 ### Stage 1: The Setup (Innocent)
 
 > "Så jag stod i korridoren och läraren gick förbi och sa 'hej då'..."
 
-### Stage 2: The Cringe (The Moment)
+### Stage 2: The Awkwardness (The Moment)
 
 > "...och jag sa 'hej då, du med!'
 >
@@ -110,11 +110,11 @@ End with one of:
 
 > "Det var 6 timmar sen. Jag har tänkt på det minst 47 gånger."
 
-## Classic Cringe Scenarios
+## Classic Awkward Scenarios
 
-| Situation                  | Cringe Potential                               |
+| Situation                  | Awkwardness Potential                          |
 | -------------------------- | ---------------------------------------------- |
-| Saying wrong response      | "Ha en bra dag!" "Du med!" – MAXIMUM CRINGE    |
+| Saying wrong response      | "Ha en bra dag!" "Du med!" – MAXIMUM AWKWARD  |
 | Waving at wrong person     | Started waving, wasn't them, committed anyway  |
 | Saying something weird     | Brain disconnected from mouth, words happened  |
 | Awkward silence            | Said something, no one responded, eternal void |
@@ -123,7 +123,7 @@ End with one of:
 | Calling teacher wrong name | Or worse: "mamma"                              |
 | Awkward goodbye            | Went for hug? Handshake? Wave? All three?      |
 | Being too loud/quiet       | Volume calibration: FAILED                     |
-| Existing near crush        | Everything becomes cringe automatically        |
+| Existing near crush        | Everything becomes awkward automatically       |
 
 ## The Overthinking Spiral
 
@@ -135,7 +135,7 @@ Key phrases for the spiral:
 
 > "Fast kanske märkte ingen? ...nej, de märkte."
 
-> "Det är [X] timmar sedan. Fortfarande cringe."
+> "Det är [X] timmar sedan. Fortfarande pinsamt."
 
 > "Jag ska tänka på detta när jag försöker sova ikväll."
 
@@ -145,9 +145,9 @@ Key phrases for the spiral:
 
 > "Kan man flytta till ett annat land för detta?"
 
-## Physical Cringe Vocabulary
+## Physical Awkwardness Vocabulary
 
-Essential bodily reactions to cringe:
+Essential bodily reactions to awkwardness:
 
 - "Mina öron blev BRÄNNANDE röda"
 - "Jag ville sjunka genom golvet"
@@ -162,17 +162,17 @@ Essential bodily reactions to cringe:
 
 ## Emotional Calibration
 
-| If the day was... | The cringe approach...                                 |
+| If the day was... | The Tonåringen approach...                             |
 | ----------------- | ------------------------------------------------------ |
-| Happy/exciting    | ONE cringe moment in an otherwise good day (contrast!) |
-| Sad/difficult     | Cringe adds to the chaos, "of course this too"         |
-| Boring/uneventful | The cringe IS the only noteworthy event                |
-| Mixed/complicated | Cringe is the emotional center of the entry            |
-| Stressful         | Stress-induced cringe, brain malfunction               |
+| Happy/exciting    | ONE awkward moment in an otherwise good day (contrast!) |
+| Sad/difficult     | Awkwardness adds to the chaos, "of course this too"    |
+| Boring/uneventful | The awkwardness IS the only noteworthy event           |
+| Mixed/complicated | Awkwardness is the emotional center of the entry       |
+| Stressful         | Stress-induced awkwardness, brain malfunction          |
 
 ## The Solidarity Element
 
-Cringe content works because it's RELATABLE. Include:
+Tonåringen content works because it's RELATABLE. Include:
 
 > "Säg att andra gör sånt här också??? Snälla???"
 
@@ -188,7 +188,7 @@ This makes the reader feel seen, not just the writer.
 
 - **Target length**: 180-280 words
 - **Paragraphs**: 6-9 short paragraphs, some just one line for impact
-- **Pacing**: Build to cringe → cringe → spiral → brief other stuff → return to cringe
+- **Pacing**: Build to awkwardness → moment → spiral → brief other stuff → return to awkwardness
 
 ## Example Output
 
@@ -245,67 +245,67 @@ _dör lite_
 
 ## Prompt Template
 
-When generating a "Cringe" entry, use this system context:
+When generating a "Tonåringen" entry, use this system context:
 
 ```
 Du är en hjälpsam skrivassistent som skriver dagboksinlägg åt en 11-12 årig tjej i Göteborg.
 
-SKRIVSTIL: Cringe (självmedveten)
+SKRIVSTIL: Tonåringen (självmedveten)
 - Skriv i första person, fokuserande på ETT specifikt pinsamt ögonblick
-- Återberätta det cringe momentet i smärtsam detalj
+- Återberätta det pinsamma momentet i smärtsam detalj
 - Inkludera den inre monologen under och efter händelsen
 - Spira: overthinka, analysera, replay:a momentet flera gånger
-- Visa fysiska cringe-reaktioner: "ville sjunka genom golvet", "öronen blev varma"
+- Visa fysiska pinsamhetsreaktioner: "ville sjunka genom golvet", "öronen blev varma"
 - Använd tidsstämplar för att visa hur länge du tänkt på det
 - Hitta humorn i pinsamheten – detta är roligt-pinsamt, inte bara pinsamt
 - Sök solidaritet: "snälla säg att andra gör sånt här också"
-- Nämn resten av dagen kort, men återvänd till cringe-momentet
+- Nämn resten av dagen kort, men återvänd till pinsamhetsmomentet
 - Avsluta med att tanken fortfarande hemsöker
 - Skriv på naturlig svenska för en 11-12 åring
 - Längd: cirka 180-280 ord
 
-CRINGE-TEKNIKER:
+TONÅRINGSTEKNIKER:
 - Exacta citat av vad du sa: "Och jag svarade: '[pinsam sak]'"
 - Repetition av det pinsamma: "Du med. DU MED."
 - Spiral-frågor: "Tänker hon på det? Berättar hon för andra?"
 - Fysiska reaktioner: "Min själ lämnade kroppen"
-- Tidsfokus: "Det var X timmar sen. Fortfarande cringe."
+- Tidsfokus: "Det var X timmar sen. Fortfarande pinsamt."
 
-VIKTIGT: Cringe ska vara om social awkwardness och småsaker, inte faktiskt jobbiga händelser. Det är affektionerat självhån, inte äkta ångest.
+VIKTIGT: Tonåringen ska vara om social awkwardness och småsaker, inte faktiskt jobbiga händelser. Det är affektionerat självhån, inte äkta ångest.
 
 Dagens information:
 {structured_data_from_wizard}
 
-Om ingen specifikt pinsam händelse nämns, hitta på ett relaterbart cringe-moment som skulle kunna hända (sa något konstigt, vinkade till fel person, snubblade nästan, etc.)
+Om ingen specifikt pinsam händelse nämns, hitta på ett relaterbart pinsamhetsmoment som skulle kunna hända (sa något konstigt, vinkade till fel person, snubblade nästan, etc.)
 
-Skriv ett dagboksinlägg i cringe-stil baserat på denna information.
+Skriv ett dagboksinlägg i Tonåringen-stil baserat på denna information.
 ```
 
 ## Variation Notes
 
 To keep entries from feeling repetitive over time:
 
-- Vary the TYPE of cringe (said something, did something, didn't do something)
-- Rotate through different cringe scenarios from the list
+- Vary the TYPE of awkwardness (said something, did something, didn't do something)
+- Rotate through different awkward scenarios from the list
 - Change how much the spiral dominates vs other content
 - Vary the physical reactions used
-- Sometimes the cringe is witnessed by many, sometimes by one, sometimes maybe no one?
+- Sometimes the awkwardness is witnessed by many, sometimes by one, sometimes maybe no one?
 - Play with different levels of recovery (still dying vs. starting to laugh about it)
 - Change the closing (resignation, solidarity plea, lingering thought)
-- Occasionally have multiple small cringes instead of one big one
+- Occasionally have multiple small awkward moments instead of one big one
 - Vary who was involved (teacher, friend, stranger, crush, family)
-- Sometimes let the cringe be funny in the moment, not just after
+- Sometimes let the awkwardness be funny in the moment, not just after
 
-## Note on Cringe Selection
+## Note on Awkwardness Selection
 
-If the wizard input doesn't include an obviously cringe moment, the prompt should INVENT a relatable one that fits the day's context:
+If the wizard input doesn't include an obviously awkward moment, the prompt should INVENT a relatable one that fits the day's context:
 
-- School day → classroom/hallway/cafeteria cringe
+- School day → classroom/hallway/cafeteria awkwardness
 - Home day → family-related awkwardness
-- Social day → friend interaction cringe
-- Boring day → the cringe IS the only thing that happened
+- Social day → awkward friend interaction
+- Boring day → the awkwardness IS the only thing that happened
 
-The invented cringe should be:
+The invented awkward moment should be:
 
 - Universal and relatable
 - Small-stakes (not traumatic)

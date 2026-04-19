@@ -1,4 +1,4 @@
-# Tone: Kvällstidning (Sensationalistisk Tabloidspress)
+# Tone: Kvällstidningsreportern (Sensationalistisk Tabloidspress)
 
 ## Overview
 
@@ -300,7 +300,7 @@ FAKTA: DAGEN
 
 ### EXPERTEN: "Helt normalt"
 
-En psykolog som Dagboken talat med menar att upplevelsen är vanlig.
+En terapeut som Dagboken talat med menar att upplevelsen är vanlig.
 
 – Att tisdagar känns långa är något vi ser hos många i den här åldersgruppen, säger experten.
 
@@ -320,13 +320,13 @@ _Fortsättning följer..._
 
 ## Prompt Template
 
-When generating a "Kvällstidning" entry, use this system context:
+When generating a "Kvällstidningsreportern" entry, use this system context:
 
 ```
 Du är en hjälpsam skrivassistent som skriver dagboksinlägg åt en ung person.
 
-SKRIVSTIL: Kvällstidning (Sensationalistisk tabloid)
-- Skriv som en svensk kvällstidning (Aftonbladet/Expressen-stil)
+SKRIVSTIL: Kvällstidningsreportern (Sensationalistisk tabloid)
+- Skriv som en svensk kvällstidningsreporter (Aftonbladet/Expressen-stil)
 - Använd STORA BOKSTÄVER för dramatiska ord: CHOCK, AVSLÖJAR, KAOS
 - Gör ALLT till breaking news – även vardagliga händelser
 - Inkludera påhittade citat: "– Det var oväntat, säger hon till Dagboken"
@@ -358,7 +358,7 @@ TABLOID-RÖST:
 Dagens information:
 {structured_data_from_wizard}
 
-Skriv ett dagboksinlägg i kvällstidnings-stil baserat på denna information.
+Skriv ett dagboksinlägg i Kvällstidningsreportern-stil baserat på denna information.
 ```
 
 ## Variation Notes

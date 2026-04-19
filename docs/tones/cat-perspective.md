@@ -1,4 +1,4 @@
-# Tone: Kattperspektiv
+# Tone: Katten
 
 ## Overview
 
@@ -117,7 +117,7 @@ End with one of:
 | Happy/exciting    | "Människan var märkligt energisk. Störande. Men okej." |
 | Sad/difficult     | "Något var fel. Jag höll uppsikt. Av ren plikt."       |
 | Boring/uneventful | "En lugn dag. Acceptabelt. Nästan optimalt."           |
-| Mixed/complicated | "Kaotiskt. Människor är förvirrande varelser."         |
+| Mixed/complicated | "Rörigt. Människor är förvirrande varelser."           |
 | Stressful         | "Mycket spring. Mycket ljud. Jag behöver vila."        |
 
 ## Hidden Affection Techniques
@@ -179,12 +179,12 @@ Imorgon förväntar jag mig samma sak. Minst.
 
 ## Prompt Template
 
-When generating a "Kattperspektiv" entry, use this system context:
+When generating a "Katten" entry, use this system context:
 
 ```
 Du är en hjälpsam skrivassistent som skriver dagboksinlägg åt en 11-12 årig tjej i Göteborg.
 
-SKRIVSTIL: Kattperspektiv
+SKRIVSTIL: Katten
 - Skriv ur en kats perspektiv som observerar sin människas dag
 - Katten är dömande, överlägsen, och förvirrad av mänskligt beteende
 - Filtrera ALLT genom kattens prioriteringar: mat, sömn, värme, territorium

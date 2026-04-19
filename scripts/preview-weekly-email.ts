@@ -19,7 +19,7 @@ const recap: WeeklyContent = {
 			date: 'måndag 13 april',
 			excerpt:
 				'En lugn start på veckan. Kaffe i köket innan de andra vaknade, lite läsning, och en promenad i morgonljuset.',
-			toneId: 'cozy',
+			toneId: 'classic',
 			emojis: ['☕', '📖']
 		},
 		{
@@ -34,7 +34,7 @@ const recap: WeeklyContent = {
 			id: 'e3',
 			date: 'torsdag 16 april',
 			excerpt: 'Promenad i parken. Körsbären blommar. Kände mig närvarande för första gången på länge.',
-			toneId: 'cozy',
+			toneId: 'classic',
 			emojis: ['🌸']
 		},
 		{
@@ -46,7 +46,7 @@ const recap: WeeklyContent = {
 			emojis: ['🍝']
 		}
 	],
-	stats: { entriesCount: 4, topTone: 'cozy', totalWords: 312 }
+	stats: { entriesCount: 4, topTone: 'classic', totalWords: 312 }
 };
 
 const nudge: WeeklyContent = {

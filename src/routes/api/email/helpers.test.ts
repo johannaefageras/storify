@@ -46,9 +46,9 @@ describe('buildEmailHtml', () => {
 		expect(result).not.toMatch(/<img[^>]*onerror/);
 	});
 
-	it('includes Storify branding', () => {
+	it('includes My Storify branding', () => {
 		const result = buildEmailHtml('Test', 'Måndag', '2024-06-15');
-		expect(result).toContain('Berättat av Storify');
+		expect(result).toContain('Berättat av My Storify');
 	});
 
 	it('includes proper HTML structure', () => {

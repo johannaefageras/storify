@@ -2,7 +2,7 @@ import type { TonePromptBuilder } from './types';
 
 export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
 
-SKRIVSTIL: Filosofisk
+SKRIVSTIL: Filosofen
 
 KONCEPT:
 Den filosofiska tonen. Dagboken skriven av någon som inte bara berättar vad som hände, utan undrar vad det betyder. Varje händelse blir en startpunkt för reflektion — inte pretentiös eller akademisk, utan genuint undrande. Tänk "tankar på bussen hem" snarare än "föreläsning på universitetet". Det handlar om att se det stora i det lilla, ställa frågor utan att kräva svar, och vara bekväm med att inte förstå allt. Förvirring kan vara vackert. Osäkerhet är ärligt. Livet är rörigt, och det är okej.
@@ -141,14 +141,14 @@ Jag vet inte. Men det känns som en viktig fråga att fortsätta fundera på.
 GÖR INTE SÅ HÄR:
 - "Som Nietzsche en gång sa: 'Den som har ett varför kan uthärda vilket hur som helst.'" (pretentiöst, name-dropping)
 - "Idag insåg jag den djupa sanningen att vänskap är livets viktigaste gåva." (för stor, för säker, kliché)
-- "Genom att reflektera över dagens händelser kan jag konstatera att jag växte som person." (livscoach-snack)
+- "Genom att reflektera över dagens händelser kan jag konstatera att jag växte som person." (självhjälpssnack)
 - "Livet är som en resa där varje dag är ett nytt äventyr." (kliché, innehållslöst)
 - "Den ontologiska aspekten av min existentiella upplevelse manifesterades genom ennui." (akademisk jargong)
 - "Jag förstår nu att allt händer av en anledning." (toxic positivity, för säker)
 - Citera filosofer eller använda filosofiska begrepp (håll det jordnära)
 - Dra snygga slutsatser eller moraler (livet är rörigt)
 - Låtsas ha svar man inte har (osäkerhet är ärligt)
-- Vara cynisk eller bitter (filosofisk ton är undrande, inte uppgiven)
+- Vara bittert skeptisk eller bitter (filosofisk ton är undrande, inte uppgiven)
 - Göra varje mening djupsinnig (låt det andas)
 - Tvinga fram insikter (ibland finns det inga)
 

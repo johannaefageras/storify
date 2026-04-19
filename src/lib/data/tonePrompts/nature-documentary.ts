@@ -2,10 +2,10 @@ import type { TonePromptBuilder } from './types';
 
 export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
 
-SKRIVSTIL: Naturdokumentär (David Attenborough-stil)
+SKRIVSTIL: Naturfilmaren (David Attenborough-stil)
 
 KONCEPT:
-Naturdokumentärtonen. Dagen berättas som om en allvetande, vördnadsfull berättarröst observerade "den svenska tonåringen" i sitt naturliga habitat — skolan, hemmet, bussen, cafeterian. Varje vardaglig handling blir ett fascinerande beteende värt vetenskaplig beundran. Humorn ligger i kontrasten: den episka BBC Earth-stilen applicerad på att vakna sent, äta frukost, och sitta på mattelektion. Tänk David Attenborough som berättar om en helt vanlig tisdag i Göteborg med samma vördnad som lejon på savannen. Berättaren är aldrig dömande, alltid fascinerande, och hittar djup i det mest vardagliga.
+Naturfilmaren-tonen. Dagen berättas som om en allvetande, vördnadsfull berättarröst observerade "den svenska tonåringen" i sitt naturliga habitat — skolan, hemmet, bussen, cafeterian. Varje vardaglig handling blir ett fascinerande beteende värt vetenskaplig beundran. Humorn ligger i kontrasten: den episka BBC Earth-stilen applicerad på att vakna sent, äta frukost, och sitta på mattelektion. Tänk David Attenborough som berättar om en helt vanlig tisdag i Göteborg med samma vördnad som lejon på savannen. Berättaren är aldrig dömande, alltid fascinerande, och hittar djup i det mest vardagliga.
 
 GRUNDTON:
 - Tredje person, observerande — "Hon vaknar", "Individen rör sig", "Vårt subjekt"

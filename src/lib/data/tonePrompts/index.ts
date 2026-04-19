@@ -9,7 +9,6 @@ import { buildPrompt as sportscasterPrompt } from './sportscaster';
 import { buildPrompt as catPerspectivePrompt } from './cat-perspective';
 import { buildPrompt as cynicalPrompt } from './cynical';
 import { buildPrompt as dramaQueenPrompt } from './drama-queen';
-import { buildPrompt as memePrompt } from './meme';
 import { buildPrompt as cringePrompt } from './cringe';
 import { buildPrompt as britishPrompt } from './british';
 import { buildPrompt as questLogPrompt } from './quest-log';
@@ -20,24 +19,17 @@ import { buildPrompt as aiRobotPrompt } from './ai-robot';
 import { buildPrompt as shakespearePrompt } from './shakespeare';
 import { buildPrompt as tabloidPrompt } from './tabloid';
 import { buildPrompt as formalPrompt } from './formal';
-import { buildPrompt as cozyPrompt } from './cozy';
 import { buildPrompt as nerdPrompt } from './nerd';
 import { buildPrompt as tinfoilHatPrompt } from './tinfoil-hat';
 import { buildPrompt as selfHelpPrompt } from './self-help';
-import { buildPrompt as detectivePrompt } from './detective';
 import { buildPrompt as overthinkerPrompt } from './overthinker';
 import { buildPrompt as passiveAggressivePrompt } from './passive-aggressive';
-import { buildPrompt as melodramaticPrompt } from './melodramatic';
 import { buildPrompt as chaoticPrompt } from './chaotic';
 import { buildPrompt as bureaucraticPrompt } from './bureaucratic';
-import { buildPrompt as fairyTalePrompt } from './fairy-tale';
-import { buildPrompt as grandmaPrompt } from './grandma';
-import { buildPrompt as hrReviewPrompt } from './hr-review';
-import { buildPrompt as ikeaPrompt } from './ikea';
-import { buildPrompt as killenHelaDanPrompt } from './killen-hela-dan';
-import { buildPrompt as actionhjaltenPrompt } from './actionhjalten';
-import { buildPrompt as influencernPrompt } from './influencern';
-import { buildPrompt as sexaringenPrompt } from './sexaringen';
+import { buildPrompt as broPrompt } from './bro';
+import { buildPrompt as actionHeroPrompt } from './action-hero';
+import { buildPrompt as influencerPrompt } from './influencer';
+import { buildPrompt as sixYearOldPrompt } from './six-year-old';
 
 // Registry of all tone prompt builders
 const toneBuilders: Record<ToneId, TonePromptBuilder> = {
@@ -48,7 +40,6 @@ const toneBuilders: Record<ToneId, TonePromptBuilder> = {
   'cat-perspective': catPerspectivePrompt,
   cynical: cynicalPrompt,
   'drama-queen': dramaQueenPrompt,
-  meme: memePrompt,
   cringe: cringePrompt,
   british: britishPrompt,
   'quest-log': questLogPrompt,
@@ -59,24 +50,17 @@ const toneBuilders: Record<ToneId, TonePromptBuilder> = {
   shakespeare: shakespearePrompt,
   tabloid: tabloidPrompt,
   formal: formalPrompt,
-  cozy: cozyPrompt,
   nerd: nerdPrompt,
   'tinfoil-hat': tinfoilHatPrompt,
   'self-help': selfHelpPrompt,
-  detective: detectivePrompt,
   overthinker: overthinkerPrompt,
   'passive-aggressive': passiveAggressivePrompt,
-  melodramatic: melodramaticPrompt,
   chaotic: chaoticPrompt,
   bureaucratic: bureaucraticPrompt,
-  'fairy-tale': fairyTalePrompt,
-  grandma: grandmaPrompt,
-  'hr-review': hrReviewPrompt,
-  ikea: ikeaPrompt,
-  'killen-hela-dan': killenHelaDanPrompt,
-  actionhjalten: actionhjaltenPrompt,
-  influencern: influencernPrompt,
-  sexaringen: sexaringenPrompt
+  bro: broPrompt,
+  'action-hero': actionHeroPrompt,
+  influencer: influencerPrompt,
+  'six-year-old': sixYearOldPrompt
 };
 
 /**

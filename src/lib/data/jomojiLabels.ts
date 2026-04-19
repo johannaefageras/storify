@@ -55,7 +55,7 @@ export const jomojiLabels: Record<string, string> = {
   'black-nib': 'skrivande, journal, kreativt, ord, uttryck',
   blouse: 'uppklädd, fint tillfälle, välklädd, elegant, klädsel',
   blueberries: 'blåbär, bärplockning, svenska smaker, nyttigt, natur',
-  bomb: 'chock, dramatiskt, explosivt, oväntat, kaotiskt',
+  bomb: 'chock, dramatiskt, explosivt, oväntat, rörigt',
   bone: 'fysiskt tuff, kroppen, hund, smärta, ansträngning',
   bookmarks: 'läsning, studier, fördjupning, böcker, kunskap',
   boot: 'stövel, tufft väder, vandring, utomhus, stadiga skor',
@@ -148,7 +148,7 @@ export const jomojiLabels: Record<string, string> = {
   cupcake: 'cupcake, sött, bakning, firande, godbit',
   curling: 'curling, vintersport, sport, tävling, is',
   custard: 'pudding, efterrätt, krämigt, sött, njutning',
-  cyclone: 'storm, virvlande, kaotiskt, kraftigt väder, turbulent',
+  cyclone: 'storm, virvlande, rörigt, kraftigt väder, turbulent',
 
   // === D ===
   'department-store': 'varuhus, shopping, köpcentrum, handel, ärenden',
@@ -233,7 +233,7 @@ export const jomojiLabels: Record<string, string> = {
   'face-money-mouth': 'pengar, bra affär, ekonomiskt nöjd, vinst, rik',
   'face-monocle': 'granskar, skeptisk, undersöker, ifrågasätter, misstänksam',
   'face-nauseated': 'illamående, mår illa, äckel, obehag, kväljning',
-  'face-nerd': 'nördig, smart, lärande, stolt, fördjupning',
+  'face-nerd': 'nörd, smart, lärande, stolt, fördjupning',
   'face-neutral': 'neutral, varken glad eller ledsen, okej, vanlig dag, lugn',
   'face-partying': 'festar, firar, fest, party, rolig kväll',
   'face-peeking-eye': 'nyfiken, kikar, blyg, försiktig, smygtittar',
@@ -286,7 +286,7 @@ export const jomojiLabels: Record<string, string> = {
   'face-woozy': 'vinglig, yr, omtöcknad, berusad, snurrar',
   'face-worried': 'orolig, bekymrad, ängslig, oro, gnagande',
   'face-yawning': 'gäspar, trött, sömnig, sängen kallar, uttråkad',
-  'face-zany': 'galen, vild, uppspelt, energisk, kaotisk',
+  'face-zany': 'galen, vild, uppspelt, energisk, rörig',
   'face-zipper-mouth': 'tyst, hemlighet, håller tyst, vill inte prata, dragkedja',
 
   // === F (continued) ===
@@ -374,7 +374,7 @@ export const jomojiLabels: Record<string, string> = {
   'hand-thumbs-down': 'missnöjd, ogillar, dåligt, nej, negativt',
   'hand-thumbs-up': 'nöjd, bra, godkänner, positivt, tummen upp',
   'hand-victory': 'seger, peace, firar, vunnit, framgång',
-  'hand-vulcan-salute': 'nördig, sci-fi, speciell hälsning, geek, annorlunda',
+  'hand-vulcan-salute': 'nörd, sci-fi, speciell hälsning, geek, annorlunda',
   'hand-waving': 'vinkar, hej, hejdå, hälsar, träffat någon',
   'hand-writing': 'skriver, antecknar, text, kreativt, dokumenterar',
   handbag: 'handväska, ärenden, ute, shopping, accessoar',
@@ -746,7 +746,7 @@ export const jomojiLabels: Record<string, string> = {
   tools: 'verktyg, reparera, bygga, händerna, praktiskt',
   toothbrush: 'tandborste, hygien, tandläkare, rutin, morgon',
   'top-hat': 'hög hatt, elegant, storslaget, fint tillfälle, gala',
-  tornado: 'tornado, kaotiskt, vilt, kraftigt, turbulent',
+  tornado: 'tornado, turbulent, vilt, kraftigt, rörigt',
   tower: 'torn, landmärke, utsikt, högt, besök',
   tractor: 'traktor, landet, jordbruk, tungt arbete, lantliv',
   'traffic-light': 'trafikljus, väntan, stopp och grönt, pendling, tålamod',

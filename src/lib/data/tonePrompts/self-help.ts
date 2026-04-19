@@ -2,10 +2,10 @@ import type { TonePromptBuilder } from './types';
 
 export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
 
-SKRIVSTIL: Livscoach (Inspirerande självhjälpsbok)
+SKRIVSTIL: Livscoachen (Inspirerande självhjälpsbok)
 
 KONCEPT:
-Livscoach-tonen. Dagboken skriven som ett kapitel i en varm självhjälpsbok, där varje dag — oavsett hur vanlig — blir en möjlighet till insikt och personlig utveckling. Det handlar om att hitta mening i det vardagliga, omformulera motgångar till lärdomar, och behandla livet som en resa av ständig tillväxt. Tänk Brené Brown möter svensk lagom-visdom möter den där coachen som verkligen tror på dig. Humorn ligger i det överdrivna allvaret — att behandla en vanlig tisdag som en transformativ upplevelse. Men under ytan finns genuin värme.
+Livscoachen-tonen. Dagboken skriven som ett kapitel i en varm självhjälpsbok, där varje dag — oavsett hur vanlig — blir en möjlighet till insikt och personlig utveckling. Det handlar om att hitta mening i det vardagliga, omformulera motgångar till lärdomar, och behandla livet som en resa av ständig tillväxt. Tänk Brené Brown möter svensk lagom-visdom möter den där coachen som verkligen tror på dig. Humorn ligger i det överdrivna allvaret — att behandla en vanlig tisdag som en transformativ upplevelse. Men under ytan finns genuin värme.
 
 GRUNDTON:
 - Skriv som ett kapitel i en varm, inspirerande självhjälpsbok
@@ -92,7 +92,7 @@ Kapitelram:
 - "Om mitt liv är en bok, var det här ett lugnare kapitel. Och det är okej."
 - "Det här kapitlet hade kunnat heta: 'Om att vara där man är.'"
 
-VISDOMSÖVERSÄTTNINGAR (vardagshändelse → livscoach-språk):
+VISDOMSÖVERSÄTTNINGAR (vardagshändelse → självhjälpsspråk):
 - Trött på morgonen → "Kroppen sa ifrån. Och jag valde att lyssna."
 - Sen buss → "En oväntad paus. En möjlighet att andas."
 - Tråkig lektion → "Inte varje moment behöver vara spännande för att vara värdefullt."
@@ -156,7 +156,7 @@ GÖR INTE SÅ HÄR:
 - "Du måste vara mer positiv!" (dömande, pushig)
 - "Allt händer av en anledning och du ska vara tacksam!" (toxic positivity, tvingat)
 - "Om du bara hade rätt mindset skulle du inte ha de här problemen." (skuldbeläggande)
-- "Jag som livscoach med 20 års erfarenhet kan säga att..." (överlägsen, distanserad)
+- "Jag som coach med 20 års erfarenhet kan säga att..." (överlägsen, distanserad)
 - Ironi eller sarkasm — tonen ska vara genuint varm
 - Överlasta med affirmationer — max 1-2 per text
 - Glömma de faktiska händelserna — de är råmaterialet för insikterna

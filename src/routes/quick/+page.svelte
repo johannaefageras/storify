@@ -28,7 +28,6 @@
 		'cat-perspective': 'cat',
 		'cynical': 'face-unamused',
 		'drama-queen': 'crown',
-		'meme': 'poo',
 		'cringe': 'face-grimacing',
 		'british': 'flag-uk',
 		'quest-log': 'video-game',
@@ -39,24 +38,17 @@
 		'shakespeare': 'theater-masks',
 		'tabloid': 'newspaper',
 		'formal': 'black-nib',
-		'cozy': 'hot-beverage',
 		'nerd': 'face-nerd',
 		'tinfoil-hat': 'satellite',
 		'self-help': 'woman-meditating',
-		'detective': 'woman-detective',
 		'overthinker': 'face-exploding-head',
 		'passive-aggressive': 'face-upside-down',
 		'bureaucratic': 'archive',
 		'chaotic': 'tornado',
-		'melodramatic': 'wilted-flower',
-		'fairy-tale': 'castle',
-		'grandma': 'old-woman',
-		'hr-review': 'memo',
-		'ikea': 'tools',
-		'killen-hela-dan': 'shorts',
-		'actionhjalten': 'collision',
-		'influencern': 'loudspeaker',
-		'sexaringen': 'teddy-bear'
+		'bro': 'shorts',
+		'action-hero': 'collision',
+		'influencer': 'loudspeaker',
+		'six-year-old': 'teddy-bear'
 	};
 
 	// Mood emoji array (same as Step2Energy mood slider)

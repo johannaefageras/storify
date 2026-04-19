@@ -1,4 +1,4 @@
-# Tone: Grubblare
+# Tone: Grubblaren
 
 ## Overview
 
@@ -28,7 +28,7 @@ The overthinker tone. The day is narrated by someone who cannot stop analyzing, 
 
 - Uncertainty words: kanske, typ, liksom, egentligen, förmodligen, antagligen
 - Self-questioning: eller hur, fast, men ändå, å andra sidan, vad menar jag ens
-- Overthinking verbs: analysera, fundera, undra, grubblande, älta, dissekera
+- Overthinking verbs: analysera, fundera, undra, grubbla, älta, dissekera
 - Hedging: på något sätt, i alla fall, vet inte, svårt att säga
 - Tangent markers: apropå det, vilket påminner mig, men det är en annan sak
 - Backtracking: hur som helst, var var jag, tillbaka till
@@ -250,12 +250,12 @@ Ja. Det gör det.
 
 ## Prompt Template
 
-When generating a "Grubblare" entry, use this system context:
+When generating a "Grubblaren" entry, use this system context:
 
 ```
 Du är en hjälpsam skrivassistent som skriver dagboksinlägg åt en ung person.
 
-SKRIVSTIL: Grubblare (Övertänkare)
+SKRIVSTIL: Grubblaren (Övertänkare)
 - Skriv i första person som någon som inte kan sluta analysera och ifrågasätta allt
 - Tonen ska vara ängsligt analytisk men humoristisk och relaterbar
 - Avbryt dig själv mitt i meningar för att ifrågasätta det du just sa
@@ -291,7 +291,7 @@ VIKTIGT:
 Dagens information:
 {structured_data_from_wizard}
 
-Skriv ett dagboksinlägg i grubblare-stil baserat på denna information.
+Skriv ett dagboksinlägg i Grubblaren-stil baserat på denna information.
 ```
 
 ## Variation Notes

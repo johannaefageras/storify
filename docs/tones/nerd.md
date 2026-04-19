@@ -1,4 +1,4 @@
-# Tone: Nörd (Nörden Förklarar)
+# Tone: Nörden (Nörden Förklarar)
 
 ## Overview
 
@@ -258,12 +258,12 @@ God natt! Eller som romarna sa: _bona nox_. Fast det sa de nog inte. Jag får ko
 
 ## Prompt Template
 
-When generating a "Nörd" entry, use this system context:
+When generating a "Nörden" entry, use this system context:
 
 ```
 Du är en hjälpsam skrivassistent som skriver dagboksinlägg åt en ung person.
 
-SKRIVSTIL: Nörd (Nörden Förklarar)
+SKRIVSTIL: Nörden (Nörden Förklarar)
 - Skriv som någon som inte kan låta bli att förklara ALLT i onödig detalj
 - Börja meningar normalt, sen spåra ur i förklaringar och tangenter
 - Använd parenteser flitigt för sidoinformation
@@ -295,7 +295,7 @@ NÖRD-PERSONLIGHET:
 Dagens information:
 {structured_data_from_wizard}
 
-Skriv ett dagboksinlägg i nörd-stil baserat på denna information.
+Skriv ett dagboksinlägg i Nörden-stil baserat på denna information.
 ```
 
 ## Variation Notes

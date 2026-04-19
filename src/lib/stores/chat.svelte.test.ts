@@ -302,8 +302,8 @@ describe('chatStore', () => {
 
 		it('setSelectedTone can change the tone', () => {
 			chatStore.setSelectedTone('classic');
-			chatStore.setSelectedTone('meme');
-			expect(chatStore.selectedTone).toBe('meme');
+			chatStore.setSelectedTone('cringe');
+			expect(chatStore.selectedTone).toBe('cringe');
 		});
 	});
 
@@ -480,12 +480,12 @@ describe('chatStore', () => {
 
 			// Re-generate with different tone
 			chatStore.finishInterview();
-			chatStore.setSelectedTone('meme');
+			chatStore.setSelectedTone('cringe');
 			chatStore.startGenerating();
 			chatStore.showResult('Meme entry');
 
 			expect(chatStore.generatedEntry).toBe('Meme entry');
-			expect(chatStore.selectedTone).toBe('meme');
+			expect(chatStore.selectedTone).toBe('cringe');
 			expect(chatStore.messages).toHaveLength(2); // Messages preserved
 		});
 	});
@@ -572,7 +572,7 @@ describe('chatStore', () => {
 					{ id: 'msg-2', role: 'assistant', content: 'Hi!', timestamp: 2000 }
 				],
 				phase: 'chatting',
-				selectedTone: 'meme',
+				selectedTone: 'cringe',
 				includeHoroscope: true,
 				includeOnThisDay: false,
 				includeHomework: false,
@@ -588,7 +588,7 @@ describe('chatStore', () => {
 			expect(chatStore.messages[0].content).toBe('Hello');
 			expect(chatStore.messages[1].content).toBe('Hi!');
 			expect(chatStore.phase).toBe('chatting');
-			expect(chatStore.selectedTone).toBe('meme');
+			expect(chatStore.selectedTone).toBe('cringe');
 			expect(chatStore.includeHoroscope).toBe(true);
 			expect(chatStore.includeHomework).toBe(false);
 		});

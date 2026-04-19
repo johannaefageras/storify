@@ -114,7 +114,7 @@ describe('buildWeeklyContent', () => {
 				id: 'e1',
 				created_at: '2026-04-14T10:00:00Z',
 				generated_text: 'En lugn måndag med kaffe.',
-				tone_id: 'cozy',
+				tone_id: 'storytelling',
 				emojis: ['☕']
 			})
 		];
@@ -126,7 +126,7 @@ describe('buildWeeklyContent', () => {
 			expect(result.entries[0].excerpt).toContain('lugn måndag');
 			expect(result.entries[0].emojis).toEqual(['☕']);
 			expect(result.stats.entriesCount).toBe(1);
-			expect(result.stats.topTone).toBe('cozy');
+			expect(result.stats.topTone).toBe('storytelling');
 			expect(result.stats.totalWords).toBeGreaterThan(0);
 		}
 	});
@@ -138,11 +138,11 @@ describe('buildWeeklyContent', () => {
 		};
 		const entries: EntryRow[] = [
 			entry({ tone_id: 'classic', generated_text: 'ett två tre' }),
-			entry({ tone_id: 'cozy', generated_text: 'fyra fem sex' }),
-			entry({ tone_id: 'cozy', generated_text: 'sju åtta nio' }),
+			entry({ tone_id: 'storytelling', generated_text: 'fyra fem sex' }),
+			entry({ tone_id: 'storytelling', generated_text: 'sju åtta nio' }),
 			entry({ tone_id: 'classic', generated_text: 'tio elva tolv' }),
-			entry({ tone_id: 'cozy', generated_text: 'tretton fjorton femton' }),
-			entry({ tone_id: 'cozy', generated_text: 'sexton sjutton arton' }),
+			entry({ tone_id: 'storytelling', generated_text: 'tretton fjorton femton' }),
+			entry({ tone_id: 'storytelling', generated_text: 'sexton sjutton arton' }),
 			entry({ tone_id: 'classic', generated_text: 'nitton tjugo tjugoett' })
 		];
 		const result = buildWeeklyContent(entries, profile, NOW);
@@ -150,7 +150,7 @@ describe('buildWeeklyContent', () => {
 		if (result.variant === 'recap') {
 			expect(result.entries).toHaveLength(5);
 			expect(result.stats.entriesCount).toBe(7);
-			expect(result.stats.topTone).toBe('cozy');
+			expect(result.stats.topTone).toBe('storytelling');
 			expect(result.stats.totalWords).toBe(21);
 		}
 	});

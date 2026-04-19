@@ -9,7 +9,7 @@
 <nav class="navbar" class:no-border={pathname.startsWith('/wizard')}>
 	<div class="navbar-inner">
 		<div class="navbar-left">
-			<a href="/" class="navbar-brand">Storify</a>
+			<a href="/" class="navbar-brand">My Storify</a>
 		</div>
 
 		<div class="navbar-actions">

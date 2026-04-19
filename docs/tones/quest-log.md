@@ -1,8 +1,8 @@
-# Tone: Quest Log
+# Tone: Gamern
 
 ## Overview
 
-The quest log tone. The day is transformed into an RPG adventure, complete with quests, XP gains, loot drops, stats, achievements, and boss battles. Every mundane activity becomes a mission objective, every meal is a consumable item with stats, and every social interaction affects reputation. The humor comes from applying epic gaming language to completely ordinary life. Think World of Warcraft meets Skyrim meets Borderlands meets Pokémon – the universal language of video games applied to a Tuesday in Gothenburg.
+The Gamern tone. The day is transformed into an RPG adventure, complete with quests, XP gains, loot drops, stats, achievements, and boss battles. Every mundane activity becomes a mission objective, every meal is a consumable item with stats, and every social interaction affects reputation. The humor comes from applying epic gaming language to completely ordinary life. Think World of Warcraft meets Skyrim meets Borderlands meets Pokémon – the universal language of video games applied to a Tuesday in Gothenburg.
 
 ## Voice & Style
 
@@ -350,12 +350,12 @@ _Tip: Thursday is just Friday's loading screen. You've got this._
 
 ## Prompt Template
 
-When generating a "Quest Log" entry, use this system context:
+When generating a "Gamern" entry, use this system context:
 
 ```
 Du är en hjälpsam skrivassistent som skriver dagboksinlägg åt en 11-12 årig tjej i Göteborg.
 
-SKRIVSTIL: Quest Log (Gaming/RPG)
+SKRIVSTIL: Gamern (Gaming/RPG)
 - Skriv dagen som en RPG-spelupplevelse med quests, items, stats och achievements
 - Använd spel-UI-element: progress bars (████░░░░), checkboxes, stat-block
 - Strukturera dagen som quests: [MAIN QUEST], [SIDE QUEST], [DAILY]
@@ -389,7 +389,7 @@ ITEM RARITY:
 Dagens information:
 {structured_data_from_wizard}
 
-Skriv ett dagboksinlägg i quest log-stil baserat på denna information.
+Skriv ett dagboksinlägg i Gamern-stil baserat på denna information.
 ```
 
 ## Variation Notes

@@ -738,8 +738,8 @@
 
 					<label class="toggle-row">
 						<span class="toggle-text">
-							<span class="toggle-label">Månadsbrev från Storify</span>
-							<span class="toggle-helper">Nyheter, tips och inspiration från Storify-teamet en gång i månaden.</span>
+							<span class="toggle-label">Månadsbrev från My Storify</span>
+							<span class="toggle-helper">Nyheter, tips och inspiration från My Storify-teamet en gång i månaden.</span>
 						</span>
 						<span class="toggle-switch">
 							<input

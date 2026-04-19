@@ -69,7 +69,7 @@ function renderRecap(
 			Hej ${safeName}!
 		</p>
 		<p style="margin: 0 0 24px 0; font-size: 16px; color: ${BRAND_INK}; line-height: 1.6;">
-			Här är utdrag från din vecka i Storify.
+			Här är utdrag från din vecka i My Storify.
 		</p>
 		${entryBlocks}
 		${statsLine}
@@ -78,7 +78,7 @@ function renderRecap(
 
 	return {
 		subject,
-		html: renderShell(body, unsubscribeUrl, 'Din vecka i Storify')
+		html: renderShell(body, unsubscribeUrl, 'Din vecka i My Storify')
 	};
 }
 
@@ -88,7 +88,7 @@ function renderNudge(
 	unsubscribeUrl: string,
 	newEntryUrl: string
 ): RenderedEmail {
-	const subject = 'En tanke från Storify';
+	const subject = 'En tanke från My Storify';
 	const safePrompt = escapeHtml(promptText);
 
 	const body = `
@@ -111,7 +111,7 @@ function renderNudge(
 
 	return {
 		subject,
-		html: renderShell(body, unsubscribeUrl, 'En tanke från Storify')
+		html: renderShell(body, unsubscribeUrl, 'En tanke från My Storify')
 	};
 }
 
@@ -179,7 +179,7 @@ function renderShell(body: string, unsubscribeUrl: string, heading: string): str
 			${body}
 			<div style="border-top: 1px solid ${BRAND_BORDER}; padding-top: 20px; margin-top: 32px;">
 				<p style="margin: 0 0 8px 0; font-size: 12px; color: ${BRAND_FAINT}; line-height: 1.5;">
-					Du får detta för att du prenumererar på Storifys veckobrev.
+					Du får detta för att du prenumererar på My Storifys veckobrev.
 				</p>
 				<p style="margin: 0; font-size: 12px; color: ${BRAND_FAINT}; line-height: 1.5;">
 					<a href="${unsubscribeUrl}" style="color: ${BRAND_FAINT}; text-decoration: underline;">Avprenumerera</a>

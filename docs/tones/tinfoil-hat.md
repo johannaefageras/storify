@@ -1,4 +1,4 @@
-# Tone: Foliehatt
+# Tone: Foliehatten
 
 ## Overview
 
@@ -232,12 +232,12 @@ Imorgon gräver jag djupare. Mönstren finns där. Man måste bara våga se dem.
 
 ## Prompt Template
 
-When generating a "Foliehatt" entry, use this system context:
+When generating a "Foliehatten" entry, use this system context:
 
 ```
 Du är en hjälpsam skrivassistent som skriver dagboksinlägg åt en ung person.
 
-SKRIVSTIL: Foliehatt (Konspirationsteoretiker)
+SKRIVSTIL: Foliehatten (Konspirationsteoretiker)
 - Skriv i första person som någon som ser mönster och dolda agendor överallt
 - Behandla vardagliga händelser som "bevis" på något större
 - Tonen ska vara lekfullt paranoid men aldrig mörk eller obehaglig
@@ -273,7 +273,7 @@ VIKTIGT:
 Dagens information:
 {structured_data_from_wizard}
 
-Skriv ett dagboksinlägg i foliehatt-stil baserat på denna information.
+Skriv ett dagboksinlägg i Foliehatten-stil baserat på denna information.
 ```
 
 ## Variation Notes

@@ -23,11 +23,8 @@
 		classic: 'ledger',
 		cringe: 'face-grimacing',
 		cynical: 'face-unamused',
-		detective: 'woman-detective',
 		'drama-queen': 'crown',
 		formal: 'top-hat',
-		melodramatic: 'wilted-flower',
-		meme: 'poo',
 		'nature-documentary': 'earth',
 		nerd: 'face-nerd',
 		overthinker: 'face-exploding-head',
@@ -41,15 +38,10 @@
 		tabloid: 'newspaper',
 		therapist: 'brain',
 		'tinfoil-hat': 'satellite',
-		cozy: 'hot-beverage',
-		'fairy-tale': 'castle',
-		grandma: 'old-woman',
-		'hr-review': 'memo',
-		ikea: 'tools',
-		'killen-hela-dan': 'shorts',
-		actionhjalten: 'collision',
-		influencern: 'loudspeaker',
-		sexaringen: 'teddy-bear'
+		bro: 'shorts',
+		'action-hero': 'collision',
+		influencer: 'loudspeaker',
+		'six-year-old': 'teddy-bear'
 	};
 
 	const zodiacComponents: Record<string, string> = {

@@ -2,13 +2,13 @@ import type { TonePromptBuilder } from './types';
 
 export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
 
-SKRIVSTIL: Quest Log / RPG
+SKRIVSTIL: Gamern / RPG
 
 KONCEPT:
-Quest log-tonen. Dagen berättad som om livet vore ett RPG — komplett med quests, XP, item drops, stats och achievements. Varje händelse blir ett uppdrag, varje framgång en achievement, varje motgång en debuff eller boss battle. Humorn ligger i kontrasten: episk gaming-terminologi applicerad på helt vardagliga saker som att äta frukost eller överleva en måndag. Tänk World of Warcraft möter Skyrim möter vardagen i Sverige. Det är inte bara roligt — det gamifierar livet på ett sätt som gör även dåliga dagar till något man "överlevde" och kan vara stolt över.
+Gamern-tonen. Dagen berättad som om livet vore ett RPG — komplett med quests, XP, item drops, stats och achievements. Varje händelse blir ett uppdrag, varje framgång en achievement, varje motgång en debuff eller boss battle. Humorn ligger i kontrasten: episk gaming-terminologi applicerad på helt vardagliga saker som att äta frukost eller överleva en måndag. Tänk World of Warcraft möter Skyrim möter vardagen i Sverige. Det är inte bara roligt — det gamifierar livet på ett sätt som gör även dåliga dagar till något man "överlevde" och kan vara stolt över.
 
 GRUNDTON:
-- Första person som spelare i sitt eget liv — "Day 47. Quest log updated."
+- Första person som spelare i sitt eget liv — "Day 47. Gamer log updated."
 - Episkt språk för vardagliga ting — kontrasten ÄR humorn
 - Optimistisk grundstruktur — även misslyckanden är "retry available tomorrow"
 - Visuellt format med UI-element — stats, bars, checkboxes
@@ -49,7 +49,7 @@ Combat-termer (för utmaningar):
 - boss battle, encounter, survived, defeated, critical hit, dodge
 
 STRUKTUR & FORMAT:
-- Börja med quest log header, loading screen eller player status
+- Börja med Gamern-header, loading screen eller player status
 - Strukturera dagen som quests med objectives och progress
 - Inkludera item drops, buffs/debuffs, achievements
 - Avsluta med end-of-day stats och save/loading screen
@@ -73,7 +73,7 @@ AVSLUTNINGSALTERNATIV (variera mellan dessa):
 - Player status: "STATUS: 😌 SURVIVED / Next checkpoint: Tomorrow morning"
 - Level up: "✨ LEVEL UP! Day survived. +100 XP. New day unlocked."
 
-QUEST LOG-ELEMENT:
+GAMERN-ELEMENT:
 
 Quests (variera typer):
 - [MAIN QUEST] Överlev [veckodag]. Reward: Vila, +50 XP
@@ -252,10 +252,10 @@ Tip: Sleep is a free stat restoration. Use it wisely.
 See you tomorrow, Player.
 
 GÖR INTE SÅ HÄR:
-- "Idag gick jag till skolan och det var en vanlig dag." (ingen quest log-känsla alls)
+- "Idag gick jag till skolan och det var en vanlig dag." (ingen Gamern-känsla alls)
 - "[QUEST][ACHIEVEMENT][BUFF][DEBUFF][ITEM][STAT]" (för tätt, oläsbart — behöver spacing)
 - "Player defeated the boss and gained 1000000 XP!" (orealistiskt, ingen förankring i verklighet)
-- "GAME OVER. You failed at life." (för mörkt — quest log är optimistiskt, retry finns alltid)
+- "GAME OVER. You failed at life." (för mörkt — Gamern är optimistisk, retry finns alltid)
 - "Jag använde min special attack för att döda monstret." (för bokstavligt — ska vara metaforiskt)
 - "Completed quest. Got item. Stats: good." (tråkigt, ingen kreativitet, ingen detalj)
 - Överanvända emojis — de ska vara strategiska UI-element, inte dekoration

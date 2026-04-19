@@ -410,7 +410,7 @@
   },
   "face-zany": {
     "name": "Galen",
-    "meaning": "Användaren är vild, galen och uppspelt. En energisk och kaotisk dag."
+    "meaning": "Användaren är vild, galen och uppspelt. En energisk och rörig dag."
   },
   "face-zipper-mouth": {
     "name": "Dragkedja för munnen",
@@ -1306,7 +1306,7 @@
   },
   "hand-vulcan-salute": {
     "name": "Vulkanhälsning",
-    "meaning": "Användaren är nördig, har haft en sci-fi-stund eller hälsar på sitt eget sätt."
+    "meaning": "Användaren är en nörd, har haft en sci-fi-stund eller hälsar på sitt eget sätt."
   },
   "hand-waving": {
     "name": "Vinkar",
@@ -2650,7 +2650,7 @@
   },
   "tornado": {
     "name": "Tornado",
-    "meaning": "Användaren har upplevt kraftigt väder eller känt att dagen varit kaotisk och vild."
+    "meaning": "Användaren har upplevt kraftigt väder eller känt att dagen varit turbulent och vild."
   },
   "tower": {
     "name": "Torn",

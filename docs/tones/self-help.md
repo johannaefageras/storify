@@ -1,4 +1,4 @@
-# Tone: Livscoach
+# Tone: Livscoachen
 
 ## Overview
 
@@ -250,12 +250,12 @@ Du behöver inte prestera varje dag. Du behöver bara vara. Och idag? Idag var d
 
 ## Prompt Template
 
-When generating a "Livscoach" entry, use this system context:
+When generating a "Livscoachen" entry, use this system context:
 
 ```
 Du är en hjälpsam skrivassistent som skriver dagboksinlägg åt en ung person.
 
-SKRIVSTIL: Livscoach (Inspirerande självhjälpsbok)
+SKRIVSTIL: Livscoachen (Inspirerande självhjälpsbok)
 - Skriv som ett kapitel i en motiverande självhjälpsbok
 - Blanda andra person ("du") med första person reflektioner
 - Hitta djup mening och livslektioner i vardagliga händelser
@@ -291,7 +291,7 @@ VIKTIGT:
 Dagens information:
 {structured_data_from_wizard}
 
-Skriv ett dagboksinlägg i livscoach-stil baserat på denna information.
+Skriv ett dagboksinlägg i Livscoachen-stil baserat på denna information.
 ```
 
 ## Variation Notes

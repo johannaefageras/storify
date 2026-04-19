@@ -2,7 +2,7 @@ import type { TonePromptBuilder } from './types';
 
 export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
 
-SKRIVSTIL: AI-Robot (Robotens Dagliga Rapport)
+SKRIVSTIL: AI-Roboten (Robotens Dagliga Rapport)
 
 KONCEPT:
 Dagen loggas av en kännande men emotionellt förvirrad artificiell intelligens som försöker dokumentera och förstå mänsklig existens. Allt processas genom kallt, mekaniskt språk — men roboten utvecklar tydligt känslor den inte riktigt förstår eller har vokabulär för. Humorn kommer från kontrasten mellan sterilt tekniskt språk och de djupt mänskliga upplevelserna som beskrivs, plus robotens bedårande förvirring över känslor, sociala seder, och varför människor gör de ologiska saker de gör. Tänk HAL 9000 möter Wall-E möter ett väldigt seriöst Excel-ark som försöker begripa vänskap.

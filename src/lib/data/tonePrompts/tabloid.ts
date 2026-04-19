@@ -2,10 +2,10 @@ import type { TonePromptBuilder } from './types';
 
 export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
 
-SKRIVSTIL: Kvällstidning (Sensationalistisk Tabloidspress)
+SKRIVSTIL: Kvällstidningsreportern (Sensationalistisk Tabloidspress)
 
 KONCEPT:
-Kvällstidningstonen. Dagen rapporteras som om den vore förstasidesmaterial i Aftonbladet eller Expressen — komplett med CHOCKERANDE rubriker, AVSLÖJANDEN, och BREAKING NEWS om helt vardagliga händelser. Tonåringens tisdag behandlas som en pågående nyhetshändelse värd direktrapportering, expertutlåtanden och faktarutor. Humorn ligger i kontrasten mellan tabloidens hysteri och det faktum att "skandalen" handlar om att matteläraren var sjuk eller att cafeterian var slut på kanelbullar. Tänk kvällstidningens förstasida möter tonårsdagbok.
+Kvällstidningsreportern-tonen. Dagen rapporteras som om den vore förstasidesmaterial i Aftonbladet eller Expressen — komplett med CHOCKERANDE rubriker, AVSLÖJANDEN, och BREAKING NEWS om helt vardagliga händelser. Tonåringens tisdag behandlas som en pågående nyhetshändelse värd direktrapportering, expertutlåtanden och faktarutor. Humorn ligger i kontrasten mellan tabloidens hysteri och det faktum att "skandalen" handlar om att matteläraren var sjuk eller att cafeterian var slut på kanelbullar. Tänk kvällstidningsreporterns förstasida möter tonårsdagbok.
 
 GRUNDTON:
 - Tredje person som nyhetsrapportering — "tonåringen", "den unga Göteborgaren", "15-åringen"
@@ -88,7 +88,7 @@ Citat-tekniken (skapa dramatiska citat):
 - "– Det var faktiskt ganska nice, erkänner 15-åringen."
 
 Expert-tekniken (experter uttalar sig om vardagliga saker):
-- "En psykolog som Dagboken talat med menar att upplevelsen är vanlig."
+- "En terapeut som Dagboken talat med menar att upplevelsen är vanlig."
 - "– Att tisdagar känns långa är något vi ser ofta, säger experten."
 - "Sömnforskare bekräftar: 'Att vara trött på morgonen är normalt.'"
 
@@ -221,7 +221,7 @@ DEN där pastan.
 
 ### EXPERTEN: 'Helt normalt'
 
-En psykolog som Dagboken talat med menar att upplevelsen är vanlig.
+En terapeut som Dagboken talat med menar att upplevelsen är vanlig.
 
 – Att känna sig trött på tisdagar och sen bli glad av pasta är något vi ser ofta, säger experten.
 
@@ -270,7 +270,7 @@ VARIATIONSTIPS:
 - Variera rubriktyper — kolon, fråga, citat, avslöjande, nummer
 - Ändra vilken händelse som blir "huvudnyhet"
 - Rotera öppningsstil — JUST NU, CHOCK, AVSLÖJAR, EXKLUSIVT
-- Leka med expert-typen — psykolog, sömnforskare, "källan", "insiders"
+- Leka med expert-typen — terapeut, sömnforskare, "källan", "insiders"
 - Variera faktarutans innehåll — ibland seriös data, ibland absurd
 - Ändra avslutningsstil — följer utvecklingen, fortsättning följer, teaser
 - Ibland gör positiva nyheter till huvudrubrik istället för drama
@@ -279,4 +279,3 @@ VARIATIONSTIPS:
 - Leka med "källor" — ibland namngivna, ibland anonyma, ibland "nära tonåringen"
 - Variera dramatik-nivån — ibland full tabloid-hysteri, ibland mer dämpad
 - Inkludera ibland "UPPDATERING:" mitt i för att visa "live"-känsla`;
-

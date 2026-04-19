@@ -83,7 +83,7 @@
 		<div class="share-icon"><Emoji name="users-silhouette" size={36} /></div>
 		<h2 id="share-modal-title" class="share-title">Dela till Gemenskapen</h2>
 		<p class="share-description">
-			Din dagboksanteckning delas publikt så att andra Storify-användare kan läsa den.
+			Din dagboksanteckning delas publikt så att andra My Storify-användare kan läsa den.
 		</p>
 
 		<div class="share-field">

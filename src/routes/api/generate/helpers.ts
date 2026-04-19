@@ -40,19 +40,15 @@ const toneMetadata: Record<ToneId, ToneMetadata> = {
 	},
 	cynical: {
 		language: 'swedish',
-		styleSummary: 'cynisk och sarkastisk med mörk humor'
+		styleSummary: 'skeptisk och sarkastisk med mörk humor'
 	},
 	'drama-queen': {
 		language: 'swedish',
 		styleSummary: 'överdrivet dramatisk med STORA KÄNSLOR'
 	},
-	meme: {
-		language: 'swedish',
-		styleSummary: 'meme-humor och internetspråk'
-	},
 	cringe: {
 		language: 'swedish',
-		styleSummary: 'pinsam och överdrivet entusiastisk'
+		styleSummary: 'tonårigt självmedveten, socialt överanalyserande och varmt rolig'
 	},
 	british: {
 		language: 'english',
@@ -68,7 +64,7 @@ const toneMetadata: Record<ToneId, ToneMetadata> = {
 	},
 	'nature-documentary': {
 		language: 'swedish',
-		styleSummary: 'som David Attenborough i en naturdokumentär'
+		styleSummary: 'som David Attenborough i en naturfilm'
 	},
 	therapist: {
 		language: 'swedish',
@@ -84,19 +80,15 @@ const toneMetadata: Record<ToneId, ToneMetadata> = {
 	},
 	tabloid: {
 		language: 'swedish',
-		styleSummary: 'som en sensationell kvällstidning'
+		styleSummary: 'som en sensationell kvällstidningsreporter'
 	},
 	formal: {
 		language: 'swedish',
-		styleSummary: 'formell och professionell'
-	},
-	cozy: {
-		language: 'swedish',
-		styleSummary: 'mjuk, varm och lugn — som att sjunka ner i en filt efter en lång dag'
+		styleSummary: 'akademiskt analyserande, nyanserad och torrt rolig'
 	},
 	nerd: {
 		language: 'swedish',
-		styleSummary: 'nördig med referenser och fakta'
+		styleSummary: 'faktaspäckad med referenser och fakta'
 	},
 	'tinfoil-hat': {
 		language: 'swedish',
@@ -106,21 +98,13 @@ const toneMetadata: Record<ToneId, ToneMetadata> = {
 		language: 'swedish',
 		styleSummary: 'som en motiverande självhjälpsbok'
 	},
-	detective: {
-		language: 'swedish',
-		styleSummary: 'som en noir-detektiv som utreder dagen'
-	},
 	'passive-aggressive': {
 		language: 'swedish',
-		styleSummary: 'passiv-aggressiv med undertoner'
-	},
-	melodramatic: {
-		language: 'swedish',
-		styleSummary: 'överdrivet melodramatisk och känslosam'
+		styleSummary: 'självuppoffrande, sårad och lågmält martyrisk'
 	},
 	chaotic: {
 		language: 'swedish',
-		styleSummary: 'kaotisk och osammanhängande'
+		styleSummary: 'rörig och osammanhängande som en multitaskare'
 	},
 	bureaucratic: {
 		language: 'swedish',
@@ -130,35 +114,19 @@ const toneMetadata: Record<ToneId, ToneMetadata> = {
 		language: 'swedish',
 		styleSummary: 'övertänkande med många parenteser och sidonoteringar'
 	},
-	'fairy-tale': {
-		language: 'swedish',
-		styleSummary: 'som en magisk sagoberättelse med prinsessor, drakar och äventyr'
-	},
-	grandma: {
-		language: 'swedish',
-		styleSummary: 'varm och kärleksfull som en mormor som berättar om sitt barnbarn'
-	},
-	'hr-review': {
-		language: 'swedish',
-		styleSummary: 'formell som ett utvecklingssamtal med KPI:er och prestationsbedömning'
-	},
-	ikea: {
-		language: 'swedish',
-		styleSummary: 'som en IKEA-monteringsanvisning med steg-för-steg-instruktioner'
-	},
-	'killen-hela-dan': {
+	bro: {
 		language: 'swedish',
 		styleSummary: 'som en svensk dokusåpa-brat med grindset, boys-snack och charmigt skev självbild'
 	},
-	actionhjalten: {
+	'action-hero': {
 		language: 'swedish',
 		styleSummary: 'som en trött 80-tals actionhjälte som gör vardagen till ett taktiskt uppdrag'
 	},
-	influencern: {
+	influencer: {
 		language: 'swedish',
 		styleSummary: 'som en svensk mikro-influencer med curated autenticitet, Swenglish och content-hjärna'
 	},
-	sexaringen: {
+	'six-year-old': {
 		language: 'swedish',
 		styleSummary: 'som en varm, bokstavlig sexåring med stora känslor, sidospår och skeva proportioner'
 	}

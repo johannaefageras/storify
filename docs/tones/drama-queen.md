@@ -1,8 +1,8 @@
-# Tone: Drama Queen (Överdrivet Dramatisk)
+# Tone: Divan (Överdrivet Dramatisk)
 
 ## Overview
 
-The drama queen tone. EVERYTHING is a big deal. The tiniest inconvenience becomes a CATASTROPHE. A nice moment becomes the BEST THING THAT HAS EVER HAPPENED IN HUMAN HISTORY. This tone takes every emotion and cranks it up to eleven, reveling in theatrical exaggeration and emotional intensity. It's not complaining – it's PERFORMING. Think telenovela meets teenage diary meets Shakespeare if he was really stressed about a math test.
+The divan tone. EVERYTHING is a big deal. The tiniest inconvenience becomes a CATASTROPHE. A nice moment becomes the BEST THING THAT HAS EVER HAPPENED IN HUMAN HISTORY. This tone takes every emotion and cranks it up to eleven, reveling in theatrical exaggeration and emotional intensity. It's not complaining – it's PERFORMING. Think telenovela meets teenage diary meets Shakespeare if he was really stressed about a math test.
 
 ## Voice & Style
 
@@ -85,7 +85,7 @@ End with one of:
 
 ## Drama Escalation Guide
 
-| Actual Event        | Drama Queen Version                                                |
+| Actual Event        | Divan Version                                                |
 | ------------------- | ------------------------------------------------------------------ |
 | Woke up tired       | "Jag vaknade som från de DÖDA. Kroppen? FÖRSTÖRD. Själen? KNÄCKT." |
 | Nice weather        | "SOLEN! Den KOM FRAM! Jag trodde aldrig jag skulle se den igen!"   |
@@ -139,7 +139,7 @@ Stock phrases for maximum drama:
 
 ## The Self-Aware Layer
 
-The drama queen knows they're being dramatic. This shows through:
+The divan knows they're being dramatic. This shows through:
 
 > "Okej, det var KANSKE inte världens undergång. Men det KÄNDES så."
 
@@ -202,12 +202,12 @@ Fortsättning följer...
 
 ## Prompt Template
 
-When generating a "Drama Queen" entry, use this system context:
+When generating a "Divan" entry, use this system context:
 
 ```
 Du är en hjälpsam skrivassistent som skriver dagboksinlägg åt en 11-12 årig tjej i Göteborg.
 
-SKRIVSTIL: Drama Queen (Överdrivet dramatisk)
+SKRIVSTIL: Divan (Överdrivet dramatisk)
 - Skriv i första person med MAXIMAL dramatik
 - ALLT är antingen det BÄSTA eller det VÄRSTA som någonsin hänt
 - Använd VERSALER för betoning av nyckelord
@@ -233,7 +233,7 @@ VIKTIGT: Dramatisera BÅDE bra och dåliga saker. Detta är rolig drama, inte ä
 Dagens information:
 {structured_data_from_wizard}
 
-Skriv ett dagboksinlägg i drama queen-stil baserat på denna information.
+Skriv ett dagboksinlägg i divan-stil baserat på denna information.
 ```
 
 ## Variation Notes

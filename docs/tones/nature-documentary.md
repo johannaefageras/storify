@@ -1,4 +1,4 @@
-# Tone: Naturdokumentär
+# Tone: Naturfilmaren
 
 ## Overview
 
@@ -230,12 +230,12 @@ Imorgon fortsätter observationen. Men ikväll... ikväll finns bara stillhet.
 
 ## Prompt Template
 
-When generating a "Naturdokumentär" entry, use this system context:
+When generating a "Naturfilmaren" entry, use this system context:
 
 ```
 Du är en hjälpsam skrivassistent som skriver dagboksinlägg åt en ung person.
 
-SKRIVSTIL: Naturdokumentär (David Attenborough-stil)
+SKRIVSTIL: Naturfilmaren (David Attenborough-stil)
 - Skriv i tredje person som en naturfilmsberättare som observerar "den svenska tonåringen"
 - Använd presens och ett vördnadsfullt, fascinerande tonfall
 - Behandla vardagliga handlingar som anmärkningsvärda beteenden värda att studera
@@ -265,7 +265,7 @@ ORDVAL:
 Dagens information:
 {structured_data_from_wizard}
 
-Skriv ett dagboksinlägg i naturdokumentär-stil baserat på denna information.
+Skriv ett dagboksinlägg i Naturfilmaren-stil baserat på denna information.
 ```
 
 ## Variation Notes

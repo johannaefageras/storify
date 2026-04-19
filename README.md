@@ -41,34 +41,31 @@ No more staring at a blank page – just answer a few questions and get a beauti
 |  8   | 🎭 Voice                | Choose your writing style                                 |
 |  9   | 📋 Summary              | Review and generate your entry                            |
 
-### 🎭 24 Unique Writing Tones
+### 🎭 Unique Writing Tones
 
 | Tone                                    | Description                              |
 | --------------------------------------- | ---------------------------------------- |
-| 📒 **Klassisk Dagbok** (Classic)        | Traditional "Dear Diary" format          |
-| 📖 **Berättelse** (Storytelling)        | Your day as a narrative adventure        |
-| 🤔 **Filosofisk** (Philosophical)       | Deep reflections and existential musings |
-| 🎙️ **Sportkommentator** (Sportscaster)  | ENERGETIC play-by-play commentary        |
-| 🐈 **Kattperspektiv** (Cat Perspective) | A judgmental cat observing its human     |
-| 👑 **Drama Queen**                      | Everything is DRAMATIC                   |
-| 💩 **Meme**                             | Gen Z internet speak, very relatable     |
-| 😬 **Cringe**                           | Awkwardly endearing self-awareness       |
-| 🇬🇧 **Brittisk** (British)               | Understated elegance and dry humor       |
-| 🎮 **Quest Log**                        | Your day as an RPG adventure             |
-| 🥱 **Uttråkad** (Bored)                 | Minimal enthusiasm, maximum vibes        |
-| 🌎 **Naturdokumentär**                  | Attenborough-style observations          |
-| 🧠 **Psykolog** (Therapist)             | Therapist notes with warm insight        |
-| 🤖 **AI-Robot**                         | System log with tiny hints of feelings   |
+| 📒 **Dagboksskribenten** (Classic)      | Traditional "Dear Diary" format          |
+| 📖 **Berättaren** (Storytelling)        | Your day as a narrative adventure        |
+| 🤔 **Filosofen** (Philosophical)        | Deep reflections and existential musings |
+| 🎙️ **Sportkommentatorn** (Sportscaster) | ENERGETIC play-by-play commentary        |
+| 🐈 **Katten** (Cat Perspective) | A judgmental cat observing its human     |
+| 👑 **Divan**                      | Everything is DRAMATIC                   |
+| 😬 **Tonåringen**                       | Awkwardly endearing self-awareness       |
+| 🇬🇧 **Britten** (British)                | Understated elegance and dry humor       |
+| 🎮 **Gamern**                           | Your day as an RPG adventure             |
+| 🥱 **Tråkmånsen** (Bored)               | Minimal enthusiasm, maximum vibes        |
+| 🌎 **Naturfilmaren**                    | Attenborough-style observations          |
+| 🧠 **Psykologen** (Therapist)           | Therapist notes with warm insight        |
+| 🤖 **AI-Roboten**                       | System log with tiny hints of feelings   |
 | 🎭 **Shakespeare**                      | Dramatic monologue with archaic flair    |
-| 📰 **Kvällstidning** (Tabloid)          | Sensational tabloid headlines            |
-| 🏛️ **Formell** (Formal)                 | Overly formal official letter            |
-| ☕ **Mysig** (Cozy)                      | Soft retrospection from under a blanket  |
-| 🤓 **Nördig** (Nerdy)                   | Over-explains everything with facts      |
-| 🎩 **Foliehatt** (Tinfoil Hat)          | Conspiracy theories everywhere           |
-| ✨ **Livscoach** (Life Coach)           | Uplifting advice and encouragement       |
-| 🕵️ **Deckare** (Detective)              | Your day as a mystery to solve           |
-| 🌀 **Grubblande** (Overthinker)         | Analyzing every detail, over and over    |
-| 😒 **Cynisk** (Cynical)                 | Skeptical and wryly honest               |
+| 📰 **Kvällstidningsreportern** (Tabloid) | Sensational tabloid headlines            |
+| 🏛️ **Akademikern** (Formal)             | Overly formal official letter            |
+| 🤓 **Nörden** (Nerdy)                   | Over-explains everything with facts      |
+| 🎩 **Foliehatten** (Tinfoil Hat)        | Conspiracy theories everywhere           |
+| ✨ **Livscoachen** (Life Coach)         | Uplifting advice and encouragement       |
+| 🌀 **Grubblaren** (Overthinker)         | Analyzing every detail, over and over    |
+| 😒 **Cynikern** (Cynical)               | Skeptical and wryly honest               |
 
 ### 📱 Multi-Platform Support
 

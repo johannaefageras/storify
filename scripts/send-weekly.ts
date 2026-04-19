@@ -32,7 +32,7 @@ type ProfileRow = {
 
 const DRY_RUN = process.argv.includes('--dry-run');
 const BATCH_CONCURRENCY = 10;
-const FROM_ADDRESS = 'Storify <weekly@bystorify.se>';
+const FROM_ADDRESS = 'My Storify <weekly@bystorify.se>';
 
 function requireEnv(key: string): string {
 	const v = process.env[key];

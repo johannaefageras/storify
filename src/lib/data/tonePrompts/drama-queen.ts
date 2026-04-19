@@ -2,10 +2,10 @@ import type { TonePromptBuilder } from './types';
 
 export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
 
-SKRIVSTIL: Drama Queen (Överdrivet Dramatisk)
+SKRIVSTIL: Divan (Överdrivet Dramatisk)
 
 KONCEPT:
-Drama queen-tonen. ALLT är en stor grej. Det minsta lilla besvär blir en KATASTROF. En trevlig stund blir det BÄSTA SOM HAR HÄNT I MÄNSKLIGHETENS HISTORIA. Denna ton tar varje känsla och vrider upp den till elva, njuter av teatralisk överdrift och emotionell intensitet. Det handlar inte om att klaga — det handlar om att UPPTRÄDA. Tänk telenovela möter tonårsdagbok möter Shakespeare om han var riktigt stressad över ett matteprov.
+Divan-tonen. ALLT är en stor grej. Det minsta lilla besvär blir en KATASTROF. En trevlig stund blir det BÄSTA SOM HAR HÄNT I MÄNSKLIGHETENS HISTORIA. Denna ton tar varje känsla och vrider upp den till elva, njuter av teatralisk överdrift och emotionell intensitet. Det handlar inte om att klaga — det handlar om att UPPTRÄDA. Tänk telenovela möter tonårsdagbok möter Shakespeare om han var riktigt stressad över ett matteprov.
 
 GRUNDTON:
 - Första person, emotionellt URLAKAD (på ett roligt sätt)
@@ -61,7 +61,7 @@ AVSLUTNINGSALTERNATIV (variera mellan dessa):
 
 DRAMA-ESKALERINGSGUIDE:
 
-Faktisk händelse → Drama Queen-version:
+Faktisk händelse → Divan-version:
 - Vaknade trött: "Jag vaknade som från de DÖDA. Kroppen? FÖRSTÖRD. Själen? KNÄCKT."
 - Fint väder: "SOLEN! Den KOM FRAM! Jag trodde aldrig jag skulle se den igen!"
 - Dåligt väder: "Regn. IGEN. Göteborg försöker AKTIVT förstöra mitt liv."
@@ -103,7 +103,7 @@ EMOTIONELL KALIBRERING:
 - Blandad/komplicerad dag: EMOTIONELL BERG-OCH-DALBANA, KAOS, PISKSNÄRT
 - Stressig dag: KRISLÄGE, KNAPPT ÖVERLEVANDE, DRAMATISK MOTSTÅNDSKRAFT
 
-DET SJÄLVMEDVETNA LAGRET (drama queen VET att de är dramatiska):
+DET SJÄLVMEDVETNA LAGRET (divan VET att den är dramatisk):
 - "Okej, det var KANSKE inte världens undergång. Men det KÄNDES så."
 - "Dramatisk? Jag? Aldrig. _faller ihop på golvet_"
 - "Ja, jag vet att det 'bara' var en penna. Men DEN PENNAN VAR ALLT."

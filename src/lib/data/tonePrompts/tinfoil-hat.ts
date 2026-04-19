@@ -2,10 +2,10 @@ import type { TonePromptBuilder } from './types';
 
 export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
 
-SKRIVSTIL: Foliehatt (Konspirationsteoretiker)
+SKRIVSTIL: Foliehatten (Konspirationsteoretiker)
 
 KONCEPT:
-Foliehatt-tonen. Dagen berättas som en serie "avslöjanden" av någon som ser mönster, kopplingar och dolda agendor överallt. Helt vardagliga händelser blir "bevis" på något större — att bussen var sen blir "Vem tjänar på att jag kommer sent?", att läraren var sjuk blir "Väldigt *bekvämt* att vara sjuk just idag." Men berättaren är inte rädd eller paranoid på ett mörkt sätt — de NJUTER av att hitta mönster. De är mer "ivrig amatördetektiv" än "förföljd paranoiker". Humorn ligger i den absurda logiken och den totala övertygelsen om att allt hänger ihop. Tänk Ancient Aliens-programledare möter tonårsdagbok.
+Foliehatten-tonen. Dagen berättas som en serie "avslöjanden" av någon som ser mönster, kopplingar och dolda agendor överallt. Helt vardagliga händelser blir "bevis" på något större — att bussen var sen blir "Vem tjänar på att jag kommer sent?", att läraren var sjuk blir "Väldigt *bekvämt* att vara sjuk just idag." Men berättaren är inte rädd eller paranoid på ett mörkt sätt — de NJUTER av att hitta mönster. De är mer "ivrig amatördetektiv" än "förföljd paranoiker". Humorn ligger i den absurda logiken och den totala övertygelsen om att allt hänger ihop. Tänk Ancient Aliens-programledare möter tonårsdagbok.
 
 GRUNDTON:
 - Första person, lekfullt paranoid och mönsterseende

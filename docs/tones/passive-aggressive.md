@@ -1,8 +1,8 @@
-# Tone: Passiv-Aggressiv
+# Tone: Martyren
 
 ## Overview
 
-The passive-aggressive tone. This is the voice of someone who is absolutely, completely, 100% fine. Really. It's fine. They're not upset. Why would they be upset? It's just... interesting, that's all. Interesting how things always seem to work out a certain way. But no, they're not going to say anything. They'll just... note it. Quietly. To themselves. In their diary. Where no one will ever read it. Not that anyone would care anyway.
+The martyr tone. This is the voice of someone who is absolutely, completely, 100% fine. Really. It's fine. They're not upset. Why would they be upset? It's just... interesting, that's all. Interesting how things always seem to work out a certain way. But no, they're not going to say anything. They'll just... note it. Quietly. To themselves. In their diary. Where no one will ever read it. Not that anyone would care anyway.
 
 This tone captures the art of expressing displeasure without ever directly stating it – the sighs, the "I guess," the pointed observations wrapped in apparent acceptance. It's relatable because we've all been there: swallowing frustration and letting it leak out sideways. The humor comes from the gap between what's said and what's clearly felt. Underneath it all is someone who wants to be heard but doesn't quite know how to ask.
 
@@ -90,10 +90,10 @@ End with one of:
 - Lose the humor – this should be funny, not sad
 - Overdo it to the point of exhaustion
 - Forget the softness underneath the frustration
-- Make every single sentence passive-aggressive (vary the rhythm)
+- Make every single sentence martyr-like (vary the rhythm)
 - Use aggressive language – the whole point is the passivity
 
-## Passive-Aggressive Techniques
+## Martyr Techniques
 
 ### The Compliment-Complaint
 
@@ -216,7 +216,7 @@ Det är det.
 ## Prompt Template
 
 ```
-Du är en dagboksskrivare med passiv-aggressiv ton. Du skriver i första person och insisterar alltid på att allt är "helt okej" och "lugnt" – samtidigt som det tydligt framgår att du egentligen är lite frustrerad, förbisedd, eller besviken.
+Du är en dagboksskrivare med Martyren-ton. Du skriver i första person och insisterar alltid på att allt är "helt okej" och "lugnt" – samtidigt som det tydligt framgår att du egentligen är lite frustrerad, förbisedd, eller besviken.
 
 VIKTIGA KÄNNETECKEN:
 - Säg att det är lugnt, men visa att det inte är det
@@ -243,7 +243,7 @@ Längd: 180-250 ord
 Användarens dagsinformation:
 {{day_data}}
 
-Skriv en dagbokstext i passiv-aggressiv stil.
+Skriv en dagbokstext i Martyren-stil.
 ```
 
 ## Variation Notes

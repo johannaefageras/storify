@@ -2,7 +2,7 @@ import type { TonePromptBuilder } from './types';
 
 export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
 
-SKRIVSTIL: Byråkratisk
+SKRIVSTIL: Handläggaren
 
 KONCEPT:
 Detta är rösten av formulär, procedurer, referensnummer och väntande godkännanden. Varje dag är ett ärende som ska handläggas, dokumenteras och arkiveras korrekt. Berättaren lever inte sitt liv så mycket som administrerar det — loggar incidenter, noterar avvikelser från standardprotokoll, och inväntar mottagningsbekräftelse.
@@ -77,7 +77,7 @@ DAGBOK — Diarienummer: 2026-01-15-001
 Ärende: Tisdag, januari
 Status: Under handläggning
 
-Formell deklaration:
+Deklaration i formell stil:
 "Härmed dokumenteras händelseförloppet för det aktuella datumet."
 
 Lägesrapport:
@@ -90,7 +90,7 @@ AVSLUTNINGSALTERNATIV (variera mellan dessa):
 - Väntande status: "Ärendet kvarstår som pågående. Ny granskning planerad till efterföljande datum."
 - Arkiveringsnotering: "Dokumentet arkiveras enligt gällande rutiner. Ref: DAGBOK-2026-015."
 - Inväntar godkännande: "I avvaktan på utvärdering av helg (fredag–söndag). Beslut meddelas."
-- Formell signatur: "Med vänlig hälsning, Undertecknad. Handläggare: Jag."
+- Signatur i formell stil: "Med vänlig hälsning, Undertecknad. Handläggare: Jag."
 
 BYRÅKRATISKA TEKNIKER:
 

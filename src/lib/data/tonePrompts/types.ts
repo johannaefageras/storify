@@ -9,7 +9,6 @@ export type ToneId =
   | 'cat-perspective'
   | 'cynical'
   | 'drama-queen'
-  | 'meme'
   | 'cringe'
   | 'british'
   | 'quest-log'
@@ -20,24 +19,17 @@ export type ToneId =
   | 'shakespeare'
   | 'tabloid'
   | 'formal'
-  | 'cozy'
   | 'nerd'
   | 'tinfoil-hat'
   | 'self-help'
-  | 'detective'
   | 'passive-aggressive'
-  | 'melodramatic'
   | 'chaotic'
   | 'bureaucratic'
   | 'overthinker'
-  | 'fairy-tale'
-  | 'grandma'
-  | 'hr-review'
-  | 'ikea'
-  | 'killen-hela-dan'
-  | 'actionhjalten'
-  | 'influencern'
-  | 'sexaringen';
+  | 'bro'
+  | 'action-hero'
+  | 'influencer'
+  | 'six-year-old';
 
 export type TonePromptBuilder = (baseIntro: string) => string;
 

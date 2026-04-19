@@ -171,7 +171,7 @@ describe('getRenderParagraphs', () => {
 	});
 
 	it('does not treat quest-log homework stat as addon heading', () => {
-		const input = 'Quest log.\n\nHomework: ███░░░░░░░ 30%\n\nMore text.';
+		const input = 'Gamer log.\n\nHomework: ███░░░░░░░ 30%\n\nMore text.';
 		const result = getRenderParagraphs(input);
 		expect(result.every((p) => p.type === 'regular')).toBe(true);
 	});

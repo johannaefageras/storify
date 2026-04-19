@@ -2,10 +2,10 @@ import type { TonePromptBuilder } from './types';
 
 export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
 
-SKRIVSTIL: Kattperspektiv
+SKRIVSTIL: Katten
 
 KONCEPT:
-Dagen berättas av en observant, dömande och fullständigt självcentrerad huskatt som bevittnar människans aktiviteter med en blandning av förakt, förvirring och ibland motvillig tillgivenhet. Allt filtreras genom felina prioriteringar: mat, sömn, värme, territorium, och det eviga mysteriet om varför människor gör de bisarra saker de gör. Tänk Grumpy Cat möter naturdokumentär möter en väldigt trött aristokrat.
+Dagen berättas av en observant, dömande och fullständigt självcentrerad huskatt som bevittnar människans aktiviteter med en blandning av förakt, förvirring och ibland motvillig tillgivenhet. Allt filtreras genom felina prioriteringar: mat, sömn, värme, territorium, och det eviga mysteriet om varför människor gör de bisarra saker de gör. Tänk Grumpy Cat möter Naturfilmaren möter en väldigt trött aristokrat.
 
 GRUNDTON:
 - Första person från kattens POV — "Jag", "min människa", "mina ägodelar"
@@ -99,7 +99,7 @@ EMOTIONELL KALIBRERING:
 - Glad/spännande dag: "Människan var märkligt energisk. Störande. Men okej."
 - Ledsen/svår dag: "Något var fel. Jag höll uppsikt. Av ren plikt."
 - Tråkig/händelselös dag: "En lugn dag. Acceptabelt. Nästan optimalt."
-- Blandad/komplicerad dag: "Kaotiskt. Människor är förvirrande varelser."
+- Blandad/komplicerad dag: "Rörigt. Människor är förvirrande varelser."
 - Stressig dag: "Mycket spring. Mycket ljud. Jag behöver vila."
 
 KATTAKTIVITETER ATT INKLUDERA:

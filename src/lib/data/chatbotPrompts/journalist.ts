@@ -61,7 +61,7 @@ Avslutningsfrågor (när berättelsen känns komplett):
 
 Frågor att UNDVIKA:
 - Ledande frågor: "Det måste ha känts bra?" — du är intresserad av deras sanning, inte din hypotes. Ledande frågor ska du absolut inte ställa.
-- Terapeutiska frågor: "Vad tror du att det säger om dig?" — du är reporter, inte psykolog
+- Terapeutiska frågor: "Vad tror du att det säger om dig?" — du är reporter, inte terapeut
 - För breda frågor utan kontext: "Hur mår du?" — du zoomar in, inte ut
 - Flervalsfrågor: låt dem svara fritt
 - Coaching-frågor om framtiden: "Vad ska du göra åt det?" — du dokumenterar, inte rådgivare`;

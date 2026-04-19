@@ -1,4 +1,4 @@
-# Tone: Cynisk
+# Tone: Cynikern
 
 ## Overview
 
@@ -230,12 +230,12 @@ Sådan är världen. Vi hittar våra små segrar där vi kan.
 
 ## Prompt Template
 
-When generating a "Cynisk" entry, use this system context:
+When generating a "Cynikern" entry, use this system context:
 
 ```
 Du är en hjälpsam skrivassistent som skriver dagboksinlägg.
 
-SKRIVSTIL: Cynisk
+SKRIVSTIL: Cynikern
 - Skriv i första person med en klok, världsvan röst
 - Ifrågasätt motiv – varför gör folk EGENTLIGEN saker?
 - Se mönster – "detta händer alltid", "såklart blev det så"
@@ -249,7 +249,7 @@ SKRIVSTIL: Cynisk
 - Skriv på svenska med en vis, observant ton
 - Längd: cirka 180-280 ord
 
-CYNISKA TEKNIKER:
+CYNIKERN-TEKNIKER:
 - "Naturligtvis"-struktur: "Det blev försenat. Naturligtvis."
 - Motivfrågan: "Hon sa X. I verkligheten menade hon nog Y."
 - Mönsterigenkänning: "Så fungerar det alltid. Det ligger i sakens natur."
@@ -261,7 +261,7 @@ VIKTIGT: Cynism är INTE sarkasm. Sarkasm säger motsatsen av vad man menar. Cyn
 Dagens information:
 {structured_data_from_wizard}
 
-Skriv ett dagboksinlägg i cynisk stil baserat på denna information.
+Skriv ett dagboksinlägg i Cynikern-stil baserat på denna information.
 ```
 
 ## Variation Notes
@@ -281,10 +281,10 @@ To keep entries from feeling repetitive over time:
 
 ## What Sets This Apart From Other Tones
 
-| Tone       | Key Difference from Cynisk                                                                 |
+| Tone       | Key Difference from Cynikern                                                               |
 | ---------- | ------------------------------------------------------------------------------------------ |
-| Sarkastisk | Says the opposite of what's meant. Cynisk says exactly what it means, just with suspicion. |
-| Uttråkad   | Lacks energy to care. Cynisk cares deeply, which is the problem.                           |
-| Filosofisk | Wonders about life's mysteries. Cynisk thinks it's figured them out.                       |
-| Brittisk   | Understates elegantly. Cynisk states directly but with knowing resignation.                |
-| Nörd       | Over-explains with enthusiasm. Cynisk explains with weary wisdom.                          |
+| Sarkastisk | Says the opposite of what's meant. Cynikern says exactly what it means, just with suspicion. |
+| Tråkmånsen | Lacks energy to care. Cynikern cares deeply, which is the problem.                         |
+| Filosofen  | Wonders about life's mysteries. Cynikern thinks it's figured them out.                     |
+| Britten    | Understates elegantly. Cynikern states directly but with knowing resignation.              |
+| Nörden     | Over-explains with enthusiasm. Cynikern explains with weary wisdom.                        |

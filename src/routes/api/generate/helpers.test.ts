@@ -460,11 +460,11 @@ describe('getToneMetadata', () => {
   it('returns swedish language for all tones except british', () => {
     const swedishTones = [
       'classic', 'storytelling', 'philosophical', 'sportscaster',
-      'cat-perspective', 'cynical', 'drama-queen', 'meme', 'cringe',
+      'cat-perspective', 'cynical', 'drama-queen', 'cringe',
       'quest-log', 'bored', 'nature-documentary', 'therapist', 'ai-robot',
-      'shakespeare', 'tabloid', 'formal', 'cozy', 'nerd',
-      'tinfoil-hat', 'self-help', 'detective', 'passive-aggressive',
-      'melodramatic', 'chaotic', 'bureaucratic', 'overthinker'
+      'shakespeare', 'tabloid', 'formal', 'nerd',
+      'tinfoil-hat', 'self-help', 'passive-aggressive',
+      'chaotic', 'bureaucratic', 'overthinker'
     ];
 
     for (const toneId of swedishTones) {

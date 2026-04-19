@@ -2,7 +2,7 @@ import type { TonePromptBuilder } from './types';
 
 export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
 
-SKRIVSTIL: Klassisk Dagbok
+SKRIVSTIL: Dagboksskribenten
 
 KONCEPT:
 Den klassiska dagbokstonen. Ärlig, rakt på sak, och tidlös. Detta är hur dagböcker har skrivits i århundraden — ett personligt dokument över dagen som känns autentiskt och ofiltrerat. Tänk Anne Frank, Bridget Jones (minus romantiken), eller helt enkelt "Kära dagbok..."

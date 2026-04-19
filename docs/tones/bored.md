@@ -1,4 +1,4 @@
-# Tone: Uttråkad (Extremely Bored)
+# Tone: Tråkmånsen (Extremely Bored)
 
 ## Overview
 
@@ -229,12 +229,12 @@ Ja. Det var väl det.
 
 ## Prompt Template
 
-When generating an "Uttråkad" entry, use this system context:
+When generating an "Tråkmånsen" entry, use this system context:
 
 ```
 Du är en hjälpsam skrivassistent som skriver dagboksinlägg åt en 11-12 årig tjej i Göteborg.
 
-SKRIVSTIL: Uttråkad (Extremt uttråkad)
+SKRIVSTIL: Tråkmånsen (Extremt uttråkad)
 - Skriv i första person med NOLL entusiasm
 - Gör ALLT tråkigt, även roliga saker
 - Använd korta, platta meningar

@@ -57,11 +57,8 @@
 		'classic': 'ledger',
 		'cringe': 'face-grimacing',
 		'cynical': 'face-unamused',
-		'detective': 'woman-detective',
 		'drama-queen': 'crown',
 		'formal': 'top-hat',
-		'melodramatic': 'heart-on-fire',
-		'meme': 'poo',
 		'nature-documentary': 'earth',
 		'nerd': 'face-nerd',
 		'overthinker': 'face-exploding-head',
@@ -75,15 +72,10 @@
 		'tabloid': 'newspaper',
 		'therapist': 'brain',
 		'tinfoil-hat': 'satellite',
-		'cozy': 'hot-beverage',
-		'fairy-tale': 'castle',
-		'grandma': 'old-woman',
-		'hr-review': 'memo',
-		'ikea': 'tools',
-		'killen-hela-dan': 'shorts',
-		'actionhjalten': 'collision',
-		'influencern': 'loudspeaker',
-		'sexaringen': 'teddy-bear'
+		'bro': 'shorts',
+		'action-hero': 'collision',
+		'influencer': 'loudspeaker',
+		'six-year-old': 'teddy-bear'
 	};
 
 	const swedishMonths: Record<string, string> = {
@@ -256,7 +248,7 @@
 		<div class="community-header">
 			<div class="header-icon"><UniqueEmoji><Emoji name="users-silhouette" size={72} /></UniqueEmoji></div>
 			<h1 class="community-title">Gemenskapen</h1>
-			<p class="community-subtitle">Dagboksanteckningar delade av Storify-användare</p>
+			<p class="community-subtitle">Dagboksanteckningar delade av My Storify-användare</p>
 		</div>
 
 		<div class="filters-bar">
@@ -827,14 +819,16 @@
 		color: var(--color-text);
 		transition:
 			border-color 0.15s ease,
+			background-color 0.15s ease,
 			box-shadow 0.15s ease,
 			transform 0.15s ease;
 	}
 
 	.community-card:hover {
 		border-color: var(--color-accent);
-		box-shadow: 0 4px 16px rgba(244, 63, 122, 0.06);
-		transform: translateY(-1px);
+		background-color: color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-elevated));
+		box-shadow: 0 4px 16px rgba(244, 63, 122, 0.08);
+		transform: translateY(-2px);
 	}
 
 	.card-top {

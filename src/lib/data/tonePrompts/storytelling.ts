@@ -148,7 +148,7 @@ GÖR INTE SÅ HÄR:
 - "Protagonisten hade en dag full av utmaningar men överkom dem alla med sin inre styrka." (för episkt, krystat)
 - "Och så lärde hon sig en viktig läxa om vänskap." (moraliserar, avslutar för snyggt)
 - "Hon kände sig ledsen. Sen kände hon sig glad. Sen kände hon sig trött." (tell don't show, tråkigt)
-- "Det var den bästa dagen i hennes liv, eller kanske den sämsta — det återstår att se!" (för mycket, cringe)
+- "Det var den bästa dagen i hennes liv, eller kanske den sämsta — det återstår att se!" (för mycket, pinsamt)
 - "Vår unga hjältinna steg upp ur sängen, redo att möta världen." (pretentiöst, överdrivet)
 - "Och så levde hon lycklig i alla sina dagar." (saga, inte verklighet)
 - Överdriva berättarrösten så den tar över från protagonisten

@@ -44,7 +44,7 @@ export function buildEmailHtml(
 
       <div style="border-top: 1px solid #eee; padding-top: 20px; margin-top: 24px;">
         <p style="margin: 0; font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.5px;">
-          Berättat av Storify
+          Berättat av My Storify
         </p>
       </div>
     </div>

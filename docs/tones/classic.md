@@ -1,4 +1,4 @@
-# Tone: Klassisk Dagbok (Dagbok-klassisk)
+# Tone: Dagboksskribenten (Dagbok-klassisk)
 
 ## Overview
 

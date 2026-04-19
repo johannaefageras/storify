@@ -1,20 +1,49 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { authStore } from '$lib/stores/auth.svelte';
-	import { accentStore } from '$lib/stores/accent.svelte';
 	import { Emoji } from '$lib/assets/emojis';
-
-	const roseComponents = {
-		pink: 'rose-pink',
-		amber: 'rose-amber',
-		blue: 'rose-blue',
-		lime: 'rose-lime',
-		red: 'rose-red'
-	};
-
-	let RoseIcon = $derived(roseComponents[accentStore.current]);
 	import { getGreeting, getSubtitle } from '$lib/data/greetings';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+
+	const logoEmojiNames = [
+		'ballet-shoes', 'balloon', 'beach-umbrella', 'beer-mugs', 'bird',
+		'blossom', 'blueberries', 'butterfly', 'candy', 'carousel-horse',
+		'carp-streamer', 'cherry-blossom', 'chocolate-bar', 'circus-tent',
+		'confetti-ball', 'cupcake', 'desert-island', 'dizzy', 'doughnut',
+		'dove', 'ferris-wheel', 'fish', 'flamingo', 'fleur-de-lis',
+		'fountain', 'four-leaf-clover', 'french-fries', 'gem-stone',
+		'glowing-star', 'grapes', 'hamburger', 'herb',
+		'hibiscus', 'honey-pot', 'ice-cream', 'joker', 'kite', 'kiwi',
+		'lady-beetle', 'lemon', 'lollipop', 'magic-wand', 'maple-leaf',
+		'mount-fuji', 'mushroom', 'national-park', 'nest-with-eggs',
+		'nesting-dolls', 'palm-tree', 'pancakes', 'panda', 'parrot',
+		'party-popper', 'peacock', 'penguin', 'pie', 'pinata',
+		'pine-decoration', 'pineapple', 'popcorn', 'potted-plant', 'pretzel',
+		'rainbow', 'ribbon', 'ringed-planet', 'roller-coaster', 'roller-skate',
+		'scooter', 'seal', 'seedling', 'slot-machine', 'sloth', 'snail',
+		'soft-ice-cream', 'spiral-shell', 'strawberry', 'sun-behind-cloud',
+		'sunflower', 'teapot', 'tree', 'tulip', 'turtle', 'unicorn',
+		'water-wave', 'watermelon', 'wind-chime', 'wrapped-gift'
+	];
+
+	const logoEmojiModules = import.meta.glob('../lib/assets/emojis/*.svg', {
+		query: '?raw',
+		import: 'default',
+		eager: true
+	}) as Record<string, string>;
+
+	let logoSvg = $state('');
+
+	onMount(() => {
+		const name = logoEmojiNames[Math.floor(Math.random() * logoEmojiNames.length)];
+		const raw = logoEmojiModules[`../lib/assets/emojis/${name}.svg`];
+		if (!raw) return;
+		logoSvg = raw.replace(/<svg\b([^>]*)>/, (_match, attrs: string) => {
+			const stripped = attrs.replace(/\s(width|height|class)="[^"]*"/g, '');
+			return `<svg${stripped} height="96" aria-hidden="true">`;
+		});
+	});
 
 	let isReturningUser = $derived(authStore.isLoggedIn && !!wizardStore.data.profile.name);
 	let firstName = $derived(wizardStore.data.profile.name.split(' ')[0]);
@@ -71,14 +100,14 @@
 	<div class="container">
 		<div class="landing-main">
 			<header class="hero">
+				<div class="logo">
+					{@html logoSvg}
+				</div>
 				{#if isReturningUser}
 					<h1 class="title">{greeting}</h1>
 					<p class="subtitle">{subtitle}</p>
 				{:else}
-					<div class="logo">
-						<Emoji name={RoseIcon} size={96} />
-					</div>
-					<h1 class="title">Storify</h1>
+					<h1 class="title">My Storify</h1>
 					<p class="subtitle">Du har inte tid att skriva dagbok. Perfekt – det behöver du inte heller.</p>
 				{/if}
 			</header>
@@ -148,12 +177,14 @@
 	.logo {
 		display: flex;
 		justify-content: center;
-		margin-bottom: 1rem;
+		align-items: center;
+		min-height: 96px;
+		margin-bottom: 1.25rem;
 	}
 
 	.title {
 		font-family: 'Linzer';
-		font-size: var(--text-3xl);
+		font-size: var(--text-2xl);
 		font-weight: var(--weight-medium);
 		font-stretch: 115%;
 		letter-spacing: var(--tracking-tighter);
@@ -288,11 +319,11 @@
 
 	@media (max-height: 860px) {
 		.logo {
-			margin-bottom: 0.6rem;
+			margin-bottom: 1.25rem;
 		}
 
 		.title {
-			margin-bottom: 0.75rem;
+			margin-bottom: 0.55rem;
 		}
 
 		.mode-grid {

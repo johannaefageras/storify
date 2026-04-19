@@ -14,7 +14,7 @@ describe('renderWeeklyEmail', () => {
 					id: 'e1',
 					date: 'måndag 14 april',
 					excerpt: 'En lugn måndag med kaffe och lite läsning.',
-					toneId: 'cozy',
+					toneId: 'classic',
 					emojis: ['☕']
 				},
 				{
@@ -25,7 +25,7 @@ describe('renderWeeklyEmail', () => {
 					emojis: []
 				}
 			],
-			stats: { entriesCount: 2, topTone: 'cozy', totalWords: 14 }
+			stats: { entriesCount: 2, topTone: 'classic', totalWords: 14 }
 		};
 
 		const { subject, html } = renderWeeklyEmail({
@@ -60,7 +60,7 @@ describe('renderWeeklyEmail', () => {
 			newEntryUrl: NEW
 		});
 
-		expect(subject).toBe('En tanke från Storify');
+		expect(subject).toBe('En tanke från My Storify');
 		expect(html).toContain('Hej Anna!');
 		expect(html).toContain('Vad överraskade dig den här veckan?');
 		expect(html).toContain('Skriv dagens inlägg');

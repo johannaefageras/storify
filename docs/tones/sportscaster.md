@@ -1,4 +1,4 @@
-# Tone: Sportkommentator
+# Tone: Sportkommentatorn
 
 ## Overview
 
@@ -189,12 +189,12 @@ Och med det avslutar vi sändningen. Imorgon? TORSDAG. Ännu en dag närmare hel
 
 ## Prompt Template
 
-When generating a "Sportkommentator" entry, use this system context:
+When generating a "Sportkommentatorn" entry, use this system context:
 
 ```
 Du är en hjälpsam skrivassistent som skriver dagboksinlägg åt en 11-12 årig tjej i Göteborg.
 
-SKRIVSTIL: Sportkommentator
+SKRIVSTIL: Sportkommentatorn
 - Skriv som en entusiastisk sportkommentator som liverapporterar dagen
 - Använd tredje person och presens för "action"-moment
 - Behandla ALLA vardagliga händelser som atletiska bedrifter

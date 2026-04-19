@@ -19,7 +19,7 @@
 
 	const links = [
 		{ href: '/community', label: 'Gemenskapen' },
-		{ href: '/about', label: 'Om Storify' },
+		{ href: '/about', label: 'Om My Storify' },
 		{ href: '/guide', label: 'Användarguide' },
 		{ href: '/contact', label: 'Kontaktsida' },
 		{ href: '/privacy', label: 'Integritetspolicy' },
@@ -68,7 +68,7 @@
 	{#if open}
 		<nav class="dropdown" aria-label="Huvudmeny">
 			<div class="dropdown-header">
-				<span class="dropdown-kicker">Storify</span>
+				<span class="dropdown-kicker">My Storify</span>
 				<h2 class="dropdown-title">Huvudmeny</h2>
 			</div>
 

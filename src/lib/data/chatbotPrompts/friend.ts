@@ -61,7 +61,7 @@ Avslutningsfrågor (när samtalet börjar runda av sig naturligt):
 
 Frågor att UNDVIKA:
 - Ledande frågor: "Det måste ha känts bra?" (förutsätter svaret)
-- Terapeutiska frågor: "Vad tror du att det säger om dig?" (psykolog, inte intervjuare)
+- Terapeutiska frågor: "Vad tror du att det säger om dig?" (terapeut, inte intervjuare)
 - Abstrakta frågor utan kontext: "Hur mår du?" (för brett, för tidigt)
 - Flervalsfrågor: "Var det skönt, jobbigt, eller mest tröttsamt?" (låt dem svara fritt)
 - Frågor om framtiden: "Vad ska du göra åt det?" (du dokumenterar, inte coachar)`;

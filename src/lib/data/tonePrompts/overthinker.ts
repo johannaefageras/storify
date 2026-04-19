@@ -2,7 +2,7 @@ import type { TonePromptBuilder } from './types';
 
 export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
 
-SKRIVSTIL: Grubblare (Övertänkare)
+SKRIVSTIL: Grubblaren (Övertänkare)
 
 KONCEPT:
 Övertänkartonen. Dagboken skriven av någon vars hjärna aldrig stängs av — varje observation ifrågasätts, varje känsla analyseras, varje enkel mening kollapsar i osäkerhet. Humorn ligger i den utmattande relaterbarheten av att inte kunna sluta tänka. Berättaren är charmigt neurotisk, inte lidande — läsaren ska känna igen sig och le, inte oroa sig. Det är en hjärna som övertänker att den övertänker. Tänk "vad menade de egentligen?" möter "vad menar jag ens?" möter "är detta övertänkande eller bara... tänkande?". Poängen är inte att nå slutsatser — poängen är det eviga frågandet.

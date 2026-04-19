@@ -1,6 +1,6 @@
 <footer class="legal-footer">
 	<div class="copyright">
-		Upphovsrätt © 2026 Storify
+		Upphovsrätt © 2026 My Storify
 	</div>
 </footer>
 

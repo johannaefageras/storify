@@ -10,26 +10,24 @@ The journaling app collects information about a user's day through a wizard form
 
 | Tone                    | File                                             | Language  | Description                                                  |
 | ----------------------- | ------------------------------------------------ | --------- | ------------------------------------------------------------ |
-| 🖋️ **Klassisk Dagbok**  | [classic.md](./classic.md)                       | Swedish   | Honest, timeless diary style – "Kära dagbok..."              |
-| 📖 **Berättelse**       | [storytelling.md](./storytelling.md)             | Swedish   | Warm, omniscient narrator telling your story                 |
-| 🤔 **Filosofisk**       | [philosophical.md](./philosophical.md)           | Swedish   | Thoughtful, wondering, finding meaning in small moments      |
-| 🏆 **Sportkommentator** | [sportscaster.md](./sportscaster.md)             | Swedish   | High-energy play-by-play of your day as athletic achievement |
-| 🐱 **Kattperspektiv**   | [cat-perspective.md](./cat-perspective.md)       | Swedish   | Your day observed by a judgmental, superior house cat        |
+| 🖋️ **Dagboksskribenten** | [classic.md](./classic.md)                       | Swedish   | Honest, timeless diary style – "Kära dagbok..."              |
+| 📖 **Berättaren**       | [storytelling.md](./storytelling.md)             | Swedish   | Warm, omniscient narrator telling your story                 |
+| 🤔 **Filosofen**        | [philosophical.md](./philosophical.md)           | Swedish   | Thoughtful, wondering, finding meaning in small moments      |
+| 🏆 **Sportkommentatorn** | [sportscaster.md](./sportscaster.md)             | Swedish   | High-energy play-by-play of your day as athletic achievement |
+| 🐱 **Katten**   | [cat-perspective.md](./cat-perspective.md)       | Swedish   | Your day observed by a judgmental, superior house cat        |
 | 😏 **Sarkastisk**       | [sarcastic.md](./sarcastic.md)                   | Swedish   | Dry, ironic wit – coping through humor                       |
-| 👑 **Drama Queen**      | [drama-queen.md](./drama-queen.md)               | Swedish   | EVERYTHING is dramatic – telenovela energy                   |
-| 📱 **Meme**             | [meme.md](./meme.md)                             | Swenglish | Internet-speak, Gen Z humor, "it's giving..."                |
-| 😳 **Cringe**           | [cringe.md](./cringe.md)                         | Swedish   | Painfully self-aware about awkward moments                   |
-| 🇬🇧 **Brittisk**         | [brittish.md](./brittish.md)                     | English   | Understated British wit – "Not bad, actually."               |
-| 🎮 **Quest Log**        | [quest-log.md](./quest-log.md)                   | Swedish   | RPG gaming style with quests, loot, and achievements         |
-| 😐 **Uttråkad**         | [bored.md](./bored.md)                           | Swedish   | Everything is tedious. Whatever.                             |
-| 🤖 **AI-Robot**         | [ai-robot.md](./ai-robot.md)                     | Swedish   | System log with mechanical language and emerging feelings    |
-| 🧾 **Formell**          | [formal.md](./formal.md)                         | Swedish   | Overly formal official letter about the day                  |
-| 🐾 **Naturdokumentär**  | [nature-documentary.md](./nature-documentary.md) | Swedish   | Attenborough-style observations of human behavior            |
-| 🤓 **Nörd**             | [nerd.md](./nerd.md)                             | Swedish   | Over-explains everything with facts and tangents             |
+| 👑 **Divan**      | [drama-queen.md](./drama-queen.md)               | Swedish   | EVERYTHING is dramatic – telenovela energy                   |
+| 😳 **Tonåringen**       | [cringe.md](./cringe.md)                         | Swedish   | Painfully self-aware about awkward moments                   |
+| 🇬🇧 **Britten**          | [brittish.md](./brittish.md)                     | English   | Understated British wit – "Not bad, actually."               |
+| 🎮 **Gamern**           | [quest-log.md](./quest-log.md)                   | Swedish   | RPG gaming style with quests, loot, and achievements         |
+| 😐 **Tråkmånsen**       | [bored.md](./bored.md)                           | Swedish   | Everything is tedious. Whatever.                             |
+| 🤖 **AI-Roboten**       | [ai-robot.md](./ai-robot.md)                     | Swedish   | System log with mechanical language and emerging feelings    |
+| 🧾 **Akademikern**      | [formal.md](./formal.md)                         | Swedish   | Overly formal official letter about the day                  |
+| 🐾 **Naturfilmaren**    | [nature-documentary.md](./nature-documentary.md) | Swedish   | Attenborough-style observations of human behavior            |
+| 🤓 **Nörden**           | [nerd.md](./nerd.md)                             | Swedish   | Over-explains everything with facts and tangents             |
 | 🎭 **Shakespeare**      | [shakespeare.md](./shakespeare.md)               | Swedish   | Dramatic monologue with archaic Swedish and theater flair    |
-| 🗞️ **Kvällstidning**    | [tabloid.md](./tabloid.md)                       | Swedish   | Sensational tabloid headlines about mundane events           |
-| 🧠 **Psykolog**         | [therapist.md](./therapist.md)                   | Swedish   | Clinical therapist notes with warm insight                   |
-| ☕ **Mysig**             | [cozy.md](./cozy.md)                             | Swedish   | Soft, warm retrospection from under a blanket                |
+| 🗞️ **Kvällstidningsreportern** | [tabloid.md](./tabloid.md)                       | Swedish   | Sensational tabloid headlines about mundane events           |
+| 🧠 **Psykologen**       | [therapist.md](./therapist.md)                   | Swedish   | Clinical therapist notes with warm insight                   |
 
 ## File Structure
 
@@ -126,12 +124,12 @@ The tone instructions expect structured data like:
 
 | Feeling                  | Recommended Tones                        |
 | ------------------------ | ---------------------------------------- |
-| Happy, want to celebrate | Drama Queen, Sportkommentator, Quest Log |
-| Reflective, thoughtful   | Klassisk Dagbok, Filosofisk, Berättelse  |
-| Frustrated, need to vent | Sarkastisk, Uttråkad, Drama Queen        |
-| Silly, want to laugh     | Kattperspektiv, Meme, Cringe             |
-| Awkward day              | Cringe, Sarkastisk, Brittisk             |
-| Nothing happened         | Uttråkad, Filosofisk, Brittisk           |
+| Happy, want to celebrate | Divan, Sportkommentatorn, Gamern    |
+| Reflective, thoughtful   | Dagboksskribenten, Filosofen, Berättaren |
+| Frustrated, need to vent | Sarkastisk, Tråkmånsen, Divan      |
+| Silly, want to laugh     | Katten, Tonåringen               |
+| Awkward day              | Tonåringen, Sarkastisk, Britten          |
+| Nothing happened         | Tråkmånsen, Filosofen, Britten           |
 
 ### By Energy Level
 
@@ -139,14 +137,13 @@ The tone instructions expect structured data like:
 HIGH ENERGY                                              LOW ENERGY
     |                                                        |
     ▼                                                        ▼
-Drama Queen → Sportkommentator → Meme → Quest Log → Klassisk → Brittisk → Uttråkad
+Divan → Sportkommentatorn → Gamern → Klassisk → Britten → Tråkmånsen
 ```
 
 ### Language Output
 
-- **Swedish**: Klassisk Dagbok, Berättelse, Filosofisk, Sportkommentator, Kattperspektiv, Sarkastisk, Drama Queen, Cringe, Quest Log, Uttråkad, AI-Robot, Formell, Naturdokumentär, Nörd, Shakespeare, Kvällstidning, Psykolog, Mysig
-- **Swenglish**: Meme (mix of Swedish and English)
-- **English**: Brittisk
+- **Swedish**: Dagboksskribenten, Berättaren, Filosofen, Sportkommentatorn, Katten, Sarkastisk, Divan, Tonåringen, Gamern, Tråkmånsen, AI-Roboten, Akademikern, Naturfilmaren, Nörden, Shakespeare, Kvällstidningsreportern, Psykologen
+- **English**: Britten
 
 ## Customization
 
@@ -163,9 +160,8 @@ Long:   Increase target by ~30%, ask for "mer detaljerad version"
 
 Some tones can be mixed for special occasions:
 
-- **Quest Log + Drama Queen** = Epic gaming adventure
-- **Kattperspektiv + Sarkastisk** = Extra judgmental cat
-- **Cringe + Meme** = Terminally online awkwardness
+- **Gamern + Divan** = Epic gaming adventure
+- **Katten + Sarkastisk** = Extra judgmental cat
 
 Add instructions to the prompt specifying the combination.
 
@@ -200,19 +196,15 @@ Use this context for all example outputs to enable comparison:
 
 ## Notes
 
-### On Currency (Meme Tone)
+### On the Tonåringen Tone
 
-The Meme tone uses current internet slang which evolves quickly. Review and update terminology every 6-12 months to avoid dated references.
+If wizard input doesn't include an awkward moment, the Tonåringen tone instructions include guidance for inventing relatable, age-appropriate awkward scenarios.
 
-### On the Cringe Tone
-
-If wizard input doesn't include an awkward moment, the Cringe tone instructions include guidance for inventing relatable, age-appropriate cringe scenarios.
-
-### On the Kattperspektiv Tone
+### On the Katten Tone
 
 Works especially well if the user actually has cats! The tone can reference real pets if that information is available.
 
-### On the Brittisk Tone
+### On the Britten Tone
 
 This is the only tone that outputs in **English** rather than Swedish. This is intentional – it's part of the humor and style.
 

@@ -16,7 +16,7 @@ You are helping implement social media sharing features for **Storify** (https:/
 
 ### What Storify does
 
-Users describe their day (via a wizard, quick mode, AI interview, or free-text editor), pick one of 32 humorous/creative "tones" (voices like Kattperspektiv, Kvällstidning, IKEA-manual, Shakespeare, etc.), and an AI generates a journal entry in that voice. Users can save entries to their journal, share entries publicly via a link, share to an in-app community, export as image/PDF, and email entries.
+Users describe their day (via a wizard, quick mode, AI interview, or free-text editor), pick one of many humorous/creative "tones" (voices like Katten, Kvällstidningsreportern, Shakespeare, etc.), and an AI generates a journal entry in that voice. Users can save entries to their journal, share entries publicly via a link, share to an in-app community, export as image/PDF, and email entries.
 
 ### What already exists (don't rebuild these)
 
@@ -176,38 +176,30 @@ Display as a subtle prompt: *"Gillade du din dagbok? Tipsa en vän!"* followed b
 
 | Tone ID | toneName (formal) | toneDescription (for share text) |
 |---------|-------------------|----------------------------------|
-| classic | Klassisk Dagbok | klassisk dagbok |
-| storytelling | Berättelse | berättelse |
-| cat-perspective | Kattperspektiv | kattdagbok |
-| sportscaster | Sportkommentator | sportreferat |
-| tabloid | Kvällstidning | kvällstidningsartikel |
-| ikea | IKEA-manual | IKEA-manual |
+| classic | Dagboksskribenten | klassisk dagbok |
+| storytelling | Berättaren | berättelse |
+| cat-perspective | Katten | kattdagbok |
+| sportscaster | Sportkommentatorn | sportreferat |
+| tabloid | Kvällstidningsreportern | kvällstidningsartikel |
 | shakespeare | Shakespeare | Shakespeare-drama |
-| quest-log | Quest Log | quest log |
-| meme | Meme | meme-dagbok |
-| detective | Deckare | deckare |
-| formal | Formell | formellt protokoll |
-| bureaucratic | Byråkratisk | byråkratiskt ärende |
-| nature-documentary | Naturdokumentär | naturdokumentär |
-| therapist | Psykolog | terapisession |
-| ai-robot | AI-Robot | systemlogg |
-| fairy-tale | Saga | saga |
-| grandma | Mormor | mormorberättelse |
-| hr-review | Utvecklingssamtal | utvecklingssamtal |
-| drama-queen | Drama Queen | drama queen-monolog |
-| cringe | Cringe | cringe-dagbok |
-| british | Brittisk | brittisk dagbok |
-| bored | Uttråkad | uttråkad dagbok |
-| philosophical | Filosofisk | filosofisk betraktelse |
-| nerd | Nördig | nördrapport |
-| tinfoil-hat | Foliehatt | konspirationsteori |
-| self-help | Livscoach | livscoach-session |
-| overthinker | Grubblande | grubbleri |
-| cynical | Cynisk | cynisk betraktelse |
-| passive-aggressive | Passivt Aggressiv | passivt aggressiv dagbok |
-| melodramatic | Melodramatisk | melodrama |
-| chaotic | Kaotisk | kaotisk dagbok |
-| cozy | Mysig | mysig dagbok |
+| quest-log | Gamern | gamingdagbok |
+| formal | Akademikern | akademisk rapport |
+| bureaucratic | Handläggaren | byråkratiskt ärende |
+| nature-documentary | Naturfilmaren | naturfilmsdagbok |
+| therapist | Psykologen | terapisession |
+| ai-robot | AI-Roboten | systemlogg |
+| drama-queen | Divan | divan-monolog |
+| cringe | Tonåringen | tonårsdagbok |
+| british | Britten | Britten-dagbok |
+| bored | Tråkmånsen | uttråkad dagbok |
+| philosophical | Filosofen | filosofisk betraktelse |
+| nerd | Nörden | nördrapport |
+| tinfoil-hat | Foliehatten | konspirationsteori |
+| self-help | Livscoachen | Livscoachen-session |
+| overthinker | Grubblaren | grubbleri |
+| cynical | Cynikern | skeptisk betraktelse |
+| passive-aggressive | Martyren | Martyren-dagbok |
+| chaotic | Multitaskaren | Multitaskaren-dagbok |
 
 ---
 

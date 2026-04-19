@@ -36,14 +36,14 @@
 </script>
 
 <svelte:head>
-	<title>{ogTitle} · Storify</title>
+	<title>{ogTitle} · My Storify</title>
 	<meta name="description" content={ogDescription} />
 	<link rel="canonical" href={canonical} />
 	<meta property="og:type" content="article" />
 	<meta property="og:title" content={ogTitle} />
 	<meta property="og:description" content={ogDescription} />
 	<meta property="og:url" content={canonical} />
-	<meta property="og:site_name" content="Storify" />
+	<meta property="og:site_name" content="My Storify" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content={ogTitle} />
 	<meta name="twitter:description" content={ogDescription} />

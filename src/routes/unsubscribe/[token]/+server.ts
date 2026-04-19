@@ -69,14 +69,14 @@ function htmlPage(title: string, bodyHtml: string, status: number): Response {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${safeTitle} · Storify</title>
+  <title>${safeTitle} · My Storify</title>
 </head>
 <body style="margin:0;padding:0;background-color:#f5f5f5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#1a1a1a;">
   <div style="max-width:560px;margin:0 auto;padding:48px 20px;">
     <div style="background-color:#ffffff;border-radius:12px;padding:32px;box-shadow:0 2px 8px rgba(0,0,0,0.05);">
       ${bodyHtml}
     </div>
-    <p style="margin:24px 0 0 0;text-align:center;font-size:12px;color:#888;text-transform:uppercase;letter-spacing:0.5px;">Storify</p>
+    <p style="margin:24px 0 0 0;text-align:center;font-size:12px;color:#888;text-transform:uppercase;letter-spacing:0.5px;">My Storify</p>
   </div>
 </body>
 </html>`;

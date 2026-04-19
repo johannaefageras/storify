@@ -60,7 +60,7 @@
 	<div class="auth-container">
 		<header class="auth-header">
 			<h1 class="auth-title">Skapa ett konto</h1>
-			<p class="auth-subtitle">Kom igång med Storify</p>
+			<p class="auth-subtitle">Kom igång med My Storify</p>
 		</header>
 
 		{#if success}

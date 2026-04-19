@@ -23,7 +23,7 @@
 
 	<section>
 		<h2>Den korta versionen</h2>
-		<p>Storify använder inga cookies för reklam, spårning eller analys. De enda cookies som finns är de som krävs för att hålla dig inloggad om du skapar ett konto. Använder du appen utan konto sätts inga cookies alls.</p>
+		<p>My Storify använder inga cookies för reklam, spårning eller analys. De enda cookies som finns är de som krävs för att hålla dig inloggad om du skapar ett konto. Använder du appen utan konto sätts inga cookies alls.</p>
 	</section>
 
 	<section>
@@ -32,8 +32,8 @@
 	</section>
 
 	<section>
-		<h2>Om du använder Storify utan konto</h2>
-		<p>Använder du appen utan att logga in sätts inga cookies. Istället använder Storify lokal lagring direkt på din enhet för att spara din profil och dina inställningar. Denna data skickas aldrig automatiskt till någon server och är bara tillgänglig för appen själv.</p>
+		<h2>Om du använder My Storify utan konto</h2>
+		<p>Använder du appen utan att logga in sätts inga cookies. Istället använder My Storify lokal lagring direkt på din enhet för att spara din profil och dina inställningar. Denna data skickas aldrig automatiskt till någon server och är bara tillgänglig för appen själv.</p>
 		<p>Vi sparar följande lokalt på din enhet:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
@@ -105,7 +105,7 @@
 				<span class="list-content"><strong>Lokal lagring:</strong> Stannar på din enhet, skickas aldrig automatiskt till någon server, och är endast tillgänglig för appen själv</span>
 			</div>
 		</div>
-		<p>Storify använder lokal lagring för din profil och dina inställningar. Den enda cookien som kan sättas är den funktionella sessionscookien vid inloggning.</p>
+		<p>My Storify använder lokal lagring för din profil och dina inställningar. Den enda cookien som kan sättas är den funktionella sessionscookien vid inloggning.</p>
 	</section>
 
 	<section>
