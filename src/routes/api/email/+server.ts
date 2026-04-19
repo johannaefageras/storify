@@ -132,8 +132,8 @@ export const POST: RequestHandler = async ({ request }) => {
 </html>`;
 
     const { error } = await resend.emails.send({
-      from: 'Storify <din@dagbok.mystorify.se>',
-      replyTo: 'hi@mystorify.se',
+      from: 'Storify <journal@bystorify.se>',
+      replyTo: 'reply@bystorify.se',
       to: email,
       subject: `Din dagbok: ${weekday}${date ? `, ${date}` : ''}`,
       html: htmlContent

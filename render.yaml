@@ -34,3 +34,27 @@ services:
         value: claude-sonnet-4-6
       - key: GENERATE_MAX_TOKENS
         value: "2048"
+
+  # Weekly personalized newsletter. Runs hourly UTC; the script filters to
+  # users whose local time is currently Sunday 09:00. Safe to run with zero
+  # opted-in users (it just logs "candidates=0"). Before the first real send,
+  # verify the bystorify.se domain in Resend (SPF/DKIM/DMARC) — see
+  # STORIFY-NEWSLETTER-PLAN.md §7.
+  - type: cron
+    name: storify-newsletter-weekly
+    runtime: node
+    region: frankfurt
+    schedule: "0 * * * *"
+    buildCommand: npm install && npm run build:cron
+    startCommand: node dist/cron/send-weekly.js
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: RESEND_API_KEY
+        sync: false
+      - key: PUBLIC_SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: PUBLIC_BASE_URL
+        value: https://mystorify.se

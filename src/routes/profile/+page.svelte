@@ -57,6 +57,13 @@
 	let passwordSuccess = $state('');
 	let changingPassword = $state(false);
 
+	// Newsletter state
+	let weeklyEnabled = $state(false);
+	let monthlyEnabled = $state(false);
+	let timezone = $state('Europe/Stockholm');
+	let timezoneOptions = $state<string[]>([]);
+	let newsletterError = $state('');
+
 	// Tag inputs
 	let familyInput = $state('');
 	let occupationInput = $state('');
@@ -270,9 +277,120 @@
 			interests = data.interests || [];
 			avatarUrl = data.avatar_url || null;
 			birthdayParts = parseBirthday(birthday);
+
+			weeklyEnabled = data.newsletter_weekly_enabled ?? false;
+			monthlyEnabled = data.newsletter_monthly_enabled ?? false;
+			timezone = data.timezone || 'Europe/Stockholm';
+
+			// Auto-detect timezone on first visit (only if still at default)
+			if (timezone === 'Europe/Stockholm') {
+				try {
+					const detected = Intl.DateTimeFormat().resolvedOptions().timeZone;
+					if (detected && detected !== timezone) {
+						timezone = detected;
+						await supabase
+							.from('profiles')
+							.update({ timezone: detected, updated_at: new Date().toISOString() })
+							.eq('id', authStore.user.id);
+					}
+				} catch {
+					// Intl unavailable — keep default
+				}
+			}
+		}
+
+		// Populate timezone options (ES2022 API; fall back to a minimal list)
+		try {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			const supported = (Intl as any).supportedValuesOf?.('timeZone');
+			if (Array.isArray(supported) && supported.length > 0) {
+				timezoneOptions = supported;
+			}
+		} catch {
+			// ignored
+		}
+		if (timezoneOptions.length === 0) {
+			timezoneOptions = [
+				'Europe/Stockholm',
+				'Europe/Oslo',
+				'Europe/Copenhagen',
+				'Europe/Helsinki',
+				'Europe/London',
+				'Europe/Berlin',
+				'Europe/Paris',
+				'Europe/Madrid',
+				'UTC',
+				'America/New_York',
+				'America/Los_Angeles'
+			];
+		}
+		// Ensure the stored value is selectable even if not in the list
+		if (!timezoneOptions.includes(timezone)) {
+			timezoneOptions = [timezone, ...timezoneOptions];
 		}
 
 		loading = false;
+	}
+
+	async function handleWeeklyToggle(checked: boolean) {
+		if (!authStore.user) return;
+		const prev = weeklyEnabled;
+		weeklyEnabled = checked;
+		newsletterError = '';
+
+		// When turning ON, clear last_sent_at so the next Sunday cron picks the user up
+		const update: Record<string, unknown> = {
+			newsletter_weekly_enabled: checked,
+			updated_at: new Date().toISOString()
+		};
+		if (checked) update.weekly_last_sent_at = null;
+
+		const { error: err } = await supabase
+			.from('profiles')
+			.update(update)
+			.eq('id', authStore.user.id);
+
+		if (err) {
+			newsletterError = 'Kunde inte spara inställningen. Försök igen.';
+			weeklyEnabled = prev;
+		}
+	}
+
+	async function handleMonthlyToggle(checked: boolean) {
+		if (!authStore.user) return;
+		const prev = monthlyEnabled;
+		monthlyEnabled = checked;
+		newsletterError = '';
+
+		const { error: err } = await supabase
+			.from('profiles')
+			.update({
+				newsletter_monthly_enabled: checked,
+				updated_at: new Date().toISOString()
+			})
+			.eq('id', authStore.user.id);
+
+		if (err) {
+			newsletterError = 'Kunde inte spara inställningen. Försök igen.';
+			monthlyEnabled = prev;
+		}
+	}
+
+	async function handleTimezoneChange(value: string) {
+		if (!authStore.user) return;
+		const prev = timezone;
+		timezone = value;
+		newsletterError = '';
+
+		const { error: err } = await supabase
+			.from('profiles')
+			.update({ timezone: value, updated_at: new Date().toISOString() })
+			.eq('id', authStore.user.id);
+
+		if (err) {
+			newsletterError = 'Kunde inte spara tidszonen. Försök igen.';
+			timezone = prev;
+		}
 	}
 
 	// Save profile to Supabase
@@ -595,6 +713,60 @@
 					</button>
 				</section>
 			</form>
+
+			<!-- Newsletter settings -->
+			<section class="profile-section">
+				<h2 class="section-title">Nyhetsbrev</h2>
+
+				{#if newsletterError}
+					<div class="profile-alert profile-alert-error" style="margin-bottom: 0.875rem;">{newsletterError}</div>
+				{/if}
+
+				<div class="section-fields">
+					<label class="toggle-row">
+						<span class="toggle-text">
+							<span class="toggle-label">Veckobrev varje söndag</span>
+							<span class="toggle-helper">Få en sammanfattning av din vecka med utdrag från dina dagboksinlägg.</span>
+						</span>
+						<span class="toggle-switch">
+							<input
+								type="checkbox"
+								checked={weeklyEnabled}
+								onchange={(e) => handleWeeklyToggle(e.currentTarget.checked)}
+							/>
+							<span class="toggle-slider"></span>
+						</span>
+					</label>
+
+					<label class="toggle-row">
+						<span class="toggle-text">
+							<span class="toggle-label">Månadsbrev från Storify</span>
+							<span class="toggle-helper">Nyheter, tips och inspiration från Storify-teamet en gång i månaden.</span>
+						</span>
+						<span class="toggle-switch">
+							<input
+								type="checkbox"
+								checked={monthlyEnabled}
+								onchange={(e) => handleMonthlyToggle(e.currentTarget.checked)}
+							/>
+							<span class="toggle-slider"></span>
+						</span>
+					</label>
+
+					<div class="field-group">
+						<label class="field-label" for="timezone">Tidszon</label>
+						<select
+							id="timezone"
+							value={timezone}
+							onchange={(e) => handleTimezoneChange(e.currentTarget.value)}
+						>
+							{#each timezoneOptions as tz}
+								<option value={tz}>{tz}</option>
+							{/each}
+						</select>
+					</div>
+				</div>
+			</section>
 
 			<!-- Account settings (outside profile form) -->
 			<section class="profile-section">
@@ -931,7 +1103,8 @@
 	.birthday-day,
 	.birthday-month,
 	.birthday-year,
-	#pronouns {
+	#pronouns,
+	#timezone {
 		width: auto;
 		appearance: none;
 		-webkit-appearance: none;
@@ -1059,6 +1232,86 @@
 		margin-top: 0.75rem;
 		width: 100%;
 		justify-content: center;
+	}
+
+	/* Toggle rows */
+	.toggle-row {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		cursor: pointer;
+	}
+
+	.toggle-text {
+		display: flex;
+		flex-direction: column;
+		gap: 0.15rem;
+		flex: 1;
+		min-width: 0;
+	}
+
+	.toggle-label {
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-text);
+	}
+
+	.toggle-helper {
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-regular);
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-text-muted);
+		line-height: var(--leading-snug);
+	}
+
+	.toggle-switch {
+		position: relative;
+		display: inline-block;
+		flex-shrink: 0;
+		width: 2.5rem;
+		height: 1.5rem;
+	}
+
+	.toggle-switch input {
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
+
+	.toggle-slider {
+		position: absolute;
+		inset: 0;
+		background: var(--color-border);
+		border-radius: 999px;
+		transition: background-color 0.15s ease;
+	}
+
+	.toggle-slider::before {
+		content: '';
+		position: absolute;
+		top: 2px;
+		left: 2px;
+		width: calc(1.5rem - 4px);
+		height: calc(1.5rem - 4px);
+		background: white;
+		border-radius: 50%;
+		transition: transform 0.15s ease;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+	}
+
+	.toggle-switch input:checked + .toggle-slider {
+		background: var(--color-accent);
+	}
+
+	.toggle-switch input:checked + .toggle-slider::before {
+		transform: translateX(1rem);
+	}
+
+	.toggle-switch input:focus-visible + .toggle-slider {
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 25%, transparent);
 	}
 
 	.field-disabled {

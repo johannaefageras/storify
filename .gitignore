@@ -6,6 +6,9 @@ node_modules/
 build/
 .vite/
 
+# Cron bundle (built by scripts/build-cron.mjs)
+dist/
+
 # Logs
 npm-debug.log*
 yarn-debug.log*
@@ -33,3 +36,6 @@ coverage/
 # Claude
 .claude/
 CLAUDE.md
+
+# Scratch
+tmp/
