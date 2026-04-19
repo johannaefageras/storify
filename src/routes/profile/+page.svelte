@@ -780,7 +780,7 @@
 
 			<!-- Newsletter settings -->
 			<section class="profile-section">
-				<h2 class="section-title">Nyhetsbrev</h2>
+				<h2 class="section-title">Aviseringar</h2>
 
 				{#if newsletterError}
 					<div class="profile-alert profile-alert-error" style="margin-bottom: 0.875rem;">{newsletterError}</div>

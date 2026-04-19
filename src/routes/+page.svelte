@@ -1,49 +1,20 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { authStore } from '$lib/stores/auth.svelte';
+	import { accentStore } from '$lib/stores/accent.svelte';
 	import { Emoji } from '$lib/assets/emojis';
 	import { getGreeting, getSubtitle } from '$lib/data/greetings';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 
-	const logoEmojiNames = [
-		'ballet-shoes', 'balloon', 'beach-umbrella', 'beer-mugs', 'bird',
-		'blossom', 'blueberries', 'butterfly', 'candy', 'carousel-horse',
-		'carp-streamer', 'cherry-blossom', 'chocolate-bar', 'circus-tent',
-		'confetti-ball', 'cupcake', 'desert-island', 'dizzy', 'doughnut',
-		'dove', 'ferris-wheel', 'fish', 'flamingo', 'fleur-de-lis',
-		'fountain', 'four-leaf-clover', 'french-fries', 'gem-stone',
-		'glowing-star', 'grapes', 'hamburger', 'herb',
-		'hibiscus', 'honey-pot', 'ice-cream', 'joker', 'kite', 'kiwi',
-		'lady-beetle', 'lemon', 'lollipop', 'magic-wand', 'maple-leaf',
-		'mount-fuji', 'mushroom', 'national-park', 'nest-with-eggs',
-		'nesting-dolls', 'palm-tree', 'pancakes', 'panda', 'parrot',
-		'party-popper', 'peacock', 'penguin', 'pie', 'pinata',
-		'pine-decoration', 'pineapple', 'popcorn', 'potted-plant', 'pretzel',
-		'rainbow', 'ribbon', 'ringed-planet', 'roller-coaster', 'roller-skate',
-		'scooter', 'seal', 'seedling', 'slot-machine', 'sloth', 'snail',
-		'soft-ice-cream', 'spiral-shell', 'strawberry', 'sun-behind-cloud',
-		'sunflower', 'teapot', 'tree', 'tulip', 'turtle', 'unicorn',
-		'water-wave', 'watermelon', 'wind-chime', 'wrapped-gift'
-	];
+	const roseComponents = {
+		pink: 'rose-pink',
+		amber: 'rose-amber',
+		blue: 'rose-blue',
+		lime: 'rose-lime',
+		red: 'rose-red'
+	};
 
-	const logoEmojiModules = import.meta.glob('../lib/assets/emojis/*.svg', {
-		query: '?raw',
-		import: 'default',
-		eager: true
-	}) as Record<string, string>;
-
-	let logoSvg = $state('');
-
-	onMount(() => {
-		const name = logoEmojiNames[Math.floor(Math.random() * logoEmojiNames.length)];
-		const raw = logoEmojiModules[`../lib/assets/emojis/${name}.svg`];
-		if (!raw) return;
-		logoSvg = raw.replace(/<svg\b([^>]*)>/, (_match, attrs: string) => {
-			const stripped = attrs.replace(/\s(width|height|class)="[^"]*"/g, '');
-			return `<svg${stripped} height="96" aria-hidden="true">`;
-		});
-	});
+	let RoseIcon = $derived(roseComponents[accentStore.current]);
 
 	let isReturningUser = $derived(authStore.isLoggedIn && !!wizardStore.data.profile.name);
 	let firstName = $derived(wizardStore.data.profile.name.split(' ')[0]);
@@ -101,7 +72,7 @@
 		<div class="landing-main">
 			<header class="hero">
 				<div class="logo">
-					{@html logoSvg}
+					<Emoji name={RoseIcon} size={96} />
 				</div>
 				{#if isReturningUser}
 					<h1 class="title">{greeting}</h1>

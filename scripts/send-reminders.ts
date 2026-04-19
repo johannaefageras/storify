@@ -40,10 +40,10 @@ function requireEnv(key: string): string {
 function buildPayload(profile: ProfileRow): string {
 	const first = profile.name?.trim().split(/\s+/)[0];
 	const body = first
-		? `${first}, en minut med dig själv — vad har hänt idag?`
-		: 'En minut med dig själv — vad har hänt idag?';
+		? `${first}, inget måste vara perfekt — bara ärligt.`
+		: 'Inget måste vara perfekt — bara ärligt.';
 	return JSON.stringify({
-		title: 'Dags att skriva',
+		title: 'Bara några rader',
 		body,
 		url: '/wizard',
 		tag: 'daily-reminder'
