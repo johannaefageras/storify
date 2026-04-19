@@ -241,6 +241,10 @@
 			{#snippet upsideDownIcon()}<Emoji name="face-upside-down" size={20} />{/snippet}
 			{#snippet archiveIcon()}<Emoji name="archive" size={20} />{/snippet}
 			{#snippet tornadoIcon()}<Emoji name="tornado" size={20} />{/snippet}
+			{#snippet shortsIcon()}<Emoji name="shorts" size={20} />{/snippet}
+			{#snippet collisionIcon()}<Emoji name="collision" size={20} />{/snippet}
+			{#snippet megaphoneIcon()}<Emoji name="megaphone" size={20} />{/snippet}
+			{#snippet teddyBearIcon()}<Emoji name="teddy-bear" size={20} />{/snippet}
 			<button class="voice-chip" onclick={() => openModal({ id: 'classic', name: 'Dagboksskribenten', description: 'En rak, varm berättelse om din dag. Perfekt för alla tillfällen.', icon: ledgerIcon })}>
 				<span class="voice-chip-emoji">{@render ledgerIcon()}</span>
 				<span class="voice-chip-name">Dagboksskribenten</span>
@@ -336,6 +340,22 @@
 			<button class="voice-chip" onclick={() => openModal({ id: 'chaotic', name: 'Multitaskaren', description: 'Allt händer på en gång och ingenting går som planerat. Kaoset regerar!', icon: tornadoIcon })}>
 				<span class="voice-chip-emoji">{@render tornadoIcon()}</span>
 				<span class="voice-chip-name">Multitaskaren</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'bro', name: 'Killen-hela-dagen', description: 'Grind mode, padel och boys. Allt är sjukt eller typ ingenting alls.', icon: shortsIcon })}>
+				<span class="voice-chip-emoji">{@render shortsIcon()}</span>
+				<span class="voice-chip-name">Killen-hela-dagen</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'action-hero', name: 'Actionhjälten', description: 'Hårdkokt noir-monolog. Tuff, torr och lätt melankolisk.', icon: collisionIcon })}>
+				<span class="voice-chip-emoji">{@render collisionIcon()}</span>
+				<span class="voice-chip-name">Actionhjälten</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'influencer', name: 'Influencern', description: 'Soft era, matcha och good vibes. Allt är magiskt och contentvänligt.', icon: megaphoneIcon })}>
+				<span class="voice-chip-emoji">{@render megaphoneIcon()}</span>
+				<span class="voice-chip-name">Influencern</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'six-year-old', name: 'Sexåringen', description: 'Oförfalskad sexårs-logik. Orättvist, mysigt och ibland helt lysande.', icon: teddyBearIcon })}>
+				<span class="voice-chip-emoji">{@render teddyBearIcon()}</span>
+				<span class="voice-chip-name">Sexåringen</span>
 			</button>
 		</div>
 
