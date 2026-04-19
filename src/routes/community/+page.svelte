@@ -37,6 +37,7 @@
 	let dateFrom = $state('');
 	let dateTo = $state('');
 	let searchTimeout: ReturnType<typeof setTimeout> | undefined;
+	let isToneDropdownOpen = $state(false);
 
 	const hasActiveFilters = $derived(
 		searchQuery !== '' || selectedTone !== '' || dateFrom !== '' || dateTo !== ''
@@ -171,6 +172,25 @@
 		applyFilters();
 	}
 
+	function selectToneFilter(toneId: string) {
+		selectedTone = toneId;
+		isToneDropdownOpen = false;
+		applyFilters();
+	}
+
+	function handleToneDropdownClickOutside(event: MouseEvent) {
+		const target = event.target as HTMLElement;
+		if (!target.closest('.tone-filter-wrapper')) {
+			isToneDropdownOpen = false;
+		}
+	}
+
+	function handleToneDropdownKeydown(event: KeyboardEvent) {
+		if (event.key === 'Escape') {
+			isToneDropdownOpen = false;
+		}
+	}
+
 	async function goToPage(page: number) {
 		if (page < 1 || page > totalPages || page === currentPage) return;
 		currentPage = page;
@@ -223,7 +243,13 @@
 	});
 </script>
 
-<svelte:window onkeydown={(e) => e.key === 'Escape' && selectedEntry && closeModal()} />
+<svelte:window
+	onkeydown={(e) => {
+		if (e.key === 'Escape' && selectedEntry) closeModal();
+		handleToneDropdownKeydown(e);
+	}}
+	onclick={handleToneDropdownClickOutside}
+/>
 
 <div class="community-page">
 	<div class="community-container">
@@ -241,12 +267,65 @@
 				bind:value={searchQuery}
 				oninput={handleSearchInput}
 			/>
-			<select class="filter-select" bind:value={selectedTone} onchange={applyFilters}>
-				<option value="">Alla röster</option>
-				{#each tones as tone (tone.id)}
-					<option value={tone.id}>{tone.emoji} {tone.name}</option>
-				{/each}
-			</select>
+			<div class="tone-filter-wrapper">
+				<button
+					type="button"
+					class="filter-select tone-filter-trigger"
+					onclick={(e) => { e.stopPropagation(); isToneDropdownOpen = !isToneDropdownOpen; }}
+					aria-haspopup="listbox"
+					aria-expanded={isToneDropdownOpen}
+				>
+					{#if selectedTone}
+						{@const SelectedIcon = getToneIcon(selectedTone)}
+						{#if SelectedIcon}
+							<span class="tone-filter-trigger-icon"><UniqueEmoji><Emoji name={SelectedIcon} size={16} /></UniqueEmoji></span>
+						{/if}
+						<span class="tone-filter-trigger-label">{getToneName(selectedTone)}</span>
+					{:else}
+						<span class="tone-filter-trigger-label">Alla röster</span>
+					{/if}
+				</button>
+
+				{#if isToneDropdownOpen}
+					<!-- svelte-ignore a11y_click_events_have_key_events -->
+					<div class="tone-dropdown" role="listbox" tabindex="-1" aria-label="Välj röst" onclick={(e) => e.stopPropagation()}>
+						<div class="dropdown-header">
+							<span class="dropdown-title">Välj röst</span>
+						</div>
+						<div class="tone-grid">
+							<button
+								type="button"
+								class="tone-option"
+								class:tone-option--current={selectedTone === ''}
+								onclick={() => selectToneFilter('')}
+								disabled={selectedTone === ''}
+								role="option"
+								aria-selected={selectedTone === ''}
+							>
+								<span class="tone-option-name">Alla röster</span>
+							</button>
+							{#each tones as tone (tone.id)}
+								{@const ToneIcon = getToneIcon(tone.id)}
+								<button
+									type="button"
+									class="tone-option"
+									class:tone-option--current={tone.id === selectedTone}
+									onclick={() => selectToneFilter(tone.id)}
+									disabled={tone.id === selectedTone}
+									role="option"
+									aria-selected={tone.id === selectedTone}
+									title={tone.name}
+								>
+									{#if ToneIcon}
+										<span class="tone-option-icon"><UniqueEmoji><Emoji name={ToneIcon} size={22} /></UniqueEmoji></span>
+									{/if}
+									<span class="tone-option-name">{tone.name}</span>
+								</button>
+							{/each}
+						</div>
+					</div>
+				{/if}
+			</div>
 			<div class="date-range">
 				<input type="date" class="filter-date" bind:value={dateFrom} onchange={applyFilters} aria-label="Från datum" />
 				<span class="date-separator">–</span>
@@ -556,6 +635,113 @@
 		background-repeat: no-repeat;
 		background-position: right 0.75rem center;
 		cursor: pointer;
+	}
+
+	/* ===== Tone filter dropdown (matches TonePickerDropdown) ===== */
+
+	.tone-filter-wrapper {
+		position: relative;
+		display: flex;
+	}
+
+	.tone-filter-trigger {
+		display: flex;
+		align-items: center;
+		gap: 0.375rem;
+		text-align: left;
+	}
+
+	.tone-filter-trigger-icon {
+		display: flex;
+		align-items: center;
+		flex-shrink: 0;
+	}
+
+	.tone-filter-trigger-label {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.tone-dropdown {
+		position: absolute;
+		top: calc(100% + 8px);
+		left: 0;
+		width: 280px;
+		max-height: 360px;
+		overflow-y: auto;
+		background: var(--color-bg);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
+		z-index: 10;
+		animation: dropdownIn 0.15s ease;
+	}
+
+	@keyframes dropdownIn {
+		from { opacity: 0; transform: translateY(-4px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+
+	.dropdown-header {
+		padding: 0.75rem 0.875rem 0.5rem;
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.dropdown-title {
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-semibold);
+		font-stretch: 110%;
+		letter-spacing: var(--tracking-widest);
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	.tone-grid {
+		display: flex;
+		flex-direction: column;
+		padding: 0.375rem;
+	}
+
+	.tone-option {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.5rem 0.625rem;
+		background: none;
+		border: none;
+		border-radius: var(--radius-sm);
+		cursor: pointer;
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-book);
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-text);
+		text-align: left;
+		transition: background-color 0.1s ease;
+		width: 100%;
+	}
+
+	.tone-option:hover:not(:disabled) {
+		background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+	}
+
+	.tone-option--current {
+		opacity: 0.4;
+		cursor: default;
+	}
+
+	.tone-option-icon {
+		display: flex;
+		align-items: center;
+		flex-shrink: 0;
+	}
+
+	.tone-option-name {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	.date-range {
@@ -1032,6 +1218,21 @@
 		.filter-select {
 			min-width: 0;
 			flex: 1;
+		}
+
+		.tone-filter-wrapper {
+			flex: 1;
+			min-width: 0;
+		}
+
+		.tone-filter-trigger {
+			width: 100%;
+		}
+
+		.tone-dropdown {
+			width: 100%;
+			min-width: 240px;
+			max-height: 300px;
 		}
 
 		.date-range {

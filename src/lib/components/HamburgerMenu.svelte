@@ -82,7 +82,7 @@
 				{/each}
 
 				{#if authStore.isLoggedIn}
-					<button type="button" class="dropdown-link dropdown" onclick={handleSignOut}>
+					<button type="button" class="dropdown-link dropdown-link-signout" onclick={handleSignOut}>
 						<span class="dropdown-link-marker" aria-hidden="true"></span>
 						<span class="dropdown-link-label">Logga ut</span>
 						<span class="dropdown-link-trim" aria-hidden="true"></span>
@@ -184,18 +184,29 @@
 		grid-template-columns: auto 1fr auto;
 		align-items: center;
 		column-gap: 0.75rem;
+		width: 100%;
 		padding: 0.8rem 0.8rem;
 		font-family: var(--font-primary);
 		font-size: var(--text-sm);
 		font-weight: var(--weight-medium);
 		letter-spacing: var(--tracking-wide);
+		text-align: left;
 		color: var(--color-text);
 		text-decoration: none;
+		background: none;
+		border: none;
 		border-radius: var(--radius-md);
+		cursor: pointer;
 		transition:
 			background-color 0.14s ease,
 			transform 0.14s ease,
 			color 0.14s ease;
+	}
+
+	.dropdown-link-signout {
+		margin-top: 0.35rem;
+		padding-top: 1.15rem;
+		border-top: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
 	}
 
 	.dropdown-link:hover {

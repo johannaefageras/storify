@@ -3,13 +3,15 @@
 	import { accentStore, type Accent } from '$lib/stores/accent.svelte';
 	import { Emoji } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
+	import type { Snippet } from 'svelte';
 	interface Props {
 		currentToneId: string;
 		isRegenerating?: boolean;
 		onSelectTone: (toneId: string) => void;
+		trigger?: Snippet<[{ toggle: (event: MouseEvent) => void; isOpen: boolean; isRegenerating: boolean; icon: string }]>;
 	}
 
-	let { currentToneId, isRegenerating = false, onSelectTone }: Props = $props();
+	let { currentToneId, isRegenerating = false, onSelectTone, trigger }: Props = $props();
 
 	let isOpen = $state(false);
 
@@ -84,21 +86,30 @@
 <svelte:window onclick={handleClickOutside} onkeydown={handleKeydown} />
 
 <div class="tone-picker-wrapper">
-	<button
-		class="regenerate-btn"
-		onclick={(e) => { e.stopPropagation(); isOpen = !isOpen; }}
-		disabled={isRegenerating}
-		title="Byt röst och generera om"
-		aria-expanded={isOpen}
-		aria-haspopup="true"
-		data-no-export
-	>
-		{#if isRegenerating}
-			<span class="regenerate-spinner"></span>
-		{:else}
-			<Emoji name={RegenerateIcon} size={28} />
-		{/if}
-	</button>
+	{#if trigger}
+		{@render trigger({
+			toggle: (e: MouseEvent) => { e.stopPropagation(); isOpen = !isOpen; },
+			isOpen,
+			isRegenerating,
+			icon: RegenerateIcon
+		})}
+	{:else}
+		<button
+			class="regenerate-btn"
+			onclick={(e) => { e.stopPropagation(); isOpen = !isOpen; }}
+			disabled={isRegenerating}
+			title="Byt röst och generera om"
+			aria-expanded={isOpen}
+			aria-haspopup="true"
+			data-no-export
+		>
+			{#if isRegenerating}
+				<span class="regenerate-spinner"></span>
+			{:else}
+				<Emoji name={RegenerateIcon} size={28} />
+			{/if}
+		</button>
+	{/if}
 
 	{#if isOpen}
 		<!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -132,6 +143,7 @@
 <style>
 	.tone-picker-wrapper {
 		position: relative;
+		display: grid;
 	}
 
 	.regenerate-btn {

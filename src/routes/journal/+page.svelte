@@ -12,13 +12,8 @@
 	import arrowLeftSvg from '$lib/assets/icons/arrow-left.svg?raw';
 	import { Emoji } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
-	import { downloadAsImage } from '$lib/utils/imageDownload';
-	import { downloadAsPdf } from '$lib/utils/pdfDownload';
-	import PdfDocument from '$lib/components/PdfDocument.svelte';
 	import TonePickerDropdown from '$lib/components/TonePickerDropdown.svelte';
 	import ShareToCommunity from '$lib/components/ShareToCommunity.svelte';
-	import ShareLinkButton from '$lib/components/ShareLinkButton.svelte';
-	import { getApiUrl } from '$lib/config';
 	import { streamEntry } from '$lib/utils/streamEntry';
 
 	interface Entry {
@@ -49,13 +44,7 @@
 	let selectedEntry = $state<Entry | null>(null);
 	let showDeleteConfirm = $state(false);
 	let isDeleting = $state(false);
-	let isCopying = $state(false);
-	let isDownloading = $state(false);
-	let isDownloadingPdf = $state(false);
-	let isSendingEmail = $state(false);
-	let showEmailModal = $state(false);
 	let showShareModal = $state(false);
-	let emailAddress = $state('');
 
 	// Writing mode modal state
 	let showModeModal = $state(false);
@@ -70,8 +59,6 @@
 	function closeModeModal() {
 		showModeModal = false;
 	}
-	let emailError = $state('');
-	let emailSent = $state(false);
 
 	// Regenerate state
 	let isRegenerating = $state(false);
@@ -82,26 +69,6 @@
 	let editText = $state('');
 	let isSavingEdit = $state(false);
 	let editSaveError = $state('');
-
-	// References for export
-	let modalDiaryCardRef: DiaryCard = $state(null!);
-	let pdfDocRef: PdfDocument = $state(null!);
-
-	// Detect dark mode for image export
-	let isDarkMode = $state(false);
-
-	$effect(() => {
-		if (typeof window !== 'undefined') {
-			isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
-
-			const observer = new MutationObserver(() => {
-				isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
-			});
-			observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-
-			return () => observer.disconnect();
-		}
-	});
 
 	const toneIconMap: Record<string, string> = {
 		'ai-robot': 'robot',
@@ -289,18 +256,6 @@ function getToneIcon(id: string): string | undefined {
 		}
 	}
 
-	async function copyToClipboard() {
-		if (!selectedEntry || isCopying) return;
-		isCopying = true;
-		try {
-			await navigator.clipboard.writeText(selectedEntry.generated_text);
-		} catch (err) {
-			console.error('Failed to copy:', err);
-		} finally {
-			setTimeout(() => { isCopying = false; }, 1500);
-		}
-	}
-
 	async function deleteEntry() {
 		if (!selectedEntry || isDeleting) return;
 		isDeleting = true;
@@ -322,93 +277,6 @@ function getToneIcon(id: string): string | undefined {
 			console.error('Delete error:', err);
 		} finally {
 			isDeleting = false;
-		}
-	}
-
-	async function downloadAsImageHandler() {
-		const element = modalDiaryCardRef?.getDocumentElement();
-		if (!element || isDownloading || !selectedEntry) return;
-		isDownloading = true;
-
-		const noExport = element.querySelector<HTMLElement>('[data-no-export]');
-		if (noExport) noExport.style.display = 'none';
-
-		try {
-			const timeStr = selectedEntry.created_at ? `-${new Date(selectedEntry.created_at).getHours().toString().padStart(2, '0')}${new Date(selectedEntry.created_at).getMinutes().toString().padStart(2, '0')}` : '';
-			const filename = `dagbok-${selectedEntry.entry_date || 'entry'}${timeStr}.png`;
-			const exportWidth = Math.max(1200, Math.ceil(element.getBoundingClientRect().width));
-			await downloadAsImage(element, filename, { width: exportWidth, scale: 2 });
-		} catch (err) {
-			console.error('Failed to download image:', err);
-		} finally {
-			if (noExport) noExport.style.display = '';
-			isDownloading = false;
-		}
-	}
-
-	async function downloadAsPdfHandler() {
-		const element = pdfDocRef?.getElement();
-		if (!element || isDownloadingPdf || !selectedEntry) return;
-		isDownloadingPdf = true;
-
-		try {
-			const timeStr = selectedEntry.created_at ? `-${new Date(selectedEntry.created_at).getHours().toString().padStart(2, '0')}${new Date(selectedEntry.created_at).getMinutes().toString().padStart(2, '0')}` : '';
-		await downloadAsPdf(element, `dagbok-${selectedEntry.entry_date || 'entry'}${timeStr}.pdf`);
-		} catch (err) {
-			console.error('Failed to download PDF:', err);
-		} finally {
-			isDownloadingPdf = false;
-		}
-	}
-
-	function openEmailModal() {
-		emailAddress = '';
-		emailError = '';
-		emailSent = false;
-		showEmailModal = true;
-	}
-
-	function closeEmailModal() {
-		showEmailModal = false;
-		emailAddress = '';
-		emailError = '';
-	}
-
-	async function sendEmail() {
-		if (isSendingEmail || !emailAddress.trim() || !selectedEntry) return;
-		isSendingEmail = true;
-		emailError = '';
-
-		try {
-			const { weekday, date } = formatEntryDate(selectedEntry.entry_date, selectedEntry.created_at);
-			const response = await fetch(getApiUrl('/api/email'), {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					email: emailAddress.trim(),
-					entry: selectedEntry.generated_text,
-					date,
-					weekday
-				})
-			});
-
-			const result = await response.json();
-
-			if (result.success) {
-				emailSent = true;
-				setTimeout(() => {
-					closeEmailModal();
-				}, 1500);
-			} else {
-				emailError = result.error || 'Kunde inte skicka e-post.';
-			}
-		} catch (err) {
-			emailError = 'Kunde inte ansluta till servern. Försök igen.';
-			console.error('Email error:', err);
-		} finally {
-			isSendingEmail = false;
 		}
 	}
 
@@ -623,25 +491,13 @@ function getToneIcon(id: string): string | undefined {
 					{/if}
 				{:else}
 					<DiaryCard
-						bind:this={modalDiaryCardRef}
 						weekday={weekday || selectedEntry.weekday || ''}
 						date={date}
 						emojis={selectedEntry.emojis || []}
 						toneId={selectedEntry.tone_id}
 						generatedText={selectedEntry.generated_text}
-						editable={true}
-						onEdit={startEditing}
 						onClose={closeModal}
-						onShare={() => showShareModal = true}
-					>
-						{#snippet regenerateSnippet()}
-							<TonePickerDropdown
-								currentToneId={selectedEntry!.tone_id}
-								{isRegenerating}
-								onSelectTone={regenerateWithTone}
-							/>
-						{/snippet}
-					</DiaryCard>
+					/>
 				{/if}
 			</div>
 
@@ -661,67 +517,52 @@ function getToneIcon(id: string): string | undefined {
 						{/if}
 					</button>
 				</div>
+			{:else if showDeleteConfirm}
+				<div class="delete-confirm">
+					<span class="delete-confirm-text">Ta bort anteckningen?</span>
+					<button class="delete-confirm-btn delete-yes" onclick={deleteEntry} disabled={isDeleting}>
+						{#if isDeleting}
+							<span class="spinner"></span>
+						{:else}
+							Ja, ta bort
+						{/if}
+					</button>
+					<button class="delete-confirm-btn delete-no" onclick={() => showDeleteConfirm = false}>
+						Avbryt
+					</button>
+				</div>
 			{:else}
 				<div class="modal-actions">
-					<button class="modal-action-btn" onclick={downloadAsImageHandler} disabled={isDownloading}>
-						{#if isDownloading}
-							<span class="spinner"></span>
-							<span>Sparar...</span>
-						{:else}
-							<Emoji name="framed-picture" size={18} />
-							<span>Spara bild</span>
-						{/if}
+					<button class="modal-action-btn" onclick={startEditing}>
+						<Emoji name="pencil" size={18} />
+						<span>Redigera</span>
 					</button>
-					<button class="modal-action-btn" onclick={downloadAsPdfHandler} disabled={isDownloadingPdf}>
-						{#if isDownloadingPdf}
-							<span class="spinner"></span>
-							<span>Skapar...</span>
-						{:else}
-							<Emoji name="printer" size={18} />
-							<span>Spara PDF</span>
-						{/if}
-					</button>
-					<button class="modal-action-btn" onclick={copyToClipboard} disabled={isCopying}>
-						{#if isCopying}
-							<svg class="action-icon check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-								<polyline points="20 6 9 17 4 12"/>
-							</svg>
-							<span>Kopierat!</span>
-						{:else}
-							<Emoji name="clipboard" size={18} />
-							<span>Kopiera</span>
-						{/if}
-					</button>
-					<button class="modal-action-btn" onclick={openEmailModal}>
-						<Emoji name="envelope-arrow" size={18} />
-						<span>Maila</span>
-					</button>
-					<ShareLinkButton entryId={selectedEntry.id} className="modal-action-btn" />
-				</div>
-
-				<div class="modal-delete-row">
-					{#if showDeleteConfirm}
-						<div class="delete-confirm">
-							<span class="delete-confirm-text">Ta bort anteckningen?</span>
-							<button class="delete-confirm-btn delete-yes" onclick={deleteEntry} disabled={isDeleting}>
-								{#if isDeleting}
+					<TonePickerDropdown
+						currentToneId={selectedEntry.tone_id}
+						{isRegenerating}
+						onSelectTone={regenerateWithTone}
+					>
+						{#snippet trigger({ toggle, isRegenerating: busy, icon })}
+							<button class="modal-action-btn" onclick={toggle} disabled={busy} data-no-export>
+								{#if busy}
 									<span class="spinner"></span>
+									<span>Regenererar...</span>
 								{:else}
-									Ja, ta bort
+									<Emoji name={icon} size={18} />
+									<span>Regenerera</span>
 								{/if}
 							</button>
-							<button class="delete-confirm-btn delete-no" onclick={() => showDeleteConfirm = false}>
-								Avbryt
-							</button>
-						</div>
-					{:else}
-						<button class="modal-action-btn modal-delete-btn" onclick={() => showDeleteConfirm = true}>
-							<Emoji name="trash" size={18} />
-							<span>Ta bort</span>
-						</button>
-					{/if}
+						{/snippet}
+					</TonePickerDropdown>
+					<button class="modal-action-btn" onclick={() => showShareModal = true}>
+						<Emoji name="users-silhouette" size={18} />
+						<span>Publicera</span>
+					</button>
+					<button class="modal-action-btn modal-delete-btn" onclick={() => showDeleteConfirm = true}>
+						<Emoji name="trash" size={18} />
+						<span>Ta bort</span>
+					</button>
 				</div>
-
 			{/if}
 		</div>
 	</div>
@@ -737,60 +578,6 @@ function getToneIcon(id: string): string | undefined {
 		weekday={shareWeekday || selectedEntry.weekday || ''}
 		alreadySaved={true}
 		onClose={() => showShareModal = false}
-	/>
-{/if}
-
-{#if showEmailModal}
-	<div class="email-overlay" onclick={closeEmailModal} role="button" tabindex="-1" onkeydown={(e) => e.key === 'Escape' && closeEmailModal()}>
-		<div class="email-modal" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.key === 'Escape' && closeEmailModal()} role="dialog" aria-modal="true" aria-labelledby="email-modal-title" tabindex="-1">
-			<h2 id="email-modal-title" class="email-modal-title">Skicka som e-post</h2>
-			<p class="email-modal-description">Ange en e-postadress så skickar vi dagboksinlägget dit.</p>
-
-			<input
-				type="email"
-				class="email-modal-input"
-				placeholder="din@email.se"
-				bind:value={emailAddress}
-				onkeydown={(e) => e.key === 'Enter' && sendEmail()}
-				disabled={isSendingEmail || emailSent}
-			/>
-
-			{#if emailError}
-				<p class="email-modal-error">{emailError}</p>
-			{/if}
-
-			<div class="email-modal-actions">
-				<button class="email-modal-btn email-modal-btn-cancel" onclick={closeEmailModal} disabled={isSendingEmail}>
-					Avbryt
-				</button>
-				<button class="email-modal-btn email-modal-btn-send" onclick={sendEmail} disabled={isSendingEmail || emailSent || !emailAddress.trim()}>
-					{#if emailSent}
-						<svg class="action-icon check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-							<polyline points="20 6 9 17 4 12"/>
-						</svg>
-						Skickat!
-					{:else if isSendingEmail}
-						<span class="spinner"></span>
-						Skickar...
-					{:else}
-						<Emoji name="envelope-email" size={22} />
-						Skicka
-					{/if}
-				</button>
-			</div>
-		</div>
-	</div>
-{/if}
-
-{#if selectedEntry}
-	{@const { weekday: pdfWeekday, date: pdfDate } = formatEntryDate(selectedEntry.entry_date, selectedEntry.created_at)}
-	<PdfDocument
-		bind:this={pdfDocRef}
-		weekday={pdfWeekday}
-		date={pdfDate}
-		emojis={selectedEntry.emojis || []}
-		toneId={selectedEntry.tone_id}
-		generatedText={selectedEntry.generated_text}
 	/>
 {/if}
 
@@ -1265,29 +1052,14 @@ function getToneIcon(id: string): string | undefined {
 		cursor: not-allowed;
 	}
 
-	.modal-delete-row {
-		margin-top: 0.75rem;
-	}
-
 	.modal-delete-btn {
-		width: 100%;
 		color: var(--color-accent);
-		border: 2px solid var(--color-accent);
+		border: 1px solid var(--color-accent);
 	}
 
 	.modal-delete-btn:hover:not(:disabled) {
 		background: var(--color-accent);
 		color: white;
-	}
-
-	.action-icon {
-		width: 18px;
-		height: 18px;
-		flex-shrink: 0;
-	}
-
-	.action-icon.check {
-		color: #22c55e;
 	}
 
 	/* Delete Confirmation */
@@ -1438,134 +1210,6 @@ function getToneIcon(id: string): string | undefined {
 		font-family: var(--font-primary);
 		font-size: var(--text-sm);
 		text-align: center;
-	}
-
-	/* Email Modal */
-
-	.email-overlay {
-		position: fixed;
-		inset: 0;
-		background: rgba(0, 0, 0, 0.5);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		z-index: 1100;
-		padding: 1rem;
-		animation: fadeIn 0.15s ease;
-	}
-
-	.email-modal {
-		background: var(--color-bg-elevated);
-		border-radius: var(--radius-md);
-		padding: 1.5rem;
-		width: 100%;
-		max-width: 400px;
-		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-		animation: slideUp 0.2s ease;
-	}
-
-	.email-modal-title {
-		font-family: var(--font-primary);
-		font-size: var(--text-lg);
-		font-weight: var(--weight-semibold);
-		font-stretch: 105%;
-		letter-spacing: var(--tracking-tight);
-		color: var(--color-text);
-		margin: 0 0 0.5rem 0;
-	}
-
-	.email-modal-description {
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-regular);
-		letter-spacing: var(--tracking-wide);
-		color: var(--color-text-muted);
-		margin: 0 0 1rem 0;
-		line-height: var(--leading-relaxed);
-	}
-
-	.email-modal-input {
-		box-sizing: border-box;
-		width: 100%;
-		padding: 0.875rem 1rem;
-		font-family: var(--font-primary);
-		font-size: var(--text-base);
-		font-weight: var(--weight-regular);
-		color: var(--color-text);
-		background: var(--color-bg);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-sm);
-		outline: none;
-		transition: border-color 0.15s ease, box-shadow 0.15s ease;
-	}
-
-	.email-modal-input:focus {
-		border-color: var(--color-accent);
-		box-shadow: 0 0 0 3px rgba(244, 63, 122, 0.1);
-	}
-
-	.email-modal-input::placeholder {
-		color: var(--color-text-muted);
-	}
-
-	.email-modal-input:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
-	}
-
-	.email-modal-error {
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		color: var(--color-error);
-		margin: 0.75rem 0 0 0;
-	}
-
-	.email-modal-actions {
-		display: flex;
-		gap: 0.75rem;
-		margin-top: 1.25rem;
-	}
-
-	.email-modal-btn {
-		flex: 1;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0.5rem;
-		padding: 0.875rem 1rem;
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-medium);
-		letter-spacing: var(--tracking-wide);
-		border-radius: var(--radius-sm);
-		cursor: pointer;
-		transition: all 0.15s ease;
-	}
-
-	.email-modal-btn:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
-	}
-
-	.email-modal-btn-cancel {
-		background: transparent;
-		color: var(--color-text-muted);
-		border: 1px solid var(--color-border);
-	}
-
-	.email-modal-btn-cancel:hover:not(:disabled) {
-		background: var(--color-neutral);
-		color: var(--color-text);
-	}
-
-	.email-modal-btn-send {
-		background: var(--color-accent);
-		color: white;
-		border: none;
-	}
-
-	.email-modal-btn-send:hover:not(:disabled) {
-		background: var(--color-accent-hover);
 	}
 
 	/* Responsive */

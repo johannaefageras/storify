@@ -34,7 +34,7 @@
 		{
 			id: 'interview',
 			title: 'AI-intervju',
-			description: 'Chatta med AI som ställer frågor om din dag.',
+			description: 'Chatta med AI som ställer relevanta frågor om din dag.',
 			href: '/interview',
 			icon: 'speaking-head',
 			comingSoon: false
@@ -50,7 +50,7 @@
 		{
 			id: 'quick',
 			title: 'Snabbläge',
-			description: 'Fånga dagens känsla på under en minut.',
+			description: 'Fånga dagens känsla på under en minut, utan krångel.',
 			href: '/quick',
 			icon: 'rocket',
 			comingSoon: false
@@ -58,7 +58,7 @@
 		{
 			id: 'editor',
 			title: 'Skriv fritt',
-			description: 'Skriv fritt med AI-stöd som förfinar din text.',
+			description: 'Skriv fritt med AI-stöd som förfinar din text, när du vill.',
 			href: '/editor',
 			icon: 'pencil',
 			comingSoon: false
@@ -152,7 +152,7 @@
 	}
 
 	.title {
-		font-family: var(--font-primary);
+		font-family: 'Linzer';
 		font-size: var(--text-3xl);
 		font-weight: var(--weight-medium);
 		font-stretch: 115%;
@@ -292,7 +292,7 @@
 		}
 
 		.title {
-			margin-bottom: 0.35rem;
+			margin-bottom: 0.75rem;
 		}
 
 		.mode-grid {
@@ -328,7 +328,7 @@
 		}
 
 		.mode-card-description {
-			font-size: 0.75rem;
+			font-size: 0.85rem;
 		}
 	}
 </style>

@@ -6,8 +6,6 @@
 	import ToneSelection from '$lib/components/interview/ToneSelection.svelte';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import ShareToCommunity from '$lib/components/ShareToCommunity.svelte';
-	import ShareLinkButton from '$lib/components/ShareLinkButton.svelte';
-	import PdfDocument from '$lib/components/PdfDocument.svelte';
 	import { chatStore } from '$lib/stores/chat.svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { authStore } from '$lib/stores/auth.svelte';
@@ -21,8 +19,6 @@
 	import { isSeparatorParagraph } from '$lib/utils/paragraphs';
 	import { getSwedishDiaryDate } from '$lib/utils/localDate';
 	import { getLoadingPhrases } from '$lib/data/loadingPhrases';
-	import { downloadAsImage } from '$lib/utils/imageDownload';
-	import { downloadAsPdf } from '$lib/utils/pdfDownload';
 	import resultMessages from '$lib/data/resultMessages.json';
 	import { Emoji } from '$lib/assets/emojis';
 	import TonePickerDropdown from '$lib/components/TonePickerDropdown.svelte';
@@ -35,20 +31,8 @@
 	let interviewDateISO = $state('');
 	let interviewWeekday = $state('');
 
-	// string refs for export
-	let diaryCardRef: DiaryCard = $state(null!);
-	let pdfDocRef: PdfDocument = $state(null!);
-
-	// Export action states
-	let isDownloading = $state(false);
-	let isDownloadingPdf = $state(false);
-	let isCopying = $state(false);
-	let isSendingEmail = $state(false);
 	let showShareModal = $state(false);
-	let showEmailModal = $state(false);
-	let emailAddress = $state('');
-	let emailError = $state('');
-	let emailSent = $state(false);
+	let showDiscardConfirm = $state(false);
 
 	// Journal save state
 	let isSavingEntry = $state(false);
@@ -75,20 +59,6 @@
 	// Restore draft on page load
 	$effect(() => {
 		chatStore.loadDraft();
-	});
-
-	// Dark mode detection (for rose icon)
-	let isDarkMode = $state(false);
-
-	$effect(() => {
-		if (typeof window !== 'undefined') {
-			isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
-			const observer = new MutationObserver(() => {
-				isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
-			});
-			observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-			return () => observer.disconnect();
-		}
 	});
 
 	$effect(() => {
@@ -312,105 +282,6 @@
 		}
 	}
 
-	// --- Export actions ---
-
-	async function downloadAsImageHandler() {
-		const element = diaryCardRef?.getDocumentElement();
-		if (!element || isDownloading) return;
-		isDownloading = true;
-
-		const noExport = element.querySelector<HTMLElement>('[data-no-export]');
-		if (noExport) noExport.style.display = 'none';
-
-		try {
-			const filename = `dagbok-${interviewDate.replace(/[\s,]+/g, '-').replace(/:/g, '').replace(/-+/g, '-') || 'entry'}.png`;
-			const exportWidth = Math.max(1200, Math.ceil(element.getBoundingClientRect().width));
-			await downloadAsImage(element, filename, { width: exportWidth, scale: 2 });
-		} catch (err) {
-			console.error('Failed to download image:', err);
-		} finally {
-			if (noExport) noExport.style.display = '';
-			isDownloading = false;
-		}
-	}
-
-	async function downloadAsPdfHandler() {
-		const element = pdfDocRef?.getElement();
-		if (!element || isDownloadingPdf) return;
-		isDownloadingPdf = true;
-
-		try {
-			const filename = `dagbok-${interviewDate.replace(/[\s,]+/g, '-').replace(/:/g, '').replace(/-+/g, '-') || 'entry'}.pdf`;
-			await downloadAsPdf(element, filename);
-		} catch (err) {
-			console.error('Failed to download PDF:', err);
-		} finally {
-			isDownloadingPdf = false;
-		}
-	}
-
-	async function copyToClipboard() {
-		if (isCopying) return;
-		isCopying = true;
-		try {
-			await navigator.clipboard.writeText(generatedEntry);
-		} catch (err) {
-			console.error('Failed to copy to clipboard:', err);
-		} finally {
-			setTimeout(() => {
-				isCopying = false;
-			}, 1500);
-		}
-	}
-
-	function openEmailModal() {
-		emailAddress = '';
-		emailError = '';
-		emailSent = false;
-		showEmailModal = true;
-	}
-
-	function closeEmailModal() {
-		showEmailModal = false;
-		emailAddress = '';
-		emailError = '';
-	}
-
-	async function sendEmail() {
-		if (isSendingEmail || !emailAddress.trim()) return;
-		isSendingEmail = true;
-		emailError = '';
-
-		try {
-			const response = await fetch(getApiUrl('/api/email'), {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
-					email: emailAddress.trim(),
-					entry: generatedEntry,
-					date: interviewDate,
-					weekday: interviewWeekday
-				})
-			});
-
-			const result = await response.json();
-
-			if (result.success) {
-				emailSent = true;
-				setTimeout(() => {
-					closeEmailModal();
-				}, 1500);
-			} else {
-				emailError = result.error || 'Kunde inte skicka e-post.';
-			}
-		} catch (err) {
-			emailError = 'Kunde inte ansluta till servern. Försök igen.';
-			console.error('Email error:', err);
-		} finally {
-			isSendingEmail = false;
-		}
-	}
-
 	// --- Edit mode ---
 
 	async function regenerateWithTone(newToneId: string) {
@@ -542,10 +413,7 @@
 		entrySaved = false;
 		entrySaveError = '';
 
-		showEmailModal = false;
-		emailAddress = '';
-		emailError = '';
-		emailSent = false;
+		showDiscardConfirm = false;
 	}
 </script>
 
@@ -615,25 +483,13 @@
 						<textarea class="edit-textarea" bind:value={editText} bind:this={editTextareaEl} oninput={autoResizeTextarea}></textarea>
 					{:else}
 						<DiaryCard
-							bind:this={diaryCardRef}
 							weekday={interviewWeekday}
 							date={interviewDate}
 							emojis={[]}
 							toneId={actualToneUsed || chatStore.selectedTone}
 							generatedText={generatedEntry}
 							birthday={wizardStore.data.profile.birthday ?? undefined}
-							editable={true}
-							onEdit={startEditing}
-							onShare={() => showShareModal = true}
-						>
-							{#snippet regenerateSnippet()}
-								<TonePickerDropdown
-									currentToneId={actualToneUsed || chatStore.selectedTone}
-									{isRegenerating}
-									onSelectTone={regenerateWithTone}
-								/>
-							{/snippet}
-						</DiaryCard>
+						/>
 					{/if}
 				</div>
 
@@ -673,53 +529,53 @@
 
 					<div class="actions-container">
 						<div class="result-actions">
-							<button class="action-btn" onclick={downloadAsImageHandler} disabled={isDownloading}>
-								{#if isDownloading}
-									<span class="spinner"></span>
-									<span>Sparar...</span>
-								{:else}
-									<Emoji name="framed-picture" size={22} />
-									<span>Spara bild</span>
-								{/if}
+							<button class="action-btn" onclick={startEditing}>
+								<Emoji name="pencil" size={22} />
+								<span>Redigera</span>
 							</button>
-							<button class="action-btn" onclick={downloadAsPdfHandler} disabled={isDownloadingPdf}>
-								{#if isDownloadingPdf}
-									<span class="spinner"></span>
-									<span>Skapar...</span>
-								{:else}
-									<Emoji name="printer" size={22} />
-									<span>Spara PDF</span>
-								{/if}
+							<TonePickerDropdown
+								currentToneId={actualToneUsed || chatStore.selectedTone}
+								{isRegenerating}
+								onSelectTone={regenerateWithTone}
+							>
+								{#snippet trigger({ toggle, isRegenerating: busy, icon })}
+									<button class="action-btn" onclick={toggle} disabled={busy}>
+										{#if busy}
+											<span class="spinner"></span>
+											<span>Skapar...</span>
+										{:else}
+											<Emoji name={icon} size={22} />
+											<span>Regenerera</span>
+										{/if}
+									</button>
+								{/snippet}
+							</TonePickerDropdown>
+							<button class="action-btn" onclick={() => showShareModal = true}>
+								<Emoji name="users-silhouette" size={22} />
+								<span>Publicera</span>
 							</button>
-							<button class="action-btn" onclick={copyToClipboard} disabled={isCopying}>
-								{#if isCopying}
-									<svg class="action-icon check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-										<polyline points="20 6 9 17 4 12"/>
-									</svg>
-									<span>Kopierat!</span>
-								{:else}
-									<Emoji name="clipboard" size={22} />
-									<span>Kopiera</span>
-								{/if}
+							<button class="action-btn action-btn-delete" onclick={() => showDiscardConfirm = true}>
+								<Emoji name="trash" size={22} />
+								<span>Ta bort</span>
 							</button>
-							<button class="action-btn" onclick={openEmailModal}>
-								<Emoji name="envelope-arrow" size={22} />
-								<span>Maila</span>
-							</button>
-							<ShareLinkButton
-								className="action-btn"
-								freshInput={{
-									generated_text: generatedEntry,
-									tone_id: actualToneUsed || chatStore.selectedTone,
-									entry_date: interviewDateISO,
-									weekday: interviewWeekday
-								}}
-							/>
 						</div>
-						<button class="action-btn restart-btn" onclick={handleStartOver}>
-							Börja om från början...
-						</button>
 					</div>
+
+					{#if showDiscardConfirm}
+						<div class="delete-confirm">
+							<p class="delete-confirm-text">Säker på att du vill ta bort detta inlägg?</p>
+							<div class="delete-confirm-actions">
+								<button class="action-btn delete-no" onclick={() => showDiscardConfirm = false}>
+									<Emoji name="cross-mark" size={18} />
+									<span>Avbryt</span>
+								</button>
+								<button class="action-btn delete-yes" onclick={handleStartOver}>
+									<Emoji name="trash" size={18} />
+									<span>Ja, ta bort</span>
+								</button>
+							</div>
+						</div>
+					{/if}
 				{/if}
 
 				{#if showShareModal && generatedEntry}
@@ -733,58 +589,7 @@
 					/>
 				{/if}
 
-				{#if showEmailModal}
-					<div class="modal-overlay" onclick={closeEmailModal} role="button" tabindex="-1" onkeydown={(e) => e.key === 'Escape' && closeEmailModal()}>
-						<div class="modal-content" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.key === 'Escape' && closeEmailModal()} role="dialog" aria-modal="true" aria-labelledby="email-modal-title" tabindex="-1">
-							<h2 id="email-modal-title" class="modal-title">Skicka som e-post</h2>
-							<p class="modal-description">Ange en e-postadress så skickar vi dagboksinlägget dit.</p>
-
-							<input
-								type="email"
-								class="modal-input"
-								placeholder="din@email.se"
-								bind:value={emailAddress}
-								onkeydown={(e) => e.key === 'Enter' && sendEmail()}
-								disabled={isSendingEmail || emailSent}
-							/>
-
-							{#if emailError}
-								<p class="modal-error">{emailError}</p>
-							{/if}
-
-							<div class="modal-actions">
-								<button class="modal-btn modal-btn-cancel" onclick={closeEmailModal} disabled={isSendingEmail}>
-									Avbryt
-								</button>
-								<button class="modal-btn modal-btn-send" onclick={sendEmail} disabled={isSendingEmail || emailSent || !emailAddress.trim()}>
-									{#if emailSent}
-										<svg class="action-icon check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-											<polyline points="20 6 9 17 4 12"/>
-										</svg>
-										Skickat!
-									{:else if isSendingEmail}
-										<span class="spinner"></span>
-										Skickar...
-									{:else}
-										<Emoji name="envelope-email" size={22} />
-										Skicka
-									{/if}
-								</button>
-							</div>
-						</div>
-					</div>
-				{/if}
 			</div>
-
-			<PdfDocument
-				bind:this={pdfDocRef}
-				weekday={interviewWeekday}
-				date={interviewDate}
-				emojis={[]}
-				toneId={actualToneUsed || chatStore.selectedTone}
-				generatedText={generatedEntry}
-				birthday={wizardStore.data.profile.birthday || ''}
-			/>
 		{/if}
 
 	</div>
@@ -1174,17 +979,47 @@
 		color: #22c55e;
 	}
 
-	.restart-btn {
-		width: 100%;
-		margin-top: 0.25rem;
-		background: transparent;
-		color: var(--color-accent);
-		border: 2px solid var(--color-accent);
+	.action-btn-delete {
+		color: var(--color-error);
 	}
 
-	.restart-btn:hover {
-		background: var(--color-accent);
-		color: white;
+	.action-btn-delete:hover:not(:disabled) {
+		background: color-mix(in srgb, var(--color-error) 10%, transparent);
+		border-color: var(--color-error);
+	}
+
+	.delete-confirm {
+		display: flex;
+		flex-direction: column;
+		gap: 0.625rem;
+		margin-top: 0.75rem;
+		padding: 0.875rem;
+		background: var(--color-bg-elevated);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		width: 100%;
+	}
+
+	.delete-confirm-text {
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		color: var(--color-text);
+		margin: 0;
+		text-align: center;
+	}
+
+	.delete-confirm-actions {
+		display: flex;
+		gap: 0.5rem;
+	}
+
+	.delete-no,
+	.delete-yes {
+		flex: 1;
+	}
+
+	.delete-yes {
+		color: var(--color-error);
 	}
 
 	/* ==========================================================================
@@ -1254,155 +1089,6 @@
 	}
 
 	/* ==========================================================================
-	   Email Modal
-	   ========================================================================== */
-
-	.modal-overlay {
-		position: fixed;
-		inset: 0;
-		background: rgba(0, 0, 0, 0.5);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		z-index: 1000;
-		padding: 0.75rem;
-		animation: fadeIn 0.15s ease;
-	}
-
-	@keyframes fadeIn {
-		from {
-			opacity: 0;
-		}
-		to {
-			opacity: 1;
-		}
-	}
-
-	.modal-content {
-		background: var(--color-bg-elevated);
-		border-radius: var(--radius-md);
-		padding: 1.25rem;
-		width: 100%;
-		max-width: 400px;
-		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-		animation: slideUp 0.2s ease;
-	}
-
-	@keyframes slideUp {
-		from {
-			transform: translateY(10px);
-			opacity: 0;
-		}
-		to {
-			transform: translateY(0);
-			opacity: 1;
-		}
-	}
-
-	.modal-title {
-		font-family: var(--font-primary);
-		font-size: var(--text-lg);
-		font-weight: var(--weight-semibold);
-		font-stretch: 105%;
-		letter-spacing: var(--tracking-tight);
-		color: var(--color-text);
-		margin: 0 0 0.375rem 0;
-	}
-
-	.modal-description {
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-regular);
-		letter-spacing: var(--tracking-wide);
-		color: var(--color-text-muted);
-		margin: 0 0 0.75rem 0;
-		line-height: var(--leading-relaxed);
-	}
-
-	.modal-input {
-		width: 100%;
-		padding: 0.75rem 0.875rem;
-		font-family: var(--font-primary);
-		font-size: var(--text-base);
-		font-weight: var(--weight-regular);
-		color: var(--color-text);
-		background: var(--color-bg);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-sm);
-		outline: none;
-		transition: border-color 0.15s ease, box-shadow 0.15s ease;
-	}
-
-	.modal-input:focus {
-		border-color: var(--color-accent);
-		box-shadow: 0 0 0 3px rgba(244, 63, 122, 0.1);
-	}
-
-	.modal-input::placeholder {
-		color: var(--color-text-muted);
-	}
-
-	.modal-input:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
-	}
-
-	.modal-error {
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		color: var(--color-error);
-		margin: 0.5rem 0 0 0;
-	}
-
-	.modal-actions {
-		display: flex;
-		gap: 0.5rem;
-		margin-top: 1rem;
-	}
-
-	.modal-btn {
-		flex: 1;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0.5rem;
-		padding: 0.75rem 0.875rem;
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-medium);
-		letter-spacing: var(--tracking-wide);
-		border-radius: var(--radius-sm);
-		cursor: pointer;
-		transition: all 0.15s ease;
-	}
-
-	.modal-btn:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
-	}
-
-	.modal-btn-cancel {
-		background: transparent;
-		color: var(--color-text-muted);
-		border: 1px solid var(--color-border);
-	}
-
-	.modal-btn-cancel:hover:not(:disabled) {
-		background: var(--color-neutral);
-		color: var(--color-text);
-	}
-
-	.modal-btn-send {
-		background: var(--color-accent);
-		color: white;
-		border: none;
-	}
-
-	.modal-btn-send:hover:not(:disabled) {
-		background: var(--color-accent-hover);
-	}
-
-	/* ==========================================================================
 	   Responsive
 	   ========================================================================== */
 
@@ -1413,10 +1099,6 @@
 
 		.action-btn {
 			padding: 0.625rem 0.75rem;
-		}
-
-		.modal-content {
-			padding: 1rem;
 		}
 
 		.edit-textarea {

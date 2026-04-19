@@ -79,6 +79,192 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Linzer';
+  src:
+    url('./lib/assets/fonts/Linzer-Regular.woff2'), url('./lib/assets/fonts/Linzer-Regular.woff'),
+    url('./lib/assets/fonts/Linzer-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Circular';
+  src:
+    url('./lib/assets/fonts/Circular-Thin.woff2') format('woff2'),
+    url('./lib/assets/fonts/Circular-Thin.woff') format('woff'),
+    url('./lib/assets/fonts/Circular-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Circular';
+  src:
+    url('./lib/assets/fonts/Circular-ThinItalic.woff2') format('woff2'),
+    url('./lib/assets/fonts/Circular-ThinItalic.woff') format('woff'),
+    url('./lib/assets/fonts/Circular-ThinItalic.ttf') format('truetype');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Circular';
+  src:
+    url('./lib/assets/fonts/Circular-Light.woff2') format('woff2'),
+    url('./lib/assets/fonts/Circular-Light.woff') format('woff'),
+    url('./lib/assets/fonts/Circular-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Circular';
+  src:
+    url('./lib/assets/fonts/Circular-LightItalic.woff2') format('woff2'),
+    url('./lib/assets/fonts/Circular-LightItalic.woff') format('woff'),
+    url('./lib/assets/fonts/Circular-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Circular';
+  src:
+    url('./lib/assets/fonts/Circular-Book.woff2') format('woff2'),
+    url('./lib/assets/fonts/Circular-Book.woff') format('woff'),
+    url('./lib/assets/fonts/Circular-Book.ttf') format('truetype');
+  font-weight: 350;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Circular';
+  src:
+    url('./lib/assets/fonts/Circular-BookItalic.woff2') format('woff2'),
+    url('./lib/assets/fonts/Circular-BookItalic.woff') format('woff'),
+    url('./lib/assets/fonts/Circular-BookItalic.ttf') format('truetype');
+  font-weight: 350;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Circular';
+  src:
+    url('./lib/assets/fonts/Circular-Regular.woff2') format('woff2'),
+    url('./lib/assets/fonts/Circular-Regular.woff') format('woff'),
+    url('./lib/assets/fonts/Circular-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Circular';
+  src:
+    url('./lib/assets/fonts/Circular-RegularItalic.woff2') format('woff2'),
+    url('./lib/assets/fonts/Circular-RegularItalic.woff') format('woff'),
+    url('./lib/assets/fonts/Circular-RegularItalic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Circular';
+  src:
+    url('./lib/assets/fonts/Circular-Medium.woff2') format('woff2'),
+    url('./lib/assets/fonts/Circular-Medium.woff') format('woff'),
+    url('./lib/assets/fonts/Circular-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Circular';
+  src:
+    url('./lib/assets/fonts/Circular-MediumItalic.woff2') format('woff2'),
+    url('./lib/assets/fonts/Circular-MediumItalic.woff') format('woff'),
+    url('./lib/assets/fonts/Circular-MediumItalic.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Circular';
+  src:
+    url('./lib/assets/fonts/Circular-SemiBold.woff2') format('woff2'),
+    url('./lib/assets/fonts/Circular-SemiBold.woff') format('woff'),
+    url('./lib/assets/fonts/Circular-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Circular';
+  src:
+    url('./lib/assets/fonts/Circular-SemiBoldItalic.woff2') format('woff2'),
+    url('./lib/assets/fonts/Circular-SemiBoldItalic.woff') format('woff'),
+    url('./lib/assets/fonts/Circular-SemiBoldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Circular';
+  src:
+    url('./lib/assets/fonts/Circular-Bold.woff2') format('woff2'),
+    url('./lib/assets/fonts/Circular-Bold.woff') format('woff'),
+    url('./lib/assets/fonts/Circular-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Circular';
+  src:
+    url('./lib/assets/fonts/Circular-BoldItalic.woff2') format('woff2'),
+    url('./lib/assets/fonts/Circular-BoldItalic.woff') format('woff'),
+    url('./lib/assets/fonts/Circular-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Circular';
+  src:
+    url('./lib/assets/fonts/Circular-Black.woff2') format('woff2'),
+    url('./lib/assets/fonts/Circular-Black.woff') format('woff'),
+    url('./lib/assets/fonts/Circular-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Circular';
+  src:
+    url('./lib/assets/fonts/Circular-BlackItalic.woff2') format('woff2'),
+    url('./lib/assets/fonts/Circular-BlackItalic.woff') format('woff'),
+    url('./lib/assets/fonts/Circular-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 /* ==========================================================================
    GT Pressura Typography System
 
@@ -216,7 +402,7 @@
 
 :root {
   /* Font Families */
-  --font-primary: 'GT Pressura', system-ui, sans-serif;
+  --font-primary: 'Circular', system-ui, sans-serif;
   --font-serif: 'Miller Text', serif;
   --font-mono: 'GT Pressura Mono', ui-monospace, monospace;
 
@@ -239,9 +425,10 @@
 	   Base: 17px for optimal readability with GT Pressura's character width
 	   ========================================================================== */
 
-  --text-xs: 0.91rem; /* ~11.8px - micro labels */
-  --text-sm: 0.98rem; /* ~14.2px - small UI text */
-  --text-base: 1.05rem; /* 17px - body text */
+  --text-xxs: 0.8rem;
+  --text-xs: 0.9rem; /* ~11.8px - micro labels */
+  --text-sm: 0.95rem; /* ~14.2px - small UI text */
+  --text-base: 1rem; /* 17px - body text */
   --text-md: 1.125rem; /* ~19px - slightly emphasized */
   --text-lg: 1.25rem; /* ~21px - subheadings */
   --text-xl: 1.5rem; /* ~25.5px - section titles */
@@ -288,14 +475,13 @@
 	   the results of ink under pressure.
 	   ========================================================================== */
 
+  --weight-thin: 100;
   --weight-light: 300;
-  --weight-book: 375;
-  --weight-regular: 415;
-  --weight-news: 450;
-  --weight-medium: 480; /* Slightly heavier than typical 500 */
-  --weight-semibold: 560; /* Between medium and bold */
-  --weight-bold: 650; /* Robust but not too heavy */
-  --weight-heavy: 750;
+  --weight-book: 350;
+  --weight-regular: 400;
+  --weight-medium: 500; /* Slightly heavier than typical 500 */
+  --weight-semibold: 600; /* Between medium and bold */
+  --weight-bold: 700; /* Robust but not too heavy */
   --weight-black: 900;
 
   /* Lyric font settings */

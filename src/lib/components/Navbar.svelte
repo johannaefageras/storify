@@ -49,10 +49,10 @@
 	}
 
 	.navbar-brand {
+		font-family: 'Linzer';
 		display: flex;
 		align-items: center;
 		min-height: 2.5rem;
-		font-family: var(--font-primary);
 		font-size: var(--text-xl);
 		font-weight: var(--weight-medium);
 		font-stretch: 115%;

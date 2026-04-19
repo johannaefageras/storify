@@ -134,7 +134,7 @@
 	}
 
 	.card-label {
-		font-size: var(--text-xs);
+		font-size: var(--text-xxs);
 		font-weight: var(--weight-medium);
 		letter-spacing: var(--tracking-widest);
 		text-transform: uppercase;

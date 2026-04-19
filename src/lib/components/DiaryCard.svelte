@@ -2,7 +2,6 @@
 	import { tones } from '$lib/data/tones';
 	import { jomojiSvgMap } from '$lib/data/jomojis';
 	import { uniqueSvgIds } from '$lib/utils/uniqueSvgIds';
-	import type { Snippet } from 'svelte';
 	import { Emoji } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
@@ -15,14 +14,10 @@
 		toneId: string;
 		generatedText: string;
 		birthday?: string;
-		editable?: boolean;
-		onEdit?: () => void;
 		onClose?: () => void;
-		onShare?: () => void;
-		regenerateSnippet?: Snippet;
 	}
 
-	let { weekday, date, emojis, toneId, generatedText, birthday = '', editable = false, onEdit, onClose, onShare, regenerateSnippet }: Props = $props();
+	let { weekday, date, emojis, toneId, generatedText, birthday = '', onClose }: Props = $props();
 
 	// Expose the document element for parent image/PDF export
 	let documentElement: HTMLDivElement = $state(null!);
@@ -160,31 +155,16 @@
 		{/each}
 	</div>
 
-	<div class="document-footer">
-		<div class="footer-line"></div>
-		<div class="footer-content">
-			{#if onClose}
+	{#if onClose}
+		<div class="document-footer">
+			<div class="footer-line"></div>
+			<div class="footer-content">
 				<button class="close-btn" data-no-export onclick={onClose} title="Stäng">
 					<Emoji name="cross-mark" size={28} />
 				</button>
-			{/if}
-			<div class="footer-right" data-no-export>
-				{#if editable && onEdit}
-					<button class="edit-btn" data-no-export onclick={onEdit} title="Redigera">
-						<Emoji name="pencil" size={28} />
-					</button>
-				{/if}
-				{#if regenerateSnippet}
-					{@render regenerateSnippet()}
-				{/if}
-				{#if onShare}
-					<button class="share-btn" data-no-export onclick={onShare} title="Dela">
-						<Emoji name="users-silhouette" size={28} />
-					</button>
-				{/if}
 			</div>
 		</div>
-	</div>
+	{/if}
 </div>
 
 <style>
@@ -338,20 +318,11 @@
 
 	.footer-content {
 		display: flex;
-		justify-content: space-between;
+		justify-content: flex-start;
 		align-items: center;
 	}
 
-	.footer-right {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		margin-left: auto;
-	}
-
-	.close-btn,
-	.edit-btn,
-	.share-btn {
+	.close-btn {
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -365,15 +336,11 @@
 		transition: transform 0.2s ease, opacity 0.15s ease;
 	}
 
-	.close-btn:hover,
-	.edit-btn:hover,
-	.share-btn:hover {
+	.close-btn:hover {
 		transform: scale(1.1);
 	}
 
-	.close-btn:active,
-	.edit-btn:active,
-	.share-btn:active {
+	.close-btn:active {
 		transform: scale(0.95);
 	}
 
