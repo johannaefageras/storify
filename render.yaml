@@ -58,3 +58,27 @@ services:
         sync: false
       - key: PUBLIC_BASE_URL
         value: https://mystorify.se
+
+  # Daily journal push reminders. Runs hourly UTC; script filters to users
+  # whose local time is currently 20:00 and who haven't written today.
+  # Safe with zero opted-in users (logs "due=0" and exits).
+  - type: cron
+    name: storify-push-reminders
+    runtime: node
+    region: frankfurt
+    schedule: "0 * * * *"
+    buildCommand: npm install && npm run build:cron
+    startCommand: node dist/cron/send-reminders.js
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: PUBLIC_SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: PUBLIC_VAPID_KEY
+        sync: false
+      - key: VAPID_PRIVATE_KEY
+        sync: false
+      - key: VAPID_SUBJECT
+        value: mailto:hi@mystorify.se

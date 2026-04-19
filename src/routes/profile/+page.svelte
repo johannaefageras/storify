@@ -10,6 +10,12 @@
 	import arrowRightSvg from '$lib/assets/icons/arrow-right.svg?raw';
 	import AccentPicker from '$lib/components/AccentPicker.svelte';
 	import { Emoji } from '$lib/assets/emojis';
+	import {
+		checkPushSupport,
+		getExistingSubscription,
+		subscribeToPush,
+		unsubscribeFromPush
+	} from '$lib/push/client';
 
 	// Writing mode modal
 	let showModeModal = $state(false);
@@ -62,6 +68,12 @@
 	let timezone = $state('Europe/Stockholm');
 	let timezoneOptions = $state<string[]>([]);
 	let newsletterError = $state('');
+
+	// Push notification state
+	let pushEnabled = $state(false);
+	let pushBusy = $state(false);
+	let pushError = $state('');
+	let pushUnavailable = $state<false | 'unsupported' | 'needs-ios-install'>(false);
 
 	// Tag inputs
 	let familyInput = $state('');
@@ -280,6 +292,7 @@
 			weeklyEnabled = data.newsletter_weekly_enabled ?? false;
 			monthlyEnabled = data.newsletter_monthly_enabled ?? false;
 			timezone = data.timezone || 'Europe/Stockholm';
+			pushEnabled = data.push_reminders_enabled ?? false;
 
 			// Auto-detect timezone on first visit (only if still at default)
 			if (timezone === 'Europe/Stockholm') {
@@ -328,7 +341,60 @@
 			timezoneOptions = [timezone, ...timezoneOptions];
 		}
 
+		// Push support detection. iOS Safari only delivers Web Push inside an
+		// installed PWA, so flag that case separately for a more helpful message.
+		const support = checkPushSupport();
+		if (!support.supported) {
+			pushUnavailable = 'unsupported';
+		} else {
+			const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+			const isStandalone =
+				window.matchMedia('(display-mode: standalone)').matches ||
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				(navigator as any).standalone === true;
+			if (isIOS && !isStandalone) pushUnavailable = 'needs-ios-install';
+		}
+
 		loading = false;
+	}
+
+	async function handlePushToggle(checked: boolean) {
+		if (!authStore.user || pushBusy) return;
+		pushError = '';
+		pushBusy = true;
+		const prev = pushEnabled;
+		pushEnabled = checked;
+
+		try {
+			if (checked) {
+				const result = await subscribeToPush();
+				if (!result.ok) {
+					pushEnabled = prev;
+					pushError =
+						result.reason === 'permission-denied'
+							? 'Du behöver tillåta notiser i webbläsaren.'
+							: 'Kunde inte aktivera notiser. Försök igen.';
+					return;
+				}
+			} else {
+				await unsubscribeFromPush();
+			}
+
+			const { error: err } = await supabase
+				.from('profiles')
+				.update({
+					push_reminders_enabled: checked,
+					updated_at: new Date().toISOString()
+				})
+				.eq('id', authStore.user.id);
+
+			if (err) {
+				pushEnabled = prev;
+				pushError = 'Kunde inte spara inställningen. Försök igen.';
+			}
+		} finally {
+			pushBusy = false;
+		}
 	}
 
 	async function handleWeeklyToggle(checked: boolean) {
@@ -750,6 +816,34 @@
 							<span class="toggle-slider"></span>
 						</span>
 					</label>
+
+					<label class="toggle-row">
+						<span class="toggle-text">
+							<span class="toggle-label">Påminnelser om att skriva</span>
+							<span class="toggle-helper">
+								{#if pushUnavailable === 'unsupported'}
+									Din webbläsare stöder inte push-notiser.
+								{:else if pushUnavailable === 'needs-ios-install'}
+									Lägg till appen på hemskärmen för att aktivera notiser på iPhone.
+								{:else}
+									Få en liten push-notis när det är dags att skriva dagens inlägg.
+								{/if}
+							</span>
+						</span>
+						<span class="toggle-switch">
+							<input
+								type="checkbox"
+								checked={pushEnabled}
+								disabled={pushBusy || pushUnavailable !== false}
+								onchange={(e) => handlePushToggle(e.currentTarget.checked)}
+							/>
+							<span class="toggle-slider"></span>
+						</span>
+					</label>
+
+					{#if pushError}
+						<div class="profile-alert profile-alert-error" style="margin-bottom: 0.875rem;">{pushError}</div>
+					{/if}
 
 					<div class="field-group">
 						<label class="field-label" for="timezone">Tidszon</label>

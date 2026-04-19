@@ -34,6 +34,48 @@ self.addEventListener('activate', (event) => {
 	);
 });
 
+// Push: show notification when server sends a push event
+self.addEventListener('push', (event) => {
+	const payload = (() => {
+		try {
+			return event.data?.json() ?? {};
+		} catch {
+			return { title: 'Storify', body: event.data?.text() ?? '' };
+		}
+	})();
+
+	const title = payload.title ?? 'Storify';
+	const options: NotificationOptions = {
+		body: payload.body ?? '',
+		icon: payload.icon ?? '/favicon.png',
+		badge: payload.badge ?? '/favicon.png',
+		tag: payload.tag,
+		data: { url: payload.url ?? '/' }
+	};
+
+	event.waitUntil(self.registration.showNotification(title, options));
+});
+
+// Notification click: focus existing tab if open, otherwise open a new one
+self.addEventListener('notificationclick', (event) => {
+	event.notification.close();
+	const targetUrl = (event.notification.data as { url?: string } | null)?.url ?? '/';
+
+	event.waitUntil(
+		(async () => {
+			const clientsList = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+			for (const client of clientsList) {
+				if ('focus' in client) {
+					await client.focus();
+					if ('navigate' in client) await client.navigate(targetUrl).catch(() => {});
+					return;
+				}
+			}
+			await self.clients.openWindow(targetUrl);
+		})()
+	);
+});
+
 // Fetch: network-first for API calls, cache-first for static assets
 self.addEventListener('fetch', (event) => {
 	const url = new URL(event.request.url);
