@@ -1,8 +1,9 @@
 @font-face {
-  font-family: 'GT Pressura';
+  font-family: 'My Storify';
   src:
-    url('./lib/assets/fonts/GTPressura.woff2') format('woff2'),
-    url('./lib/assets/fonts/GTPressura.woff') format('woff');
+    url('./lib/assets/fonts/MyStorify-VF.woff2') format('woff2'),
+    url('./lib/assets/fonts/MyStorify-VF.woff') format('woff'),
+    url('./lib/assets/fonts/MyStorify-VF.ttf') format('truetype');
   font-weight: 300 900;
   font-stretch: 100% 150%;
   font-style: normal italic;
@@ -10,95 +11,37 @@
 }
 
 @font-face {
-  font-family: 'GT Pressura Mono';
+  font-family: 'My Storify Mono';
   src:
-    url('./lib/assets/fonts/GTPressuraMono.woff2') format('woff2'),
-    url('./lib/assets/fonts/GTPressuraMono.woff') format('woff');
+    url('./lib/assets/fonts/MyStorifyMono-VF.woff2') format('woff2'),
+    url('./lib/assets/fonts/MyStorifyMono-VF.woff') format('woff'),
+    url('./lib/assets/fonts/MyStorifyMono-VF.ttf') format('truetype');
   font-weight: 300 900;
   font-style: normal italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Miller Text';
-  src:
-    url('./lib/assets/fonts/MillerText-Regular.woff2') format('woff2'),
-    url('./lib/assets/fonts/MillerText-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Miller Text';
-  src:
-    url('./lib/assets/fonts/MillerText-RegularItalic.woff2') format('woff2'),
-    url('./lib/assets/fonts/MillerText-RegularItalic.woff') format('woff');
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Miller Text';
-  src:
-    url('./lib/assets/fonts/MillerText-SemiBold.woff2') format('woff2'),
-    url('./lib/assets/fonts/MillerText-SemiBold.woff') format('woff');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Miller Text';
-  src:
-    url('./lib/assets/fonts/MillerText-SemiBoldItalic.woff2') format('woff2'),
-    url('./lib/assets/fonts/MillerText-SemiBoldItalic.woff') format('woff');
-  font-weight: 600;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Miller Text';
-  src:
-    url('./lib/assets/fonts/MillerText-Bold.woff2') format('woff2'),
-    url('./lib/assets/fonts/MillerText-Bold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Miller Text';
-  src:
-    url('./lib/assets/fonts/MillerText-BoldItalic.woff2') format('woff2'),
-    url('./lib/assets/fonts/MillerText-BoldItalic.woff') format('woff');
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
   font-family: 'Linzer';
   src:
-    url('./lib/assets/fonts/Linzer-Regular.woff2'), url('./lib/assets/fonts/Linzer-Regular.woff'),
-    url('./lib/assets/fonts/Linzer-Regular.ttf');
+    url('./lib/assets/fonts/Linzer-Regular.woff2') format('woff2'),
+    url('./lib/assets/fonts/Linzer-Regular.woff') format('woff'),
+    url('./lib/assets/fonts/Linzer-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 /* ==========================================================================
-   GT Pressura Typography System
+   My Storify Typography System
 
    Variable Font Axes:
    - wght (Weight): 300-900
-   - wdth (Width/Stretch): 100%-150% (100=Normal, 150=Extended)
+   - wdth (Width/Stretch): 100%-150% (100=Normal, 125=Wide, 150=XWide)
    - ital (Italic): 0-1 (0=Normal, 1=Italic)
 
    Design Philosophy:
-   GT Pressura embodies the warmth of analog printing - the visual gesture
+   My Storify embodies the warmth of analog printing - the visual gesture
    of ink spreading under pressure. Its industrial horizontals and mechanical
    construction create a utilitarian aesthetic perfect for this journaling app.
    ========================================================================== */
@@ -226,8 +169,8 @@
 
 :root {
   /* Font Families */
-  --font-primary: 'GT Pressura', system-ui, sans-serif;
-  --font-mono: 'GT Pressura Mono', ui-monospace, monospace;
+  --font-primary: 'My Storify', system-ui, sans-serif;
+  --font-mono: 'My Storify Mono', ui-monospace, monospace;
 
   /* Legacy aliases for compatibility */
   --font-heading: var(--font-primary);
@@ -245,7 +188,7 @@
 	   Typography Scale
 
 	   Using a modular scale based on 1.2 (minor third) ratio
-	   Base: 17px for optimal readability with GT Pressura's character width
+	   Base: 17px for optimal readability with My Storify's character width
 	   ========================================================================== */
 
   --text-xxs: 0.8rem;
@@ -262,7 +205,7 @@
   /* ==========================================================================
 	   Line Heights
 
-	   GT Pressura benefits from generous line-height due to its mechanical,
+	   My Storify benefits from generous line-height due to its mechanical,
 	   industrial character. Tighter for headings, looser for body text.
 	   ========================================================================== */
 
@@ -277,7 +220,7 @@
   /* ==========================================================================
 	   Letter Spacing
 
-	   GT Pressura's mechanical construction means:
+	   My Storify's mechanical construction means:
 	   - Body text: slight positive tracking improves readability
 	   - Headings: tighter tracking for large sizes
 	   - Small caps/labels: open tracking for legibility
@@ -293,7 +236,7 @@
   /* ==========================================================================
 	   Font Weights
 
-	   GT Pressura variable weight range: 300-900
+	   My Storify variable weight range: 300-900
 	   Each weight appears slightly heavier than the name suggests to reflect
 	   the results of ink under pressure.
 	   ========================================================================== */
@@ -307,14 +250,6 @@
   --weight-bold: 650; /* Robust but not too heavy */
   --weight-heavy: 750;
   --weight-black: 900;
-
-  /* Lyric font settings */
-  --lyric-weight-regular: 400;
-  --lyric-weight-medium: 500;
-  --lyric-weight-semibold: 600;
-  --lyric-weight-bold: 700;
-  --lyric-weight-extrabold: 800;
-  --lyric-weight-black: 900;
 }
 
 /* ==========================================================================
@@ -367,7 +302,7 @@ body {
 /* ==========================================================================
    Headings
 
-   GT Pressura headings use:
+   My Storify headings use:
    - Heavier weights with slight extension for impact
    - Tighter tracking at large sizes
    - Snug line-height for compact hierarchy
@@ -457,7 +392,7 @@ a:hover {
 /* ==========================================================================
    Strong & Emphasis
 
-   Note: Avoiding italic with GT Pressura per user preference.
+   Note: Avoiding italic with My Storify per user preference.
    Using weight and slight width variation instead.
    ========================================================================== */
 
@@ -508,7 +443,7 @@ small {
 /* ==========================================================================
    Code & Monospace
 
-   GT Pressura Mono for code blocks, timestamps, and technical content.
+   My Storify Mono for code blocks, timestamps, and technical content.
    ========================================================================== */
 
 code,
@@ -611,7 +546,7 @@ button {
 /* ==========================================================================
    Form Inputs
 
-   Using GT Pressura with slightly lighter weight for input fields
+   Using My Storify with slightly lighter weight for input fields
    to create visual distinction from labels.
    ========================================================================== */
 
