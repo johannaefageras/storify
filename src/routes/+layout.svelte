@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import '../app.css';
-	import gtPressuraWoff2 from '$lib/assets/fonts/GTPressura.woff2';
+	import myStorifyWoff2 from '$lib/assets/fonts/MyStorify-VF.woff2';
 	import Navbar from '$lib/components/Navbar.svelte';
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import { themeStore } from '$lib/stores/theme.svelte';
@@ -38,7 +38,7 @@
 	<meta name="twitter:image" content="https://mystorify.se/og-image.png" />
 
 	<link rel="canonical" href="https://mystorify.se/" />
-	<link rel="preload" href={gtPressuraWoff2} as="font" type="font/woff2" crossorigin="anonymous" />
+	<link rel="preload" href={myStorifyWoff2} as="font" type="font/woff2" crossorigin="anonymous" />
 
 	<!-- Structured Data -->
 	{@html `<script type="application/ld+json">${JSON.stringify({
