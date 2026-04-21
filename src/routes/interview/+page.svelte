@@ -426,19 +426,6 @@
 				/>
 			</div>
 		{:else if chatStore.phase === 'empty'}
-			<div class="interview-back-bar">
-				<button
-					type="button"
-					class="back-btn"
-					onclick={() => chatStore.backToInterviewerSelection()}
-					aria-label="Tillbaka till val av intervjuare"
-				>
-					<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-						<path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
-					</svg>
-					<span>Välj en annan intervjuare</span>
-				</button>
-			</div>
 			<div class="interview-empty">
 				<InterviewEmptyState onStarter={handleStarter} />
 			</div>
@@ -602,7 +589,11 @@
 					<button class="error-retry" onclick={() => streamResponse()}>Försök igen</button>
 				</div>
 			{/if}
-			<ChatInput onSend={handleSend} onExitChat={handleExitChat} />
+			<ChatInput
+				onSend={handleSend}
+				onExitChat={handleExitChat}
+				onBack={() => chatStore.backToInterviewerSelection()}
+			/>
 		</div>
 	{/if}
 
@@ -628,35 +619,6 @@
 		display: flex;
 		flex-direction: column;
 		min-height: 0;
-	}
-
-	.interview-back-bar {
-		width: 100%;
-		padding: 0 0.75rem;
-		margin-bottom: 0.5rem;
-	}
-
-	.back-btn {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.375rem;
-		padding: 0.375rem 0.625rem;
-		background: transparent;
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-sm);
-		color: var(--color-text-muted);
-		font-family: var(--font-primary);
-		font-size: var(--text-xs);
-		font-weight: var(--weight-medium);
-		letter-spacing: var(--tracking-wide);
-		cursor: pointer;
-		transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-	}
-
-	.back-btn:hover {
-		background: var(--color-neutral);
-		color: var(--color-text);
-		border-color: var(--color-text-muted);
 	}
 
 	.interview-empty,

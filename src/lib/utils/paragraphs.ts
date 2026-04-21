@@ -27,11 +27,33 @@ function escapeHtml(str: string): string {
 		.replace(/'/g, '&#039;');
 }
 
+function isSafeUrl(url: string): boolean {
+	return /^(https?:\/\/|mailto:)/i.test(url.trim());
+}
+
+const LINK_PLACEHOLDER_PREFIX = '\u0000LINK';
+const LINK_PLACEHOLDER_SUFFIX = '\u0000';
+
 export function formatParagraph(text: string): string {
-	return escapeHtml(text)
+	const links: Array<{ text: string; href: string }> = [];
+	const withPlaceholders = text.replace(/\[([^\]]+)\]\(([^\s)]+)\)/g, (match, linkText, href) => {
+		if (!isSafeUrl(href)) return match;
+		const i = links.length;
+		links.push({ text: linkText, href });
+		return `${LINK_PLACEHOLDER_PREFIX}${i}${LINK_PLACEHOLDER_SUFFIX}`;
+	});
+
+	let formatted = escapeHtml(withPlaceholders)
 		.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
 		.replace(/\*(.*?)\*/g, '<em>$1</em>')
 		.replace(/\n/g, '<br>');
+
+	formatted = formatted.replace(/\u0000LINK(\d+)\u0000/g, (_, i) => {
+		const link = links[Number(i)];
+		return `<a href="${escapeHtml(link.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(link.text)}</a>`;
+	});
+
+	return formatted;
 }
 
 export function isSeparatorParagraph(text: string): boolean {

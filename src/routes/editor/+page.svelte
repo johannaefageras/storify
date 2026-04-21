@@ -20,6 +20,7 @@
 	import Placeholder from '@tiptap/extension-placeholder';
 	import TextAlign from '@tiptap/extension-text-align';
 	import Underline from '@tiptap/extension-underline';
+	import Link from '@tiptap/extension-link';
 	import undoSvg from '$lib/assets/icons/undo.svg?raw';
 	import redoSvg from '$lib/assets/icons/redo.svg?raw';
 	import boldSvg from '$lib/assets/icons/bold.svg?raw';
@@ -33,6 +34,8 @@
 	import alignLeftSvg from '$lib/assets/icons/align-left.svg?raw';
 	import alignCenterSvg from '$lib/assets/icons/align-center.svg?raw';
 	import alignRightSvg from '$lib/assets/icons/align-right.svg?raw';
+	import alignJustifySvg from '$lib/assets/icons/align-justify.svg?raw';
+	import linkSvg from '$lib/assets/icons/link.svg?raw';
 	import horizontalRuleSvg from '$lib/assets/icons/horizontal-rule.svg?raw';
 	import aiSparklesSvg from '$lib/assets/icons/sparkles.svg?raw';
 
@@ -57,6 +60,13 @@
 	let alignLeft = $state(true);
 	let alignCenter = $state(false);
 	let alignRight = $state(false);
+	let alignJustify = $state(false);
+	let isLink = $state(false);
+
+	// Link input popover state
+	let showLinkInput = $state(false);
+	let linkUrlInput = $state('');
+	let linkInputEl: HTMLInputElement | null = $state(null);
 
 	onMount(async () => {
 		await wizardStore.initProfile();
@@ -92,9 +102,20 @@
 				TextAlign.configure({
 					types: ['heading', 'paragraph'],
 					defaultAlignment: 'left'
+				}),
+				Link.configure({
+					openOnClick: false,
+					autolink: true,
+					linkOnPaste: true,
+					protocols: ['http', 'https', 'mailto'],
+					defaultProtocol: 'https',
+					HTMLAttributes: {
+						target: '_blank',
+						rel: 'noopener noreferrer nofollow'
+					}
 				})
 			],
-			content: (wizardStore.data.freeText || '').replace(/\s*style="[^"]*text-align:\s*[^"]*"/gi, ''),
+			content: getInitialEditorContent(wizardStore.data.freeText || ''),
 			onUpdate: ({ editor: e }) => {
 				const html = e.getHTML();
 				wizardStore.updateData('freeText', html);
@@ -112,18 +133,125 @@
 				isH3 = e.isActive('heading', { level: 3 });
 				isBulletList = e.isActive('bulletList');
 				isOrderedList = e.isActive('orderedList');
+				alignLeft = e.isActive({ textAlign: 'left' });
 				alignCenter = e.isActive({ textAlign: 'center' });
 				alignRight = e.isActive({ textAlign: 'right' });
-				alignLeft = !alignCenter && !alignRight;
+				alignJustify = e.isActive({ textAlign: 'justify' });
+				if (!alignLeft && !alignCenter && !alignRight && !alignJustify) {
+					alignLeft = true;
+				}
+				isLink = e.isActive('link');
 			}
 		});
 
+		const initialHtml = editor.getHTML();
+		wizardStore.updateData('freeText', initialHtml);
 		hasEditorContent = !editor.isEmpty;
 	});
 
 	onDestroy(() => {
 		editor?.destroy();
 	});
+
+	function normalizeUrl(url: string): string {
+		const trimmed = url.trim();
+		if (!trimmed) return '';
+		if (/^(https?:\/\/|mailto:)/i.test(trimmed)) return trimmed;
+		if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) return `mailto:${trimmed}`;
+		return `https://${trimmed}`;
+	}
+
+	function openLinkInput() {
+		if (!editor) return;
+		const existing = editor.getAttributes('link').href as string | undefined;
+		linkUrlInput = existing ?? '';
+		showLinkInput = true;
+		queueMicrotask(() => linkInputEl?.focus());
+	}
+
+	function applyLink() {
+		if (!editor) return;
+		const url = normalizeUrl(linkUrlInput);
+		if (!url) {
+			editor.chain().focus().extendMarkRange('link').unsetLink().run();
+		} else {
+			const { from, to, empty } = editor.state.selection;
+			if (empty && !editor.isActive('link')) {
+				editor
+					.chain()
+					.focus()
+					.insertContent({
+						type: 'text',
+						text: url,
+						marks: [{ type: 'link', attrs: { href: url } }]
+					})
+					.run();
+			} else {
+				editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+				editor.commands.setTextSelection({ from, to });
+			}
+		}
+		closeLinkInput();
+	}
+
+	function removeLink() {
+		editor?.chain().focus().extendMarkRange('link').unsetLink().run();
+		closeLinkInput();
+	}
+
+	function closeLinkInput() {
+		showLinkInput = false;
+		linkUrlInput = '';
+	}
+
+	function handleLinkInputKey(event: KeyboardEvent) {
+		if (event.key === 'Enter') {
+			event.preventDefault();
+			applyLink();
+		} else if (event.key === 'Escape') {
+			event.preventDefault();
+			closeLinkInput();
+		}
+	}
+
+	function getInitialEditorContent(html: string): string {
+		const trimmed = html.trim();
+		if (!trimmed) return '<p style="text-align: left;"></p>';
+
+		const doc = new DOMParser().parseFromString(trimmed, 'text/html');
+		doc.body.querySelectorAll<HTMLElement>('[style]').forEach((el) => {
+			const style = el.getAttribute('style');
+			if (!style) return;
+
+			const keptRules = style
+				.split(';')
+				.map((rule) => rule.trim())
+				.filter(Boolean)
+				.filter((rule) => !/^text-align\s*:/i.test(rule));
+
+			if (keptRules.length > 0) {
+				el.setAttribute('style', keptRules.join('; '));
+			} else {
+				el.removeAttribute('style');
+			}
+		});
+
+		return doc.body.innerHTML;
+	}
+
+	function htmlToMarkdownText(html: string): string {
+		const doc = new DOMParser().parseFromString(html, 'text/html');
+		doc.body.querySelectorAll('a[href]').forEach((a) => {
+			const href = a.getAttribute('href') ?? '';
+			const text = a.textContent ?? '';
+			a.replaceWith(text ? `[${text}](${href})` : href);
+		});
+		doc.body.querySelectorAll('br').forEach((br) => br.replaceWith('\n'));
+		doc.body.querySelectorAll('p, div, li, h1, h2, h3, h4, h5, h6, hr').forEach((el) => {
+			el.append('\n\n');
+		});
+		return (doc.body.textContent ?? '').replace(/\n{3,}/g, '\n\n').trim();
+	}
 
 	// Refine state
 	let isRefining = $state(false);
@@ -238,7 +366,7 @@
 
 	function handleCreateEntry() {
 		if (!editor) return;
-		const text = editor.getText();
+		const text = htmlToMarkdownText(editor.getHTML());
 		if (!text.trim()) return;
 		generatedEntry = text;
 		selectRandomMessage();
@@ -517,7 +645,7 @@
 					</button>
 					<span class="toolbar-separator"></span>
 					<button
-						class="toolbar-btn"
+						class="toolbar-btn align-left-toolbar-button"
 						class:active={alignLeft}
 						onclick={() => editor?.chain().focus().setTextAlign('left').run()}
 						title="Vänsterjustera"
@@ -533,14 +661,30 @@
 						<span class="toolbar-icon">{@html alignCenterSvg}</span>
 					</button>
 					<button
-						class="toolbar-btn"
+						class="toolbar-btn align-right-toolbar-button"
 						class:active={alignRight}
 						onclick={() => editor?.chain().focus().setTextAlign('right').run()}
 						title="Högerjustera"
 					>
 						<span class="toolbar-icon">{@html alignRightSvg}</span>
 					</button>
+					<button
+						class="toolbar-btn"
+						class:active={alignJustify}
+						onclick={() => editor?.chain().focus().setTextAlign('justify').run()}
+						title="Marginaljustera"
+					>
+						<span class="toolbar-icon">{@html alignJustifySvg}</span>
+					</button>
 					<span class="toolbar-separator"></span>
+					<button
+						class="toolbar-btn link-toolbar-button"
+						class:active={isLink || showLinkInput}
+						onclick={openLinkInput}
+						title="Infoga länk"
+					>
+						<span class="toolbar-icon">{@html linkSvg}</span>
+					</button>
 					<button
 						class="toolbar-btn"
 						onclick={() => editor?.chain().focus().setHorizontalRule().run()}
@@ -562,6 +706,29 @@
 						{/if}
 					</button>
 				</div>
+				{#if showLinkInput}
+					<div class="link-input-row">
+						<input
+							bind:this={linkInputEl}
+							bind:value={linkUrlInput}
+							type="url"
+							class="link-input"
+							placeholder="https://exempel.se eller mailadress"
+							onkeydown={handleLinkInputKey}
+						/>
+						<button class="link-input-btn link-input-apply" onclick={applyLink} type="button">
+							Lägg till
+						</button>
+						{#if isLink}
+							<button class="link-input-btn link-input-remove" onclick={removeLink} type="button">
+								Ta bort
+							</button>
+						{/if}
+						<button class="link-input-btn link-input-cancel" onclick={closeLinkInput} type="button">
+							Avbryt
+						</button>
+					</div>
+				{/if}
 			{/if}
 
 			<!-- Tiptap editor -->
@@ -768,6 +935,70 @@
 		animation: spin 0.7s linear infinite;
 	}
 
+	.link-input-row {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.375rem;
+		padding: 0.5rem;
+		background: var(--color-bg-elevated);
+		border: 1px solid var(--color-border);
+		border-top: none;
+	}
+
+	.link-input {
+		flex: 1;
+		min-width: 12rem;
+		padding: 0.5rem 0.625rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		color: var(--color-text);
+		background: var(--color-bg);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		outline: none;
+		transition: border-color 0.15s ease, box-shadow 0.15s ease;
+	}
+
+	.link-input:focus {
+		border-color: var(--color-accent);
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
+	}
+
+	.link-input-btn {
+		padding: 0.5rem 0.75rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
+		border-radius: var(--radius-sm);
+		border: 1px solid var(--color-border);
+		background: transparent;
+		color: var(--color-text-muted);
+		cursor: pointer;
+		transition: all 0.15s ease;
+	}
+
+	.link-input-btn:hover {
+		background: var(--color-neutral);
+		color: var(--color-text);
+	}
+
+	.link-input-apply {
+		background: var(--color-accent);
+		color: white;
+		border-color: var(--color-accent);
+	}
+
+	.link-input-apply:hover {
+		background: var(--color-accent-hover);
+		color: white;
+	}
+
+	.link-input-remove {
+		color: var(--color-error);
+	}
+
 	/* ==========================================================================
 	   Tiptap Editor
 	   ========================================================================== */
@@ -849,6 +1080,13 @@
 
 	.tiptap-wrapper :global(.tiptap li) {
 		margin: 0.125rem 0;
+	}
+
+	.tiptap-wrapper :global(.tiptap a) {
+		color: var(--color-accent);
+		text-decoration: underline;
+		text-underline-offset: 2px;
+		cursor: pointer;
 	}
 
 	.tiptap-wrapper :global(.tiptap hr) {

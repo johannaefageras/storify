@@ -5,9 +5,10 @@
 	interface Props {
 		onSend: (message: string) => void;
 		onExitChat: () => void | Promise<void>;
+		onBack?: () => void;
 	}
 
-	let { onSend, onExitChat }: Props = $props();
+	let { onSend, onExitChat, onBack }: Props = $props();
 
 	let text = $state('');
 	let textarea: HTMLTextAreaElement | undefined = $state();
@@ -87,6 +88,15 @@
 			</svg>
 		</button>
 	</div>
+
+	{#if chatStore.phase === 'empty' && onBack}
+		<button type="button" class="back-link" onclick={onBack}>
+			<span>Välj en annan intervjuare</span>
+			<svg width="20" height="20" viewBox="0 0 640 640" aria-hidden="true">
+				<path fill="currentColor" d="M528 152C528 138.7 538.7 128 552 128C565.3 128 576 138.7 576 152L576 248C576 301 533 344 480 344L145.9 344L240.9 439C250.3 448.4 250.3 463.6 240.9 472.9C231.5 482.2 216.3 482.3 207 472.9L71 337C66.5 332.5 64 326.4 64 320C64 313.6 66.5 307.5 71 303L207 167C216.4 157.6 231.6 157.6 240.9 167C250.2 176.4 250.3 191.6 240.9 200.9L145.9 295.9L480 295.9C506.5 295.9 528 274.4 528 247.9L528 151.9z"/>
+			</svg>
+		</button>
+	{/if}
 
 	{#if showCharCount}
 		<span class="char-count" class:char-over={isOverLimit}>
@@ -201,6 +211,29 @@
 	.send-btn:disabled {
 		opacity: 0.35;
 		cursor: not-allowed;
+	}
+
+	.back-link {
+		align-self: flex-start;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
+		padding: 0.125rem 0;
+		background: transparent;
+		border: none;
+		color: var(--color-text-muted);
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-regular) !important;
+		letter-spacing: var(--tracking-wide);
+		cursor: pointer;
+		text-decoration: underline;
+		text-underline-offset: 2px;
+		transition: color 0.15s ease;
+	}
+
+	.back-link:hover {
+		color: var(--color-text);
 	}
 
 	.char-count {

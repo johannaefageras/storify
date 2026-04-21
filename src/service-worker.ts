@@ -88,6 +88,18 @@ self.addEventListener('fetch', (event) => {
 		return;
 	}
 
+	// Skip Vite dev-server paths so source edits are picked up in dev
+	if (
+		import.meta.env.DEV ||
+		url.pathname.startsWith('/@vite') ||
+		url.pathname.startsWith('/@id') ||
+		url.pathname.startsWith('/@fs') ||
+		url.pathname.startsWith('/src/') ||
+		url.pathname.startsWith('/node_modules/')
+	) {
+		return;
+	}
+
 	event.respondWith(
 		(async () => {
 			const cache = await caches.open(CACHE_NAME);

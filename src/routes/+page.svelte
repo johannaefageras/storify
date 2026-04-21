@@ -232,6 +232,7 @@
 		letter-spacing: var(--tracking-tight);
 		color: var(--color-text);
 		margin-bottom: 0.25rem;
+		text-transform: uppercase;
 	}
 
 	.mode-card-description {
@@ -322,7 +323,7 @@
 
 		.mode-card {
 			gap: 0.45rem;
-			padding: 0.65rem 0.8rem;
+			padding: 0.8rem 0.8rem;
 		}
 
 		.mode-card-title {

@@ -126,6 +126,30 @@ describe('formatParagraph', () => {
 	it('converts newlines to br', () => {
 		expect(formatParagraph('line1\nline2')).toBe('line1<br>line2');
 	});
+
+	it('renders https markdown link as anchor', () => {
+		expect(formatParagraph('see [my blog](https://example.com)')).toBe(
+			'see <a href="https://example.com" target="_blank" rel="noopener noreferrer">my blog</a>'
+		);
+	});
+
+	it('renders mailto markdown link as anchor', () => {
+		expect(formatParagraph('[mail](mailto:a@b.se)')).toBe(
+			'<a href="mailto:a@b.se" target="_blank" rel="noopener noreferrer">mail</a>'
+		);
+	});
+
+	it('leaves javascript: link text literal (does not render as anchor)', () => {
+		const result = formatParagraph('[click](javascript:alert(1))');
+		expect(result).not.toContain('<a ');
+		expect(result).toContain('[click]');
+	});
+
+	it('escapes HTML inside link text and href', () => {
+		const result = formatParagraph('[<b>t</b>](https://ex.com/?a="x")');
+		expect(result).toContain('&lt;b&gt;t&lt;/b&gt;');
+		expect(result).toContain('&quot;');
+	});
 });
 
 describe('getRenderParagraphs', () => {
