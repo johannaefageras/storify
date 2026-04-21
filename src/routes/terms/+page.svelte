@@ -31,8 +31,8 @@
 	<p class="updated">Senast uppdaterad: 27 mars 2026</p>
 
 	<section>
-		<h2>Välkommen till My Storify</h2>
-		<p>My Storify är en app som hjälper dig skriva dagbok genom att ställa frågor om din dag och sedan generera en personlig text med hjälp av AI. Appen kan användas anonymt eller med ett konto, och innehåller även en frivillig publik funktion kallad Gemenskapen där användare kan dela dagboksanteckningar med andra. Genom att använda appen godkänner du dessa villkor.</p>
+		<h2>Välkommen till Storify</h2>
+		<p>Storify är en app som hjälper dig skriva dagbok genom att ställa frågor om din dag och sedan generera en personlig text med hjälp av AI. Appen kan användas anonymt eller med ett konto, och innehåller även en frivillig publik funktion kallad Gemenskapen där användare kan dela dagboksanteckningar med andra. Genom att använda appen godkänner du dessa villkor.</p>
 	</section>
 
 	<section>
@@ -43,7 +43,7 @@
 
 	<section>
 		<h2>Användning utan konto</h2>
-		<p>Du behöver inget konto för att använda My Storify. Utan konto lagras din profil lokalt på din enhet och du har full kontroll över den. Dagboksdata skickas till AI:n för att skapa texten, men sparas inte hos oss efteråt, förutom om du själv väljer att dela ett inlägg till Gemenskapen.</p>
+		<p>Du behöver inget konto för att använda Storify. Utan konto lagras din profil lokalt på din enhet och du har full kontroll över den. Dagboksdata skickas till AI:n för att skapa texten, men sparas inte hos oss efteråt, förutom om du själv väljer att dela ett inlägg till Gemenskapen.</p>
 	</section>
 
 	<section>
@@ -54,7 +54,7 @@
 	<section>
 		<h2>Ditt innehåll och dina rättigheter</h2>
 		<p>All data du matar in och alla dagbokstexter som genereras tillhör dig. Vi gör inga anspråk på ditt innehåll. Du är fri att använda, spara, dela eller radera dina dagbokstexter precis som du vill.</p>
-		<p>Om du väljer att dela en dagboksanteckning till Gemenskapen ger du My Storify rätt att visa det innehållet publikt i appen tillsammans med valt visningsnamn eller som "Anonym". Denna rättighet gäller endast för att driva och visa Gemenskapen.</p>
+		<p>Om du väljer att dela en dagboksanteckning till Gemenskapen ger du Storify rätt att visa det innehållet publikt i appen tillsammans med valt visningsnamn eller som "Anonym". Denna rättighet gäller endast för att driva och visa Gemenskapen.</p>
 		<p>Du ansvarar själv för det innehåll du väljer att dela publikt. Dela därför inte material som du inte har rätt att publicera, eller uppgifter om dig själv eller andra som du inte vill ska bli synliga för andra användare.</p>
 	</section>
 
@@ -80,7 +80,7 @@
 
 	<section>
 		<h2>Vad du inte får göra</h2>
-		<p>För att My Storify ska fungera bra för alla ber vi dig att respektera följande:</p>
+		<p>För att Storify ska fungera bra för alla ber vi dig att respektera följande:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
@@ -127,12 +127,12 @@
 
 	<section>
 		<h2>Tjänstens begränsningar</h2>
-		<p>My Storify använder hastighetsbegränsning för att skydda tjänsten mot missbruk. Det innebär att antalet dagbokstexter och e-postmeddelanden du kan generera under en viss tidsperiod är begränsat. Om du når gränsen kan du försöka igen efter en stund.</p>
+		<p>Storify använder hastighetsbegränsning för att skydda tjänsten mot missbruk. Det innebär att antalet dagbokstexter och e-postmeddelanden du kan generera under en viss tidsperiod är begränsat. Om du når gränsen kan du försöka igen efter en stund.</p>
 	</section>
 
 	<section>
 		<h2>Ansvarsbegränsning</h2>
-		<p>My Storify tillhandahålls i befintligt skick ("as is"). Vi gör vårt bästa för att appen ska fungera bra, men kan inte garantera att den alltid är tillgänglig eller felfri. Vi ansvarar inte för:</p>
+		<p>Storify tillhandahålls i befintligt skick ("as is"). Vi gör vårt bästa för att appen ska fungera bra, men kan inte garantera att den alltid är tillgänglig eller felfri. Vi ansvarar inte för:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
@@ -159,7 +159,7 @@
 
 	<section>
 		<h2>Tredjepartstjänster</h2>
-		<p>My Storify använder externa tjänster för att fungera. Genom att använda appen godkänner du även dessa tjänsters villkor:</p>
+		<p>Storify använder externa tjänster för att fungera. Genom att använda appen godkänner du även dessa tjänsters villkor:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>

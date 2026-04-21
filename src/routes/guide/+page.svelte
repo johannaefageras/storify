@@ -62,15 +62,15 @@
 		<Emoji name={StudentIcon} size={96} />
 		<h1>Användarguide</h1>
 	</div>
-	<p class="subtitle">Så får du ut det bästa av My Storify</p>
+	<p class="subtitle">Så får du ut det bästa av Storify</p>
 	<p class="updated">Senast uppdaterad: 27 mars 2026</p>
 
 	<section>
-		<h2>Hur fungerar My Storify?</h2>
-		<p>My Storify hjälper dig att skriva dagbok genom att omvandla dina svar på enkla frågor till en personlig dagbokstext. Du väljer en röst som passar ditt humör, och sedan skapar AI:n en text baserad på det du berättat.</p>
+		<h2>Hur fungerar Storify?</h2>
+		<p>Storify hjälper dig att skriva dagbok genom att omvandla dina svar på enkla frågor till en personlig dagbokstext. Du väljer en röst som passar ditt humör, och sedan skapar AI:n en text baserad på det du berättat.</p>
 		<p>Tänk på det som att ha en personlig författare som lyssnar på din dag och sedan skriver ner den åt dig – men med din egen information och i den stil du väljer.</p>
 		<p>Appen kan även hämta aktuellt väder och din plats automatiskt, så du slipper fylla i det manuellt – ett litet sätt att fånga stämningen i din dag.</p>
-		<p>Vill du ibland dela mer än bara med dig själv? My Storify har också <strong>Gemenskapen</strong>, där du frivilligt kan publicera utvalda dagboksanteckningar och läsa sådant andra användare valt att dela.</p>
+		<p>Vill du ibland dela mer än bara med dig själv? Storify har också <strong>Gemenskapen</strong>, där du frivilligt kan publicera utvalda dagboksanteckningar och läsa sådant andra användare valt att dela.</p>
 		<p>Du kan välja mellan fyra lägen:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
@@ -467,7 +467,7 @@
 				<span class="save-emoji"><Emoji name="users-silhouette" size={28} /></span>
 				<div class="save-content">
 					<h3>Dela till Gemenskapen</h3>
-					<p>Publicera texten frivilligt så att andra My Storify-användare kan läsa den.</p>
+					<p>Publicera texten frivilligt så att andra Storify-användare kan läsa den.</p>
 				</div>
 			</div>
 		</div>
@@ -478,14 +478,14 @@
 
 	<section>
 		<h2>Gemenskapen</h2>
-		<p>Gemenskapen är My Storifys publika flöde för dagboksanteckningar som användare själva valt att dela. Där kan du upptäcka olika röster, läsa andras vardagsberättelser och få inspiration till hur samma slags dag kan låta i helt olika toner.</p>
+		<p>Gemenskapen är Storifys publika flöde för dagboksanteckningar som användare själva valt att dela. Där kan du upptäcka olika röster, läsa andras vardagsberättelser och få inspiration till hur samma slags dag kan låta i helt olika toner.</p>
 		<p>Du kan dela direkt efter att du skapat en text i guiden, snabbläget, AI-intervjun eller Skriv fritt. Har du redan sparat en anteckning i ditt dagboksarkiv kan du också dela den därifrån senare.</p>
 		<p>För att läsa delade inlägg går du till <a href="/community">Gemenskapen</a>. För att publicera väljer du knappen för delning när du är klar med din text.</p>
 	</section>
 
 	<section>
 		<h2>Skapa konto och bygg ditt dagboksarkiv</h2>
-		<p>My Storify kan användas helt anonymt – du behöver inget konto för att generera dagbokstexter. Men skapar du ett konto får du tillgång till extra funktioner:</p>
+		<p>Storify kan användas helt anonymt – du behöver inget konto för att generera dagbokstexter. Men skapar du ett konto får du tillgång till extra funktioner:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>

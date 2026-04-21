@@ -123,7 +123,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
       <div style="border-top: 1px solid #eee; padding-top: 20px; margin-top: 24px;">
         <p style="margin: 0; font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.5px;">
-          Berättat av My Storify
+          Berättat av Storify
         </p>
       </div>
     </div>
@@ -132,7 +132,7 @@ export const POST: RequestHandler = async ({ request }) => {
 </html>`;
 
     const { error } = await resend.emails.send({
-      from: 'My Storify <journal@bystorify.se>',
+      from: 'Storify <journal@bystorify.se>',
       replyTo: 'reply@bystorify.se',
       to: email,
       subject: `Din dagbok: ${weekday}${date ? `, ${date}` : ''}`,

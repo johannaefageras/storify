@@ -78,7 +78,7 @@
 					<h1 class="title">{greeting}</h1>
 					<p class="subtitle">{subtitle}</p>
 				{:else}
-					<h1 class="title">My Storify</h1>
+					<h1 class="title">Storify</h1>
 					<p class="subtitle">Du har inte tid att skriva dagbok. Perfekt – det behöver du inte heller.</p>
 				{/if}
 			</header>

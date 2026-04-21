@@ -1,11 +1,11 @@
 import type { WizardData, UserProfile } from '$lib/stores/wizard.svelte';
 import { getZodiacFromBirthday, getAgeFromBirthday } from '$lib/utils/zodiac';
-import jomojiMeanings from '$lib/data/jomojiMeanings.json';
+import emojiMeaningsJson from '$lib/data/emojiMeanings.json';
 import type { ToneId } from '$lib/data/tonePrompts/types';
 import { getMoodColorById } from '$lib/data/moodColors';
 
 type EmojiMeaning = { name: string; meaning: string };
-const emojiMeanings = jomojiMeanings as unknown as Record<string, EmojiMeaning>;
+const emojiMeanings = emojiMeaningsJson as unknown as Record<string, EmojiMeaning>;
 
 /**
  * Tone metadata for addon instructions.

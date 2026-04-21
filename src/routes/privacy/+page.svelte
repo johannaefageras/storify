@@ -23,12 +23,12 @@
 
 	<section>
 		<h2>Vem ansvarar för dina uppgifter?</h2>
-		<p>My Storify drivs av Johanna Fagerås. Om du har frågor om hur vi hanterar dina uppgifter kan du kontakta oss på <a href="mailto:hi@mystorify.se">hi@mystorify.se</a>.</p>
+		<p>Storify drivs av Johanna Fagerås. Om du har frågor om hur vi hanterar dina uppgifter kan du kontakta oss på <a href="mailto:hi@mystorify.se">hi@mystorify.se</a>.</p>
 	</section>
 
 	<section>
 		<h2>Vilka uppgifter samlar vi in?</h2>
-		<p>My Storify samlar in de uppgifter du själv väljer att fylla i när du använder appen. Detta kan inkludera:</p>
+		<p>Storify samlar in de uppgifter du själv väljer att fylla i när du använder appen. Detta kan inkludera:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
@@ -69,7 +69,7 @@
 
 	<section>
 		<h2>När du delar till Gemenskapen</h2>
-		<p>Gemenskapen är en publik del av My Storify. En dagboksanteckning blir aldrig offentlig automatiskt, utan bara om du själv aktivt väljer att dela den.</p>
+		<p>Gemenskapen är en publik del av Storify. En dagboksanteckning blir aldrig offentlig automatiskt, utan bara om du själv aktivt väljer att dela den.</p>
 		<p>När du delar ett inlägg kan följande information bli synlig för andra användare: din genererade dagbokstext, ett kort utdrag ur texten, valt visningsnamn eller "Anonym", datum för anteckningen, vald röst, emojis och veckodag.</p>
 		<p>Om du delar som inloggad användare kopplas inlägget till ditt konto i bakgrunden. Om du delar utan konto sparas inget användarkonto tillsammans med inlägget, men själva innehållet blir ändå publikt i Gemenskapen.</p>
 		<p>Dela därför inte information i Gemenskapen som du inte vill ska kunna läsas av andra användare. Om du har delat anonymt och vill begära radering i efterhand kan du kontakta oss.</p>
@@ -168,7 +168,7 @@
 
 	<section>
 		<h2>Barn och unga</h2>
-		<p>My Storify kan användas av personer i alla åldrar. Vi samlar inte medvetet in mer information än nödvändigt, och all data stannar på användarens egen enhet om inget konto skapas, så länge användaren inte själv väljer att dela ett inlägg till Gemenskapen. Vi uppmuntrar föräldrar och vårdnadshavare att vara delaktiga i yngre barns användning av appen, särskilt vid publik delning.</p>
+		<p>Storify kan användas av personer i alla åldrar. Vi samlar inte medvetet in mer information än nödvändigt, och all data stannar på användarens egen enhet om inget konto skapas, så länge användaren inte själv väljer att dela ett inlägg till Gemenskapen. Vi uppmuntrar föräldrar och vårdnadshavare att vara delaktiga i yngre barns användning av appen, särskilt vid publik delning.</p>
 	</section>
 
 	<section>

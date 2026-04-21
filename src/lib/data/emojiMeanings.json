@@ -1,0 +1,242 @@
+{
+  "activity-beer-mugs": {
+    "name": "Ölsejdlar",
+    "meaning": "Användaren har skålat, firat eller umgåtts över en öl med någon."
+  },
+  "activity-books": {
+    "name": "Böcker",
+    "meaning": "Användaren har läst, pluggat eller fördjupat sig i kunskap."
+  },
+  "activity-brain": {
+    "name": "Hjärna",
+    "meaning": "Användaren har tänkt mycket, använt huvudet eller kämpat mentalt."
+  },
+  "activity-coffee": {
+    "name": "Kaffe",
+    "meaning": "Användaren har fikat, druckit kaffe eller tagit en välbehövd paus."
+  },
+  "activity-dice": {
+    "name": "Tärning",
+    "meaning": "Användaren har spelat, tagit en chansning eller lämnat något åt slumpen."
+  },
+  "activity-headphones": {
+    "name": "Hörlurar",
+    "meaning": "Användaren har lyssnat på musik, poddar eller stängt ute omvärlden ett tag."
+  },
+  "activity-house-plant": {
+    "name": "Krukväxt",
+    "meaning": "Användaren har pysslat om växter, varit hemma eller njutit av det gröna."
+  },
+  "activity-laptop": {
+    "name": "Laptop",
+    "meaning": "Användaren har jobbat vid datorn, kodat eller suttit framför skärmen."
+  },
+  "activity-memo": {
+    "name": "Anteckning",
+    "meaning": "Användaren har skrivit, antecknat eller dokumenterat något viktigt."
+  },
+  "activity-palette": {
+    "name": "Färgpalett",
+    "meaning": "Användaren har skapat, målat eller ägnat sig åt något kreativt."
+  },
+  "activity-shopping-cart": {
+    "name": "Kundvagn",
+    "meaning": "Användaren har handlat, shoppat eller fyllt på hemma."
+  },
+  "activity-soccer-ball": {
+    "name": "Fotboll",
+    "meaning": "Användaren har spelat, tränat eller tittat på sport."
+  },
+  "feeling-exploding-head": {
+    "name": "Mind blown",
+    "meaning": "Användaren är helt överväldigad eller chockad. Något otroligt har hänt som de knappt kan fatta."
+  },
+  "feeling-holding-back-tears": {
+    "name": "Håller tillbaka tårar",
+    "meaning": "Användaren är rörd eller nära att gråta. Känslorna ligger precis under ytan."
+  },
+  "feeling-melting": {
+    "name": "Smälter",
+    "meaning": "Användaren känner sig överväldigad, kanske av värme, stress eller starka känslor."
+  },
+  "feeling-monocle": {
+    "name": "Granskande",
+    "meaning": "Användaren har analyserat eller granskat något noggrant. Lite skeptisk eller nyfiken."
+  },
+  "feeling-rolling-eyes": {
+    "name": "Ögonrullning",
+    "meaning": "Användaren har irriterat sig på något eller tyckt att något var dumt/onödigt."
+  },
+  "feeling-smirking": {
+    "name": "Självsäker",
+    "meaning": "Användaren känner sig självsäker, kanske lite sarkastisk eller vet något andra inte vet."
+  },
+  "feeling-star-struck": {
+    "name": "Imponerad",
+    "meaning": "Användaren är mycket imponerad eller beundrar något/någon."
+  },
+  "feeling-thinking": {
+    "name": "Funderar",
+    "meaning": "Användaren har funderat mycket eller tänkt på något specifikt."
+  },
+  "feeling-unamused": {
+    "name": "Ointresserad",
+    "meaning": "Användaren är ointresserad eller missnöjd. Inte imponerad av något."
+  },
+  "feeling-upside-down": {
+    "name": "Ironisk",
+    "meaning": "Användaren känner ironi eller att saker är upp-och-ner. Lite absurt."
+  },
+  "feeling-weary": {
+    "name": "Sliten",
+    "meaning": "Användaren är sliten och trött efter en tuff dag."
+  },
+  "feeling-zany": {
+    "name": "Galen",
+    "meaning": "Användaren känner sig galen, knäpp eller tokig på ett roligt sätt."
+  },
+  "gesture-biceps": {
+    "name": "Biceps",
+    "meaning": "Användaren har känt sig stark, tränat eller övervunnit en utmaning."
+  },
+  "gesture-clapping-hands": {
+    "name": "Applåder",
+    "meaning": "Användaren har fått beröm, uppskattat något eller firat en prestation."
+  },
+  "gesture-fuck-you": {
+    "name": "Långfinger",
+    "meaning": "Användaren har känt stark frustration, ilska eller trots."
+  },
+  "gesture-hands-folded": {
+    "name": "Knäppta händer",
+    "meaning": "Användaren har tackat, bett eller hoppats på något. Lite ödmjukhet."
+  },
+  "gesture-handshake": {
+    "name": "Handslag",
+    "meaning": "Användaren har kommit överens, mött någon eller avslutat en deal."
+  },
+  "gesture-index-pointing-up": {
+    "name": "Pekfinger upp",
+    "meaning": "Användaren har fått en idé, velat påpeka något viktigt eller flaggat en detalj."
+  },
+  "gesture-ok": {
+    "name": "OK",
+    "meaning": "Användaren tycker att saker är okej, bra nog eller godkända."
+  },
+  "gesture-pinched-fingers": {
+    "name": "Nypta fingrar",
+    "meaning": "Användaren har ifrågasatt något, undrat 'vad då?' eller varit lätt provocerad."
+  },
+  "gesture-sign-of-the-horns": {
+    "name": "Rocktecken",
+    "meaning": "Användaren har känt sig häftig, rockig eller hejat på något med energi."
+  },
+  "gesture-thumbs-down": {
+    "name": "Tummen ner",
+    "meaning": "Användaren har ogillat något, tyckt att det var dåligt eller sagt nej."
+  },
+  "gesture-thumbs-up": {
+    "name": "Tummen upp",
+    "meaning": "Användaren har gillat något, tyckt att det var bra eller gett sitt godkännande."
+  },
+  "gesture-victory": {
+    "name": "Segertecken",
+    "meaning": "Användaren har segrat, känt fred eller uppnått vinst."
+  },
+  "location-beach": {
+    "name": "Strand",
+    "meaning": "Användaren har varit vid havet, njutit av sommar eller kopplat av utomhus."
+  },
+  "location-car": {
+    "name": "Bil",
+    "meaning": "Användaren har kört, varit på resande fot eller suttit mycket i bilen."
+  },
+  "location-cityscape": {
+    "name": "Stad",
+    "meaning": "Användaren har varit i stan, upplevt storstadspuls eller rört sig urbant."
+  },
+  "location-highway": {
+    "name": "Motorväg",
+    "meaning": "Användaren har varit på väg någonstans, kört långt eller rest."
+  },
+  "location-hospital": {
+    "name": "Sjukhus",
+    "meaning": "Användaren har varit på sjukhus, besökt vården eller oroat sig för hälsan."
+  },
+  "location-house": {
+    "name": "Hus",
+    "meaning": "Användaren har varit hemma, kopplat av eller pysslat i boet."
+  },
+  "location-national-park": {
+    "name": "Nationalpark",
+    "meaning": "Användaren har varit ute i naturen, vandrat eller upplevt vildmark."
+  },
+  "location-ocean": {
+    "name": "Hav",
+    "meaning": "Användaren har varit nära havet, känt vidd eller längtat efter vågor."
+  },
+  "location-office": {
+    "name": "Kontor",
+    "meaning": "Användaren har jobbat på kontoret eller haft en typisk arbetsdag."
+  },
+  "location-school": {
+    "name": "Skola",
+    "meaning": "Användaren har varit i skolan, studerat eller lärt sig något nytt."
+  },
+  "location-tram": {
+    "name": "Spårvagn",
+    "meaning": "Användaren har åkt kollektivt, pendlat eller rört sig i staden."
+  },
+  "location-tree": {
+    "name": "Träd",
+    "meaning": "Användaren har varit i naturen, känt lugn eller njutit av grönska."
+  },
+  "symbol-bomb": {
+    "name": "Bomb",
+    "meaning": "Användaren har upplevt något explosivt, oväntat eller kaotiskt."
+  },
+  "symbol-broken-heart": {
+    "name": "Brustet hjärta",
+    "meaning": "Användaren har upplevt hjärtesorg, sorg i kärlek eller djup besvikelse."
+  },
+  "symbol-bullseye": {
+    "name": "Mitt i prick",
+    "meaning": "Användaren har träffat rätt, nått ett mål eller lyckats med något precist."
+  },
+  "symbol-life-buoy": {
+    "name": "Livboj",
+    "meaning": "Användaren har fått hjälp, räddats eller upplevt trygghet i svåra stunder."
+  },
+  "symbol-pile-of-poo": {
+    "name": "Bajshög",
+    "meaning": "Användaren har upplevt något riktigt dåligt, skit eller en urusel dag."
+  },
+  "symbol-rainbow": {
+    "name": "Regnbåge",
+    "meaning": "Användaren har känt hopp, sett något vackert eller upplevt en ljusning."
+  },
+  "symbol-rocket": {
+    "name": "Raket",
+    "meaning": "Användaren har startat något, tagit fart eller upplevt snabb framgång."
+  },
+  "symbol-skull": {
+    "name": "Dödskalle",
+    "meaning": "Användaren har upplevt något dödligt tråkigt, skrämmande eller mörkt humor."
+  },
+  "symbol-toilet-paper": {
+    "name": "Toapapper",
+    "meaning": "Användaren har ägnat sig åt vardagssysslor eller hushållsgöromål."
+  },
+  "symbol-trophy": {
+    "name": "Trofé",
+    "meaning": "Användaren har vunnit, triumferat eller uppnått en stor framgång."
+  },
+  "symbol-unicorn": {
+    "name": "Enhörning",
+    "meaning": "Användaren har upplevt något magiskt, fantastiskt eller sällsynt vackert."
+  },
+  "symbol-volcano": {
+    "name": "Vulkan",
+    "meaning": "Användaren har känt undertryckta känslor som bubblar, intensitet eller utbrott."
+  }
+}

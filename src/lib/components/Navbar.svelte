@@ -9,7 +9,7 @@
 <nav class="navbar" class:no-border={pathname.startsWith('/wizard')}>
 	<div class="navbar-inner">
 		<div class="navbar-left">
-			<a href="/" class="navbar-brand">My Storify</a>
+			<a href="/" class="navbar-brand">Storify</a>
 		</div>
 
 		<div class="navbar-actions">
@@ -49,7 +49,7 @@
 	}
 
 	.navbar-brand {
-		font-family: 'Linzer';
+		font-family: var(--font-primary);
 		display: flex;
 		align-items: center;
 		min-height: 2.5rem;

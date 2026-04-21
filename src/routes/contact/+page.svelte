@@ -211,7 +211,7 @@
 	</section>
 
 	<section>
-		<p>My Storify är ett enmansprojekt, så alla meddelanden läses av en faktisk människa – inte en bot. På hedersord.</p>
+		<p>Storify är ett enmansprojekt, så alla meddelanden läses av en faktisk människa – inte en bot. På hedersord.</p>
 	</section>
 
 	<LegalFooter />

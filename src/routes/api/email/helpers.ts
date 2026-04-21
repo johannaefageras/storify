@@ -1,15 +1,11 @@
 import { escapeHtml, safeMarkdownToHtml } from '$lib/validation';
 
-export function buildEmailHtml(
-	entry: string,
-	weekday: string,
-	date: string
-): string {
-	const formattedEntry = safeMarkdownToHtml(entry);
-	const safeWeekday = escapeHtml(weekday || 'Dagbok');
-	const safeDate = escapeHtml(date || '');
+export function buildEmailHtml(entry: string, weekday: string, date: string): string {
+  const formattedEntry = safeMarkdownToHtml(entry);
+  const safeWeekday = escapeHtml(weekday || 'Dagbok');
+  const safeDate = escapeHtml(date || '');
 
-	return `
+  return `
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,7 +40,7 @@ export function buildEmailHtml(
 
       <div style="border-top: 1px solid #eee; padding-top: 20px; margin-top: 24px;">
         <p style="margin: 0; font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.5px;">
-          Berättat av My Storify
+          Berättat av Storify
         </p>
       </div>
     </div>
@@ -54,5 +50,5 @@ export function buildEmailHtml(
 }
 
 export function buildEmailSubject(weekday: string, date?: string): string {
-	return `Din dagbok: ${weekday}${date ? `, ${date}` : ''}`;
+  return `Din dagbok: ${weekday}${date ? `, ${date}` : ''}`;
 }

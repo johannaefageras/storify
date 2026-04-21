@@ -44,7 +44,7 @@
 	<div class="auth-container">
 		<header class="auth-header">
 			<h1 class="auth-title">Logga in</h1>
-			<p class="auth-subtitle">Välkommen tillbaka till My Storify</p>
+			<p class="auth-subtitle">Välkommen tillbaka till Storify</p>
 		</header>
 
 		<form class="auth-form" onsubmit={handleLogin}>

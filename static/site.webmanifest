@@ -1,6 +1,6 @@
 {
-  "name": "My Storify",
-  "short_name": "My Storify",
+  "name": "Storify",
+  "short_name": "Storify",
   "description": "AI-powered journaling app that transforms your responses into personalized diary entries",
   "start_url": "/",
   "scope": "/",

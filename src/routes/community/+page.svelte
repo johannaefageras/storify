@@ -248,7 +248,7 @@
 		<div class="community-header">
 			<div class="header-icon"><UniqueEmoji><Emoji name="users-silhouette" size={72} /></UniqueEmoji></div>
 			<h1 class="community-title">Gemenskapen</h1>
-			<p class="community-subtitle">Dagboksanteckningar delade av My Storify-användare</p>
+			<p class="community-subtitle">Dagboksanteckningar delade av Storify-användare</p>
 		</div>
 
 		<div class="filters-bar">
