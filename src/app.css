@@ -227,7 +227,6 @@
 :root {
   /* Font Families */
   --font-primary: 'GT Pressura', system-ui, sans-serif;
-  --font-serif: 'Miller Text', serif;
   --font-mono: 'GT Pressura Mono', ui-monospace, monospace;
 
   /* Legacy aliases for compatibility */
