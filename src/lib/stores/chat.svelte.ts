@@ -125,6 +125,9 @@ function createChatStore() {
 		get isAtLimit() {
 			return messages.length >= 36;
 		},
+		get sendsRemaining() {
+			return Math.max(0, Math.ceil((36 - messages.length) / 2));
+		},
 
 		// Conversation
 		addUserMessage(content: string) {

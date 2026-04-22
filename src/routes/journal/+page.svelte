@@ -5,8 +5,8 @@
 	import { supabase } from '$lib/supabase/client';
 	import { tones } from '$lib/data/tones';
 
-	import chevronLeftSvg from '$lib/assets/svg/chevronLeft.svg?raw';
-	import chevronRightSvg from '$lib/assets/svg/chevronRight.svg?raw';
+	import paginationArrowLeftSvg from '$lib/assets/icons/arrow-left.svg?raw';
+	import paginationArrowRightSvg from '$lib/assets/icons/arrow-right.svg?raw';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import arrowLeftSvg from '$lib/assets/icons/arrow-left.svg?raw';
@@ -15,6 +15,7 @@
 	import TonePickerDropdown from '$lib/components/TonePickerDropdown.svelte';
 	import ShareToCommunity from '$lib/components/ShareToCommunity.svelte';
 	import { streamEntry } from '$lib/utils/streamEntry';
+	import { fireBadgeEvent } from '$lib/gamification/client';
 
 	interface Entry {
 		id: string;
@@ -78,14 +79,14 @@
 		'cat-perspective': 'cat',
 		'chaotic': 'tornado',
 		'classic': 'ledger',
-		'cringe': 'face-grimacing',
+		'cringe': 'face-rolling-eyes',
 		'cynical': 'face-unamused',
 		'drama-queen': 'crown',
 		'formal': 'top-hat',
 		'nature-documentary': 'earth',
 		'nerd': 'face-nerd',
 		'overthinker': 'face-exploding-head',
-		'passive-aggressive': 'face-upside-down',
+		'passive-aggressive': 'headstone',
 		'philosophical': 'owl',
 		'quest-log': 'video-game',
 		'self-help': 'woman-meditating',
@@ -178,6 +179,7 @@ function getToneIcon(id: string): string | undefined {
 	function openEntry(entry: Entry) {
 		selectedEntry = entry;
 		showDeleteConfirm = false;
+		void fireBadgeEvent('entry-viewed-own');
 	}
 
 	function closeModal() {
@@ -216,6 +218,27 @@ function getToneIcon(id: string): string | undefined {
 		editSaveError = '';
 	}
 
+	function countWords(text: string): number {
+		return text.trim().split(/\s+/).filter(Boolean).length;
+	}
+
+	function emitEntryUpdatedBadge(
+		entry: Entry,
+		overrides: Partial<Pick<Entry, 'generated_text' | 'tone_id'>> = {}
+	) {
+		const generatedText = overrides.generated_text ?? entry.generated_text;
+		const toneId = overrides.tone_id ?? entry.tone_id;
+		void fireBadgeEvent('entry-updated', {
+			createdAt: new Date(entry.created_at),
+			entryDate: entry.entry_date,
+			toneId,
+			moodLevel: entry.mood_level ?? undefined,
+			sleepQuality: entry.sleep_quality ?? undefined,
+			energyLevel: entry.energy_level ?? undefined,
+			wordCount: countWords(generatedText)
+		});
+	}
+
 	async function saveEdit() {
 		if (!selectedEntry || isSavingEdit) return;
 		isSavingEdit = true;
@@ -242,6 +265,7 @@ function getToneIcon(id: string): string | undefined {
 				e.id === selectedEntry!.id ? { ...e, generated_text: updatedText } : e
 			);
 			selectedEntry = { ...selectedEntry, generated_text: updatedText };
+			emitEntryUpdatedBadge(selectedEntry, { generated_text: updatedText });
 			isEditing = false;
 			editText = '';
 		} catch (err) {
@@ -316,6 +340,11 @@ function getToneIcon(id: string): string | undefined {
 				e.id === entryId ? { ...e, generated_text: entry, tone_id: newToneId } : e
 			);
 			if (selectedEntry && selectedEntry.id === entryId) {
+				emitEntryUpdatedBadge(selectedEntry, {
+					generated_text: entry,
+					tone_id: newToneId
+				});
+				void fireBadgeEvent('regenerated-in-new-tone');
 				selectedEntry = { ...selectedEntry, generated_text: entry, tone_id: newToneId };
 			}
 		} catch (err) {
@@ -434,11 +463,11 @@ function getToneIcon(id: string): string | undefined {
 			{#if totalPages > 1}
 				<div class="pagination">
 					<button class="pagination-btn" onclick={() => goToPage(currentPage - 1)} disabled={!hasPrev} aria-label="Föregående sida">
-						<span class="pagination-icon">{@html chevronLeftSvg}</span>
+						<span class="pagination-icon">{@html paginationArrowLeftSvg}</span>
 					</button>
 					<span class="pagination-info">Sida {currentPage} av {totalPages}</span>
 					<button class="pagination-btn" onclick={() => goToPage(currentPage + 1)} disabled={!hasNext} aria-label="Nästa sida">
-						<span class="pagination-icon">{@html chevronRightSvg}</span>
+						<span class="pagination-icon">{@html paginationArrowRightSvg}</span>
 					</button>
 				</div>
 			{/if}
@@ -1049,13 +1078,13 @@ function getToneIcon(id: string): string | undefined {
 	}
 
 	.modal-delete-btn {
-		color: var(--color-accent);
-		border: 1px solid var(--color-accent);
+		color: var(--color-text);
+		border: 1px solid var(--color-border);
 	}
 
 	.modal-delete-btn:hover:not(:disabled) {
-		background: var(--color-accent);
-		color: white;
+		border-color: var(--color-accent);
+		box-shadow: inset 0 0 0 1px var(--color-accent);
 	}
 
 	/* Delete Confirmation */

@@ -7,8 +7,9 @@
 	import { FIELD_LIMITS } from '$lib/validation';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import AvatarUpload from '$lib/components/AvatarUpload.svelte';
+	import { fireBadgeEvent } from '$lib/gamification/client';
 	import arrowRightSvg from '$lib/assets/icons/arrow-right.svg?raw';
-	import AccentPicker from '$lib/components/AccentPicker.svelte';
+	import ProfileBadgeStrip from '$lib/components/ProfileBadgeStrip.svelte';
 	import { Emoji } from '$lib/assets/emojis';
 	import {
 		checkPushSupport,
@@ -253,6 +254,7 @@
 				.eq('id', authStore.user.id);
 
 			avatarUrl = newUrl;
+			void fireBadgeEvent('profile-photo-uploaded');
 		} catch {
 			error = 'Kunde inte ladda upp bilden. Försök igen.';
 		}
@@ -391,6 +393,8 @@
 			if (err) {
 				pushEnabled = prev;
 				pushError = 'Kunde inte spara inställningen. Försök igen.';
+			} else if (checked) {
+				void fireBadgeEvent('notifications-enabled');
 			}
 		} finally {
 			pushBusy = false;
@@ -489,6 +493,7 @@
 			setTimeout(() => (success = ''), 3000);
 			// Re-sync wizard store so profile data (e.g. birthday for horoscope) is available
 			wizardStore.initProfile();
+			void fireBadgeEvent('profile-updated');
 		}
 
 		saving = false;
@@ -561,7 +566,7 @@
 				/>
 				<div class="hero-info">
 					<h1 class="hero-name">{name ? `${name}s Profil` : 'Min Profil'}</h1>
-				<AccentPicker />
+					<ProfileBadgeStrip />
 				</div>
 			</div>
 		</div>
@@ -993,9 +998,8 @@
 		margin: 0;
 	}
 
-	.hero-info :global(.accent-picker) {
-		margin-top: 0.625rem;
-		margin-bottom: -0.25rem;
+	.hero-info :global(.strip) {
+		margin-top: 0.75rem;
 	}
 
 	/* Action buttons */

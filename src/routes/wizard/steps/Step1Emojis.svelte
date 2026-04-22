@@ -160,7 +160,7 @@
 	}
 
 	.date {
-		font-family: var(--font-mono);
+		font-family: var(--font-primary);
 		font-size: var(--text-sm);
 		font-weight: var(--weight-regular);
 		letter-spacing: var(--tracking-wide);

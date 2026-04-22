@@ -5,11 +5,12 @@
 	import { getApiUrl } from '$lib/config';
 	import { getRenderParagraphs, formatParagraph } from '$lib/utils/paragraphs';
 
-	import chevronLeftSvg from '$lib/assets/svg/chevronLeft.svg?raw';
-	import chevronRightSvg from '$lib/assets/svg/chevronRight.svg?raw';
+	import arrowLeftSvg from '$lib/assets/icons/arrow-left.svg?raw';
+	import arrowRightSvg from '$lib/assets/icons/arrow-right.svg?raw';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import { Emoji } from '$lib/assets/emojis';
+	import { fireBadgeEvent } from '$lib/gamification/client';
 
 	interface CommunityEntry {
 		id: string;
@@ -55,14 +56,14 @@
 		'cat-perspective': 'cat',
 		'chaotic': 'tornado',
 		'classic': 'ledger',
-		'cringe': 'face-grimacing',
+		'cringe': 'face-rolling-eyes',
 		'cynical': 'face-unamused',
 		'drama-queen': 'crown',
 		'formal': 'top-hat',
 		'nature-documentary': 'earth',
 		'nerd': 'face-nerd',
 		'overthinker': 'face-exploding-head',
-		'passive-aggressive': 'face-upside-down',
+		'passive-aggressive': 'headstone',
 		'philosophical': 'owl',
 		'quest-log': 'video-game',
 		'self-help': 'woman-meditating',
@@ -192,6 +193,9 @@
 
 	function openEntry(entry: CommunityEntry) {
 		selectedEntry = entry;
+		if (authStore.user && entry.user_id !== authStore.user.id) {
+			void fireBadgeEvent('entry-viewed-community');
+		}
 	}
 
 	function closeModal() {
@@ -373,11 +377,11 @@
 			{#if totalPages > 1}
 				<div class="pagination">
 					<button class="pagination-btn" onclick={() => goToPage(currentPage - 1)} disabled={!hasPrev} aria-label="Föregående sida">
-						<span class="pagination-icon">{@html chevronLeftSvg}</span>
+						<span class="pagination-icon">{@html arrowLeftSvg}</span>
 					</button>
 					<span class="pagination-info">Sida {currentPage} av {totalPages}</span>
 					<button class="pagination-btn" onclick={() => goToPage(currentPage + 1)} disabled={!hasNext} aria-label="Nästa sida">
-						<span class="pagination-icon">{@html chevronRightSvg}</span>
+						<span class="pagination-icon">{@html arrowRightSvg}</span>
 					</button>
 				</div>
 			{/if}
@@ -1136,17 +1140,17 @@
 		font-size: var(--text-xs);
 		font-weight: var(--weight-semibold);
 		letter-spacing: var(--tracking-wide);
-		color: var(--color-accent);
+		color: var(--color-text);
 		background: none;
-		border: 1px solid var(--color-accent);
+		border: 1px solid var(--color-border);
 		border-radius: var(--radius-sm);
 		cursor: pointer;
-		transition: background-color 0.15s ease, color 0.15s ease;
+		transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 	}
 
 	.modal-delete-btn:hover:not(:disabled) {
-		background: var(--color-accent);
-		color: white;
+		border-color: var(--color-accent);
+		box-shadow: inset 0 0 0 1px var(--color-accent);
 	}
 
 	.modal-delete-btn:disabled {

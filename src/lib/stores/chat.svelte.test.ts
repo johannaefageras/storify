@@ -378,6 +378,34 @@ describe('chatStore', () => {
 			expect(chatStore.isAtLimit).toBe(true);
 		});
 
+		it('sendsRemaining counts down as messages accumulate', () => {
+			expect(chatStore.sendsRemaining).toBe(18);
+
+			for (let i = 0; i < 14; i++) addMessagePair(i);
+			expect(chatStore.messageCount).toBe(28);
+			expect(chatStore.sendsRemaining).toBe(4);
+
+			addMessagePair(14);
+			expect(chatStore.messageCount).toBe(30);
+			expect(chatStore.sendsRemaining).toBe(3);
+
+			addMessagePair(15);
+			expect(chatStore.sendsRemaining).toBe(2);
+
+			addMessagePair(16);
+			expect(chatStore.sendsRemaining).toBe(1);
+
+			addMessagePair(17);
+			expect(chatStore.messageCount).toBe(36);
+			expect(chatStore.sendsRemaining).toBe(0);
+		});
+
+		it('sendsRemaining never goes negative past the cap', () => {
+			for (let i = 0; i < 20; i++) addMessagePair(i);
+			expect(chatStore.messageCount).toBe(40);
+			expect(chatStore.sendsRemaining).toBe(0);
+		});
+
 		it('reset clears message count and cap flags', () => {
 			for (let i = 0; i < 18; i++) addMessagePair(i);
 			expect(chatStore.isAtLimit).toBe(true);

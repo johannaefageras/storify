@@ -4,6 +4,7 @@
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import type { Accent } from '$lib/stores/accent.svelte';
 	import { Emoji } from '$lib/assets/emojis';
+	import AccentPicker from '$lib/components/AccentPicker.svelte';
 
 	const hamburgerComponents: Record<Accent, string> = {
 		pink: 'menu-pink',
@@ -18,6 +19,7 @@
 	let open = $state(false);
 
 	const links = [
+		{ href: '/badges', label: 'Utmärkelser' },
 		{ href: '/community', label: 'Gemenskapen' },
 		{ href: '/about', label: 'Om Storify' },
 		{ href: '/guide', label: 'Användarguide' },
@@ -88,6 +90,11 @@
 						<span class="dropdown-link-trim" aria-hidden="true"></span>
 					</button>
 				{/if}
+			</div>
+
+			<div class="dropdown-footer">
+				<span class="dropdown-footer-label">Tema</span>
+				<AccentPicker />
 			</div>
 		</nav>
 	{/if}
@@ -254,6 +261,24 @@
 	.dropdown-link:hover .dropdown-link-trim {
 		border-color: var(--color-accent);
 		transform: translateX(2px) rotate(45deg) scale(0.82);
+	}
+
+	.dropdown-footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+		margin-top: 0.35rem;
+		padding: 0.9rem 0.8rem 0.5rem;
+		border-top: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+	}
+
+	.dropdown-footer-label {
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-text-muted);
 	}
 
 	@keyframes dropdown-in {

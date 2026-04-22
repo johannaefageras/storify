@@ -224,7 +224,7 @@
 			{#snippet catIcon()}<Emoji name="cat" size={20} />{/snippet}
 			{#snippet unamusedIcon()}<Emoji name="face-unamused" size={20} />{/snippet}
 			{#snippet crownIcon()}<Emoji name="crown" size={20} />{/snippet}
-			{#snippet grimacingIcon()}<Emoji name="face-grimacing" size={20} />{/snippet}
+			{#snippet rollingEyesIcon()}<Emoji name="face-rolling-eyes" size={20} />{/snippet}
 			{#snippet flagUKIcon()}<Emoji name="flag-uk" size={20} />{/snippet}
 			{#snippet videoGameIcon()}<Emoji name="video-game" size={20} />{/snippet}
 			{#snippet yawningIcon()}<Emoji name="face-yawning" size={20} />{/snippet}
@@ -238,7 +238,7 @@
 			{#snippet satelliteIcon()}<Emoji name="satellite" size={20} />{/snippet}
 			{#snippet meditatingIcon()}<Emoji name="woman-meditating" size={20} />{/snippet}
 			{#snippet explodingHeadIcon()}<Emoji name="face-exploding-head" size={20} />{/snippet}
-			{#snippet upsideDownIcon()}<Emoji name="face-upside-down" size={20} />{/snippet}
+			{#snippet headstoneIcon()}<Emoji name="headstone" size={20} />{/snippet}
 			{#snippet archiveIcon()}<Emoji name="archive" size={20} />{/snippet}
 			{#snippet tornadoIcon()}<Emoji name="tornado" size={20} />{/snippet}
 			{#snippet shortsIcon()}<Emoji name="shorts" size={20} />{/snippet}
@@ -273,8 +273,8 @@
 				<span class="voice-chip-emoji">{@render crownIcon()}</span>
 				<span class="voice-chip-name">Divan</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'cringe', name: 'Tonåringen', description: 'Självmedveten, socialt överanalyserande och väldigt mycket "okej men alltså".', icon: grimacingIcon })}>
-				<span class="voice-chip-emoji">{@render grimacingIcon()}</span>
+			<button class="voice-chip" onclick={() => openModal({ id: 'cringe', name: 'Tonåringen', description: 'Självmedveten, socialt överanalyserande och väldigt mycket "okej men alltså".', icon: rollingEyesIcon })}>
+				<span class="voice-chip-emoji">{@render rollingEyesIcon()}</span>
 				<span class="voice-chip-name">Tonåringen</span>
 			</button>
 			<button class="voice-chip" onclick={() => openModal({ id: 'british', name: 'Britten', description: 'Torr Britten-humor och understatement. Skrivs på engelska.', icon: flagUKIcon })}>
@@ -329,8 +329,8 @@
 				<span class="voice-chip-emoji">{@render explodingHeadIcon()}</span>
 				<span class="voice-chip-name">Grubblaren</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'passive-aggressive', name: 'Martyren', description: 'Självuppoffrande, sårad och tapper. Någon måste ju bära allt.', icon: upsideDownIcon })}>
-				<span class="voice-chip-emoji">{@render upsideDownIcon()}</span>
+			<button class="voice-chip" onclick={() => openModal({ id: 'passive-aggressive', name: 'Martyren', description: 'Självuppoffrande, sårad och tapper. Någon måste ju bära allt.', icon: headstoneIcon })}>
+				<span class="voice-chip-emoji">{@render headstoneIcon()}</span>
 				<span class="voice-chip-name">Martyren</span>
 			</button>
 			<button class="voice-chip" onclick={() => openModal({ id: 'bureaucratic', name: 'Handläggaren', description: 'Formulär, stämplar och paragrafer. Allt ska dokumenteras korrekt.', icon: archiveIcon })}>

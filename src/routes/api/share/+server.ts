@@ -1,9 +1,13 @@
 import { json } from '@sveltejs/kit';
+import { createClient } from '@supabase/supabase-js';
+import { env } from '$env/dynamic/private';
+import { PUBLIC_SUPABASE_URL } from '$env/static/public';
 import type { RequestHandler } from './$types';
 import { createSupabaseServerClient } from '$lib/supabase/server';
 import { tones } from '$lib/data/tones';
 import { LIMITS } from '$lib/validation';
 import { checkRateLimit, getClientIdentifier } from '$lib/validation/ratelimit';
+import { checkAndAward } from '$lib/gamification/award';
 
 const toneIds = new Set(tones.map((t) => t.id));
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
@@ -14,6 +18,14 @@ function isValidIsoDate(value: string): boolean {
 	if (!DATE_PATTERN.test(value)) return false;
 	const d = new Date(`${value}T00:00:00Z`);
 	return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === value;
+}
+
+async function fireEntryShared(userId: string): Promise<void> {
+	if (!env.SUPABASE_SERVICE_ROLE_KEY) return;
+	const admin = createClient(PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY, {
+		auth: { persistSession: false }
+	});
+	await checkAndAward(admin, userId, 'entry-shared');
 }
 
 function generateShareId(): string {
@@ -82,6 +94,7 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 			console.error('Share update error:', updateError);
 			return json({ error: 'Kunde inte skapa delningslänk.' }, { status: 500 });
 		}
+		await fireEntryShared(user.id);
 		return json({ shareId });
 	}
 
@@ -142,5 +155,6 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 		return json({ error: 'Kunde inte skapa delningslänk.' }, { status: 500 });
 	}
 
+	if (user) await fireEntryShared(user.id);
 	return json({ shareId });
 };

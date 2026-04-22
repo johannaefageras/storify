@@ -3,7 +3,7 @@
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { supabase } from '$lib/supabase/client';
 	import { tones } from '$lib/data/tones';
-	import { jomojiSvgMap } from '$lib/data/jomojis';
+	import { emojiSvgMap } from '$lib/data/emojiSvgs';
 	import { uniqueSvgIds } from '$lib/utils/uniqueSvgIds';
 	import { getMoodColorById } from '$lib/data/moodColors';
 	import { Emoji } from '$lib/assets/emojis';
@@ -14,6 +14,7 @@
 	import { isSeparatorParagraph } from '$lib/utils/paragraphs';
 	import TonePickerDropdown from '$lib/components/TonePickerDropdown.svelte';
 	import { streamEntry } from '$lib/utils/streamEntry';
+	import { fireBadgeEvent } from '$lib/gamification/client';
 	import { goto } from '$app/navigation';
 	import resultMessages from '$lib/data/resultMessages.json';
 	import { getLoadingPhrases } from '$lib/data/loadingPhrases';
@@ -132,14 +133,14 @@ Vi ses imorgon, dagboken.`;
 		'cat-perspective': 'cat',
 		'chaotic': 'tornado',
 		'classic': 'ledger',
-		'cringe': 'face-grimacing',
+		'cringe': 'face-rolling-eyes',
 		'cynical': 'face-unamused',
 		'drama-queen': 'crown',
 		'formal': 'top-hat',
 		'nature-documentary': 'earth',
 		'nerd': 'face-nerd',
 		'overthinker': 'face-exploding-head',
-		'passive-aggressive': 'face-upside-down',
+		'passive-aggressive': 'headstone',
 		'philosophical': 'owl',
 		'quest-log': 'video-game',
 		'self-help': 'woman-meditating',
@@ -155,7 +156,7 @@ Vi ses imorgon, dagboken.`;
 	};
 
 	function getEmojiSvg(emojiId: string): string | undefined {
-		return jomojiSvgMap.get(emojiId);
+		return emojiSvgMap.get(emojiId);
 	}
 
 	function getToneIcon(toneId: string): string | undefined {
@@ -400,7 +401,8 @@ Vi ses imorgon, dagboken.`;
 				mood_color: wizardStore.data.moodColor || null,
 				energy_level: Math.round(wizardStore.data.energyLevel),
 				sleep_quality: Math.round(wizardStore.data.sleepQuality),
-				mood_level: Math.round(wizardStore.data.mood)
+				mood_level: Math.round(wizardStore.data.mood),
+				writing_mode: 'wizard'
 			};
 			console.log('Insert payload:', JSON.stringify(payload, null, 2));
 
@@ -411,6 +413,16 @@ Vi ses imorgon, dagboken.`;
 				console.error('Save entry error:', JSON.stringify(insertError, null, 2));
 			} else {
 				entrySaved = true;
+				void fireBadgeEvent('entry-created', {
+					createdAt: new Date(),
+					entryDate: payload.entry_date,
+					toneId: payload.tone_id,
+					mode: 'wizard',
+					moodLevel: payload.mood_level,
+					sleepQuality: payload.sleep_quality,
+					energyLevel: payload.energy_level,
+					wordCount: generatedEntry.trim().split(/\s+/).filter(Boolean).length
+				});
 			}
 		} catch (err) {
 			entrySaveError = 'Kunde inte ansluta till servern. Försök igen.';

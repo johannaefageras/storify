@@ -101,6 +101,48 @@ export async function checkChatRateLimit(identifier: string): Promise<RateLimitR
 	}
 }
 
+// Badge events fire more often than generate/chat (entry saves, page views,
+// client-side event pings) so they get their own, more generous budget.
+let badgeRatelimit: Ratelimit | null = null;
+
+function getBadgeRateLimiter(): Ratelimit | null {
+	if (badgeRatelimit) return badgeRatelimit;
+
+	const upstashUrl = env.UPSTASH_REDIS_REST_URL;
+	const upstashToken = env.UPSTASH_REDIS_REST_TOKEN;
+
+	if (!upstashUrl || !upstashToken) {
+		console.error('Upstash credentials not configured. Rate limiting will fail closed.');
+		return null;
+	}
+
+	const redis = new Redis({ url: upstashUrl, token: upstashToken });
+	badgeRatelimit = new Ratelimit({
+		redis,
+		limiter: Ratelimit.slidingWindow(120, '1 h'),
+		analytics: true,
+		prefix: 'ratelimit:badges'
+	});
+	return badgeRatelimit;
+}
+
+export async function checkBadgeRateLimit(identifier: string): Promise<RateLimitResult> {
+	const limiter = getBadgeRateLimiter();
+
+	if (!limiter) {
+		console.error('Badge rate limiter unavailable. Blocking request.');
+		return { success: false, remaining: 0, reset: Date.now() + 60_000 };
+	}
+
+	try {
+		const { success, remaining, reset } = await limiter.limit(identifier);
+		return { success, remaining, reset };
+	} catch (error) {
+		console.error('Badge rate limit check failed:', error);
+		return { success: false, remaining: 0, reset: Date.now() + 60_000 };
+	}
+}
+
 // Extract IP from SvelteKit request
 export function getClientIdentifier(request: Request): string {
 	// Vercel sets x-forwarded-for header

@@ -5,6 +5,7 @@
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { supabase } from '$lib/supabase/client';
 	import { streamEntry } from '$lib/utils/streamEntry';
+	import { fireBadgeEvent } from '$lib/gamification/client';
 	import { isSeparatorParagraph } from '$lib/utils/paragraphs';
 	import { getSwedishDiaryDate } from '$lib/utils/localDate';
 	import resultMessages from '$lib/data/resultMessages.json';
@@ -398,7 +399,8 @@
 				mood_color: null,
 				energy_level: null,
 				sleep_quality: null,
-				mood_level: null
+				mood_level: null,
+				writing_mode: 'manual'
 			};
 			const { error: insertError } = await supabase.from('entries').insert(payload);
 			if (insertError) {
@@ -406,6 +408,13 @@
 				console.error('Save entry error:', JSON.stringify(insertError, null, 2));
 			} else {
 				entrySaved = true;
+				void fireBadgeEvent('entry-created', {
+					createdAt: new Date(),
+					entryDate: payload.entry_date,
+					toneId: payload.tone_id,
+					mode: 'manual',
+					wordCount: generatedEntry.trim().split(/\s+/).filter(Boolean).length
+				});
 			}
 		} catch (err) {
 			entrySaveError = 'Kunde inte ansluta till servern. Försök igen.';
@@ -1286,12 +1295,12 @@
 	}
 
 	.action-btn-delete {
-		color: var(--color-error);
+		color: inherit;
 	}
 
 	.action-btn-delete:hover:not(:disabled) {
-		background: color-mix(in srgb, var(--color-error) 10%, transparent);
-		border-color: var(--color-error);
+		background: var(--color-accent-hover);
+		box-shadow: 0 4px 12px rgba(244, 63, 122, 0.25);
 	}
 
 	.delete-confirm {

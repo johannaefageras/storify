@@ -12,6 +12,7 @@
 	import { supabase } from '$lib/supabase/client';
 	import { getApiUrl } from '$lib/config';
 	import { streamEntry } from '$lib/utils/streamEntry';
+	import { fireBadgeEvent } from '$lib/gamification/client';
 	import { goto } from '$app/navigation';
 	import { tones } from '$lib/data/tones';
 	import { pickOpener, type StarterId } from '$lib/data/interviewOpeners';
@@ -363,7 +364,8 @@
 				mood_color: null,
 				energy_level: 5,
 				sleep_quality: 5,
-				mood_level: 5
+				mood_level: 5,
+				writing_mode: 'interview'
 			};
 
 			const { error: insertError } = await supabase.from('entries').insert(payload);
@@ -373,6 +375,17 @@
 				console.error('Save entry error:', JSON.stringify(insertError, null, 2));
 			} else {
 				entrySaved = true;
+				void fireBadgeEvent('entry-created', {
+					createdAt: new Date(),
+					entryDate: payload.entry_date,
+					toneId: payload.tone_id,
+					mode: 'interview',
+					wordCount: generatedEntry.trim().split(/\s+/).filter(Boolean).length,
+					chatTranscript: chatStore.messages.map((m) => ({
+						role: m.role,
+						content: m.content
+					}))
+				});
 			}
 		} catch (err) {
 			entrySaveError = 'Kunde inte ansluta till servern. Försök igen.';
@@ -942,12 +955,12 @@
 	}
 
 	.action-btn-delete {
-		color: var(--color-error);
+		color: inherit;
 	}
 
 	.action-btn-delete:hover:not(:disabled) {
-		background: color-mix(in srgb, var(--color-error) 10%, transparent);
-		border-color: var(--color-error);
+		background: var(--color-accent-hover);
+		box-shadow: 0 4px 12px rgba(244, 63, 122, 0.25);
 	}
 
 	.delete-confirm {

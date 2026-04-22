@@ -7,6 +7,7 @@
 	import { tones } from '$lib/data/tones';
 	import { moodColors } from '$lib/data/moodColors';
 	import { streamEntry } from '$lib/utils/streamEntry';
+	import { fireBadgeEvent } from '$lib/gamification/client';
 	import { isSeparatorParagraph } from '$lib/utils/paragraphs';
 	import { getSwedishDiaryDate } from '$lib/utils/localDate';
 	import { getLoadingPhrases } from '$lib/data/loadingPhrases';
@@ -28,7 +29,7 @@
 		'cat-perspective': 'cat',
 		'cynical': 'face-unamused',
 		'drama-queen': 'crown',
-		'cringe': 'face-grimacing',
+		'cringe': 'face-rolling-eyes',
 		'british': 'flag-uk',
 		'quest-log': 'video-game',
 		'bored': 'face-yawning',
@@ -42,7 +43,7 @@
 		'tinfoil-hat': 'satellite',
 		'self-help': 'woman-meditating',
 		'overthinker': 'face-exploding-head',
-		'passive-aggressive': 'face-upside-down',
+		'passive-aggressive': 'headstone',
 		'bureaucratic': 'archive',
 		'chaotic': 'tornado',
 		'bro': 'shorts',
@@ -347,7 +348,8 @@
 				mood_color: wizardStore.data.moodColor || null,
 				energy_level: null,
 				sleep_quality: null,
-				mood_level: Math.round(wizardStore.data.mood)
+				mood_level: Math.round(wizardStore.data.mood),
+				writing_mode: 'quick'
 			};
 			const { error: insertError } = await supabase.from('entries').insert(payload);
 			if (insertError) {
@@ -355,6 +357,14 @@
 				console.error('Save entry error:', JSON.stringify(insertError, null, 2));
 			} else {
 				entrySaved = true;
+				void fireBadgeEvent('entry-created', {
+					createdAt: new Date(),
+					entryDate: payload.entry_date,
+					toneId: payload.tone_id,
+					mode: 'quick',
+					moodLevel: payload.mood_level,
+					wordCount: generatedEntry.trim().split(/\s+/).filter(Boolean).length
+				});
 			}
 		} catch (err) {
 			entrySaveError = 'Kunde inte ansluta till servern. Försök igen.';

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { tones } from '$lib/data/tones';
-	import { jomojiSvgMap } from '$lib/data/jomojis';
+	import { emojiSvgMap } from '$lib/data/emojiSvgs';
 	import { uniqueSvgIds } from '$lib/utils/uniqueSvgIds';
 	import { Emoji } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
@@ -48,14 +48,14 @@
 		'cat-perspective': 'cat',
 		'chaotic': 'tornado',
 		'classic': 'ledger',
-		'cringe': 'face-grimacing',
+		'cringe': 'face-rolling-eyes',
 		'cynical': 'face-unamused',
 		'drama-queen': 'crown',
 		'formal': 'top-hat',
 		'nature-documentary': 'earth',
 		'nerd': 'face-nerd',
 		'overthinker': 'face-exploding-head',
-		'passive-aggressive': 'face-upside-down',
+		'passive-aggressive': 'headstone',
 		'philosophical': 'owl',
 		'quest-log': 'video-game',
 		'self-help': 'woman-meditating',
@@ -72,7 +72,7 @@
 	};
 
 	function getEmojiSvg(emojiId: string): string | undefined {
-		return jomojiSvgMap.get(emojiId);
+		return emojiSvgMap.get(emojiId);
 	}
 
 	function getToneIcon(id: string): string | undefined {

@@ -3,10 +3,12 @@
 	import '../app.css';
 	import myStorifyWoff2 from '$lib/assets/fonts/MyStorify-VF.woff2';
 	import Navbar from '$lib/components/Navbar.svelte';
+	import BadgeUnlockToast from '$lib/components/BadgeUnlockToast.svelte';
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import { themeStore } from '$lib/stores/theme.svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { authStore } from '$lib/stores/auth.svelte';
+	import { badgesStore } from '$lib/stores/badges.svelte';
 
 	let { children } = $props();
 
@@ -16,6 +18,7 @@
 		await authStore.init();
 		await accentStore.syncWithAuth();
 		await wizardStore.initProfile();
+		await badgesStore.init();
 	});
 </script>
 
@@ -60,3 +63,4 @@
 
 <Navbar />
 {@render children()}
+<BadgeUnlockToast />
