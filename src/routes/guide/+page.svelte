@@ -220,7 +220,7 @@
 			{#snippet ledgerIcon()}<Emoji name="ledger" size={20} />{/snippet}
 			{#snippet openBookIcon()}<Emoji name="open-book" size={20} />{/snippet}
 			{#snippet owlIcon()}<Emoji name="owl" size={20} />{/snippet}
-			{#snippet microphoneIcon()}<Emoji name="microphone" size={20} />{/snippet}
+			{#snippet studioMicrophoneIcon()}<Emoji name="studio-microphone" size={20} />{/snippet}
 			{#snippet catIcon()}<Emoji name="cat" size={20} />{/snippet}
 			{#snippet unamusedIcon()}<Emoji name="face-unamused" size={20} />{/snippet}
 			{#snippet crownIcon()}<Emoji name="crown" size={20} />{/snippet}
@@ -257,8 +257,8 @@
 				<span class="voice-chip-emoji">{@render owlIcon()}</span>
 				<span class="voice-chip-name">Filosofen</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'sportscaster', name: 'Sportkommentatorn', description: 'OCH HAN GÖR DET! Spänning och energi i varje moment!', icon: microphoneIcon })}>
-				<span class="voice-chip-emoji">{@render microphoneIcon()}</span>
+			<button class="voice-chip" onclick={() => openModal({ id: 'sportscaster', name: 'Sportkommentatorn', description: 'OCH HAN GÖR DET! Spänning och energi i varje moment!', icon: studioMicrophoneIcon })}>
+				<span class="voice-chip-emoji">{@render studioMicrophoneIcon()}</span>
 				<span class="voice-chip-name">Sportkommentatorn</span>
 			</button>
 			<button class="voice-chip" onclick={() => openModal({ id: 'cat-perspective', name: 'Katten', description: 'Din dag sedd genom kattens dömande och nyfikna ögon.', icon: catIcon })}>

@@ -33,7 +33,7 @@
 		'quest-log': 'video-game',
 		'self-help': 'woman-meditating',
 		shakespeare: 'theater-masks',
-		sportscaster: 'microphone',
+		sportscaster: 'studio-microphone',
 		storytelling: 'open-book',
 		tabloid: 'newspaper',
 		therapist: 'brain',

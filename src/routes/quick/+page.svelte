@@ -25,7 +25,7 @@
 		'classic': 'ledger',
 		'storytelling': 'open-book',
 		'philosophical': 'owl',
-		'sportscaster': 'microphone',
+		'sportscaster': 'studio-microphone',
 		'cat-perspective': 'cat',
 		'cynical': 'face-unamused',
 		'drama-queen': 'crown',
