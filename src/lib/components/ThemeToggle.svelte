@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { themeStore } from '$lib/stores/theme.svelte';
-	import { Emoji } from '$lib/assets/emojis';
+	import sunSvg from '$lib/assets/icons/sun.svg?raw';
+	import moonSvg from '$lib/assets/icons/moon.svg?raw';
 
 	export let variant: 'fixed' | 'inline' = 'fixed';
 </script>
@@ -12,12 +13,8 @@
 	aria-label={themeStore.current === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
 	title={themeStore.current === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
 >
-	<span class="icon" class:visible={themeStore.current === 'light'}>
-		<Emoji name="sun" size={32} class="theme-icon" />
-	</span>
-	<span class="icon" class:visible={themeStore.current === 'dark'}>
-		<Emoji name="moon" size={32} class="theme-icon" />
-	</span>
+	<span class="icon" class:visible={themeStore.current === 'light'}>{@html sunSvg}</span>
+	<span class="icon" class:visible={themeStore.current === 'dark'}>{@html moonSvg}</span>
 </button>
 
 <style>
@@ -59,6 +56,9 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		width: 1.75rem;
+		height: 1.75rem;
+		color: var(--color-text);
 		opacity: 0;
 		transform: scale(0.5) rotate(-90deg);
 		transition:
@@ -71,7 +71,9 @@
 		transform: scale(1) rotate(0deg);
 	}
 
-	.icon :global(.theme-icon) {
+	.icon :global(svg) {
+		width: 100%;
+		height: 100%;
 		display: block;
 	}
 </style>

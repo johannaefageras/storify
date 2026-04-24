@@ -54,28 +54,28 @@
   --color-bg: #fafafa;
   --color-bg-elevated: #ffffff;
   --color-text: #1a1a1a;
-  --color-text-muted: #5f5f5f;
+  --color-text-muted: #6b6b6b;
   --color-border: #e5e5e5;
-  --color-accent: #f43f7a;
-  --color-accent-hover: #dc2f68;
+  --color-accent: #c2185b;
+  --color-accent-hover: #a91550;
   --color-neutral: #f0f0f0;
-  --color-neutral-hover: #e8e8e8;
+  --color-neutral-hover: #e5e5e5;
   --color-error: #dc2626;
   --color-error-bg: #fef2f2;
   --color-error-border: #fecaca;
 
   --mood-yellow: #e8a820;
-  --mood-orange: #e8862f; /* ← amber accent */
-  --mood-red: #e52020; /* ← red accent */
+  --mood-orange: #f0a83a; /* ← amber accent */
+  --mood-purple: #6a1b9a; /* purple accent */
   --mood-pink: #f43f7a; /* ← pink accent */
-  --mood-purple: #9b50d8;
+  --mood-violet: #9b50d8;
   --mood-indigo: #5c5ce0;
   --mood-blue: #3570d0;
   --mood-sky: #2b8db8; /* ← blue accent */
   --mood-cyan: #0ca8c0;
   --mood-teal: #18a898;
   --mood-green: #30a852;
-  --mood-lime: #7cb342; /* ← lime accent */
+  --mood-emerald: #2e7d32; /* emerald accent */
   --mood-brown: #9a6518;
   --mood-gray: #6e6e78;
   --mood-black: #1a1a1e;
@@ -91,32 +91,32 @@
    ========================================================================== */
 
 [data-theme='dark'] {
-  --color-bg: #121214;
-  --color-bg-elevated: #1c1c1f;
-  --color-text: #f0f0f3;
-  --color-text-muted: #a7a7ad;
-  --color-border: #2e2e33;
-  --color-accent: #ff5c8d;
-  --color-accent-hover: #ff759f;
-  --color-neutral: #252528;
-  --color-neutral-hover: #2f2f33;
+  --color-bg: #121212;
+  --color-bg-elevated: #1c1c1c;
+  --color-text: #f0f0f0;
+  --color-text-muted: #a8a8a8;
+  --color-border: #2e2e2e;
+  --color-accent: #e91e63;
+  --color-accent-hover: #ec3d79;
+  --color-neutral: #242424;
+  --color-neutral-hover: #2e2e2e;
   --color-error: #f87171;
-  --color-error-bg: #2a1515;
-  --color-error-border: #5c2020;
+  --color-error-bg: #2d1618;
+  --color-error-border: #5f2126;
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
 
   --mood-yellow: #f5c844;
   --mood-orange: #f5a04a; /* ← amber accent */
-  --mood-red: #f04848; /* ← red accent */
+  --mood-purple: #ab47bc; /* purple accent */
   --mood-pink: #ff5c8d; /* ← pink accent */
-  --mood-purple: #be82f8;
+  --mood-violet: #be82f8;
   --mood-indigo: #8080f4;
   --mood-blue: #5a96f0;
   --mood-sky: #42aad6; /* ← blue accent */
   --mood-cyan: #28cce0;
   --mood-teal: #2cc8b4;
   --mood-green: #4cd472;
-  --mood-lime: #96cc5a; /* ← lime accent */
+  --mood-emerald: #66bb6a; /* emerald accent */
   --mood-brown: #d48820;
   --mood-gray: #9a9aa4;
   --mood-black: #28282c;
@@ -132,39 +132,39 @@
    ========================================================================== */
 
 [data-accent='amber'] {
-  --color-accent: #e8862f;
-  --color-accent-hover: #d27728;
+  --color-accent: #d4881a;
+  --color-accent-hover: #b87516;
 }
 [data-accent='amber'][data-theme='dark'] {
-  --color-accent: #f5a04a;
-  --color-accent-hover: #f7b06a;
+  --color-accent: #f0a83a;
+  --color-accent-hover: #f3b858;
 }
 
 [data-accent='blue'] {
-  --color-accent: #2b8db8;
-  --color-accent-hover: #247da3;
+  --color-accent: #42a5f5;
+  --color-accent-hover: #1565c0;
 }
 [data-accent='blue'][data-theme='dark'] {
-  --color-accent: #42aad6;
-  --color-accent-hover: #5fbae0;
+  --color-accent: #42a5f5;
+  --color-accent-hover: #63b5f7;
 }
 
-[data-accent='lime'] {
-  --color-accent: #7cb342;
-  --color-accent-hover: #6da236;
+[data-accent='emerald'] {
+  --color-accent: #2e7d32;
+  --color-accent-hover: #26692a;
 }
-[data-accent='lime'][data-theme='dark'] {
-  --color-accent: #96cc5a;
-  --color-accent-hover: #a8d876;
+[data-accent='emerald'][data-theme='dark'] {
+  --color-accent: #66bb6a;
+  --color-accent-hover: #7fc983;
 }
 
-[data-accent='red'] {
-  --color-accent: #e52020;
-  --color-accent-hover: #b81a1a;
+[data-accent='purple'] {
+  --color-accent: #6a1b9a;
+  --color-accent-hover: #591680;
 }
-[data-accent='red'][data-theme='dark'] {
-  --color-accent: #f04848;
-  --color-accent-hover: #f46e6e;
+[data-accent='purple'][data-theme='dark'] {
+  --color-accent: #ab47bc;
+  --color-accent-hover: #b863c8;
 }
 
 :root {

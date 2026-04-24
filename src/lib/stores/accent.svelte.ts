@@ -2,93 +2,103 @@ import { browser } from '$app/environment';
 import { supabase } from '$lib/supabase/client';
 import { authStore } from '$lib/stores/auth.svelte';
 
-export type Accent = 'pink' | 'amber' | 'blue' | 'lime' | 'red';
+export type Accent = 'pink' | 'amber' | 'blue' | 'emerald' | 'purple';
 
 export const ACCENTS: { id: Accent; color: string }[] = [
-	{ id: 'pink', color: '#f43f7a' },
-	{ id: 'amber', color: '#E8862F' },
-	{ id: 'blue', color: '#2B8DB8' },
-	{ id: 'lime', color: '#7cb342' },
-	{ id: 'red', color: '#e52020' }
+  { id: 'pink', color: '#f43f7a' },
+  { id: 'amber', color: '#F0A83A' },
+  { id: 'blue', color: '#2B8DB8' },
+  { id: 'emerald', color: '#2e7d32' },
+  { id: 'purple', color: '#6a1b9a' }
 ];
 
 const ACCENT_STORAGE_KEY = 'accent';
 
-function isValidAccent(value: string | null): value is Accent {
-	return value === 'pink' || value === 'amber' || value === 'blue' || value === 'lime' || value === 'red';
+function normalizeAccent(value: string | null): Accent | null {
+  if (value === 'lime') return 'emerald';
+  if (value === 'red') return 'purple';
+  if (
+    value === 'pink' ||
+    value === 'amber' ||
+    value === 'blue' ||
+    value === 'emerald' ||
+    value === 'purple'
+  ) {
+    return value;
+  }
+  return null;
 }
 
 function createAccentStore() {
-	let accent = $state<Accent>('pink');
+  let accent = $state<Accent>('pink');
 
-	async function init() {
-		if (!browser) return;
+  async function init() {
+    if (!browser) return;
 
-		const value = localStorage.getItem(ACCENT_STORAGE_KEY);
-		if (isValidAccent(value)) {
-			accent = value;
-		}
-		applyAccent();
-	}
+    const value = normalizeAccent(localStorage.getItem(ACCENT_STORAGE_KEY));
+    if (value) {
+      accent = value;
+      localStorage.setItem(ACCENT_STORAGE_KEY, value);
+    }
+    applyAccent();
+  }
 
-	async function syncWithAuth() {
-		if (!browser || !authStore.isLoggedIn || !authStore.user) return;
+  async function syncWithAuth() {
+    if (!browser || !authStore.isLoggedIn || !authStore.user) return;
 
-		try {
-			const { data } = await supabase
-				.from('profiles')
-				.select('accent')
-				.eq('id', authStore.user.id)
-				.single();
+    try {
+      const { data } = await supabase
+        .from('profiles')
+        .select('accent')
+        .eq('id', authStore.user.id)
+        .single();
 
-			if (data && isValidAccent(data.accent)) {
-				accent = data.accent;
-				applyAccent();
-			}
-		} catch {
-			// Keep local value
-		}
-	}
+      const value = normalizeAccent(data?.accent ?? null);
+      if (value) {
+        accent = value;
+        applyAccent();
+      }
+    } catch {
+      // Keep local value
+    }
+  }
 
-	function applyAccent() {
-		if (!browser) return;
-		if (accent === 'pink') {
-			document.documentElement.removeAttribute('data-accent');
-		} else {
-			document.documentElement.setAttribute('data-accent', accent);
-		}
-	}
+  function applyAccent() {
+    if (!browser) return;
+    if (accent === 'pink') {
+      document.documentElement.removeAttribute('data-accent');
+    } else {
+      document.documentElement.setAttribute('data-accent', accent);
+    }
+  }
 
-	async function saveAccent() {
-		if (!browser) return;
-		localStorage.setItem(ACCENT_STORAGE_KEY, accent);
+  async function saveAccent() {
+    if (!browser) return;
+    localStorage.setItem(ACCENT_STORAGE_KEY, accent);
 
-		if (authStore.isLoggedIn && authStore.user) {
-			try {
-				await supabase
-					.from('profiles')
-					.update({ accent })
-					.eq('id', authStore.user.id);
-			} catch {
-				// Local save already succeeded
-			}
-		}
-	}
+    if (authStore.isLoggedIn && authStore.user) {
+      try {
+        await supabase.from('profiles').update({ accent }).eq('id', authStore.user.id);
+      } catch {
+        // Local save already succeeded
+      }
+    }
+  }
 
-	function set(newAccent: Accent) {
-		accent = newAccent;
-		void saveAccent();
-		applyAccent();
-	}
+  function set(newAccent: Accent) {
+    accent = newAccent;
+    void saveAccent();
+    applyAccent();
+  }
 
-	return {
-		get current() {
-			return accent;
-		},
-		init,
-		syncWithAuth,
-		set
-	};
+  return {
+    get current() {
+      return accent;
+    },
+    init,
+    syncWithAuth,
+    set
+  };
 }
 
 export const accentStore = createAccentStore();

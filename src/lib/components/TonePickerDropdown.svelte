@@ -19,8 +19,8 @@
 		pink: 'regenerate-pink',
 		amber: 'regenerate-amber',
 		blue: 'regenerate-blue',
-		lime: 'regenerate-lime',
-		red: 'regenerate-red'
+		emerald: 'regenerate-emerald',
+		purple: 'regenerate-purple'
 	};
 
 	const toneIconMap: Record<string, string> = {

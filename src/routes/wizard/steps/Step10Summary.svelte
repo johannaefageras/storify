@@ -437,7 +437,7 @@ Vi ses imorgon, dagboken.`;
 	<div class="result-view">
 		<div class="result-intro">
 			<div class="result-icon">
-					<Emoji name="rose-pink" size={48} />
+					<Emoji name="rose" size={48} />
 			</div>
 			<h1 class="result-title">{resultMessage.title}</h1>
 			<p class="result-subtitle">{resultMessage.subtitle}</p>

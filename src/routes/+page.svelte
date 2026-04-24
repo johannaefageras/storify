@@ -7,11 +7,11 @@
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 
 	const roseComponents = {
-		pink: 'rose-pink',
-		amber: 'rose-amber',
-		blue: 'rose-blue',
-		lime: 'rose-lime',
-		red: 'rose-red'
+		pink: 'rose',
+		amber: 'sunflower',
+		blue: 'tulip',
+		emerald: 'herb',
+		purple: 'hyacinth'
 	};
 
 	let RoseIcon = $derived(roseComponents[accentStore.current]);

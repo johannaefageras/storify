@@ -28,8 +28,8 @@
 		pink: 'user-silhouette-pink',
 		amber: 'user-silhouette-amber',
 		blue: 'user-silhouette-blue',
-		lime: 'user-silhouette-lime',
-		red: 'user-silhouette-red'
+		emerald: 'user-silhouette-emerald',
+		purple: 'user-silhouette-purple'
 	};
 
 	let SilhouetteIcon = $derived(silhouetteComponents[accentStore.current]);

@@ -90,6 +90,12 @@ const QUICK_DRAFT_KEY = 'storify-quick-draft';
 const EDITOR_DRAFT_KEY = 'storify-editor-draft';
 const DRAFT_EXPIRY_MS = 24 * 60 * 60 * 1000; // 24 hours
 
+function normalizeMoodColor(value: string): string {
+  if (value === 'red') return 'purple';
+  if (value === 'lime') return 'emerald';
+  return value;
+}
+
 const defaultProfile: UserProfile = {
   name: '',
   birthday: null,
@@ -337,6 +343,7 @@ function createWizardStore() {
       // Restore daily data fields (not profile)
       const currentProfile = data.profile;
       Object.assign(data, draft.data, { profile: currentProfile });
+      data.moodColor = normalizeMoodColor(data.moodColor);
       if (mode === 'wizard' && draft.step > 0) {
         currentStep = draft.step;
       }
@@ -377,7 +384,9 @@ function createWizardStore() {
       }
     },
     updateData<K extends keyof WizardData>(key: K, value: WizardData[K]) {
-      data[key] = value;
+      data[key] = (key === 'moodColor' && typeof value === 'string'
+        ? normalizeMoodColor(value)
+        : value) as WizardData[K];
       scheduleDraftSave(data.editorMode ? EDITOR_DRAFT_KEY : data.quickMode ? QUICK_DRAFT_KEY : WIZARD_DRAFT_KEY);
     },
     updateProfile<K extends keyof UserProfile>(key: K, value: UserProfile[K]) {

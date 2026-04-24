@@ -8,10 +8,10 @@ export interface MoodColor {
 
 export const moodColors: MoodColor[] = [
   {
-    id: 'red',
-    name: 'Röd',
-    cssVar: '--mood-red',
-    keywords: ['passion', 'energi', 'intensitet', 'ilska', 'kärlek', 'mod'],
+    id: 'purple',
+    name: 'Lila',
+    cssVar: '--mood-purple',
+    keywords: ['passion', 'energi', 'intensitet', 'kreativitet', 'kärlek', 'mod'],
     meaning:
       'En dag präglad av stark intensitet och känslor. Kan indikera passion, djup kärlek, frustration eller ilska, men också mod och handlingskraft. Användaren har troligen upplevt något som väckt starka känslor eller agerat med beslutsamhet.'
   },
@@ -24,9 +24,9 @@ export const moodColors: MoodColor[] = [
       'En mjuk och kärleksfull dag. Antyder ömhet, romantik eller lekfullhet. Kan handla om nära relationer, självomhändertagande eller en dag då användaren känt sig extra omtänksam eller blivit omhändertagen.'
   },
   {
-    id: 'purple',
-    name: 'Lila',
-    cssVar: '--mood-purple',
+    id: 'violet',
+    name: 'Violett',
+    cssVar: '--mood-violet',
     keywords: ['kreativitet', 'mystik', 'drömmar', 'fantasi', 'inspiration'],
     meaning:
       'En kreativ eller drömsk dag med inslag av mystik och fantasi. Användaren kan ha ägnat sig åt konstnärliga aktiviteter, haft livliga dagdrömmar eller känt en koppling till något större än vardagen.'
@@ -80,9 +80,9 @@ export const moodColors: MoodColor[] = [
       'En naturlig och harmonisk dag präglad av tillväxt. Kan handla om personlig utveckling, tid i naturen eller en känsla av välmående och hälsa. Användaren har troligen känt sig jordad och i samklang med sin omgivning.'
   },
   {
-    id: 'lime',
-    name: 'Lime',
-    cssVar: '--mood-lime',
+    id: 'emerald',
+    name: 'Smaragd',
+    cssVar: '--mood-emerald',
     keywords: ['energi', 'ungdomlighet', 'optimism', 'nytänkande', 'vår'],
     meaning:
       'En energisk och ungdomlig dag full av optimism. Antyder nytänkande, fräschhet och en nästan barnslig entusiasm. Användaren har troligen känt sig pigg, kreativ och full av nya idéer.'
@@ -138,5 +138,6 @@ export const moodColors: MoodColor[] = [
 ];
 
 export function getMoodColorById(id: string): MoodColor | undefined {
-  return moodColors.find((color) => color.id === id);
+  const normalizedId = id === 'red' ? 'purple' : id === 'lime' ? 'emerald' : id;
+  return moodColors.find((color) => color.id === normalizedId);
 }

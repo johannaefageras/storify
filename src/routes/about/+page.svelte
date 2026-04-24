@@ -6,19 +6,19 @@
 	import { BADGES } from '$lib/data/badges';
 
 	const roseComponents = {
-		pink: 'rose-pink',
-		amber: 'rose-amber',
-		blue: 'rose-blue',
-		lime: 'rose-lime',
-		red: 'rose-red'
+		pink: 'rose',
+		amber: 'sunflower',
+		blue: 'tulip',
+		emerald: 'herb',
+		purple: 'hyacinth'
 	};
 
 	const laptopComponents = {
 		pink: 'woman-laptop-pink',
 		amber: 'woman-laptop-amber',
 		blue: 'woman-laptop-blue',
-		lime: 'woman-laptop-lime',
-		red: 'woman-laptop-red'
+		emerald: 'woman-laptop-emerald',
+		purple: 'woman-laptop-purple'
 	};
 
 	let RoseIcon = $derived(roseComponents[accentStore.current]);

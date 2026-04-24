@@ -1,20 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { authStore } from '$lib/stores/auth.svelte';
-	import { accentStore } from '$lib/stores/accent.svelte';
-	import type { Accent } from '$lib/stores/accent.svelte';
-	import { Emoji } from '$lib/assets/emojis';
+	import barsStaggeredSvg from '$lib/assets/icons/bars.svg?raw';
 	import AccentPicker from '$lib/components/AccentPicker.svelte';
-
-	const hamburgerComponents: Record<Accent, string> = {
-		pink: 'menu-pink',
-		amber: 'menu-amber',
-		blue: 'menu-blue',
-		lime: 'menu-lime',
-		red: 'menu-red'
-	};
-
-	let HamburgerIcon = $derived(hamburgerComponents[accentStore.current]);
 
 	let open = $state(false);
 
@@ -64,7 +52,7 @@
 		aria-label={open ? 'Stäng meny' : 'Öppna meny'}
 		aria-expanded={open}
 	>
-		<Emoji name={HamburgerIcon} size={30} />
+		<span class="hamburger-icon">{@html barsStaggeredSvg}</span>
 	</button>
 
 	{#if open}
@@ -123,6 +111,18 @@
 
 	.hamburger-button:active {
 		transform: scale(0.9);
+	}
+
+	.hamburger-icon {
+		display: inline-flex;
+		width: 1.75rem;
+		height: 1.75rem;
+		color: var(--color-text);
+	}
+
+	.hamburger-icon :global(svg) {
+		width: 100%;
+		height: 100%;
 	}
 
 	.backdrop {
