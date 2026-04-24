@@ -19,7 +19,7 @@
 		<Emoji name="shield" size={96} />
 		<h1>Integritetspolicy</h1>
 	</div>
-	<p class="updated">Senast uppdaterad: 27 mars 2026</p>
+	<p class="updated">Senast uppdaterad: 24 april 2026</p>
 
 	<section>
 		<h2>Vem ansvarar för dina uppgifter?</h2>
@@ -32,23 +32,31 @@
 		<div class="custom-ul">
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Profilinformation:</strong> Namn, födelsedag, pronomen, hemstad, familj, husdjur, sysselsättning och intressen</span>
+				<span class="list-content"><strong>Profil- och inställningsuppgifter:</strong> Namn, födelsedag, pronomen, hemstad, familj, husdjur, sysselsättning, intressen, profilbild, accentfärg, tidszon samt val för veckobrev, månadsbrev och skrivpåminnelser</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Dagboksdata:</strong> Datum, väder, humör, energinivå, sömnkvalitet, emojis, platser du besökt, aktiviteter, personer du träffat, vinster, motgångar, reflektioner, mat, musik, färg, meddelanden till ditt framtida jag (tidskapsel) och annat du väljer att dela</span>
+				<span class="list-content"><strong>Dagboksdata:</strong> Datum, väder, platsnamn, humör, energinivå, sömnkvalitet, emojis, platser du besökt, aktiviteter, personer du träffat, vinster, motgångar, reflektioner, mat, musik, färg, tidskapsel, fri text i redigeraren, korttext i snabbläget och innehåll från AI-intervjun</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Kontoinformation:</strong> Om du skapar ett konto sparas din e-postadress och ett krypterat lösenord hos vår databastjänst</span>
+				<span class="list-content"><strong>Kontoinformation:</strong> Om du skapar ett konto sparas din e-postadress och ett krypterat lösenord hos vår databastjänst. Om du väljer Google-inloggning behandlas även den information som behövs för att koppla din Google-authentisering till ditt konto</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Platsdata:</strong> Om du väljer att aktivera väder- och platsdetektering kan appen begära tillgång till din ungefärliga position för att hämta aktuellt väder och platsnamn. Denna position används endast för dessa förfrågningar och sparas inte</span>
+				<span class="list-content"><strong>Platsdata:</strong> Om du väljer att aktivera väder- och platsdetektering kan appen begära tillgång till din ungefärliga position för att hämta aktuellt väder och platsnamn. Denna position används endast för dessa förfrågningar och sparas inte hos oss</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Uppgifter för Gemenskapen:</strong> Om du väljer att dela en dagboksanteckning publikt behandlar vi även visningsnamn, genererad text, kort utdrag, vald röst, datum, emojis och veckodag för att kunna visa inlägget för andra användare</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>Tekniska uppgifter för appfunktioner:</strong> Lokala utkast, tema- och accentinställningar i webbläsaren, sessionsuppgifter för inloggning, samt tekniska push-uppgifter om du aktiverar skrivpåminnelser</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>Kontaktuppgifter:</strong> Om du kontaktar oss via kontaktsidan behandlas de uppgifter du själv skickar in, till exempel namn, e-postadress, telefonnummer, meddelande och eventuella bilagor</span>
 			</div>
 		</div>
 	</section>
@@ -58,12 +66,13 @@
 		<p>Var din data lagras beror på om du använder appen med eller utan konto:</p>
 
 		<h3>Utan konto</h3>
-		<p>All din data lagras lokalt på din enhet med hjälp av enhetens inbyggda lagringsfunktioner. Vi har ingen tillgång till denna data och den lämnar aldrig din enhet förutom när du aktivt väljer att generera en dagbokstext.</p>
+		<p>Din profil, dina inställningar och tillfälliga utkast lagras lokalt i din webbläsare med hjälp av webbläsarens inbyggda lagringsfunktioner. Vi har normalt ingen direkt tillgång till denna lokala data och den lämnar inte din enhet förrän du själv väljer att använda en funktion som kräver serverkontakt, till exempel att generera en dagbokstext, dela till Gemenskapen eller skicka ett meddelande via kontaktsidan.</p>
 		<p>Om du utan konto väljer att dela en dagboksanteckning till Gemenskapen lagras just det delade inlägget i molnet för att kunna visas publikt i appen. Inlägget kan visas med det visningsnamn du anger, eller som "Anonym" om du lämnar fältet tomt.</p>
-		<p>Du kan när som helst radera all lokalt sparad data genom att trycka på "Rensa sparad data" på startsidan.</p>
+		<p>Om du vill radera lokalt sparad data utan konto gör du det via din webbläsares inställningar för webbplatsdata för mystorify.se.</p>
 
 		<h3>Med konto</h3>
-		<p>Om du skapar ett konto lagras din profil och dina sparade dagboksinlägg i molnet hos vår databastjänst. Detta gör att du kan komma åt din data från olika enheter. En funktionell cookie sätts för att hålla din session aktiv.</p>
+		<p>Om du skapar ett konto lagras din profil, dina sparade dagboksinlägg, dina badge- och communitykopplingar samt dina kontoinställningar i molnet hos vår databastjänst. Detta gör att du kan komma åt din data från olika enheter. Funktionella cookies och liknande sessionsuppgifter används för att hålla dig inloggad.</p>
+		<p>Om du laddar upp en profilbild lagras den i anslutning till ditt konto hos vår lagringsleverantör. Om du aktiverar veckobrev, månadsbrev eller skrivpåminnelser lagras även dessa preferenser och den tidszon som behövs för att skicka dem vid rätt tid.</p>
 		<p>Om du delar till Gemenskapen som inloggad lagras även kopplingen mellan inlägget och ditt konto, så att du kan hantera och ta bort ditt delade inlägg senare.</p>
 	</section>
 
@@ -81,30 +90,38 @@
 		<div class="custom-ul">
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Generera dagbokstexter:</strong> När du trycker på "Skapa dagboksinlägg" skickas dina uppgifter krypterat till vår AI-tjänst (Anthropic) som genererar texten. Efter att texten skapats sparas ingen data hos Anthropic – de använder inte heller din information för att träna sina AI-modeller.</span>
+				<span class="list-content"><strong>Generera dagbokstexter:</strong> När du väljer att skapa eller förfina en text skickas de uppgifter som behövs krypterat till vår AI-tjänst (Anthropic) för att generera resultatet</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Autentisering:</strong> Om du skapar ett konto används din e-postadress och lösenord för att logga in dig och hålla din session aktiv.</span>
+				<span class="list-content"><strong>Autentisering och konto:</strong> Om du skapar ett konto används din e-postadress, ditt lösenord eller vald inloggningsmetod för att logga in dig, verifiera ditt konto och hålla din session aktiv</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Dagboksarkiv:</strong> Om du är inloggad och väljer att spara en genererad text sparas den i ditt personliga arkiv så att du kan läsa den igen senare.</span>
+				<span class="list-content"><strong>Dagboksarkiv och profil:</strong> Om du är inloggad används uppgifterna för att spara dina texter, visa dem igen senare och synka profil- och kontoinställningar mellan enheter</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Gemenskapen:</strong> Om du väljer att dela en dagboksanteckning används uppgifterna för att publicera och visa inlägget i Gemenskapen, samt för att koppla inlägget till ditt konto om du är inloggad.</span>
+				<span class="list-content"><strong>Gemenskapen:</strong> Om du väljer att dela en dagboksanteckning används uppgifterna för att publicera och visa inlägget i Gemenskapen, samt för att koppla inlägget till ditt konto om du är inloggad</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>E-postleverans:</strong> Om du väljer att skicka din dagbokstext via e-post skickas din e-postadress och texten till vår e-posttjänst för leverans.</span>
+				<span class="list-content"><strong>Utskick och påminnelser:</strong> Om du aktiverar veckobrev, månadsbrev eller skrivpåminnelser används dina preferenser, din tidszon och tekniska push- eller e-postuppgifter för att kunna skicka dem</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Hastighetsbegränsning:</strong> Vi använder hastighetsbegränsning för att skydda tjänsten mot missbruk. I samband med detta behandlas en anonymiserad identifierare tillfälligt.</span>
+				<span class="list-content"><strong>Personalisering och framsteg:</strong> Profilinformation, röstval och användningshändelser används för att personalisera texter och visa utmärkelser, streaks och annan kontorelaterad funktionalitet i appen</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>Kontakt:</strong> Om du kontaktar oss används dina uppgifter för att ta emot, hantera och besvara ditt meddelande</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>Säkerhet och missbruksskydd:</strong> Vi använder hastighetsbegränsning och tekniska skydd för att minska spam, missbruk och angrepp mot tjänsten. I samband med detta behandlas en anonymiserad identifierare tillfälligt</span>
 			</div>
 		</div>
-		<p>Den rättsliga grunden för denna behandling enligt GDPR är ditt samtycke – du väljer själv att fylla i uppgifterna, skapa konto och generera dagbokstexter.</p>
+		<p>Rättslig grund enligt GDPR beror på vilken funktion som används. När vi tillhandahåller konto- och appfunktioner som du själv använder sker behandlingen normalt för att kunna leverera tjänsten. För valfria funktioner som platsåtkomst, Gemenskapen, nyhetsbrev och pushpåminnelser bygger behandlingen på dina aktiva val eller ditt samtycke. För säkerhet, felhantering och missbruksskydd kan vi också behandla uppgifter med stöd av vårt berättigade intresse att hålla tjänsten säker och fungerande. Officiell EU-vägledning om rättsliga grunder finns hos Europeiska kommissionen och Europeiska dataskyddsstyrelsen: <a href="https://commission.europa.eu/law/law-topic/data-protection/rules-business-and-organisations/legal-grounds-processing-data/grounds-processing/when-can-personal-data-be-processed_en" target="_blank" rel="noopener">European Commission</a> och <a href="https://www.edpb.europa.eu/sme-data-protection-guide/process-personal-data-lawfully_en" target="_blank" rel="noopener">EDPB</a>.</p>
 	</section>
 
 	<section>
@@ -113,27 +130,31 @@
 		<div class="custom-ul">
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Anthropic (Claude):</strong> AI-tjänst som genererar dagbokstexter. Data skickas krypterat och sparas inte efter att texten genererats. Anthropic är baserat i USA och följer lämpliga skyddsåtgärder för internationell dataöverföring. Läs mer i <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">Anthropics integritetspolicy</a>.</span>
+				<span class="list-content"><strong>Anthropic (Claude):</strong> AI-tjänst som genererar och förfinar dagbokstexter. Läs mer i <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">Anthropics integritetspolicy</a>.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Databastjänst:</strong> Om du skapar ett konto lagras din profil, kontoinformation och sparade dagboksinlägg hos vår databastjänst. Tjänsten hanterar även autentisering och sätter en funktionell cookie för att hålla din session aktiv. Om du delar till Gemenskapen lagras även det publika inlägget där. Data lagras krypterat.</span>
+				<span class="list-content"><strong>Supabase:</strong> Databas-, lagrings- och autentiseringstjänst för konton, profiler, sparade inlägg, badges, push-prenumerationer och communitydata. Tjänsten hanterar även sessionscookies. Läs mer i <a href="https://supabase.com/privacy" target="_blank" rel="noopener">Supabases integritetspolicy</a>.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>E-posttjänst:</strong> Om du väljer att skicka din dagbokstext via e-post skickas din e-postadress och dagbokstexten till vår e-posttjänst för leverans. Vi sparar inte din e-postadress och tjänsten hanterar den endast för att skicka meddelandet. Läs mer i <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener">e-posttjänstens integritetspolicy</a>.</span>
+				<span class="list-content"><strong>Resend:</strong> E-posttjänst som används för Storifys e-postutskick, till exempel veckobrev och andra utskick när sådana används. Läs mer i <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener">Resends integritetspolicy</a>.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Väder- och platstjänster:</strong> Om du aktiverar väder- och platsdetektering skickas din ungefärliga position till externa tjänster för att hämta aktuellt väder och platsnamn. Positionen sparas inte och används endast för dessa enstaka förfrågningar. Platsautokomplettering i formuläret använder en extern söktjänst som behandlar det du skriver i fältet.</span>
+				<span class="list-content"><strong>SMHI:</strong> Väderdata hämtas från SMHI:s öppna API när du använder väderfunktionen.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Kontaktformulär:</strong> Om du skickar ett meddelande via kontaktsidan behandlas dina uppgifter av en extern formulärtjänst för att leverera meddelandet till oss.</span>
+				<span class="list-content"><strong>Google:</strong> Google Geocoding API används för platsnamn om du använder platsfunktionen. Google används också för inloggning om du väljer "Fortsätt med Google". Läs mer i <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Googles integritetspolicy</a>.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Google Play:</strong> Om du laddat ner appen via Google Play kan Google samla in viss information enligt deras egna villkor. Läs mer i <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Googles integritetspolicy</a>.</span>
+				<span class="list-content"><strong>Forminit:</strong> Kontaktformuläret på kontaktsidan använder Forminit för att ta emot och vidarebefordra meddelanden och bilagor. Läs mer i <a href="https://forminit.com" target="_blank" rel="noopener">Forminit</a>.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>Upstash Redis:</strong> Används för hastighetsbegränsning och missbruksskydd på vissa API-funktioner.</span>
 			</div>
 		</div>
 	</section>
@@ -152,11 +173,11 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Rätt till radering:</strong> Utan konto kan du radera all data via "Rensa sparad data" på startsidan. Om du har ett konto kan du radera enskilda dagboksinlägg i ditt dagboksarkiv och dina egna delade inlägg i Gemenskapen. Vill du att all din kontodata raderas kan du kontakta oss. Har du delat anonymt till Gemenskapen kan du också kontakta oss för att begära radering.</span>
+				<span class="list-content"><strong>Rätt till radering:</strong> Utan konto kan du radera lokalt sparad data via webbläsarens inställningar för webbplatsdata. Om du har ett konto kan du radera enskilda dagboksinlägg i ditt dagboksarkiv och dina egna delade inlägg i Gemenskapen. Vill du att all din kontodata raderas kan du kontakta oss. Har du delat anonymt till Gemenskapen kan du också kontakta oss för att begära radering.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Rätt till dataportabilitet:</strong> Utan konto finns din data redan på din enhet. Med konto kan du exportera dina dagboksinlägg som bild, PDF eller text.</span>
+				<span class="list-content"><strong>Rätt till dataportabilitet:</strong> För automatiserad behandling som grundar sig på samtycke eller avtal har du rätt att begära ut de personuppgifter du lämnat till oss. Utan konto finns lokal data redan på din enhet. Med konto kan du kontakta oss om du vill begära ett utdrag av de uppgifter vi lagrar hos oss.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
@@ -168,7 +189,7 @@
 
 	<section>
 		<h2>Barn och unga</h2>
-		<p>Storify kan användas av personer i alla åldrar. Vi samlar inte medvetet in mer information än nödvändigt, och all data stannar på användarens egen enhet om inget konto skapas, så länge användaren inte själv väljer att dela ett inlägg till Gemenskapen. Vi uppmuntrar föräldrar och vårdnadshavare att vara delaktiga i yngre barns användning av appen, särskilt vid publik delning.</p>
+		<p>Storify kan användas av personer i alla åldrar. Vi samlar inte medvetet in mer information än nödvändigt, och lokal data stannar på användarens egen enhet så länge inget konto skapas och inget innehåll delas publikt. Vi uppmuntrar föräldrar och vårdnadshavare att vara delaktiga i yngre barns användning av appen, särskilt vid kontoanvändning, publik delning och kontaktformulär.</p>
 	</section>
 
 	<section>

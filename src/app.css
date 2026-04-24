@@ -245,10 +245,10 @@
   --weight-book: 375;
   --weight-regular: 415;
   --weight-news: 450;
-  --weight-medium: 480; /* Slightly heavier than typical 500 */
-  --weight-semibold: 560; /* Between medium and bold */
-  --weight-bold: 650; /* Robust but not too heavy */
-  --weight-heavy: 750;
+  --weight-medium: 500; /* Slightly heavier than typical 500 */
+  --weight-semibold: 585; /* Between medium and bold */
+  --weight-bold: 675; /* Robust but not too heavy */
+  --weight-heavy: 760;
   --weight-black: 900;
 }
 

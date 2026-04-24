@@ -19,11 +19,12 @@
 		<Emoji name="cookie" size={96} />
 		<h1>Cookiepolicy</h1>
 	</div>
-	<p class="updated">Senast uppdaterad: 8 februari 2026</p>
+	<p class="updated">Senast uppdaterad: 23 april 2026</p>
 
 	<section>
 		<h2>Den korta versionen</h2>
-		<p>Storify använder inga cookies för reklam, spårning eller analys. De enda cookies som finns är de som krävs för att hålla dig inloggad om du skapar ett konto. Använder du appen utan konto sätts inga cookies alls.</p>
+		<p>Storify använder inte cookies för reklam, beteendespårning eller analys. De cookies som kan förekomma är funktionella cookies från vår inloggningstjänst, så att du kan vara inloggad och komma åt ditt konto.</p>
+		<p>Appen använder också lokal lagring i webbläsaren för sådant som tema, accentfärg, lokal profil och tillfälliga utkast. Om du aktiverar påminnelser eller installerar webbappen kan webbläsaren även spara teknisk appdata, till exempel push-prenumeration och cache för statiska filer.</p>
 	</section>
 
 	<section>
@@ -32,30 +33,38 @@
 	</section>
 
 	<section>
-		<h2>Om du använder Storify utan konto</h2>
-		<p>Använder du appen utan att logga in sätts inga cookies. Istället använder Storify lokal lagring direkt på din enhet för att spara din profil och dina inställningar. Denna data skickas aldrig automatiskt till någon server och är bara tillgänglig för appen själv.</p>
-		<p>Vi sparar följande lokalt på din enhet:</p>
+		<h2>Lokal lagring i appen</h2>
+		<p>Storify använder lokal lagring direkt på din enhet för att appen ska kännas sammanhängande även när du inte har ett konto. Den här informationen skickas inte automatiskt till servern vid varje sidladdning, utan används av appen i din webbläsare.</p>
+		<p>Det som kan sparas lokalt är:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Din profil:</strong> Namn, ålder, intressen och annan information du fyller i för att personalisera dina dagbokstexter</span>
+				<span class="list-content"><strong>Profil utan konto:</strong> Namn, födelsedag, pronomen, hemstad, familj, husdjur, sysselsättning, intressen och eventuell profilbildslänk som du fyller i för att personalisera dagbokstexter</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Temainställningar:</strong> Om du föredrar ljust eller mörkt läge</span>
+				<span class="list-content"><strong>Utkast:</strong> Pågående texter och formulärdata från guiden, snabbläget, AI-intervjun och Skriv fritt. Utkast används för att du ska kunna fortsätta om du råkar lämna sidan och tas bort när de blir för gamla eller när flödet rensas</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>Visuella inställningar:</strong> Ljust eller mörkt tema och vald accentfärg</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>Intervjuflöde:</strong> Meddelanden, vald intervjuare, vald röst och tillägg i en pågående AI-intervju</span>
 			</div>
 		</div>
-		<p>Du kan när som helst radera all lokalt sparad data genom att trycka på "Rensa sparad data" på startsidan.</p>
+		<p>Om du använder Storify utan konto ligger din profil lokalt på den enhet och webbläsare du använder. Om du är inloggad hämtas profilen i stället från ditt konto, men tema och accent kan fortfarande sparas lokalt för att gränssnittet ska laddas rätt.</p>
 	</section>
 
 	<section>
-		<h2>Om du skapar ett konto och loggar in</h2>
-		<p>När du loggar in sätts en funktionell cookie av vår autentiseringstjänst (Supabase) för att hålla din session aktiv. Utan den skulle du behöva logga in på nytt vid varje sidladdning.</p>
-		<p>Denna cookie:</p>
+		<h2>Cookies vid inloggning</h2>
+		<p>När du skapar konto eller loggar in använder Storify Supabase för autentisering. Supabase kan sätta funktionella cookies och liknande sessionsdata för att hålla dig inloggad, verifiera din session och skydda kontofunktioner som profil, dagboksarkiv, kalender, utmärkelser och delade inlägg.</p>
+		<p>Dessa cookies och sessionsuppgifter:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content">Innehåller enbart sessionsinformation – ingen personlig data</span>
+				<span class="list-content">är nödvändiga för inloggning och kontofunktioner</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
@@ -63,15 +72,25 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content">Tas bort när du loggar ut</span>
+				<span class="list-content">kan uppdateras automatiskt när sessionen förnyas</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content">tas bort eller blir ogiltiga när du loggar ut eller när sessionen löper ut</span>
 			</div>
 		</div>
-		<p>Som inloggad sparas din profil och dina dagboksinlägg i molnet (via Supabase) istället för enbart lokalt, så att du kan komma åt dem från olika enheter.</p>
+		<p>Som inloggad sparas din profil, dina sparade dagboksinlägg, dina utmärkelser och dina kontoinställningar i molnet via Supabase så att du kan komma åt dem från olika enheter.</p>
+	</section>
+
+	<section>
+		<h2>Webbapp, cache och push-notiser</h2>
+		<p>Storify har en service worker och en webbappmanifestfil så att appen kan installeras via webbläsaren på enheter som stödjer det. Webbläsaren kan därför spara statiska filer i sin cache, till exempel appskal, ikoner och byggfiler, för att appen ska ladda snabbare och fungera bättre som installerad webbapp.</p>
+		<p>Om du som inloggad användare aktiverar skrivpåminnelser kan webbläsaren skapa en push-prenumeration. Då sparas tekniska push-uppgifter både i webbläsaren och i vår databas, kopplat till ditt konto, så att vi kan skicka påminnelsen. Du kan stänga av påminnelser i profilen och även ta bort webbplatsens notisbehörighet i webbläsarens inställningar.</p>
 	</section>
 
 	<section>
 		<h2>Tredjepartscookies</h2>
-		<p>Vi använder inga tredjepartscookies. Det betyder:</p>
+		<p>Storify bäddar inte in reklam, analysverktyg eller sociala medier-widgets som sätter tredjepartscookies på våra sidor. Det betyder:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
@@ -90,11 +109,12 @@
 				<span class="list-content">Ingen delning av din data med annonsörer</span>
 			</div>
 		</div>
+		<p>Om du klickar på en extern länk, till exempel till GitHub, en integritetspolicy eller en delningsfunktion utanför Storify, lämnar du vår webbplats. Då gäller den externa tjänstens egna villkor och cookiehantering.</p>
 	</section>
 
 	<section>
-		<h2>Cookies kontra lokal lagring</h2>
-		<p>Det finns en viktig skillnad mellan cookies och lokal lagring:</p>
+		<h2>Cookies, lokal lagring och cache</h2>
+		<p>Det finns några olika sorters lagring i webbläsaren:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
@@ -104,13 +124,27 @@
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Lokal lagring:</strong> Stannar på din enhet, skickas aldrig automatiskt till någon server, och är endast tillgänglig för appen själv</span>
 			</div>
+			<div class="custom-li">
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>Cache och service worker:</strong> Används av webbläsaren för att spara tekniska appfiler så att webbappen kan laddas snabbare</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>Push-prenumeration:</strong> Skapas bara om du aktivt tillåter notiser och används för skrivpåminnelser</span>
+			</div>
 		</div>
-		<p>Storify använder lokal lagring för din profil och dina inställningar. Den enda cookien som kan sättas är den funktionella sessionscookien vid inloggning.</p>
+		<p>Storify använder cookies endast för funktionella kontobehov. För appupplevelsen används i första hand lokal lagring, cache och webbläsarens egna behörigheter.</p>
+	</section>
+
+	<section>
+		<h2>Så kan du radera lagrad information</h2>
+		<p>Du kan alltid logga ut för att avsluta din aktiva session. Vill du rensa lokal appdata, cache eller cookies helt kan du göra det via webbläsarens inställningar för webbplatsdata för mystorify.se.</p>
+		<p>Utkast i guiden, snabbläget, AI-intervjun och Skriv fritt sparas bara tillfälligt och rensas när de blir för gamla eller när du avslutar respektive flöde. Sparade dagboksinlägg i ditt konto raderas däremot i dagboksarkivet, inte genom att rensa webbläsarens cookies.</p>
 	</section>
 
 	<section>
 		<h2>Varför vi valt att minimera cookies</h2>
-		<p>Vi tror att din dagbok är privat. Genom att undvika spårningscookies och hålla så mycket data som möjligt lokalt på din enhet minimerar vi risken för dataläckor och säkerställer att du har kontroll över din information. Det är helt enkelt det rätta sättet att bygga en dagboksapp.</p>
+		<p>Vi tror att din dagbok är privat. Därför använder Storify inte spårningscookies och sparar bara sådan webbläsardata som behövs för att appen ska fungera: inloggning, utkast, inställningar, installerbar webbapp och frivilliga notiser. Det är helt enkelt det rimliga sättet att bygga en dagboksapp.</p>
 	</section>
 
 	<section>

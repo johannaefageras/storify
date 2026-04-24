@@ -2,6 +2,7 @@
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import { Emoji } from '$lib/assets/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import { tones } from '$lib/data/tones';
 
 	const judgeComponents = {
 		pink: 'woman-judge-pink',
@@ -28,7 +29,7 @@
 		<Emoji name={JudgeIcon} size={96} />
 		<h1>Användarvillkor</h1>
 	</div>
-	<p class="updated">Senast uppdaterad: 27 mars 2026</p>
+	<p class="updated">Senast uppdaterad: 24 april 2026</p>
 
 	<section>
 		<h2>Välkommen till Storify</h2>
@@ -37,18 +38,18 @@
 
 	<section>
 		<h2>Så fungerar tjänsten</h2>
-		<p>Du kan välja mellan fyra lägen: en fullständig guide med detaljerade frågor om din dag, ett snabbläge där du fångar dagens känsla på under en minut, en AI-intervju där du chattar med en AI som ställer frågor om din dag, eller Skriv fritt där du skriver själv med AI-stöd. I samtliga lägen väljer du en av 32 skrivstilar och låter vår AI skapa eller förfina ett dagboksinlägg åt dig. I den fullständiga guiden kan du även lägga till tillägg som horoskop, historiska händelser eller en personlig hemläxa.</p>
-		<p>Den genererade texten kan sparas som bild, PDF, kopieras, skickas som e-post eller delas till Gemenskapen. Om du har ett konto kan du dessutom spara inlägg i ditt personliga dagboksarkiv och följa din skrivresa i en kalender med streak-statistik.</p>
+		<p>Du kan välja mellan fyra lägen: en fullständig guide med detaljerade frågor om din dag, ett snabbläge där du fångar dagens känsla på under en minut, en AI-intervju där du väljer intervjuare och chattar med en AI som ställer frågor om din dag, eller Skriv fritt där du skriver själv med AI-stöd och redigeringsverktyg. I samtliga lägen väljer du en av {tones.length} skrivstilar och låter vår AI skapa eller förfina ett dagboksinlägg åt dig. I den fullständiga guiden kan du även lägga till tillägg som horoskop, historiska händelser eller en personlig hemläxa.</p>
+		<p>När texten är klar kan du redigera den, regenerera den i en annan röst, spara den i ditt dagboksarkiv om du har konto eller dela den frivilligt till Gemenskapen. Med konto får du dessutom profilsynk, kalender med streak-statistik, badges, skrivpåminnelser och inställningar för veckobrev och månadsbrev.</p>
 	</section>
 
 	<section>
 		<h2>Användning utan konto</h2>
-		<p>Du behöver inget konto för att använda Storify. Utan konto lagras din profil lokalt på din enhet och du har full kontroll över den. Dagboksdata skickas till AI:n för att skapa texten, men sparas inte hos oss efteråt, förutom om du själv väljer att dela ett inlägg till Gemenskapen.</p>
+		<p>Du behöver inget konto för att använda Storify. Utan konto lagras din profil, dina inställningar och tillfälliga utkast lokalt i din webbläsare och du har full kontroll över den datan på din enhet. Dagboksdata skickas till AI:n för att skapa texten, men sparas normalt inte hos oss efteråt, förutom om du själv väljer att dela ett inlägg till Gemenskapen eller använda en funktion som kräver serverkontakt.</p>
 	</section>
 
 	<section>
 		<h2>Användning med konto</h2>
-		<p>Om du skapar ett konto lagras din profil och dina sparade dagboksinlägg i molnet hos vår databastjänst. Du ansvarar för att hålla dina inloggningsuppgifter säkra. Genom att skapa ett konto godkänner du att din data lagras enligt vår <a href="/privacy">integritetspolicy</a>. Om du delar ett inlägg till Gemenskapen som inloggad användare kopplas det delade inlägget till ditt konto så att du kan hantera det senare.</p>
+		<p>Om du skapar ett konto lagras din profil, dina sparade dagboksinlägg och relevanta kontoinställningar i molnet hos vår databastjänst. Konto kan skapas med e-post och lösenord eller via Google-inloggning. Du ansvarar för att hålla dina inloggningsuppgifter säkra. Genom att skapa ett konto godkänner du att din data lagras enligt vår <a href="/privacy">integritetspolicy</a>. Om du delar ett inlägg till Gemenskapen som inloggad användare kopplas det delade inlägget till ditt konto så att du kan hantera det senare.</p>
 	</section>
 
 	<section>
@@ -127,7 +128,7 @@
 
 	<section>
 		<h2>Tjänstens begränsningar</h2>
-		<p>Storify använder hastighetsbegränsning för att skydda tjänsten mot missbruk. Det innebär att antalet dagbokstexter och e-postmeddelanden du kan generera under en viss tidsperiod är begränsat. Om du når gränsen kan du försöka igen efter en stund.</p>
+		<p>Storify använder hastighetsbegränsning och andra skydd för att motverka missbruk. Det innebär att antalet förfrågningar till vissa funktioner, till exempel textgenerering, delning och andra serverbaserade åtgärder, kan vara begränsat under en viss tidsperiod. Om du når gränsen kan du försöka igen efter en stund.</p>
 	</section>
 
 	<section>
@@ -167,19 +168,19 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Databastjänst:</strong> Hanterar autentisering, profillagring, dagboksarkiv för användare med konto och lagring av delade inlägg i Gemenskapen.</span>
+				<span class="list-content"><strong>Supabase:</strong> Hanterar autentisering, profillagring, dagboksarkiv för användare med konto, push-prenumerationer och lagring av delade inlägg i Gemenskapen. <a href="https://supabase.com/terms" target="_blank" rel="noopener">Läs deras villkor</a>.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>E-posttjänst:</strong> Används för att skicka dagbokstexter via e-post (om du väljer att använda funktionen). <a href="https://resend.com/legal/terms-of-service" target="_blank" rel="noopener">Läs deras villkor</a>.</span>
+				<span class="list-content"><strong>Resend:</strong> E-posttjänst som används för Storifys utskick, till exempel veckobrev, månadsbrev eller andra kontorelaterade e-postmeddelanden. <a href="https://resend.com/legal/terms-of-service" target="_blank" rel="noopener">Läs deras villkor</a>.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Väder- och platstjänster:</strong> Externa tjänster som tillhandahåller väderdata och platsnamn baserat på din position, samt platsautokomplettering i formuläret (om du väljer att aktivera funktionerna).</span>
+				<span class="list-content"><strong>Google:</strong> Används för Google-inloggning och vissa platstjänster, till exempel platsnamn och geokodning när du väljer att använda dessa funktioner.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Google Play:</strong> Om du laddat ner appen därifrån. <a href="https://play.google.com/intl/sv/about/play-terms/" target="_blank" rel="noopener">Läs deras villkor</a>.</span>
+				<span class="list-content"><strong>SMHI, Forminit och Upstash Redis:</strong> SMHI används för väderdata, Forminit för kontaktformuläret och Upstash Redis för hastighetsbegränsning och missbruksskydd på vissa API-funktioner.</span>
 			</div>
 		</div>
 	</section>

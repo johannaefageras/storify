@@ -4,6 +4,8 @@
 	import { Number1, Number2, Number3, Number4, Number5, Number6, Number7 } from '$lib/assets/numbers';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import { voiceSamples } from '$lib/data/voiceSamples';
+	import { tones } from '$lib/data/tones';
+	import { BADGES } from '$lib/data/badges';
 	import type { Snippet } from 'svelte';
 
 	interface VoiceInfo {
@@ -63,13 +65,13 @@
 		<h1>Användarguide</h1>
 	</div>
 	<p class="subtitle">Så får du ut det bästa av Storify</p>
-	<p class="updated">Senast uppdaterad: 27 mars 2026</p>
+	<p class="updated">Senast uppdaterad: 23 april 2026</p>
 
 	<section>
 		<h2>Hur fungerar Storify?</h2>
 		<p>Storify hjälper dig att skriva dagbok genom att omvandla dina svar på enkla frågor till en personlig dagbokstext. Du väljer en röst som passar ditt humör, och sedan skapar AI:n en text baserad på det du berättat.</p>
 		<p>Tänk på det som att ha en personlig författare som lyssnar på din dag och sedan skriver ner den åt dig – men med din egen information och i den stil du väljer.</p>
-		<p>Appen kan även hämta aktuellt väder och din plats automatiskt, så du slipper fylla i det manuellt – ett litet sätt att fånga stämningen i din dag.</p>
+		<p>I den fullständiga guiden kan appen även hämta aktuellt väder och din plats automatiskt, så du slipper fylla i det manuellt – ett litet sätt att fånga stämningen i din dag.</p>
 		<p>Vill du ibland dela mer än bara med dig själv? Storify har också <strong>Gemenskapen</strong>, där du frivilligt kan publicera utvalda dagboksanteckningar och läsa sådant andra användare valt att dela.</p>
 		<p>Du kan välja mellan fyra lägen:</p>
 		<div class="custom-ul">
@@ -83,11 +85,11 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>AI-intervju</strong> – Chatta med en AI som ställer frågor om din dag. Känns som att prata med en nyfiken vän – och efteråt skapas din dagbokstext utifrån samtalet.</span>
+				<span class="list-content"><strong>AI-intervju</strong> – Välj intervjuare och chatta med en AI som ställer frågor om din dag. Känns som att prata med en nyfiken vän, journalist eller terapeut – och efteråt skapas din dagbokstext utifrån samtalet.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Skriv fritt</strong> – Skriv fritt i en textredigerare med AI-stöd som kan förfina och polera din text när du är klar.</span>
+				<span class="list-content"><strong>Skriv fritt</strong> – Skriv fritt i en textredigerare med formateringsverktyg och AI-stöd som kan förfina och polera din text när du är klar.</span>
 			</div>
 		</div>
 	</section>
@@ -114,7 +116,7 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Röst</strong> – Välj en av 32 skrivstilar.</span>
+				<span class="list-content"><strong>Röst</strong> – Välj en av {tones.length} skrivstilar.</span>
 			</div>
 		</div>
 		<p>Texten som genereras i snabbläget är kortare och mer koncentrerad – ungefär 100–150 ord – men fångar ändå kärnan i din dag. Tillägg som horoskop och historiska händelser är inte tillgängliga i snabbläget.</p>
@@ -147,11 +149,11 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon number-icon"><Number6 size={14} /></span>
-				<span class="list-content"><strong>Välj röst och tillägg</strong> – Välj vem som ska skriva din dagbok (32 unika röster!) och krydda med valfria tillägg som horoskop, historiska händelser eller en personlig hemläxa.</span>
+				<span class="list-content"><strong>Välj röst och tillägg</strong> – Välj vem som ska skriva din dagbok ({tones.length} unika röster!) och krydda med valfria tillägg som horoskop, historiska händelser eller en personlig hemläxa.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon number-icon"><Number7 size={14} /></span>
-				<span class="list-content"><strong>Generera och spara</strong> – Granska en sammanfattning, tryck på knappen och låt magin hända! Spara sedan din text som bild, PDF, e-post, i ditt dagboksarkiv eller dela den till Gemenskapen.</span>
+				<span class="list-content"><strong>Generera och spara</strong> – Granska en sammanfattning, tryck på knappen och låt magin hända! Efteråt kan du redigera texten, regenerera den i en annan röst, spara den i ditt dagboksarkiv eller publicera den i Gemenskapen.</span>
 			</div>
 		</div>
 		<p>Inte alla steg är obligatoriska – fyll i det som känns relevant och hoppa över resten. AI:n arbetar med det du ger den.</p>
@@ -214,7 +216,7 @@
 
 	<section>
 		<h2>Välj rätt röst</h2>
-		<p>Rösten du väljer påverkar stilen på din dagbokstext. Klicka på en röst för att läsa mer och se exempel:</p>
+		<p>Rösten du väljer påverkar stilen på din dagbokstext. Det finns {tones.length} röster totalt. Klicka på en röst för att läsa mer och se exempel:</p>
 
 		<div class="voice-grid-compact">
 			{#snippet ledgerIcon()}<Emoji name="ledger" size={20} />{/snippet}
@@ -418,7 +420,7 @@
 
 	<section>
 		<h2>Redigera och spara din dagbokstext</h2>
-		<p>När din text har genererats finns det flera sätt att redigera, spara och dela den:</p>
+		<p>När din text har genererats finns det flera sätt att fortsätta arbeta med den:</p>
 
 		<div class="save-grid">
 			<div class="save-card">
@@ -429,38 +431,17 @@
 				</div>
 			</div>
 			<div class="save-card">
+				<span class="save-emoji"><Emoji name="redo" size={28} /></span>
+				<div class="save-content">
+					<h3>Regenerera</h3>
+					<p>Skapa om texten i en annan röst.</p>
+				</div>
+			</div>
+			<div class="save-card">
 				<span class="save-emoji"><Emoji name="archive" size={28} /></span>
 				<div class="save-content">
 					<h3>Spara på webben</h3>
-					<p>Spara i ditt personliga arkiv online.</p>
-				</div>
-			</div>
-			<div class="save-card">
-				<span class="save-emoji"><Emoji name="framed-picture" size={28} /></span>
-				<div class="save-content">
-					<h3>Spara som bild</h3>
-					<p>Spara som en bild till ditt fotoalbum.</p>
-				</div>
-			</div>
-			<div class="save-card">
-				<span class="save-emoji"><Emoji name="printer" size={28} /></span>
-				<div class="save-content">
-					<h3>Spara som PDF</h3>
-					<p>Perfekt för utskrift och arkivering.</p>
-				</div>
-			</div>
-			<div class="save-card">
-				<span class="save-emoji"><Emoji name="clipboard" size={28} /></span>
-				<div class="save-content">
-					<h3>Kopiera texten</h3>
-					<p>Kopiera och klistra in var du vill.</p>
-				</div>
-			</div>
-			<div class="save-card">
-				<span class="save-emoji"><Emoji name="envelope-arrow" size={28} /></span>
-				<div class="save-content">
-					<h3>Skicka som e-post</h3>
-					<p>Mejla dagboken till vem du vill.</p>
+					<p>Spara i ditt personliga arkiv online om du är inloggad.</p>
 				</div>
 			</div>
 			<div class="save-card">
@@ -472,7 +453,7 @@
 			</div>
 		</div>
 
-		<p>Alla alternativ hittar du längst ner på sidan efter att din text har genererats eller öppnats i appen. Du kan använda flera alternativ på samma text!</p>
+		<p>Alla alternativ hittar du längst ner på sidan efter att din text har genererats eller öppnats i appen. Du kan använda flera alternativ på samma text.</p>
 		<p>När du delar till Gemenskapen kan du ange ett visningsnamn eller lämna fältet tomt för att publicera anonymt. Delning är alltid valfri och påverkar inte dina privata dagboksinlägg.</p>
 	</section>
 
@@ -505,6 +486,14 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>Utmärkelser:</strong> Lås upp {BADGES.length} badges för milstolpar, skrivsätt, gemenskap, röster och små upptäckter i appen.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>Aviseringar:</strong> Slå på skrivpåminnelser, veckobrev eller månadsbrev i profilen om du vill få en liten puff att fortsätta skriva.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Ägarskap över delade inlägg:</strong> Om du delar till Gemenskapen som inloggad kopplas inlägget till ditt konto, vilket gör att du kan ta bort det senare.</span>
 			</div>
 		</div>
@@ -519,10 +508,10 @@
 		<p>Nej! Fyll i det som känns relevant. Hade du ingen speciell mat? Skippa det. Vet du inte vad som spelades? Det går bra. AI:n arbetar med det du ger den.</p>
 
 		<h3>Kan jag redigera texten efteråt?</h3>
-		<p>Ja, du kan kopiera texten och redigera den hur du vill. Det är din dagbok!</p>
+		<p>Ja. Efter att texten skapats kan du öppna redigeringsläget och ändra texten direkt i appen. Du kan också regenerera texten i en annan röst.</p>
 
 		<h3>Sparas min data?</h3>
-		<p>Om du använder appen utan konto sparas din profil lokalt på din enhet och skickas bara till AI:n när du genererar en text. Om du har ett konto sparas din profil och dina journalinlägg i molnet (via Supabase) så att du kan komma åt dem från olika enheter. Läs mer i vår <a href="/privacy">integritetspolicy</a>.</p>
+		<p>Om du använder appen utan konto sparas din profil och tillfälliga utkast lokalt på din enhet. Informationen skickas till AI:n först när du väljer att generera en text. Om du har ett konto sparas din profil och dina sparade dagboksinlägg i molnet via Supabase så att du kan komma åt dem från olika enheter. Läs mer i vår <a href="/privacy">integritetspolicy</a>.</p>
 
 		<h3>Måste jag ha konto för att dela till Gemenskapen?</h3>
 		<p>Nej. Du kan dela både som inloggad och anonym användare. Om du inte är inloggad kan du ändå ange ett visningsnamn, eller lämna det tomt för att publicera som "Anonym".</p>
@@ -558,7 +547,7 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Spara dina favoriter</strong> – Exportera texter du gillar extra mycket, eller skapa ett konto och bygg ett dagboksarkiv.</span>
+				<span class="list-content"><strong>Spara dina favoriter</strong> – Skapa ett konto och bygg ett dagboksarkiv med de texter du vill kunna återvända till.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
