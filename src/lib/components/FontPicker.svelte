@@ -7,6 +7,7 @@
 		<button
 			class="font-swatch"
 			class:recursive={id === 'recursive'}
+			class:fraunces={id === 'fraunces'}
 			class:active={fontStore.current === id}
 			style="font-family: {family};"
 			onclick={() => fontStore.set(id)}
@@ -69,5 +70,12 @@
 			'CASL' 1,
 			'CRSV' 1,
 			'slnt' 0;
+	}
+
+	.font-swatch.fraunces {
+		font-variation-settings:
+			'opsz' 32,
+			'SOFT' 100,
+			'WONK' 0;
 	}
 </style>

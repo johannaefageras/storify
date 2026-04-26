@@ -43,6 +43,28 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Fraunces';
+  src:
+    url('./lib/assets/fonts/FrauncesRoman-VF.woff2') format('woff2'),
+    url('./lib/assets/fonts/FrauncesRoman-VF.woff') format('woff'),
+    url('./lib/assets/fonts/FrauncesRoman-VF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fraunces';
+  src:
+    url('./lib/assets/fonts/FrauncesItalic-VF.woff2') format('woff2'),
+    url('./lib/assets/fonts/FrauncesItalic-VF.woff') format('woff'),
+    url('./lib/assets/fonts/FrauncesItalic-VF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 /* ==========================================================================
    My Storify Typography System
 
@@ -355,6 +377,65 @@
     'CASL' 1,
     'CRSV' 1,
     'slnt' 0;
+}
+
+/* ==========================================================================
+   Alternative Font: Fraunces
+
+   Activated via [data-font="fraunces"] on <html>. Fraunces has axes
+   opsz (9-144), SOFT (0..100), wght (100-900), WONK (0..1).
+   We keep it super-soft and unwonky throughout, with modest optical sizing for
+   body text and a larger-but-still restrained optical size for headings/UI.
+   ========================================================================== */
+
+[data-font='fraunces'] {
+  --font-primary: 'Fraunces', Georgia, serif;
+  --font-heading: var(--font-primary);
+  --font-body: var(--font-primary);
+  --font-ui: var(--font-primary);
+
+  --weight-light: 300;
+  --weight-book: 350;
+  --weight-regular: 400;
+  --weight-news: 450;
+  --weight-medium: 575;
+  --weight-semibold: 675;
+  --weight-bold: 760;
+  --weight-heavy: 840;
+  --weight-black: 900;
+
+  font-variation-settings:
+    'opsz' 18,
+    'SOFT' 100,
+    'WONK' 0;
+}
+
+[data-font='fraunces']
+  :where(
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    button,
+    .btn,
+    .label,
+    .category-name,
+    .step-number,
+    .preview-label,
+    .summary-label,
+    .voice-label,
+    .pill,
+    .tag,
+    .badge,
+    .chip,
+    .optional-badge
+  ) {
+  font-variation-settings:
+    'opsz' 48,
+    'SOFT' 100,
+    'WONK' 0;
 }
 
 /* ==========================================================================
