@@ -32,6 +32,17 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Recursive';
+  src:
+    url('./lib/assets/fonts/Recursive-VF.woff2') format('woff2'),
+    url('./lib/assets/fonts/Recursive-VF.woff') format('woff'),
+    url('./lib/assets/fonts/Recursive-VF.ttf') format('truetype');
+  font-weight: 300 1000;
+  font-style: oblique -15deg 0deg;
+  font-display: swap;
+}
+
 /* ==========================================================================
    My Storify Typography System
 
@@ -250,6 +261,100 @@
   --weight-bold: 675; /* Robust but not too heavy */
   --weight-heavy: 760;
   --weight-black: 900;
+}
+
+/* ==========================================================================
+   Alternative Font: Shantell Sans
+
+   Activated via [data-font="shantell"] on <html>. Shantell Sans has axes
+   wght (300-800), ital, BNCE (-100..100), INFM (0..100), SPAC (0..100).
+   We pin BNCE/INFM/SPAC to 0 for a calm, regular look and remap the
+   --weight-* variables so existing rules land within Shantell's range
+   (body 375-425, headings/UI 500-625). Must come after the :root block
+   above so the cascade overrides --font-primary and --weight-*.
+   ========================================================================== */
+
+[data-font='shantell'] {
+  --font-primary: 'Shantell Sans', system-ui, sans-serif;
+  --font-heading: var(--font-primary);
+  --font-body: var(--font-primary);
+  --font-ui: var(--font-primary);
+
+  --weight-light: 350;
+  --weight-book: 375;
+  --weight-regular: 400;
+  --weight-news: 425;
+  --weight-medium: 525;
+  --weight-semibold: 585;
+  --weight-bold: 625;
+  --weight-heavy: 700;
+  --weight-black: 800;
+
+  font-variation-settings:
+    'BNCE' 0,
+    'INFM' 0,
+    'SPAC' 0;
+}
+
+/* ==========================================================================
+   Alternative Font: Recursive
+
+   Activated via [data-font="recursive"] on <html>. Recursive has axes
+   wght (300-1000), slnt (-15..0), MONO (0..1), CASL (0..1), CRSV (0..1).
+   Body text stays casual and proportional with a half-cursive flavor; headings
+   and common UI controls use heavier weights with the full cursive axis.
+   ========================================================================== */
+
+[data-font='recursive'] {
+  --font-primary: 'Recursive', system-ui, sans-serif;
+  --font-heading: var(--font-primary);
+  --font-body: var(--font-primary);
+  --font-ui: var(--font-primary);
+
+  --weight-light: 340;
+  --weight-book: 390;
+  --weight-regular: 405;
+  --weight-news: 425;
+  --weight-medium: 600;
+  --weight-semibold: 675;
+  --weight-bold: 750;
+  --weight-heavy: 850;
+  --weight-black: 1000;
+
+  font-variation-settings:
+    'MONO' 0,
+    'CASL' 1,
+    'CRSV' 0.5,
+    'slnt' 0;
+}
+
+[data-font='recursive']
+  :where(
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    button,
+    .btn,
+    .label,
+    .category-name,
+    .step-number,
+    .preview-label,
+    .summary-label,
+    .voice-label,
+    .pill,
+    .tag,
+    .badge,
+    .chip,
+    .optional-badge
+  ) {
+  font-variation-settings:
+    'MONO' 0,
+    'CASL' 1,
+    'CRSV' 1,
+    'slnt' 0;
 }
 
 /* ==========================================================================

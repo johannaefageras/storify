@@ -43,7 +43,7 @@ export const interviewers: Record<InterviewerId, InterviewerMeta> = {
     name: 'Terapeuten',
     shortLabel: 'Lugn & insiktsfull',
     description:
-      'En stillsam samtalspartner som speglar tillbaka. Följer känslan — ger inga råd, tolkar inte, skyndar inte.',
+      'En stillsam samtalspartner som speglar tillbaka. Följer känslan — ger inga råd, tolkar inte och skyndar inte.',
     sampleQuestion: 'Det är ingen brådska — hur landade det i dig?',
     emoji: 'lotus'
   }

@@ -3,6 +3,7 @@
 	import { authStore } from '$lib/stores/auth.svelte';
 	import barsStaggeredSvg from '$lib/assets/icons/bars.svg?raw';
 	import AccentPicker from '$lib/components/AccentPicker.svelte';
+	import FontPicker from '$lib/components/FontPicker.svelte';
 
 	let open = $state(false);
 
@@ -79,6 +80,7 @@
 
 			<div class="dropdown-footer">
 				<AccentPicker />
+				<FontPicker />
 			</div>
 		</nav>
 	{/if}
@@ -261,9 +263,9 @@
 
 	.dropdown-footer {
 		display: flex;
+		flex-direction: column;
 		align-items: center;
-		justify-content: flex-start;
-		gap: 0.75rem;
+		gap: 0.6rem;
 		margin-top: 0.35rem;
 		padding: 0.9rem 0.8rem 0.5rem;
 		border-top: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);

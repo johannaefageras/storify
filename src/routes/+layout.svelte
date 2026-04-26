@@ -6,6 +6,7 @@
 	import BadgeUnlockToast from '$lib/components/BadgeUnlockToast.svelte';
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import { themeStore } from '$lib/stores/theme.svelte';
+	import { fontStore } from '$lib/stores/font.svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { badgesStore } from '$lib/stores/badges.svelte';
@@ -15,6 +16,7 @@
 	onMount(async () => {
 		themeStore.init();
 		accentStore.init();
+		fontStore.init();
 		await authStore.init();
 		await accentStore.syncWithAuth();
 		await wizardStore.initProfile();
