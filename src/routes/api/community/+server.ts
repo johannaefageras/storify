@@ -7,6 +7,7 @@ import { createSupabaseServerClient } from '$lib/supabase/server';
 import { tones } from '$lib/data/tones';
 import { LIMITS } from '$lib/validation';
 import { checkRateLimit, getClientIdentifier } from '$lib/validation/ratelimit';
+import { generateTitleServer } from '$lib/server/generateTitleServer';
 
 const toneIds = new Set(tones.map((tone) => tone.id));
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
@@ -257,12 +258,15 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 		auth: { persistSession: false }
 	});
 
+	const title = await generateTitleServer(generated_text, tone_id);
+
 	const { data, error } = await adminSupabase.from('community_entries').insert({
 		user_id: user?.id || null,
 		display_name,
 		entry_date,
 		tone_id,
 		generated_text,
+		title,
 		excerpt,
 		emojis,
 		weekday

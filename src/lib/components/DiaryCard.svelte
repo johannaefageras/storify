@@ -13,11 +13,12 @@
 		emojis: string[];
 		toneId: string;
 		generatedText: string;
+		title?: string | null;
 		birthday?: string;
 		onClose?: () => void;
 	}
 
-	let { weekday, date, emojis, toneId, generatedText, birthday = '', onClose }: Props = $props();
+	let { weekday, date, emojis, toneId, generatedText, title = null, birthday = '', onClose }: Props = $props();
 
 	// Expose the document element for parent image/PDF export
 	let documentElement: HTMLDivElement = $state(null!);
@@ -116,6 +117,10 @@
 			{/each}
 		</span>
 	</div>
+
+	{#if title}
+		<h2 class="document-title">{title}</h2>
+	{/if}
 
 	<div class="document-content">
 		{#each renderParagraphs as paragraph}
@@ -253,6 +258,17 @@
 		font-weight: var(--weight-regular);
 		letter-spacing: var(--tracking-wide);
 		color: var(--color-text-muted);
+	}
+
+	.document-title {
+		font-family: var(--font-primary);
+		font-size: var(--text-2xl);
+		font-weight: var(--weight-medium);
+		font-stretch: 110%;
+		letter-spacing: var(--tracking-tight);
+		line-height: var(--leading-tight);
+		color: var(--color-text);
+		margin: 0;
 	}
 
 	.document-content {

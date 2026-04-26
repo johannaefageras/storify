@@ -20,6 +20,7 @@
 		entry_date: string;
 		tone_id: string;
 		generated_text: string;
+		title: string | null;
 		excerpt: string;
 		emojis: string[];
 		weekday: string | null;
@@ -364,6 +365,9 @@
 							<span class="card-time">{formatTimeAgo(entry.created_at)}</span>
 						</div>
 
+						{#if entry.title}
+							<h3 class="card-title">{entry.title}</h3>
+						{/if}
 						<p class="card-excerpt">{entry.excerpt}</p>
 
 						<div class="card-bottom">
@@ -413,6 +417,10 @@
 					<span class="modal-time">{formatTimeAgo(selectedEntry.created_at)}</span>
 				</div>
 			</div>
+
+			{#if selectedEntry.title}
+				<h2 class="modal-title">{selectedEntry.title}</h2>
+			{/if}
 
 			<div class="modal-body">
 				{#each renderParagraphs as paragraph}
@@ -809,11 +817,12 @@
 	}
 
 	.community-card {
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		gap: 0.75rem;
 		min-width: 0;
-		padding: 1rem 1.125rem;
+		padding: 1.125rem 1.25rem;
 		background-color: var(--color-bg-elevated);
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-md);
@@ -821,17 +830,20 @@
 		text-align: left;
 		font-family: var(--font-primary);
 		color: var(--color-text);
+		overflow: hidden;
 		transition:
-			border-color 0.15s ease,
-			background-color 0.15s ease,
-			box-shadow 0.15s ease,
-			transform 0.15s ease;
+			border-color 0.2s ease,
+			background-color 0.2s ease,
+			box-shadow 0.2s ease,
+			transform 0.2s ease;
 	}
 
 	.community-card:hover {
-		border-color: var(--color-accent);
-		background-color: color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-elevated));
-		box-shadow: 0 4px 16px rgba(244, 63, 122, 0.08);
+		border-color: color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
+		background-color: color-mix(in srgb, var(--color-accent) 3%, var(--color-bg-elevated));
+		box-shadow:
+			0 6px 20px color-mix(in srgb, var(--color-accent) 12%, transparent),
+			0 1px 3px rgba(0, 0, 0, 0.04);
 		transform: translateY(-2px);
 	}
 
@@ -840,12 +852,24 @@
 		align-items: center;
 		justify-content: space-between;
 		gap: 0.5rem;
+		position: relative;
+		z-index: 1;
 	}
 
 	.card-tone-badge {
-		display: flex;
+		display: inline-flex;
 		align-items: center;
-		gap: 0.3rem;
+		gap: 0.375rem;
+		padding: 0.25rem 0.5rem 0.25rem 0.4rem;
+		background: color-mix(in srgb, var(--color-accent) 8%, transparent);
+		border: 1px solid color-mix(in srgb, var(--color-accent) 14%, transparent);
+		border-radius: var(--radius-sm);
+		transition: background-color 0.2s ease, border-color 0.2s ease;
+	}
+
+	.community-card:hover .card-tone-badge {
+		background: color-mix(in srgb, var(--color-accent) 13%, transparent);
+		border-color: color-mix(in srgb, var(--color-accent) 26%, transparent);
 	}
 
 	.card-tone-icon {
@@ -858,7 +882,7 @@
 		font-weight: var(--weight-semibold);
 		letter-spacing: var(--tracking-wider);
 		text-transform: uppercase;
-		color: var(--color-text-muted);
+		color: var(--color-accent);
 	}
 
 	.card-time {
@@ -870,20 +894,42 @@
 		white-space: nowrap;
 	}
 
+	.card-title {
+		position: relative;
+		z-index: 1;
+		font-family: var(--font-primary);
+		font-size: var(--text-base);
+		font-weight: var(--weight-semibold);
+		font-stretch: 105%;
+		letter-spacing: var(--tracking-tight);
+		line-height: var(--leading-tight);
+		color: var(--color-text);
+		margin: 0;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		overflow-wrap: break-word;
+	}
+
 	.card-excerpt {
 		flex: 1;
 		font-size: var(--text-sm);
 		font-weight: var(--weight-book);
 		line-height: var(--leading-relaxed);
 		letter-spacing: var(--tracking-wide);
-		color: var(--color-text);
+		color: var(--color-text-muted);
 		margin: 0;
 		display: -webkit-box;
-		-webkit-line-clamp: 3;
+		-webkit-line-clamp: 4;
+		line-clamp: 4;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 		overflow-wrap: break-word;
 		word-break: break-word;
+		position: relative;
+		z-index: 1;
 	}
 
 	.card-bottom {
@@ -891,15 +937,34 @@
 		align-items: center;
 		justify-content: space-between;
 		gap: 0.5rem;
-		padding-top: 0.5rem;
+		padding-top: 0.625rem;
 		border-top: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+		position: relative;
+		z-index: 1;
 	}
 
 	.card-author {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
 		font-size: var(--text-xs);
-		font-weight: var(--weight-medium);
+		font-weight: var(--weight-semibold);
 		letter-spacing: var(--tracking-wide);
 		color: var(--color-accent);
+		min-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.card-author::before {
+		content: '';
+		width: 5px;
+		height: 5px;
+		border-radius: 50%;
+		background: var(--color-accent);
+		flex-shrink: 0;
+		opacity: 0.75;
 	}
 
 	.card-date {
@@ -907,6 +972,8 @@
 		font-weight: var(--weight-regular);
 		letter-spacing: var(--tracking-wide);
 		color: var(--color-text-muted);
+		white-space: nowrap;
+		flex-shrink: 0;
 	}
 
 	/* ===== Pagination ===== */
@@ -1058,6 +1125,17 @@
 		letter-spacing: var(--tracking-wide);
 		color: var(--color-text-muted);
 		opacity: 0.7;
+	}
+
+	.modal-title {
+		font-family: var(--font-primary);
+		font-size: var(--text-2xl);
+		font-weight: var(--weight-medium);
+		font-stretch: 110%;
+		letter-spacing: var(--tracking-tight);
+		line-height: var(--leading-tight);
+		color: var(--color-text);
+		margin: 0 0 1.25rem 0;
 	}
 
 	.modal-body {

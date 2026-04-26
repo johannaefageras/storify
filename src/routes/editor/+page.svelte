@@ -5,6 +5,7 @@
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { supabase } from '$lib/supabase/client';
 	import { streamEntry } from '$lib/utils/streamEntry';
+	import { generateTitle } from '$lib/utils/generateTitle';
 	import { fireBadgeEvent } from '$lib/gamification/client';
 	import { isSeparatorParagraph } from '$lib/utils/paragraphs';
 	import { getSwedishDiaryDate } from '$lib/utils/localDate';
@@ -389,9 +390,11 @@
 		try {
 			const { data: { session } } = await supabase.auth.getSession();
 			if (!session) { entrySaveError = 'Din session har gått ut. Logga in igen.'; return; }
+			const title = await generateTitle(generatedEntry, 'editor');
 			const payload = {
 				user_id: authStore.user.id,
 				generated_text: generatedEntry,
+				title,
 				tone_id: 'editor',
 				entry_date: wizardStore.data.dateISO,
 				weekday: wizardStore.data.weekday,
@@ -1295,12 +1298,15 @@
 	}
 
 	.action-btn-delete {
-		color: inherit;
+		background: transparent;
+		color: var(--color-accent);
+		border: 2px solid var(--color-accent);
 	}
 
 	.action-btn-delete:hover:not(:disabled) {
-		background: var(--color-accent-hover);
-		box-shadow: 0 4px 12px rgba(244, 63, 122, 0.25);
+		background: var(--color-accent);
+		color: white;
+		box-shadow: none;
 	}
 
 	.delete-confirm {

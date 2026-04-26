@@ -1,7 +1,11 @@
 <footer class="legal-footer">
-	<div class="copyright">
-		Upphovsrätt © 2026 Storify
-	</div>
+	<nav class="footer-links" aria-label="Juridisk information">
+		<a href="/privacy">Integritetspolicy</a>
+		<span class="separator" aria-hidden="true">·</span>
+		<a href="/terms">Användarvillkor</a>
+		<span class="separator" aria-hidden="true">·</span>
+		<a href="/cookies">Cookiepolicy</a>
+	</nav>
 </footer>
 
 <style>
@@ -16,13 +20,32 @@
 		max-width: 720px;
 	}
 
-	.copyright {
+	.footer-links {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+		gap: 0.5rem;
 		padding-top: 1rem;
 		padding-bottom: 1.5rem;
 		width: 100%;
-		text-align: center;
+		font-size: var(--text-xs);
 		color: var(--color-text-muted);
 		opacity: 0.6;
-		font-size: var(--text-xs);
+	}
+
+	.footer-links a {
+		color: inherit;
+		text-decoration: none;
+		transition: opacity 0.15s ease, color 0.15s ease;
+	}
+
+	.footer-links a:hover {
+		color: var(--color-accent);
+		opacity: 1;
+	}
+
+	.separator {
+		user-select: none;
 	}
 </style>

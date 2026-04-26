@@ -95,7 +95,7 @@ function confirmationBody(kind: Kind): string {
       </p>
       <p style="margin:0;font-size:14px;line-height:1.6;color:#666;">
         Ångrade du dig?
-        <a href="/profile" style="color:#f43f7a;font-weight:500;text-decoration:none;">Ändra dina inställningar</a>.
+        <a href="/profile/settings" style="color:#f43f7a;font-weight:500;text-decoration:none;">Ändra dina inställningar</a>.
       </p>`;
 }
 
@@ -103,7 +103,7 @@ const INVALID_BODY = `
       <h1 style="margin:0 0 12px 0;font-size:22px;font-weight:600;">Länken fungerar inte</h1>
       <p style="margin:0;font-size:16px;line-height:1.6;color:#1a1a1a;">
         Länken är ogiltig eller har gått ut. Logga in på
-        <a href="/profile" style="color:#f43f7a;font-weight:500;text-decoration:none;">din profil</a>
+        <a href="/profile/settings" style="color:#f43f7a;font-weight:500;text-decoration:none;">din profil</a>
         för att ändra dina nyhetsbrevsinställningar.
       </p>`;
 
@@ -117,7 +117,7 @@ const ERROR_BODY = `
       <h1 style="margin:0 0 12px 0;font-size:22px;font-weight:600;">Något gick fel</h1>
       <p style="margin:0;font-size:16px;line-height:1.6;color:#1a1a1a;">
         Vi kunde inte avregistrera dig just nu. Försök igen senare eller ändra inställningen på
-        <a href="/profile" style="color:#f43f7a;font-weight:500;text-decoration:none;">din profil</a>.
+        <a href="/profile/settings" style="color:#f43f7a;font-weight:500;text-decoration:none;">din profil</a>.
       </p>`;
 
 export const GET: RequestHandler = async ({ params, url, request }) => {

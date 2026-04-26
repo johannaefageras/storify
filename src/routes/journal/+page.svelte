@@ -22,6 +22,7 @@
 		user_id: string;
 		created_at: string;
 		generated_text: string;
+		title: string | null;
 		tone_id: string;
 		entry_date: string;
 		weekday: string | null;
@@ -440,7 +441,7 @@ function getToneIcon(id: string): string | undefined {
 							{@const ToneIcon = getToneIcon(entry.tone_id)}
 							<button class="entry-card" onclick={() => openEntry(entry)}>
 								<div class="card-top">
-									<div class="card-tone">
+									<div class="card-tone-badge">
 										{#if ToneIcon}
 											<span class="card-tone-icon"><UniqueEmoji><Emoji name={ToneIcon} size={16} /></UniqueEmoji></span>
 										{/if}
@@ -449,6 +450,9 @@ function getToneIcon(id: string): string | undefined {
 									<span class="card-time">{weekday || entry.weekday || ''}</span>
 								</div>
 
+								{#if entry.title}
+									<h3 class="card-title">{entry.title}</h3>
+								{/if}
 								<p class="card-excerpt">{entry.generated_text}</p>
 
 								<div class="card-bottom">
@@ -521,6 +525,7 @@ function getToneIcon(id: string): string | undefined {
 						emojis={selectedEntry.emojis || []}
 						toneId={selectedEntry.tone_id}
 						generatedText={selectedEntry.generated_text}
+						title={selectedEntry.title}
 						onClose={closeModal}
 					/>
 				{/if}
@@ -798,11 +803,12 @@ function getToneIcon(id: string): string | undefined {
 	}
 
 	.entry-card {
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		gap: 0.75rem;
 		min-width: 0;
-		padding: 1rem 1.125rem;
+		padding: 1.125rem 1.25rem;
 		background-color: var(--color-bg-elevated);
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-md);
@@ -810,16 +816,21 @@ function getToneIcon(id: string): string | undefined {
 		text-align: left;
 		font-family: var(--font-primary);
 		color: var(--color-text);
+		overflow: hidden;
 		transition:
-			border-color 0.15s ease,
-			box-shadow 0.15s ease,
-			transform 0.15s ease;
+			border-color 0.2s ease,
+			background-color 0.2s ease,
+			box-shadow 0.2s ease,
+			transform 0.2s ease;
 	}
 
 	.entry-card:hover {
-		border-color: var(--color-accent);
-		box-shadow: 0 4px 16px rgba(244, 63, 122, 0.06);
-		transform: translateY(-1px);
+		border-color: color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
+		background-color: color-mix(in srgb, var(--color-accent) 3%, var(--color-bg-elevated));
+		box-shadow:
+			0 6px 20px color-mix(in srgb, var(--color-accent) 12%, transparent),
+			0 1px 3px rgba(0, 0, 0, 0.04);
+		transform: translateY(-2px);
 	}
 
 	.card-top {
@@ -827,12 +838,24 @@ function getToneIcon(id: string): string | undefined {
 		align-items: center;
 		justify-content: space-between;
 		gap: 0.5rem;
+		position: relative;
+		z-index: 1;
 	}
 
-	.card-tone {
-		display: flex;
+	.card-tone-badge {
+		display: inline-flex;
 		align-items: center;
-		gap: 0.3rem;
+		gap: 0.375rem;
+		padding: 0.25rem 0.5rem 0.25rem 0.4rem;
+		background: color-mix(in srgb, var(--color-accent) 8%, transparent);
+		border: 1px solid color-mix(in srgb, var(--color-accent) 14%, transparent);
+		border-radius: var(--radius-sm);
+		transition: background-color 0.2s ease, border-color 0.2s ease;
+	}
+
+	.entry-card:hover .card-tone-badge {
+		background: color-mix(in srgb, var(--color-accent) 13%, transparent);
+		border-color: color-mix(in srgb, var(--color-accent) 26%, transparent);
 	}
 
 	.card-tone-icon {
@@ -845,7 +868,7 @@ function getToneIcon(id: string): string | undefined {
 		font-weight: var(--weight-semibold);
 		letter-spacing: var(--tracking-wider);
 		text-transform: uppercase;
-		color: var(--color-text-muted);
+		color: var(--color-accent);
 	}
 
 	.card-time {
@@ -857,20 +880,42 @@ function getToneIcon(id: string): string | undefined {
 		white-space: nowrap;
 	}
 
+	.card-title {
+		position: relative;
+		z-index: 1;
+		font-family: var(--font-primary);
+		font-size: var(--text-base);
+		font-weight: var(--weight-semibold);
+		font-stretch: 105%;
+		letter-spacing: var(--tracking-tight);
+		line-height: var(--leading-tight);
+		color: var(--color-text);
+		margin: 0;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		overflow-wrap: break-word;
+	}
+
 	.card-excerpt {
 		flex: 1;
 		font-size: var(--text-sm);
 		font-weight: var(--weight-book);
 		line-height: var(--leading-relaxed);
 		letter-spacing: var(--tracking-wide);
-		color: var(--color-text);
+		color: var(--color-text-muted);
 		margin: 0;
 		display: -webkit-box;
-		-webkit-line-clamp: 3;
+		-webkit-line-clamp: 4;
+		line-clamp: 4;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 		overflow-wrap: break-word;
 		word-break: break-word;
+		position: relative;
+		z-index: 1;
 	}
 
 	.card-bottom {
@@ -878,8 +923,10 @@ function getToneIcon(id: string): string | undefined {
 		align-items: center;
 		justify-content: space-between;
 		gap: 0.5rem;
-		padding-top: 0.5rem;
+		padding-top: 0.625rem;
 		border-top: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+		position: relative;
+		z-index: 1;
 	}
 
 	.card-date-text {
@@ -887,6 +934,8 @@ function getToneIcon(id: string): string | undefined {
 		font-weight: var(--weight-regular);
 		letter-spacing: var(--tracking-wide);
 		color: var(--color-text-muted);
+		white-space: nowrap;
+		flex-shrink: 0;
 	}
 
 	/* Writing mode modal */

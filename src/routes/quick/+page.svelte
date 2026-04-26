@@ -7,6 +7,7 @@
 	import { tones } from '$lib/data/tones';
 	import { moodColors } from '$lib/data/moodColors';
 	import { streamEntry } from '$lib/utils/streamEntry';
+	import { generateTitle } from '$lib/utils/generateTitle';
 	import { fireBadgeEvent } from '$lib/gamification/client';
 	import { isSeparatorParagraph } from '$lib/utils/paragraphs';
 	import { getSwedishDiaryDate } from '$lib/utils/localDate';
@@ -338,10 +339,13 @@
 		try {
 			const { data: { session } } = await supabase.auth.getSession();
 			if (!session) { entrySaveError = 'Din session har gått ut. Logga in igen.'; return; }
+			const toneIdForSave = actualToneUsed || wizardStore.data.selectedTone;
+			const title = await generateTitle(generatedEntry, toneIdForSave);
 			const payload = {
 				user_id: authStore.user.id,
 				generated_text: generatedEntry,
-				tone_id: actualToneUsed || wizardStore.data.selectedTone,
+				title,
+				tone_id: toneIdForSave,
 				entry_date: wizardStore.data.dateISO,
 				weekday: wizardStore.data.weekday,
 				emojis: [],

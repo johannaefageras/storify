@@ -31,7 +31,9 @@
 
 	const excerpt = data.entry.generated_text.replace(/\s+/g, ' ').trim().slice(0, 180);
 	const ogDescription = excerpt.length === 180 ? excerpt + '…' : excerpt;
-	const ogTitle = `Dagbok – ${displayWeekday} ${date}`;
+	const ogTitle = data.entry.title
+		? `${data.entry.title} – ${displayWeekday} ${date}`
+		: `Dagbok – ${displayWeekday} ${date}`;
 	const canonical = $derived($page.url.origin + $page.url.pathname);
 </script>
 
@@ -57,6 +59,7 @@
 			emojis={data.entry.emojis || []}
 			toneId={data.entry.tone_id}
 			generatedText={data.entry.generated_text}
+			title={data.entry.title}
 		/>
 
 		<div class="shared-cta">

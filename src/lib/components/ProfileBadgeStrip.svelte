@@ -1,8 +1,5 @@
 <script lang="ts">
 	import { badgesStore } from '$lib/stores/badges.svelte';
-	import { BADGES_BY_ID, type Badge } from '$lib/data/badges';
-
-	const MAX_SHOWN = 3;
 
 	const svgModules = import.meta.glob('$lib/assets/emojis/*.svg', {
 		query: '?raw',
@@ -26,33 +23,19 @@
 		});
 	}
 
-	// earnedIds insertion order = earned_at asc (see hydrate query).
-	// Reverse to surface most-recent first.
-	const recent = $derived<Badge[]>(
-		Array.from(badgesStore.earned)
-			.reverse()
-			.map((id) => BADGES_BY_ID[id])
-			.filter((b): b is Badge => Boolean(b))
-			.slice(0, MAX_SHOWN)
-	);
-
 	const total = $derived(badgesStore.earned.size);
+	const medalSvg = sizedSvg('trophy');
 </script>
 
-{#if recent.length > 0}
+{#if total > 0}
 	<a class="strip" href="/badges" aria-label="Visa alla utmärkelser">
-		<span class="icons">
-			{#each recent as badge (badge.id)}
-				<span class="icon" title={badge.name}>
-					{#if sizedSvg(badge.emojiSlug)}
-						{@html sizedSvg(badge.emojiSlug)}
-					{:else}
-						<span class="fallback">{badge.emoji}</span>
-					{/if}
-				</span>
-			{/each}
+		<span class="icon" aria-hidden="true">
+			{#if medalSvg}
+				{@html medalSvg}
+			{:else}
+				<span class="fallback">🏆</span>
+			{/if}
 		</span>
-		<span class="divider" aria-hidden="true"></span>
 		<span class="label">
 			{total}
 			{total === 1 ? 'utmärkelse' : 'utmärkelser'}
@@ -64,15 +47,9 @@
 	.strip {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.625rem;
+		gap: 0.5rem;
 		text-decoration: none;
 		color: var(--color-text-muted);
-	}
-
-	.icons {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.35rem;
 	}
 
 	.icon {
@@ -88,12 +65,6 @@
 	.fallback {
 		font-size: 1.125rem;
 		line-height: 1;
-	}
-
-	.divider {
-		width: 1px;
-		height: 0.875rem;
-		background: var(--color-border);
 	}
 
 	.label {

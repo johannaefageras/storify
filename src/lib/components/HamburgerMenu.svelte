@@ -11,10 +11,7 @@
 		{ href: '/community', label: 'Gemenskapen' },
 		{ href: '/about', label: 'Om Storify' },
 		{ href: '/guide', label: 'Användarguide' },
-		{ href: '/contact', label: 'Kontaktsida' },
-		{ href: '/privacy', label: 'Integritetspolicy' },
-		{ href: '/cookies', label: 'Cookiepolicy' },
-		{ href: '/terms', label: 'Användarvillkor' }
+		{ href: '/contact', label: 'Kontaktsida' }
 	];
 
 	const authLink = $derived(
@@ -81,7 +78,6 @@
 			</div>
 
 			<div class="dropdown-footer">
-				<span class="dropdown-footer-label">Tema</span>
 				<AccentPicker />
 			</div>
 		</nav>
@@ -266,19 +262,11 @@
 	.dropdown-footer {
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
+		justify-content: flex-start;
 		gap: 0.75rem;
 		margin-top: 0.35rem;
 		padding: 0.9rem 0.8rem 0.5rem;
 		border-top: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
-	}
-
-	.dropdown-footer-label {
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-medium);
-		letter-spacing: var(--tracking-wide);
-		color: var(--color-text-muted);
 	}
 
 	@keyframes dropdown-in {

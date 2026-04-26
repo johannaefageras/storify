@@ -47,13 +47,16 @@
 				return;
 			}
 
-			// Auto-save to journal if logged in and not already saved
+			// Auto-save to journal if logged in and not already saved.
+			// Reuse the title that /api/community generated for the shared copy
+			// so the personal entry doesn't end up untitled.
 			if (!alreadySaved && authStore.isLoggedIn && authStore.user) {
 				try {
 					const { supabase } = await import('$lib/supabase/client');
 					await supabase.from('entries').insert({
 						user_id: authStore.user.id,
 						generated_text: generatedText,
+						title: data.entry?.title ?? null,
 						tone_id: toneId,
 						entry_date: entryDate,
 						weekday,

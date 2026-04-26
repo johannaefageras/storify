@@ -154,7 +154,7 @@
 	}
 
 	.title {
-		font-family: 'Linzer';
+		font-family: var(--font-primary);
 		font-size: var(--text-2xl);
 		font-weight: var(--weight-medium);
 		font-stretch: 115%;

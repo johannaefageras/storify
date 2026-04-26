@@ -12,6 +12,7 @@
 	import { supabase } from '$lib/supabase/client';
 	import { getApiUrl } from '$lib/config';
 	import { streamEntry } from '$lib/utils/streamEntry';
+	import { generateTitle } from '$lib/utils/generateTitle';
 	import { fireBadgeEvent } from '$lib/gamification/client';
 	import { goto } from '$app/navigation';
 	import { tones } from '$lib/data/tones';
@@ -354,10 +355,13 @@
 				return;
 			}
 
+			const toneIdForSave = actualToneUsed || chatStore.selectedTone;
+			const title = await generateTitle(generatedEntry, toneIdForSave);
 			const payload = {
 				user_id: authStore.user.id,
 				generated_text: generatedEntry,
-				tone_id: actualToneUsed || chatStore.selectedTone,
+				title,
+				tone_id: toneIdForSave,
 				entry_date: interviewDateISO,
 				weekday: interviewWeekday,
 				emojis: [],
@@ -955,12 +959,15 @@
 	}
 
 	.action-btn-delete {
-		color: inherit;
+		background: transparent;
+		color: var(--color-accent);
+		border: 2px solid var(--color-accent);
 	}
 
 	.action-btn-delete:hover:not(:disabled) {
-		background: var(--color-accent-hover);
-		box-shadow: 0 4px 12px rgba(244, 63, 122, 0.25);
+		background: var(--color-accent);
+		color: white;
+		box-shadow: none;
 	}
 
 	.delete-confirm {

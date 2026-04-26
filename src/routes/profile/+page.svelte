@@ -3,22 +3,18 @@
 	import { goto } from '$app/navigation';
 	import { supabase } from '$lib/supabase/client';
 	import { authStore } from '$lib/stores/auth.svelte';
-	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import { FIELD_LIMITS } from '$lib/validation';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import AvatarUpload from '$lib/components/AvatarUpload.svelte';
-	import { fireBadgeEvent } from '$lib/gamification/client';
-	import arrowRightSvg from '$lib/assets/icons/arrow-right.svg?raw';
 	import ProfileBadgeStrip from '$lib/components/ProfileBadgeStrip.svelte';
 	import { Emoji } from '$lib/assets/emojis';
-	import {
-		checkPushSupport,
-		getExistingSubscription,
-		subscribeToPush,
-		unsubscribeFromPush
-	} from '$lib/push/client';
+	import './profile.css';
 
-	// Writing mode modal
+	// Hub state
+	let name = $state('');
+	let avatarUrl = $state<string | null>(null);
+	let loading = $state(true);
+
+	// Writing-mode modal
 	let showModeModal = $state(false);
 
 	const writingModes = [
@@ -32,503 +28,21 @@
 		showModeModal = false;
 	}
 
-	async function handleSignOut() {
-		await authStore.signOut();
-		goto('/');
-	}
-
-	// Profile state
-	let name = $state('');
-	let birthday = $state<string | null>(null);
-	let pronouns = $state('');
-	let hometown = $state('');
-	let family = $state<string[]>([]);
-	let pets = $state<string[]>([]);
-	let occupationType = $state('');
-	let occupationDetail = $state<string[]>([]);
-	let interests = $state<string[]>([]);
-	let avatarUrl = $state<string | null>(null);
-
-	// UI state
-	let loading = $state(true);
-	let saving = $state(false);
-	let avatarUploading = $state(false);
-	let error = $state('');
-	let success = $state('');
-
-	// Password change state
-	let newPassword = $state('');
-	let confirmPassword = $state('');
-	let passwordError = $state('');
-	let passwordSuccess = $state('');
-	let changingPassword = $state(false);
-
-	// Newsletter state
-	let weeklyEnabled = $state(false);
-	let monthlyEnabled = $state(false);
-	let timezone = $state('Europe/Stockholm');
-	let timezoneOptions = $state<string[]>([]);
-	let newsletterError = $state('');
-
-	// Push notification state
-	let pushEnabled = $state(false);
-	let pushBusy = $state(false);
-	let pushError = $state('');
-	let pushUnavailable = $state<false | 'unsupported' | 'needs-ios-install'>(false);
-
-	// Tag inputs
-	let familyInput = $state('');
-	let occupationInput = $state('');
-	let petInput = $state('');
-	let interestInput = $state('');
-
-	const pronounOptions = [
-		{ value: 'hon', label: 'Hon / Henne' },
-		{ value: 'han', label: 'Han / Honom' },
-		{ value: 'hen', label: 'Hen / Henom' },
-		{ value: 'none', label: 'Vill inte uppge' }
-	];
-
-	const swedishMonths = [
-		{ value: 1, label: 'Januari' },
-		{ value: 2, label: 'Februari' },
-		{ value: 3, label: 'Mars' },
-		{ value: 4, label: 'April' },
-		{ value: 5, label: 'Maj' },
-		{ value: 6, label: 'Juni' },
-		{ value: 7, label: 'Juli' },
-		{ value: 8, label: 'Augusti' },
-		{ value: 9, label: 'September' },
-		{ value: 10, label: 'Oktober' },
-		{ value: 11, label: 'November' },
-		{ value: 12, label: 'December' }
-	];
-
-	function parseBirthday(dateStr: string | null) {
-		if (!dateStr) return { year: '', month: '', day: '' };
-		const [year, month, day] = dateStr.split('-');
-		return {
-			year: year || '',
-			month: month ? parseInt(month, 10).toString() : '',
-			day: day ? parseInt(day, 10).toString() : ''
-		};
-	}
-
-	let birthdayParts = $state(parseBirthday(null));
-
-	const currentYear = new Date().getFullYear();
-	const yearOptions = Array.from({ length: 126 }, (_, i) => currentYear - i);
-
-	function getDaysInMonth(year: number, month: number): number {
-		if (!year || !month) return 31;
-		return new Date(year, month, 0).getDate();
-	}
-
-	let daysInSelectedMonth = $derived(
-		getDaysInMonth(
-			birthdayParts.year ? parseInt(birthdayParts.year, 10) : currentYear,
-			birthdayParts.month ? parseInt(birthdayParts.month, 10) : 1
-		)
-	);
-
-	function updateBirthdayFromParts() {
-		const { year, month, day } = birthdayParts;
-		if (year && month && day) {
-			const paddedMonth = month.padStart(2, '0');
-			const paddedDay = day.padStart(2, '0');
-			birthday = `${year}-${paddedMonth}-${paddedDay}`;
-		} else {
-			birthday = null;
-		}
-	}
-
-	function handleBirthdayPartChange(part: 'year' | 'month' | 'day', value: string) {
-		birthdayParts[part] = value;
-		if (part === 'month' || part === 'year') {
-			const maxDay = getDaysInMonth(
-				parseInt(birthdayParts.year, 10) || currentYear,
-				parseInt(birthdayParts.month, 10) || 1
-			);
-			if (birthdayParts.day && parseInt(birthdayParts.day, 10) > maxDay) {
-				birthdayParts.day = maxDay.toString();
-			}
-		}
-		updateBirthdayFromParts();
-	}
-
-	// Tag helpers
-	function addTag(arr: string[], value: string, setter: (v: string[]) => void, inputClear: () => void) {
-		const trimmed = value.trim();
-		if (!trimmed || arr.includes(trimmed)) {
-			inputClear();
-			return;
-		}
-		setter([...arr, trimmed]);
-		inputClear();
-	}
-
-	function removeTag(arr: string[], value: string, setter: (v: string[]) => void) {
-		setter(arr.filter((item) => item !== value));
-	}
-
-	function removeLastTag(arr: string[], setter: (v: string[]) => void) {
-		if (arr.length > 0) setter(arr.slice(0, -1));
-	}
-
-	function handleKeydown(event: KeyboardEvent, action: () => void, removeLastAction?: () => void) {
-		if (event.key === 'Enter') {
-			event.preventDefault();
-			action();
-		} else if (event.key === 'Backspace' && removeLastAction) {
-			const input = event.currentTarget as HTMLInputElement;
-			if (input.value === '' || (input.selectionStart === 0 && input.selectionEnd === 0)) {
-				event.preventDefault();
-				removeLastAction();
-			}
-		}
-	}
-
-	function handleCommaInput(
-		event: Event,
-		inputSetter: (v: string) => void,
-		action: () => void
-	) {
-		const input = event.currentTarget as HTMLInputElement;
-		const value = input.value;
-		if (value.includes(',')) {
-			const parts = value.split(',');
-			const beforeComma = parts[0];
-			const afterComma = parts.slice(1).join(',').trimStart();
-			input.value = beforeComma;
-			inputSetter(beforeComma);
-			action();
-			input.value = afterComma;
-			inputSetter(afterComma);
-		}
-	}
-
-	function focusInput(event: MouseEvent) {
-		const container = event.currentTarget as HTMLElement;
-		const input = container.querySelector('input');
-		if (input) input.focus();
-	}
-
-	// Add helpers for each tag field
-	function addFamily() {
-		addTag(family, familyInput, (v) => (family = v), () => (familyInput = ''));
-	}
-	function addOccupation() {
-		addTag(occupationDetail, occupationInput, (v) => (occupationDetail = v), () => (occupationInput = ''));
-	}
-	function addPet() {
-		addTag(pets, petInput, (v) => (pets = v), () => (petInput = ''));
-	}
-	function addInterest() {
-		addTag(interests, interestInput, (v) => (interests = v), () => (interestInput = ''));
-	}
-
-	// Avatar upload
-	async function handleAvatarUpload(file: File) {
-		if (!authStore.user) return;
-		avatarUploading = true;
-
-		try {
-			const path = `${authStore.user.id}/avatar.jpg`;
-
-			const { error: uploadError } = await supabase.storage
-				.from('avatars')
-				.upload(path, file, { upsert: true, contentType: 'image/jpeg' });
-
-			if (uploadError) {
-				error = 'Kunde inte ladda upp bilden. Försök igen.';
-				avatarUploading = false;
-				return;
-			}
-
-			const { data: urlData } = supabase.storage.from('avatars').getPublicUrl(path);
-			const newUrl = `${urlData.publicUrl}?t=${Date.now()}`;
-
-			await supabase
-				.from('profiles')
-				.update({ avatar_url: newUrl, updated_at: new Date().toISOString() })
-				.eq('id', authStore.user.id);
-
-			avatarUrl = newUrl;
-			void fireBadgeEvent('profile-photo-uploaded');
-		} catch {
-			error = 'Kunde inte ladda upp bilden. Försök igen.';
-		}
-
-		avatarUploading = false;
-	}
-
-	// Load profile from Supabase
 	async function loadProfile() {
 		if (!authStore.user) return;
 
-		const { data, error: fetchError } = await supabase
+		const { data } = await supabase
 			.from('profiles')
-			.select('*')
+			.select('name, avatar_url')
 			.eq('id', authStore.user.id)
 			.single();
 
-		if (fetchError) {
-			error = 'Kunde inte ladda profilen.';
-			loading = false;
-			return;
-		}
-
 		if (data) {
 			name = data.name || '';
-			birthday = data.birthday || null;
-			pronouns = data.pronouns || '';
-			hometown = data.hometown || '';
-			family = data.family || [];
-			pets = data.pets || [];
-			occupationType = data.occupation_type || '';
-			occupationDetail = data.occupation_detail || [];
-			interests = data.interests || [];
 			avatarUrl = data.avatar_url || null;
-			birthdayParts = parseBirthday(birthday);
-
-			weeklyEnabled = data.newsletter_weekly_enabled ?? false;
-			monthlyEnabled = data.newsletter_monthly_enabled ?? false;
-			timezone = data.timezone || 'Europe/Stockholm';
-			pushEnabled = data.push_reminders_enabled ?? false;
-
-			// Auto-detect timezone on first visit (only if still at default)
-			if (timezone === 'Europe/Stockholm') {
-				try {
-					const detected = Intl.DateTimeFormat().resolvedOptions().timeZone;
-					if (detected && detected !== timezone) {
-						timezone = detected;
-						await supabase
-							.from('profiles')
-							.update({ timezone: detected, updated_at: new Date().toISOString() })
-							.eq('id', authStore.user.id);
-					}
-				} catch {
-					// Intl unavailable — keep default
-				}
-			}
-		}
-
-		// Populate timezone options (ES2022 API; fall back to a minimal list)
-		try {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const supported = (Intl as any).supportedValuesOf?.('timeZone');
-			if (Array.isArray(supported) && supported.length > 0) {
-				timezoneOptions = supported;
-			}
-		} catch {
-			// ignored
-		}
-		if (timezoneOptions.length === 0) {
-			timezoneOptions = [
-				'Europe/Stockholm',
-				'Europe/Oslo',
-				'Europe/Copenhagen',
-				'Europe/Helsinki',
-				'Europe/London',
-				'Europe/Berlin',
-				'Europe/Paris',
-				'Europe/Madrid',
-				'UTC',
-				'America/New_York',
-				'America/Los_Angeles'
-			];
-		}
-		// Ensure the stored value is selectable even if not in the list
-		if (!timezoneOptions.includes(timezone)) {
-			timezoneOptions = [timezone, ...timezoneOptions];
-		}
-
-		// Push support detection. iOS Safari only delivers Web Push inside an
-		// installed PWA, so flag that case separately for a more helpful message.
-		const support = checkPushSupport();
-		if (!support.supported) {
-			pushUnavailable = 'unsupported';
-		} else {
-			const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-			const isStandalone =
-				window.matchMedia('(display-mode: standalone)').matches ||
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				(navigator as any).standalone === true;
-			if (isIOS && !isStandalone) pushUnavailable = 'needs-ios-install';
 		}
 
 		loading = false;
-	}
-
-	async function handlePushToggle(checked: boolean) {
-		if (!authStore.user || pushBusy) return;
-		pushError = '';
-		pushBusy = true;
-		const prev = pushEnabled;
-		pushEnabled = checked;
-
-		try {
-			if (checked) {
-				const result = await subscribeToPush();
-				if (!result.ok) {
-					pushEnabled = prev;
-					pushError =
-						result.reason === 'permission-denied'
-							? 'Du behöver tillåta notiser i webbläsaren.'
-							: 'Kunde inte aktivera notiser. Försök igen.';
-					return;
-				}
-			} else {
-				await unsubscribeFromPush();
-			}
-
-			const { error: err } = await supabase
-				.from('profiles')
-				.update({
-					push_reminders_enabled: checked,
-					updated_at: new Date().toISOString()
-				})
-				.eq('id', authStore.user.id);
-
-			if (err) {
-				pushEnabled = prev;
-				pushError = 'Kunde inte spara inställningen. Försök igen.';
-			} else if (checked) {
-				void fireBadgeEvent('notifications-enabled');
-			}
-		} finally {
-			pushBusy = false;
-		}
-	}
-
-	async function handleWeeklyToggle(checked: boolean) {
-		if (!authStore.user) return;
-		const prev = weeklyEnabled;
-		weeklyEnabled = checked;
-		newsletterError = '';
-
-		// When turning ON, clear last_sent_at so the next Sunday cron picks the user up
-		const update: Record<string, unknown> = {
-			newsletter_weekly_enabled: checked,
-			updated_at: new Date().toISOString()
-		};
-		if (checked) update.weekly_last_sent_at = null;
-
-		const { error: err } = await supabase
-			.from('profiles')
-			.update(update)
-			.eq('id', authStore.user.id);
-
-		if (err) {
-			newsletterError = 'Kunde inte spara inställningen. Försök igen.';
-			weeklyEnabled = prev;
-		}
-	}
-
-	async function handleMonthlyToggle(checked: boolean) {
-		if (!authStore.user) return;
-		const prev = monthlyEnabled;
-		monthlyEnabled = checked;
-		newsletterError = '';
-
-		const { error: err } = await supabase
-			.from('profiles')
-			.update({
-				newsletter_monthly_enabled: checked,
-				updated_at: new Date().toISOString()
-			})
-			.eq('id', authStore.user.id);
-
-		if (err) {
-			newsletterError = 'Kunde inte spara inställningen. Försök igen.';
-			monthlyEnabled = prev;
-		}
-	}
-
-	async function handleTimezoneChange(value: string) {
-		if (!authStore.user) return;
-		const prev = timezone;
-		timezone = value;
-		newsletterError = '';
-
-		const { error: err } = await supabase
-			.from('profiles')
-			.update({ timezone: value, updated_at: new Date().toISOString() })
-			.eq('id', authStore.user.id);
-
-		if (err) {
-			newsletterError = 'Kunde inte spara tidszonen. Försök igen.';
-			timezone = prev;
-		}
-	}
-
-	// Save profile to Supabase
-	async function handleSave() {
-		if (!authStore.user) return;
-
-		saving = true;
-		error = '';
-		success = '';
-
-		const { error: updateError } = await supabase
-			.from('profiles')
-			.update({
-				name,
-				birthday,
-				pronouns,
-				hometown,
-				family,
-				pets,
-				occupation_type: occupationType,
-				occupation_detail: occupationDetail,
-				interests,
-				updated_at: new Date().toISOString()
-			})
-			.eq('id', authStore.user.id);
-
-		if (updateError) {
-			error = 'Kunde inte spara profilen. Försök igen.';
-		} else {
-			success = 'Profilen har sparats!';
-			setTimeout(() => (success = ''), 3000);
-			// Re-sync wizard store so profile data (e.g. birthday for horoscope) is available
-			wizardStore.initProfile();
-			void fireBadgeEvent('profile-updated');
-		}
-
-		saving = false;
-	}
-
-	async function handleChangePassword() {
-		passwordError = '';
-		passwordSuccess = '';
-
-		if (newPassword.length < 6) {
-			passwordError = 'Lösenordet måste vara minst 6 tecken.';
-			return;
-		}
-
-		if (newPassword !== confirmPassword) {
-			passwordError = 'Lösenorden matchar inte.';
-			return;
-		}
-
-		changingPassword = true;
-
-		const { error: updateError } = await supabase.auth.updateUser({
-			password: newPassword
-		});
-
-		if (updateError) {
-			passwordError = 'Kunde inte ändra lösenordet. Försök igen.';
-		} else {
-			passwordSuccess = 'Lösenordet har ändrats!';
-			newPassword = '';
-			confirmPassword = '';
-			setTimeout(() => (passwordSuccess = ''), 3000);
-		}
-
-		changingPassword = false;
 	}
 
 	onMount(() => {
@@ -553,16 +67,13 @@
 			<p class="loading-text">Laddar profil...</p>
 		</div>
 	{:else}
-		<!-- Hero section with avatar -->
 		<div class="profile-hero">
 			<div class="hero-content">
 				<AvatarUpload
 					{avatarUrl}
 					{name}
 					size={130}
-					editable={true}
-					uploading={avatarUploading}
-					onUpload={handleAvatarUpload}
+					editable={false}
 				/>
 				<div class="hero-info">
 					<h1 class="hero-name">{name ? `${name}s Profil` : 'Min Profil'}</h1>
@@ -571,355 +82,38 @@
 			</div>
 		</div>
 
-		<div class="profile-actions">
-			<button class="action-card" onclick={() => showModeModal = true}>
-				<span class="action-label">Ny anteckning</span>
-				<span style="display:inline-flex;width:16px;height:16px;flex-shrink:0;">{@html arrowRightSvg}</span>
+		<section class="hub-grid" aria-label="Profilmeny">
+			<button type="button" class="hub-card" onclick={() => showModeModal = true}>
+				<span class="hub-card-icon"><Emoji name="pencil" size={56} /></span>
+				<span class="hub-card-title">Ny anteckning</span>
+				<span class="hub-card-desc">Starta dagens minne</span>
 			</button>
-			<a href="/journal" class="action-card">
-				<span class="action-label">Dagböcker</span>
-				<span style="display:inline-flex;width:16px;height:16px;flex-shrink:0;">{@html arrowRightSvg}</span>
+			<a href="/journal" class="hub-card">
+				<span class="hub-card-icon"><Emoji name="books" size={56} /></span>
+				<span class="hub-card-title">Dagboksarkiv</span>
+				<span class="hub-card-desc">Bläddra i tidigare anteckningar</span>
 			</a>
-			<a href="/calendar" class="action-card">
-				<span class="action-label">Kalender</span>
-				<span style="display:inline-flex;width:16px;height:16px;flex-shrink:0;">{@html arrowRightSvg}</span>
+			<a href="/calendar" class="hub-card">
+				<span class="hub-card-icon"><Emoji name="calendar-spiral" size={56} /></span>
+				<span class="hub-card-title">Kalender</span>
+				<span class="hub-card-desc">Se dina anteckningar över tid</span>
 			</a>
-		</div>
-
-		<div class="profile-body">
-			{#if error}
-				<div class="profile-alert profile-alert-error">{error}</div>
-			{/if}
-			{#if success}
-				<div class="profile-alert profile-alert-success">{success}</div>
-			{/if}
-
-			<form class="profile-form" onsubmit={(e) => { e.preventDefault(); handleSave(); }}>
-				<section class="profile-section">
-					<h2 class="section-title">Profilinformation</h2>
-
-					<div class="section-fields">
-						<div class="field-group">
-							<label class="field-label" for="name">Tilltalsnamn</label>
-							<input
-								id="name"
-								type="text"
-								placeholder="Vad du heter eller vill bli kallad..."
-								bind:value={name}
-								maxlength={FIELD_LIMITS.name}
-							/>
-						</div>
-
-						<div class="field-row birthday-row">
-							<div class="field-group birthday-group">
-								<span class="field-label" id="birthday-label">Födelsedag</span>
-								<div class="birthday-selects" role="group" aria-labelledby="birthday-label">
-									<select
-										id="birthday-day"
-										class="birthday-day"
-										aria-label="Dag"
-										value={birthdayParts.day}
-										onchange={(e) => handleBirthdayPartChange('day', e.currentTarget.value)}
-									>
-										<option value="" disabled selected={birthdayParts.day === ''}>Dag</option>
-										{#each Array.from({ length: daysInSelectedMonth }, (_, i) => i + 1) as day}
-											<option value={day.toString()}>{day}</option>
-										{/each}
-									</select>
-									<select
-										id="birthday-month"
-										class="birthday-month"
-										aria-label="Månad"
-										value={birthdayParts.month}
-										onchange={(e) => handleBirthdayPartChange('month', e.currentTarget.value)}
-									>
-										<option value="" disabled selected={birthdayParts.month === ''}>Månad</option>
-										{#each swedishMonths as month}
-											<option value={month.value.toString()}>{month.label}</option>
-										{/each}
-									</select>
-									<select
-										id="birthday-year"
-										class="birthday-year"
-										aria-label="År"
-										value={birthdayParts.year}
-										onchange={(e) => handleBirthdayPartChange('year', e.currentTarget.value)}
-									>
-										<option value="" disabled selected={birthdayParts.year === ''}>År</option>
-										{#each yearOptions as year}
-											<option value={year.toString()}>{year}</option>
-										{/each}
-									</select>
-								</div>
-							</div>
-
-							<div class="field-group compact">
-								<label class="field-label" for="pronouns">Pronomen</label>
-								<select
-									id="pronouns"
-									bind:value={pronouns}
-								>
-									<option value="" disabled selected={pronouns === ''}>-- Välj pronomen --</option>
-									{#each pronounOptions as option}
-										<option value={option.value}>{option.label}</option>
-									{/each}
-								</select>
-							</div>
-						</div>
-
-						<div class="field-group">
-							<label class="field-label" for="hometown">Hemstad / ort</label>
-							<input
-								id="hometown"
-								type="text"
-								placeholder="Lägenhet i Göteborg, hus på landsbygden..."
-								bind:value={hometown}
-								maxlength={FIELD_LIMITS.hometown}
-							/>
-						</div>
-					</div>
-
-					<h3 class="section-subtitle">Vardag & Intressen</h3>
-
-					<div class="section-fields">
-						<div class="field-group">
-							<label class="field-label" for="occupation">Sysselsättning</label>
-							<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-							<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
-								{#each occupationDetail as occupation}
-									<span class="tag">
-										{occupation}
-										<button type="button" class="tag-remove" onclick={() => removeTag(occupationDetail, occupation, (v) => (occupationDetail = v))}>×</button>
-									</span>
-								{/each}
-								<input
-									id="occupation"
-									type="text"
-									placeholder={occupationDetail.length === 0 ? 'Jobbar, pluggar, pensionär, lite av varje...' : ''}
-									bind:value={occupationInput}
-									onkeydown={(e) => handleKeydown(e, addOccupation, () => removeLastTag(occupationDetail, (v) => (occupationDetail = v)))}
-									oninput={(e) => handleCommaInput(e, (v) => (occupationInput = v), addOccupation)}
-									onblur={addOccupation}
-									maxlength={FIELD_LIMITS.occupationDetail}
-								/>
-							</div>
-						</div>
-
-						<div class="field-row">
-							<div class="field-group compact">
-								<label class="field-label" for="family">Familjemedlemmar</label>
-								<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-								<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
-									{#each family as member}
-										<span class="tag">
-											{member}
-											<button type="button" class="tag-remove" onclick={() => removeTag(family, member, (v) => (family = v))}>×</button>
-										</span>
-									{/each}
-									<input
-										id="family"
-										type="text"
-										placeholder={family.length === 0 ? 'Sambon, mormor som alltid ringer...' : ''}
-										bind:value={familyInput}
-										onkeydown={(e) => handleKeydown(e, addFamily, () => removeLastTag(family, (v) => (family = v)))}
-										oninput={(e) => handleCommaInput(e, (v) => (familyInput = v), addFamily)}
-										onblur={addFamily}
-										maxlength={FIELD_LIMITS.family}
-									/>
-								</div>
-							</div>
-
-							<div class="field-group compact">
-								<label class="field-label" for="pets">Husdjur</label>
-								<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-								<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
-									{#each pets as pet}
-										<span class="tag">
-											{pet}
-											<button type="button" class="tag-remove" onclick={() => removeTag(pets, pet, (v) => (pets = v))}>×</button>
-										</span>
-									{/each}
-									<input
-										id="pets"
-										type="text"
-										placeholder={pets.length === 0 ? 'Katten Mats, fågeln Pelle...' : ''}
-										bind:value={petInput}
-										onkeydown={(e) => handleKeydown(e, addPet, () => removeLastTag(pets, (v) => (pets = v)))}
-										oninput={(e) => handleCommaInput(e, (v) => (petInput = v), addPet)}
-										onblur={addPet}
-										maxlength={FIELD_LIMITS.pets}
-									/>
-								</div>
-							</div>
-						</div>
-
-						<div class="field-group">
-							<label class="field-label" for="interests">Intressen & hobbies</label>
-							<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-							<div class="tag-input" role="group" onclick={focusInput} onkeydown={(e) => e.key === 'Enter' && focusInput(e as unknown as MouseEvent)}>
-								{#each interests as interest}
-									<span class="tag">
-										{interest}
-										<button type="button" class="tag-remove" onclick={() => removeTag(interests, interest, (v) => (interests = v))}>×</button>
-									</span>
-								{/each}
-								<input
-									id="interests"
-									type="text"
-									placeholder={interests.length === 0 ? 'Träning, WoW, TikTok, bygga appar...' : ''}
-									bind:value={interestInput}
-									onkeydown={(e) => handleKeydown(e, addInterest, () => removeLastTag(interests, (v) => (interests = v)))}
-									oninput={(e) => handleCommaInput(e, (v) => (interestInput = v), addInterest)}
-									onblur={addInterest}
-									maxlength={FIELD_LIMITS.interests}
-								/>
-							</div>
-						</div>
-					</div>
-
-					<button class="btn btn-primary btn-large profile-save" type="submit" disabled={saving}>
-						{saving ? 'Sparar...' : 'Spara profil'}
-					</button>
-				</section>
-			</form>
-
-			<!-- Newsletter settings -->
-			<section class="profile-section">
-				<h2 class="section-title">Aviseringar</h2>
-
-				{#if newsletterError}
-					<div class="profile-alert profile-alert-error" style="margin-bottom: 0.875rem;">{newsletterError}</div>
-				{/if}
-
-				<div class="section-fields">
-					<label class="toggle-row">
-						<span class="toggle-text">
-							<span class="toggle-label">Veckobrev varje söndag</span>
-							<span class="toggle-helper">Få en sammanfattning av din vecka med utdrag från dina dagboksinlägg.</span>
-						</span>
-						<span class="toggle-switch">
-							<input
-								type="checkbox"
-								checked={weeklyEnabled}
-								onchange={(e) => handleWeeklyToggle(e.currentTarget.checked)}
-							/>
-							<span class="toggle-slider"></span>
-						</span>
-					</label>
-
-					<label class="toggle-row">
-						<span class="toggle-text">
-							<span class="toggle-label">Månadsbrev från Storify</span>
-							<span class="toggle-helper">Nyheter, tips och inspiration från Storify-teamet en gång i månaden.</span>
-						</span>
-						<span class="toggle-switch">
-							<input
-								type="checkbox"
-								checked={monthlyEnabled}
-								onchange={(e) => handleMonthlyToggle(e.currentTarget.checked)}
-							/>
-							<span class="toggle-slider"></span>
-						</span>
-					</label>
-
-					<label class="toggle-row">
-						<span class="toggle-text">
-							<span class="toggle-label">Påminnelser om att skriva</span>
-							<span class="toggle-helper">
-								{#if pushUnavailable === 'unsupported'}
-									Din webbläsare stöder inte push-notiser.
-								{:else if pushUnavailable === 'needs-ios-install'}
-									Lägg till appen på hemskärmen för att aktivera notiser på iPhone.
-								{:else}
-									Få en liten push-notis när det är dags att skriva dagens inlägg.
-								{/if}
-							</span>
-						</span>
-						<span class="toggle-switch">
-							<input
-								type="checkbox"
-								checked={pushEnabled}
-								disabled={pushBusy || pushUnavailable !== false}
-								onchange={(e) => handlePushToggle(e.currentTarget.checked)}
-							/>
-							<span class="toggle-slider"></span>
-						</span>
-					</label>
-
-					{#if pushError}
-						<div class="profile-alert profile-alert-error" style="margin-bottom: 0.875rem;">{pushError}</div>
-					{/if}
-
-					<div class="field-group">
-						<label class="field-label" for="timezone">Tidszon</label>
-						<select
-							id="timezone"
-							value={timezone}
-							onchange={(e) => handleTimezoneChange(e.currentTarget.value)}
-						>
-							{#each timezoneOptions as tz}
-								<option value={tz}>{tz}</option>
-							{/each}
-						</select>
-					</div>
-				</div>
-			</section>
-
-			<!-- Account settings (outside profile form) -->
-			<section class="profile-section">
-				<h2 class="section-title">Kontoinställningar</h2>
-
-				<div class="section-fields">
-					<div class="field-group">
-						<label class="field-label" for="email">E-postadress</label>
-						<input
-							id="email"
-							type="email"
-							value={authStore.user?.email ?? ''}
-							disabled
-							class="field-disabled"
-						/>
-					</div>
-
-					<form class="password-form" onsubmit={(e) => { e.preventDefault(); handleChangePassword(); }}>
-						<div class="field-group">
-							<label class="field-label" for="new-password">Nytt lösenord</label>
-							<input
-								id="new-password"
-								type="password"
-								placeholder="Minst 6 tecken..."
-								bind:value={newPassword}
-							/>
-						</div>
-
-						<div class="field-group">
-							<label class="field-label" for="confirm-password">Bekräfta lösenord</label>
-							<input
-								id="confirm-password"
-								type="password"
-								placeholder="Upprepa lösenordet..."
-								bind:value={confirmPassword}
-							/>
-						</div>
-
-						{#if passwordError}
-							<div class="profile-alert profile-alert-error">{passwordError}</div>
-						{/if}
-						{#if passwordSuccess}
-							<div class="profile-alert profile-alert-success">{passwordSuccess}</div>
-						{/if}
-
-						<button class="btn btn-secondary btn-change-password" type="submit" disabled={changingPassword || !newPassword || !confirmPassword}>
-							{changingPassword ? 'Ändrar...' : 'Ändra lösenord'}
-						</button>
-					</form>
-				</div>
-			</section>
-
-			<button class="btn-logout" onclick={handleSignOut}>
-				Logga ut
-			</button>
-		</div>
+			<a href="/profile/edit" class="hub-card">
+				<span class="hub-card-icon"><Emoji name="user-silhouette" size={56} /></span>
+				<span class="hub-card-title">Redigera profil</span>
+				<span class="hub-card-desc">Namn, födelsedag, intressen…</span>
+			</a>
+			<a href="/profile/settings" class="hub-card">
+				<span class="hub-card-icon"><Emoji name="bell" size={56} /></span>
+				<span class="hub-card-title">Aviseringar</span>
+				<span class="hub-card-desc">Veckobrev, påminnelser, tidszon</span>
+			</a>
+			<a href="/profile/account" class="hub-card">
+				<span class="hub-card-icon"><Emoji name="gear" size={56} /></span>
+				<span class="hub-card-title">Kontoinställningar</span>
+				<span class="hub-card-desc">E-post, lösenord, logga ut</span>
+			</a>
+		</section>
 	{/if}
 	<LegalFooter />
 </main>
@@ -946,594 +140,92 @@
 {/if}
 
 <style>
-	.profile-page {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding-bottom: 0;
-	}
-
-	.loading-wrapper {
-		flex: 1;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.loading-text {
-		color: var(--color-text-muted);
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-	}
-
-	/* Hero section */
-	.profile-hero {
-		max-width: var(--content-width);
+	.hub-grid {
+		max-width: var(--hub-width, 880px);
 		width: 100%;
+		padding: 1.25rem 1.25rem 0.5rem;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 0.875rem;
+	}
+
+	.hub-card {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding: 2rem 1.5rem 0.5rem;
-	}
-
-	.hero-content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 0.75rem;
-	}
-
-	.hero-info {
 		text-align: center;
-	}
-
-	.hero-name {
-		font-family: var(--font-primary);
-		font-size: var(--text-xl);
-		font-weight: var(--weight-medium);
-		font-stretch: 105%;
-		letter-spacing: var(--tracking-tight);
-		line-height: var(--leading-snug);
-		color: var(--color-text);
-		margin: 0;
-	}
-
-	.hero-info :global(.strip) {
-		margin-top: 0.75rem;
-	}
-
-	/* Action buttons */
-	.profile-actions {
-		display: flex;
 		gap: 0.625rem;
-		max-width: var(--content-width);
-		width: 100%;
-		padding: 0.75rem 1.25rem 0;
-	}
-
-	.action-card {
-		flex: 1;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 0.5rem;
-		padding: 0.75rem 1rem;
+		padding: 1.5rem 1rem 1.25rem;
 		background: var(--color-bg-elevated);
 		border: 1px solid var(--color-border);
+		border-top: 3px solid var(--color-accent);
 		border-radius: var(--radius-md);
 		text-decoration: none;
 		color: var(--color-text);
 		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-medium);
-		letter-spacing: var(--tracking-wide);
 		cursor: pointer;
-		transition: border-color 0.15s ease, box-shadow 0.15s ease;
+		transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
 	}
 
-	.action-card:hover {
-		border-color: var(--color-accent);
-		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 10%, transparent);
-	}
-
-.action-label {
-		white-space: nowrap;
-	}
-
-	/* Body */
-	.profile-body {
-		display: flex;
-		flex-direction: column;
-		max-width: var(--content-width);
-		width: 100%;
-		padding: 1rem 1.25rem 0;
-		gap: 1rem;
-	}
-
-	/* Alerts */
-	.profile-alert {
-		padding: 0.75rem 1rem;
-		border-radius: var(--radius-sm);
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-medium);
-	}
-
-	.profile-alert-error {
-		background: color-mix(in srgb, var(--color-accent) 10%, transparent);
-		color: var(--color-accent);
-	}
-
-	.profile-alert-success {
-		background: color-mix(in srgb, #22c55e 10%, transparent);
-		color: #16a34a;
-	}
-
-	/* Form */
-	.profile-form {
-		display: flex;
-		flex-direction: column;
-		gap: 1.25rem;
-	}
-
-	/* Sections */
-	.profile-section {
-		background: var(--color-bg-elevated);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-md);
-		padding: 1.25rem;
-	}
-
-	.section-title {
-		font-family: var(--font-primary);
-		font-size: var(--text-xs);
-		font-weight: var(--weight-semibold);
-		text-transform: uppercase;
-		letter-spacing: var(--tracking-widest);
-		color: var(--color-text-muted);
-		margin: 0 0 1rem;
-		padding-bottom: 0.625rem;
-		border-bottom: 1px solid var(--color-border);
-	}
-
-	.section-subtitle {
-		font-family: var(--font-primary);
-		font-size: var(--text-xs);
-		font-weight: var(--weight-semibold);
-		text-transform: uppercase;
-		letter-spacing: var(--tracking-widest);
-		color: var(--color-text-muted);
-		margin: 1.25rem 0 0;
-		padding-bottom: 0.625rem;
-		margin-bottom: 0.875rem;
-		border-bottom: 1px solid var(--color-border);
-	}
-
-	.section-fields {
-		display: flex;
-		flex-direction: column;
-		gap: 0.875rem;
-	}
-
-	.field-row {
-		display: flex;
-		gap: 0.75rem;
-	}
-
-	.field-group {
-		display: flex;
-		flex-direction: column;
-		gap: 0.25rem;
-	}
-
-	.field-group.compact {
-		flex: 1;
-		min-width: 0;
-	}
-
-	.field-label {
-		display: flex;
-		align-items: center;
-		gap: 0.35rem;
-		font-family: var(--font-primary);
-		font-size: var(--text-xs);
-		font-weight: var(--weight-medium);
-		letter-spacing: var(--tracking-wide);
-		text-transform: uppercase;
-		color: var(--color-text-muted);
-	}
-
-	input[type='text'] {
-		width: 100%;
-		height: 2.75rem;
-		padding: 0 0.875rem;
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-regular);
-		letter-spacing: var(--tracking-normal);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-sm);
-		background-color: var(--color-bg-elevated);
-		color: var(--color-text);
-		outline: none;
-		transition: border-color 0.15s ease, box-shadow 0.15s ease;
-		box-sizing: border-box;
-	}
-
-	input[type='text']:focus {
-		border-color: var(--color-accent);
-		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
-	}
-
-	input[type='text']::placeholder {
-		color: var(--color-text-muted);
-		font-weight: var(--weight-light);
-		letter-spacing: var(--tracking-wider);
-		opacity: 0.7;
-	}
-
-	.birthday-row {
-		flex-wrap: wrap;
-	}
-
-	.birthday-group {
-		flex: 2;
-		min-width: 0;
-	}
-
-	.birthday-selects {
-		display: flex;
-		gap: 0.5rem;
-	}
-
-	.birthday-day,
-	.birthday-month,
-	.birthday-year,
-	#pronouns,
-	#timezone {
-		width: auto;
+	button.hub-card {
 		appearance: none;
 		-webkit-appearance: none;
-		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235f5f5f' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
-		background-repeat: no-repeat;
-		background-position: right 0.5rem center;
-		padding-right: 1.75rem;
-	}
-
-	.birthday-day {
-		flex: 0 0 4.5rem;
-	}
-
-	.birthday-month {
-		flex: 1;
-		min-width: 6rem;
-	}
-
-	.birthday-year {
-		flex: 0 0 5rem;
-	}
-
-	select {
 		width: 100%;
-		height: 2.75rem;
-		padding: 0 0.875rem;
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-regular);
-		letter-spacing: var(--tracking-normal);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-sm);
-		background-color: var(--color-bg-elevated);
-		color: var(--color-text);
-		outline: none;
-		cursor: pointer;
-		transition: border-color 0.15s ease, box-shadow 0.15s ease;
-		box-sizing: border-box;
 	}
 
-	select:focus {
-		border-color: var(--color-accent);
-		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
+	.hub-card:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+		text-decoration: none;
 	}
 
-	.tag-input {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: 0.375rem;
-		min-height: 2.75rem;
-		padding: 0.375rem 0.625rem;
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-sm);
-		background-color: var(--color-bg-elevated);
-		cursor: text;
-		touch-action: manipulation;
-		-webkit-tap-highlight-color: transparent;
-		transition: border-color 0.15s ease, box-shadow 0.15s ease;
+	.hub-card:active {
+		transform: scale(0.99);
 	}
 
-	.tag-input:focus-within {
-		border-color: var(--color-accent);
-		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
-	}
-
-	.tag-input input {
-		flex: 1;
-		min-width: 60px;
-		height: 1.75rem;
-		padding: 0 0.25rem;
-		border: none;
-		background: transparent;
-		font-size: var(--text-sm);
-	}
-
-	.tag-input input:focus {
-		border: none;
-		outline: none;
-		box-shadow: none;
-	}
-
-	.tag-input input::placeholder {
-		opacity: 0.6;
-	}
-
-	.tag {
+	.hub-card-icon {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.25rem;
-		font-family: var(--font-primary);
-		font-size: var(--text-xs);
-		font-weight: var(--weight-medium);
-		padding: 0.12rem 0.5rem;
-		background-color: var(--color-accent);
-		border-radius: 0.325rem;
-		color: white;
-		white-space: nowrap;
-		max-width: 100%;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-
-	.tag-remove {
-		display: flex;
-		align-items: center;
 		justify-content: center;
-		width: 0.875rem;
-		height: 0.875rem;
-		font-size: 0.875rem;
-		line-height: 1;
-		background: none;
-		border: none;
-		color: white;
-		cursor: pointer;
-		opacity: 0.8;
-		transition: opacity 0.15s ease;
+		width: 56px;
+		height: 56px;
 	}
 
-	.tag-remove:hover {
-		opacity: 1;
-	}
-
-	.profile-save {
-		margin-top: 0.75rem;
-		width: 100%;
-		justify-content: center;
-	}
-
-	/* Toggle rows */
-	.toggle-row {
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-		cursor: pointer;
-	}
-
-	.toggle-text {
-		display: flex;
-		flex-direction: column;
-		gap: 0.15rem;
-		flex: 1;
-		min-width: 0;
-	}
-
-	.toggle-label {
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-medium);
-		letter-spacing: var(--tracking-wide);
-		color: var(--color-text);
-	}
-
-	.toggle-helper {
-		font-family: var(--font-primary);
-		font-size: var(--text-xs);
-		font-weight: var(--weight-regular);
-		letter-spacing: var(--tracking-wide);
-		color: var(--color-text-muted);
+	.hub-card-title {
+		font-size: var(--text-md);
+		font-weight: var(--weight-semibold);
+		letter-spacing: var(--tracking-tight);
 		line-height: var(--leading-snug);
+		color: var(--color-text);
 	}
 
-	.toggle-switch {
-		position: relative;
-		display: inline-block;
-		flex-shrink: 0;
-		width: 2.5rem;
-		height: 1.5rem;
-	}
-
-	.toggle-switch input {
-		opacity: 0;
-		width: 0;
-		height: 0;
-	}
-
-	.toggle-slider {
-		position: absolute;
-		inset: 0;
-		background: var(--color-border);
-		border-radius: 999px;
-		transition: background-color 0.15s ease;
-	}
-
-	.toggle-slider::before {
-		content: '';
-		position: absolute;
-		top: 2px;
-		left: 2px;
-		width: calc(1.5rem - 4px);
-		height: calc(1.5rem - 4px);
-		background: white;
-		border-radius: 50%;
-		transition: transform 0.15s ease;
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-	}
-
-	.toggle-switch input:checked + .toggle-slider {
-		background: var(--color-accent);
-	}
-
-	.toggle-switch input:checked + .toggle-slider::before {
-		transform: translateX(1rem);
-	}
-
-	.toggle-switch input:focus-visible + .toggle-slider {
-		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 25%, transparent);
-	}
-
-	.field-disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
-	}
-
-	input[type='password'] {
-		width: 100%;
-		height: 2.75rem;
-		padding: 0 0.875rem;
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
+	.hub-card-desc {
+		font-size: var(--text-xs);
 		font-weight: var(--weight-regular);
-		letter-spacing: var(--tracking-normal);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-sm);
-		background-color: var(--color-bg-elevated);
-		color: var(--color-text);
-		outline: none;
-		transition: border-color 0.15s ease, box-shadow 0.15s ease;
-		box-sizing: border-box;
-	}
-
-	input[type='password']:focus {
-		border-color: var(--color-accent);
-		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
-	}
-
-	input[type='password']::placeholder {
-		color: var(--color-text-muted);
-		font-weight: var(--weight-light);
-		letter-spacing: var(--tracking-wider);
-		opacity: 0.7;
-	}
-
-	input[type='email'] {
-		width: 100%;
-		height: 2.75rem;
-		padding: 0 0.875rem;
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-regular);
-		letter-spacing: var(--tracking-normal);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-sm);
-		background-color: var(--color-bg-elevated);
-		color: var(--color-text);
-		outline: none;
-		box-sizing: border-box;
-	}
-
-	.password-form {
-		display: flex;
-		flex-direction: column;
-		gap: 0.875rem;
-	}
-
-	.btn-change-password {
-		width: 100%;
-		justify-content: center;
-	}
-
-	.btn-logout {
-		width: 100%;
-		height: 2.75rem;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0.75rem 1rem;
-		background: var(--color-bg-elevated);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-md);
-		color: var(--color-text);
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-medium);
 		letter-spacing: var(--tracking-wide);
-		cursor: pointer;
-		transition: border-color 0.15s ease, box-shadow 0.15s ease;
+		line-height: var(--leading-base);
+		color: var(--color-text-muted);
 	}
 
-	.btn-logout:hover {
-		border-color: var(--color-accent);
-		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 10%, transparent);
-	}
-
-	@media (max-width: 600px) {
-		.hero-name {
-			font-size: var(--text-lg);
-		}
-
-		.profile-hero {
-			padding: 1.5rem 1rem 1.25rem;
-		}
-
-		.profile-actions {
-			flex-direction: column;
-			padding: 0.75rem 1rem 0;
-		}
-
-		.profile-body {
-			padding: 1.25rem 1rem 0;
-		}
-
-		.profile-section {
-			padding: 1rem;
-		}
-
-		.field-row {
-			flex-direction: column;
-		}
-
-		.birthday-row {
-			flex-direction: column;
-		}
-
-		.birthday-selects {
-			flex-wrap: wrap;
-		}
-
-		.birthday-day {
-			flex: 0 0 4rem;
-		}
-
-		.birthday-month {
-			flex: 1;
-			min-width: 5.5rem;
-		}
-
-		.birthday-year {
-			flex: 0 0 4.5rem;
+	@media (max-width: 760px) {
+		.hub-grid {
+			grid-template-columns: repeat(2, 1fr);
 		}
 	}
 
-	/* Writing mode modal */
+	@media (max-width: 540px) {
+		.hub-grid {
+			grid-template-columns: 1fr;
+			padding: 1rem 1rem 0.5rem;
+			gap: 0.75rem;
+		}
+
+		.hub-card {
+			padding: 1.25rem 1rem;
+		}
+	}
+
+	/* Writing-mode modal */
 	.modal-overlay {
 		position: fixed;
 		inset: 0;

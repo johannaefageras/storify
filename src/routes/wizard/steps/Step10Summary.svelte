@@ -14,6 +14,7 @@
 	import { isSeparatorParagraph } from '$lib/utils/paragraphs';
 	import TonePickerDropdown from '$lib/components/TonePickerDropdown.svelte';
 	import { streamEntry } from '$lib/utils/streamEntry';
+	import { generateTitle } from '$lib/utils/generateTitle';
 	import { fireBadgeEvent } from '$lib/gamification/client';
 	import { goto } from '$app/navigation';
 	import resultMessages from '$lib/data/resultMessages.json';
@@ -391,10 +392,13 @@ Vi ses imorgon, dagboken.`;
 				return;
 			}
 
+			const toneIdForSave = actualToneUsed || wizardStore.data.selectedTone;
+			const title = await generateTitle(generatedEntry, toneIdForSave);
 			const payload = {
 				user_id: authStore.user.id,
 				generated_text: generatedEntry,
-				tone_id: actualToneUsed || wizardStore.data.selectedTone,
+				title,
+				tone_id: toneIdForSave,
 				entry_date: wizardStore.data.dateISO,
 				weekday: wizardStore.data.weekday,
 				emojis: wizardStore.data.emojis,
