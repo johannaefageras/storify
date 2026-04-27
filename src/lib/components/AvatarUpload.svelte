@@ -29,7 +29,8 @@
 		amber: 'user-silhouette-amber',
 		blue: 'user-silhouette-blue',
 		emerald: 'user-silhouette-emerald',
-		purple: 'user-silhouette-purple'
+		purple: 'user-silhouette-purple',
+		rust: 'user-silhouette-rust'
 	};
 
 	let SilhouetteIcon = $derived(silhouetteComponents[accentStore.current]);

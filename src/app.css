@@ -97,22 +97,25 @@
   --color-error-bg: #fef2f2;
   --color-error-border: #fecaca;
 
-  --mood-yellow: #e8a820;
-  --mood-orange: #f0a83a; /* ← amber accent */
-  --mood-purple: #6a1b9a; /* purple accent */
-  --mood-pink: #f43f7a; /* ← pink accent */
-  --mood-violet: #9b50d8;
-  --mood-indigo: #5c5ce0;
-  --mood-blue: #3570d0;
-  --mood-sky: #2b8db8; /* ← blue accent */
-  --mood-cyan: #0ca8c0;
-  --mood-teal: #18a898;
-  --mood-green: #30a852;
-  --mood-emerald: #2e7d32; /* emerald accent */
-  --mood-brown: #9a6518;
-  --mood-gray: #6e6e78;
-  --mood-black: #1a1a1e;
-  --mood-white: #fafaf8;
+  /* Mood colors — Light theme
+     Targeting ~40-50% lightness, controlled saturation (~60-75%)
+     so colors read clearly on #fafafa without vibrating */
+  --mood-red: #c92f2f;
+  --mood-yellow: #d99a1a;
+  --mood-orange: #e07d1f;
+  --mood-pink: #d63868;
+  --mood-purple: #8e3ab5;
+  --mood-violet: #7c4dd0;
+  --mood-indigo: #4f4fc9;
+  --mood-blue: #2851c7; /* deeper royal — separates from sky */
+  --mood-sky: #4d9ed8; /* lighter, clearly sky-blue */
+  --mood-cyan: #06b3cc; /* more vivid aqua */
+  --mood-teal: #0d9c87;
+  --mood-green: #2ba14d;
+  --mood-brown: #8a5a1a;
+  --mood-gray: #65656d;
+  --mood-black: #1f1f23;
+  --mood-white: #f0efea;
 }
 
 /* ==========================================================================
@@ -138,22 +141,25 @@
   --color-error-border: #5f2126;
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
 
-  --mood-yellow: #f5c844;
-  --mood-orange: #f5a04a; /* ← amber accent */
-  --mood-purple: #ab47bc; /* purple accent */
-  --mood-pink: #ff5c8d; /* ← pink accent */
-  --mood-violet: #be82f8;
-  --mood-indigo: #8080f4;
-  --mood-blue: #5a96f0;
-  --mood-sky: #42aad6; /* ← blue accent */
-  --mood-cyan: #28cce0;
-  --mood-teal: #2cc8b4;
-  --mood-green: #4cd472;
-  --mood-emerald: #66bb6a; /* emerald accent */
-  --mood-brown: #d48820;
-  --mood-gray: #9a9aa4;
-  --mood-black: #28282c;
-  --mood-white: #f4f4f2;
+  /* Mood colors — Dark theme
+     Targeting ~65-75% lightness, slightly reduced saturation
+     so colors don't vibrate against #121212 */
+  --mood-red: #ee6464;
+  --mood-yellow: #f0c14a;
+  --mood-orange: #f0a050;
+  --mood-pink: #f06a92;
+  --mood-purple: #c070d8;
+  --mood-violet: #b88af0;
+  --mood-indigo: #8888ee;
+  --mood-blue: #6285f0; /* deeper royal — separates from sky */
+  --mood-sky: #6cbae5; /* lighter, clearly sky-blue */
+  --mood-cyan: #4dd9eb; /* more vivid aqua */
+  --mood-teal: #3dcaa5; /* leans greener — separates from cyan */
+  --mood-green: #5dd47e;
+  --mood-brown: #d49850;
+  --mood-gray: #9c9ca4;
+  --mood-black: #3a3a3e; /* much lifted — a "black mood" needs to be visible against bg */
+  --mood-white: #ebebe6;
 }
 
 /* ==========================================================================
@@ -198,6 +204,15 @@
 [data-accent='purple'][data-theme='dark'] {
   --color-accent: #ab47bc;
   --color-accent-hover: #b863c8;
+}
+
+[data-accent='rust'] {
+  --color-accent: #b53d2a;
+  --color-accent-hover: #9a3324;
+}
+[data-accent='rust'][data-theme='dark'] {
+  --color-accent: #e35d4a;
+  --color-accent-hover: #e87463;
 }
 
 :root {
@@ -316,6 +331,21 @@
     'BNCE' 0,
     'INFM' 0,
     'SPAC' 0;
+}
+
+/* ==========================================================================
+   Alternative Font: My Storify Mono
+
+   Activated via [data-font="storify-mono"] on <html>. It uses the same
+   weight tokens as the default My Storify option and keeps the italic axis off
+   through the existing normal font-style rules.
+   ========================================================================== */
+
+[data-font='storify-mono'] {
+  --font-primary: 'My Storify Mono', ui-monospace, monospace;
+  --font-heading: var(--font-primary);
+  --font-body: var(--font-primary);
+  --font-ui: var(--font-primary);
 }
 
 /* ==========================================================================

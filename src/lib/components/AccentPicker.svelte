@@ -3,14 +3,14 @@
 </script>
 
 <div class="accent-picker">
-{#each ACCENTS as { id, color }}
+{#each ACCENTS as { id, color, label }}
 	<button
 		class="swatch"
 		class:active={accentStore.current === id}
 		style="--swatch-color: {color}"
 		onclick={() => accentStore.set(id)}
-		aria-label="Switch to {id} accent color"
-		title="{id.charAt(0).toUpperCase() + id.slice(1)}"
+		aria-label="Switch to {label} accent color"
+		title={label}
 	>
 		<span class="swatch-dot"></span>
 	</button>
@@ -50,8 +50,8 @@
 
 	.swatch-dot {
 		display: block;
-		width: 1.25rem;
-		height: 1.25rem;
+		width: 1.5rem;
+		height: 1.5rem;
 		border-radius: 50%;
 		background-color: var(--swatch-color);
 	}

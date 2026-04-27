@@ -8,7 +8,8 @@
 		amber: 'diamond-amber',
 		blue: 'diamond-blue',
 		emerald: 'diamond-emerald',
-		purple: 'diamond-purple'
+		purple: 'diamond-purple',
+		rust: 'diamond-rust'
 	};
 
 	let DiamondIcon = $derived(diamondComponents[accentStore.current]);

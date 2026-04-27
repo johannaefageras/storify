@@ -11,7 +11,8 @@
 		amber: 'sunflower',
 		blue: 'tulip',
 		emerald: 'herb',
-		purple: 'hyacinth'
+		purple: 'hyacinth',
+		rust: 'hibiscus'
 	};
 
 	let RoseIcon = $derived(roseComponents[accentStore.current]);

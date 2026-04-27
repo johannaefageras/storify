@@ -20,7 +20,8 @@
 		amber: 'woman-student-amber',
 		blue: 'woman-student-blue',
 		emerald: 'woman-student-emerald',
-		purple: 'woman-student-purple'
+		purple: 'woman-student-purple',
+		rust: 'woman-student-rust'
 	};
 
 	const diamondComponents = {
@@ -28,7 +29,8 @@
 		amber: 'diamond-amber',
 		blue: 'diamond-blue',
 		emerald: 'diamond-emerald',
-		purple: 'diamond-purple'
+		purple: 'diamond-purple',
+		rust: 'diamond-rust'
 	};
 
 	let StudentIcon = $derived(studentComponents[accentStore.current]);

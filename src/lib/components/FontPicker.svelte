@@ -31,10 +31,10 @@
 	.font-swatch {
 		display: grid;
 		place-items: center;
-		min-width: 2rem;
-		height: 1.75rem;
-		padding: 0 0.4rem;
-		font-size: 0.95rem;
+		min-width: 2.25rem;
+		height: 2rem;
+		padding: 0 0.5rem;
+		font-size: 1.05rem;
 		font-weight: 500;
 		line-height: 1;
 		color: var(--color-text-muted);

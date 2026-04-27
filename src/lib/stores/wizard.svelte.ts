@@ -91,8 +91,7 @@ const EDITOR_DRAFT_KEY = 'storify-editor-draft';
 const DRAFT_EXPIRY_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 function normalizeMoodColor(value: string): string {
-  if (value === 'red') return 'purple';
-  if (value === 'lime') return 'emerald';
+  if (value === 'lime' || value === 'emerald') return 'green';
   return value;
 }
 

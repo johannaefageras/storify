@@ -2,14 +2,15 @@ import { browser } from '$app/environment';
 import { supabase } from '$lib/supabase/client';
 import { authStore } from '$lib/stores/auth.svelte';
 
-export type Accent = 'pink' | 'amber' | 'blue' | 'emerald' | 'purple';
+export type Accent = 'pink' | 'amber' | 'blue' | 'emerald' | 'purple' | 'rust';
 
-export const ACCENTS: { id: Accent; color: string }[] = [
-  { id: 'pink', color: '#f43f7a' },
-  { id: 'amber', color: '#F0A83A' },
-  { id: 'blue', color: '#2B8DB8' },
-  { id: 'emerald', color: '#2e7d32' },
-  { id: 'purple', color: '#6a1b9a' }
+export const ACCENTS: { id: Accent; color: string; label: string }[] = [
+  { id: 'pink', color: '#f43f7a', label: 'Ros' },
+  { id: 'amber', color: '#F0A83A', label: 'Bärnsten' },
+  { id: 'blue', color: '#2B8DB8', label: 'Himmel' },
+  { id: 'emerald', color: '#2e7d32', label: 'Mossa' },
+  { id: 'purple', color: '#6a1b9a', label: 'Plommon' },
+  { id: 'rust', color: '#b53d2a', label: 'Tegel' }
 ];
 
 const ACCENT_STORAGE_KEY = 'accent';
@@ -22,7 +23,8 @@ function normalizeAccent(value: string | null): Accent | null {
     value === 'amber' ||
     value === 'blue' ||
     value === 'emerald' ||
-    value === 'purple'
+    value === 'purple' ||
+    value === 'rust'
   ) {
     return value;
   }

@@ -89,12 +89,12 @@
 				<span class="hub-card-desc">Starta dagens minne</span>
 			</button>
 			<a href="/journal" class="hub-card">
-				<span class="hub-card-icon"><Emoji name="books" size={56} /></span>
+				<span class="hub-card-icon"><Emoji name="archive" size={56} /></span>
 				<span class="hub-card-title">Dagboksarkiv</span>
 				<span class="hub-card-desc">Bläddra i tidigare anteckningar</span>
 			</a>
 			<a href="/calendar" class="hub-card">
-				<span class="hub-card-icon"><Emoji name="calendar-spiral" size={56} /></span>
+				<span class="hub-card-icon"><Emoji name="calendar" size={56} /></span>
 				<span class="hub-card-title">Kalender</span>
 				<span class="hub-card-desc">Se dina anteckningar över tid</span>
 			</a>

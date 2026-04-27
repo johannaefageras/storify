@@ -162,6 +162,7 @@
 	.dropdown-kicker {
 		font-family: var(--font-mono);
 		font-size: 0.72rem;
+		font-weight: 500;
 		line-height: 1;
 		letter-spacing: 0.12em;
 		text-transform: uppercase;

@@ -10,7 +10,8 @@
 		amber: 'sunflower',
 		blue: 'tulip',
 		emerald: 'herb',
-		purple: 'hyacinth'
+		purple: 'hyacinth',
+		rust: 'hibiscus'
 	};
 
 	const laptopComponents = {
@@ -18,7 +19,8 @@
 		amber: 'woman-laptop-amber',
 		blue: 'woman-laptop-blue',
 		emerald: 'woman-laptop-emerald',
-		purple: 'woman-laptop-purple'
+		purple: 'woman-laptop-purple',
+		rust: 'woman-laptop-rust'
 	};
 
 	let RoseIcon = $derived(roseComponents[accentStore.current]);

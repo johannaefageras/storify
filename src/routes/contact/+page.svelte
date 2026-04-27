@@ -9,7 +9,8 @@
 		amber: 'woman-waving-amber',
 		blue: 'woman-waving-blue',
 		emerald: 'woman-waving-emerald',
-		purple: 'woman-waving-purple'
+		purple: 'woman-waving-purple',
+		rust: 'woman-waving-rust'
 	};
 
 	let WavingIcon = $derived(wavingComponents[accentStore.current]);

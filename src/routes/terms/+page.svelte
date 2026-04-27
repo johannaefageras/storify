@@ -9,7 +9,8 @@
 		amber: 'woman-judge-amber',
 		blue: 'woman-judge-blue',
 		emerald: 'woman-judge-emerald',
-		purple: 'woman-judge-purple'
+		purple: 'woman-judge-purple',
+		rust: 'woman-judge-rust'
 	};
 
 	const diamondComponents = {
@@ -17,7 +18,8 @@
 		amber: 'diamond-amber',
 		blue: 'diamond-blue',
 		emerald: 'diamond-emerald',
-		purple: 'diamond-purple'
+		purple: 'diamond-purple',
+		rust: 'diamond-rust'
 	};
 
 	let JudgeIcon = $derived(judgeComponents[accentStore.current]);
