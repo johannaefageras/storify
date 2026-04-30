@@ -28,7 +28,7 @@
 
 <style>
 	.blog-page {
-		max-width: 44rem;
+		max-width: 52rem;
 		margin: 0 auto;
 		padding: 2rem 1.25rem 4rem;
 	}
