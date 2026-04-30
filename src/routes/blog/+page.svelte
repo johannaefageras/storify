@@ -28,7 +28,7 @@
 
 <style>
 	.blog-page {
-		max-width: 60rem;
+		max-width: 44rem;
 		margin: 0 auto;
 		padding: 2rem 1.25rem 4rem;
 	}
@@ -41,14 +41,14 @@
 
 	.blog-page :global(.soro-blog-card),
 	.blog-page :global(.soro-blog-back) {
-		background: var(--color-bg-elevated);
+		background: transparent;
 		border-color: var(--color-border);
 		border-radius: var(--radius-lg, 12px);
 	}
 	.blog-page :global(.soro-blog-card:hover),
 	.blog-page :global(.soro-blog-back:hover) {
 		border-color: var(--color-accent);
-		background: var(--color-neutral);
+		background: transparent;
 	}
 
 	.blog-page :global(.soro-blog-card-title),
