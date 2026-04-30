@@ -7,7 +7,6 @@
 	import { FIELD_LIMITS } from '$lib/validation';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import AvatarUpload from '$lib/components/AvatarUpload.svelte';
-	import ProfileBadgeStrip from '$lib/components/ProfileBadgeStrip.svelte';
 	import { fireBadgeEvent } from '$lib/gamification/client';
 	import arrowLeftSvg from '$lib/assets/icons/arrow-left.svg?raw';
 	import '../profile.css';
@@ -317,7 +316,6 @@
 				/>
 				<div class="hero-info">
 					<h1 class="hero-name">{name ? `${name}s Profil` : 'Min Profil'}</h1>
-					<ProfileBadgeStrip />
 				</div>
 			</div>
 		</div>

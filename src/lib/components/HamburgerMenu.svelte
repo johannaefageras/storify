@@ -12,6 +12,7 @@
 		{ href: '/community', label: 'Gemenskapen' },
 		{ href: '/about', label: 'Om Storify' },
 		{ href: '/guide', label: 'Användarguide' },
+		{ href: '/blog', label: 'Blogg' },
 		{ href: '/contact', label: 'Kontaktsida' }
 	];
 
