@@ -1,18 +1,3 @@
-<script lang="ts">
-	import { onMount } from 'svelte';
-
-	onMount(() => {
-		const s = document.createElement('script');
-		s.src = 'https://app.trysoro.com/api/embed/de613487-74e0-4cfd-b412-b86395753daf';
-		s.defer = true;
-		document.body.appendChild(s);
-
-		return () => {
-			s.remove();
-		};
-	});
-</script>
-
 <svelte:head>
 	<title>Blogg – Storify</title>
 	<meta
@@ -20,6 +5,10 @@
 		content="Läs Storifys blogg om AI-dagbok, reflektion och att skriva sin egen historia."
 	/>
 	<link rel="canonical" href="https://mystorify.se/blog" />
+	<script
+		defer
+		src="https://app.trysoro.com/api/embed/de613487-74e0-4cfd-b412-b86395753daf"
+	></script>
 </svelte:head>
 
 <div class="blog-page">
