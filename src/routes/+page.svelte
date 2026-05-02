@@ -5,6 +5,7 @@
 	import { Emoji } from '$lib/assets/emojis';
 	import { getGreeting, getSubtitle } from '$lib/data/greetings';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import DiaryCard from '$lib/components/DiaryCard.svelte';
 
 	const roseComponents = {
 		pink: 'rose',
@@ -17,10 +18,10 @@
 
 	let RoseIcon = $derived(roseComponents[accentStore.current]);
 
-	let isReturningUser = $derived(authStore.isLoggedIn && !!wizardStore.data.profile.name);
+	let isLoggedIn = $derived(authStore.isLoggedIn);
 	let firstName = $derived(wizardStore.data.profile.name.split(' ')[0]);
-	let greeting = $derived(isReturningUser ? getGreeting(firstName) : '');
-	let subtitle = $derived(isReturningUser ? getSubtitle() : '');
+	let greeting = $derived(isLoggedIn && firstName ? getGreeting(firstName) : '');
+	let subtitle = $derived(isLoggedIn && firstName ? getSubtitle() : '');
 
 	interface ModeCard {
 		id: string;
@@ -66,50 +67,290 @@
 		}
 	];
 
+	const steps = [
+		{
+			number: '01',
+			icon: 'speaking-head',
+			title: 'Berätta',
+			description: 'Svara på några korta frågor – eller chatta fritt – om din dag.'
+		},
+		{
+			number: '02',
+			icon: 'magic-wand',
+			title: 'AI förvandlar',
+			description: 'Stödorden blir till en sammanhängande text i din valda berättarröst.'
+		},
+		{
+			number: '03',
+			icon: 'open-book',
+			title: 'Spara minnet',
+			description: 'Din dagbokssida läggs i din privata journal. Exportera som PDF om du vill.'
+		}
+	];
+
+	const featuredTones = [
+		{ id: 'storytelling', name: 'Berättaren', icon: 'open-book', preview: 'Det var en grå tisdag när allt förändrades...' },
+		{ id: 'cat-perspective', name: 'Katten', icon: 'cat', preview: 'Människan vaknade sent igen. Typiskt.' },
+		{ id: 'sportscaster', name: 'Sportkommentatorn', icon: 'studio-microphone', preview: 'OCH HAN KLIVER UPP UR SÄNGEN! Vilken start på dagen!' },
+		{ id: 'drama-queen', name: 'Divan', icon: 'crown', preview: 'ALDRIG har någon upplevt en sådan MONUMENTAL morgon!' },
+		{ id: 'poet', name: 'Poeten', icon: 'feather', preview: 'Dagen låg grå och mjuk över mig, som en filt av tystnad.' },
+		{ id: 'pirate', name: 'Piraten', icon: 'pirate-flag', preview: 'Kaptenens logg: jag satte kurs mot ännu en vardag på öppet hav.' },
+		{ id: 'gothenburger', name: 'Göteborgaren', icon: 'tram', preview: 'Jajamen, dagen rullade på som en spårvagn i sidledes regn.' },
+		{ id: 'six-year-old', name: 'Sexåringen', icon: 'teddy-bear', preview: 'Idag hände det JÄTTEMYCKET. Typ hundra grejer. Fast mest bara två.' }
+	];
+
+	const features = [
+		{ icon: 'printer', title: 'PDF-export', description: 'Skriv ut eller spara dina sidor som vackra PDF:er.' },
+		{ icon: 'file-cabinet', title: 'Privat journal', description: 'Alla dina dagboksinlägg samlade och sökbara på ett ställe.' },
+		{ icon: 'palette', title: 'Personlig stil', description: 'Välj accentfärg, typsnitt och tema som passar dig.' },
+		{ icon: 'microphone', title: 'Tala in din dag', description: 'Diktera istället för att skriva när du är på språng.' },
+		{ icon: 'crystal-ball', title: 'Tillägg', description: 'Lägg till horoskop, "denna dag i historien" eller en kort reflektionsuppgift.' },
+		{ icon: 'loudspeaker', title: 'Community', description: 'Dela utvalda inlägg anonymt om du vill – eller behåll allt för dig själv.' }
+	];
+
+	const sampleEntry = {
+		weekday: 'Tisdag',
+		date: '12 mars 2026',
+		emojis: ['hot-beverage', 'rain-cloud', 'open-book'],
+		toneId: 'storytelling',
+		title: 'Regnet och boken',
+		generatedText:
+			'Det var en grå tisdag när jag bestämde mig för att stanna inne. Regnet trummade tålmodigt mot fönstret, och jag lät det.\n\nKaffet blev kallt två gånger innan jag hann dricka det. Boken jag tagit fram låg uppslagen i knäet, och jag insåg att jag läst samma stycke tre gånger utan att ta in ett ord. Det var inte tråkigt – det var bara stilla.\n\nIbland är det de små, oviktiga dagarna som man minns längst.'
+	};
 </script>
 
-<main class="landing">
-	<div class="container">
-		<div class="landing-main">
-			<header class="hero">
-				<div class="logo">
-					<Emoji name={RoseIcon} size={96} />
-				</div>
-				{#if isReturningUser}
-					<h1 class="title">{greeting}</h1>
-					<p class="subtitle">{subtitle}</p>
-				{:else}
-					<h1 class="title">Storify</h1>
-					<p class="subtitle">Du har inte tid att skriva dagbok. Perfekt – det behöver du inte heller.</p>
-				{/if}
-			</header>
+{#if isLoggedIn}
+	<main class="dashboard">
+		<div class="dashboard-container">
+			<div class="dashboard-main">
+				<header class="dashboard-hero">
+					<div class="dashboard-logo">
+						<Emoji name={RoseIcon} size={96} />
+					</div>
+					{#if firstName}
+						<h1 class="dashboard-title">{greeting}</h1>
+						<p class="dashboard-subtitle">{subtitle}</p>
+					{:else}
+						<h1 class="dashboard-title">Storify</h1>
+						<p class="dashboard-subtitle">Vad vill du göra idag?</p>
+					{/if}
+				</header>
 
-			<div class="mode-grid">
-				{#each modeCards as card}
-					<a href={card.href} class="mode-card" class:coming-soon={card.comingSoon}>
-						<div class="mode-card-icon">
-							<Emoji name={card.icon} size={36} />
-						</div>
-						<div class="mode-card-content">
-							<h2 class="mode-card-title">{card.title}</h2>
-							<p class="mode-card-description">{card.description}</p>
-						</div>
-						{#if card.comingSoon}
-							<span class="mode-card-badge">Snart</span>
-						{/if}
-					</a>
-				{/each}
+				<div class="mode-grid">
+					{#each modeCards as card}
+						<a href={card.href} class="mode-card" class:coming-soon={card.comingSoon}>
+							<div class="mode-card-icon">
+								<Emoji name={card.icon} size={36} />
+							</div>
+							<div class="mode-card-content">
+								<h2 class="mode-card-title">{card.title}</h2>
+								<p class="mode-card-description">{card.description}</p>
+							</div>
+							{#if card.comingSoon}
+								<span class="mode-card-badge">Snart</span>
+							{/if}
+						</a>
+					{/each}
+				</div>
+			</div>
+
+			<div class="dashboard-footer">
+				<LegalFooter />
 			</div>
 		</div>
+	</main>
+{:else}
+	<main class="landing">
+		<!-- Hero -->
+		<section class="hero">
+			<div class="hero-inner">
+				<div class="hero-logo">
+					<Emoji name={RoseIcon} size={120} />
+				</div>
+				<h1 class="hero-title">Du har inte tid att skriva dagbok.</h1>
+				<p class="hero-tagline">Perfekt – det behöver du inte heller.</p>
+				<p class="hero-subtitle">
+					Storify är en privat AI-dagbok som ställer frågor som faktiskt går att svara på.
+					Berätta i två minuter. Få tillbaka en text du faktiskt vill läsa om tio år.
+				</p>
+				<div class="hero-cta">
+					<a href="/interview" class="btn btn-primary">Kom igång</a>
+					<a href="/login" class="btn btn-secondary">Logga in</a>
+				</div>
+				<p class="hero-meta">Gratis · Ingen app att ladda ner · Helt på svenska</p>
+			</div>
+		</section>
+
+		<!-- Problem -->
+		<section class="section section-problem">
+			<div class="section-inner narrow">
+				<p class="eyebrow">Känner du igen dig?</p>
+				<h2 class="section-title">Glömmer dina dagar bort sig?</h2>
+				<p class="section-lede">
+					Du tänker att du borde skriva ner det – möten, samtal, små ögonblick som faktiskt
+					betydde något. Sen är det kväll och du är trött och den blanka sidan stirrar
+					tillbaka. Så blir det aldrig av.
+				</p>
+				<p class="section-lede muted">
+					"Börja bara skriva" är ett värdelöst råd. Storify ställer frågorna åt dig.
+				</p>
+			</div>
+		</section>
+
+		<!-- How it works -->
+		<section class="section section-steps">
+			<div class="section-inner">
+				<p class="eyebrow">Så funkar det</p>
+				<h2 class="section-title">Tre minuter. Tre steg.</h2>
+				<div class="steps-grid">
+					{#each steps as step}
+						<div class="step-card">
+							<div class="step-number">{step.number}</div>
+							<div class="step-icon">
+								<Emoji name={step.icon} size={48} />
+							</div>
+							<h3 class="step-title">{step.title}</h3>
+							<p class="step-description">{step.description}</p>
+						</div>
+					{/each}
+				</div>
+			</div>
+		</section>
+
+		<!-- Modes -->
+		<section class="section section-modes">
+			<div class="section-inner">
+				<p class="eyebrow">Lägen</p>
+				<h2 class="section-title">Hitta ditt sätt att skriva</h2>
+				<p class="section-lede center">
+					Vissa dagar vill du prata, andra dagar vill du bara klicka i kryssrutor.
+					Välj fritt – byt när du vill.
+				</p>
+				<div class="mode-grid mode-grid-landing">
+					{#each modeCards as card}
+						<a href={card.href} class="mode-card" class:coming-soon={card.comingSoon}>
+							<div class="mode-card-icon">
+								<Emoji name={card.icon} size={40} />
+							</div>
+							<div class="mode-card-content">
+								<h3 class="mode-card-title">{card.title}</h3>
+								<p class="mode-card-description">{card.description}</p>
+							</div>
+							{#if card.comingSoon}
+								<span class="mode-card-badge">Snart</span>
+							{/if}
+						</a>
+					{/each}
+				</div>
+			</div>
+		</section>
+
+		<!-- Tones -->
+		<section class="section section-tones">
+			<div class="section-inner">
+				<p class="eyebrow">Berättarröster</p>
+				<h2 class="section-title">Din dag, i 32 olika röster</h2>
+				<p class="section-lede center">
+					Klassisk dagbok? Klart. Eller berätta som en pirat, en sportkommentator, en katt
+					eller en filosof. Samma dag – helt olika minne.
+				</p>
+				<div class="tones-grid">
+					{#each featuredTones as tone}
+						<div class="tone-card">
+							<div class="tone-card-header">
+								<span class="tone-icon">
+									<Emoji name={tone.icon} size={28} />
+								</span>
+								<span class="tone-name">{tone.name}</span>
+							</div>
+							<p class="tone-preview">{tone.preview}</p>
+						</div>
+					{/each}
+				</div>
+				<p class="tones-footnote">…och 24 till. Influencern, Shakespeare, Foliehatten, Livscoachen…</p>
+			</div>
+		</section>
+
+		<!-- Sample entry -->
+		<section class="section section-sample">
+			<div class="section-inner narrow">
+				<p class="eyebrow">Så här ser det ut</p>
+				<h2 class="section-title">Från stödord till minne</h2>
+				<p class="section-lede center">
+					Du skriver några ord. AI:n gör resten.
+				</p>
+				<div class="sample-wrapper">
+					<DiaryCard
+						weekday={sampleEntry.weekday}
+						date={sampleEntry.date}
+						emojis={sampleEntry.emojis}
+						toneId={sampleEntry.toneId}
+						title={sampleEntry.title}
+						generatedText={sampleEntry.generatedText}
+					/>
+				</div>
+			</div>
+		</section>
+
+		<!-- Features -->
+		<section class="section section-features">
+			<div class="section-inner">
+				<p class="eyebrow">Vad du får</p>
+				<h2 class="section-title">Mer än bara text</h2>
+				<div class="features-grid">
+					{#each features as feature}
+						<div class="feature-card">
+							<div class="feature-icon">
+								<Emoji name={feature.icon} size={36} />
+							</div>
+							<h3 class="feature-title">{feature.title}</h3>
+							<p class="feature-description">{feature.description}</p>
+						</div>
+					{/each}
+				</div>
+			</div>
+		</section>
+
+		<!-- Privacy -->
+		<section class="section section-privacy">
+			<div class="section-inner narrow">
+				<div class="privacy-icon">
+					<Emoji name="shield" size={56} />
+				</div>
+				<h2 class="section-title">Din dagbok är din</h2>
+				<p class="section-lede center">
+					Allt du skriver är privat som standard. Vi tränar inga AI-modeller på din text.
+					Du delar bara det du själv väljer att dela – och du kan radera allt när du vill.
+				</p>
+			</div>
+		</section>
+
+		<!-- Final CTA -->
+		<section class="section section-cta">
+			<div class="section-inner narrow">
+				<h2 class="section-title large">Skriv din första dagbok på två minuter.</h2>
+				<p class="section-lede center">
+					Gratis. Helt på svenska. Inget kreditkort.
+				</p>
+				<div class="hero-cta">
+					<a href="/interview" class="btn btn-primary">Kom igång</a>
+					<a href="/guide" class="btn btn-secondary">Läs guiden</a>
+				</div>
+			</div>
+		</section>
 
 		<div class="landing-footer">
 			<LegalFooter />
 		</div>
-	</div>
-</main>
+	</main>
+{/if}
 
 <style>
-	.landing {
+	/* ==========================================================================
+	   Logged-in dashboard (preserves existing layout)
+	   ========================================================================== */
+
+	.dashboard {
 		flex: 1 1 auto;
 		min-height: 0;
 		display: flex;
@@ -120,7 +361,7 @@
 		overflow-y: auto;
 	}
 
-	.container {
+	.dashboard-container {
 		flex: 1 1 auto;
 		min-height: 100%;
 		display: flex;
@@ -130,7 +371,7 @@
 		width: 100%;
 	}
 
-	.landing-main {
+	.dashboard-main {
 		flex: 1 1 auto;
 		min-height: 0;
 		display: flex;
@@ -139,14 +380,9 @@
 		justify-content: center;
 		gap: clamp(1rem, 2.25vh, 1.75rem);
 		padding: clamp(0.25rem, 1.4vh, 0.75rem) 0 0;
-		margin-top: 0;
 	}
 
-	.hero {
-		margin: 0;
-	}
-
-	.logo {
+	.dashboard-logo {
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -154,7 +390,7 @@
 		margin-bottom: 1.25rem;
 	}
 
-	.title {
+	.dashboard-title {
 		font-family: var(--font-primary);
 		font-size: var(--text-2xl);
 		font-weight: var(--weight-medium);
@@ -165,15 +401,284 @@
 		color: var(--color-text);
 	}
 
-	.subtitle {
+	.dashboard-subtitle {
 		font-family: var(--font-primary);
 		font-size: var(--text-sm);
 		line-height: var(--leading-base);
 		color: var(--color-text-muted);
 		font-weight: var(--weight-book);
-		font-stretch: 100%;
 		letter-spacing: var(--tracking-wide);
 	}
+
+	.dashboard-footer {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding-bottom: max(0.35rem, env(safe-area-inset-bottom, 0px));
+	}
+
+	.dashboard-footer :global(.legal-footer) {
+		margin-top: 1.5rem;
+	}
+
+	@media (min-width: 640px) {
+		.dashboard-title {
+			font-size: 3rem;
+			font-stretch: 120%;
+		}
+		.dashboard-subtitle {
+			font-size: var(--text-lg);
+		}
+	}
+
+	/* ==========================================================================
+	   Marketing landing
+	   ========================================================================== */
+
+	.landing {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+
+	.section {
+		width: 100%;
+		padding: clamp(3rem, 8vh, 6rem) 1.25rem;
+	}
+
+	.section:nth-of-type(even) {
+		background: var(--color-bg-elevated);
+	}
+
+	.section-inner {
+		max-width: 960px;
+		margin: 0 auto;
+		width: 100%;
+	}
+
+	.section-inner.narrow {
+		max-width: 640px;
+		text-align: center;
+	}
+
+	.eyebrow {
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-semibold);
+		font-stretch: 110%;
+		letter-spacing: var(--tracking-widest);
+		text-transform: uppercase;
+		color: var(--color-accent);
+		margin: 0 0 0.75rem 0;
+		text-align: center;
+	}
+
+	.section-title {
+		font-family: var(--font-primary);
+		font-size: clamp(1.75rem, 4vw, 2.5rem);
+		font-weight: var(--weight-medium);
+		font-stretch: 115%;
+		letter-spacing: var(--tracking-tighter);
+		line-height: var(--leading-tight);
+		color: var(--color-text);
+		margin: 0 0 1.25rem 0;
+		text-align: center;
+	}
+
+	.section-title.large {
+		font-size: clamp(2rem, 5vw, 3rem);
+	}
+
+	.section-lede {
+		font-family: var(--font-primary);
+		font-size: var(--text-md);
+		font-weight: var(--weight-book);
+		line-height: var(--leading-relaxed);
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-text);
+		margin: 0 0 1rem 0;
+	}
+
+	.section-lede.center {
+		text-align: center;
+		max-width: 560px;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 2.5rem;
+	}
+
+	.section-lede.muted {
+		color: var(--color-text-muted);
+	}
+
+	/* Hero */
+
+	.hero {
+		padding: clamp(2.5rem, 7vh, 5rem) 1.25rem clamp(3rem, 8vh, 6rem);
+		text-align: center;
+	}
+
+	.hero-inner {
+		max-width: 720px;
+		margin: 0 auto;
+	}
+
+	.hero-logo {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 1.5rem;
+	}
+
+	.hero-title {
+		font-family: var(--font-primary);
+		font-size: clamp(2rem, 6vw, 3.5rem);
+		font-weight: var(--weight-medium);
+		font-stretch: 120%;
+		letter-spacing: var(--tracking-tighter);
+		line-height: var(--leading-tight);
+		color: var(--color-text);
+		margin: 0 0 0.5rem 0;
+	}
+
+	.hero-tagline {
+		font-family: var(--font-primary);
+		font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+		font-weight: var(--weight-book);
+		line-height: var(--leading-snug);
+		letter-spacing: var(--tracking-tight);
+		color: var(--color-accent);
+		margin: 0 0 1.5rem 0;
+	}
+
+	.hero-subtitle {
+		font-family: var(--font-primary);
+		font-size: var(--text-md);
+		font-weight: var(--weight-book);
+		line-height: var(--leading-relaxed);
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-text-muted);
+		max-width: 540px;
+		margin: 0 auto 2rem;
+	}
+
+	.hero-cta {
+		display: flex;
+		justify-content: center;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+		margin-bottom: 1.25rem;
+	}
+
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.85rem 1.5rem;
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-semibold);
+		font-stretch: 110%;
+		letter-spacing: var(--tracking-wider);
+		text-transform: uppercase;
+		text-decoration: none;
+		border-radius: var(--radius-md);
+		border: 1px solid transparent;
+		cursor: pointer;
+		transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+	}
+
+	.btn:hover {
+		transform: translateY(-1px);
+		text-decoration: none;
+	}
+
+	.btn:active {
+		transform: scale(0.98);
+	}
+
+	.btn-primary {
+		background: var(--color-accent);
+		color: #fff;
+	}
+
+	.btn-primary:hover {
+		background: var(--color-accent-hover);
+	}
+
+	.btn-secondary {
+		background: transparent;
+		color: var(--color-text);
+		border-color: var(--color-border);
+	}
+
+	.btn-secondary:hover {
+		background: var(--color-neutral);
+	}
+
+	.hero-meta {
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		color: var(--color-text-muted);
+		letter-spacing: var(--tracking-wide);
+		margin: 0;
+	}
+
+	/* Steps */
+
+	.steps-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.25rem;
+		margin-top: 2.5rem;
+	}
+
+	.step-card {
+		text-align: center;
+		padding: 1.5rem 1rem;
+	}
+
+	.step-number {
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-semibold);
+		letter-spacing: var(--tracking-widest);
+		color: var(--color-accent);
+		margin-bottom: 0.75rem;
+	}
+
+	.step-icon {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 1rem;
+	}
+
+	.step-title {
+		font-family: var(--font-primary);
+		font-size: var(--text-lg);
+		font-weight: var(--weight-medium);
+		font-stretch: 110%;
+		letter-spacing: var(--tracking-tight);
+		color: var(--color-text);
+		margin: 0 0 0.5rem 0;
+	}
+
+	.step-description {
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-book);
+		line-height: var(--leading-relaxed);
+		color: var(--color-text-muted);
+		margin: 0;
+	}
+
+	@media (max-width: 720px) {
+		.steps-grid {
+			grid-template-columns: 1fr;
+			gap: 0.5rem;
+		}
+	}
+
+	/* Modes */
 
 	.mode-grid {
 		display: grid;
@@ -182,25 +687,37 @@
 		width: 100%;
 	}
 
+	.mode-grid-landing {
+		gap: 1rem;
+		max-width: 720px;
+		margin: 0 auto;
+	}
+
 	.mode-card {
 		position: relative;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		gap: 0.625rem;
-		padding: clamp(0.8rem, 1.9vh, 1.25rem) 1rem;
+		padding: clamp(1rem, 2.5vh, 1.5rem) 1rem;
 		background: var(--color-bg-elevated);
 		border-radius: var(--radius-md);
+		border: 1px solid var(--color-border);
 		text-decoration: none;
 		color: inherit;
-		transition: transform 0.15s ease, box-shadow 0.15s ease;
+		transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
 		cursor: pointer;
+	}
+
+	.section:nth-of-type(even) .mode-card {
+		background: var(--color-bg);
 	}
 
 	.mode-card:hover {
 		transform: translateY(-2px);
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 		text-decoration: none;
+		border-color: var(--color-accent);
 	}
 
 	.mode-card:active {
@@ -209,10 +726,6 @@
 
 	.mode-card.coming-soon {
 		opacity: 0.6;
-	}
-
-	.mode-card.coming-soon:hover {
-		opacity: 0.75;
 	}
 
 	.mode-card-icon {
@@ -253,7 +766,6 @@
 		font-family: var(--font-primary);
 		font-size: 0.7rem;
 		font-weight: var(--weight-semibold);
-		font-stretch: 110%;
 		letter-spacing: var(--tracking-widest);
 		text-transform: uppercase;
 		color: var(--color-accent);
@@ -268,71 +780,138 @@
 		}
 	}
 
+	/* Tones */
+
+	.tones-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+		gap: 0.75rem;
+	}
+
+	.tone-card {
+		padding: 1rem 1.125rem;
+		background: var(--color-bg);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+	}
+
+	.section:nth-of-type(even) .tone-card {
+		background: var(--color-bg-elevated);
+	}
+
+	.tone-card-header {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.tone-icon {
+		display: inline-flex;
+		flex-shrink: 0;
+	}
+
+	.tone-name {
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-semibold);
+		font-stretch: 105%;
+		letter-spacing: var(--tracking-wider);
+		text-transform: uppercase;
+		color: var(--color-text);
+	}
+
+	.tone-preview {
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-book);
+		line-height: var(--leading-relaxed);
+		color: var(--color-text-muted);
+		font-style: italic;
+		margin: 0;
+	}
+
+	.tones-footnote {
+		text-align: center;
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		color: var(--color-text-muted);
+		letter-spacing: var(--tracking-wide);
+		margin: 1.75rem 0 0 0;
+	}
+
+	/* Sample */
+
+	.sample-wrapper {
+		margin-top: 0.5rem;
+		text-align: left;
+	}
+
+	/* Features */
+
+	.features-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+		gap: 1rem;
+		margin-top: 2.5rem;
+	}
+
+	.feature-card {
+		padding: 1.5rem;
+		background: var(--color-bg);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+	}
+
+	.section:nth-of-type(even) .feature-card {
+		background: var(--color-bg-elevated);
+	}
+
+	.feature-icon {
+		margin-bottom: 0.75rem;
+	}
+
+	.feature-title {
+		font-family: var(--font-primary);
+		font-size: var(--text-md);
+		font-weight: var(--weight-semibold);
+		font-stretch: 110%;
+		letter-spacing: var(--tracking-tight);
+		color: var(--color-text);
+		margin: 0 0 0.4rem 0;
+	}
+
+	.feature-description {
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-book);
+		line-height: var(--leading-relaxed);
+		color: var(--color-text-muted);
+		margin: 0;
+	}
+
+	/* Privacy */
+
+	.privacy-icon {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 1rem;
+	}
+
+	/* Final CTA */
+
+	.section-cta .hero-cta {
+		margin-top: 1.5rem;
+		margin-bottom: 0;
+	}
+
+	/* Footer */
+
 	.landing-footer {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding-bottom: max(0.35rem, env(safe-area-inset-bottom, 0px));
-	}
-
-	.landing-footer :global(.legal-footer) {
-		margin-top: 1.5rem;
-	}
-
-	@media (min-width: 640px) {
-		.title {
-			font-size: 3rem;
-			font-stretch: 120%;
-		}
-
-		.subtitle {
-			font-size: var(--text-lg);
-		}
-	}
-
-	@media (max-height: 860px) {
-		.logo {
-			margin-bottom: 1.25rem;
-		}
-
-		.title {
-			margin-bottom: 0.55rem;
-		}
-
-		.mode-grid {
-			gap: 0.55rem;
-		}
-
-		.mode-card-description {
-			line-height: var(--leading-base);
-		}
-
-		.landing-footer :global(.legal-footer) {
-			margin-top: 1rem;
-		}
-	}
-
-	@media (max-height: 760px) {
-		.landing {
-			padding-top: 0.85rem;
-		}
-
-		.mode-card-icon :global(svg) {
-			width: 28px;
-			height: 28px;
-		}
-
-		.mode-card {
-			gap: 0.45rem;
-			padding: 0.8rem 0.8rem;
-		}
-
-		.mode-card-title {
-			font-size: var(--text-xs);
-		}
-
-		.mode-card-description {
-			font-size: 0.85rem;
-		}
+		padding: 0 1.25rem;
+		padding-bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));
 	}
 </style>

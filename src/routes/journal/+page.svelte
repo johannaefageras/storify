@@ -99,7 +99,11 @@
 		'tinfoil-hat': 'satellite',
 		'action-hero': 'collision',
 		'influencer': 'loudspeaker',
-		'six-year-old': 'teddy-bear'
+		'six-year-old': 'teddy-bear',
+		'poet': 'feather',
+		'culture-vulture': 'wine',
+		'pirate': 'pirate-flag',
+		'gothenburger': 'tram'
 	};
 
 	const swedishMonths: Record<string, string> = {

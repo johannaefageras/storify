@@ -249,6 +249,10 @@
 			{#snippet collisionIcon()}<Emoji name="collision" size={20} />{/snippet}
 			{#snippet megaphoneIcon()}<Emoji name="megaphone" size={20} />{/snippet}
 			{#snippet teddyBearIcon()}<Emoji name="teddy-bear" size={20} />{/snippet}
+			{#snippet featherIcon()}<Emoji name="feather" size={20} />{/snippet}
+			{#snippet wineIcon()}<Emoji name="wine" size={20} />{/snippet}
+			{#snippet pirateFlagIcon()}<Emoji name="pirate-flag" size={20} />{/snippet}
+			{#snippet tramIcon()}<Emoji name="tram" size={20} />{/snippet}
 			<button class="voice-chip" onclick={() => openModal({ id: 'classic', name: 'Dagboksskribenten', description: 'En rak, varm berättelse om din dag. Perfekt för alla tillfällen.', icon: ledgerIcon })}>
 				<span class="voice-chip-emoji">{@render ledgerIcon()}</span>
 				<span class="voice-chip-name">Dagboksskribenten</span>
@@ -360,6 +364,22 @@
 			<button class="voice-chip" onclick={() => openModal({ id: 'six-year-old', name: 'Sexåringen', description: 'Oförfalskad sexårs-logik. Orättvist, mysigt och ibland helt lysande.', icon: teddyBearIcon })}>
 				<span class="voice-chip-emoji">{@render teddyBearIcon()}</span>
 				<span class="voice-chip-name">Sexåringen</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'poet', name: 'Poeten', description: 'Modern prosapoesi som fångar dagens små detaljer med bild, rytm och stillhet.', icon: featherIcon })}>
+				<span class="voice-chip-emoji">{@render featherIcon()}</span>
+				<span class="voice-chip-name">Poeten</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'culture-vulture', name: 'Kulturtanten', description: 'DN Kultur möter vardagen. Estetiska omdömen, mild snobbism och varmt hjärta.', icon: wineIcon })}>
+				<span class="voice-chip-emoji">{@render wineIcon()}</span>
+				<span class="voice-chip-name">Kulturtanten</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'pirate', name: 'Piraten', description: 'Kaptenens logg över vardagens stormar, skatter, besättning och trygga hamnar.', icon: pirateFlagIcon })}>
+				<span class="voice-chip-emoji">{@render pirateFlagIcon()}</span>
+				<span class="voice-chip-name">Piraten</span>
+			</button>
+			<button class="voice-chip" onclick={() => openModal({ id: 'gothenburger', name: 'Göteborgaren', description: 'Varm, torr Göteborgshumor med spårvagnskänsla, regn och goa små segrar.', icon: tramIcon })}>
+				<span class="voice-chip-emoji">{@render tramIcon()}</span>
+				<span class="voice-chip-name">Göteborgaren</span>
 			</button>
 		</div>
 

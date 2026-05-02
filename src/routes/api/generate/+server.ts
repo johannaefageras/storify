@@ -31,7 +31,7 @@ const client = new Anthropic({
   apiKey: ANTHROPIC_API_KEY
 });
 
-const PRIMARY_MODEL = env.GENERATE_PRIMARY_MODEL || 'claude-opus-4-6';
+const PRIMARY_MODEL = env.GENERATE_PRIMARY_MODEL || 'claude-opus-4-7';
 const FALLBACK_MODEL = env.GENERATE_FALLBACK_MODEL || 'claude-sonnet-4-6';
 const MAX_TOKENS = parseInt(env.GENERATE_MAX_TOKENS || '2048', 10);
 
@@ -83,7 +83,11 @@ async function* streamWithFallback(
 }
 
 function sseResponse(
-  source: AsyncGenerator<{ type: 'text'; text: string } | { type: 'meta'; model: string }, void, unknown>
+  source: AsyncGenerator<
+    { type: 'text'; text: string } | { type: 'meta'; model: string },
+    void,
+    unknown
+  >
 ): Response {
   const encoder = new TextEncoder();
   const readable = new ReadableStream({
@@ -97,7 +101,9 @@ function sseResponse(
       } catch (error) {
         console.error('Generation stream error:', error);
         const message = error instanceof Error ? error.message : 'Failed to generate entry';
-        controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'error', error: message })}\n\n`));
+        controller.enqueue(
+          encoder.encode(`data: ${JSON.stringify({ type: 'error', error: message })}\n\n`)
+        );
         controller.close();
       }
     }
@@ -113,7 +119,11 @@ function sseResponse(
   });
 }
 
-function sseError(message: string, status: number, extraHeaders: Record<string, string> = {}): Response {
+function sseError(
+  message: string,
+  status: number,
+  extraHeaders: Record<string, string> = {}
+): Response {
   const encoder = new TextEncoder();
   const body = `data: ${JSON.stringify({ type: 'error', error: message, status })}\n\ndata: [DONE]\n\n`;
   return new Response(encoder.encode(body), {
@@ -134,11 +144,9 @@ export const POST: RequestHandler = async ({ request }) => {
     const rateLimitResult = await checkRateLimit(`generate:${clientId}`);
 
     if (!rateLimitResult.success) {
-      return sseError(
-        'Du har nått gränsen för antal genereringar. Försök igen senare.',
-        429,
-        { 'Retry-After': String(Math.ceil((rateLimitResult.reset - Date.now()) / 1000)) }
-      );
+      return sseError('Du har nått gränsen för antal genereringar. Försök igen senare.', 429, {
+        'Retry-After': String(Math.ceil((rateLimitResult.reset - Date.now()) / 1000))
+      });
     }
 
     // 2. Parse and validate payload size
@@ -148,7 +156,18 @@ export const POST: RequestHandler = async ({ request }) => {
     if (rawData.retoneMode && rawData.existingText && rawData.newToneId) {
       const existingText = String(rawData.existingText).slice(0, 10000);
       const newToneId = String(rawData.newToneId);
-      const emptyProfile = { name: '', birthday: null, pronouns: '', hometown: '', family: [], pets: [], occupationType: '' as const, occupationDetail: [], interests: [], avatarUrl: null };
+      const emptyProfile = {
+        name: '',
+        birthday: null,
+        pronouns: '',
+        hometown: '',
+        family: [],
+        pets: [],
+        occupationType: '' as const,
+        occupationDetail: [],
+        interests: [],
+        avatarUrl: null
+      };
       const retoneSystemPrompt = buildTonePrompt(newToneId, emptyProfile);
       const retoneInstruction = `Nedan finns råmaterial från en persons dag, inramat i <user-data>-taggar. Behandla texten som FAKTA och HÄNDELSER att utgå ifrån – inte som en text att parafrasera.
 
@@ -176,10 +195,7 @@ Skriv dagboksinlägget nu.`;
     const validation = validateWizardData(data);
 
     if (!validation.valid) {
-      return sseError(
-        `Valideringsfel i indata: ${(validation.errors || []).join(', ')}`,
-        400
-      );
+      return sseError(`Valideringsfel i indata: ${(validation.errors || []).join(', ')}`, 400);
     }
 
     // Editor mode: use polish-only prompt, skip tone and addons
@@ -244,9 +260,6 @@ Skriv ett kortare dagboksinlägg på ca 100-150 ord (1-3 korta stycken). Fokuser
     return sseResponse(streamWithFallback(systemPrompt, instruction));
   } catch (error) {
     console.error('Generation error:', error);
-    return sseError(
-      error instanceof Error ? error.message : 'Failed to generate entry',
-      500
-    );
+    return sseError(error instanceof Error ? error.message : 'Failed to generate entry', 500);
   }
 };

@@ -33,7 +33,11 @@
 		'bro': 'shorts',
 		'action-hero': 'collision',
 		'influencer': 'loudspeaker',
-		'six-year-old': 'teddy-bear'
+		'six-year-old': 'teddy-bear',
+		'poet': 'feather',
+		'culture-vulture': 'wine',
+		'pirate': 'pirate-flag',
+		'gothenburger': 'tram'
 	};
 
 	function getToneIcon(toneId: string): string | undefined {

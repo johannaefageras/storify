@@ -29,7 +29,11 @@ export type ToneId =
   | 'bro'
   | 'action-hero'
   | 'influencer'
-  | 'six-year-old';
+  | 'six-year-old'
+  | 'poet'
+  | 'culture-vulture'
+  | 'pirate'
+  | 'gothenburger';
 
 export type TonePromptBuilder = (baseIntro: string) => string;
 

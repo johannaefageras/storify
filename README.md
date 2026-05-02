@@ -1,257 +1,179 @@
-# 📔 Storify
+# Storify
 
-> _For all the diaries you bought but never wrote in_ ✨
+Storify is a Swedish AI journaling app for turning short notes, guided answers, or an interview-style chat into polished diary entries. Users can write through several flows, choose a narrative voice, save entries to a private journal, export/share selected entries, and optionally publish anonymized entries to the community.
 
-**Storify** is an AI-powered journaling app that transforms your daily experiences into personalized diary entries. Answer a few guided questions about your day, pick a writing style, and let Claude AI craft a unique journal entry just for you.
+Live site: https://mystorify.se
 
-[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-mystorify.se-blue)](https://mystorify.se)
-[![SvelteKit](https://img.shields.io/badge/SvelteKit-2.x-FF3E00?logo=svelte)](https://kit.svelte.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript)](https://www.typescriptlang.org)
-[![Anthropic](https://img.shields.io/badge/Powered_by-Claude_AI-D4A574)](https://anthropic.com)
+## What It Does
 
----
+- AI diary generation with Anthropic Claude, including streaming responses and fallback model support.
+- Four writing modes: AI interview, step-by-step wizard, quick entry, and free-writing editor.
+- Swedish-first UI and generated content, with some voices intentionally using other styles or English.
+- Private account-based journal backed by Supabase Auth and Postgres.
+- Profile, theme, accent, font, avatar, newsletter, and push reminder settings.
+- Entry editing, retone generation, title generation, PDF/image-style sharing utilities, and public share links.
+- Community page for voluntarily shared diary entries.
+- Blog posts from local Markdown files in `src/posts`.
+- Badge/gamification system for writing milestones and feature usage.
+- Weekly recap email and daily push reminder cron scripts.
 
-## 🎯 Overview
+## Tech Stack
 
-Journaling is powerful, but starting is hard. Storify removes the friction by:
+| Area | Technology |
+| --- | --- |
+| App | SvelteKit 2, Svelte 5, TypeScript, Vite |
+| Runtime | Node adapter with `server.js` |
+| AI | Anthropic SDK |
+| Database/Auth | Supabase |
+| Rate limiting | Upstash Redis |
+| Email | Resend |
+| Push | Web Push / VAPID |
+| Maps/geocoding | Google Maps / Google Cloud credentials |
+| Rich text | Tiptap |
+| PDF/export | jsPDF, html2canvas |
+| Tests | Vitest, Testing Library, svelte-check |
+| Hosting | Render web service plus Render cron jobs |
 
-1. 📝 **Guiding you** through a simple wizard with questions about your day
-2. 🎭 **Letting you choose** from 24 unique writing styles
-3. 🤖 **Generating** a personalized diary entry using Claude AI
-4. 📤 **Exporting or emailing** your entry as text, image, or share link
+## Getting Started
 
-No more staring at a blank page – just answer a few questions and get a beautifully written diary entry in seconds!
-
----
-
-## ✨ Features
-
-### 🧙‍♂️ 10-Step Guided Wizard
-
-| Step | Name                    | Description                                               |
-| :--: | ----------------------- | --------------------------------------------------------- |
-|  0   | 👤 Profile              | Name, age, pronouns, hometown, family, pets, interests    |
-|  1   | 😊 Mood, Date & Weather | Pick up to 4 emojis + optional auto-weather from location |
-|  2   | ⚡ Energy               | Rate your sleep, energy, and overall mood (1-10)          |
-|  3   | 🏃 Activities           | Where you went, what you did, who you met                 |
-|  4   | 🏆 Wins & Frustrations  | Celebrate victories and vent frustrations                 |
-|  5   | 💭 Reflections          | What almost happened, regrets, redo moments               |
-|  6   | 🍕 Food & Music         | Meals and soundtracks of your day                         |
-|  7   | ⏳ Time Capsule         | A memory to preserve + a message to future you            |
-|  8   | 🎭 Voice                | Choose your writing style                                 |
-|  9   | 📋 Summary              | Review and generate your entry                            |
-
-### 🎭 Unique Writing Tones
-
-| Tone                                    | Description                              |
-| --------------------------------------- | ---------------------------------------- |
-| 📒 **Dagboksskribenten** (Classic)      | Traditional "Dear Diary" format          |
-| 📖 **Berättaren** (Storytelling)        | Your day as a narrative adventure        |
-| 🤔 **Filosofen** (Philosophical)        | Deep reflections and existential musings |
-| 🎙️ **Sportkommentatorn** (Sportscaster) | ENERGETIC play-by-play commentary        |
-| 🐈 **Katten** (Cat Perspective) | A judgmental cat observing its human     |
-| 👑 **Divan**                      | Everything is DRAMATIC                   |
-| 😬 **Tonåringen**                       | Awkwardly endearing self-awareness       |
-| 🇬🇧 **Britten** (British)                | Understated elegance and dry humor       |
-| 🎮 **Gamern**                           | Your day as an RPG adventure             |
-| 🥱 **Tråkmånsen** (Bored)               | Minimal enthusiasm, maximum vibes        |
-| 🌎 **Naturfilmaren**                    | Attenborough-style observations          |
-| 🧠 **Psykologen** (Therapist)           | Therapist notes with warm insight        |
-| 🤖 **AI-Roboten**                       | System log with tiny hints of feelings   |
-| 🎭 **Shakespeare**                      | Dramatic monologue with archaic flair    |
-| 📰 **Kvällstidningsreportern** (Tabloid) | Sensational tabloid headlines            |
-| 🏛️ **Akademikern** (Formal)             | Overly formal official letter            |
-| 🤓 **Nörden** (Nerdy)                   | Over-explains everything with facts      |
-| 🎩 **Foliehatten** (Tinfoil Hat)        | Conspiracy theories everywhere           |
-| ✨ **Livscoachen** (Life Coach)         | Uplifting advice and encouragement       |
-| 🌀 **Grubblaren** (Overthinker)         | Analyzing every detail, over and over    |
-| 😒 **Cynikern** (Cynical)               | Skeptical and wryly honest               |
-
-### 📱 Multi-Platform Support
-
-- 🌐 **Web App** – Works in any modern browser
-- 🌙 **Dark Mode** – Easy on the eyes, day or night
-- 📬 **Email Delivery** – Send entries to your inbox
-
-### 🔒 Privacy-First
-
-- Profile data stored **locally on your device**
-- Only daily entries sent to AI for generation
-- No server-side storage of your diary entries
-- Location data is used **only** to fetch weather (optional) and isn't stored
-
----
-
-## 🛠️ Tech Stack
-
-| Category     | Technology                                                               |
-| ------------ | ------------------------------------------------------------------------ |
-| ⚡ Framework | [SvelteKit 2.x](https://kit.svelte.dev) + [Svelte 5](https://svelte.dev) |
-| 📘 Language  | [TypeScript 5.9](https://www.typescriptlang.org)                         |
-| 🤖 AI        | [Anthropic Claude API](https://anthropic.com) (Claude Opus 4.5)          |
-| 📬 Email     | [Resend API](https://resend.com)                                         |
-| 🌤️ Weather   | [SMHI Open Data](https://opendata.smhi.se)                               |
-| 📦 Build     | [Vite 7.x](https://vitejs.dev)                                           |
-| 🚀 Hosting   | [Vercel](https://vercel.com)                                             |
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- npm or pnpm
-- Anthropic API key ([get one here](https://console.anthropic.com))
-
-### Installation
+Use npm; this repo includes `package-lock.json`.
 
 ```bash
-# Clone the repository
-git clone https://github.com/johannaefageras/storify.git
-cd storify
-
-# Install dependencies
 npm install
-
-# Create environment file
 cp .env.example .env
-# Add your ANTHROPIC_API_KEY to .env
-```
-
-### Development
-
-```bash
-# Start development server
 npm run dev
-
-# Open http://localhost:5173
 ```
 
-### Production Build
+The dev server runs at the URL printed by Vite, usually `http://localhost:5173`.
+
+Render deploys with Node 20, and that is the safest local version to use as well.
+
+## Environment Variables
+
+Copy `.env.example` to `.env` and fill in the services you need for the feature you are testing.
+
+| Variable | Purpose |
+| --- | --- |
+| `ANTHROPIC_API_KEY` | Required for AI generation and chat. |
+| `CHAT_MODEL`, `CHAT_MAX_TOKENS` | Chat/interview model configuration. |
+| `GENERATE_PRIMARY_MODEL`, `GENERATE_FALLBACK_MODEL`, `GENERATE_MAX_TOKENS` | Diary generation model configuration. |
+| `PUBLIC_SUPABASE_URL`, `PUBLIC_SUPABASE_ANON_KEY` | Supabase client/auth configuration. |
+| `SUPABASE_SERVICE_ROLE_KEY` | Server-side jobs and privileged API work. |
+| `RESEND_API_KEY` | Email sending. |
+| `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | Server-side rate limiting. |
+| `GOOGLE_MAPS_API_KEY`, `GOOGLE_CLOUD_PROJECT_ID`, `GOOGLE_APPLICATION_CREDENTIALS_JSON` | Places/geocoding support. |
+| `PUBLIC_VAPID_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT` | Browser push notifications. |
+| `CLEANUP_SECRET` | Protected cleanup endpoint access. |
+| `SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_SECRET` | Google auth integration secret when enabled in Supabase. |
+| `VITE_API_BASE_URL` | Legacy/optional API base setting; current app calls local API paths. |
+
+Generate VAPID keys with:
 
 ```bash
-# Build for web
-npm run build
-
-# Preview production build
-npm run preview
+npm exec web-push generate-vapid-keys
 ```
 
-## ⚙️ Environment Variables
+## Supabase Setup
 
-Create a `.env` file in the root directory:
+The database schema lives in `supabase/migrations`. Apply the migrations in order to a Supabase project before using authenticated flows.
 
-```env
-# Required: Your Anthropic API key
-ANTHROPIC_API_KEY=sk-ant-xxxxxxxxxxxxx
+Core tables/features include:
 
-# Required: Email delivery (Resend)
-RESEND_API_KEY=re-xxxxxxxxxxxxx
+- `profiles` for account profile, preferences, newsletter, push, and badge backfill state.
+- `entries` for private saved diary entries and public share links.
+- `community_entries` for community-shared copies.
+- `user_badges` and related badge migration data.
+- `newsletter_sends`, `push_subscriptions`, and `push_sends` for scheduled messaging.
 
+Supabase Row Level Security policies are part of the migrations.
+
+## Scripts
+
+```bash
+npm run dev            # start local dev server
+npm run build          # production build
+npm run preview        # preview the production build
+npm run check          # svelte-check + SvelteKit sync
+npm run test           # run Vitest in watch mode
+npm run test:run       # run Vitest once
+npm run test:coverage  # run Vitest with coverage
+npm run build:cron     # bundle cron scripts into dist/cron
 ```
 
----
+Cron entry points:
 
-## 📁 Project Structure
+- `scripts/send-weekly.ts` sends weekly recap emails.
+- `scripts/send-reminders.ts` sends daily journal push reminders.
+- `scripts/preview-weekly-email.ts` previews the weekly email template.
+- `scripts/backfill-titles.mjs` backfills entry titles.
 
-```
+## Project Structure
+
+```text
 storify/
-├── 📂 src/
-│   ├── 📂 routes/                    # SvelteKit pages & API
-│   │   ├── 📄 +page.svelte           # Landing page
-│   │   ├── 📂 wizard/                # Main wizard flow
-│   │   │   ├── 📄 +page.svelte       # Wizard container
-│   │   │   └── 📂 steps/             # Individual wizard steps
-│   │   ├── 📂 api/generate/          # AI generation endpoint
-│   │   ├── 📂 about/                 # About page
-│   │   ├── 📂 contact/               # Contact page
-│   │   ├── 📂 privacy/               # Privacy policy
-│   │   └── 📂 terms/                 # Terms of service
-│   └── 📂 lib/
-│       ├── 📂 stores/                # Svelte state management
-│       │   ├── 📄 wizard.svelte.ts   # Wizard data store
-│       │   └── 📄 theme.svelte.ts    # Theme preferences
-│       ├── 📂 data/                  # Static data
-│       │   ├── 📄 tones.ts           # Tone definitions
-│       │   └── 📄 emojis.ts          # Emoji categories
-│       └── 📂 components/            # Reusable components
-│           └── 📂 emojis/            # Custom emoji SVGs
-├── 📂 tones/                         # Detailed tone instructions                  # Tone overview
-├── 📂 static/                        # Static assets & fonts
-├── 📄 svelte.config.js               # SvelteKit configuration
-├── 📄 vite.config.ts                 # Vite configuration
-└── 📄 package.json
+├── src/
+│   ├── routes/
+│   │   ├── +page.svelte              # landing/dashboard
+│   │   ├── interview/                # AI interview flow
+│   │   ├── wizard/                   # guided multi-step flow
+│   │   ├── quick/                    # short entry flow
+│   │   ├── editor/                   # free-writing editor
+│   │   ├── journal/                  # private saved entries
+│   │   ├── community/                # public shared entries
+│   │   ├── profile/                  # profile, settings, account pages
+│   │   ├── blog/                     # Markdown-backed blog
+│   │   ├── shared/[shareId]/         # public entry links
+│   │   └── api/                      # generation, chat, share, badges, email, geocode
+│   ├── lib/
+│   │   ├── assets/                   # fonts, icons, custom emoji SVGs
+│   │   ├── components/               # reusable Svelte components
+│   │   ├── data/                     # tones, prompts, badges, copy, samples
+│   │   ├── gamification/             # badge evaluation and awarding
+│   │   ├── newsletter/               # weekly email selection/templates
+│   │   ├── stores/                   # Svelte stores for auth, wizard, UI prefs
+│   │   ├── supabase/                 # browser/server Supabase clients
+│   │   ├── utils/                    # date, sharing, PDF/image, title helpers
+│   │   └── validation/               # input validation, sanitizing, rate limits
+│   ├── posts/                        # blog Markdown
+│   └── service-worker.ts             # push/service worker support
+├── docs/tones/                       # human-readable tone documentation
+├── scripts/                          # cron and maintenance scripts
+├── static/                           # favicons, manifests, OG image, robots/sitemap
+├── supabase/migrations/              # database schema and RLS migrations
+├── render.yaml                       # Render web + cron services
+├── server.js                         # Node production server wrapper
+└── package.json
 ```
 
----
+## Writing Voices
 
-## 🎨 Customization
+Voice definitions are split between:
 
-### Adding a New Tone
+- `src/lib/data/tones.ts` for UI metadata.
+- `src/lib/data/tonePrompts/` for generation prompts.
+- `src/lib/data/voiceSamples.ts` and `src/lib/data/voiceGallery.ts` for previews and examples.
+- `docs/tones/` for longer tone documentation.
 
-1. Create a new markdown file in `tones/` with detailed instructions
-2. Add the tone definition to `src/lib/data/tones.ts`
-3. Add a sample text in `src/lib/data/voiceSamples.ts`
-4. Update the tone instructions in `src/routes/api/generate/+server.ts`
+When adding a new voice, update all relevant files and add tests where prompt or generation helper behavior changes.
 
-### Theming
+## Deployment
 
-The app uses CSS custom properties for theming. Modify colors in `src/app.css`:
+`render.yaml` defines:
 
-```css
-:root {
-  --color-primary: #your-color;
-  --color-background: #your-background;
-  /* ... */
-}
-```
+- `storify`, the Node web service running `node server.js`.
+- `storify-newsletter-weekly`, an hourly cron that sends only to users whose local time is due.
+- `storify-push-reminders`, an hourly cron that sends reminders to opted-in users who have not written today.
 
----
+The production build uses `@sveltejs/adapter-node`. `server.js` adds cache headers for long-lived static assets and short-lived metadata files before handing requests to SvelteKit.
 
-## 🌍 Language
+## Privacy Model
 
-The app is primarily in **Swedish** 🇸🇪 (UI text, tone instructions, generated content). The British tone is the exception, generating entries in English.
+Storify stores account data, saved entries, preferences, badges, community links, newsletter settings, and push subscriptions in Supabase for logged-in users. Entries are private by default. Public sharing and community publishing are explicit user actions.
 
----
+AI generation sends the provided diary input and profile context needed for the selected flow to Anthropic. Optional location-related features are used for weather/geocoding behavior when enabled.
 
-## 📊 Current Status
+See the in-app `/privacy`, `/terms`, and `/cookies` pages for user-facing policy text.
 
-| Component         | Status        |
-| ----------------- | ------------- |
-| 🌐 Web App        | ✅ Production |
-| 🌍 Multi-language | 🔜 Planned    |
-| 💾 Entry History  | 🔜 Planned    |
+## License
 
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to:
-
-1. 🐛 Report bugs
-2. 💡 Suggest new features or tones
-3. 🔧 Submit pull requests
-
----
-
-## 📄 License
-
-This project is proprietary software. All rights reserved.
-
----
-
-## 🙏 Acknowledgments
-
-- 🤖 Powered by [Anthropic's Claude](https://anthropic.com)
-- ⚡ Built with [SvelteKit](https://kit.svelte.dev)
-
----
-
-<div align="center">
-
-**Made with ❤️ for journaling enthusiasts**
-
-[🌐 Try Storify](https://mystorify.se) · [🐛 Report Bug](https://github.com/johannaefageras/storify/issues) · [💡 Request Feature](https://github.com/johannaefageras/storify/issues)
-
-</div>
+Proprietary software. All rights reserved.

@@ -10,9 +10,10 @@
 	const links = [
 		{ href: '/badges', label: 'Utmärkelser' },
 		{ href: '/community', label: 'Gemenskapen' },
+		{ href: '/voices', label: 'Rösterna' },
 		{ href: '/about', label: 'Om Storify' },
 		{ href: '/guide', label: 'Användarguide' },
-		{ href: '/blog', label: 'Blogg' },
+		{ href: '/blog', label: 'Bloggen' },
 		{ href: '/contact', label: 'Kontaktsida' }
 	];
 

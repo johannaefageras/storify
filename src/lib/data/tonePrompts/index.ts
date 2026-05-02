@@ -30,6 +30,10 @@ import { buildPrompt as broPrompt } from './bro';
 import { buildPrompt as actionHeroPrompt } from './action-hero';
 import { buildPrompt as influencerPrompt } from './influencer';
 import { buildPrompt as sixYearOldPrompt } from './six-year-old';
+import { buildPrompt as poetPrompt } from './poet';
+import { buildPrompt as cultureVulturePrompt } from './culture-vulture';
+import { buildPrompt as piratePrompt } from './pirate';
+import { buildPrompt as gothenburgerPrompt } from './gothenburger';
 
 // Registry of all tone prompt builders
 const toneBuilders: Record<ToneId, TonePromptBuilder> = {
@@ -60,7 +64,11 @@ const toneBuilders: Record<ToneId, TonePromptBuilder> = {
   bro: broPrompt,
   'action-hero': actionHeroPrompt,
   influencer: influencerPrompt,
-  'six-year-old': sixYearOldPrompt
+  'six-year-old': sixYearOldPrompt,
+  poet: poetPrompt,
+  'culture-vulture': cultureVulturePrompt,
+  pirate: piratePrompt,
+  gothenburger: gothenburgerPrompt
 };
 
 /**

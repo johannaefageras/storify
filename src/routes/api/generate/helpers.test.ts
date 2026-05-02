@@ -464,7 +464,9 @@ describe('getToneMetadata', () => {
       'quest-log', 'bored', 'nature-documentary', 'therapist', 'ai-robot',
       'shakespeare', 'tabloid', 'formal', 'nerd',
       'tinfoil-hat', 'self-help', 'passive-aggressive',
-      'chaotic', 'bureaucratic', 'overthinker'
+      'chaotic', 'bureaucratic', 'overthinker',
+      'bro', 'action-hero', 'influencer', 'six-year-old',
+      'poet', 'culture-vulture', 'pirate', 'gothenburger'
     ];
 
     for (const toneId of swedishTones) {

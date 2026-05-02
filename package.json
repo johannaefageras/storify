@@ -53,6 +53,7 @@
     "@types/html2canvas": "^0.5.35",
     "@upstash/ratelimit": "^2.0.8",
     "@upstash/redis": "^1.36.1",
+    "gray-matter": "^4.0.3",
     "html2canvas": "^1.4.1",
     "jspdf": "^4.0.0",
     "marked": "^17.0.1",

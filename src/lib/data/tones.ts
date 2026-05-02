@@ -174,5 +174,29 @@ export const tones: Tone[] = [
     name: 'Sexåringen',
     emoji: '🧸',
     preview: 'Idag hände det JÄTTEMYCKET. Typ hundra grejer. Fast mest bara två.'
+  },
+  {
+    id: 'poet',
+    name: 'Poeten',
+    emoji: '🪶',
+    preview: 'Dagen låg grå och mjuk över mig, som en filt av tystnad.'
+  },
+  {
+    id: 'culture-vulture',
+    name: 'Kulturtanten',
+    emoji: '🍷',
+    preview: 'Dagens uppsättning var lågmäld, men inte utan vissa fina partier.'
+  },
+  {
+    id: 'pirate',
+    name: 'Piraten',
+    emoji: '🏴‍☠️',
+    preview: 'Kaptenens logg: jag satte kurs mot ännu en vardag på öppet hav.'
+  },
+  {
+    id: 'gothenburger',
+    name: 'Göteborgaren',
+    emoji: '🚋',
+    preview: 'Jajamen, dagen rullade på som en spårvagn i sidledes regn.'
   }
 ];

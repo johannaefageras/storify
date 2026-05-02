@@ -129,6 +129,22 @@ const toneMetadata: Record<ToneId, ToneMetadata> = {
 	'six-year-old': {
 		language: 'swedish',
 		styleSummary: 'som en varm, bokstavlig sexåring med stora känslor, sidospår och skeva proportioner'
+	},
+	poet: {
+		language: 'swedish',
+		styleSummary: 'modern, lyrisk och bilddriven som ett poetiskt dagboksinlägg'
+	},
+	'culture-vulture': {
+		language: 'swedish',
+		styleSummary: 'kultiverad, estetiskt dömande och varm som en svensk kulturtant'
+	},
+	pirate: {
+		language: 'swedish',
+		styleSummary: 'som en varm piratkapten som gör vardagen till en sjöresa'
+	},
+	gothenburger: {
+		language: 'swedish',
+		styleSummary: 'göteborgskt varm, torrt humoristisk och lätt lokal med spårvagns- och regnkänsla'
 	}
 };
 

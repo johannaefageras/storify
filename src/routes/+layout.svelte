@@ -25,8 +25,8 @@
 </script>
 
 <svelte:head>
-	<title>Storify – Din AI-dagbok</title>
-	<meta name="description" content="Skapa personliga dagboksinlägg med AI. Besvara frågor om din dag och få en unik dagboksanteckning i din valda berättarröst." />
+	<title>Privat AI-dagbok som ställer frågor | Storify</title>
+	<meta name="description" content="Tom dagbokssida-panik är på riktigt, och &quot;börja bara skriva&quot; är ett värdelöst råd. Storify är en AI-dagbok som ställer frågor som faktiskt går att svara på. 28 röster. Helt privat. Inget flum." />
 
 	<!-- Open Graph -->
 	<meta property="og:type" content="website" />
