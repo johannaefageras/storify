@@ -1,0 +1,37 @@
+{
+  "name": "Storify",
+  "short_name": "Storify",
+  "icons": [
+    {
+      "src": "/favicons/pink/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/favicons/pink/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/favicons/pink/favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicons/pink/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "theme_color": "#f43f7a",
+  "background_color": "#FAFAFA",
+  "display": "standalone",
+  "description": "AI-powered journaling app that transforms your responses into personalized diary entries",
+  "start_url": "/",
+  "scope": "/",
+  "orientation": "portrait"
+}

@@ -14,6 +14,14 @@ export const ACCENTS: { id: Accent; color: string; label: string }[] = [
 ];
 
 const ACCENT_STORAGE_KEY = 'accent';
+const ACCENT_COLORS: Record<Accent, string> = {
+  pink: '#f43f7a',
+  amber: '#F0A83A',
+  blue: '#2B8DB8',
+  emerald: '#2e7d32',
+  purple: '#6a1b9a',
+  rust: '#b53d2a'
+};
 
 function normalizeAccent(value: string | null): Accent | null {
   if (value === 'lime') return 'emerald';
@@ -72,6 +80,7 @@ function createAccentStore() {
     } else {
       document.documentElement.setAttribute('data-accent', accent);
     }
+    applyFavicons(accent);
   }
 
   async function saveAccent() {
@@ -104,3 +113,39 @@ function createAccentStore() {
 }
 
 export const accentStore = createAccentStore();
+
+function applyFavicons(accent: Accent) {
+  setLink('link[rel="icon"][sizes="48x48"]', {
+    rel: 'icon',
+    sizes: '48x48',
+    href: `/favicons/${accent}/favicon.ico`
+  });
+  setLink('link[rel="icon"][type="image/svg+xml"]', {
+    rel: 'icon',
+    type: 'image/svg+xml',
+    href: `/favicons/${accent}/favicon.svg`
+  });
+  setLink('link[rel="apple-touch-icon"]', {
+    rel: 'apple-touch-icon',
+    href: `/favicons/${accent}/apple-touch-icon.png`
+  });
+  setLink('link[rel="manifest"]', {
+    rel: 'manifest',
+    href: `/favicons/${accent}/site.webmanifest`
+  });
+
+  const themeColor = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+  themeColor?.setAttribute('content', ACCENT_COLORS[accent]);
+}
+
+function setLink(selector: string, attributes: Record<string, string>) {
+  let link = document.querySelector<HTMLLinkElement>(selector);
+  if (!link) {
+    link = document.createElement('link');
+    document.head.appendChild(link);
+  }
+
+  for (const [name, value] of Object.entries(attributes)) {
+    link.setAttribute(name, value);
+  }
+}

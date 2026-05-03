@@ -7,10 +7,45 @@
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="default" />
-		<link rel="icon" href="/favicon.ico" sizes="48x48" />
-		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-		<link rel="manifest" href="/site.webmanifest" />
+		<link rel="icon" href="/favicons/pink/favicon.ico" sizes="48x48" />
+		<link rel="icon" href="/favicons/pink/favicon.svg" type="image/svg+xml" />
+		<link rel="apple-touch-icon" href="/favicons/pink/apple-touch-icon.png" />
+		<link rel="manifest" href="/favicons/pink/site.webmanifest" />
+		<script>
+			{
+				try {
+					const storedAccent = localStorage.getItem('accent');
+					const accent =
+						storedAccent === 'lime'
+							? 'emerald'
+							: storedAccent === 'red'
+								? 'purple'
+								: ['pink', 'amber', 'blue', 'emerald', 'purple', 'rust'].includes(storedAccent)
+									? storedAccent
+									: 'pink';
+					const icon = document.querySelector('link[rel="icon"][sizes="48x48"]');
+					const svgIcon = document.querySelector('link[rel="icon"][type="image/svg+xml"]');
+					const appleIcon = document.querySelector('link[rel="apple-touch-icon"]');
+					const manifest = document.querySelector('link[rel="manifest"]');
+					const themeColor = document.querySelector('meta[name="theme-color"]');
+					const accentColors = {
+						pink: '#f43f7a',
+						amber: '#F0A83A',
+						blue: '#2B8DB8',
+						emerald: '#2e7d32',
+						purple: '#6a1b9a',
+						rust: '#b53d2a'
+					};
+					icon.href = `/favicons/${accent}/favicon.ico`;
+					svgIcon.href = `/favicons/${accent}/favicon.svg`;
+					appleIcon.href = `/favicons/${accent}/apple-touch-icon.png`;
+					manifest.href = `/favicons/${accent}/site.webmanifest`;
+					themeColor.content = accentColors[accent];
+				} catch {
+					// Keep the default pink favicon set.
+				}
+			}
+		</script>
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">
