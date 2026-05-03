@@ -18,7 +18,7 @@ Det är också en helt felaktig premiss. Du behöver nittio sekunder och en spec
 
 ## Det verkliga hindret är formatet, inte tiden
 
-Det är sällan tiden som faktiskt saknas. Formatet du föreställer dig är helt enkelt för stort för luckan du försöker pressa in det i. Tjugo ostörda minuter finns sällan i en vardag fylld med jobb, stressiga måltider, logistik och en massiv mental load. Du försöker lösa ett problem med fel verktyg.
+Det är sällan tiden som faktiskt saknas. [Formatet du föreställer dig är helt enkelt för stort](/blog/varfor-dagboksskrivande-misslyckades) för luckan du försöker pressa in det i. Tjugo ostörda minuter finns sällan i en vardag fylld med jobb, stressiga måltider, logistik och en massiv mental load. Du försöker lösa ett problem med fel verktyg.
 
 Men nittio sekunder finns alltid. De existerar på bussen på väg hem. De finns under tiden du väntar på att mötet ska börja. De uppstår innan du somnar, eller medan kaffet drar i köket.
 
@@ -28,7 +28,7 @@ Problemet är inte din kalender. Problemet är inte heller din brist på discipl
 
 Vad som faktiskt händer på nittio sekunder är betydligt mer än du tror. Du avlastar hjärnan direkt. Du behöver bara en specifik fråga, ett extremt kort svar och ett aktuellt datum. Det är en komplett dagboksanteckning.
 
-Den behöver inte vara vacker att titta på. Den behöver inte vara en fullständig redogörelse av allt du har upplevt under dagen. Den behöver bara existera. Hela syftet är att du ska kunna läsa den om sex månader och veta exakt var du befann dig just då.
+Den behöver inte vara vacker att titta på. Den behöver inte vara en fullständig redogörelse av allt du har upplevt under dagen. Den behöver bara existera. Hela syftet är att du ska kunna [läsa den om sex månader](/blog/skriv-dagbok-for-framtida-dig) och veta exakt var du befann dig just då.
 
 Kvalitet kommer från frekvens, inte från längd. Tre korta meningar tre gånger i veckan slår alltid en perfekt och genomtänkt sida en gång i månaden. Varje gång.
 
@@ -40,7 +40,7 @@ Du svarar omedelbart på en enda fråga, till exempel vad det minsta du undvek i
 
 Andra frågor som fungerar:
 
-- Vilken flik i huvudet står fortfarande öppen klockan elva på kvällen?
+- [Vilken flik i huvudet står fortfarande öppen](/blog/mental-flik-stangs-nar-du-skriver) klockan elva på kvällen?
 - Vad sa jag idag som jag önskade att jag kunde ta tillbaka?
 - Vad irriterade mig mest, även om det kändes orimligt?
 
@@ -54,7 +54,7 @@ Det är banalt. Det spelar ingen roll. Om sex månader ger de här tre raderna d
 
 ### Röst-formatet
 
-Du väljer en specifik röst, exempelvis Sportkommentatorn, Katten eller Filosofen, och låter den sköta formulerandet. Rösten ger dig exakt den ingång du inte hade energi att hitta själv. Du får ur dig dagens händelser utan att behöva prestera en egen litterär röst.
+Du väljer [en specifik röst](/blog/32-roster-dagbok-inte-gimmick), exempelvis Sportkommentatorn, Katten eller Filosofen, och låter den sköta formulerandet. Rösten ger dig exakt den ingång du inte hade energi att hitta själv. Du får ur dig dagens händelser utan att behöva prestera en egen litterär röst.
 
 Sportkommentatorn bryr sig inte om din existentiella ångest. Han vill ha handlingen: "Han närmar sig inkorgen, öppnar mailet från ekonomiavdelningen – och ja, det är en suck, en klassisk defensiv suck!"
 
@@ -76,8 +76,8 @@ Släpp kraven på omfång. Skriv kort, skriv ofta, skriv nu.
 
 ## Därför finns Snabbläget i Storify
 
-Det är precis därför [Snabbläget](https://www.mystorify.se/quick) i Storify existerar. Du får tre fält, en specifik röst, och sedan är det färdigt. Det är inte en nedbantad kompromiss av den vanliga processen. Det är en helt annan produkt utvecklad för en helt annan typ av dag. Det är för dina extremt låga lågenergidagar. Det är för dina bussdagar. Det är för innan-du-somnar-dagarna.
+Det är precis därför [Snabbläget](/quick) i Storify existerar. Du får tre fält, en specifik röst, och sedan är det färdigt. Det är inte en nedbantad kompromiss av den vanliga processen. Det är en helt annan produkt utvecklad för en helt annan typ av dag. Det är för dina extremt låga lågenergidagar. Det är för dina bussdagar. Det är för innan-du-somnar-dagarna.
 
-Storify gör inte korta anteckningar till ett misslyckande. Det är ett format. Du har 32 röster att välja mellan – från Dagboksskribenten till Katten, från Filosofen till Sportkommentatorn. Samma dag kan ta nittio sekunder eller fem minuter beroende på hur mycket energi du har kvar.
+Storify gör inte korta anteckningar till ett misslyckande. Det är ett format. Du har [32 röster att välja mellan](/voices) – från Dagboksskribenten till Katten, från Filosofen till Sportkommentatorn. Samma dag kan ta nittio sekunder eller fem minuter beroende på hur mycket energi du har kvar.
 
 Sluta vänta på halvtimmen. Skriv tre meningar. Stäng appen.

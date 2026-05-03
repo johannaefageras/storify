@@ -32,13 +32,13 @@ Vissa verktyg passar helt enkelt inte vissa människor i vissa specifika skeden 
 
 ### Tröskeln var för hög
 
-Du satte upp en ritual för dig själv. Det krävdes en tyst kväll, rätt sorts te, den inbundna anteckningsboken och minst tjugo ostörda minuter av reflektion. Vid den allra första kvällen du kom hem för trött bröts kedjan direkt. Sedan kändes det som ett monumentalt misslyckande att ens försöka börja om dagen efter.
+[Du satte upp en ritual för dig själv](/blog/dagbok-utan-mindfulness-ceremoni). Det krävdes en tyst kväll, rätt sorts te, den inbundna anteckningsboken och minst tjugo ostörda minuter av reflektion. Vid den allra första kvällen du kom hem för trött bröts kedjan direkt. Sedan kändes det som ett monumentalt misslyckande att ens försöka börja om dagen efter.
 
 Den perfekta ritualen blev fiendens bästa vän. När förutsättningarna inte stämde – och de stämde sällan – skrev du ingenting alls.
 
 ### Frågan var för stor
 
-"Hur var din dag?" är en gigantisk, orimlig fråga att svara på direkt efter att du precis har överlevt den. Du satt där med pennan i handen och kände att du borde säga något viktigt, formulera en insikt eller dra en djup slutsats om tillvaron. Kraven blev förlamande.
+["Hur var din dag?" är en gigantisk, orimlig fråga](/blog/skriva-dagbok-nar-du-inte-vet-vad) att svara på direkt efter att du precis har överlevt den. Du satt där med pennan i handen och kände att du borde säga något viktigt, formulera en insikt eller dra en djup slutsats om tillvaron. Kraven blev förlamande.
 
 Du sa inget.
 
@@ -54,7 +54,7 @@ Dagboksskrivning förvandlades till en prestation. Och prestationer kräver ener
 
 Du tvingade dig själv att pliktskyldigt summera onsdagen, stängde boken och kände absolut ingenting särskilt. Det fanns ingen omedelbar lättnad, ingen plötslig klarhet. Den utlovade effekten uteblev helt. Och eftersom inget hände slutade du ganska snart att försöka.
 
-Problemet var inte att dagboksskrivning inte fungerar. Problemet var att effekten inte är omedelbar. Den syns när du läser tillbaka två månader senare och inser att samma orosmoment återkommit fyra gånger, eller att något du var säker på skulle krossa dig knappt finns kvar i minnet.
+Problemet var inte att dagboksskrivning inte fungerar. Problemet var att effekten inte är omedelbar. Den syns [när du läser tillbaka två månader senare](/blog/objektiv-dagbok-fakta-fore-tolkning) och inser att samma orosmoment återkommit fyra gånger, eller att något du var säker på skulle krossa dig knappt finns kvar i minnet.
 
 ## Vad som faktiskt fungerar
 
@@ -64,7 +64,7 @@ Släpp kraven på djup, grammatik och vackra formuleringar. Tre korta, hackiga m
 
 Det räknas.
 
-Du behöver inte en tyst kväll och tjugo ostörda minuter. Du behöver nittio sekunder och en struktur som hjälper dig över tröskeln när energin är slut.
+Du behöver inte en tyst kväll och tjugo ostörda minuter. Du behöver [nittio sekunder](/blog/dagboksskrivande-nar-du-inte-har-tid) och en struktur som hjälper dig över tröskeln när energin är slut.
 
 ### Ställ specifika frågor istället för gigantiska
 
@@ -72,7 +72,7 @@ Du behöver inte en tyst kväll och tjugo ostörda minuter. Du behöver nittio s
 
 Andra frågor som fungerar:
 
-- Vilken flik i huvudet står fortfarande öppen klockan elva på kvällen?
+- [Vilken flik i huvudet står fortfarande öppen](/blog/mental-flik-stangs-nar-du-skriver) klockan elva på kvällen?
 - Vad sa jag idag som jag direkt önskade att jag kunde ta tillbaka?
 - Vad såg jag på vägen hem som jag inte såg på morgonen?
 
@@ -92,11 +92,11 @@ Den intressanta delen av att skriva syns inte direkt. Den märks sällan i stund
 
 Det är precis därför Storify är byggt som det är. Vi såg samma mönster av kraschade försök och skapade något som hanterar de verkliga hindren.
 
-[Wizarden](https://www.mystorify.se/wizard) finns där för dagarna då en specifik, avgränsad fråga faktiskt hjälper dig över kanten. [Snabbläget](https://www.mystorify.se/quick) är byggt för dagarna då din mentala tröskel måste vara max nittio sekunder, annars kommer ingenting att bli av. [AI-intervjun](https://www.mystorify.se/interview) hoppar in för dagarna då du är så trasslig i huvudet att du inte ens vet vad du tänker förrän någon börjar ställa frågor till dig.
+[Wizarden](/wizard) finns där för dagarna då en specifik, avgränsad fråga faktiskt hjälper dig över kanten. [Snabbläget](/quick) är byggt för dagarna då din mentala tröskel måste vara max nittio sekunder, annars kommer ingenting att bli av. [AI-intervjun](/interview) hoppar in för dagarna då du är så trasslig i huvudet att du inte ens vet vad du tänker förrän någon börjar ställa frågor till dig.
 
 Inga streaks att hålla vid liv. Inget krav på prestation. Du återvänder när du behöver det, och det räcker så.
 
-Du har 32 olika röster att välja mellan – från Dagboksskribenten till Katten, från Filosofen till Sportkommentatorn. Samma dag kan bli en klassisk dagbokstext eller en absurd monolog beroende på hur mycket energi du har kvar. Tonvalet sänker garden. Det tar bort prestationspressen.
+Du har [32 olika röster att välja mellan](/voices) – från Dagboksskribenten till Katten, från Filosofen till Sportkommentatorn. Samma dag kan bli en klassisk dagbokstext eller en absurd monolog beroende på hur mycket energi du har kvar. Tonvalet sänker garden. Det tar bort prestationspressen.
 
 ## Du misslyckades inte
 

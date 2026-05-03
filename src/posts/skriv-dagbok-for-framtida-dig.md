@@ -14,7 +14,7 @@ featured: /blog/skriv-dagbok-for-framtida-dig.jpeg
 
 ## Vem skriver du för – egentligen?
 
-Du tror att du skriver för dig själv just nu. Det är ett vanligt misstag, och det är anledningen till att markören så ofta står och blinkar blankt. Det är fel adressat. Nu-du behöver inte läsa det här — nu-du var där. Nu-du bär redan på tyngden av dagen, den ofiltrerade frustrationen eller den tysta lättnaden. Det är någon annan som ska läsa det. En person som finns. Som inte minns. Som kommer ha glömt saker du just nu inte tror går att glömma.
+Du tror att du skriver för dig själv just nu. Det är ett vanligt misstag, och det är anledningen till att [markören så ofta står och blinkar blankt](/blog/skriva-dagbok-nar-du-inte-vet-vad). Det är fel adressat. Nu-du behöver inte läsa det här — nu-du var där. Nu-du bär redan på tyngden av dagen, den ofiltrerade frustrationen eller den tysta lättnaden. Det är någon annan som ska läsa det. En person som finns. Som inte minns. Som kommer ha glömt saker du just nu inte tror går att glömma.
 
 Inte en abstrakt figur. Inte en metafor. En faktisk människa som existerar om åtta månader, om två år, om tolv år. Den personen kommer inte minnas vilken vecka det var. Den kommer inte minnas vad lägenheten luktade, eller hur ljuset föll över skrivbordet. Den kommer inte minnas vad du oroade dig för som sedan visade sig bli ingenting. Och den kommer vara tacksam för fragmenten du lämnade kvar. Inte för att du var litterär. Inte för att du var insiktsfull.
 
@@ -34,9 +34,9 @@ Och en oväntad sak händer. När du skriver för någon annan — även om den 
 
 ### De tråkiga delarna
 
-Vad du åt. Vart du gick. Vem du träffade på bussen. Vilken bok du läste på kvällen. Du tror förmodligen att det är fullständigt meningslöst att skriva ner. Det är inte det. De tråkiga detaljerna är hänglarna som de viktiga sakerna hänger på. Utan dem blir minnet ett vagt, grumlat moln av diffusa sinnesstämningar. Med dem blir det en specifik tisdag.
+Vad du åt. Vart du gick. Vem du träffade på bussen. Vilken bok du läste på kvällen. Du tror förmodligen att det är fullständigt meningslöst att skriva ner. Det är inte det. [De tråkiga detaljerna](/blog/dagboksskrivande-nar-du-inte-har-tid) är hänglarna som de viktiga sakerna hänger på. Utan dem blir minnet ett vagt, grumlat moln av diffusa sinnesstämningar. Med dem blir det en specifik tisdag.
 
-### De stora känslorna utan tolkning
+### De stora känslorna [utan tolkning](/blog/objektiv-dagbok-fakta-fore-tolkning)
 
 "Var ledsen idag" räcker. Du behöver inte förklara exakt varför, eller dra djupa slutsatser om ditt psyke. Framtida-du läser det och minns kontexten, eller inte — och i båda fallen är det användbar information. Vad du med fördel undviker är instant-analysen. Den åldras genomgående dåligt.
 
@@ -44,7 +44,7 @@ Faktan står sig.
 
 ### Det du tror är obetydligt
 
-En kort kommentar någon gjorde i förbifarten. En tanke som dök upp i duschen innan jobbet. En sak du nästan har glömt redan när du sätter dig ner för att skriva den. Det är ofta just dessa rader som blir de mest värdefulla i efterhand. Det stora och dramatiska skriver sig självt i minnet ändå. Det lilla försvinner om du inte aktivt fångar det.
+En kort kommentar någon gjorde i förbifarten. En tanke som dök upp i duschen innan jobbet. En sak du nästan har glömt redan när du sätter dig ner för att skriva den. Det är ofta just dessa rader som blir de mest värdefulla i efterhand. Det stora och dramatiska skriver sig självt i minnet ändå. Det lilla försvinner [om du inte aktivt fångar det](/blog/dagbok-filsystem-for-tankar).
 
 ## Vad framtida-du inte behöver
 
@@ -72,6 +72,6 @@ Det enklaste sättet är detta: skriv som om du berättar för en god vän som m
 
 ## Varför formatet spelar roll
 
-Det är därför Storifys format är byggda för att läsas tillbaka. Datumstämpel, tryggheten i inga raderingar utan medgivande. Inget av det är poängen i just den här stunden. Allt av det är hela poängen om två år. Du skriver inte för appen. Du skriver för personen som öppnar den 2028.
+Det är därför [Storifys format är byggda för att läsas tillbaka](/guide). Datumstämpel, tryggheten i inga raderingar utan medgivande. Inget av det är poängen i just den här stunden. Allt av det är hela poängen om två år. Du skriver inte för appen. Du skriver för personen som öppnar den 2028.
 
 Skriv för henne. Hon kommer vara där.

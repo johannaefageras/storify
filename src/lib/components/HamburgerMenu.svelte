@@ -8,12 +8,12 @@
 
 	let open = $state(false);
 
-	const links = [
-		{ href: '/badges', label: 'Utmärkelser' },
+	const links = $derived([
+		...(authStore.isLoggedIn ? [{ href: '/badges', label: 'Utmärkelser' }] : []),
 		{ href: '/community', label: 'Gemenskapen' },
 		{ href: '/voices', label: 'Rösterna' },
 		{ href: '/blog', label: 'Bloggen' }
-	];
+	]);
 
 	const authLink = $derived(
 		authStore.isLoggedIn

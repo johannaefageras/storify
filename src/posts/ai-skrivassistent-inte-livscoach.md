@@ -16,7 +16,7 @@ AI-branschen har på två korta år bestämt sig för att språkteknologi ska ha
 
 Vår teknik väljer medvetet den första rollen. Den hjälper dig skriva ner dagen. Den ger dig aldrig råd om hur du ska leva den. Det är inte en defensiv begränsning. Det är en designprincip.
 
-Tomma sidans fasa är verklig, och uppmaningen att bara börja skriva är ofokuserade råd från människor som bevisligen inte förstår problemet. Du behöver hjälp att komma igång, men du behöver få rätt sorts hjälp.
+Tomma sidans fasa är verklig, och [uppmaningen att bara börja skriva](/blog/varfor-skriv-bara-nagot-ar-vardelost-rad) är ofokuserade råd från människor som bevisligen inte förstår problemet. Du behöver hjälp att komma igång, men du behöver få rätt sorts hjälp.
 
 ## Vad en skrivassistent faktiskt gör
 
@@ -44,7 +44,7 @@ Vad betyder detta i praktiken? Storifys AI gör tre konkreta saker. Inget mer.
 
 ### Den genererar en text utifrån dina egna svar
 
-Du fyller i [Wizardens](https://www.mystorify.se/wizard) fält efter jobbet, eller så pratar du rakt upp och ner med [AI-intervjun](https://www.mystorify.se/interview). Tekniken tar sedan exakt det materialet och skriver en sammanhängande text i den röst du har valt. Den tar aldrig ut nya teman som du inte själv har lyft. Den uppfinner inte händelser du inte har nämnt. Den formar bara exakt det du redan har gett den.
+Du fyller i [Wizardens](/wizard) fält efter jobbet, eller så pratar du rakt upp och ner med [AI-intervjun](/interview). Tekniken tar sedan exakt det materialet och skriver en sammanhängande text i den röst du har valt. Den tar aldrig ut nya teman som du inte själv har lyft. Den uppfinner inte händelser du inte har nämnt. Den formar bara exakt det du redan har gett den.
 
 Du slipper ansvaret för strukturen, men du äger innehållet.
 
@@ -60,15 +60,15 @@ Du får inga ledande frågor. Du får inga tolkande frågor som försöker styra
 
 Ingen av dem är din tålmodiga coach. En av dem är en uppskruvad Sportkommentator som refererar din lunch som en VM-final. En är Katten som betraktar dig kyligt uppifrån bokhyllan. En är en trött senior-utvecklare som sett allt och inte orkar med dina felval.
 
-Rösten ger dig en ingång till att börja skriva. Det är en lins, en vinkel. Aldrig en tolkning av vem du är.
+[Rösten ger dig en ingång](/blog/32-roster-dagbok-inte-gimmick) till att börja skriva. Det är en lins, en vinkel. Aldrig en tolkning av vem du är.
 
 ## Vad tekniken aldrig sysslar med
 
 Lika viktigt att säga är vad tekniken inte gör. Den ger absolut inga råd. Den föreslår inte att du borde kanske prata med någon om det där. Du kommer inte att få veta att det här mönstret kan vara värt att utforska närmare. Den drar inga slutsatser om dig som person.
 
-Den minns dig inte mellan sessioner. Den bygger ingen bakomliggande profil av dina sämsta onsdagar. Varje gång du sätter dig ner är texten fristående.
+[Den minns dig inte mellan sessioner](/blog/vad-hander-med-dina-texter-i-storify). Den bygger ingen bakomliggande profil av dina sämsta onsdagar. Varje gång du sätter dig ner är texten fristående.
 
-Detta är högst medvetet. En AI som låtsas minnas dig är en AI som låtsas känna dig. Det är inte en funktion. Det är en risk. Du vill stänga dina mentala flikar ifred.
+Detta är högst medvetet. En AI som låtsas minnas dig är en AI som låtsas känna dig. Det är inte en funktion. Det är en risk. Du vill [stänga dina mentala flikar](/blog/mental-flik-stangs-nar-du-skriver) ifred.
 
 ## Paradoxen – varför mindre faktiskt är mer
 
@@ -78,7 +78,7 @@ Det är just därför användare inte beskriver appen som något som ser rakt ig
 
 ## Därför ser Storify ut som det gör
 
-Det är därför Storify är byggt med de exakta gränser produkten har. Du har tre lägen att röra dig mellan — [Wizarden](https://www.mystorify.se/wizard), [Snabbläget](https://www.mystorify.se/quick) och [AI-intervjun](https://www.mystorify.se/interview). Alla vilar på exakt samma ofrånkomliga princip: tekniken hjälper dig forma materialet, inte tolka det.
+Det är därför Storify är byggt med de exakta gränser produkten har. Du har tre lägen att röra dig mellan — [Wizarden](/wizard), [Snabbläget](/quick) och [AI-intervjun](/interview). Alla vilar på exakt samma ofrånkomliga princip: tekniken hjälper dig forma materialet, inte tolka det.
 
 Du har 32 röster som erbjuder ingång, inte djupsinnighet. Och när du väl har skapat din text får du inga uppmuntrande kommentarer i marginalen efteråt. Inga meningslösa klapp på axeln. Du har skrivit klart.
 

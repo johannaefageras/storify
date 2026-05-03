@@ -18,7 +18,7 @@ Det är inte slumpen. Det är exakt så den här specifika typen av mental flik 
 
 ## Varför fliken förblir öppen
 
-Hjärnan är inte byggd för att vara ett passivt arkivsystem. Den är byggd för att göra saker, förutse hot och lösa problem. När en olöst tanke ligger öppen behandlar maskineriet den som ett aktivt problem som kräver din omedelbara uppmärksamhet. Den drar fram den om och om igen, varje timme, fram tills något konkret signalerar att uppgiften är omhändertagen.
+Hjärnan är inte byggd för att vara ett [passivt arkivsystem](/blog/dagbok-filsystem-for-tankar). Den är byggd för att göra saker, förutse hot och lösa problem. När en olöst tanke ligger öppen behandlar maskineriet den som ett aktivt problem som kräver din omedelbara uppmärksamhet. Den drar fram den om och om igen, varje timme, fram tills något konkret signalerar att uppgiften är omhändertagen.
 
 Du bär runt på en bakgrundsprocess som drar ström och gör allting annat lite trögare. Det är inte ett fel på dig. Det är designen.
 
@@ -40,7 +40,7 @@ En stängd flik betyder inte att allt är åtgärdat. Tanken kommer förmodligen
 
 ### Börja med det tråkiga
 
-Skriv ner datumet, vädret utanför fönstret eller exakt var du befann dig när tanken först dök upp. Det riktiga ämnet smyger sig in runt mening fyra. Det gör det alltid.
+Skriv ner datumet, vädret utanför fönstret eller exakt var du befann dig när tanken först dök upp. [Det riktiga ämnet smyger sig in runt mening fyra](/blog/dagboksskrivande-nar-du-inte-har-tid). Det gör det alltid.
 
 "Onsdag kväll. Sitter i soffan. Regnigt ute. Det här med projektet gör mig orolig och jag vet inte exakt varför."
 
@@ -54,7 +54,7 @@ Inga krav på insikt. Inga krav på lösningar. Bara ord på skärmen.
 
 ### Använd en röst som inte är din egen
 
-Skriv tanken som en Sportkommentator som torrt beskriver vad som pågår i ditt huvud, eller som en trött senior-utvecklare som suckar åt din situation. Distansen är inte flykt — den är vad som låter dig se det utifrån tillräckligt länge för att namnge det.
+[Skriv tanken som en Sportkommentator](/blog/32-roster-dagbok-inte-gimmick) som torrt beskriver vad som pågår i ditt huvud, eller som en trött senior-utvecklare som suckar åt din situation. Distansen är inte flykt — den är vad som låter dig se det utifrån tillräckligt länge för att namnge det.
 
 "Han sitter där igen. Samma oro som igår. Han har fortfarande inte mailat tillbaka. Klockrent undvikande. En klassisk defensiv manöver."
 
@@ -78,8 +78,8 @@ Det enda som tillförlitligt och konsekvent fungerar är att orden fysiskt lämn
 
 ## Därför finns Storify
 
-Det är exakt därför Storify finns. Inte som en duktig ritual du ska pricka av. Inte som en daglig praktik du ska känna skuld över när du missar. Bara som en tom plats att lägga ner det du bär runt på.
+Det är exakt därför Storify finns. [Inte som en duktig ritual du ska pricka av](/blog/dagbok-utan-mindfulness-ceremoni). Inte som en daglig praktik du ska känna skuld över när du missar. Bara som en tom plats att lägga ner det du bär runt på.
 
-När den mentala fliken står vidöppen och drar energi, öppna appen. Skriv tre korta meningar om vad som pågår. Välj [Snabbläget](https://www.mystorify.se/quick) om tröskeln känns för hög. Välj en av de 32 rösterna om du behöver distans. Stäng appen igen och återgå till din dag.
+När den mentala fliken står vidöppen och drar energi, öppna appen. Skriv tre korta meningar om vad som pågår. Välj [Snabbläget](/quick) om tröskeln känns för hög. Välj [en av de 32 rösterna](/voices) om du behöver distans. Stäng appen igen och återgå till din dag.
 
 Du förtjänar att lägga ner fliken.

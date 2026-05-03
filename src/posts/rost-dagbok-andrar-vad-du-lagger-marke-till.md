@@ -14,7 +14,7 @@ featured: /blog/rost-dagbok-andrar-vad-du-lagger-marke-till.jpeg
 
 ## Så bestämmer rösten vad du upptäcker
 
-Du antar förmodligen att du först bestämmer vad du ska tänka, och därefter väljer hur du ska formulera det. Du sätter dig vid tangentbordet, väntar på en tanke, och försöker klä den i ord. Så fungerar det inte. Rösten du skriver i kommer först. Den bestämmer vad du ser redan innan du har hunnit välja.
+Du antar förmodligen att du först bestämmer vad du ska tänka, och därefter väljer hur du ska formulera det. Du sätter dig vid tangentbordet, väntar på en tanke, och försöker klä den i ord. Så fungerar det inte. [Rösten du skriver i kommer först](/blog/32-roster-dagbok-inte-gimmick). Den bestämmer vad du ser redan innan du har hunnit välja.
 
 En Sportkommentator som beskriver din vanliga onsdagsmorgon märker helt andra saker än en lugn, reflekterande röst. Inte för att morgonen i sig är annorlunda — den är exakt samma morgon, med samma kaffebryggare och samma nycklar som ligger på fel plats. Men Sportkommentatorn letar efter insatser, tempo och risker. Den hittar dem. "Trettiosju minuter att lämna huset. Kaffet bryggs. Klockan tickar." Den lugna rösten letar efter rytm och acceptans. Den hittar den. "En morgon som många andra. Stillsam, om än något forcerad mot slutet."
 
@@ -28,7 +28,7 @@ Det handlar inte om att rösten tolkar något i efterhand. Den letar. Och när d
 
 ### Den vanliga dagen
 
-Skriv den i en lugn röst och du får en städad punktlista över vad du har gjort. Skriv den som Sportkommentatorn och du får syn på små draman du annars inte hade lagt märke till. Att Robban skickade ett meddelande klockan 14:03 blir plötsligt en avgörande händelse. Inte för att meddelandet var viktigt, utan för att rösten behandlar det så.
+Skriv den i en lugn röst och du får en städad punktlista över [vad du har gjort](/blog/objektiv-dagbok-fakta-fore-tolkning). Skriv den som Sportkommentatorn och du får syn på små draman du annars inte hade lagt märke till. Att Robban skickade ett meddelande klockan 14:03 blir plötsligt en avgörande händelse. Inte för att meddelandet var viktigt, utan för att rösten behandlar det så.
 
 ### Det jobbiga samtalet
 
@@ -52,8 +52,8 @@ Din perception ändras inte för att du spänner dig, stirrar på ett tomt dokum
 
 ## Så väljer du röst i praktiken
 
-Nästa gång du sätter dig för att skriva och inte har en aning om var du ska börja — välj en röst innan du väljer ett ämne. Sportkommentatorn, Divan, Naturfilmaren eller en trött senior-utvecklare. Vilken som helst fungerar. Skriv tre meningar i den rösten. Du kommer att skriva något du inte hade förväntat dig. Det är hela poängen.
+Nästa gång du sätter dig för att skriva och [inte har en aning om var du ska börja](/blog/skriva-dagbok-nar-du-inte-vet-vad) — välj en röst innan du väljer ett ämne. Sportkommentatorn, Divan, Naturfilmaren eller en trött senior-utvecklare. Vilken som helst fungerar. Skriv tre meningar i den rösten. Du kommer att skriva något du inte hade förväntat dig. Det är hela poängen.
 
-Det är därför Storify har 32 olika röster att välja mellan. De är inte där som dekoration. De är inte ett spel. De är konkreta verktyg för att lägga märke till olika saker på olika dagar. Du är fortfarande den som väljer linsen. Storify ger dig bara fler att välja mellan.
+Det är därför Storify har [32 olika röster att välja mellan](/voices). De är inte där som dekoration. De är inte ett spel. De är konkreta verktyg för att lägga märke till olika saker på olika dagar. Du är fortfarande den som väljer linsen. Storify ger dig bara fler att välja mellan.
 
 Byt röst och se vad som dyker upp.

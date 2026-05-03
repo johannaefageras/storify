@@ -26,13 +26,13 @@ Det stämmer inte. Skrivandet fungerar utan ceremonin. Ceremonin fungerar inte u
 
 Vi ska vara rättvisa först. Ceremoni hjälper en del människor. Den skapar en övergång från stress till reflektion. Den signalerar "nu byter jag läge" till en trött hjärna. För vissa människor i vissa skeden av livet är det precis vad som behövs för att orka stanna upp.
 
-Men om du läser det här är du sannolikt inte den personen. Du har försökt att vara den personen. Du har laddat ner appen med solnedgångs-bakgrunden och det mjuka gränssnittet. Du har suttit stilla och gjort andetagen tre gånger. Du har stängt appen efter dag fyra.
+Men om du läser det här är du sannolikt inte den personen. Du har försökt att vara den personen. Du har laddat ner appen med solnedgångs-bakgrunden och det mjuka gränssnittet. Du har suttit stilla och gjort andetagen tre gånger. [Du har stängt appen efter dag fyra](/blog/varfor-dagboksskrivande-misslyckades).
 
 Det är inte ett misslyckande. Det är feedback.
 
 ## Lådan, inte templet
 
-Vad du faktiskt vill ha är mycket enklare. En låda att lägga ner saker i. Inte ett tempel. Inte en daglig praktik som ska optimera ditt liv. En låda. När du har en tanke som bråkar med dig öppnar du den. Du lägger ner tanken. Du stänger den. Det behöver inte betyda mer än så.
+Vad du faktiskt vill ha är mycket enklare. [En låda att lägga ner saker i](/blog/dagbok-filsystem-for-tankar). Inte ett tempel. Inte en daglig praktik som ska optimera ditt liv. En låda. När du har en tanke som bråkar med dig öppnar du den. Du lägger ner tanken. Du stänger den. Det behöver inte betyda mer än så.
 
 Det finns inget motstånd mellan dig och lådan. Inga frågor om hur du mår på en skala från ett till tio innan du får skriva. Inga affirmationer du måste välja mellan för att bevisa att du letar efter det positiva. Ingen veckans intention som du förväntas upprätthålla. Bara ett textfält och dig.
 
@@ -44,11 +44,11 @@ Det här är värt att vara konkret om. När du plockar bort allt det runtomkrin
 
 **Performance försvinner.** Ingen ber dig om en intention eller frågar vad du är tacksam för just idag. Du behöver inte hitta tre saker att vara glad över när dagen har varit miserabel. Du behöver inte vara på ett visst sätt innan du börjar. Du kan vara i den exakta, röriga sinnesstämning du faktiskt är i.
 
-**Tröskeln försvinner.** Det tar ingen tid att börja skriva. Du klickar in och du skriver. Det finns inget konstruerat avstånd mellan dig och den allra första meningen. Det är därför korta dagar fortfarande får inlägg.
+**Tröskeln försvinner.** Det tar ingen tid att börja skriva. Du klickar in och du skriver. Det finns inget konstruerat avstånd mellan dig och den allra första meningen. Det är därför [korta dagar fortfarande får inlägg](/blog/dagboksskrivande-nar-du-inte-har-tid).
 
 ## Inget före, bara mitt i
 
-Vad du gör istället för intention och affirmation? Inget. Det är hela poängen. Du börjar mitt i. "Tisdag. Tröttare än igår. Robban skrev om buggen." Det är en dagboksanteckning. Du behöver inte värma upp för att skriva den. Du behöver inte stämma in själen. Du behöver bara skriva.
+Vad du gör istället för intention och affirmation? Inget. Det är hela poängen. [Du börjar mitt i](/blog/objektiv-dagbok-fakta-fore-tolkning). "Tisdag. Tröttare än igår. Robban skrev om buggen." Det är en dagboksanteckning. Du behöver inte värma upp för att skriva den. Du behöver inte stämma in själen. Du behöver bara skriva.
 
 Om du stirrar på en tom skärm och vill ha hjälp att börja — välj en röst. Inte en intention. En röst ger dig en ingång utan att kräva att du först är i rätt sinnestillstånd. Det är skillnaden mellan en lins och ett rituellt golv.
 

@@ -16,7 +16,7 @@ Det du bär runt i huvudet — den olästa mailen, samtalet du behöver ringa, k
 
 De ligger i dig.
 
-Och det är därför du är trött. De flesta försök att hantera detta misslyckas för att de utgår från fel premiss. Du uppmanas att andas bort stressen eller rensa sinnet. Men problemet är inte att ditt sinne är orent. Problemet är att du försöker använda ditt arbetsminne som en permanent lagringsplats. Du går runt med händerna fulla av papper och undrar varför det är så svårt att öppna dörrar.
+Och det är därför du är trött. De flesta försök att hantera detta misslyckas för att de utgår från fel premiss. Du uppmanas att andas bort stressen eller rensa sinnet. Men problemet är inte att ditt sinne är orent. Problemet är att du försöker [använda ditt arbetsminne som en permanent lagringsplats](/blog/mental-flik-stangs-nar-du-skriver). Du går runt med händerna fulla av papper och undrar varför det är så svårt att öppna dörrar.
 
 ## Hjärnan som dåligt lagringssystem
 
@@ -52,7 +52,7 @@ Skriv ner det och den mentala fliken stängs — inte för att problemet är mir
 
 Vad du åt till lunch, vart du gick på eftermiddagen, vem som ringde när du väntade på bussen. Du kommer att tro att det här är fullständigt meningslöst att dokumentera.
 
-Det är det inte, för sex månader senare är det just de banala detaljerna som gör att du minns vilken vecka det faktiskt var. Skriv ner de tråkiga delarna, för de stora insikterna följer ofta med på köpet när pennan väl rör sig.
+Det är det inte, för sex månader senare är det just [de banala detaljerna](/blog/skriv-dagbok-for-framtida-dig) som gör att du minns vilken vecka det faktiskt var. Skriv ner de tråkiga delarna, för de stora insikterna följer ofta med på köpet när pennan väl rör sig.
 
 ## Att skriva ner är inte att lösa
 
@@ -64,7 +64,7 @@ Du kan plocka upp den, titta på den och hantera den när du faktiskt har tid oc
 
 ## Vad som händer när du läser tillbaka
 
-En oväntad sak med att bygga ett konsekvent filsystem är att det blir oerhört användbart i efterhand. Det är först när tiden har gått som värdet av att ha adresserat allt verkligen visar sig. När du läser anteckningar från två månader sedan ser du plötsligt mönster som du var helt oförmögen att se medan du befann dig inuti dem.
+En oväntad sak med att bygga ett konsekvent filsystem är att det blir oerhört användbart i efterhand. Det är först när tiden har gått som värdet av att ha adresserat allt verkligen visar sig. [När du läser anteckningar från två månader sedan](/blog/objektiv-dagbok-fakta-fore-tolkning) ser du plötsligt mönster som du var helt oförmögen att se medan du befann dig inuti dem.
 
 Du inser att samma vaga oro har återkommit fyra gånger i olika förklädnader. Något du var helt säker på skulle krossa dig syns knappt i texten en vecka senare. En liten detalj du knappt nämnde visade sig vara början på ett av dina största beslut.
 
@@ -72,11 +72,11 @@ Du behöver inte sitta och leta efter de här mönstren med ljus och lykta. De s
 
 ## Ett filsystem i praktiken
 
-Det är exakt det här som är tanken bakom Storify. Det är inte en självhjälpsapp. Det är inte en digital terapeut. Det är bara ett fungerande filsystem för allt det där du inte vill bära runt på längre.
+Det är exakt det här som är tanken bakom Storify. Det är inte en självhjälpsapp. Det är [inte en digital terapeut](/blog/ai-skrivassistent-inte-livscoach). Det är bara ett fungerande filsystem för allt det där du inte vill bära runt på längre.
 
-Genom verktyg som [Wizarden](https://www.mystorify.se/wizard), [Snabbläget](https://www.mystorify.se/quick) och [AI-intervjun](https://www.mystorify.se/interview) får du tre helt olika sätt att lägga ner samma sorts material, helt beroende på hur din dagsform ser ut. Det finns inga streaks att upprätthålla. Inga falska krav på att du måste prestera. Du återvänder till din lagringsplats när du har något du behöver lägga ifrån dig.
+Genom verktyg som [Wizarden](/wizard), [Snabbläget](/quick) och [AI-intervjun](/interview) får du tre helt olika sätt att lägga ner samma sorts material, helt beroende på hur din dagsform ser ut. Det finns inga streaks att upprätthålla. Inga falska krav på att du måste prestera. Du återvänder till din lagringsplats när du har något du behöver lägga ifrån dig.
 
-Du har 32 röster att välja mellan. Samma tanke kan arkiveras som en rak dagbokstext, en sportkommentar eller en kattmonolog. Tonvalet hjälper dig över tröskeln när orden inte kommer. Formen ger dig en adress när ingenting annat fungerar.
+Du har [32 röster att välja mellan](/voices). Samma tanke kan arkiveras som en rak dagbokstext, en sportkommentar eller en kattmonolog. Tonvalet hjälper dig över tröskeln när orden inte kommer. Formen ger dig en adress när ingenting annat fungerar.
 
 ## Släpp taget och ge tankarna en adress
 
