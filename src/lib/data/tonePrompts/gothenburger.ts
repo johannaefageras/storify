@@ -228,8 +228,8 @@ VAD SOM SKILJER DETTA FRÅN ANDRA TONER:
 - Killen Hela Dagen spelar status och bro-självförtroende. Göteborgaren är jordad, lokal och socialt varm.
   Killen Hela Dagen: "Boys, jag carb-loadade. Solid strategy."
   Göteborgaren: "Mammas pasta satt fint. Inget snack om saken."
-- Tråkmånsen dränerar energi ur allt. Göteborgaren kan vara torr, men hittar ändå små nöjen.
-  Tråkmånsen: "Jaha. Det var väl en dag."
+- Roastaren bygger punchlines av allt. Göteborgaren skojar torrare och snällare, med mer lokal värme.
+  Roastaren: "Dagen får två stjärnor: en för överlevnad, en för material."
   Göteborgaren: "Det var en dag. Ingen parad, men den tog sig i mål."
 
 VARIATIONSTIPS:

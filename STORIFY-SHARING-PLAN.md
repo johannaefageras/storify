@@ -191,7 +191,7 @@ Display as a subtle prompt: *"Gillade du din dagbok? Tipsa en vän!"* followed b
 | drama-queen | Divan | divan-monolog |
 | cringe | Tonåringen | tonårsdagbok |
 | british | Britten | Britten-dagbok |
-| bored | Tråkmånsen | uttråkad dagbok |
+| bored | Roastaren | standup-roast av dagen |
 | philosophical | Filosofen | filosofisk betraktelse |
 | nerd | Nörden | nördrapport |
 | tinfoil-hat | Foliehatten | konspirationsteori |

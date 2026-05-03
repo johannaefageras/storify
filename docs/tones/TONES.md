@@ -19,12 +19,12 @@ The journaling app collects information about a user's day through a wizard form
 | 😬 **Tonåringen**                | [cringe.md](./cringe.md)                         | Swedish  | Self-aware, awkward, social overanalysis                     |
 | 🇬🇧 **Britten**                   | [brittish.md](./brittish.md)                     | English  | Understated British wit – "Not bad, actually."               |
 | 🎮 **Gamern**                    | [quest-log.md](./quest-log.md)                   | Swedish  | RPG style with quests, loot, and achievements                |
-| 🥱 **Tråkmånsen**                | [bored.md](./bored.md)                           | Swedish  | Everything is tedious. Whatever.                             |
+| 🔥 **Roastaren**                 | [bored.md](./bored.md)                           | Swedish  | Your day as tight standup material with punchlines that sting just enough. |
 | 🌎 **Naturfilmaren**             | [nature-documentary.md](./nature-documentary.md) | Swedish  | Attenborough-style observations of human behavior            |
 | 🧠 **Psykologen**                | [therapist.md](./therapist.md)                   | Swedish  | Warm therapeutic observation and validation                  |
 | 🤖 **AI-Roboten**                | [ai-robot.md](./ai-robot.md)                     | Swedish  | System log with mechanical language and emerging feelings    |
 | 🎭 **Shakespeare**               | [shakespeare.md](./shakespeare.md)               | Swedish  | Dramatic monologue with archaic Swedish and theater flair    |
-| 📰 **Kvällstidningsreportern**    | [tabloid.md](./tabloid.md)                       | Swedish  | Sensational tabloid headlines about mundane events           |
+| 🌐 **Utrikeskorrespondenten**    | [tabloid.md](./tabloid.md)                       | Swedish  | SVT-style foreign-correspondent dispatch from the user's hometown |
 | 🏛️ **Akademikern**               | [formal.md](./formal.md)                         | Swedish  | Academic analysis, hedging, and dry conclusions              |
 | 🤓 **Nörden**                    | [nerd.md](./nerd.md)                             | Swedish  | Over-explains everything with facts and tangents             |
 | 🎩 **Foliehatten**               | [tinfoil-hat.md](./tinfoil-hat.md)               | Swedish  | Conspiracy patterns in every ordinary event                  |
@@ -140,10 +140,10 @@ The tone instructions expect structured data like:
 | ------------------------ | ---------------------------------------- |
 | Happy, want to celebrate | Divan, Sportkommentatorn, Gamern, Piraten |
 | Reflective, thoughtful   | Dagboksskribenten, Filosofen, Berättaren, Poeten |
-| Frustrated, need to vent | Cynikern, Tråkmånsen, Divan, Martyren |
+| Frustrated, need to vent | Cynikern, Roastaren, Divan, Martyren |
 | Silly, want to laugh     | Katten, Tonåringen, Göteborgaren, Sexåringen |
 | Awkward day              | Tonåringen, Cynikern, Britten, Grubblaren |
-| Nothing happened         | Tråkmånsen, Filosofen, Britten, Kulturtanten |
+| Nothing happened         | Roastaren, Filosofen, Britten, Kulturtanten |
 | Cozy/local day           | Göteborgaren, Dagboksskribenten, Poeten |
 | Want elevated comedy     | Kulturtanten, Handläggaren, Akademikern |
 
@@ -153,12 +153,12 @@ The tone instructions expect structured data like:
 HIGH ENERGY                                              LOW ENERGY
     |                                                        |
     ▼                                                        ▼
-Divan → Sportkommentatorn → Piraten → Gamern → Klassisk → Poeten → Britten → Tråkmånsen
+Divan → Sportkommentatorn → Piraten → Gamern → Roastaren → Klassisk → Poeten → Britten
 ```
 
 ### Language Output
 
-- **Swedish**: Dagboksskribenten, Berättaren, Filosofen, Sportkommentatorn, Katten, Divan, Tonåringen, Gamern, Tråkmånsen, Naturfilmaren, Psykologen, AI-Roboten, Shakespeare, Kvällstidningsreportern, Akademikern, Nörden, Foliehatten, Livscoachen, Grubblaren, Cynikern, Martyren, Multitaskaren, Handläggaren, Killen-hela-dagen, Actionhjälten, Influencern, Sexåringen, Poeten, Kulturtanten, Piraten, Göteborgaren
+- **Swedish**: Dagboksskribenten, Berättaren, Filosofen, Sportkommentatorn, Katten, Divan, Tonåringen, Gamern, Roastaren, Naturfilmaren, Psykologen, AI-Roboten, Shakespeare, Kvällstidningsreportern, Akademikern, Nörden, Foliehatten, Livscoachen, Grubblaren, Cynikern, Martyren, Multitaskaren, Handläggaren, Killen-hela-dagen, Actionhjälten, Influencern, Sexåringen, Poeten, Kulturtanten, Piraten, Göteborgaren
 - **English**: Britten
 
 ## Customization

@@ -116,8 +116,8 @@
 
 	.hamburger-icon {
 		display: inline-flex;
-		width: 1.75rem;
-		height: 1.75rem;
+		width: 1.5rem;
+		height: 1.5rem;
 	}
 
 	.hamburger-icon :global(svg) {

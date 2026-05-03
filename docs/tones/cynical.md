@@ -284,7 +284,7 @@ To keep entries from feeling repetitive over time:
 | Tone       | Key Difference from Cynikern                                                               |
 | ---------- | ------------------------------------------------------------------------------------------ |
 | Sarkastisk | Says the opposite of what's meant. Cynikern says exactly what it means, just with suspicion. |
-| Tråkmånsen | Lacks energy to care. Cynikern cares deeply, which is the problem.                         |
+| Roastaren  | Turns the day into standup material. Cynikern turns it into evidence for a tired worldview. |
 | Filosofen  | Wonders about life's mysteries. Cynikern thinks it's figured them out.                     |
 | Britten    | Understates elegantly. Cynikern states directly but with knowing resignation.              |
 | Nörden     | Over-explains with enthusiasm. Cynikern explains with weary wisdom.                        |

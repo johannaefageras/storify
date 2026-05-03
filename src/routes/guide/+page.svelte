@@ -236,13 +236,13 @@
 			{#snippet openBookIcon()}<Emoji name="open-book" size={20} />{/snippet}
 			{#snippet owlIcon()}<Emoji name="owl" size={20} />{/snippet}
 			{#snippet soccerBallIcon()}<Emoji name="soccer-ball" size={20} />{/snippet}
-			{#snippet catIcon()}<Emoji name="cat" size={20} />{/snippet}
+			{#snippet catIcon()}<Emoji name="cat-face" size={20} />{/snippet}
 			{#snippet unamusedIcon()}<Emoji name="face-unamused" size={20} />{/snippet}
 			{#snippet crownIcon()}<Emoji name="crown" size={20} />{/snippet}
 			{#snippet rollingEyesIcon()}<Emoji name="face-rolling-eyes" size={20} />{/snippet}
 			{#snippet flagUKIcon()}<Emoji name="flag-uk" size={20} />{/snippet}
 			{#snippet videoGameIcon()}<Emoji name="video-game" size={20} />{/snippet}
-			{#snippet yawningIcon()}<Emoji name="face-yawning" size={20} />{/snippet}
+			{#snippet fireIcon()}<Emoji name="fire" size={20} />{/snippet}
 			{#snippet earthIcon()}<Emoji name="earth" size={20} />{/snippet}
 			{#snippet brainIcon()}<Emoji name="brain" size={20} />{/snippet}
 			{#snippet robotIcon()}<Emoji name="robot" size={20} />{/snippet}
@@ -262,7 +262,7 @@
 			{#snippet teddyBearIcon()}<Emoji name="teddy-bear" size={20} />{/snippet}
 			{#snippet featherIcon()}<Emoji name="feather" size={20} />{/snippet}
 			{#snippet wineIcon()}<Emoji name="wine" size={20} />{/snippet}
-			{#snippet pirateFlagIcon()}<Emoji name="pirate-flag" size={20} />{/snippet}
+			{#snippet pirateFlagIcon()}<Emoji name="skull-crossbones" size={20} />{/snippet}
 			{#snippet tramIcon()}<Emoji name="tram" size={20} />{/snippet}
 			<button class="voice-chip" onclick={() => openModal({ id: 'classic', name: 'Dagboksskribenten', description: 'En rak, varm berättelse om din dag. Perfekt för alla tillfällen.', icon: ledgerIcon })}>
 				<span class="voice-chip-emoji">{@render ledgerIcon()}</span>
@@ -304,9 +304,9 @@
 				<span class="voice-chip-emoji">{@render videoGameIcon()}</span>
 				<span class="voice-chip-name">Gamern</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'bored', name: 'Tråkmånsen', description: 'En AI som verkligen inte bryr sig. Minimalt engagemang.', icon: yawningIcon })}>
-				<span class="voice-chip-emoji">{@render yawningIcon()}</span>
-				<span class="voice-chip-name">Tråkmånsen</span>
+			<button class="voice-chip" onclick={() => openModal({ id: 'bored', name: 'Roastaren', description: 'Din dag som standupmaterial – tight, träffsäkert och utan filter.', icon: fireIcon })}>
+				<span class="voice-chip-emoji">{@render fireIcon()}</span>
+				<span class="voice-chip-name">Roastaren</span>
 			</button>
 			<button class="voice-chip" onclick={() => openModal({ id: 'nature-documentary', name: 'Naturfilmaren', description: 'David Attenborough observerar dig i din naturliga miljö.', icon: earthIcon })}>
 				<span class="voice-chip-emoji">{@render earthIcon()}</span>

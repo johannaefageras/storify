@@ -100,7 +100,7 @@ Examples of voices:
 - Tonåringen: awkward, self-aware teenage energy.
 - Britten: dry British understatement in English.
 - Gamern: RPG quest log.
-- Tråkmånsen: bored, unimpressed narration.
+- Roastaren: standup-roast of the user's day.
 - Naturfilmaren: documentary-style observation.
 - Psykologen: warm, reflective, validating.
 - AI-Roboten: robotic system log with emerging feelings.

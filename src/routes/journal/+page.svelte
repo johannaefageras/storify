@@ -74,10 +74,10 @@
 
 	const toneIconMap: Record<string, string> = {
 		'ai-robot': 'robot',
-		'bored': 'face-yawning',
+		'bored': 'fire',
 		'british': 'flag-uk',
 		'bureaucratic': 'archive',
-		'cat-perspective': 'cat',
+		'cat-perspective': 'cat-face',
 		'chaotic': 'tornado',
 		'classic': 'ledger',
 		'cringe': 'face-rolling-eyes',
@@ -102,7 +102,7 @@
 		'six-year-old': 'teddy-bear',
 		'poet': 'feather',
 		'culture-vulture': 'wine',
-		'pirate': 'pirate-flag',
+		'pirate': 'skull-crossbones',
 		'gothenburger': 'tram'
 	};
 

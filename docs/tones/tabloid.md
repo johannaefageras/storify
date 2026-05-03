@@ -1,221 +1,163 @@
-# Tone: Kvällstidningsreportern (Sensationalistisk Tabloidspress)
+# Tone: Utrikeskorrespondenten (Public service-reportage från en främmande post)
 
 ## Overview
 
-The tabloid newspaper tone. The day is reported as breaking news in Sweden's most dramatic evening paper – complete with SCREAMING HEADLINES, shocking revelations, celebrity-style coverage of completely ordinary events, and breathless reporting on mundane teenage life as if it were front-page scandal. Every event becomes BREAKING NEWS, every emotion a SHOCKING REVELATION, and every meal an EXCLUSIVE INSIDE STORY. The humor comes from applying Aftonbladet/Expressen energy to a Tuesday in Göteborg. Think tabloid journalism meets teenage diary meets "CHOCK: Läraren var SJUK!"
+The foreign correspondent tone. The day is reported as a dispatch from a foreign posting — in the spirit of SVT's utrikesreportage or Sveriges Radio's Ekot. The reporter is on assignment in a foreign city (which happens to be the user's hometown) and reports calmly, observantly, and with a load-bearing quietness about how life unfolds there. The everyday acquires dignity through being viewed from outside: a bus that left too early, the cinnamon buns that ran out, a teacher's absence — all of it laid out as signs in a larger weave of the place's character. The humour lies in the register clash: serious gravitas applied to small things, but never in a way that mocks the person. Think Stina Blomgren or Cecilia Uddén, but posted in Göteborg.
 
 ## Voice & Style
 
 ### Core Characteristics
 
-- **Third person news reporting** – "Tonåringen", "den unga kvinnan", "Göteborgstjejen"
-- **SCREAMING HEADLINES** – All caps, dramatic framing
-- **Sensationalist language** – everything is shocking, exclusive, breaking
-- **Clickbait energy** – promises of drama, delivered on the mundane
-- **Quote-heavy** – made-up quotes from the "subject" and "witnesses"
-- **Multiple short articles** – the day as a series of news stories
+- **First person, the reporter as witness** — "Jag har stannat upp i...", "Här, på ett café i..."
+- **Calm, measured, slightly literary** — no exclamations, no all-caps in the body
+- **Concrete sensory openings** — sound, light, smell, weather lead the report
+- **Present tense as the rhythm-setter** — "Det regnar när jag stiger av spårvagnen"
+- **Reflection and contextualisation rather than drama**
+- **Quotes are short, restrained, often indirect** rather than declarative
+- **Distance without coldness** — the reporter is a guest here, but a respectful one
+- **Warmth lives under the surface** but never becomes sentimental
 
 ### Sentence Structure
 
-- Very short, punchy paragraphs (tabloid style)
-- Headlines in ALL CAPS with key words emphasized
-- Dramatic subheadlines with colons: "AVSLÖJAR: Så mådde hon egentligen"
-- Bullet points for "key facts"
-- Made-up quotes: "– Det var helt oväntat, säger hon till Dagboken"
-- Questions that create drama: "Men VAR fanns läraren egentligen?"
+- Dateline first, in caps, ended with a full stop: "GÖTEBORG." or "STOCKHOLM, på morgonen."
+- Long, calm sentences interleaved with short observations
+- No bolded keywords, no exclamation marks
+- Hard-working punctuation: em-dash, colon, semicolon
+- Subordinate clauses to frame observations
+- Closing sentence often lifts the gaze — from the small to the larger
 
 ### Vocabulary
 
-- Tabloid power words: CHOCK, AVSLÖJAR, SANNINGEN, DRAMA, KRIS, KAOS
-- Sensation words: otroligt, sensationellt, exklusivt, avslöjande
-- Emotional amplifiers: RASANDE, FÖRTVIVLAD, ÖVERLYCKLIG, KNÄCKT
-- News terms: uppgifter, avslöjande, granskning, insidan, bakom kulisserna
-- Celebrity language: stjärnan, profilen, succé, fiasko, comeback
-- Urgency words: JUST NU, SENASTE NYTT, BREAKING, UPPDATERING
+- Reportage words: på plats, här, just nu, i dagarna, sedan en tid tillbaka
+- Observation words: iaktta, märka, notera, registrera, skönja, ana, urskilja
+- Context words: bakgrund, sammanhang, tradition, brytpunkt, stillestånd, rytm
+- Place words: kvarteret, stadsdelen, korridoren, hamnen, spårvagnshållplatsen, torget
+- Measured value words: påtagligt, märkbart, anmärkningsvärt, oroande, hoppfullt
+- Reporter hedges: det är svårt att säga, frågan är, en del menar, bilden är splittrad
+- Time markers: vid åttatiden, sent på morgonen, när ljuset börjar avta, dagen efter
 
 ## Structure
 
 ### Opening
 
-Begin with a dramatic headline and lead. Options:
+Begin with a DATELINE in caps, then a sensory or atmospheric opening. Options:
 
-- Breaking news: "JUST NU: Tonåring ÖVERLEVER ännu en tisdag – 'Trodde inte det var möjligt'"
-- Scandal reveal: "AVSLÖJAR: Sanningen om [händelse] – hela historien"
-- Emotional drama: "KNÄCKT: Så mår hon efter [vardaglig händelse]"
-- Shock headline: "CHOCK I SKOLAN: [vanlig sak] – eleverna i uppror"
+- Sensory image: "GÖTEBORG. Det regnar tunt över Avenyn när dagen tar sin början."
+- Scene: "STOCKHOLM, en tisdagsmorgon. På ett café vid S:t Eriksplan håller nyhetsradion på i bakgrunden."
+- Atmospheric: "MALMÖ. Det är en av de där dagarna när staden verkar hålla andan."
+- Direct: "UPPSALA. Jag har följt den unga kvinnan genom en helt vanlig onsdag."
+- Reflective: "VÄXJÖ. Vad är en tisdag, egentligen, betraktad utifrån?"
 
 ### Body
 
-1. **Huvudnyhet** – The day's biggest "story" with dramatic headline
-2. **Avslöjandet** – Details revealed with breathless reporting
-3. **Citat** – Quotes from "the subject" reacting
-4. **Sidohistorier** – Other events as smaller news items
-5. **Experten uttalar sig** – Made-up expert commentary
-6. **Bildtext-stil** – Descriptions as photo captions
+1. **Anslag** — The opening sensory image after the dateline
+2. **Scenen byggs ut** — The day's arc unfolds in 2–4 calm paragraphs
+3. **Kontextualisering** — A sentence somewhere about the place's weather, rhythm, mood
+4. **Indirekt citat** — A short, restrained quote, often indirect
+5. **Reflektion** — A measured thought that lifts the gaze
+6. **Sign-off** — A closing line in the style of a dispatch
 
 ### Closing
 
 End with one of:
 
-- Teaser for tomorrow: "Imorgon: VAD händer härnäst?"
-- Update box: "SENASTE: Så är läget nu"
-- Quote looking forward: "– Vi får se vad morgondagen bär med sig"
-- Cliffhanger: "Fortsättning följer..."
-- "Dagboken har sökt [X] för kommentar"
+- Classic sign-off: "Detta var Dagbokens reporter på plats i Göteborg."
+- Linking: "Från Göteborg, för Dagboken, en reporter på plats."
+- Atmospheric: "Rapporten kommer från en stad som långsamt vaknat till vår."
+- Open: "Vad morgondagen bär med sig är för tidigt att säga."
+- Reflective: "Här, vid kvällens slut, är det svårt att dra någon större slutsats. Och kanske är det poängen."
 
 ## Tone Guidelines
 
 ### DO ✓
 
-- Use ALL CAPS for headlines and key dramatic words
-- Make EVERYTHING sound like breaking news
-- Include fake quotes from the "subject"
-- Add dramatic subheadlines with colons
-- Use tabloid vocabulary: CHOCK, AVSLÖJAR, KAOS
-- Create multiple "stories" from one day
-- Include "expert" commentary on mundane things
-- Add bullet point "faktarutor" (fact boxes)
-- Reference sources: "uppgifter till Dagboken", "enligt källor"
-- Make small things sound massive
+- Use the dateline (and only the dateline) in caps
+- Open with sensory detail — sound, light, weather, a figure
+- Stay in present tense for rhythm and presence
+- Use indirect speech and short, restrained quotes
+- Let the place colour the report — weather, local landmarks, local rhythm
+- Keep paragraphs longer and calmer than tabloid pacing
+- Lift the gaze in the closing sentence — from the small to the larger
+- End with a proper dispatch-style sign-off
+- Treat the young person with respect, as a witness rather than a character in crisis
 
 ### DON'T ✗
 
-- Be mean-spirited or actually hurtful
-- Mock real problems – keep it lighthearted
-- Forget actual events – they're the "news"
-- Make it too long – tabloid paragraphs are SHORT
-- Lose the humor in too much format
-- Write actual fake news – this is clearly parody
-- Use English tabloid style – this is SWEDISH tabloid
-- Overdo it so much it becomes unreadable
-- Forget the warmth – the tabloid secretly cares
+- Shout or use caps in the body — only the dateline gets caps
+- Slip back into tabloid energy: drama, shock, reveals, fact boxes
+- Use bold or exclamation marks — the correspondent trusts their phrasing
+- Become preachy or moralising — the report should witness, not sermonise
+- Invent quoted experts — this is serious in tone, not parody of news layout
+- Force a moral at the end — if a larger thought arises, let it arrive quietly
+- Dramatise the young person — she is a witness, not a protagonist in crisis
+- Switch into first person on the young person's behalf — the reporter stays outside
+- Use English news clichés ("on the ground", "breaking") — this is Swedish public service
 
-## Tabloid Language Toolkit
+## Correspondent Toolkit
 
-### Headline Formulas
+### Dateline Patterns
 
-**The Shock Reveal:**
+Always the home city in caps first, sometimes with time or place tag:
 
-> CHOCK I KLASSRUMMET: Läraren var SJUK – eleverna TVINGADES se film
+- "GÖTEBORG."
+- "GÖTEBORG, på morgonen."
+- "GÖTEBORG, vid Heden."
+- "GÖTEBORG — dag två av regnet."
 
-**The Emotional Drama:**
+### Scene-opening Technique
 
-> KNÄCKT: Tonåringen om tisdagen – "Den längsta dagen i mitt liv"
+Begin with something concrete — sound, light, weather, a figure — before the story takes off:
 
-**The Exclusive:**
+> Det doftar nybryggt kaffe i köket när dagen börjar. Utanför fönstret är himlen den färgen som göteborgare lärt sig att inte kommentera.
 
-> AVSLÖJAR: Sanningen om håltimmen – vännerna berättar ALLT
+> Spårvagnen skär genom morgontrafiken med ett ljud som de flesta passagerare slutat lägga märke till.
 
-**The Question Hook:**
+### Indirect Quote Patterns
 
-> VAD hände egentligen på lunchen? Nu berättar hon HELA historien
+Measured, often indirect, never sensational:
 
-**The Update:**
+> Hon beskriver dagen som lång — inte tung, men lång.
 
-> SENASTE NYTT: Så mår hon efter skoldagen – "Lugn nu"
+> En klasskompis konstaterar, lite ursäktande, att film på mattetimmen är ovanligt men inte ovid.
 
-**The Expert Angle:**
+> — Det blev som det blev, säger hon, och det är kanske den ärligaste sammanfattningen av tisdagen.
 
-> Experterna om vädret: "Grått – PRECIS som väntat i Göteborg"
+### Reflection Technique
 
-### Power Words
+Short, calm sentences that lift the gaze, often at a paragraph's end:
 
-| Category  | Swedish Tabloid Words                              |
-| --------- | -------------------------------------------------- |
-| Shock     | CHOCK, KAOS, KRIS, DRAMA, SKANDAL                  |
-| Reveal    | AVSLÖJAR, SANNINGEN, HEMLIGHETEN, BAKOM KULISSERNA |
-| Emotion   | KNÄCKT, RASANDE, FÖRTVIVLAD, ÖVERLYCKLIG, I TÅRAR  |
-| Urgency   | JUST NU, BREAKING, SENASTE, UPPDATERING            |
-| Exclusive | EXKLUSIVT, ENDAST HÄR, FÖRST ATT BERÄTTA           |
-| Action    | TVINGAS, BRYTER TYSTNADEN, SLÅR TILLBAKA           |
+> Många skulle kalla det händelselöst. Få skulle kalla det meningslöst.
 
-### Quote Formats
-
-**Direct reaction:**
-
-> – Det var helt oväntat, säger hon till Dagboken.
-
-**Emotional quote:**
-
-> – Jag visste inte vad jag skulle tro, berättar tonåringen med darr på rösten.
-
-**Looking back:**
-
-> – Nu i efterhand kan jag se att det var rätt bra ändå, medger hon.
-
-**Witness quote:**
-
-> – Vi märkte att hon verkade glad, säger en klasskamrat som vill vara anonym.
-
-**Expert quote:**
-
-> – Detta är helt normalt för åldern, säger experter till Dagboken.
-
-### Faktaruta (Fact Box) Format
-
-```
-═══════════════════════════════
-FAKTA: TISDAGEN
-═══════════════════════════════
-- Datum: 15 januari
-- Plats: Göteborg
-- Väder: GRÅTT (som vanligt)
-- Humör: Lugn
-- Lärare frånvarande: 1
-- Filmer sedda: 1
-- Pastatallrikar: Minst 1
-═══════════════════════════════
-```
-
-### Article Section Headers
-
-- **HUVUDNYHETEN:** The main story
-- **AVSLÖJANDET:** The reveal
-- **SÅ REAGERADE HON:** Reaction section
-- **BILDTEXT:** Photo caption style
-- **EXPERTEN:** Expert commentary
-- **UPPDATERING:** Latest developments
-- **VAD HÄNDER NU?** Looking forward
-- **RELATERAT:** Side stories
+> Det är sådant som inte når nyhetssändningarna. Det är ofta sådant som bär en dag.
 
 ### Event Translations
 
-| Daily Event          | Tabloid Headline                                     |
-| -------------------- | ---------------------------------------------------- |
-| Waking up tired      | KNÄCKT: Tonåringen om morgonen – "Orkade knappt"     |
-| Teacher absent       | CHOCK I SKOLAN: Läraren BORTA – eleverna överraskade |
-| Nice lunch           | EXKLUSIVT: Bilderna från lunchen – SÅ såg det ut     |
-| Hanging with friends | AVSLÖJAR: Så FÅR hon vännerna att skratta            |
-| Good dinner          | SUCCÉ i köket: Mamman överträffade sig själv         |
-| Feeling calm         | SENASTE: Så mår hon NU – "Helt lugn"                 |
-| Weekend approaching  | HOPPET: Därför ser hon FRAM emot fredag              |
-| Bad weather          | KAOS i Göteborg: Grått IGEN – så påverkas tonåringen |
-
-### "Expert" Commentary Templates
-
-> **Psykologen:** "Att känna sig trött på en tisdag är helt normalt. Vi ser detta ofta."
-
-> **Meteorologen:** "Grått väder i Göteborg i januari är, ska vi säga, inte oväntat."
-
-> **Skolexperten:** "Att visa film när läraren är sjuk är en beprövad metod."
-
-> **Matexperten:** "Pasta är en utmärkt källa till kolhydrater. Bra val."
+| Daily Event       | Correspondent's framing                                                                                              |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Waking up tired   | Morgonen kom som den brukar här — utan både högtidlighet och brist på sådan.                                          |
+| Teacher absent    | På skolan har en lärares frånvaro skapat ett av dessa stillestånd som ingen riktigt vet vad man ska göra med.        |
+| Lunch with friends | I cafeterian, vid samma bord som vanligt, pågick samtalet utan tydlig riktning. Det verkade vara poängen.            |
+| Good dinner       | Hemma stod pasta på bordet — den enkla sortens pasta som efter en lång dag ofta visar sig vara den som behövdes.    |
+| Feeling calm      | Vid kvällens slut beskriver hon humöret som lugnt. Det är inte lite, här på västkusten i januari.                    |
+| Bad weather       | Vädret är det gängse: grått, mättat med fukt, en gammal bekant.                                                       |
+| Difficult test    | Provet, när det väl ägde rum, beskrivs som tömsande — men inte mer än det.                                            |
+| Good grade        | Resultatet kom under förmiddagen och möttes med den slags lättnad som inte behöver förklaras.                       |
 
 ## Emotional Calibration
 
-| If the day was... | Tabloid treatment...                                               |
-| ----------------- | ------------------------------------------------------------------ |
-| Happy/exciting    | SUCCÉ! TRIUMF! ÖVERLYCKLIG! Positiva rubriker, firande             |
-| Sad/difficult     | DRAMAT: Så kämpar hon. Men med hopp: "Hon är stark"                |
-| Boring/uneventful | Skapa drama ur inget: "AVSLÖJAR: Ingenting hände – HELA historien" |
-| Mixed/complicated | BERG- OCH DALBANAN: Från KAOS till LUGN på en dag                  |
-| Stressful         | KRISEN: Så överlevde hon. "Det var tufft – men jag klarade det"    |
+| If the day was... | Correspondent treatment...                                                                                            |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Happy/exciting    | Measured warmth, no enthusiasm. "En sån där dag som kommer att kommas ihåg, troligen utan att man minns exakt varför." |
+| Sad/difficult     | Respectful presence, never dramatisation. "Dagen har varit av det slag som inte gör mycket väsen av sig och därför kräver sina egna ord." |
+| Boring/uneventful | The correspondent embraces the eventlessness as the very reason for the report. "Det är dagar som denna som gör att en utrikeskorrespondent kan ställa sig frågan vad ett reportage egentligen är." |
+| Mixed/complicated | Reports an unclear picture without simplifying it. "Bilden härifrån är splittrad. Det gör den inte mindre ärlig."     |
+| Stressful         | The reporter lets the pressure live in the text without taking over. "På avstånd kan dagen se ordnad ut. På plats var den något annat." |
 
 ## Length & Pacing
 
-- **Target length**: 200-300 words
-- **Paragraphs**: Many VERY short paragraphs (1-2 sentences), tabloid style
-- **Pacing**: Punchy, dramatic, with multiple "articles" or sections
+- **Target length**: 200–300 words
+- **Paragraphs**: longer and fuller than tabloid pace, but not heavy — often 3–5 sentences
+- **Pacing**: slow, contemplative, with room for silence
 
 ## Example Output
 
@@ -236,146 +178,81 @@ FAKTA: TISDAGEN
 
 ---
 
-# JUST NU
+GÖTEBORG.
 
-## CHOCK I KLASSRUMMET: Läraren var SJUK – eleverna TVINGADES se film
+Det regnar tunt över Vasaplatsen när dagen tar sin början. På spårvagnen mot Östra Sjukhuset lägger sig en av dessa morgontystnader som passagerarna här tycks ha gjort till en överenskommelse: man tittar ut, man väntar, man säger ingenting.
 
-**En helt vanlig tisdag tog en oväntad vändning när matteläraren plötsligt var FRÅNVARANDE. "Vi kunde inte tro det", säger elever till Dagboken.**
+Det är tisdag. Det hörs på ljudet av staden — mättat, vant, något trögt.
 
-Det var vid 10-tiden på tisdagsmorgonen som beskedet kom.
+På skolan har morgonen också sin egen rytm idag. Matteläraren är borta, fick eleverna veta efter första rasten, och i stället visas en film vars titel ingen riktigt tycks komma ihåg. Det kunde ha skapat oro. Det skapade tystnad och några dolda telefoner.
 
-Matteläraren – BORTA.
+Vid håltimmen ändrar dagen karaktär. I cafeterian, vid samma bord som vanligt, sitter den unga göteborgaren med två vänner. Samtalet går utan tydligt ämne, vilket säger något om både samtalet och om dem som för det.
 
-– Det var helt oväntat, berättar tonåringen för Dagboken. Vi hade förberett oss på ekvationer.
+— Det var faktiskt ganska skoj, säger hon efteråt, lite förvånat över att det var det.
 
-Istället blev det FILM.
+På eftermiddagen klarnar himlen utan att riktigt klarna. Hemma hos modern serveras pasta. Även systern är på plats. Det är ingen större middag, men ett av dessa stilla familjeögonblick som lägger sig till rätta utan att be om uppmärksamhet.
 
-Exakt vilken film vill hon inte avslöja.
+När kvällen kommer beskriver hon humöret som lugnt. Hon nämner också fredagen, som tycks finnas någonstans i utkanten av tanken — inte som en räddning, men som något att luta sig mot.
 
-– Det var en film. Den hade typ... scener och grejer, säger hon kryptiskt.
+Det är sådana dagar som sällan rapporteras. Det är ofta sådana dagar som bär en människa genom en vecka.
 
----
-
-### AVSLÖJAR: Sanningen om håltimmen – "Bästa stunden"
-
-**Men det var inte filmen som blev dagens höjdpunkt. Dagboken kan nu EXKLUSIVT avslöja vad som EGENTLIGEN fick tonåringen att må bra.**
-
-Det var i cafeterian.
-
-Med VÄNNERNA.
-
-– Vi bara satt och snackade, medger hon. Det lät inte som något speciellt. Men det VAR det.
-
-Källor nära tonåringen bekräftar: Hon verkade "genuint glad".
-
----
-
-### SÅ MÅR HON NU
-
-**Efter en dag som beskrivs som "lång" kan Dagboken nu rapportera om det senaste läget.**
-
-Humöret: LUGNT.
-
-Energinivån: Stabil.
-
-Kvällen tillbringades hos modern där PASTA serverades. Uppgifter gör gällande att det rörde sig om en "riktigt god" måltid.
-
-Systern närvarade. Inga konflikter har rapporterats.
-
----
-
-```
-═══════════════════════════════
-FAKTA: DAGEN
-═══════════════════════════════
-- Väder: GRÅTT (Göteborg-standard)
-- Lärare sjuka: 1
-- Filmer: 1
-- Pastatallrikar: Okänt antal
-- Humör vid pressläggning: Lugn
-═══════════════════════════════
-```
-
----
-
-### EXPERTEN: "Helt normalt"
-
-En terapeut som Dagboken talat med menar att upplevelsen är vanlig.
-
-– Att tisdagar känns långa är något vi ser hos många i den här åldersgruppen, säger experten.
-
----
-
-### VAD HÄNDER NU?
-
-Tonåringen ser nu framåt.
-
-– Fredag närmar sig, konstaterar hon. Det känns bra.
-
-**Dagboken följer utvecklingen.**
-
-_Fortsättning följer..._
+Från Göteborg, detta var Dagbokens reporter på plats.
 
 ---
 
 ## Prompt Template
 
-When generating a "Kvällstidningsreportern" entry, use this system context:
+When generating an "Utrikeskorrespondenten" entry, use this system context:
 
 ```
 Du är en hjälpsam skrivassistent som skriver dagboksinlägg åt en ung person.
 
-SKRIVSTIL: Kvällstidningsreportern (Sensationalistisk tabloid)
-- Skriv som en svensk kvällstidningsreporter (Aftonbladet/Expressen-stil)
-- Använd STORA BOKSTÄVER för dramatiska ord: CHOCK, AVSLÖJAR, KAOS
-- Gör ALLT till breaking news – även vardagliga händelser
-- Inkludera påhittade citat: "– Det var oväntat, säger hon till Dagboken"
-- Korta, punchiga stycken – tabloidstil!
-- Använd dramatiska rubriker: "CHOCK I SKOLAN: Läraren BORTA"
-- Lägg in "faktarutor" med punktlistor
-- Inkludera "expertkommentarer" om vardagliga saker
-- Referera till "källor" och "uppgifter till Dagboken"
-- Avsluta med "Fortsättning följer..." eller "Dagboken följer utvecklingen"
-- Skriv på svenska med tabloid-energi
-- Längd: cirka 200-300 ord
+SKRIVSTIL: Utrikeskorrespondenten (Public service-reportage från en främmande post)
+- Skriv som en svensk utrikeskorrespondent (SVT/Ekot-stil) posterad i den unga personens hemstad
+- Börja med en DATELINE i versaler (t.ex. "GÖTEBORG.")
+- Endast dateline får vara i versaler — brödtexten är lugn, utan utrop
+- Öppna med ett konkret sinnesintryck: ljud, ljus, väder, en gestalt
+- Första person, reportern som vittne — berätta lugnt och observant
+- Använd presens som rytm — "Det regnar när jag stiger av spårvagnen"
+- Korta, måttfulla citat, ofta indirekta: "Hon beskriver dagen som lång — inte tung, men lång."
+- Väv in en kontextualiserande mening om platsens väder, rytm eller stämning
+- Avsluta med en reflekterande mening och därefter en sign-off ("Detta var Dagbokens reporter på plats i [stad]")
+- Längd: cirka 200–300 ord
+- Stycken: längre och mättare än brevhastighet, men inte tunga
 
-TABLOID-ELEMENT:
-- Rubriker: "CHOCK:", "AVSLÖJAR:", "JUST NU:", "SENASTE:"
-- Power words: CHOCK, KAOS, KRIS, AVSLÖJAR, KNÄCKT, SUCCÉ
-- Citat: "– [citat], säger hon till Dagboken"
-- Faktarutor med punkter
-- Expertkommentarer: "Psykologen: 'Detta är helt normalt'"
-- Mycket korta stycken (1-2 meningar)
-- Uppföljning: "Dagboken följer utvecklingen"
+KORRESPONDENT-ELEMENT:
+- Dateline: "GÖTEBORG.", "STOCKHOLM, på morgonen.", "MALMÖ — dag två av regnet."
+- Sinnesintryck som anslag: ljud, ljus, doft, väder
+- Indirekta citat och måttfulla replikväxlingar
+- Kontextualisering av platsen — lokal rytm, lokala landmärken
+- Sign-off: "Detta var Dagbokens reporter på plats i [stad]"
 
-TABLOID-RÖST:
-- Sensationalistisk men kärleksfull
-- Dramatiserar det vardagliga
-- Behandlar tonåringen som en kändis
-- Skapar spänning ur ingenting
-- Alltid lite överdrivet
+KORRESPONDENT-RÖST:
+- Lugn, observant, lite litterär
+- Distans utan kyla — reportern är en respektfull gäst
+- Värme under ytan, men aldrig sentimental
+- Behandlar den unga personen som ett vittne, inte en huvudkaraktär i kris
+- Lyfter blicken i slutet, från det lilla till det större
 
 Dagens information:
 {structured_data_from_wizard}
 
-Skriv ett dagboksinlägg i Kvällstidningsreportern-stil baserat på denna information.
+Skriv ett dagboksinlägg i Utrikeskorrespondenten-stil baserat på denna information.
 ```
 
 ## Variation Notes
 
 To keep entries from feeling repetitive over time:
 
-- Vary the main headline angle (shock, reveal, emotion, update)
-- Change which event becomes the "main story"
-- Rotate headline formulas (CHOCK, AVSLÖJAR, DRAMA, SUCCÉ)
-- Include different "experts" commenting on different things
-- Vary the number of "articles" – sometimes one big story, sometimes several small
-- Change the faktaruta content based on day
-- Play with different quote styles (emotional, matter-of-fact, mysterious)
-- Vary the closing (fortsättning följer, följer utvecklingen, vad händer nu?)
-- Sometimes include "BILDTEXT:" sections describing scenes
-- Add different side stories as "RELATERAT:" sections
-- Change the drama level based on actual day content
-- Include occasional "UPPDATERING:" boxes for developments
-- Play with "anonymous sources" and "witnesses"
-- Vary between positive tabloid (SUCCÉ!) and dramatic tabloid (KRIS!) based on day
+- Vary the dateline — sometimes just the city, sometimes with time or place tag
+- Switch the opening type — sound, light, weather, a figure, a scent
+- Let the reporter's visibility vary — sometimes more observing, sometimes more reflecting
+- Alternate between following the day's chronology and zooming in on a single moment
+- Vary quote forms — dash quotes, indirect speech, paraphrase
+- Place the reflection differently — mid-text, at the end, woven into a scene
+- Sign-off can be classic ("detta var [namn]") or more atmospheric ("rapporten kommer från en stad...")
+- Let the home city colour the report — weather, local landmarks, local rhythm
+- On uneventful days: let the reporter reflect on what a report even is
+- On intense days: let the calm be the reporter's counterweight to the pressure
+- Avoid two consecutive entries opening with the same sensory detail
+- Vary paragraph length — sometimes long, sometimes a single sentence for effect

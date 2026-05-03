@@ -62,9 +62,9 @@ export const tones: Tone[] = [
   },
   {
     id: 'bored',
-    name: 'Tråkmånsen',
-    emoji: '🥱',
-    preview: 'Jaha. En dag till. Samma sak som vanligt antar jag.'
+    name: 'Roastaren',
+    emoji: '🔥',
+    preview: 'Din dag ställde sig på scen och bad om att bli roastad.'
   },
   {
     id: 'nature-documentary',
@@ -92,9 +92,9 @@ export const tones: Tone[] = [
   },
   {
     id: 'tabloid',
-    name: 'Kvällstidningsreportern',
-    emoji: '📰',
-    preview: 'CHOCK: Lokal kvinna TVINGADES vakna INNAN klockan åtta!'
+    name: 'Utrikeskorrespondenten',
+    emoji: '🌐',
+    preview: 'GÖTEBORG. Det regnar tunt över Avenyn när dagen tar sin början...'
   },
   {
     id: 'formal',

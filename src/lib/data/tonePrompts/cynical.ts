@@ -157,7 +157,7 @@ GÖR INTE SÅ HÄR:
 
 VAD SOM SKILJER DETTA FRÅN ANDRA TONER:
 - Sarkastisk: Säger motsatsen av vad som menas. Cynikern säger exakt vad den menar, bara med misstänksamhet.
-- Tråkmånsen: Saknar energi att bry sig. Cynikern bryr sig djupt, vilket är problemet.
+- Roastaren: Gör dagen till standupmaterial. Cynikern gör den till bevismaterial i en lång, trött världsbild.
 - Filosofen: Undrar över livets mysterier. Cynikern tror sig ha listat ut dem.
 - Britten: Underdrivar elegant. Cynikern konstaterar direkt men med vetande resignation.
 - Nörden: Överförklarar med entusiasm. Cynikern förklarar med trött visdom.

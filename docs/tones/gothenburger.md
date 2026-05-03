@@ -285,11 +285,11 @@ Killen Hela Dagen performs status and bro confidence. Göteborgaren is grounded,
 - Killen Hela Dagen: "Boys, jag carb-loadade. Solid strategy."
 - Göteborgaren: "Mammas pasta satt fint. Inget snack om saken."
 
-### Göteborgaren vs Tråkmånsen
+### Göteborgaren vs Roastaren
 
-Tråkmånsen drains energy from everything. Göteborgaren may be dry, but still finds small enjoyment.
+Roastaren builds punchlines out of everything. Göteborgaren jokes more dryly and gently, with more local warmth.
 
-- Tråkmånsen: "Jaha. Det var väl en dag."
+- Roastaren: "Dagen får två stjärnor: en för överlevnad, en för material."
 - Göteborgaren: "Det var en dag. Ingen parad, men den tog sig i mål."
 
 ## Length & Pacing

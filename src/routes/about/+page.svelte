@@ -103,7 +103,7 @@
 
 	<section>
 		<h2>Filosofin bakom</h2>
-		<p>Dagboksskrivande ska vara enkelt, träffsäkert och – vågar jag säga det – roligt. Ibland vill man ha en poetisk reflektion över livet. Ibland vill man bara att en uttråkad AI konstaterar att man åt pasta igen. Båda är lika giltiga.</p>
+		<p>Dagboksskrivande ska vara enkelt, träffsäkert och – vågar jag säga det – roligt. Ibland vill man ha en poetisk reflektion över livet. Ibland vill man att ens dag blir standupmaterial med punchlines som svider lagom. Båda är lika giltiga.</p>
 		<p>Målet är att du ska le när du läser din dagbokstext. Eller skratta. Eller känna igen dig. Helst allt på en gång.</p>
 	</section>
 

@@ -27,13 +27,13 @@
 		'storytelling': 'open-book',
 		'philosophical': 'owl',
 		'sportscaster': 'soccer-ball',
-		'cat-perspective': 'cat',
+		'cat-perspective': 'cat-face',
 		'cynical': 'face-unamused',
 		'drama-queen': 'crown',
 		'cringe': 'face-rolling-eyes',
 		'british': 'flag-uk',
 		'quest-log': 'video-game',
-		'bored': 'face-yawning',
+		'bored': 'fire',
 		'nature-documentary': 'earth',
 		'therapist': 'brain',
 		'ai-robot': 'robot',
@@ -53,7 +53,7 @@
 		'six-year-old': 'teddy-bear',
 		'poet': 'feather',
 		'culture-vulture': 'wine',
-		'pirate': 'pirate-flag',
+		'pirate': 'skull-crossbones',
 		'gothenburger': 'tram'
 	};
 

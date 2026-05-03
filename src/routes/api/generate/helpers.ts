@@ -60,7 +60,7 @@ const toneMetadata: Record<ToneId, ToneMetadata> = {
 	},
 	bored: {
 		language: 'swedish',
-		styleSummary: 'uttråkad och likgiltig'
+		styleSummary: 'standup-roastande, träffsäker och varmt skoningslös'
 	},
 	'nature-documentary': {
 		language: 'swedish',
