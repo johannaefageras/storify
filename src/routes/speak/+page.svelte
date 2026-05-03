@@ -5,7 +5,6 @@
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { supabase } from '$lib/supabase/client';
 	import { tones } from '$lib/data/tones';
-	import { moodColors } from '$lib/data/moodColors';
 	import { streamEntry } from '$lib/utils/streamEntry';
 	import { generateTitle } from '$lib/utils/generateTitle';
 	import { fireBadgeEvent } from '$lib/gamification/client';
@@ -18,6 +17,7 @@
 	import TonePickerDropdown from '$lib/components/TonePickerDropdown.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
+	import VoiceRecorder from '$lib/components/VoiceRecorder.svelte';
 	import arrowLeftSvg from '$lib/assets/icons/arrow-left.svg?raw';
 	import { Emoji } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
@@ -57,126 +57,77 @@
 		'gothenburger': 'tram'
 	};
 
-	// Mood emoji array (same as Step2Energy mood slider)
-	const moodEmojis: string[] = [
-		'face-crying-loudly', 'face-crying', 'face-frowning', 'face-slightly-frowning',
-		'face-neutral', 'face-relieved', 'face-smiling-eyes', 'face-smiling-hearts',
-		'face-grinning-sweat', 'face-lol'
+	// Pure-UX checklist: reminders the user can tick off while speaking. Nothing
+	// here is sent to the AI — the transcript is the only content source.
+	const prompts = [
+		{ id: 'where', label: 'Var du har varit...' },
+		{ id: 'who', label: 'Vem du har varit med...' },
+		{ id: 'what', label: 'Vad du har gjort...' },
+		{ id: 'feeling', label: 'Hur du har känt dig...' },
+		{ id: 'highlight', label: 'Dagens höjdpunkter...' },
+		{ id: 'surprise', label: 'Något oväntat som hände...' },
+		{ id: 'gratitude', label: 'Något du är tacksam för...' },
+		{ id: 'tomorrow', label: 'Vad du ser fram emot...' }
 	];
+	let checkedPrompts = $state<Set<string>>(new Set());
 
-	function getMoodEmoji(value: number): string {
-		const index = Math.round(value) - 1;
-		return moodEmojis[Math.min(Math.max(index, 0), 9)];
+	function togglePrompt(id: string) {
+		const next = new Set(checkedPrompts);
+		if (next.has(id)) next.delete(id);
+		else next.add(id);
+		checkedPrompts = next;
 	}
 
 	onMount(async () => {
 		await wizardStore.initProfile();
-		wizardStore.initWeather();
 
-		// Mark as quick mode first so draft save uses the right key
-		wizardStore.updateData('quickMode', true);
-		wizardStore.updateData('speakMode', false);
+		// Voice mode reuses the quick payload shape on the server.
+		wizardStore.updateData('quickMode', false);
+		wizardStore.updateData('speakMode', true);
 		wizardStore.updateData('chatMode', false);
 		wizardStore.updateData('editorMode', false);
+		wizardStore.updateData('quickText', '');
 
-		// Try to restore a saved draft
-		const restored = await wizardStore.restoreDraft('quick');
-		if (restored) {
-			// Sync local winInput from restored data (clear it since tags are already in wins array)
-			winInput = '';
-		}
+		// /speak only collects a transcript + tone — clear any leftover state from
+		// other modes so it doesn't bleed into the prompt.
+		wizardStore.updateData('wins', []);
+		wizardStore.updateData('frustrations', []);
+		wizardStore.updateData('moodColor', '');
+		wizardStore.updateData('emojis', []);
+		wizardStore.updateData('locations', []);
+		wizardStore.updateData('customLocations', []);
+		wizardStore.updateData('activities', []);
+		wizardStore.updateData('customActivities', []);
+		wizardStore.updateData('people', []);
 
 		const today = getSwedishDiaryDate();
 		wizardStore.updateData('weekday', today.weekday);
 		wizardStore.updateData('date', today.date);
 		wizardStore.updateData('dateISO', today.dateISO);
 
-		// Default tone (only if not restored from draft)
 		if (!wizardStore.data.selectedTone) {
 			wizardStore.updateData('selectedTone', 'classic');
 		}
 
-		// Disable addons (quick flow has no addon controls)
 		wizardStore.updateData('includeHomework', false);
 		wizardStore.updateData('includeHoroscope', false);
 		wizardStore.updateData('includeOnThisDay', false);
 	});
 
-	// Win tag input
-	let winInput = $state('');
-
-	function addWin() {
-		const value = winInput.trim();
-		if (!value || wizardStore.data.wins.includes(value)) {
-			winInput = '';
-			return;
-		}
-		wizardStore.updateData('wins', [...wizardStore.data.wins.filter(w => w.trim()), value]);
-		winInput = '';
+	function updateQuickText(value: string) {
+		wizardStore.updateData('quickText', value);
 	}
 
-	function removeWin(win: string) {
-		wizardStore.updateData('wins', wizardStore.data.wins.filter(w => w !== win));
-	}
-
-	function removeLastWin() {
-		const arr = wizardStore.data.wins.filter(w => w.trim());
-		if (arr.length > 0) {
-			wizardStore.updateData('wins', arr.slice(0, -1));
-		}
-	}
-
-	function handleWinKeydown(event: KeyboardEvent) {
-		if (event.key === 'Enter') {
-			event.preventDefault();
-			addWin();
-		} else if (event.key === 'Backspace') {
-			const input = event.currentTarget as HTMLInputElement;
-			if (input.value === '' || (input.selectionStart === 0 && input.selectionEnd === 0)) {
-				event.preventDefault();
-				removeLastWin();
-			}
-		}
-	}
-
-	function handleWinCommaInput(event: Event) {
-		const input = event.currentTarget as HTMLInputElement;
-		const value = input.value;
-		if (value.includes(',')) {
-			const parts = value.split(',');
-			const beforeComma = parts[0];
-			const afterComma = parts.slice(1).join(',').trimStart();
-
-			input.value = beforeComma;
-			winInput = beforeComma;
-			addWin();
-
-			input.value = afterComma;
-			winInput = afterComma;
-		}
-	}
-
-	function focusWinInput(event: MouseEvent) {
-		const container = event.currentTarget as HTMLElement;
-		const input = container.querySelector('input');
-		if (input) input.focus();
-	}
-
-	// Form validity
 	let isFormValid = $derived(
 		wizardStore.data.selectedTone.trim() !== '' &&
-		wizardStore.data.quickText.trim() !== '' &&
-		wizardStore.data.wins.some(w => w.trim()) &&
-		wizardStore.data.moodColor.trim() !== ''
+		wizardStore.data.quickText.trim() !== ''
 	);
 
-	// Generation state
 	let isGenerating = $state(false);
 	let generatedEntry = $state('');
 	let error = $state('');
 	let actualToneUsed = $state<string | null>(null);
 
-	// Result view state
 	let showShareModal = $state(false);
 	let showDiscardConfirm = $state(false);
 	let isSavingEntry = $state(false);
@@ -184,11 +135,9 @@
 	let entrySaveError = $state('');
 	let resultMessage = $state({ title: '', subtitle: '' });
 
-	// Regenerate state
 	let isRegenerating = $state(false);
 	let regenerateError = $state('');
 
-	// Edit state
 	let isEditing = $state(false);
 	let editText = $state('');
 	let editTextareaEl: HTMLTextAreaElement = $state(null!);
@@ -248,7 +197,6 @@
 		editText = '';
 	}
 
-	// Loading phrases
 	let loadingPhrase = $state('');
 	let loadingPhraseVisible = $state(false);
 	let phraseInterval: ReturnType<typeof setInterval> | null = null;
@@ -321,7 +269,6 @@
 
 			generatedEntry = stripSeparatorLines(entry);
 			if (!firstChunkSeen) selectRandomMessage();
-			void wizardStore.clearDraft('quick');
 		} catch (err) {
 			error = err instanceof Error ? err.message : 'Kunde inte ansluta till servern. Försök igen.';
 			generatedEntry = '';
@@ -356,11 +303,11 @@
 				entry_date: wizardStore.data.dateISO,
 				weekday: wizardStore.data.weekday,
 				emojis: [],
-				mood_color: wizardStore.data.moodColor || null,
+				mood_color: null,
 				energy_level: null,
 				sleep_quality: null,
-				mood_level: Math.round(wizardStore.data.mood),
-				writing_mode: 'quick'
+				mood_level: null,
+				writing_mode: 'speak'
 			};
 			const { error: insertError } = await supabase.from('entries').insert(payload);
 			if (insertError) {
@@ -372,8 +319,7 @@
 					createdAt: new Date(),
 					entryDate: payload.entry_date,
 					toneId: payload.tone_id,
-					mode: 'quick',
-					moodLevel: payload.mood_level,
+					mode: 'speak',
 					wordCount: generatedEntry.trim().split(/\s+/).filter(Boolean).length
 				});
 			}
@@ -386,13 +332,12 @@
 	}
 </script>
 
-<main class="quick" class:result-view={!!generatedEntry}>
+<main class="speak" class:result-view={!!generatedEntry}>
 	{#if generatedEntry}
-		<!-- Result view -->
 		<div class="result-view-content">
 			<div class="result-intro">
 				<div class="result-icon">
-						<Emoji name="rose" size={48} />
+					<Emoji name="rose" size={48} />
 				</div>
 				<h1 class="result-title">{resultMessage.title}</h1>
 				<p class="result-subtitle">{resultMessage.subtitle}</p>
@@ -507,109 +452,48 @@
 			{/if}
 		</div>
 	{:else}
-		<!-- Quick mode form -->
-		<header class="quick-header">
+		<header class="speak-header">
 			<div class="step-indicator">
-				<div class="step-icon"><UniqueEmoji><Emoji name="rocket" size={72} /></UniqueEmoji></div>
-				<h1 class="step-title">Snabbläge</h1>
+				<div class="step-icon"><UniqueEmoji><Emoji name="studio-microphone" size={72} /></UniqueEmoji></div>
+				<h1 class="step-title">Tala in din dag</h1>
 			</div>
 		</header>
 
-		<div class="quick-form">
-			<p class="step-intro">Fånga dagens känsla på under en minut.</p>
-			<!-- Mood slider -->
+		<div class="speak-form">
+			<p class="step-intro">Tryck på mikrofonen och berätta hur din dag har varit.</p>
+
 			<section class="form-section">
-				<label class="section-label" for="mood-slider">Hur var dagsformen?<RequiredIndicator /></label>
-				<div class="slider-emoji">
-					{#key wizardStore.data.mood}
-						{@const EmojiComponent = getMoodEmoji(wizardStore.data.mood)}
-						<Emoji name={EmojiComponent} size={32} />
-					{/key}
-				</div>
-				<div class="slider-container">
-					<span class="slider-bound">På botten</span>
-					<input
-						type="range"
-						id="mood-slider"
-						min="1"
-						max="10"
-						step="0.01"
-						bind:value={wizardStore.data.mood}
-						class="slider"
-					/>
-					<span class="slider-bound">Strålande</span>
-				</div>
+				<VoiceRecorder
+					text={wizardStore.data.quickText}
+					onTextChange={updateQuickText}
+					disabled={isGenerating}
+				/>
 			</section>
 
-			<!-- Free text -->
 			<section class="form-section">
-				<label class="section-label" for="quick-text">Berätta kort om din dag<RequiredIndicator /></label>
-				<textarea
-					id="quick-text"
-					class="text-input"
-					rows="3"
-					placeholder="Var har du varit? Vad hände? Vilka var med?"
-					bind:value={wizardStore.data.quickText}
-					maxlength="1000"
-				></textarea>
-			</section>
-
-			<!-- Win -->
-			<section class="form-section">
-				<span class="section-label">Dagens segrar (små som stora)<RequiredIndicator /></span>
-				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-				<div class="tag-input" role="group" onclick={focusWinInput} onkeydown={(e) => e.key === 'Enter' && focusWinInput(e as unknown as MouseEvent)}>
-					{#each wizardStore.data.wins.filter(w => w.trim()) as win}
-						<span class="tag">
-							{win}
-							<button class="tag-remove" onclick={() => removeWin(win)}>×</button>
-						</span>
+				<span class="section-label">Behöver du inspiration?</span>
+				<p class="section-description">Bocka av medan du pratar – eller strunta i listan helt.</p>
+				<ul class="prompt-list">
+					{#each prompts as prompt}
+						<li>
+							<label class="prompt-item" class:checked={checkedPrompts.has(prompt.id)}>
+								<input
+									type="checkbox"
+									checked={checkedPrompts.has(prompt.id)}
+									onchange={() => togglePrompt(prompt.id)}
+								/>
+								<span class="prompt-check" aria-hidden="true">
+									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+										<polyline points="20 6 9 17 4 12" />
+									</svg>
+								</span>
+								<span class="prompt-label">{prompt.label}</span>
+							</label>
+						</li>
 					{/each}
-					<input
-						type="text"
-						placeholder={wizardStore.data.wins.filter(w => w.trim()).length === 0 ? 'Någonting bra som hände idag...' : ''}
-						bind:value={winInput}
-						onkeydown={handleWinKeydown}
-						oninput={handleWinCommaInput}
-						onblur={addWin}
-						maxlength="200"
-					/>
-				</div>
+				</ul>
 			</section>
 
-			<!-- Color of the day -->
-			<section class="form-section">
-				<span class="section-label">Om idag var en färg...<RequiredIndicator /></span>
-				<p class="section-description">Välj den färg som bäst speglar känslan din dag.</p>
-				<div class="color-swatches">
-					{#each moodColors as color}
-						<button
-							type="button"
-							class="color-swatch"
-							class:selected={wizardStore.data.moodColor === color.id}
-							style="--swatch-color: var({color.cssVar})"
-							aria-label={color.name}
-							onclick={() => wizardStore.updateData('moodColor', wizardStore.data.moodColor === color.id ? '' : color.id)}
-						>
-							<span class="swatch-inner"></span>
-						</button>
-					{/each}
-				</div>
-				{#if wizardStore.data.moodColor}
-					{@const selectedColor = moodColors.find(c => c.id === wizardStore.data.moodColor)}
-					{#if selectedColor}
-						<p class="selected-color-keywords">
-							{#each selectedColor.keywords as keyword}
-								<span class="keyword-tag">#{keyword}</span>
-							{/each}
-						</p>
-					{/if}
-				{:else}
-					<p class="color-hint">Klicka på en färg för att se dess betydelse</p>
-				{/if}
-			</section>
-
-			<!-- Voice picker -->
 			<section class="form-section">
 				<span class="section-label">Välj en röst<RequiredIndicator /></span>
 				<div class="voice-grid-compact">
@@ -633,7 +517,6 @@
 				</div>
 			</section>
 
-			<!-- Generate -->
 			<section class="form-section">
 				{#if error}
 					<div class="error-message">{error}</div>
@@ -650,7 +533,7 @@
 			</section>
 		</div>
 
-		<footer class="quick-footer">
+		<footer class="speak-footer">
 			<a href="/" class="btn btn-secondary"><span style="display:inline-flex;width:16px;height:16px;flex-shrink:0;">{@html arrowLeftSvg}</span> Tillbaka</a>
 		</footer>
 		<LegalFooter />
@@ -658,11 +541,7 @@
 </main>
 
 <style>
-	/* ==========================================================================
-	   Layout
-	   ========================================================================== */
-
-	.quick {
+	.speak {
 		flex: 1;
 		min-height: 0;
 		display: flex;
@@ -672,15 +551,11 @@
 		padding: 1.75rem 1.25rem 0;
 	}
 
-	.quick.result-view {
+	.speak.result-view {
 		padding: 1.25rem 1.25rem 0;
 	}
 
-	/* ==========================================================================
-	   Header
-	   ========================================================================== */
-
-	.quick-header {
+	.speak-header {
 		margin-bottom: 0.5rem;
 		display: flex;
 		flex-direction: column;
@@ -722,11 +597,7 @@
 		margin-top: 0;
 	}
 
-	/* ==========================================================================
-	   Form
-	   ========================================================================== */
-
-	.quick-form {
+	.speak-form {
 		flex: 1;
 		display: flex;
 		flex-direction: column;
@@ -737,6 +608,10 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.25rem;
+	}
+
+	.section-label:has(+ .section-description) {
+		margin-bottom: 0;
 	}
 
 	.section-label {
@@ -752,8 +627,8 @@
 		color: var(--color-text);
 	}
 
-.section-description {
-		margin: 0;
+	.section-description {
+		margin: 0 0 0.625rem 0;
 		color: var(--color-text-muted);
 		font-size: var(--text-sm);
 		font-weight: var(--weight-light);
@@ -761,278 +636,87 @@
 		text-align: center;
 	}
 
-	/* ==========================================================================
-	   Mood Slider (from Step2Energy)
-	   ========================================================================== */
+	.prompt-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0.5rem;
+	}
 
-	.slider-emoji {
+	.prompt-item {
 		display: flex;
 		align-items: center;
-		justify-content: center;
-	}
-
-	.slider-container {
-		display: flex;
-		align-items: center;
-		gap: 0.875rem;
-	}
-
-	.slider-bound {
-		font-family: var(--font-primary);
-		font-size: var(--text-xs);
-		font-weight: var(--weight-medium);
-		font-stretch: 105%;
-		letter-spacing: var(--tracking-wider);
-		color: var(--color-text-muted);
-		min-width: 3.5rem;
-		flex-shrink: 0;
-	}
-
-	.slider-bound:first-child {
-		text-align: right;
-	}
-
-	.slider-bound:last-child {
-		text-align: left;
-	}
-
-	.slider {
-		flex: 1;
-		-webkit-appearance: none;
-		appearance: none;
-		height: 3px;
-		background: var(--color-border);
-		border-radius: 2px;
-		outline: none;
-		cursor: pointer;
-	}
-
-	.slider::-webkit-slider-thumb {
-		-webkit-appearance: none;
-		appearance: none;
-		width: 16px;
-		height: 16px;
-		background: var(--color-accent);
-		border-radius: 50%;
-		cursor: pointer;
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-		transition: transform 0.15s ease, box-shadow 0.15s ease;
-	}
-
-	.slider::-webkit-slider-thumb:hover {
-		transform: scale(1.1);
-		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-	}
-
-	.slider:focus::-webkit-slider-thumb {
-		box-shadow: 0 0 0 3px var(--color-bg), 0 0 0 5px color-mix(in srgb, var(--color-accent) 30%, transparent);
-	}
-
-	.slider::-moz-range-thumb {
-		width: 16px;
-		height: 16px;
-		background: var(--color-accent);
-		border: none;
-		border-radius: 50%;
-		cursor: pointer;
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-	}
-
-	.slider::-moz-range-thumb:hover {
-		transform: scale(1.1);
-	}
-
-	.slider::-moz-range-track {
-		height: 3px;
-		background: var(--color-border);
-		border-radius: 2px;
-	}
-
-	/* ==========================================================================
-	   Text Inputs
-	   ========================================================================== */
-
-	.text-input {
-		width: 100%;
-		padding: 0.75rem 0.875rem;
+		gap: 0.625rem;
+		padding: 0.625rem 0.875rem;
+		background: var(--color-bg-elevated);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
 		font-family: var(--font-primary);
 		font-size: var(--text-sm);
 		font-weight: var(--weight-regular);
 		letter-spacing: var(--tracking-wide);
 		color: var(--color-text);
-		background-color: var(--color-bg-elevated);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-sm);
-		outline: none;
-		transition: border-color 0.15s ease, box-shadow 0.15s ease;
-		resize: none;
-	}
-
-	.text-input:focus {
-		border-color: var(--color-accent);
-		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
-	}
-
-	.text-input::placeholder {
-		color: var(--color-text-muted);
-		font-weight: var(--weight-light);
-		letter-spacing: var(--tracking-wider);
-	}
-
-	/* ==========================================================================
-	   Tag Input
-	   ========================================================================== */
-
-	.tag-input {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: 0.375rem;
-		min-height: 2.75rem;
-		padding: 0.375rem 0.625rem;
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-sm);
-		background-color: var(--color-bg-elevated);
-		cursor: text;
-		touch-action: manipulation;
+		cursor: pointer;
+		transition: border-color 0.15s ease, background-color 0.15s ease;
 		-webkit-tap-highlight-color: transparent;
-		transition: border-color 0.15s ease, box-shadow 0.15s ease;
 	}
 
-	.tag-input:focus-within {
-		border-color: var(--color-accent);
-		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
+	.prompt-item:hover {
+		border-color: color-mix(in srgb, var(--color-accent) 40%, var(--color-border));
 	}
 
-	.tag-input input {
-		flex: 1;
-		min-width: 80px;
-		height: 1.75rem;
-		padding: 0 0.25rem;
-		border: none;
-		background: transparent;
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		color: var(--color-text);
+	.prompt-item input[type='checkbox'] {
+		position: absolute;
+		opacity: 0;
+		pointer-events: none;
 	}
 
-	.tag-input input:focus {
-		border: none;
-		outline: none;
-		box-shadow: none;
-	}
-
-	.tag-input input::placeholder {
-		color: var(--color-text-muted);
-		font-weight: var(--weight-light);
-		letter-spacing: var(--tracking-wider);
-		opacity: 0.6;
-	}
-
-	.tag {
+	.prompt-check {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.25rem;
-		font-family: var(--font-primary);
-		font-size: var(--text-xs);
-		font-weight: var(--weight-medium);
-		padding: 0.12rem 0.5rem;
-		background-color: var(--color-accent);
-		border-radius: 0.325rem;
+		justify-content: center;
+		width: 1.125rem;
+		height: 1.125rem;
+		flex-shrink: 0;
+		background: var(--color-bg);
+		border: 1.5px solid var(--color-border);
+		border-radius: 4px;
 		color: white;
-		white-space: nowrap;
+		transition: background-color 0.15s ease, border-color 0.15s ease;
 	}
 
-	.tag-remove {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 0.875rem;
-		height: 0.875rem;
-		font-size: 0.875rem;
-		line-height: 1;
-		background: none;
-		border: none;
-		color: white;
-		cursor: pointer;
-		opacity: 0.8;
+	.prompt-check svg {
+		width: 0.75rem;
+		height: 0.75rem;
+		opacity: 0;
 		transition: opacity 0.15s ease;
 	}
 
-	.tag-remove:hover {
+	.prompt-item.checked {
+		border-color: var(--color-accent);
+		background: color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-elevated));
+	}
+
+	.prompt-item.checked .prompt-check {
+		background: var(--color-accent);
+		border-color: var(--color-accent);
+	}
+
+	.prompt-item.checked .prompt-check svg {
 		opacity: 1;
 	}
 
-	/* ==========================================================================
-	   Color Swatches (from Step6FoodMusic)
-	   ========================================================================== */
-
-	.color-swatches {
-		display: grid;
-		grid-template-columns: repeat(8, 1fr);
-		gap: clamp(0.25rem, 1vw, 0.5rem);
-	}
-
-	.color-swatch {
-		position: relative;
-		aspect-ratio: 1;
-		padding: clamp(2px, 0.5vw, 4px);
-		border: none;
-		border-radius: 4px;
-		background-color: var(--color-bg-elevated);
-		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
-		cursor: pointer;
-		transition: transform 0.15s ease, box-shadow 0.15s ease;
-	}
-
-	.color-swatch:hover {
-		transform: scale(1.1);
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
-	}
-
-	.color-swatch.selected {
-		box-shadow: 0 0 0 2px var(--swatch-color), 0 1px 3px rgba(0, 0, 0, 0.15);
-	}
-
-	.swatch-inner {
-		display: block;
-		width: 100%;
-		height: 100%;
-		border-radius: 2px;
-		background-color: var(--swatch-color);
-	}
-
-	.selected-color-keywords {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		gap: 0.375rem;
-		margin: 0.25rem 0 0;
-		font-size: var(--text-sm);
-		font-weight: var(--weight-light);
+	.prompt-item.checked .prompt-label {
 		color: var(--color-text-muted);
-		letter-spacing: var(--tracking-wide);
+		text-decoration: line-through;
+		text-decoration-color: color-mix(in srgb, var(--color-text-muted) 60%, transparent);
 	}
 
-	.keyword-tag {
-		font-size: var(--text-xs);
-		color: var(--color-text-muted);
+	.prompt-label {
+		flex: 1;
 	}
-
-	.color-hint {
-		margin: 0.25rem 0 0;
-		font-size: var(--text-sm);
-		font-weight: var(--weight-light);
-		color: var(--color-text-muted);
-		letter-spacing: var(--tracking-wide);
-		opacity: 0.7;
-		font-style: italic;
-		text-align: center;
-	}
-
-	/* ==========================================================================
-	   Voice Grid (from guide page)
-	   ========================================================================== */
 
 	.voice-grid-compact {
 		display: flex;
@@ -1081,10 +765,6 @@
 		font-weight: var(--weight-medium);
 		color: var(--color-text);
 	}
-
-	/* ==========================================================================
-	   Generate Button
-	   ========================================================================== */
 
 	.generate-btn {
 		display: flex;
@@ -1144,20 +824,12 @@
 		text-align: center;
 	}
 
-	/* ==========================================================================
-	   Footer
-	   ========================================================================== */
-
-	.quick-footer {
+	.speak-footer {
 		display: flex;
 		justify-content: flex-start;
 		padding-top: 2.25rem;
 		margin-top: auto;
 	}
-
-	/* ==========================================================================
-	   Result View (shared with Step10Summary patterns)
-	   ========================================================================== */
 
 	.result-view-content {
 		display: flex;
@@ -1202,7 +874,6 @@
 		width: 100%;
 		position: relative;
 	}
-
 
 	.regenerate-error {
 		margin: 0 0 0.75rem 0;
@@ -1352,10 +1023,6 @@
 		background: var(--color-neutral);
 	}
 
-	/* ==========================================================================
-	   Spinner
-	   ========================================================================== */
-
 	.spinner {
 		width: 16px;
 		height: 16px;
@@ -1377,10 +1044,6 @@
 	@keyframes spin {
 		to { transform: rotate(360deg); }
 	}
-
-	/* ==========================================================================
-	   Edit Mode
-	   ========================================================================== */
 
 	.edit-textarea {
 		box-sizing: border-box;
@@ -1444,46 +1107,21 @@
 		background: var(--color-accent-hover);
 	}
 
-	/* ==========================================================================
-	   Responsive
-	   ========================================================================== */
-
 	@media (max-width: 600px) {
-		.quick {
+		.speak {
 			padding: calc(env(safe-area-inset-top, 0px) + 1.25rem) 1rem 0;
 		}
 
-		.quick.result-view {
+		.speak.result-view {
 			padding: calc(env(safe-area-inset-top, 0px) + 1rem) 1rem 0;
 		}
 
 		.step-title {
 			font-size: var(--text-xl);
 		}
-	}
 
-	@media (max-width: 560px) {
-		.slider-container {
-			gap: 0.625rem;
-		}
-
-		.slider-bound {
-			min-width: 2.75rem;
-			font-size: 0.75rem;
-		}
-
-		.slider {
-			height: 2px;
-		}
-
-		.slider::-webkit-slider-thumb {
-			width: 14px;
-			height: 14px;
-		}
-
-		.slider::-moz-range-thumb {
-			width: 14px;
-			height: 14px;
+		.prompt-list {
+			grid-template-columns: 1fr;
 		}
 	}
 
@@ -1496,17 +1134,12 @@
 			padding: 1rem;
 		}
 
-		.color-swatch {
-			padding: 4px;
-			border-radius: 5px;
-		}
-
-		.quick-footer {
+		.speak-footer {
 			flex-direction: column;
 			gap: 0.75rem;
 		}
 
-		.quick-footer > a.btn {
+		.speak-footer > a.btn {
 			width: 100%;
 			align-self: stretch;
 		}
@@ -1524,31 +1157,9 @@
 		}
 	}
 
-	@media (min-width: 480px) {
-		.color-swatches {
-			grid-template-columns: repeat(8, 1fr);
-		}
-
-		.color-swatch {
-			min-width: 2.75rem;
-			min-height: 2.75rem;
-		}
-	}
-
 	@media (min-width: 481px) and (max-width: 640px) {
 		.result-actions {
 			grid-template-columns: repeat(2, 1fr);
-		}
-	}
-
-	@media (min-width: 640px) {
-		.color-swatches {
-			grid-template-columns: repeat(16, 1fr);
-		}
-
-		.color-swatch {
-			min-width: 0;
-			min-height: 0;
 		}
 	}
 

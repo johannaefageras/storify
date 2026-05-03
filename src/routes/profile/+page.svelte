@@ -18,9 +18,10 @@
 	let showModeModal = $state(false);
 
 	const writingModes = [
-		{ id: 'wizard', title: 'Steg-för-steg', icon: 'compass', href: '/wizard' },
-		{ id: 'quick', title: 'Snabbläge', icon: 'rocket', href: '/quick' },
 		{ id: 'interview', title: 'AI-intervju', icon: 'speaking-head', href: '/interview' },
+		{ id: 'speak', title: 'Tala in', icon: 'studio-microphone', href: '/speak' },
+		{ id: 'quick', title: 'Snabbläge', icon: 'rocket', href: '/quick' },
+		{ id: 'wizard', title: 'Steg-för-steg', icon: 'compass', href: '/wizard' },
 		{ id: 'editor', title: 'Skriv fritt', icon: 'pencil', href: '/editor' }
 	];
 
@@ -271,17 +272,17 @@
 	}
 
 	.mode-grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 0.75rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.625rem;
 	}
 
 	.mode-card {
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
 		align-items: center;
-		gap: 0.625rem;
-		padding: 1.25rem 1rem;
+		gap: 1rem;
+		padding: 0.875rem 1.25rem;
 		background: var(--color-bg-elevated);
 		border-radius: var(--radius-md);
 		text-decoration: none;

@@ -26,7 +26,9 @@ vi.mock('$lib/utils/zodiac', () => ({
 vi.mock('$lib/data/emojiMeanings.json', () => ({
   default: {
     happy: { name: 'Glad', meaning: 'Känner glädje och lycka' },
-    tired: { name: 'Trött', meaning: 'Känner sig utmattad' }
+    tired: { name: 'Trött', meaning: 'Känner sig utmattad' },
+    'face-beaming': { name: 'Strålande glad', meaning: 'Känner stor glädje' },
+    'face-tired': { name: 'Trött', meaning: 'Känner sig utmattad' }
   }
 }));
 
@@ -77,6 +79,7 @@ const createMinimalWizardData = (overrides: Partial<WizardData> = {}): WizardDat
   includeHomework: true,
   quickText: '',
   quickMode: false,
+  speakMode: false,
   chatMode: false,
   chatTranscript: '',
   editorMode: false,
@@ -185,6 +188,19 @@ describe('formatWizardDataForPrompt', () => {
     expect(result).toContain('Sömn: 8/10');
     expect(result).toContain('Energi: 7/10');
     expect(result).toContain('Humör: 9/10');
+  });
+
+  it('formats speak mode as transcript without synthetic mood or energy values', () => {
+    const data = createMinimalWizardData({
+      speakMode: true,
+      quickText: 'Jag pratade med mamma och gick en promenad.'
+    });
+    const result = formatWizardDataForPrompt(data);
+
+    expect(result).toContain('Transkribering av dagen: Jag pratade med mamma och gick en promenad.');
+    expect(result).not.toContain('Sömn:');
+    expect(result).not.toContain('Energi:');
+    expect(result).not.toContain('Humör:');
   });
 
   it('includes emojis with meanings', () => {

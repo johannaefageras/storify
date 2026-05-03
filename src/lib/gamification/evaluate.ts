@@ -149,7 +149,7 @@ export const BADGES_BY_EVENT: Readonly<Record<BadgeEvent, readonly Badge[]>> = (
 const ALL_TONES_COUNT = tones.length;
 const ALL_HOURS = 24;
 const ALL_ZODIAC_SIGNS = 12;
-const ALL_WRITING_MODES = 4;
+const ALL_WRITING_MODES = 5;
 
 // Kept loose on purpose — user-provided transcripts, not hand-authored patterns.
 const LAUGH_REGEX = /😂|🤣|haha+|hehe+/i;

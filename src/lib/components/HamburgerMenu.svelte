@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { authStore } from '$lib/stores/auth.svelte';
-	import barsStaggeredSvg from '$lib/assets/icons/bars.svg?raw';
+	import menuSvg from '$lib/assets/icons/menu.svg?raw';
 	import AccentPicker from '$lib/components/AccentPicker.svelte';
 	import FontPicker from '$lib/components/FontPicker.svelte';
+	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 
 	let open = $state(false);
 
@@ -11,10 +12,7 @@
 		{ href: '/badges', label: 'Utmärkelser' },
 		{ href: '/community', label: 'Gemenskapen' },
 		{ href: '/voices', label: 'Rösterna' },
-		{ href: '/about', label: 'Om Storify' },
-		{ href: '/guide', label: 'Användarguide' },
-		{ href: '/blog', label: 'Bloggen' },
-		{ href: '/contact', label: 'Kontaktsida' }
+		{ href: '/blog', label: 'Bloggen' }
 	];
 
 	const authLink = $derived(
@@ -52,14 +50,17 @@
 		aria-label={open ? 'Stäng meny' : 'Öppna meny'}
 		aria-expanded={open}
 	>
-		<span class="hamburger-icon">{@html barsStaggeredSvg}</span>
+		<span class="hamburger-icon">{@html menuSvg}</span>
 	</button>
 
 	{#if open}
 		<nav class="dropdown" aria-label="Huvudmeny">
 			<div class="dropdown-header">
-				<span class="dropdown-kicker">Storify</span>
-				<h2 class="dropdown-title">Huvudmeny</h2>
+				<div class="dropdown-header-text">
+					<span class="dropdown-kicker">Storify</span>
+					<h2 class="dropdown-title">Huvudmeny</h2>
+				</div>
+				<ThemeToggle variant="inline" />
 			</div>
 
 			<div class="dropdown-links">
@@ -117,7 +118,6 @@
 		display: inline-flex;
 		width: 1.75rem;
 		height: 1.75rem;
-		color: var(--color-text);
 	}
 
 	.hamburger-icon :global(svg) {
@@ -155,10 +155,17 @@
 
 	.dropdown-header {
 		display: flex;
-		flex-direction: column;
-		gap: 0.28rem;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
 		padding: 0.4rem 0.45rem 0.7rem;
 		border-bottom: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+	}
+
+	.dropdown-header-text {
+		display: flex;
+		flex-direction: column;
+		gap: 0.28rem;
 	}
 
 	.dropdown-kicker {

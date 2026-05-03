@@ -298,12 +298,14 @@ export function formatWizardDataForPrompt(data: WizardData): string {
 		sections.push(`Dagens känsla (emojis):\n${emojiDescriptions}`);
 	}
 
-	// Energy levels (skip sleep/energy in quick mode – user never set them)
-	if (!data.quickMode) {
+	// Energy levels (skip sleep/energy in quick/speak mode – user never set them)
+	if (!data.quickMode && !data.speakMode) {
 		sections.push(`Sömn: ${data.sleepQuality}/10`);
 		sections.push(`Energi: ${data.energyLevel}/10`);
 	}
-	sections.push(`Humör: ${data.mood}/10`);
+	if (!data.speakMode) {
+		sections.push(`Humör: ${data.mood}/10`);
+	}
 
 	// Locations
 	const allLocations = [...data.locations, ...data.customLocations].filter(Boolean);
@@ -357,9 +359,9 @@ export function formatWizardDataForPrompt(data: WizardData): string {
 		sections.push(`Musik/ljud: ${allSoundtracks.join(', ')}`);
 	}
 
-	// Quick mode free text
+	// Quick/speak mode free text
 	if (data.quickText?.trim()) {
-		sections.push(`Fri text om dagen: ${data.quickText}`);
+		sections.push(`${data.speakMode ? 'Transkribering av dagen' : 'Fri text om dagen'}: ${data.quickText}`);
 	}
 
 	// Mood color

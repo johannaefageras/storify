@@ -74,10 +74,10 @@ describe('evaluateCriterion — counts', () => {
 		expect(evaluateCriterion(c, { entriesByMode: { quick: 99 } })).toBe(false);
 	});
 
-	it('all-writing-modes-used needs 4 distinct modes', () => {
+	it('all-writing-modes-used needs 5 distinct modes', () => {
 		const c: BadgeCriterion = { type: 'all-writing-modes-used' };
-		expect(evaluateCriterion(c, { distinctModesUsed: 3 })).toBe(false);
-		expect(evaluateCriterion(c, { distinctModesUsed: 4 })).toBe(true);
+		expect(evaluateCriterion(c, { distinctModesUsed: 4 })).toBe(false);
+		expect(evaluateCriterion(c, { distinctModesUsed: 5 })).toBe(true);
 	});
 
 	it('all-tones-used compares against full tone list', () => {

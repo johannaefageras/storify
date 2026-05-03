@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import ThemeToggle from './ThemeToggle.svelte';
 	import HamburgerMenu from './HamburgerMenu.svelte';
 
 	let pathname: string = $derived(page.url.pathname);
@@ -13,7 +12,6 @@
 		</div>
 
 		<div class="navbar-actions">
-			<ThemeToggle variant="inline" />
 			<HamburgerMenu />
 		</div>
 	</div>

@@ -5,7 +5,7 @@ interface EntryFixture {
 	created_at: string;
 	entry_date: string;
 	tone_id: string;
-	writing_mode: 'wizard' | 'quick' | 'interview' | 'manual' | null;
+	writing_mode: 'wizard' | 'quick' | 'interview' | 'manual' | 'speak' | null;
 }
 
 interface Fixtures {

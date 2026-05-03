@@ -143,6 +143,49 @@ export async function checkBadgeRateLimit(identifier: string): Promise<RateLimit
 	}
 }
 
+// Whisper transcription is paid-per-minute, so guard tightly. 20/hr matches a
+// realistic user pattern (a handful of voice entries) without leaving room for
+// a runaway loop.
+let transcribeRatelimit: Ratelimit | null = null;
+
+function getTranscribeRateLimiter(): Ratelimit | null {
+	if (transcribeRatelimit) return transcribeRatelimit;
+
+	const upstashUrl = env.UPSTASH_REDIS_REST_URL;
+	const upstashToken = env.UPSTASH_REDIS_REST_TOKEN;
+
+	if (!upstashUrl || !upstashToken) {
+		console.error('Upstash credentials not configured. Rate limiting will fail closed.');
+		return null;
+	}
+
+	const redis = new Redis({ url: upstashUrl, token: upstashToken });
+	transcribeRatelimit = new Ratelimit({
+		redis,
+		limiter: Ratelimit.slidingWindow(20, '1 h'),
+		analytics: true,
+		prefix: 'ratelimit:transcribe'
+	});
+	return transcribeRatelimit;
+}
+
+export async function checkTranscribeRateLimit(identifier: string): Promise<RateLimitResult> {
+	const limiter = getTranscribeRateLimiter();
+
+	if (!limiter) {
+		console.error('Transcribe rate limiter unavailable. Blocking request.');
+		return { success: false, remaining: 0, reset: Date.now() + 60_000 };
+	}
+
+	try {
+		const { success, remaining, reset } = await limiter.limit(identifier);
+		return { success, remaining, reset };
+	} catch (error) {
+		console.error('Transcribe rate limit check failed:', error);
+		return { success: false, remaining: 0, reset: Date.now() + 60_000 };
+	}
+}
+
 // Extract IP from SvelteKit request
 export function getClientIdentifier(request: Request): string {
 	// Vercel sets x-forwarded-for header

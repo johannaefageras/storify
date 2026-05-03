@@ -119,6 +119,7 @@ export type EmojiName =
   | 'shield'
   | 'shortcake'
   | 'shorts'
+  | 'soccer-ball'
   | 'sparkles'
   | 'speaking-head'
   | 'speech-balloon'

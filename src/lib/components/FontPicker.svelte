@@ -25,7 +25,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: 0.25rem;
+		gap: 0.3rem;
 	}
 
 	.font-swatch {
@@ -40,7 +40,7 @@
 		color: var(--color-text-muted);
 		background-color: var(--color-bg-elevated);
 		border: 1px solid var(--color-border);
-		border-radius: 999px;
+		border-radius: var(--radius-md);
 		cursor: pointer;
 		transition:
 			background-color 0.15s ease,

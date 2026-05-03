@@ -69,7 +69,7 @@
 		'quest-log': 'video-game',
 		'self-help': 'woman-meditating',
 		'shakespeare': 'theater-masks',
-		'sportscaster': 'studio-microphone',
+		'sportscaster': 'soccer-ball',
 		'storytelling': 'open-book',
 		'tabloid': 'newspaper',
 		'therapist': 'brain',

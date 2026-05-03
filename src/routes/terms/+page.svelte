@@ -31,22 +31,22 @@
 		<Emoji name={JudgeIcon} size={96} />
 		<h1>Användarvillkor</h1>
 	</div>
-	<p class="updated">Senast uppdaterad: 24 april 2026</p>
+	<p class="updated">Senast uppdaterad: 3 maj 2026</p>
 
 	<section>
 		<h2>Välkommen till Storify</h2>
-		<p>Storify är en app som hjälper dig skriva dagbok genom att ställa frågor om din dag och sedan generera en personlig text med hjälp av AI. Appen kan användas anonymt eller med ett konto, och innehåller även en frivillig publik funktion kallad Gemenskapen där användare kan dela dagboksanteckningar med andra. Genom att använda appen godkänner du dessa villkor.</p>
+		<p>Storify är en app som hjälper dig skriva dagbok genom frågor, fri text, AI-intervju eller röstinspelning och sedan genererar en personlig text med hjälp av AI. Appen kan användas anonymt eller med ett konto, och innehåller även publika informationssidor som Bloggen och Rösterna samt en frivillig publik funktion kallad Gemenskapen där användare kan dela dagboksanteckningar med andra. Genom att använda appen godkänner du dessa villkor.</p>
 	</section>
 
 	<section>
 		<h2>Så fungerar tjänsten</h2>
-		<p>Du kan välja mellan fyra lägen: en fullständig guide med detaljerade frågor om din dag, ett snabbläge där du fångar dagens känsla på under en minut, en AI-intervju där du väljer intervjuare och chattar med en AI som ställer frågor om din dag, eller Skriv fritt där du skriver själv med AI-stöd och redigeringsverktyg. I samtliga lägen väljer du en av {tones.length} skrivstilar och låter vår AI skapa eller förfina ett dagboksinlägg åt dig. I den fullständiga guiden kan du även lägga till tillägg som horoskop, historiska händelser eller en personlig hemläxa.</p>
-		<p>När texten är klar kan du redigera den, regenerera den i en annan röst, spara den i ditt dagboksarkiv om du har konto eller dela den frivilligt till Gemenskapen. Med konto får du dessutom profilsynk, kalender med streak-statistik, badges, skrivpåminnelser och inställningar för veckobrev och månadsbrev.</p>
+		<p>Du kan välja mellan fem lägen: en fullständig guide med detaljerade frågor om din dag, ett snabbläge där du fångar dagens känsla på under en minut, en AI-intervju där du väljer intervjuare och chattar med en AI som ställer frågor om din dag, Tala in där en ljudinspelning transkriberas till text, eller Skriv fritt där du skriver själv med AI-stöd och redigeringsverktyg. I samtliga lägen väljer du en av {tones.length} skrivstilar och låter vår AI skapa eller förfina ett dagboksinlägg åt dig. I den fullständiga guiden kan du även lägga till tillägg som horoskop, historiska händelser eller en personlig hemläxa.</p>
+		<p>När texten är klar kan du redigera den, regenerera den i en annan röst, exportera den som PDF, spara den i ditt dagboksarkiv om du har konto eller dela den frivilligt till Gemenskapen. Med konto får du dessutom profilsynk, kalender med streak-statistik, badges, skrivpåminnelser och inställningar för veckobrev och månadsbrev.</p>
 	</section>
 
 	<section>
 		<h2>Användning utan konto</h2>
-		<p>Du behöver inget konto för att använda Storify. Utan konto lagras din profil, dina inställningar och tillfälliga utkast lokalt i din webbläsare och du har full kontroll över den datan på din enhet. Dagboksdata skickas till AI:n för att skapa texten, men sparas normalt inte hos oss efteråt, förutom om du själv väljer att dela ett inlägg till Gemenskapen eller använda en funktion som kräver serverkontakt.</p>
+		<p>Du behöver inget konto för att använda Storify. Utan konto lagras din profil, dina inställningar och tillfälliga utkast lokalt i din webbläsare och du har full kontroll över den datan på din enhet. Dagboksdata skickas till AI:n för att skapa texten, och ljudinspelningar i Tala in skickas till transkribering när du själv använder den funktionen. Innehållet sparas normalt inte hos oss efteråt, förutom om du själv väljer att dela ett inlägg till Gemenskapen eller använda en funktion som kräver serverkontakt.</p>
 	</section>
 
 	<section>
@@ -56,7 +56,7 @@
 
 	<section>
 		<h2>Ditt innehåll och dina rättigheter</h2>
-		<p>All data du matar in och alla dagbokstexter som genereras tillhör dig. Vi gör inga anspråk på ditt innehåll. Du är fri att använda, spara, dela eller radera dina dagbokstexter precis som du vill.</p>
+		<p>All data du matar in, transkriberad text från dina egna inspelningar och alla dagbokstexter som genereras tillhör dig. Vi gör inga anspråk på ditt innehåll. Du är fri att använda, spara, exportera, dela eller radera dina dagbokstexter precis som du vill.</p>
 		<p>Om du väljer att dela en dagboksanteckning till Gemenskapen ger du Storify rätt att visa det innehållet publikt i appen tillsammans med valt visningsnamn eller som "Anonym". Denna rättighet gäller endast för att driva och visa Gemenskapen.</p>
 		<p>Du ansvarar själv för det innehåll du väljer att dela publikt. Dela därför inte material som du inte har rätt att publicera, eller uppgifter om dig själv eller andra som du inte vill ska bli synliga för andra användare.</p>
 	</section>
@@ -99,6 +99,10 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>Ingen otillåten inspelning:</strong> Använd inte Tala in för att spela in andra personer utan nödvändigt samtycke eller på ett sätt som bryter mot lag eller andras integritet.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Respektera andras integritet:</strong> Om du skriver om andra personer i din dagbok, tänk på deras integritet om du väljer att dela texterna offentligt.</span>
 			</div>
 			<div class="custom-li">
@@ -110,7 +114,7 @@
 
 	<section>
 		<h2>AI-genererat innehåll</h2>
-		<p>Dagbokstexterna skapas av en AI-modell baserat på den information du fyller i. Även om vi strävar efter hög kvalitet kan vi inte garantera att texterna alltid är felfria, korrekta eller passar dina förväntningar. AI:n kan ibland:</p>
+		<p>Dagbokstexterna skapas av en AI-modell baserat på den information du fyller i, skriver, chattar fram eller transkriberar från en ljudinspelning. Även om vi strävar efter hög kvalitet kan vi inte garantera att texterna alltid är felfria, korrekta eller passar dina förväntningar. AI:n kan ibland:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
@@ -130,7 +134,8 @@
 
 	<section>
 		<h2>Tjänstens begränsningar</h2>
-		<p>Storify använder hastighetsbegränsning och andra skydd för att motverka missbruk. Det innebär att antalet förfrågningar till vissa funktioner, till exempel textgenerering, delning och andra serverbaserade åtgärder, kan vara begränsat under en viss tidsperiod. Om du når gränsen kan du försöka igen efter en stund.</p>
+		<p>Storify använder hastighetsbegränsning och andra skydd för att motverka missbruk. Det innebär att antalet förfrågningar till vissa funktioner, till exempel textgenerering, transkribering, delning och andra serverbaserade åtgärder, kan vara begränsat under en viss tidsperiod. Om du når gränsen kan du försöka igen efter en stund.</p>
+		<p>PDF-export skapas i webbläsaren från den text som visas. Vi kan inte garantera att exporten alltid blir identisk i alla webbläsare, enheter eller utskriftsmiljöer.</p>
 	</section>
 
 	<section>
@@ -144,6 +149,14 @@
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content">Eventuella fel eller brister i AI-genererat innehåll</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content">Fel, luckor eller missförstånd i automatisk transkribering</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content">Formateringsproblem i exporterade PDF-filer eller utskrifter</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
@@ -167,6 +180,10 @@
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Anthropic:</strong> AI-tjänsten som genererar dagbokstexter. <a href="https://www.anthropic.com/terms" target="_blank" rel="noopener">Läs deras villkor</a>.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>OpenAI:</strong> Transkriberingstjänsten som används i Tala in-läget för att omvandla ljudinspelningar till text. <a href="https://openai.com/policies/terms-of-use" target="_blank" rel="noopener">Läs deras villkor</a>.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>

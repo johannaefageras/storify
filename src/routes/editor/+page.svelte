@@ -76,6 +76,7 @@
 		// Mark as editor mode
 		wizardStore.updateData('editorMode', true);
 		wizardStore.updateData('quickMode', false);
+		wizardStore.updateData('speakMode', false);
 		wizardStore.updateData('chatMode', false);
 
 		// Try to restore a saved draft

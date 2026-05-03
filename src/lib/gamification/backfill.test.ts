@@ -6,7 +6,7 @@ interface EntryFixture {
 	updated_at: string | null;
 	entry_date: string;
 	tone_id: string;
-	writing_mode: 'wizard' | 'quick' | 'interview' | 'manual' | null;
+	writing_mode: 'wizard' | 'quick' | 'interview' | 'manual' | 'speak' | null;
 	generated_text: string;
 	mood_level: number | null;
 	sleep_quality: number | null;

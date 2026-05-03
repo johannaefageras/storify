@@ -20,12 +20,12 @@
 		<Emoji name="cookie" size={96} />
 		<h1>Cookiepolicy</h1>
 	</div>
-	<p class="updated">Senast uppdaterad: 23 april 2026</p>
+	<p class="updated">Senast uppdaterad: 3 maj 2026</p>
 
 	<section>
 		<h2>Den korta versionen</h2>
 		<p>Storify använder inte cookies för reklam, beteendespårning eller analys. De cookies som kan förekomma är funktionella cookies från vår inloggningstjänst, så att du kan vara inloggad och komma åt ditt konto.</p>
-		<p>Appen använder också lokal lagring i webbläsaren för sådant som tema, accentfärg, lokal profil och tillfälliga utkast. Om du aktiverar påminnelser eller installerar webbappen kan webbläsaren även spara teknisk appdata, till exempel push-prenumeration och cache för statiska filer.</p>
+		<p>Appen använder också lokal lagring i webbläsaren för sådant som tema, accentfärg, lokal profil och tillfälliga utkast. Om du aktiverar påminnelser, använder mikrofonfunktionen eller installerar webbappen kan webbläsaren även spara teknisk appdata, till exempel behörigheter, push-prenumeration och cache för statiska filer.</p>
 	</section>
 
 	<section>
@@ -44,7 +44,7 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Utkast:</strong> Pågående texter och formulärdata från guiden, snabbläget, AI-intervjun och Skriv fritt. Utkast används för att du ska kunna fortsätta om du råkar lämna sidan och tas bort när de blir för gamla eller när flödet rensas</span>
+				<span class="list-content"><strong>Utkast:</strong> Pågående texter och formulärdata från guiden, snabbläget, AI-intervjun, Tala in och Skriv fritt. Utkast används för att du ska kunna fortsätta om du råkar lämna sidan och tas bort när de blir för gamla eller när flödet rensas</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
@@ -53,6 +53,10 @@
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Intervjuflöde:</strong> Meddelanden, vald intervjuare, vald röst och tillägg i en pågående AI-intervju</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>Tala in:</strong> Transkriberad text och vald röst kan ligga kvar lokalt medan du arbetar med en inspelad dagbokstext. Själva mikrofonbehörigheten styrs av webbläsaren.</span>
 			</div>
 		</div>
 		<p>Om du använder Storify utan konto ligger din profil lokalt på den enhet och webbläsare du använder. Om du är inloggad hämtas profilen i stället från ditt konto, men tema och accent kan fortfarande sparas lokalt för att gränssnittet ska laddas rätt.</p>
@@ -91,7 +95,7 @@
 
 	<section>
 		<h2>Tredjepartscookies</h2>
-		<p>Storify bäddar inte in reklam, analysverktyg eller sociala medier-widgets som sätter tredjepartscookies på våra sidor. Det betyder:</p>
+		<p>Storify bäddar inte in reklam, analysverktyg eller sociala medier-widgets som sätter tredjepartscookies på våra sidor. Bloggen och Rösterna är vanliga publika sidor och använder inte spårningscookies för att mäta vad du läser. Det betyder:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
@@ -110,7 +114,13 @@
 				<span class="list-content">Ingen delning av din data med annonsörer</span>
 			</div>
 		</div>
-		<p>Om du klickar på en extern länk, till exempel till GitHub, en integritetspolicy eller en delningsfunktion utanför Storify, lämnar du vår webbplats. Då gäller den externa tjänstens egna villkor och cookiehantering.</p>
+		<p>Om du klickar på en extern länk, till exempel till GitHub, en integritetspolicy eller en delningsfunktion utanför Storify, lämnar du vår webbplats. Då gäller den externa tjänstens egna villkor och cookiehantering. När du använder serverfunktioner som AI-generering eller transkribering skickas data till externa tjänster enligt vår integritetspolicy, men det innebär inte att de sätter spårningscookies i din webbläsare via Storify.</p>
+	</section>
+
+	<section>
+		<h2>Mikrofon, transkribering och PDF-export</h2>
+		<p>Mikrofonåtkomst i Tala in hanteras av webbläsarens behörighetssystem, inte av cookies. Du kan när som helst ändra eller ta bort behörigheten i webbläsarens inställningar för mystorify.se.</p>
+		<p>PDF-exporten skapas i webbläsaren från den dagbokstext som redan visas. Funktionen behöver inte någon särskild cookie och sparar inte PDF-filen i webbläsarens cookie-lagring.</p>
 	</section>
 
 	<section>
@@ -140,12 +150,12 @@
 	<section>
 		<h2>Så kan du radera lagrad information</h2>
 		<p>Du kan alltid logga ut för att avsluta din aktiva session. Vill du rensa lokal appdata, cache eller cookies helt kan du göra det via webbläsarens inställningar för webbplatsdata för mystorify.se.</p>
-		<p>Utkast i guiden, snabbläget, AI-intervjun och Skriv fritt sparas bara tillfälligt och rensas när de blir för gamla eller när du avslutar respektive flöde. Sparade dagboksinlägg i ditt konto raderas däremot i dagboksarkivet, inte genom att rensa webbläsarens cookies.</p>
+		<p>Utkast i guiden, snabbläget, AI-intervjun, Tala in och Skriv fritt sparas bara tillfälligt och rensas när de blir för gamla eller när du avslutar respektive flöde. Sparade dagboksinlägg i ditt konto raderas däremot i dagboksarkivet, inte genom att rensa webbläsarens cookies.</p>
 	</section>
 
 	<section>
 		<h2>Varför vi valt att minimera cookies</h2>
-		<p>Vi tror att din dagbok är privat. Därför använder Storify inte spårningscookies och sparar bara sådan webbläsardata som behövs för att appen ska fungera: inloggning, utkast, inställningar, installerbar webbapp och frivilliga notiser. Det är helt enkelt det rimliga sättet att bygga en dagboksapp.</p>
+		<p>Vi tror att din dagbok är privat. Därför använder Storify inte spårningscookies och sparar bara sådan webbläsardata som behövs för att appen ska fungera: inloggning, utkast, inställningar, mikrofonbehörighet, installerbar webbapp och frivilliga notiser. Det är helt enkelt det rimliga sättet att bygga en dagboksapp.</p>
 	</section>
 
 	<section>

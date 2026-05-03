@@ -1,4 +1,6 @@
 <script lang="ts">
+	import LegalFooter from '$lib/components/LegalFooter.svelte';
+
 	let { data } = $props();
 
 	const dateFormatter = new Intl.DateTimeFormat('sv-SE', {
@@ -51,6 +53,8 @@
 		{@html post.html}
 	</article>
 </main>
+
+<LegalFooter />
 
 <style>
 	.blog-post {

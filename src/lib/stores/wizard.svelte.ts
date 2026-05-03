@@ -74,6 +74,7 @@ export interface WizardData {
   // Quick mode
   quickText: string;
   quickMode: boolean;
+  speakMode: boolean;
 
   // Chat / interview mode
   chatMode: boolean;
@@ -143,6 +144,7 @@ function createWizardStore() {
     includeHomework: true,
     quickText: '',
     quickMode: false,
+    speakMode: false,
     chatMode: false,
     chatTranscript: '',
     editorMode: false,

@@ -61,7 +61,7 @@ export const FIELD_LIMITS: Record<string, number> = {
 	frustrations: LIMITS.LIST_ITEM,
 
 	// Quick mode
-	quickText: LIMITS.TIME_CAPSULE,
+	quickText: 2000,
 
 	// Editor mode
 	freeText: LIMITS.FREE_TEXT,

@@ -33,7 +33,8 @@ const VALID_MODES: ReadonlySet<WritingMode> = new Set<WritingMode>([
 	'wizard',
 	'quick',
 	'interview',
-	'manual'
+	'manual',
+	'speak'
 ]);
 
 const MAX_TRANSCRIPT_MESSAGES = 50;

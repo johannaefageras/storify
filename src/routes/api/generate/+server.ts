@@ -220,8 +220,15 @@ och hitta INTE PÅ detaljer som inte finns i konversationen.`;
       }
     }
 
-    // Quick mode: instruct shorter output with context about available data
-    if (data.quickMode) {
+    if (data.speakMode) {
+      systemPrompt += `\n\nVIKTIGT – TALA IN-LÄGE:
+Användaren har talat in sin dag och du har fått en transkribering. Transkriberingen är huvudkällan – använd den som kärnan i inlägget.
+
+Du har INTE fått humör, sömn, energi, emojis, platser, aktiviteter, personer, mat, musik eller reflektioner som separata strukturerade fält. Om något sådant finns, ska det komma från transkriberingen. Hitta INTE PÅ detaljer som inte finns i datan.
+
+Skriv ett kortare dagboksinlägg på ca 100-150 ord (1-3 korta stycken). Fokusera på det väsentliga och håll det kärnfullt.`;
+    } else if (data.quickMode) {
+      // Quick mode: instruct shorter output with context about available data
       systemPrompt += `\n\nVIKTIGT – SNABBLÄGE:
 Användaren har skrivit detta inlägg i snabbläge. Det innebär att du har betydligt mindre information än ett vanligt dagboksinlägg. Du har fått:
 - Humör (en siffra 1-10)

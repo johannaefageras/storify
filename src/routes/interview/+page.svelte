@@ -257,6 +257,7 @@
 				includeOnThisDay: chatStore.includeOnThisDay,
 				includeHomework: chatStore.includeHomework,
 				quickMode: false,
+				speakMode: false,
 				quickText: ''
 			};
 
@@ -304,6 +305,7 @@
 				includeOnThisDay: chatStore.includeOnThisDay,
 				includeHomework: chatStore.includeHomework,
 				quickMode: false,
+				speakMode: false,
 				quickText: ''
 			};
 

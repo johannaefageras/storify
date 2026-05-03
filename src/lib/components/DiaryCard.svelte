@@ -6,6 +6,7 @@
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
 	import { getRenderParagraphs, formatParagraph } from '$lib/utils/paragraphs';
+	import { downloadAsPdf } from '$lib/utils/pdfDownload';
 
 	interface Props {
 		weekday: string;
@@ -61,7 +62,7 @@
 		'quest-log': 'video-game',
 		'self-help': 'woman-meditating',
 		'shakespeare': 'theater-masks',
-		'sportscaster': 'studio-microphone',
+		'sportscaster': 'soccer-ball',
 		'storytelling': 'open-book',
 		'tabloid': 'newspaper',
 		'therapist': 'brain',
@@ -94,6 +95,31 @@
 	const renderParagraphs = $derived(getRenderParagraphs(generatedText));
 	const tone = $derived(tones.find((t) => t.id === toneId));
 	const ToneIcon = $derived(getToneIcon(toneId));
+
+	let isDownloadingPdf = $state(false);
+
+	function buildFilename(): string {
+		const slug = (title || `dagbok-${date}`)
+			.toLowerCase()
+			.normalize('NFD')
+			.replace(/[̀-ͯ]/g, '')
+			.replace(/[^a-z0-9]+/g, '-')
+			.replace(/^-+|-+$/g, '')
+			.slice(0, 60);
+		return `${slug || 'dagbok'}.pdf`;
+	}
+
+	async function handleDownloadPdf() {
+		if (!documentElement || isDownloadingPdf) return;
+		isDownloadingPdf = true;
+		try {
+			await downloadAsPdf(documentElement, buildFilename());
+		} catch (err) {
+			console.error('PDF download failed', err);
+		} finally {
+			isDownloadingPdf = false;
+		}
+	}
 </script>
 
 <div class="result-document" bind:this={documentElement}>
@@ -156,16 +182,30 @@
 		{/each}
 	</div>
 
-	{#if onClose}
-		<div class="document-footer">
-			<div class="footer-line"></div>
-			<div class="footer-content">
+	<div class="document-footer">
+		<div class="footer-line"></div>
+		<div class="footer-content">
+			{#if onClose}
 				<button class="close-btn" data-no-export onclick={onClose} title="Stäng">
 					<Emoji name="cross-mark" size={28} />
 				</button>
-			</div>
+			{/if}
+			<button
+				class="print-btn"
+				data-no-export
+				onclick={handleDownloadPdf}
+				disabled={isDownloadingPdf}
+				title="Spara som PDF"
+				aria-label="Spara som PDF"
+			>
+				{#if isDownloadingPdf}
+					<span class="spinner" aria-hidden="true"></span>
+				{:else}
+					<Emoji name="printer" size={28} />
+				{/if}
+			</button>
 		</div>
-	{/if}
+	</div>
 </div>
 
 <style>
@@ -330,11 +370,12 @@
 
 	.footer-content {
 		display: flex;
-		justify-content: flex-start;
+		justify-content: space-between;
 		align-items: center;
 	}
 
-	.close-btn {
+	.close-btn,
+	.print-btn {
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -348,12 +389,36 @@
 		transition: transform 0.2s ease, opacity 0.15s ease;
 	}
 
-	.close-btn:hover {
+	.print-btn {
+		margin-left: auto;
+	}
+
+	.close-btn:hover,
+	.print-btn:hover:not(:disabled) {
 		transform: scale(1.1);
 	}
 
-	.close-btn:active {
+	.close-btn:active,
+	.print-btn:active:not(:disabled) {
 		transform: scale(0.95);
+	}
+
+	.print-btn:disabled {
+		cursor: default;
+		opacity: 0.6;
+	}
+
+	.spinner {
+		width: 18px;
+		height: 18px;
+		border: 2px solid var(--color-border);
+		border-top-color: var(--color-text);
+		border-radius: 50%;
+		animation: spin 0.8s linear infinite;
+	}
+
+	@keyframes spin {
+		to { transform: rotate(360deg); }
 	}
 
 	@media (max-width: 640px) {

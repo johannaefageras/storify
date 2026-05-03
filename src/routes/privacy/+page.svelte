@@ -20,7 +20,7 @@
 		<Emoji name="shield" size={96} />
 		<h1>Integritetspolicy</h1>
 	</div>
-	<p class="updated">Senast uppdaterad: 24 april 2026</p>
+	<p class="updated">Senast uppdaterad: 3 maj 2026</p>
 
 	<section>
 		<h2>Vem ansvarar för dina uppgifter?</h2>
@@ -37,7 +37,11 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Dagboksdata:</strong> Datum, väder, platsnamn, humör, energinivå, sömnkvalitet, emojis, platser du besökt, aktiviteter, personer du träffat, vinster, motgångar, reflektioner, mat, musik, färg, tidskapsel, fri text i redigeraren, korttext i snabbläget och innehåll från AI-intervjun</span>
+				<span class="list-content"><strong>Dagboksdata:</strong> Datum, väder, platsnamn, humör, energinivå, sömnkvalitet, emojis, platser du besökt, aktiviteter, personer du träffat, vinster, motgångar, reflektioner, mat, musik, färg, tidskapsel, fri text i redigeraren, korttext i snabbläget, innehåll från AI-intervjun och transkriberad text från Tala in-läget</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>Ljuddata:</strong> Om du använder Tala in-läget behandlas ljudinspelningen tillfälligt för att kunna transkribera den. Själva ljudfilen används för transkriberingen och sparas inte som ett dagboksinlägg hos oss. Den transkriberade texten kan däremot användas för att generera, redigera och spara din dagbokstext om du väljer det.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
@@ -67,7 +71,7 @@
 		<p>Var din data lagras beror på om du använder appen med eller utan konto:</p>
 
 		<h3>Utan konto</h3>
-		<p>Din profil, dina inställningar och tillfälliga utkast lagras lokalt i din webbläsare med hjälp av webbläsarens inbyggda lagringsfunktioner. Vi har normalt ingen direkt tillgång till denna lokala data och den lämnar inte din enhet förrän du själv väljer att använda en funktion som kräver serverkontakt, till exempel att generera en dagbokstext, dela till Gemenskapen eller skicka ett meddelande via kontaktsidan.</p>
+		<p>Din profil, dina inställningar och tillfälliga utkast lagras lokalt i din webbläsare med hjälp av webbläsarens inbyggda lagringsfunktioner. Vi har normalt ingen direkt tillgång till denna lokala data och den lämnar inte din enhet förrän du själv väljer att använda en funktion som kräver serverkontakt, till exempel att generera en dagbokstext, transkribera en ljudinspelning, dela till Gemenskapen eller skicka ett meddelande via kontaktsidan.</p>
 		<p>Om du utan konto väljer att dela en dagboksanteckning till Gemenskapen lagras just det delade inlägget i molnet för att kunna visas publikt i appen. Inlägget kan visas med det visningsnamn du anger, eller som "Anonym" om du lämnar fältet tomt.</p>
 		<p>Om du vill radera lokalt sparad data utan konto gör du det via din webbläsares inställningar för webbplatsdata för mystorify.se.</p>
 
@@ -86,12 +90,33 @@
 	</section>
 
 	<section>
+		<h2>När du använder Tala in</h2>
+		<p>Tala in-läget använder din webbläsares mikrofonåtkomst. Inspelningen startar bara när du själv trycker på inspelningsknappen och ger webbläsaren tillåtelse att använda mikrofonen.</p>
+		<p>När du stoppar inspelningen skickas ljudfilen krypterat till Storifys server och vidare till OpenAI för transkribering. Transkriberingen skickas tillbaka till appen som text. Ljudfilen sparas inte i ditt dagboksarkiv hos oss, men den kan behandlas tillfälligt av de tjänster som behövs för att skapa transkriberingen.</p>
+		<p>Den transkriberade texten behandlas därefter som annan dagboksdata. Om du använder texten för att generera en dagbok skickas den vidare till AI-tjänsten som skapar dagbokstexten. Om du sparar inlägget med konto lagras den färdiga dagbokstexten i ditt arkiv.</p>
+	</section>
+
+	<section>
+		<h2>När du exporterar PDF</h2>
+		<p>PDF-exporten skapas i din webbläsare från den dagbokstext som redan visas på sidan. Själva exporten skapar ingen ny molnlagring hos oss och skickar inte PDF-filen till Storify. Filen sparas på din enhet om du väljer att ladda ner den.</p>
+	</section>
+
+	<section>
+		<h2>När du läser bloggen och Rösterna</h2>
+		<p>Bloggen och sidan Rösterna är publika informationssidor. Att läsa blogginlägg eller röstexempel gör inte dina egna dagboksanteckningar publika och sparar inte något nytt dagboksinnehåll hos oss.</p>
+	</section>
+
+	<section>
 		<h2>Hur används dina uppgifter?</h2>
 		<p>Din data används för följande syften:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Generera dagbokstexter:</strong> När du väljer att skapa eller förfina en text skickas de uppgifter som behövs krypterat till vår AI-tjänst (Anthropic) för att generera resultatet</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>Transkribera ljud:</strong> När du använder Tala in skickas ljudinspelningen till OpenAI via vår server för att omvandlas till text</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
@@ -122,7 +147,7 @@
 				<span class="list-content"><strong>Säkerhet och missbruksskydd:</strong> Vi använder hastighetsbegränsning och tekniska skydd för att minska spam, missbruk och angrepp mot tjänsten. I samband med detta behandlas en anonymiserad identifierare tillfälligt</span>
 			</div>
 		</div>
-		<p>Rättslig grund enligt GDPR beror på vilken funktion som används. När vi tillhandahåller konto- och appfunktioner som du själv använder sker behandlingen normalt för att kunna leverera tjänsten. För valfria funktioner som platsåtkomst, Gemenskapen, nyhetsbrev och pushpåminnelser bygger behandlingen på dina aktiva val eller ditt samtycke. För säkerhet, felhantering och missbruksskydd kan vi också behandla uppgifter med stöd av vårt berättigade intresse att hålla tjänsten säker och fungerande. Officiell EU-vägledning om rättsliga grunder finns hos Europeiska kommissionen och Europeiska dataskyddsstyrelsen: <a href="https://commission.europa.eu/law/law-topic/data-protection/rules-business-and-organisations/legal-grounds-processing-data/grounds-processing/when-can-personal-data-be-processed_en" target="_blank" rel="noopener">European Commission</a> och <a href="https://www.edpb.europa.eu/sme-data-protection-guide/process-personal-data-lawfully_en" target="_blank" rel="noopener">EDPB</a>.</p>
+		<p>Rättslig grund enligt GDPR beror på vilken funktion som används. När vi tillhandahåller konto- och appfunktioner som du själv använder sker behandlingen normalt för att kunna leverera tjänsten. För valfria funktioner som platsåtkomst, mikrofonåtkomst, Gemenskapen, nyhetsbrev och pushpåminnelser bygger behandlingen på dina aktiva val eller ditt samtycke. För säkerhet, felhantering och missbruksskydd kan vi också behandla uppgifter med stöd av vårt berättigade intresse att hålla tjänsten säker och fungerande. Officiell EU-vägledning om rättsliga grunder finns hos Europeiska kommissionen och Europeiska dataskyddsstyrelsen: <a href="https://commission.europa.eu/law/law-topic/data-protection/rules-business-and-organisations/legal-grounds-processing-data/grounds-processing/when-can-personal-data-be-processed_en" target="_blank" rel="noopener">European Commission</a> och <a href="https://www.edpb.europa.eu/sme-data-protection-guide/process-personal-data-lawfully_en" target="_blank" rel="noopener">EDPB</a>.</p>
 	</section>
 
 	<section>
@@ -132,6 +157,10 @@
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Anthropic (Claude):</strong> AI-tjänst som genererar och förfinar dagbokstexter. Läs mer i <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">Anthropics integritetspolicy</a>.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>OpenAI:</strong> Transkriberingstjänst som används i Tala in-läget för att omvandla ljudinspelningar till text. Läs mer i <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener">OpenAIs integritetspolicy</a>.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>

@@ -96,7 +96,7 @@
 
 	<section>
 		<h2>Jag vill gärna höra från dig!</h2>
-		<p>Har du en idé, hittat något som gick sönder, vill samarbeta, strö beröm eller gnälla (konstruktivt) – eller bara säga hej? Tveka inte att höra av dig. Jag svarar vanligtvis inom ett par dagar.</p>
+		<p>Har du en idé, hittat något som gick sönder, vill samarbeta, strö beröm eller gnälla (konstruktivt) – eller bara säga hej? Det gäller förstås också om du har feedback på Tala in, PDF-export, bloggen, Rösterna eller någon av de nya rösterna. Tveka inte att höra av dig. Jag svarar vanligtvis inom ett par dagar.</p>
 	</section>
 
 	<section class="form-section">
@@ -143,6 +143,10 @@
 					<option value="say-hi">Vill bara säga hej</option>
 					<option value="ideas">Jag har en idé!</option>
 					<option value="bugs">Något gick sönder..</option>
+					<option value="speak-mode">Tala in / mikrofon / transkribering</option>
+					<option value="pdf-export">PDF-export</option>
+					<option value="voices">Rösterna och röstförslag</option>
+					<option value="blog">Bloggen</option>
 					<option value="praise">Beröm och lovord</option>
 					<option value="complaints">Gnäll (Konstruktivt)</option>
 					<option value="co-op">Samarbeten</option>
@@ -177,7 +181,7 @@
 					</button>
 					<span class="file-input-text">{fileName || 'Inga filer valda'}</span>
 				</div>
-				<p class="field-hint">T.ex. skärmdumpar om något gick sönder</p>
+				<p class="field-hint">T.ex. skärmdumpar om något gick sönder, eller en PDF som inte blev rätt</p>
 			</div>
 
 			<button type="submit" class="btn btn-primary" disabled={isSubmitting}>

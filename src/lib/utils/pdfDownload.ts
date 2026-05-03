@@ -1,3 +1,27 @@
+function resolveBackgroundColor(element: HTMLElement): string {
+	let node: HTMLElement | null = element;
+	while (node) {
+		const bg = getComputedStyle(node).backgroundColor;
+		if (bg && bg !== 'transparent' && !/rgba\(\s*0\s*,\s*0\s*,\s*0\s*,\s*0\s*\)/.test(bg)) {
+			return bg;
+		}
+		node = node.parentElement;
+	}
+	return getComputedStyle(document.body).backgroundColor || '#ffffff';
+}
+
+function parseRgb(color: string): [number, number, number] {
+	const match = color.match(/-?\d+(\.\d+)?/g);
+	if (match && match.length >= 3) {
+		return [
+			Math.max(0, Math.min(255, Math.round(Number(match[0])))),
+			Math.max(0, Math.min(255, Math.round(Number(match[1])))),
+			Math.max(0, Math.min(255, Math.round(Number(match[2]))))
+		];
+	}
+	return [255, 255, 255];
+}
+
 export async function downloadAsPdf(element: HTMLDivElement, filename: string): Promise<void> {
 	const a4WidthMm = 210;
 	const a4HeightMm = 297;
@@ -9,6 +33,8 @@ export async function downloadAsPdf(element: HTMLDivElement, filename: string): 
 
 	await document.fonts.ready;
 
+	const backgroundColor = resolveBackgroundColor(element);
+
 	// Clone element into a fresh container at document root to avoid parent CSS constraints
 	const clone = element.cloneNode(true) as HTMLDivElement;
 	clone.style.position = 'fixed';
@@ -17,6 +43,7 @@ export async function downloadAsPdf(element: HTMLDivElement, filename: string): 
 	clone.style.width = '794px';
 	clone.style.zIndex = '-9999';
 	clone.style.pointerEvents = 'none';
+	clone.querySelectorAll('[data-no-export]').forEach((el) => el.remove());
 	document.body.appendChild(clone);
 
 	// Force layout
@@ -24,7 +51,7 @@ export async function downloadAsPdf(element: HTMLDivElement, filename: string): 
 
 	const renderScale = 3;
 	const canvas = await html2canvas(clone, {
-		backgroundColor: '#ffffff',
+		backgroundColor,
 		useCORS: true,
 		logging: false,
 		scale: renderScale
@@ -53,6 +80,11 @@ export async function downloadAsPdf(element: HTMLDivElement, filename: string): 
 			pdf.addPage();
 		}
 
+		// Fill the entire page with the resolved background so margins match the content
+		const [r, g, b] = parseRgb(backgroundColor);
+		pdf.setFillColor(r, g, b);
+		pdf.rect(0, 0, a4WidthMm, a4HeightMm, 'F');
+
 		// Slice the canvas for this page
 		const srcY = Math.round((page * printHeight) / scale);
 		const srcH = Math.round(printHeight / scale);
@@ -62,7 +94,7 @@ export async function downloadAsPdf(element: HTMLDivElement, filename: string): 
 		pageCanvas.width = canvas.width;
 		pageCanvas.height = actualSrcH;
 		const ctx = pageCanvas.getContext('2d')!;
-		ctx.fillStyle = '#ffffff';
+		ctx.fillStyle = backgroundColor;
 		ctx.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
 		ctx.drawImage(canvas, 0, srcY, canvas.width, actualSrcH, 0, 0, canvas.width, actualSrcH);
 

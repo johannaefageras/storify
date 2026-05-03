@@ -67,15 +67,15 @@
 		<h1>Användarguide</h1>
 	</div>
 	<p class="subtitle">Så får du ut det bästa av Storify</p>
-	<p class="updated">Senast uppdaterad: 23 april 2026</p>
+	<p class="updated">Senast uppdaterad: 3 maj 2026</p>
 
 	<section>
 		<h2>Hur fungerar Storify?</h2>
-		<p>Storify hjälper dig att skriva dagbok genom att omvandla dina svar på enkla frågor till en personlig dagbokstext. Du väljer en röst som passar ditt humör, och sedan skapar AI:n en text baserad på det du berättat.</p>
+		<p>Storify hjälper dig att skriva dagbok genom att omvandla dina svar, anteckningar, chattar eller röstinspelningar till en personlig dagbokstext. Du väljer en röst som passar ditt humör, och sedan skapar AI:n en text baserad på det du berättat.</p>
 		<p>Tänk på det som att ha en personlig författare som lyssnar på din dag och sedan skriver ner den åt dig – men med din egen information och i den stil du väljer.</p>
 		<p>I den fullständiga guiden kan appen även hämta aktuellt väder och din plats automatiskt, så du slipper fylla i det manuellt – ett litet sätt att fånga stämningen i din dag.</p>
 		<p>Vill du ibland dela mer än bara med dig själv? Storify har också <strong>Gemenskapen</strong>, där du frivilligt kan publicera utvalda dagboksanteckningar och läsa sådant andra användare valt att dela.</p>
-		<p>Du kan välja mellan fyra lägen:</p>
+		<p>Du kan välja mellan fem lägen:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
@@ -91,9 +91,20 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>Tala in</strong> – Spela in dagens tankar med mikrofonen. Storify transkriberar det du säger och gör sedan om det till en dagbokstext i vald röst.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Skriv fritt</strong> – Skriv fritt i en textredigerare med formateringsverktyg och AI-stöd som kan förfina och polera din text när du är klar.</span>
 			</div>
 		</div>
+	</section>
+
+	<section>
+		<h2>Tala in</h2>
+		<p>Tala in-läget passar när du hellre pratar än skriver. Du spelar in upp till fem minuter, Storify gör om ljudet till text, och sedan används transkriberingen som underlag för din dagbok.</p>
+		<p>Du kan välja röst precis som i de andra lägena. Det gör att samma inspelning kan bli rak dagbok, prosapoesi, Göteborgshumor, sjörövarlogg eller något helt annat.</p>
+		<p>Tips: prata naturligt och ta med konkreta detaljer. Det gör inget om du ändrar dig, upprepar dig eller pratar i ofärdiga meningar – texten kan redigeras efteråt. Du hittar läget via <a href="/speak">/speak</a>.</p>
 	</section>
 
 	<section>
@@ -155,7 +166,7 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon number-icon"><Number7 size={14} /></span>
-				<span class="list-content"><strong>Generera och spara</strong> – Granska en sammanfattning, tryck på knappen och låt magin hända! Efteråt kan du redigera texten, regenerera den i en annan röst, spara den i ditt dagboksarkiv eller publicera den i Gemenskapen.</span>
+				<span class="list-content"><strong>Generera och spara</strong> – Granska en sammanfattning, tryck på knappen och låt magin hända! Efteråt kan du redigera texten, regenerera den i en annan röst, exportera den som PDF, spara den i ditt dagboksarkiv eller publicera den i Gemenskapen.</span>
 			</div>
 		</div>
 		<p>Inte alla steg är obligatoriska – fyll i det som känns relevant och hoppa över resten. AI:n arbetar med det du ger den.</p>
@@ -218,13 +229,13 @@
 
 	<section>
 		<h2>Välj rätt röst</h2>
-		<p>Rösten du väljer påverkar stilen på din dagbokstext. Det finns {tones.length} röster totalt. Klicka på en röst för att läsa mer och se exempel:</p>
+		<p>Rösten du väljer påverkar stilen på din dagbokstext. Det finns {tones.length} röster totalt, inklusive Poeten, Kulturtanten, Piraten och Göteborgaren. Klicka på en röst för att läsa mer och se exempel, eller öppna <a href="/voices">Rösterna</a> för längre provtexter:</p>
 
 		<div class="voice-grid-compact">
 			{#snippet ledgerIcon()}<Emoji name="ledger" size={20} />{/snippet}
 			{#snippet openBookIcon()}<Emoji name="open-book" size={20} />{/snippet}
 			{#snippet owlIcon()}<Emoji name="owl" size={20} />{/snippet}
-			{#snippet studioMicrophoneIcon()}<Emoji name="studio-microphone" size={20} />{/snippet}
+			{#snippet soccerBallIcon()}<Emoji name="soccer-ball" size={20} />{/snippet}
 			{#snippet catIcon()}<Emoji name="cat" size={20} />{/snippet}
 			{#snippet unamusedIcon()}<Emoji name="face-unamused" size={20} />{/snippet}
 			{#snippet crownIcon()}<Emoji name="crown" size={20} />{/snippet}
@@ -265,8 +276,8 @@
 				<span class="voice-chip-emoji">{@render owlIcon()}</span>
 				<span class="voice-chip-name">Filosofen</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'sportscaster', name: 'Sportkommentatorn', description: 'OCH HAN GÖR DET! Spänning och energi i varje moment!', icon: studioMicrophoneIcon })}>
-				<span class="voice-chip-emoji">{@render studioMicrophoneIcon()}</span>
+			<button class="voice-chip" onclick={() => openModal({ id: 'sportscaster', name: 'Sportkommentatorn', description: 'OCH HAN GÖR DET! Spänning och energi i varje moment!', icon: soccerBallIcon })}>
+				<span class="voice-chip-emoji">{@render soccerBallIcon()}</span>
 				<span class="voice-chip-name">Sportkommentatorn</span>
 			</button>
 			<button class="voice-chip" onclick={() => openModal({ id: 'cat-perspective', name: 'Katten', description: 'Din dag sedd genom kattens dömande och nyfikna ögon.', icon: catIcon })}>
@@ -467,6 +478,13 @@
 				</div>
 			</div>
 			<div class="save-card">
+				<span class="save-emoji"><Emoji name="printer" size={28} /></span>
+				<div class="save-content">
+					<h3>Exportera PDF</h3>
+					<p>Ladda ner inlägget som en formgiven PDF för att spara eller skriva ut.</p>
+				</div>
+			</div>
+			<div class="save-card">
 				<span class="save-emoji"><Emoji name="users-silhouette" size={28} /></span>
 				<div class="save-content">
 					<h3>Dela till Gemenskapen</h3>
@@ -482,7 +500,7 @@
 	<section>
 		<h2>Gemenskapen</h2>
 		<p>Gemenskapen är Storifys publika flöde för dagboksanteckningar som användare själva valt att dela. Där kan du upptäcka olika röster, läsa andras vardagsberättelser och få inspiration till hur samma slags dag kan låta i helt olika toner.</p>
-		<p>Du kan dela direkt efter att du skapat en text i guiden, snabbläget, AI-intervjun eller Skriv fritt. Har du redan sparat en anteckning i ditt dagboksarkiv kan du också dela den därifrån senare.</p>
+		<p>Du kan dela direkt efter att du skapat en text i guiden, snabbläget, AI-intervjun, Tala in eller Skriv fritt. Har du redan sparat en anteckning i ditt dagboksarkiv kan du också dela den därifrån senare.</p>
 		<p>För att läsa delade inlägg går du till <a href="/community">Gemenskapen</a>. För att publicera väljer du knappen för delning när du är klar med din text.</p>
 	</section>
 
@@ -530,7 +548,10 @@
 		<p>Nej! Fyll i det som känns relevant. Hade du ingen speciell mat? Skippa det. Vet du inte vad som spelades? Det går bra. AI:n arbetar med det du ger den.</p>
 
 		<h3>Kan jag redigera texten efteråt?</h3>
-		<p>Ja. Efter att texten skapats kan du öppna redigeringsläget och ändra texten direkt i appen. Du kan också regenerera texten i en annan röst.</p>
+		<p>Ja. Efter att texten skapats kan du öppna redigeringsläget och ändra texten direkt i appen. Du kan också regenerera texten i en annan röst eller exportera den som PDF.</p>
+
+		<h3>Kan jag läsa mer om dagboksskrivande?</h3>
+		<p>Ja. På <a href="/blog">bloggen</a> finns längre texter om dagbok, AI, reflektion och olika sätt att komma igång när skrivandet känns trögt.</p>
 
 		<h3>Sparas min data?</h3>
 		<p>Om du använder appen utan konto sparas din profil och tillfälliga utkast lokalt på din enhet. Informationen skickas till AI:n först när du väljer att generera en text. Om du har ett konto sparas din profil och dina sparade dagboksinlägg i molnet via Supabase så att du kan komma åt dem från olika enheter. Läs mer i vår <a href="/privacy">integritetspolicy</a>.</p>
@@ -566,6 +587,10 @@
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Prova olika röster</strong> – Samma dag kan bli rolig, poetisk eller dramatisk beroende på vilken röst du väljer.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>Lyssna på dig själv</strong> – Om du fastnar vid tangentbordet, använd Tala in och prata igenom dagen istället.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>

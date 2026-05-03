@@ -42,11 +42,11 @@
 			comingSoon: false
 		},
 		{
-			id: 'wizard',
-			title: 'Steg-för-steg',
-			description: 'Svara på frågor om din dag och få en detaljerad dagbokstext.',
-			href: '/wizard',
-			icon: 'compass',
+			id: 'speak',
+			title: 'Tala in',
+			description: 'Diktera dagens tankar istället för att skriva.',
+			href: '/speak',
+			icon: 'studio-microphone',
 			comingSoon: false
 		},
 		{
@@ -55,6 +55,14 @@
 			description: 'Fånga dagens känsla på under en minut, utan krångel.',
 			href: '/quick',
 			icon: 'rocket',
+			comingSoon: false
+		},
+		{
+			id: 'wizard',
+			title: 'Steg-för-steg',
+			description: 'Svara på frågor om din dag och få en detaljerad dagbokstext.',
+			href: '/wizard',
+			icon: 'compass',
 			comingSoon: false
 		},
 		{
@@ -89,21 +97,25 @@
 	];
 
 	const featuredTones = [
+		{ id: 'passive-aggressive', name: 'Martyren', icon: 'headstone', preview: 'Jag tog det själv. Någon behövde ju bära dagens lilla börda.' },
+		{ id: 'cynical', name: 'Cynikern', icon: 'face-unamused', preview: 'Det gick bra. Inte för att jag förväntade mig det, men ibland har världen sina ögonblick.' },
+		{ id: 'self-help', name: 'Livscoachen', icon: 'woman-meditating', preview: 'Ibland är de långsamma dagarna de viktigaste. Du är nog. Precis som du är.' },
+		{ id: 'formal', name: 'Akademikern', icon: 'top-hat', preview: 'Dagens preliminära tes: även en tisdag kan erbjuda intressant empiri.' },
+		{ id: 'shakespeare', name: 'Shakespeare', icon: 'theater-masks', preview: 'Hör, vad ljus från morgonfönstret bryter? Det är alarmet, och jag är trött.' },
+		{ id: 'ai-robot', name: 'AI-Roboten', icon: 'robot', preview: 'SYSTEMLOGG: Ny dag initierad. Status: operationell.' },
+		{ id: 'therapist', name: 'Psykologen', icon: 'brain', preview: 'Jag hör att det var en utmanande dag. Det är okej att känna så.' },
+		{ id: 'quest-log', name: 'Gamern', icon: 'video-game', preview: '[QUEST ACCEPTED] Överlev måndagen. Reward: +10 XP' },
+		{ id: 'british', name: 'Britten', icon: 'flag-uk', preview: 'Rather uneventful day, I must say. Not bad though.' },
+		{ id: 'philosophical', name: 'Filosofen', icon: 'owl', preview: 'Vad är egentligen en dag, om inte en samling ögonblick...' },
 		{ id: 'storytelling', name: 'Berättaren', icon: 'open-book', preview: 'Det var en grå tisdag när allt förändrades...' },
-		{ id: 'cat-perspective', name: 'Katten', icon: 'cat', preview: 'Människan vaknade sent igen. Typiskt.' },
-		{ id: 'sportscaster', name: 'Sportkommentatorn', icon: 'studio-microphone', preview: 'OCH HAN KLIVER UPP UR SÄNGEN! Vilken start på dagen!' },
-		{ id: 'drama-queen', name: 'Divan', icon: 'crown', preview: 'ALDRIG har någon upplevt en sådan MONUMENTAL morgon!' },
-		{ id: 'poet', name: 'Poeten', icon: 'feather', preview: 'Dagen låg grå och mjuk över mig, som en filt av tystnad.' },
-		{ id: 'pirate', name: 'Piraten', icon: 'pirate-flag', preview: 'Kaptenens logg: jag satte kurs mot ännu en vardag på öppet hav.' },
-		{ id: 'gothenburger', name: 'Göteborgaren', icon: 'tram', preview: 'Jajamen, dagen rullade på som en spårvagn i sidledes regn.' },
-		{ id: 'six-year-old', name: 'Sexåringen', icon: 'teddy-bear', preview: 'Idag hände det JÄTTEMYCKET. Typ hundra grejer. Fast mest bara två.' }
+		{ id: 'sportscaster', name: 'Sportkommentatorn', icon: 'soccer-ball', preview: 'OCH HAN KLIVER UPP UR SÄNGEN! Vilken start på dagen!' }
 	];
 
-	const features = [
+	const features: Array<{ icon: string; title: string; description: string; href?: string }> = [
+		{ icon: 'studio-microphone', title: 'Tala in', description: 'Diktera dagens tankar istället för att skriva – AI:n gör om rösten till text.' },
 		{ icon: 'printer', title: 'PDF-export', description: 'Skriv ut eller spara dina sidor som vackra PDF:er.' },
-		{ icon: 'file-cabinet', title: 'Privat journal', description: 'Alla dina dagboksinlägg samlade och sökbara på ett ställe.' },
+		{ icon: 'file-cabinet', title: 'Privat dagbok', description: 'Alla dina dagboksinlägg samlade och sökbara på ett ställe.' },
 		{ icon: 'palette', title: 'Personlig stil', description: 'Välj accentfärg, typsnitt och tema som passar dig.' },
-		{ icon: 'microphone', title: 'Tala in din dag', description: 'Diktera istället för att skriva när du är på språng.' },
 		{ icon: 'crystal-ball', title: 'Tillägg', description: 'Lägg till horoskop, "denna dag i historien" eller en kort reflektionsuppgift.' },
 		{ icon: 'loudspeaker', title: 'Community', description: 'Dela utvalda inlägg anonymt om du vill – eller behåll allt för dig själv.' }
 	];
@@ -257,17 +269,18 @@
 				<div class="tones-grid">
 					{#each featuredTones as tone}
 						<div class="tone-card">
-							<div class="tone-card-header">
-								<span class="tone-icon">
-									<Emoji name={tone.icon} size={28} />
-								</span>
-								<span class="tone-name">{tone.name}</span>
-							</div>
+							<span class="tone-icon">
+								<Emoji name={tone.icon} size={40} />
+							</span>
+							<span class="tone-name">{tone.name}</span>
 							<p class="tone-preview">{tone.preview}</p>
 						</div>
 					{/each}
 				</div>
-				<p class="tones-footnote">…och 24 till. Influencern, Shakespeare, Foliehatten, Livscoachen…</p>
+				<p class="tones-footnote">
+					…och 20 till. Influencern, Foliehatten, Poeten, Piraten…
+					<a href="/voices" class="tones-link">Utforska alla röster →</a>
+				</p>
 			</div>
 		</section>
 
@@ -299,13 +312,23 @@
 				<h2 class="section-title">Mer än bara text</h2>
 				<div class="features-grid">
 					{#each features as feature}
-						<div class="feature-card">
-							<div class="feature-icon">
-								<Emoji name={feature.icon} size={36} />
+						{#if feature.href}
+							<a class="feature-card feature-card-link" href={feature.href}>
+								<div class="feature-icon">
+									<Emoji name={feature.icon} size={36} />
+								</div>
+								<h3 class="feature-title">{feature.title}</h3>
+								<p class="feature-description">{feature.description}</p>
+							</a>
+						{:else}
+							<div class="feature-card">
+								<div class="feature-icon">
+									<Emoji name={feature.icon} size={36} />
+								</div>
+								<h3 class="feature-title">{feature.title}</h3>
+								<p class="feature-description">{feature.description}</p>
 							</div>
-							<h3 class="feature-title">{feature.title}</h3>
-							<p class="feature-description">{feature.description}</p>
-						</div>
+						{/if}
 					{/each}
 				</div>
 			</div>
@@ -367,7 +390,7 @@
 		display: flex;
 		flex-direction: column;
 		text-align: center;
-		max-width: 520px;
+		max-width: 600px;
 		width: 100%;
 	}
 
@@ -681,25 +704,26 @@
 	/* Modes */
 
 	.mode-grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
+		display: flex;
+		flex-direction: column;
 		gap: 0.75rem;
 		width: 100%;
 	}
 
 	.mode-grid-landing {
-		gap: 1rem;
-		max-width: 720px;
+		gap: 0.875rem;
+		max-width: 780px;
 		margin: 0 auto;
 	}
 
 	.mode-card {
 		position: relative;
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
 		align-items: center;
-		gap: 0.625rem;
-		padding: clamp(1rem, 2.5vh, 1.5rem) 1rem;
+		justify-content: flex-start;
+		gap: 1.25rem;
+		padding: clamp(1.25rem, 3vh, 1.75rem) 1.25rem;
 		background: var(--color-bg-elevated);
 		border-radius: var(--radius-md);
 		border: 1px solid var(--color-border);
@@ -711,6 +735,12 @@
 
 	.section:nth-of-type(even) .mode-card {
 		background: var(--color-bg);
+	}
+
+	.mode-card-content {
+		text-align: left;
+		flex: 1 1 auto;
+		min-width: 0;
 	}
 
 	.mode-card:hover {
@@ -732,10 +762,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-	}
-
-	.mode-card-content {
-		text-align: center;
+		flex-shrink: 0;
 	}
 
 	.mode-card-title {
@@ -774,9 +801,10 @@
 		border-radius: var(--radius-sm);
 	}
 
-	@media (max-width: 380px) {
-		.mode-grid {
-			grid-template-columns: 1fr;
+	@media (max-width: 420px) {
+		.mode-card {
+			gap: 0.875rem;
+			padding: 1rem;
 		}
 	}
 
@@ -784,12 +812,29 @@
 
 	.tones-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+		grid-template-columns: repeat(4, 1fr);
 		gap: 0.75rem;
 	}
 
+	@media (max-width: 720px) {
+		.tones-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 420px) {
+		.tones-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
 	.tone-card {
-		padding: 1rem 1.125rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 0.5rem;
+		padding: 1.25rem 1rem;
 		background: var(--color-bg);
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-md);
@@ -797,13 +842,6 @@
 
 	.section:nth-of-type(even) .tone-card {
 		background: var(--color-bg-elevated);
-	}
-
-	.tone-card-header {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		margin-bottom: 0.5rem;
 	}
 
 	.tone-icon {
@@ -840,6 +878,19 @@
 		margin: 1.75rem 0 0 0;
 	}
 
+	.tones-link {
+		display: inline-block;
+		margin-left: 0.5rem;
+		color: var(--color-accent);
+		font-weight: var(--weight-semibold);
+		text-decoration: none;
+		white-space: nowrap;
+	}
+
+	.tones-link:hover {
+		text-decoration: underline;
+	}
+
 	/* Sample */
 
 	.sample-wrapper {
@@ -865,6 +916,19 @@
 
 	.section:nth-of-type(even) .feature-card {
 		background: var(--color-bg-elevated);
+	}
+
+	.feature-card-link {
+		display: block;
+		color: inherit;
+		text-decoration: none;
+		transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+	}
+
+	.feature-card-link:hover {
+		border-color: var(--color-accent);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 16px rgba(244, 63, 122, 0.12);
 	}
 
 	.feature-icon {

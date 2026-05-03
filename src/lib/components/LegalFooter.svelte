@@ -1,10 +1,16 @@
 <footer class="legal-footer">
-	<nav class="footer-links" aria-label="Juridisk information">
-		<a href="/privacy">Integritetspolicy</a>
+	<nav class="footer-links" aria-label="Sidfotslänkar">
+		<a href="/about">Om</a>
 		<span class="separator" aria-hidden="true">·</span>
-		<a href="/terms">Användarvillkor</a>
+		<a href="/guide">Guide</a>
 		<span class="separator" aria-hidden="true">·</span>
-		<a href="/cookies">Cookiepolicy</a>
+		<a href="/contact">Kontakt</a>
+		<span class="separator" aria-hidden="true">·</span>
+		<a href="/privacy">Integritet</a>
+		<span class="separator" aria-hidden="true">·</span>
+		<a href="/terms">Villkor</a>
+		<span class="separator" aria-hidden="true">·</span>
+		<a href="/cookies">Cookies</a>
 	</nav>
 </footer>
 

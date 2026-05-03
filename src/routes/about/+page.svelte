@@ -36,18 +36,24 @@
 	<section>
 		<h2>En dagbok för oss som aldrig skriver dagbok</h2>
 		<p>Du vet de där fina anteckningsböckerna du köpt med de bästa intentioner? De som ligger i en låda någonstans med kanske tre inlägg – varav det sista börjar med "Oj, det var länge sen..."?</p>
-		<p>Storify är för oss. För alla som vill minnas sin vardag men som inte har tid, ork eller inspiration att faktiskt sätta sig ner och skriva. Gå igenom en guide med frågor om din dag, välj en av {tones.length} unika röster som passar ditt humör, och låt AI:n göra det jobbiga – själva skrivandet.</p>
+		<p>Storify är för oss. För alla som vill minnas sin vardag men som inte har tid, ork eller inspiration att faktiskt sätta sig ner och skriva. Svara på frågor, skriv fritt, chatta, tala in dagen eller fånga den snabbt – välj sedan en av {tones.length} unika röster som passar ditt humör, och låt AI:n göra det jobbiga: själva skrivandet.</p>
 	</section>
 
 	<section>
 		<h2>Vad kan appen göra?</h2>
-		<p>Storify erbjuder fyra sätt att skapa din dagbokstext. Den <strong>fullständiga guiden</strong> tar dig genom en steg-för-steg-wizard där du berättar om din dag – allt från humör, sömn och energinivå till aktiviteter, platser, personer, vinster, motgångar och reflektioner. Du kan välja emojis som sammanfattar din dag, beskriva vad du ätit och lyssnat på, och skriva en tidskapsel – ett meddelande till ditt framtida jag som vävs in i dagbokstexten.</p>
+		<p>Storify erbjuder fem sätt att skapa din dagbokstext. Den <strong>fullständiga guiden</strong> tar dig genom en steg-för-steg-wizard där du berättar om din dag – allt från humör, sömn och energinivå till aktiviteter, platser, personer, vinster, motgångar och reflektioner. Du kan välja emojis som sammanfattar din dag, beskriva vad du ätit och lyssnat på, och skriva en tidskapsel – ett meddelande till ditt framtida jag som vävs in i dagbokstexten.</p>
 		<p>Har du ont om tid? <strong>Snabbläget</strong> låter dig fånga dagens känsla på under en minut – berätta kort om din dag, välj en röst, och få en dagbokstext direkt. Perfekt för hektiska dagar när du ändå vill hålla vanan vid liv.</p>
 		<p>Föredrar du att prata istället för att fylla i fält? I <strong>AI-intervjun</strong> chattar du med en AI som ställer frågor om din dag – som att prata med en nyfiken vän, journalist eller terapeut beroende på vilken intervjuare du väljer. När samtalet är klart skapas din dagbokstext utifrån det ni pratat om.</p>
+		<p>Vill du hellre säga allt högt? I <strong>Tala in</strong> kan du spela in upp till fem minuter, få rösten transkriberad och skapa en dagbokstext från det du faktiskt sa – med samma val av röster som i resten av appen.</p>
 		<p>Vill du skriva själv? <strong>Skriv fritt</strong> ger dig en riktig textredigerare där du kan formulera dagen på ditt eget sätt, med AI-stöd som förfinar och polerar texten när du är klar.</p>
 		<p>I guiden kan appen hämta vädret automatiskt baserat på din position och hjälpa till med plats. Vill du krydda din dagbok lite extra? Lägg till ett personligt horoskop, historiska händelser som inträffat på samma datum, eller en liten "hemläxa" – en reflektion eller utmaning baserad på din dag.</p>
-		<p>När texten är klar kan du redigera den, regenerera den i en annan röst, spara den i ditt dagboksarkiv om du har konto, eller publicera den frivilligt i Gemenskapen. Skapar du ett konto får du dessutom kalender med streak-statistik, profilsynk, skrivpåminnelser, veckobrev och ett system med {BADGES.length} utmärkelser att låsa upp längs vägen.</p>
+		<p>När texten är klar kan du redigera den, regenerera den i en annan röst, exportera den som PDF, spara den i ditt dagboksarkiv om du har konto, eller publicera den frivilligt i Gemenskapen. Skapar du ett konto får du dessutom kalender med streak-statistik, profilsynk, skrivpåminnelser, veckobrev och ett system med {BADGES.length} utmärkelser att låsa upp längs vägen.</p>
 		<p>Storify är en webbapp som också kan installeras som app via webbläsaren på enheter som stödjer det.</p>
+	</section>
+
+	<section>
+		<h2>Nytt: Bloggen</h2>
+		<p>På <a href="/blog">bloggen</a> skriver jag om dagboksskrivande, AI, reflektion och varför det ibland är lättare att börja med något litet än att vänta på den perfekta stunden. Det är en plats för längre tankar runt samma idé som appen bygger på: att vardagen blir tydligare när man får ner den i ord.</p>
 	</section>
 
 	<section>
@@ -66,7 +72,7 @@
 
 	<section>
 		<h2>Många röster – från poetisk till pinsam</h2>
-		<p>Det som gör Storify unikt är rösterna. Välj mellan {tones.length} helt olika skrivstilar: klassisk dagbok, sportkommentator, katten, Shakespeare, kvällstidningsreporter, byråkratisk myndighetsstil, actionhjälte, influencer, sexåring – och mycket mer. Samma dag kan bli helt olika beroende på vilken röst du väljer. Kan du inte bestämma dig? Låt appen överraska dig med en slumpmässig röst.</p>
+		<p>Det som gör Storify unikt är rösterna. Välj mellan {tones.length} helt olika skrivstilar: klassisk dagbok, sportkommentator, katten, Shakespeare, kvällstidningsreporter, byråkratisk myndighetsstil, actionhjälte, influencer, sexåring, Poeten, Kulturtanten, Piraten, Göteborgaren – och mycket mer. Samma dag kan bli helt olika beroende på vilken röst du väljer. Kan du inte bestämma dig? Låt appen överraska dig med en slumpmässig röst, eller besök <a href="/voices">Rösterna</a> för att läsa provtexter.</p>
 	</section>
 
 	<section>

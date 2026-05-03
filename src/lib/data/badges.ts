@@ -29,7 +29,7 @@ export type BadgeCategory =
 
 export type BadgeTier = 'bronze' | 'silver' | 'gold' | 'platinum';
 
-export type WritingMode = 'wizard' | 'quick' | 'interview' | 'manual';
+export type WritingMode = 'wizard' | 'quick' | 'interview' | 'manual' | 'speak';
 
 export type BadgeCriterion =
   | { type: 'account-created' }
@@ -286,7 +286,7 @@ export const BADGES: readonly Badge[] = [
   {
     id: 'allroundern',
     name: 'Allroundern',
-    description: 'Du har provat alla fyra sätt att skriva — mångsidig som få.',
+    description: 'Du har provat alla fem sätt att skriva — mångsidig som få.',
     emoji: '🧩',
     emojiSlug: 'puzzle-piece',
     category: 'writing-mode',
