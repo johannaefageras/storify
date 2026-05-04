@@ -105,15 +105,17 @@
 	{/if}
 
 	{#if chatStore.isAtLimit}
-		<p class="cap-hint cap-reached">Samtalet har nått maxgränsen. Tryck på knappen nedan för att skapa din dagbok.</p>
+		<p class="cap-hint cap-reached">Ni har pratat klart — klicka nedan när du är redo att skapa din dagbok.</p>
 	{:else if chatStore.sendsRemaining === 1}
-		<p class="cap-hint cap-reached">Sista meddelandet — berätta det viktigaste!</p>
+		<p class="cap-hint cap-reached">Sista meddelandet — säg det viktigaste.</p>
 	{:else if chatStore.sendsRemaining === 2}
 		<p class="cap-hint">2 meddelanden kvar — börja runda av.</p>
 	{:else if chatStore.sendsRemaining === 3}
-		<p class="cap-hint">3 meddelanden kvar — börja gärna tänka på avslut.</p>
+		<p class="cap-hint">3 kvar — bra läge att samla ihop.</p>
 	{:else if chatStore.sendsRemaining === 4}
 		<p class="cap-hint">4 meddelanden kvar.</p>
+	{:else if chatStore.sendsRemaining === 5}
+		<p class="cap-hint">5 meddelanden kvar.</p>
 	{/if}
 
 	{#if chatStore.phase === 'chatting'}

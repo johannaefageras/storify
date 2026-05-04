@@ -29,7 +29,7 @@ const client = new Anthropic({
 	apiKey: ANTHROPIC_API_KEY
 });
 
-const MODEL = env.CHAT_MODEL || 'claude-sonnet-4-6';
+const MODEL = env.CHAT_MODEL || 'claude-opus-4-6';
 const MAX_TOKENS = parseInt(env.CHAT_MAX_TOKENS || '512', 10);
 
 interface ChatRequestBody {
@@ -104,26 +104,48 @@ export const POST: RequestHandler = async ({ request }) => {
 		let systemPrompt = buildInterviewerPrompt(interviewer, profile);
 
 		if (sanitizedMessages.length >= 34) {
-			// Very close to limit (2-3 messages left) - explicit wrap-up
-			systemPrompt += `\n\nVIKTIGT — SAMTALET NÄRMAR SIG SLUTET:
-Ni har bara några meddelanden kvar. Ställ en naturlig avslutande fråga som "Finns det något mer du vill ha med?" eller "Något du inte vill glömma från idag?" och förberedd användaren på att det snart är dags att runda av och skapa dagboken.`;
+			// Final turn — user cannot reply after this. Force a warm close, no new questions.
+			systemPrompt += `\n\nVIKTIGT — DETTA ÄR DITT SISTA MEDDELANDE:
+Användaren kan inte skriva fler meddelanden efter detta. Ge en kort, varm avslutning som speglar tillbaka det viktigaste ni pratat om idag. STÄLL INGA NYA FRÅGOR och öppna inga nya trådar. Avsluta tydligt så användaren känner sig färdig och redo att skapa sin dagbok — t.ex. "Nu har du allt du behöver — dags att skapa din dagbok." Håll det varmt men kort (2–4 meningar).`;
 		} else if (sanitizedMessages.length >= 30) {
-			// Approaching limit (6-7 messages left) - gentle nudge toward wrapping up
-			systemPrompt += `\n\nVIKTIGT — SAMTALET BÖRJAR NÄRMA SIG SLUTET:
-Intervjun har pågått ett tag. Börja sakta styra mot en naturlig avrundning. Du kan nämna detta subtilt, t.ex. "Vi börjar närma oss slutet — finns det något mer från idag du vill ta med?" Fortsätt vara nyfiken, men fokusera på att fånga de sista viktiga detaljerna.`;
+			// 2-3 user turns left — start actively steering toward close.
+			systemPrompt += `\n\nVIKTIGT — INTERVJUN NÄRMAR SIG SLUTET:
+Det finns bara cirka 3 meddelanden kvar för användaren att skriva. Börja styra konkret mot avslut nu. Ställ avrundande frågor som "Något viktigt vi inte hunnit prata om?" eller "Vad känns viktigast att ta med från idag?". Öppna inte nya, breda ämnen — fokusera på att fånga det sista som behövs för dagboken.`;
 		}
 
-		// 6. Format messages for Anthropic API
-		const anthropicMessages = sanitizedMessages.map((msg) => ({
-			role: msg.role as 'user' | 'assistant',
-			content: msg.content
-		}));
+		// 6. Format messages for Anthropic API. Place a rolling cache breakpoint
+		// on the latest user message so the growing conversation prefix is reused
+		// across turns (within the 5-minute ephemeral cache TTL).
+		const lastIdx = sanitizedMessages.length - 1;
+		const anthropicMessages = sanitizedMessages.map((msg, idx) => {
+			const role = msg.role as 'user' | 'assistant';
+			if (idx !== lastIdx) {
+				return { role, content: msg.content };
+			}
+			return {
+				role,
+				content: [
+					{
+						type: 'text' as const,
+						text: msg.content,
+						cache_control: { type: 'ephemeral' as const }
+					}
+				]
+			};
+		});
 
-		// 7. Stream response via SSE
+		// 7. Stream response via SSE. The system prompt gets its own cache
+		// breakpoint so it's reused across every turn of the conversation.
 		const stream = client.messages.stream({
 			model: MODEL,
 			max_tokens: MAX_TOKENS,
-			system: systemPrompt,
+			system: [
+				{
+					type: 'text',
+					text: systemPrompt,
+					cache_control: { type: 'ephemeral' }
+				}
+			],
 			messages: anthropicMessages
 		});
 
