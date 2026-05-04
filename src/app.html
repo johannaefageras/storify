@@ -67,6 +67,20 @@
 					wait_for_update: 500
 				});
 
+				// Restore prior consent BEFORE gtag.js loads so the first
+				// page_view of returning consenters is granted-state, not denied.
+				try {
+					var stored = localStorage.getItem('ga_consent_v2');
+					if (stored === 'granted' || stored === 'denied') {
+						gtag('consent', 'update', {
+							analytics_storage: stored,
+							ad_storage: 'denied',
+							ad_user_data: 'denied',
+							ad_personalization: 'denied'
+						});
+					}
+				} catch (e) { /* private mode */ }
+
 				gtag('js', new Date());
 				gtag('config', 'G-QYQJ9TNYQC', {
 					send_page_view: false,

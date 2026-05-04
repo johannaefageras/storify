@@ -93,8 +93,11 @@ export function setConsent(decision: Consent) {
 	} catch {
 		/* storage may be unavailable in private mode */
 	}
-	if (!analyticsReady()) return;
-	window.gtag!('consent', 'update', {
+	// window.gtag is defined synchronously by the inline bootstrap in app.html
+	// (the stub pushes args onto dataLayer, which gtag.js drains once loaded).
+	// If the hostname allowlist skipped the bootstrap, gtag is undefined → no-op.
+	if (typeof window.gtag !== 'function') return;
+	window.gtag('consent', 'update', {
 		analytics_storage: decision,
 		ad_storage: 'denied',
 		ad_user_data: 'denied',

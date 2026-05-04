@@ -11,7 +11,8 @@
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { badgesStore } from '$lib/stores/badges.svelte';
-	import { applyStoredConsent, trackPageView } from '$lib/analytics';
+	import { trackPageView } from '$lib/analytics';
+	import ConsentBanner from '$lib/components/ConsentBanner.svelte';
 
 	let { children } = $props();
 
@@ -23,7 +24,6 @@
 		await accentStore.syncWithAuth();
 		await wizardStore.initProfile();
 		await badgesStore.init();
-		applyStoredConsent();
 	});
 
 	afterNavigate(async (nav) => {
@@ -75,3 +75,4 @@
 <Navbar />
 {@render children()}
 <BadgeUnlockToast />
+<ConsentBanner />
