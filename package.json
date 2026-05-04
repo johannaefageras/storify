@@ -22,7 +22,9 @@
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "build:cron": "node scripts/build-cron.mjs"
+    "build:cron": "node scripts/build-cron.mjs",
+    "screenshots": "python scripts/screenshots.py",
+    "screenshots:dev": "python scripts/screenshots.py --base-url http://localhost:5173"
   },
   "devDependencies": {
     "@sveltejs/kit": "^2.49.1",

@@ -21,7 +21,6 @@
 	import { isSeparatorParagraph } from '$lib/utils/paragraphs';
 	import { getSwedishDiaryDate } from '$lib/utils/localDate';
 	import { getLoadingPhrases } from '$lib/data/loadingPhrases';
-	import resultMessages from '$lib/data/resultMessages.json';
 	import { Emoji } from '$lib/assets/emojis';
 	import TonePickerDropdown from '$lib/components/TonePickerDropdown.svelte';
 
@@ -49,9 +48,6 @@
 	let isEditing = $state(false);
 	let editText = $state('');
 	let editTextareaEl: HTMLTextAreaElement = $state(null!);
-
-	// Result message (random congrats)
-	let resultMessage = $state({ title: '', subtitle: '' });
 
 	// Loading phrase cycling
 	let loadingPhrase = $state('');
@@ -126,11 +122,6 @@
 			.join('\n')
 			.replace(/\n{3,}/g, '\n\n')
 			.trim();
-	}
-
-	function selectRandomMessage() {
-		const randomIndex = Math.floor(Math.random() * resultMessages.length);
-		resultMessage = resultMessages[randomIndex];
 	}
 
 	function autoResizeTextarea() {
@@ -266,7 +257,6 @@
 				onChunk: (_chunk, accumulated) => {
 					if (!switchedToResult) {
 						switchedToResult = true;
-						selectRandomMessage();
 						stopPhraseCycling();
 						chatStore.showResult('');
 					}
@@ -473,14 +463,6 @@
 			</div>
 		{:else if chatStore.phase === 'result'}
 			<div class="interview-result">
-				<div class="result-intro">
-					<div class="result-icon">
-							<Emoji name="rose" size={48} />
-					</div>
-					<h1 class="result-title">{resultMessage.title}</h1>
-					<p class="result-subtitle">{resultMessage.subtitle}</p>
-				</div>
-
 				<div class="document-wrapper">
 					{#if regenerateError}
 						<p class="regenerate-error">{regenerateError}</p>
@@ -819,40 +801,6 @@
 	   Result View
 	   ========================================================================== */
 
-	.result-intro {
-		text-align: center;
-		margin: 0.25rem 0 0.5rem 0;
-	}
-
-	.result-icon {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin-bottom: 0.25rem;
-		opacity: 0.8;
-	}
-
-	.result-title {
-		font-family: var(--font-primary);
-		font-size: var(--text-xl);
-		font-weight: var(--weight-medium);
-		font-stretch: 105%;
-		letter-spacing: var(--tracking-tight);
-		line-height: var(--leading-tight);
-		color: var(--color-text);
-		margin: 0 0 0.25rem 0;
-	}
-
-	.result-subtitle {
-		font-family: var(--font-primary);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-regular);
-		letter-spacing: var(--tracking-wide);
-		line-height: var(--leading-relaxed);
-		color: var(--color-text-muted);
-		margin: 0;
-	}
-
 	/* ==========================================================================
 	   Document Wrapper
 	   ========================================================================== */
@@ -931,14 +879,15 @@
 		cursor: pointer;
 		transition: all 0.2s ease;
 		white-space: nowrap;
-		background: var(--color-accent);
-		color: white;
-		border: none;
+		background: transparent;
+		color: var(--color-accent);
+		border: 2px solid var(--color-accent);
 	}
 
 	.action-btn:hover:not(:disabled) {
-		background: var(--color-accent-hover);
-		box-shadow: 0 4px 12px rgba(244, 63, 122, 0.25);
+		background: var(--color-accent);
+		color: white;
+		box-shadow: none;
 	}
 
 	.action-btn:active:not(:disabled) {
