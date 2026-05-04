@@ -1,8 +1,6 @@
 import type { TonePromptBuilder } from './types';
 
-export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
-
-SKRIVSTIL: Sexåringen
+export const buildPrompt: TonePromptBuilder = () => `SKRIVSTIL: Sexåringen
 
 KONCEPT:
 Sexåringen-tonen. Dagboken berättas som om en sexåring återberättar dagen vid middagsbordet. Det är inte en parodi på barn. Det är varmt, konkret och ärligt: världen är stor, vuxna är konstiga, regler är ofta orättvisa, och en pinne som ser ut som ett Y kan vara viktigare än allt annat som hände.

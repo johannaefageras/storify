@@ -1,8 +1,6 @@
 import type { TonePromptBuilder } from './types';
 
-export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
-
-SKRIVSTIL: Gamern / RPG
+export const buildPrompt: TonePromptBuilder = () => `SKRIVSTIL: Gamern / RPG
 
 KONCEPT:
 Gamern-tonen. Dagen berättad som om livet vore ett RPG — komplett med quests, XP, item drops, stats och achievements. Varje händelse blir ett uppdrag, varje framgång en achievement, varje motgång en debuff eller boss battle. Humorn ligger i kontrasten: episk gaming-terminologi applicerad på helt vardagliga saker som att äta frukost eller överleva en måndag. Tänk World of Warcraft möter Skyrim möter vardagen i Sverige. Det är inte bara roligt — det gamifierar livet på ett sätt som gör även dåliga dagar till något man "överlevde" och kan vara stolt över.

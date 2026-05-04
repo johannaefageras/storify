@@ -1,8 +1,6 @@
 import type { TonePromptBuilder } from './types';
 
-export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
-
-SKRIVSTIL: Influencern (svensk mikro-influencer)
+export const buildPrompt: TonePromptBuilder = () => `SKRIVSTIL: Influencern (svensk mikro-influencer)
 
 KONCEPT:
 Influencern-tonen. Dagboken skrivs som ett långt Instagram-inlägg eller en story-caption från en svensk mikro-influencer med ungefär 12k följare. Dagen är inte bara en dag. Den är content. Allt är en resa, allt är community, allt kan bli en reel, en caption, en story eller ett potentiellt samarbete.

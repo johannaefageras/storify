@@ -1,6 +1,6 @@
 import { browser } from '$app/environment';
 
-export type Font = 'storify' | 'storify-mono' | 'shantell' | 'recursive' | 'fraunces';
+export type Font = 'storify' | 'monosten' | 'shantell' | 'recursive' | 'fraunces';
 
 export const FONTS: { id: Font; label: string; family: string }[] = [
   { id: 'storify', label: 'Stilren', family: "'My Storify', system-ui, sans-serif" },
@@ -8,7 +8,7 @@ export const FONTS: { id: Font; label: string; family: string }[] = [
   { id: 'fraunces', label: 'Klassisk', family: "'Fraunces', Georgia, serif" },
   { id: 'recursive', label: 'Modern', family: "'Recursive', system-ui, sans-serif" },
   {
-    id: 'storify-mono',
+    id: 'monosten',
     label: 'Strukturerad',
     family: "'My Storify Mono', ui-monospace, monospace"
   }
@@ -25,7 +25,7 @@ function createFontStore() {
     const value = localStorage.getItem(FONT_STORAGE_KEY);
     if (
       value === 'storify' ||
-      value === 'storify-mono' ||
+      value === 'monosten' ||
       value === 'shantell' ||
       value === 'recursive' ||
       value === 'fraunces'

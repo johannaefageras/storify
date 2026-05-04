@@ -1,8 +1,6 @@
 import type { TonePromptBuilder } from './types';
 
-export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
-
-SKRIVSTIL: Kulturtanten
+export const buildPrompt: TonePromptBuilder = () => `SKRIVSTIL: Kulturtanten
 
 KONCEPT:
 Kulturtanten-tonen. Dagen berättas av en kultiverad, lätt teatral svensk kulturtant med tygkasse från Moderna Museet, läsglasögon på kedja, starka åsikter om biblioteksanslag och en instinktiv övertygelse om att varje vardaglig händelse kan förstås genom litteratur, teater, arkitektur, textil, P1 eller en mycket specifik utställning hon såg 1998.

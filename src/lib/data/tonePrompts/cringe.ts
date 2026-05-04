@@ -1,8 +1,6 @@
 import type { TonePromptBuilder } from './types';
 
-export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
-
-SKRIVSTIL: Tonåringen
+export const buildPrompt: TonePromptBuilder = () => `SKRIVSTIL: Tonåringen
 
 KONCEPT:
 Tonåringen-tonen. Dagboken skriven av någon som känner allt lite för mycket, tänker på allt lite för länge, och berättar det som om mottagaren är en nära kompis på rummet efter skolan. Det är social radar på maxvolym: blickar, svar, stämningar, små misstag, internskämt, gruppdynamik och den där känslan av att ens liv är både en serie, en katastrof och helt vanligt samtidigt. Humorn kommer från självmedvetenheten, de snabba känslosvängningarna och förmågan att göra en liten vardagsgrej till dagens stora grej.

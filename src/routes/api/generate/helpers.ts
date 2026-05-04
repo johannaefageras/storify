@@ -189,9 +189,11 @@ export function formatProfileForPrompt(profile: UserProfile): string {
 	return '';
 }
 
-export function buildEditorModePrompt(profile: UserProfile): string {
-	const profileSection = formatProfileForPrompt(profile);
-	return `Du är en skicklig språkgranskare och textredigerare.
+/**
+ * Static, profile-agnostic editor-mode prompt. Identical across all users,
+ * so it forms a cacheable prefix.
+ */
+export const EDITOR_MODE_STATIC_PREFIX = `Du är en skicklig språkgranskare och textredigerare.
 
 Din uppgift är att förfina användarens dagbokstext. Du ska:
 - Rätta grammatik, stavning och interpunktion
@@ -201,9 +203,25 @@ Din uppgift är att förfina användarens dagbokstext. Du ska:
 - INTE lägga till innehåll som användaren inte skrev
 - INTE ändra mening eller avsikt
 - INTE skriva om texten i en annan stil
-- Returnera den förfinade texten som ren text (inte HTML eller markdown)
+- Returnera den förfinade texten som ren text (inte HTML eller markdown)`;
 
-${profileSection ? profileSection + '\n\n' : ''}Skriv den förfinade texten direkt utan förklaringar eller kommentarer.`;
+const EDITOR_MODE_STATIC_TAIL = `Skriv den förfinade texten direkt utan förklaringar eller kommentarer.`;
+
+/**
+ * Per-user dynamic suffix for editor mode. Empty when no profile data.
+ */
+export function buildEditorModeDynamicSuffix(profile: UserProfile): string {
+  const profileSection = formatProfileForPrompt(profile);
+  return profileSection
+    ? `\n\n${profileSection}\n\n${EDITOR_MODE_STATIC_TAIL}`
+    : `\n\n${EDITOR_MODE_STATIC_TAIL}`;
+}
+
+/**
+ * Convenience: assemble the full editor-mode system prompt as a single string.
+ */
+export function buildEditorModePrompt(profile: UserProfile): string {
+  return EDITOR_MODE_STATIC_PREFIX + buildEditorModeDynamicSuffix(profile);
 }
 
 export function formatWizardDataForPrompt(data: WizardData): string {
@@ -558,7 +576,8 @@ IMPORTANT: Write this section in ENGLISH, matching the diary's language and tone
 Apply the same writing style as the main entry: ${metadata.styleSummary}
 
 THIS SECTION SHOULD:
-- Start with exactly "Homework" as the heading (no emoji before or after)
+- Start with exactly "Homework" as the heading on its own line (no emoji, no colon, no markdown # prefix, no bold/asterisks)
+- Put the heading and the body in separate paragraphs, separated by a blank line
 - Contain ONE single, specific reflection or challenge for the reader
 - Be based on today's actual events, feelings, wins, or frustrations
 - Either be action-oriented ("Tomorrow, try...") OR reflective ("Consider why...") - let the tone guide this
@@ -591,7 +610,8 @@ VIKTIGT: Skriv detta avsnitt med SAMMA ton och stil som dagboksinlägget.
 Använd stilen: ${metadata.styleSummary}
 
 AVSNITTET SKA:
-- Börja med exakt "Hemläxa" som rubrik (ingen emoji före eller efter)
+- Börja med exakt "Hemläxa" som rubrik på en egen rad (ingen emoji, inget kolon, inget markdown #-tecken, ingen fetstil/asterisker)
+- Ha rubriken och brödtexten i separata stycken, åtskilda av en tom rad
 - Innehålla EN enda, specifik reflektion eller utmaning för läsaren
 - Vara baserat på dagens faktiska händelser, känslor, vinster eller motgångar
 - Antingen vara handlingsinriktat ("Imorgon, prova att...") ELLER reflekterande ("Fundera på varför...") - låt tonen styra

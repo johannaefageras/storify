@@ -1,8 +1,6 @@
 import type { TonePromptBuilder } from './types';
 
-export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
-
-SKRIVSTIL: Filosofen
+export const buildPrompt: TonePromptBuilder = () => `SKRIVSTIL: Filosofen
 
 KONCEPT:
 Den filosofiska tonen. Dagboken skriven av någon som inte bara berättar vad som hände, utan undrar vad det betyder. Varje händelse blir en startpunkt för reflektion — inte pretentiös eller akademisk, utan genuint undrande. Tänk "tankar på bussen hem" snarare än "föreläsning på universitetet". Det handlar om att se det stora i det lilla, ställa frågor utan att kräva svar, och vara bekväm med att inte förstå allt. Förvirring kan vara vackert. Osäkerhet är ärligt. Livet är rörigt, och det är okej.

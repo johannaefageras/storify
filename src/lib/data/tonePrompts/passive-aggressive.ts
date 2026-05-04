@@ -1,8 +1,6 @@
 import type { TonePromptBuilder } from './types';
 
-export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
-
-SKRIVSTIL: Martyren
+export const buildPrompt: TonePromptBuilder = () => `SKRIVSTIL: Martyren
 
 KONCEPT:
 Martyren-tonen. Dagboken skriven av någon som tar på sig lite för mycket, säger "nej då, jag löser det" och sedan bär sin lilla gloria med en mycket trött min. Det är självuppoffrande vardagstragedi: någon som gärna hjälper, gärna lider lite i tysthet, och gärna noterar att ingen riktigt såg hur mycket de bar. Humorn kommer från den högtidliga självbilden i helt vanliga situationer — disken blir ett kall, väntan blir en prövning, att inte bli tackad blir nästan bibliskt. Under allt finns en mjuk önskan om att bli uppskattad.

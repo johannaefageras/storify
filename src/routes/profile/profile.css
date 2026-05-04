@@ -181,7 +181,8 @@
 /* Inputs and selects */
 .profile-page input[type='text'],
 .profile-page input[type='password'],
-.profile-page input[type='email'] {
+.profile-page input[type='email'],
+.profile-page input[type='tel'] {
 	width: 100%;
 	height: 2.75rem;
 	padding: 0 0.875rem;
@@ -199,17 +200,61 @@
 }
 
 .profile-page input[type='text']:focus,
-.profile-page input[type='password']:focus {
+.profile-page input[type='password']:focus,
+.profile-page input[type='tel']:focus {
 	border-color: var(--color-accent);
 	box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
 }
 
 .profile-page input[type='text']::placeholder,
-.profile-page input[type='password']::placeholder {
+.profile-page input[type='password']::placeholder,
+.profile-page input[type='tel']::placeholder {
 	color: var(--color-text-muted);
 	font-weight: var(--weight-light);
 	letter-spacing: var(--tracking-wider);
 	opacity: 0.7;
+}
+
+/* Username field with @-prefix wrapper. Strip the input border/bg so the
+   wrapper provides the chrome instead. */
+.profile-page .username-input {
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
+	height: 2.75rem;
+	padding: 0 0.875rem;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-sm);
+	background-color: var(--color-bg-elevated);
+	box-sizing: border-box;
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.profile-page .username-input:focus-within {
+	border-color: var(--color-accent);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
+}
+
+.profile-page .username-prefix {
+	font-family: var(--font-primary);
+	font-size: var(--text-sm);
+	color: var(--color-text-muted);
+	user-select: none;
+}
+
+.profile-page .username-input input[type='text'] {
+	flex: 1;
+	min-width: 0;
+	height: auto;
+	padding: 0;
+	border: none;
+	background: transparent;
+	box-shadow: none;
+}
+
+.profile-page .username-input input[type='text']:focus {
+	border: none;
+	box-shadow: none;
 }
 
 .profile-page select {

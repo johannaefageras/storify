@@ -4,7 +4,7 @@
 	import { supabase } from '$lib/supabase/client';
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import { FIELD_LIMITS } from '$lib/validation';
+	import { FIELD_LIMITS, validateUsername, validatePhone } from '$lib/validation';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import AvatarUpload from '$lib/components/AvatarUpload.svelte';
 	import { fireBadgeEvent } from '$lib/gamification/client';
@@ -13,6 +13,8 @@
 
 	// Profile state
 	let name = $state('');
+	let username = $state('');
+	let phone = $state('');
 	let birthday = $state<string | null>(null);
 	let pronouns = $state('');
 	let hometown = $state('');
@@ -217,11 +219,23 @@
 	async function loadProfile() {
 		if (!authStore.user) return;
 
-		const { data, error: fetchError } = await supabase
+		let { data, error: fetchError } = await supabase
 			.from('profiles')
-			.select('name, birthday, pronouns, hometown, family, pets, occupation_type, occupation_detail, interests, avatar_url')
+			.select('name, username, phone, birthday, pronouns, hometown, family, pets, occupation_type, occupation_detail, interests, avatar_url')
 			.eq('id', authStore.user.id)
 			.single();
+
+		// If the username/phone columns don't exist yet (migration 016 not applied),
+		// retry without them so the page still works.
+		if (fetchError && /column .* does not exist/i.test(fetchError.message)) {
+			const fallback = await supabase
+				.from('profiles')
+				.select('name, birthday, pronouns, hometown, family, pets, occupation_type, occupation_detail, interests, avatar_url')
+				.eq('id', authStore.user.id)
+				.single();
+			data = fallback.data ? { ...fallback.data, username: null, phone: null } : null;
+			fetchError = fallback.error;
+		}
 
 		if (fetchError) {
 			error = 'Kunde inte ladda profilen.';
@@ -231,6 +245,8 @@
 
 		if (data) {
 			name = data.name || '';
+			username = data.username || '';
+			phone = data.phone || '';
 			birthday = data.birthday || null;
 			pronouns = data.pronouns || '';
 			hometown = data.hometown || '';
@@ -253,10 +269,29 @@
 		error = '';
 		success = '';
 
+		const trimmedUsername = username.trim().toLowerCase();
+		const trimmedPhone = phone.trim();
+
+		const usernameError = validateUsername(trimmedUsername);
+		if (usernameError) {
+			error = `Användarnamn: ${usernameError.message}`;
+			saving = false;
+			return;
+		}
+
+		const phoneError = validatePhone(trimmedPhone);
+		if (phoneError) {
+			error = `Telefonnummer: ${phoneError.message}`;
+			saving = false;
+			return;
+		}
+
 		const { error: updateError } = await supabase
 			.from('profiles')
 			.update({
 				name,
+				username: trimmedUsername || null,
+				phone: trimmedPhone || null,
 				birthday,
 				pronouns,
 				hometown,
@@ -270,8 +305,16 @@
 			.eq('id', authStore.user.id);
 
 		if (updateError) {
-			error = 'Kunde inte spara profilen. Försök igen.';
+			if (updateError.code === '23505') {
+				error = 'Användarnamnet är upptaget.';
+			} else if (updateError.code === '23514') {
+				error = 'Ogiltigt användarnamn eller telefonnummer.';
+			} else {
+				error = 'Kunde inte spara profilen. Försök igen.';
+			}
 		} else {
+			username = trimmedUsername;
+			phone = trimmedPhone;
 			success = 'Profilen har sparats!';
 			setTimeout(() => (success = ''), 3000);
 			// Re-sync wizard store so profile data (e.g. birthday for horoscope) is available
@@ -347,6 +390,38 @@
 								bind:value={name}
 								maxlength={FIELD_LIMITS.name}
 							/>
+						</div>
+
+						<div class="field-row">
+							<div class="field-group compact">
+								<label class="field-label" for="username">Användarnamn</label>
+								<div class="username-input">
+									<span class="username-prefix" aria-hidden="true">@</span>
+									<input
+										id="username"
+										type="text"
+										autocomplete="username"
+										autocapitalize="none"
+										spellcheck="false"
+										placeholder="ditt_användarnamn"
+										value={username}
+										oninput={(e) => (username = e.currentTarget.value.toLowerCase())}
+										maxlength={FIELD_LIMITS.username}
+									/>
+								</div>
+							</div>
+
+							<div class="field-group compact">
+								<label class="field-label" for="phone">Telefonnummer</label>
+								<input
+									id="phone"
+									type="tel"
+									autocomplete="tel"
+									placeholder="+46 70 123 45 67"
+									bind:value={phone}
+									maxlength={FIELD_LIMITS.phone}
+								/>
+							</div>
 						</div>
 
 						<div class="field-row birthday-row">

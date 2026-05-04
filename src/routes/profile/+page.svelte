@@ -7,11 +7,13 @@
 	import AvatarUpload from '$lib/components/AvatarUpload.svelte';
 	import ProfileBadgeStrip from '$lib/components/ProfileBadgeStrip.svelte';
 	import { Emoji } from '$lib/assets/emojis';
+	import { fireBadgeEvent } from '$lib/gamification/client';
 	import './profile.css';
 
 	// Hub state
 	let name = $state('');
 	let avatarUrl = $state<string | null>(null);
+	let avatarUploading = $state(false);
 	let loading = $state(true);
 
 	// Writing-mode modal
@@ -27,6 +29,39 @@
 
 	function closeModeModal() {
 		showModeModal = false;
+	}
+
+	async function handleAvatarUpload(file: File) {
+		if (!authStore.user) return;
+		avatarUploading = true;
+
+		try {
+			const path = `${authStore.user.id}/avatar.jpg`;
+
+			const { error: uploadError } = await supabase.storage
+				.from('avatars')
+				.upload(path, file, { upsert: true, contentType: 'image/jpeg' });
+
+			if (uploadError) {
+				avatarUploading = false;
+				return;
+			}
+
+			const { data: urlData } = supabase.storage.from('avatars').getPublicUrl(path);
+			const newUrl = `${urlData.publicUrl}?t=${Date.now()}`;
+
+			await supabase
+				.from('profiles')
+				.update({ avatar_url: newUrl, updated_at: new Date().toISOString() })
+				.eq('id', authStore.user.id);
+
+			avatarUrl = newUrl;
+			void fireBadgeEvent('profile-photo-uploaded');
+		} catch {
+			// noop
+		}
+
+		avatarUploading = false;
 	}
 
 	async function loadProfile() {
@@ -74,7 +109,9 @@
 					{avatarUrl}
 					{name}
 					size={130}
-					editable={false}
+					editable={true}
+					uploading={avatarUploading}
+					onUpload={handleAvatarUpload}
 				/>
 				<div class="hero-info">
 					<h1 class="hero-name">{name ? `${name}s Profil` : 'Min Profil'}</h1>

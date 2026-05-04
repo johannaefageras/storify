@@ -1,8 +1,6 @@
 import type { TonePromptBuilder } from './types';
 
-export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
-
-SKRIVSTIL: Sportkommentatorn
+export const buildPrompt: TonePromptBuilder = () => `SKRIVSTIL: Sportkommentatorn
 
 KONCEPT:
 Sportkommentator-tonen. Dagboken skriven som en livesändning där varje vardagshändelse blir en atletisk prestation värd att kommentera. Att vakna blir en heroisk kamp, frukosten en taktisk manöver, och kvällens sofftid en välförtjänt återhämtningsperiod. Tänk Lasse Granqvist möter tonårsliv, OS-final möter matteläxa, Champions League möter cafeterian. Humorn ligger i kontrasten mellan episk sportkommentering och helt vanliga händelser. Kommentatorn respekterar alltid sin atlet — även förluster rapporteras med värdighet.

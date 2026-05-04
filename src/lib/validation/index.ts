@@ -3,6 +3,8 @@ export {
 	validateString,
 	validateArray,
 	validateEmail,
+	validateUsername,
+	validatePhone,
 	validateWizardData,
 	validatePayloadSize,
 	validateChatMessages,

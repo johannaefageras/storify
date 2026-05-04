@@ -205,6 +205,35 @@
 	</section>
 
 	<section>
+		<h2>Villkor för SMS och meddelanden</h2>
+
+		<h3>Allmänt</h3>
+		<p>När du anmäler dig till tjänsten skickar vi ett meddelande för att bekräfta din anmälan.</p>
+		<p>Genom att tacka ja till meddelanden godkänner du att ta emot återkommande automatiserade marknadsförings- och informationssms från Storify. Automatiserade meddelanden kan skickas med ett automatiskt uppringningssystem till det mobilnummer du angav vid anmälan eller till annat nummer du anger.</p>
+		<p>Meddelandefrekvensen varierar, och ytterligare mobilmeddelanden kan skickas regelbundet baserat på din interaktion med Storify. Storify förbehåller sig rätten att när som helst ändra meddelandefrekvensen, antingen genom att öka eller minska antalet skickade meddelanden. Storify förbehåller sig också rätten att ändra det kortnummer, telefonnummer eller den alfanumeriska avsändare som meddelanden skickas från.</p>
+		<p>Vanliga avgifter för meddelanden och data kan tillkomma. Om du har frågor om ditt abonnemang är det bäst att kontakta din mobiloperatör. Din mobiloperatör ansvarar inte för försenade eller ej levererade meddelanden.</p>
+		<p>Ditt samtycke till att ta emot marknadsföringsmeddelanden är inte ett villkor för köp.</p>
+
+		<h3>Operatörer</h3>
+		<p>Operatörer ansvarar inte för försenade eller ej levererade meddelanden.</p>
+
+		<h3>Avregistrering</h3>
+		<p>Meddelanden innehåller instruktioner om hur du avregistrerar dig, antingen genom att skicka STOP eller via en medföljande länk. När du har avregistrerat dig skickar vi ett meddelande som bekräftar att du har avregistrerats och inga fler meddelanden kommer att skickas. Om du vill ta emot meddelanden från Storify igen är det bara att anmäla dig på samma sätt som första gången, så börjar Storify skicka meddelanden till dig igen.</p>
+
+		<h3>Information</h3>
+		<p>För support gällande våra tjänster, mejla oss på <a href="mailto:support@mystorify.se">support@mystorify.se</a> eller, om det stöds, skicka "HELP" till våra meddelanden när som helst så svarar vi med instruktioner om hur du avregistrerar dig. Om vi inkluderar en länk i meddelanden vi skickar till dig från Storify kan du även följa länken för att få instruktioner om hur du avregistrerar dig och vår företagsinformation.</p>
+
+		<h3>Byte av nummer</h3>
+		<p>Du godkänner att innan du byter mobilnummer eller överlåter ditt mobilnummer till en annan person ska du antingen svara "STOP" från det ursprungliga numret, avregistrera dig via länken som finns i våra meddelanden (om en sådan tillhandahålls), eller meddela oss ditt gamla nummer på <a href="mailto:support@mystorify.se">support@mystorify.se</a>. Skyldigheten att informera oss baserat på ovanstående händelser är ett villkor för att använda denna tjänst för att ta emot meddelanden.</p>
+
+		<h3>Integritet</h3>
+		<p>Om du har frågor om dina uppgifter eller våra integritetsrutiner, se vår <a href="/privacy">integritetspolicy</a>.</p>
+
+		<h3>Ändringar av meddelandevillkor</h3>
+		<p>Vi förbehåller oss rätten att när som helst ändra eller avsluta vårt meddelandeprogram. Vi förbehåller oss också rätten att när som helst uppdatera dessa meddelandevillkor. Sådana ändringar träder i kraft omedelbart vid publicering. Om du inte godkänner en ändring av dessa meddelandevillkor bör du avregistrera dig från vårt meddelandeprogram. Fortsatt deltagande efter sådana ändringar utgör ditt godkännande av ändringarna.</p>
+	</section>
+
+	<section>
 		<h2>Ändringar i villkoren</h2>
 		<p>Vi kan behöva uppdatera dessa villkor ibland. Om vi gör väsentliga ändringar kommer vi att uppdatera datumet högst upp på denna sida. Fortsatt användning av appen efter ändringar innebär att du godkänner de nya villkoren.</p>
 	</section>
@@ -264,6 +293,15 @@
 		font-weight: var(--weight-semibold);
 		color: var(--color-text);
 		margin-bottom: 0.75rem;
+	}
+
+	h3 {
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-semibold);
+		color: var(--color-text);
+		margin-top: 1.25rem;
+		margin-bottom: 0.5rem;
 	}
 
 	section {

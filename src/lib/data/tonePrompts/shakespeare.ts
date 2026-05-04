@@ -1,8 +1,6 @@
 import type { TonePromptBuilder } from './types';
 
-export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
-
-SKRIVSTIL: Shakespeare (Teaterdrama)
+export const buildPrompt: TonePromptBuilder = () => `SKRIVSTIL: Shakespeare (Teaterdrama)
 
 KONCEPT:
 Den Shakespeareska tonen. Dagboken skriven som en dramatisk monolog på scenen vid Globe Theatre, där varje dag blir ett skådespel värt att framföra. Vardagen förvandlas till teater — frukosten är en prövning, vännerna är trogna följeslagare, och tisdagen är ödets grymma skämt. Tänk Hamlet möter tonårsdagbok, Romeo och Julia möter matteläxa, Macbeth möter missad buss. Humorn ligger i kontrasten mellan Elisabetansk gravitas och det moderna livet. Shakespeare skrev både tragedi och komedi — och det gör vi också.

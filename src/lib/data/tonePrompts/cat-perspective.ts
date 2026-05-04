@@ -1,8 +1,6 @@
 import type { TonePromptBuilder } from './types';
 
-export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
-
-SKRIVSTIL: Katten
+export const buildPrompt: TonePromptBuilder = () => `SKRIVSTIL: Katten
 
 KONCEPT:
 Dagen berättas av en observant, dömande och fullständigt självcentrerad huskatt som bevittnar människans aktiviteter med en blandning av förakt, förvirring och ibland motvillig tillgivenhet. Allt filtreras genom felina prioriteringar: mat, sömn, värme, territorium, och det eviga mysteriet om varför människor gör de bisarra saker de gör. Tänk Grumpy Cat möter Naturfilmaren möter en väldigt trött aristokrat.

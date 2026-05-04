@@ -36,8 +36,12 @@ describe('getParagraphType', () => {
 		expect(getParagraphType('På denna dag: något hände')).toBe('regular');
 	});
 
-	it('does not detect on-this-day with colon only', () => {
-		expect(getParagraphType('På denna dag:')).toBe('regular');
+	it('detects on-this-day with trailing colon only', () => {
+		expect(getParagraphType('På denna dag:')).toBe('onthisday-heading');
+	});
+
+	it('detects on-this-day with markdown heading prefix', () => {
+		expect(getParagraphType('## På denna dag')).toBe('onthisday-heading');
 	});
 
 	// --- Homework headings ---
@@ -57,8 +61,20 @@ describe('getParagraphType', () => {
 		expect(getParagraphType('Hemläxa—')).toBe('homework-heading');
 	});
 
-	it('does not detect homework with colon (stat line pattern)', () => {
-		expect(getParagraphType('Homework:')).toBe('regular');
+	it('detects homework heading with trailing colon', () => {
+		expect(getParagraphType('Hemläxa:')).toBe('homework-heading');
+	});
+
+	it('detects homework heading with bold + colon', () => {
+		expect(getParagraphType('**Hemläxa:**')).toBe('homework-heading');
+	});
+
+	it('detects homework heading with markdown heading prefix', () => {
+		expect(getParagraphType('## Hemläxa')).toBe('homework-heading');
+	});
+
+	it('detects homework heading with markdown heading prefix and colon', () => {
+		expect(getParagraphType('### Hemläxa:')).toBe('homework-heading');
 	});
 
 	// --- Quest-log collision tests ---

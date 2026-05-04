@@ -2,6 +2,8 @@
 export const LIMITS = {
 	// Single text inputs
 	SHORT_TEXT: 100, // name, hometown, occupationDetail items, age
+	USERNAME: 20,
+	PHONE: 20,
 
 	// Array item limits
 	TAG_ITEM: 50, // family, pets, interests, locations, activities, people, meals, soundtracks
@@ -39,6 +41,8 @@ export const FIELD_LIMITS: Record<string, number> = {
 	birthday: 10, // 'YYYY-MM-DD' format
 	hometown: LIMITS.SHORT_TEXT,
 	occupationDetail: LIMITS.SHORT_TEXT,
+	username: LIMITS.USERNAME,
+	phone: LIMITS.PHONE,
 
 	// Arrays with tag items
 	family: LIMITS.TAG_ITEM,

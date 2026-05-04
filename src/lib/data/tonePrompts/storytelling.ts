@@ -1,8 +1,6 @@
 import type { TonePromptBuilder } from './types';
 
-export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
-
-SKRIVSTIL: Berättarröst / Storytelling
+export const buildPrompt: TonePromptBuilder = () => `SKRIVSTIL: Berättarröst / Storytelling
 
 KONCEPT:
 Berättarröst-tonen. Dagboken skriven som öppningen på en roman, där en allvetande och varm berättare observerar protagonisten genom dagens händelser. Vardagen blir litteratur — inte pretentiös eller tillgjord, utan som en bok man inte kan lägga ifrån sig. Tänk Fredrik Backman möter tonårsliv, Sally Rooney möter svensk vardag. Berättaren bryr sig om huvudpersonen men är inte naiv — verkligheten berättas som den är, inklusive det jobbiga. Bra berättelser har inte alltid lyckliga slut eller snygga lösningar.

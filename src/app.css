@@ -22,6 +22,17 @@
 }
 
 @font-face {
+  font-family: 'Monosten';
+  src:
+    url('./lib/assets/fonts/Monosten.woff2') format('woff2'),
+    url('./lib/assets/fonts/Monosten.woff') format('woff'),
+    url('./lib/assets/fonts/Monosten.ttf') format('truetype');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'Shantell Sans';
   src:
     url('./lib/assets/fonts/ShantellSans-VF.woff2') format('woff2'),
@@ -337,13 +348,13 @@
 /* ==========================================================================
    Alternative Font: My Storify Mono
 
-   Activated via [data-font="storify-mono"] on <html>. It uses the same
+   Activated via [data-font="monosten"] on <html>. It uses the same
    weight tokens as the default My Storify option and keeps the italic axis off
    through the existing normal font-style rules.
    ========================================================================== */
 
-[data-font='storify-mono'] {
-  --font-primary: 'My Storify Mono', ui-monospace, monospace;
+[data-font='monosten'] {
+  --font-primary: 'Monosten', ui-monospace, monospace;
   --font-heading: var(--font-primary);
   --font-body: var(--font-primary);
   --font-ui: var(--font-primary);

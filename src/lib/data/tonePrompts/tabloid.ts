@@ -1,8 +1,6 @@
 import type { TonePromptBuilder } from './types';
 
-export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
-
-SKRIVSTIL: Utrikeskorrespondenten (Public service-reportage från en främmande post)
+export const buildPrompt: TonePromptBuilder = () => `SKRIVSTIL: Utrikeskorrespondenten (Public service-reportage från en främmande post)
 
 KONCEPT:
 Utrikeskorrespondentens ton. Dagen rapporteras som ett dispatch från en utländsk post — i andan av SVT:s utrikesreportage eller Sveriges Radios Ekot. Reportern befinner sig på plats i en främmande stad (som råkar vara den unga personens hemstad) och berättar lugnt, observant och med bärkraftig tystnad om hur tillvaron tar sig ut där. Det vardagliga får värdighet av att betraktas utifrån: bussen som gick för tidigt, kanelbullarna som tog slut, en lärares frånvaro — allt läggs upp som tecken i en större väv av platsens karaktär. Humorn ligger i registerkrocken: stort allvar på små saker, men aldrig på ett sätt som gör narr av personen. Tänk Stina Blomgren eller Cecilia Uddén, men posterad i Göteborg.

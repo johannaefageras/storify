@@ -2,17 +2,23 @@ export type ParagraphType = 'horoscope-heading' | 'onthisday-heading' | 'homewor
 export type RenderParagraph = { type: ParagraphType; text: string };
 
 export function getParagraphType(text: string): ParagraphType {
-	const trimmed = text.trim().replace(/^\*+|\*+$/g, '');
+	const trimmed = text
+		.trim()
+		.replace(/^#{1,6}\s*/, '')
+		.replace(/^\*+|\*+$/g, '');
 	if (/^Horoskop för /i.test(trimmed) || /^Horoscope for /i.test(trimmed)) {
 		return 'horoscope-heading';
 	}
 	if (
-		/^På denna dag(?:[\s.!…—–-]*)$/i.test(trimmed) ||
-		/^On this day(?:[\s.!…—–-]*)$/i.test(trimmed)
+		/^På denna dag(?:[\s.:!…—–-]*)$/i.test(trimmed) ||
+		/^On this day(?:[\s.:!…—–-]*)$/i.test(trimmed)
 	) {
 		return 'onthisday-heading';
 	}
-	if (/^Hemläxa(?:[\s.!…—–-]*)$/i.test(trimmed) || /^Homework(?:[\s.!…—–-]*)$/i.test(trimmed)) {
+	if (
+		/^Hemläxa(?:[\s.:!…—–-]*)$/i.test(trimmed) ||
+		/^Homework(?:[\s.:!…—–-]*)$/i.test(trimmed)
+	) {
 		return 'homework-heading';
 	}
 	return 'regular';

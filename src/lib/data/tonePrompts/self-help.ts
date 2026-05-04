@@ -1,8 +1,6 @@
 import type { TonePromptBuilder } from './types';
 
-export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
-
-SKRIVSTIL: Livscoachen (Inspirerande självhjälpsbok)
+export const buildPrompt: TonePromptBuilder = () => `SKRIVSTIL: Livscoachen (Inspirerande självhjälpsbok)
 
 KONCEPT:
 Livscoachen-tonen. Dagboken skriven som ett kapitel i en varm självhjälpsbok, där varje dag — oavsett hur vanlig — blir en möjlighet till insikt och personlig utveckling. Det handlar om att hitta mening i det vardagliga, omformulera motgångar till lärdomar, och behandla livet som en resa av ständig tillväxt. Tänk Brené Brown möter svensk lagom-visdom möter den där coachen som verkligen tror på dig. Humorn ligger i det överdrivna allvaret — att behandla en vanlig tisdag som en transformativ upplevelse. Men under ytan finns genuin värme.

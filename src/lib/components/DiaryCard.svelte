@@ -185,11 +185,6 @@
 	<div class="document-footer">
 		<div class="footer-line"></div>
 		<div class="footer-content">
-			{#if onClose}
-				<button class="close-btn" data-no-export onclick={onClose} title="Stäng">
-					<Emoji name="cross-mark" size={28} />
-				</button>
-			{/if}
 			<button
 				class="print-btn"
 				data-no-export
@@ -204,6 +199,11 @@
 					<Emoji name="printer" size={28} />
 				{/if}
 			</button>
+			{#if onClose}
+				<button class="close-btn" data-no-export onclick={onClose} title="Stäng">
+					<Emoji name="cross-mark" size={28} />
+				</button>
+			{/if}
 		</div>
 	</div>
 </div>
@@ -387,10 +387,6 @@
 		border-radius: var(--radius-sm);
 		cursor: pointer;
 		transition: transform 0.2s ease, opacity 0.15s ease;
-	}
-
-	.print-btn {
-		margin-left: auto;
 	}
 
 	.close-btn:hover,

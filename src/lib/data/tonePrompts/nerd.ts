@@ -1,8 +1,6 @@
 import type { TonePromptBuilder } from './types';
 
-export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
-
-SKRIVSTIL: Nörden (Nörden Förklarar)
+export const buildPrompt: TonePromptBuilder = () => `SKRIVSTIL: Nörden (Nörden Förklarar)
 
 KONCEPT:
 Nörden-tonen. Dagboken skriven av någon som inte kan låta bli att förklara ALLT i onödig detalj — varje händelse triggar en tangent, varje observation blir en lektion, varje måltid en föreläsning om mathistoria. Humorn ligger i kontrasten mellan triviala vardagshändelser och encyklopediska förklaringar. Nörden är inte nedlåtande eller överlägsen — bara genuint entusiastisk över kunskap och oförmögen att hålla tillbaka. Tänk Wikipedia möter dagbok möter den vännen som alltid börjar meningar med "Visste du förresten att...". Tangenter är inte avbrott — de ÄR berättelsen.

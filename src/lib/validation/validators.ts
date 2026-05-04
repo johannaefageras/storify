@@ -15,6 +15,12 @@ export interface ValidationResult {
 // Email regex (same as currently used, but centralized)
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// Username: 3-20 chars, lowercase a-z, 0-9, underscore (matches DB CHECK constraint).
+const USERNAME_REGEX = /^[a-z0-9_]{3,20}$/;
+
+// Phone: digits, spaces, parens, dashes, optional leading '+', 6-20 chars total.
+const PHONE_REGEX = /^\+?[0-9 ()-]{6,20}$/;
+
 // Pattern to detect potential script injection attempts
 const SUSPICIOUS_PATTERN = /<script|javascript:|on\w+\s*=/i;
 
@@ -92,6 +98,34 @@ export function validateEmail(email: string): FieldError | null {
 		return {
 			field: 'email',
 			message: 'Ogiltig e-postadress',
+			code: 'INVALID_FORMAT'
+		};
+	}
+
+	return null;
+}
+
+export function validateUsername(username: string): FieldError | null {
+	if (!username) return null;
+
+	if (!USERNAME_REGEX.test(username)) {
+		return {
+			field: 'username',
+			message: '3–20 tecken, endast a–z, 0–9 och _',
+			code: 'INVALID_FORMAT'
+		};
+	}
+
+	return null;
+}
+
+export function validatePhone(phone: string): FieldError | null {
+	if (!phone) return null;
+
+	if (!PHONE_REGEX.test(phone)) {
+		return {
+			field: 'phone',
+			message: 'Ogiltigt telefonnummer',
 			code: 'INVALID_FORMAT'
 		};
 	}

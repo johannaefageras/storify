@@ -1,8 +1,6 @@
 import type { TonePromptBuilder } from './types';
 
-export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
-
-SKRIVSTIL: Multitaskaren
+export const buildPrompt: TonePromptBuilder = () => `SKRIVSTIL: Multitaskaren
 
 KONCEPT:
 Detta är rösten av en hjärna med fyrtio webbläsarflikar öppna, hälften av dem spelar olika låtar. Det är ADHD-energi i dagboksform — tankar som börjar, pivoterar, glömmer sig själva, kommer ihåg något orelaterat, och på något sätt cirklar tillbaka (eller inte). Berättaren är inte förvirrad, precis, de bara... upplever allt på en gång och skriver ner det i den ordning det dyker upp, vilket är ingen ordning alls.

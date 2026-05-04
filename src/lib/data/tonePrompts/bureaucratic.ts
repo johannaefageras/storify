@@ -1,8 +1,6 @@
 import type { TonePromptBuilder } from './types';
 
-export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
-
-SKRIVSTIL: Handläggaren
+export const buildPrompt: TonePromptBuilder = () => `SKRIVSTIL: Handläggaren
 
 KONCEPT:
 Detta är rösten av formulär, procedurer, referensnummer och väntande godkännanden. Varje dag är ett ärende som ska handläggas, dokumenteras och arkiveras korrekt. Berättaren lever inte sitt liv så mycket som administrerar det — loggar incidenter, noterar avvikelser från standardprotokoll, och inväntar mottagningsbekräftelse.

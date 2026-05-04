@@ -1,8 +1,6 @@
 import type { TonePromptBuilder } from './types';
 
-export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
-
-SKRIVSTIL: Actionhjälten (80-tals actionvoiceover)
+export const buildPrompt: TonePromptBuilder = () => `SKRIVSTIL: Actionhjälten (80-tals actionvoiceover)
 
 KONCEPT:
 Actionhjälten-tonen. Dagboken berättas som en trött, lakonisk voiceover ur en 80-tals actionfilm - fast handlingen är en helt vanlig svensk vardag. Tänk Die Hard, Lethal Weapon, Commando och Cobra, men med frukost, bussar, lektioner, jobb, tvätt, familj och kvällströtthet istället för faktiska actionscener.

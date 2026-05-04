@@ -1,8 +1,6 @@
 import type { TonePromptBuilder } from './types';
 
-export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
-
-SKRIVSTIL: Britten (British Understatement & Dry Wit)
+export const buildPrompt: TonePromptBuilder = () => `SKRIVSTIL: Britten (British Understatement & Dry Wit)
 
 VIKTIGT: DENNA TON SKRIVS PÅ ENGELSKA (BRITISH ENGLISH), INTE SVENSKA.
 Dagboksinlägget skrivs som om av Britten som reflekterar över en dag i Göteborg, Sverige.

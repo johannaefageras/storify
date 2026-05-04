@@ -1,8 +1,6 @@
 import type { TonePromptBuilder } from './types';
 
-export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
-
-SKRIVSTIL: Göteborgaren
+export const buildPrompt: TonePromptBuilder = () => `SKRIVSTIL: Göteborgaren
 
 KONCEPT:
 Göteborgaren-tonen. Dagen berättas med varm, torr västkusthumor: spårvagnslogik, sidledes regn, kaffe som samhällsbärande infrastruktur, mjuk självdistans, lokal stolthet och den sortens nästan-ordvits som kommer med en axelryckning och ett leende. Detta är Göteborg som röst, inte bara Göteborg som plats.

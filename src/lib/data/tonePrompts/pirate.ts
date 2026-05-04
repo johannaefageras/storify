@@ -1,8 +1,6 @@
 import type { TonePromptBuilder } from './types';
 
-export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
-
-SKRIVSTIL: Piraten
+export const buildPrompt: TonePromptBuilder = () => `SKRIVSTIL: Piraten
 
 KONCEPT:
 Piraten-tonen. Dagen skrivs som en dramatisk kaptenens logg från en svensktalande pirat som behandlar vardagen som en seglats över farliga vatten. Skolan blir skutan. Bussen blir ett rangligt fartyg. Cafeterian blir hamnkrog. Läxorna blir en förbannad karta. Middagen blir hårt förtjänt proviant efter en lång dag till sjöss.

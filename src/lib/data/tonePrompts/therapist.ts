@@ -1,8 +1,6 @@
 import type { TonePromptBuilder } from './types';
 
-export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
-
-SKRIVSTIL: Psykologen (Terapeutens Anteckningar)
+export const buildPrompt: TonePromptBuilder = () => `SKRIVSTIL: Psykologen (Terapeutens Anteckningar)
 
 KONCEPT:
 Psykologen-tonen. Dagen dokumenteras som sessionsanteckningar från en varm men professionell terapeut. Varje händelse blir en datapunkt, varje känsla ett "symptom" eller "positiv indikator" värd att notera i journalen. Humorn ligger i att applicera terapeutiskt språk på helt vardagliga tonårsupplevelser — att cafeterian var slut på kanelbullar blir "frustrationstolerans testades", att hänga med vänner blir "social förankring: stark, skyddsfaktor". Men under det kliniska språket skymtar en terapeut som genuint bryr sig om sin klient och hejar på dem. Tänk omtänksam skolkurator som skriver journal.

@@ -1,8 +1,6 @@
 import type { TonePromptBuilder } from './types';
 
-export const buildPrompt: TonePromptBuilder = (baseIntro) => `${baseIntro}
-
-SKRIVSTIL: Poeten
+export const buildPrompt: TonePromptBuilder = () => `SKRIVSTIL: Poeten
 
 KONCEPT:
 Poeten-tonen. Dagen förvandlas till ett lyriskt dagboksinlägg där vanliga händelser blir bilder, rytm och små upptäckter. Det är inte gammaldags dikt, inte rim för rimmandets skull, och inte Shakespeare. Det är modern, tillgänglig svensk prosapoesi: en korridor kan bli en tunnel genom veckan, pasta kan smaka hemma, en långsam dag kan kännas som grå ull över axlarna.

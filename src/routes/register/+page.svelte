@@ -2,15 +2,76 @@
 	import { goto } from '$app/navigation';
 	import { supabase } from '$lib/supabase/client';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import { FIELD_LIMITS, validateUsername } from '$lib/validation';
 	import arrowRightSvg from '$lib/assets/icons/arrow-right.svg?raw';
 	import googleIcon from '$lib/assets/icons/google.svg';
 
 	let email = $state('');
+	let username = $state('');
 	let password = $state('');
 	let confirmPassword = $state('');
 	let error = $state('');
 	let success = $state(false);
 	let loading = $state(false);
+
+	type UsernameStatus = 'idle' | 'checking' | 'available' | 'taken' | 'invalid';
+	let usernameStatus = $state<UsernameStatus>('idle');
+	let usernameMessage = $state('');
+	let usernameCheckToken = 0;
+
+	async function checkUsername(value: string) {
+		const trimmed = value.trim();
+		if (!trimmed) {
+			usernameStatus = 'idle';
+			usernameMessage = '';
+			return;
+		}
+
+		const formatError = validateUsername(trimmed);
+		if (formatError) {
+			usernameStatus = 'invalid';
+			usernameMessage = formatError.message;
+			return;
+		}
+
+		usernameStatus = 'checking';
+		usernameMessage = 'Kontrollerar...';
+
+		const token = ++usernameCheckToken;
+		const { data, error: rpcError } = await supabase.rpc('is_username_available', {
+			p_username: trimmed
+		});
+
+		if (token !== usernameCheckToken) return;
+
+		if (rpcError) {
+			usernameStatus = 'idle';
+			usernameMessage = '';
+			return;
+		}
+
+		if (data === true) {
+			usernameStatus = 'available';
+			usernameMessage = `@${trimmed} är ledigt`;
+		} else {
+			usernameStatus = 'taken';
+			usernameMessage = 'Användarnamnet är upptaget';
+		}
+	}
+
+	let usernameDebounce: ReturnType<typeof setTimeout> | null = null;
+	function handleUsernameInput(e: Event) {
+		const value = (e.currentTarget as HTMLInputElement).value.toLowerCase();
+		username = value;
+
+		if (usernameDebounce) clearTimeout(usernameDebounce);
+		if (!value.trim()) {
+			usernameStatus = 'idle';
+			usernameMessage = '';
+			return;
+		}
+		usernameDebounce = setTimeout(() => checkUsername(value), 350);
+	}
 
 	async function handleGoogleLogin() {
 		const { error: authError } = await supabase.auth.signInWithOAuth({
@@ -37,16 +98,38 @@
 			return;
 		}
 
+		const trimmedUsername = username.trim().toLowerCase();
+		if (trimmedUsername) {
+			const formatError = validateUsername(trimmedUsername);
+			if (formatError) {
+				error = `Användarnamn: ${formatError.message}`;
+				return;
+			}
+			if (usernameStatus === 'taken') {
+				error = 'Användarnamnet är upptaget.';
+				return;
+			}
+		}
+
 		loading = true;
 
 		const { error: authError } = await supabase.auth.signUp({
 			email,
 			password,
-			options: { emailRedirectTo: `${window.location.origin}/auth/callback` }
+			options: {
+				emailRedirectTo: `${window.location.origin}/auth/callback`,
+				data: trimmedUsername ? { username: trimmedUsername } : {}
+			}
 		});
 
 		if (authError) {
-			error = authError.message;
+			// Trigger-side failure (most likely a username race condition or constraint hit)
+			// surfaces as a generic database error; map to something user-friendly.
+			if (trimmedUsername && /database|saving new user/i.test(authError.message)) {
+				error = 'Användarnamnet är upptaget. Välj ett annat och försök igen.';
+			} else {
+				error = authError.message;
+			}
 			loading = false;
 			return;
 		}
@@ -91,6 +174,27 @@
 						required
 						autocomplete="email"
 					/>
+				</div>
+
+				<div class="field-group">
+					<label class="field-label" for="username">Användarnamn (valfritt)</label>
+					<div class="username-input">
+						<span class="username-prefix" aria-hidden="true">@</span>
+						<input
+							id="username"
+							type="text"
+							value={username}
+							oninput={handleUsernameInput}
+							placeholder="ditt_användarnamn"
+							autocomplete="username"
+							autocapitalize="none"
+							spellcheck="false"
+							maxlength={FIELD_LIMITS.username}
+						/>
+					</div>
+					{#if usernameMessage}
+						<p class="username-hint username-hint-{usernameStatus}">{usernameMessage}</p>
+					{/if}
 				</div>
 
 				<div class="field-group">
@@ -228,6 +332,65 @@
 	input::placeholder {
 		color: var(--color-text-muted);
 		opacity: 0.5;
+	}
+
+	.username-input {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+		padding: 0 0.875rem;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		background: var(--color-bg);
+		transition: border-color 0.15s ease, box-shadow 0.15s ease;
+	}
+
+	.username-input:focus-within {
+		border-color: var(--color-accent);
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
+	}
+
+	.username-prefix {
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		color: var(--color-text-muted);
+		user-select: none;
+	}
+
+	.username-input input {
+		flex: 1;
+		min-width: 0;
+		height: 2.6rem;
+		padding: 0;
+		border: none;
+		background: transparent;
+	}
+
+	.username-input input:focus {
+		border: none;
+		outline: none;
+		box-shadow: none;
+	}
+
+	.username-hint {
+		margin: 0.1rem 0 0;
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
+	}
+
+	.username-hint-checking {
+		color: var(--color-text-muted);
+	}
+
+	.username-hint-available {
+		color: #2e7d32;
+	}
+
+	.username-hint-taken,
+	.username-hint-invalid {
+		color: var(--color-accent);
 	}
 
 	.auth-submit {
