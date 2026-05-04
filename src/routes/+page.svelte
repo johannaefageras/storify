@@ -1,9 +1,11 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import { Emoji } from '$lib/assets/emojis';
 	import { getGreeting, getSubtitle } from '$lib/data/greetings';
+	import { voiceSamples, type VoiceSample } from '$lib/data/voiceGallery';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 
@@ -111,13 +113,61 @@
 		{ id: 'sportscaster', name: 'Sportkommentatorn', icon: 'soccer-ball', preview: 'OCH HAN KLIVER UPP UR SÄNGEN! Vilken start på dagen!' }
 	];
 
+	const sampleByToneId = new Map<string, VoiceSample>(voiceSamples.map((sample) => [sample.toneId, sample]));
+
+	let randomizedTonePreviews = $state<Record<string, string>>({});
+
+	function cleanPreviewText(text: string) {
+		return text
+			.replace(/`/g, '')
+			.replace(/\*\*/g, '')
+			.replace(/\*/g, '')
+			.replace(/^>\s?/gm, '')
+			.replace(/\s+/g, ' ')
+			.trim();
+	}
+
+	function truncatePreview(text: string) {
+		return text.length > 150 ? `${text.slice(0, 147).trim()}...` : text;
+	}
+
+	function getRandomPreview(sample: VoiceSample) {
+		const diaryText = sample.generatedText.split(/\n\n(?:Horoskop|Hemläxa)\b/)[0];
+		const paragraphs = diaryText
+			.split(/\n{2,}/)
+			.map(cleanPreviewText)
+			.filter((paragraph) => paragraph.length >= 45);
+
+		const candidates = paragraphs
+			.flatMap((paragraph) =>
+				paragraph.length <= 150
+					? [paragraph]
+					: paragraph.match(/[^.!?]+[.!?]+|[^.!?]+$/g)?.map(cleanPreviewText) ?? []
+			)
+			.filter((candidate) => candidate.length >= 45);
+
+		const source = candidates.length > 0 ? candidates : paragraphs;
+		const preview = source[Math.floor(Math.random() * source.length)];
+
+		return preview ? truncatePreview(preview) : sample.description;
+	}
+
+	onMount(() => {
+		randomizedTonePreviews = Object.fromEntries(
+			featuredTones.map((tone) => {
+				const sample = sampleByToneId.get(tone.id);
+				return [tone.id, sample ? getRandomPreview(sample) : tone.preview];
+			})
+		);
+	});
+
 	const features: Array<{ icon: string; title: string; description: string; href?: string }> = [
 		{ icon: 'studio-microphone', title: 'Tala in', description: 'Diktera dagens tankar istället för att skriva – AI:n gör om rösten till text.' },
 		{ icon: 'printer', title: 'PDF-export', description: 'Skriv ut eller spara dina sidor som vackra PDF:er.' },
-		{ icon: 'file-cabinet', title: 'Privat dagbok', description: 'Alla dina dagboksinlägg samlade och sökbara på ett ställe.' },
+		{ icon: 'old-key', title: 'Privat dagbok', description: 'Alla dina dagboksinlägg samlade och sökbara på ett ställe.' },
 		{ icon: 'palette', title: 'Personlig stil', description: 'Välj accentfärg, typsnitt och tema som passar dig.' },
 		{ icon: 'crystal-ball', title: 'Tillägg', description: 'Lägg till horoskop, "denna dag i historien" eller en kort reflektionsuppgift.' },
-		{ icon: 'loudspeaker', title: 'Community', description: 'Dela utvalda inlägg anonymt om du vill – eller behåll allt för dig själv.' }
+		{ icon: 'users-silhouette', title: 'Community', description: 'Dela utvalda inlägg anonymt om du vill – eller behåll allt för dig själv.' }
 	];
 
 	const sampleEntry = {
@@ -273,7 +323,7 @@
 								<Emoji name={tone.icon} size={40} />
 							</span>
 							<span class="tone-name">{tone.name}</span>
-							<p class="tone-preview">{tone.preview}</p>
+							<p class="tone-preview">{randomizedTonePreviews[tone.id] ?? tone.preview}</p>
 						</div>
 					{/each}
 				</div>

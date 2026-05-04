@@ -288,7 +288,8 @@
 	   Each weight appears slightly heavier than the name suggests to reflect
 	   the results of ink under pressure.
 	   ========================================================================== */
-
+  --weight-thin: 100;
+  --weight-xlight: 200;
   --weight-light: 300;
   --weight-book: 375;
   --weight-regular: 415;
