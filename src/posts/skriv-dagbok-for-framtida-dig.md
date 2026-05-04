@@ -1,6 +1,6 @@
 ---
 title: Framtida-du läser det här. Skriv för den personen
-date: 2026-05-02
+date: 2026-04-27
 description: Du tror att du skriver för dig själv just nu. Det är fel adressat. Nu-du var där. Det är någon annan som ska läsa det – en person som finns, som inte minns, som kommer ha glömt.
 tags:
   - dagboksskrivande
