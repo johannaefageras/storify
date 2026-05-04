@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
+	import { afterNavigate } from '$app/navigation';
 	import '../app.css';
 	import myStorifyWoff2 from '$lib/assets/fonts/MyStorify-VF.woff2';
 	import Navbar from '$lib/components/Navbar.svelte';
@@ -10,6 +11,7 @@
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { badgesStore } from '$lib/stores/badges.svelte';
+	import { applyStoredConsent, trackPageView } from '$lib/analytics';
 
 	let { children } = $props();
 
@@ -21,6 +23,13 @@
 		await accentStore.syncWithAuth();
 		await wizardStore.initProfile();
 		await badgesStore.init();
+		applyStoredConsent();
+	});
+
+	afterNavigate(async (nav) => {
+		if (!nav?.to?.url) return;
+		await tick(); // wait for child <svelte:head> to commit document.title
+		trackPageView(nav.to.url, nav.from?.url ?? null);
 	});
 </script>
 

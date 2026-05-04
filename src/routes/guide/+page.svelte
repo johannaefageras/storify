@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import { Emoji } from '$lib/assets/emojis';
-	import { Number1, Number2, Number3, Number4, Number5, Number6, Number7 } from '$lib/assets/numbers';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import { voiceSamples } from '$lib/data/voiceSamples';
 	import { tones } from '$lib/data/tones';
@@ -141,31 +140,31 @@
 		<p>Den fullständiga guiden tar dig igenom följande moment:</p>
 		<div class="custom-ol">
 			<div class="custom-li">
-				<span class="list-icon number-icon"><Number1 size={14} /></span>
+				<span class="list-icon number-icon">1</span>
 				<span class="list-content"><strong>Berätta vem du är</strong> – Fyll i din profil med namn, ålder, pronomen och lite om din livssituation. Detta hjälper AI:n att förstå vem du är och göra texten personlig. Om du har ett konto hanteras profilen på din profilsida istället.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon number-icon"><Number2 size={14} /></span>
+				<span class="list-icon number-icon">2</span>
 				<span class="list-content"><strong>Fånga dagens känsla</strong> – Välj emojis som representerar din dag, ange hur du sovit, din energinivå och ditt humör.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon number-icon"><Number3 size={14} /></span>
+				<span class="list-icon number-icon">3</span>
 				<span class="list-content"><strong>Beskriv vad du gjort</strong> – Platser du besökt, aktiviteter, personer du träffat, vinster och motgångar.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon number-icon"><Number4 size={14} /></span>
+				<span class="list-icon number-icon">4</span>
 				<span class="list-content"><strong>Lägg till detaljer</strong> – Reflektioner, mat och musik, och om dagen hade en färg – vilken skulle det vara?</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon number-icon"><Number5 size={14} /></span>
+				<span class="list-icon number-icon">5</span>
 				<span class="list-content"><strong>Skriv en tidskapsel</strong> – Spara ett minne du vill komma ihåg om tio år och skriv ett meddelande till ditt framtida jag.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon number-icon"><Number6 size={14} /></span>
+				<span class="list-icon number-icon">6</span>
 				<span class="list-content"><strong>Välj röst och tillägg</strong> – Välj vem som ska skriva din dagbok ({tones.length} unika röster!) och krydda med valfria tillägg som horoskop, historiska händelser eller en personlig hemläxa.</span>
 			</div>
 			<div class="custom-li">
-				<span class="list-icon number-icon"><Number7 size={14} /></span>
+				<span class="list-icon number-icon">7</span>
 				<span class="list-content"><strong>Generera och spara</strong> – Granska en sammanfattning, tryck på knappen och låt magin hända! Efteråt kan du redigera texten, regenerera den i en annan röst, exportera den som PDF, spara den i ditt dagboksarkiv eller publicera den i Gemenskapen.</span>
 			</div>
 		</div>
@@ -728,6 +727,10 @@
 		height: 21px;
 		padding-top: 2px;
 		color: var(--color-accent);
+		font-family: var(--font-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-semibold);
+		line-height: 1;
 	}
 
 	.bullet-icon {

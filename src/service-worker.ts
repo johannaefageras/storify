@@ -83,6 +83,14 @@ self.addEventListener('fetch', (event) => {
 	// Skip non-GET requests
 	if (event.request.method !== 'GET') return;
 
+	// Never cache or replay analytics beacons
+	if (
+		url.hostname === 'www.google-analytics.com' ||
+		url.hostname === 'www.googletagmanager.com'
+	) {
+		return;
+	}
+
 	// Skip API routes and external requests - always fetch from network
 	if (url.pathname.startsWith('/api') || url.origin !== self.location.origin) {
 		return;

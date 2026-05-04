@@ -5,7 +5,7 @@
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import { Emoji } from '$lib/assets/emojis';
 	import { getGreeting, getSubtitle } from '$lib/data/greetings';
-	import { voiceSamples, type VoiceSample } from '$lib/data/voiceGallery';
+	import { getLandingTonePreview } from '$lib/data/landingTonePreviews';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 
@@ -113,51 +113,11 @@
 		{ id: 'sportscaster', name: 'Sportkommentatorn', icon: 'soccer-ball', preview: 'OCH HAN KLIVER UPP UR SÄNGEN! Vilken start på dagen!' }
 	];
 
-	const sampleByToneId = new Map<string, VoiceSample>(voiceSamples.map((sample) => [sample.toneId, sample]));
-
 	let randomizedTonePreviews = $state<Record<string, string>>({});
-
-	function cleanPreviewText(text: string) {
-		return text
-			.replace(/`/g, '')
-			.replace(/\*\*/g, '')
-			.replace(/\*/g, '')
-			.replace(/^>\s?/gm, '')
-			.replace(/\s+/g, ' ')
-			.trim();
-	}
-
-	function truncatePreview(text: string) {
-		return text.length > 150 ? `${text.slice(0, 147).trim()}...` : text;
-	}
-
-	function getRandomPreview(sample: VoiceSample) {
-		const diaryText = sample.generatedText.split(/\n\n(?:Horoskop|Hemläxa)\b/)[0];
-		const paragraphs = diaryText
-			.split(/\n{2,}/)
-			.map(cleanPreviewText)
-			.filter((paragraph) => paragraph.length >= 45);
-
-		const candidates = paragraphs
-			.flatMap((paragraph) =>
-				paragraph.length <= 150
-					? [paragraph]
-					: paragraph.match(/[^.!?]+[.!?]+|[^.!?]+$/g)?.map(cleanPreviewText) ?? []
-			)
-			.filter((candidate) => candidate.length >= 45);
-
-		const source = candidates.length > 0 ? candidates : paragraphs;
-		const preview = source[Math.floor(Math.random() * source.length)];
-
-		return preview ? truncatePreview(preview) : sample.description;
-	}
 
 	onMount(() => {
 		randomizedTonePreviews = Object.fromEntries(
-			featuredTones.map((tone) => {
-				const sample = sampleByToneId.get(tone.id);
-				return [tone.id, sample ? getRandomPreview(sample) : tone.preview];
-			})
+			featuredTones.map((tone) => [tone.id, getLandingTonePreview(tone.id, tone.preview)])
 		);
 	});
 
