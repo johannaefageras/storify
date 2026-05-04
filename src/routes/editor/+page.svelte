@@ -421,6 +421,10 @@
 	}
 </script>
 
+<svelte:head>
+	<meta name="robots" content="noindex, nofollow" />
+</svelte:head>
+
 <main class="editor-page" class:result-view={!!generatedEntry}>
 	{#if generatedEntry}
 		<!-- Result view -->

@@ -377,6 +377,10 @@
 	}
 </script>
 
+<svelte:head>
+	<meta name="robots" content="noindex, nofollow" />
+</svelte:head>
+
 <main class="quick" class:result-view={!!generatedEntry}>
 	{#if generatedEntry}
 		<!-- Result view -->

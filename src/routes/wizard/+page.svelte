@@ -177,6 +177,10 @@
 	}
 </script>
 
+<svelte:head>
+	<meta name="robots" content="noindex, nofollow" />
+</svelte:head>
+
 <main class="wizard" class:result-view={isResultView}>
 	{#if isResultView}
 		<!-- No header in result view - cleaner presentation -->

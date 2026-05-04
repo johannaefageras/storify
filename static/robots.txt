@@ -1,5 +1,16 @@
-# allow crawling everything by default
 User-agent: *
-Disallow:
+Disallow: /login
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /interview
+Disallow: /wizard
+Disallow: /quick
+Disallow: /editor
+Disallow: /journal
+Disallow: /profile
+Disallow: /calendar
+Disallow: /badges
+Disallow: /api/
+Disallow: /auth/
 
 Sitemap: https://mystorify.se/sitemap.xml

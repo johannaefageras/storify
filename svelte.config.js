@@ -8,7 +8,7 @@ const config = {
 	kit: {
 		adapter: adapterNode(),
 		prerender: {
-			entries: ['*', '/sitemap.xml'],
+			entries: ['*'],
 			handleUnseenRoutes: 'warn'
 		}
 	}

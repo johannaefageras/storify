@@ -426,6 +426,10 @@
 	}
 </script>
 
+<svelte:head>
+	<meta name="robots" content="noindex, nofollow" />
+</svelte:head>
+
 <main class="interview-page">
 	<div class="interview-body">
 		{#if chatStore.phase === 'interviewer-selection'}

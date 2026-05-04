@@ -28,6 +28,10 @@
 	}
 </script>
 
+<svelte:head>
+	<meta name="robots" content="noindex, nofollow" />
+</svelte:head>
+
 <main class="auth-page">
 	<div class="auth-container">
 		<header class="auth-header">
