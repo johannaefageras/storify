@@ -1,0 +1,143 @@
+/* ==========================================================================
+   Theme: light/dark colors, mood palettes, accent overrides
+
+   Imported from app.css. The default :root block defines the light theme;
+   [data-theme='dark'] swaps the palette wholesale; [data-accent='…'] blocks
+   layer on top of either theme to override --color-accent only. Order
+   matters — accent blocks must come after [data-theme='dark'] so the dark
+   accent variants can win via the `[data-accent='…'][data-theme='dark']`
+   compound selector.
+   ========================================================================== */
+
+:root {
+  /* Colors - Light Theme (default) */
+  --color-bg: #fafafa;
+  --color-bg-elevated: #ffffff;
+  --color-text: #1a1a1a;
+  --color-text-muted: #6b6b6b;
+  --color-border: #e5e5e5;
+  --color-accent: #c2185b;
+  --color-accent-hover: #a91550;
+  --color-neutral: #f0f0f0;
+  --color-neutral-hover: #e5e5e5;
+  --color-error: #dc2626;
+  --color-error-bg: #fef2f2;
+  --color-error-border: #fecaca;
+
+  /* Mood colors — Light theme
+     Targeting ~40-50% lightness, controlled saturation (~60-75%)
+     so colors read clearly on #fafafa without vibrating */
+  --mood-red: #c92f2f;
+  --mood-yellow: #d99a1a;
+  --mood-orange: #e07d1f;
+  --mood-pink: #d63868;
+  --mood-purple: #8e3ab5;
+  --mood-violet: #7c4dd0;
+  --mood-indigo: #4f4fc9;
+  --mood-blue: #2851c7; /* deeper royal — separates from sky */
+  --mood-sky: #4d9ed8; /* lighter, clearly sky-blue */
+  --mood-cyan: #06b3cc; /* more vivid aqua */
+  --mood-teal: #0d9c87;
+  --mood-green: #2ba14d;
+  --mood-brown: #8a5a1a;
+  --mood-gray: #65656d;
+  --mood-black: #1f1f23;
+  --mood-white: #f0efea;
+}
+
+/* ==========================================================================
+   Dark Theme
+
+   Activated via [data-theme="dark"] attribute on <html>.
+   Uses warm, slightly desaturated tones to maintain the industrial aesthetic
+   while being easy on the eyes.
+   ========================================================================== */
+
+[data-theme='dark'] {
+  --color-bg: #121212;
+  --color-bg-elevated: #1c1c1c;
+  --color-text: #f0f0f0;
+  --color-text-muted: #a8a8a8;
+  --color-border: #2e2e2e;
+  --color-accent: #e91e63;
+  --color-accent-hover: #ec3d79;
+  --color-neutral: #242424;
+  --color-neutral-hover: #2e2e2e;
+  --color-error: #f87171;
+  --color-error-bg: #2d1618;
+  --color-error-border: #5f2126;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+
+  /* Mood colors — Dark theme
+     Targeting ~65-75% lightness, slightly reduced saturation
+     so colors don't vibrate against #121212 */
+  --mood-red: #ee6464;
+  --mood-yellow: #f0c14a;
+  --mood-orange: #f0a050;
+  --mood-pink: #f06a92;
+  --mood-purple: #c070d8;
+  --mood-violet: #b88af0;
+  --mood-indigo: #8888ee;
+  --mood-blue: #6285f0; /* deeper royal — separates from sky */
+  --mood-sky: #6cbae5; /* lighter, clearly sky-blue */
+  --mood-cyan: #4dd9eb; /* more vivid aqua */
+  --mood-teal: #3dcaa5; /* leans greener — separates from cyan */
+  --mood-green: #5dd47e;
+  --mood-brown: #d49850;
+  --mood-gray: #9c9ca4;
+  --mood-black: #3a3a3e; /* much lifted — a "black mood" needs to be visible against bg */
+  --mood-white: #ebebe6;
+}
+
+/* ==========================================================================
+   Accent Color Themes
+
+   Activated via [data-accent] attribute on <html>.
+   Pink is the default and needs no attribute. Each accent overrides
+   --color-accent and --color-accent-hover for both light and dark themes.
+   ========================================================================== */
+
+[data-accent='amber'] {
+  --color-accent: #d4881a;
+  --color-accent-hover: #b87516;
+}
+[data-accent='amber'][data-theme='dark'] {
+  --color-accent: #f0a83a;
+  --color-accent-hover: #f3b858;
+}
+
+[data-accent='blue'] {
+  --color-accent: #42a5f5;
+  --color-accent-hover: #1565c0;
+}
+[data-accent='blue'][data-theme='dark'] {
+  --color-accent: #42a5f5;
+  --color-accent-hover: #63b5f7;
+}
+
+[data-accent='emerald'] {
+  --color-accent: #2e7d32;
+  --color-accent-hover: #26692a;
+}
+[data-accent='emerald'][data-theme='dark'] {
+  --color-accent: #66bb6a;
+  --color-accent-hover: #7fc983;
+}
+
+[data-accent='purple'] {
+  --color-accent: #6a1b9a;
+  --color-accent-hover: #591680;
+}
+[data-accent='purple'][data-theme='dark'] {
+  --color-accent: #ab47bc;
+  --color-accent-hover: #b863c8;
+}
+
+[data-accent='rust'] {
+  --color-accent: #b53d2a;
+  --color-accent-hover: #9a3324;
+}
+[data-accent='rust'][data-theme='dark'] {
+  --color-accent: #e35d4a;
+  --color-accent-hover: #e87463;
+}
