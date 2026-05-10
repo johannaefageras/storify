@@ -249,7 +249,9 @@
 				includeHomework: chatStore.includeHomework,
 				quickMode: false,
 				speakMode: false,
-				quickText: ''
+				editorMode: false,
+				quickText: '',
+				freeText: ''
 			};
 
 			let switchedToResult = false;
@@ -296,7 +298,9 @@
 				includeHomework: chatStore.includeHomework,
 				quickMode: false,
 				speakMode: false,
-				quickText: ''
+				editorMode: false,
+				quickText: '',
+				freeText: ''
 			};
 
 			generatedEntry = '';

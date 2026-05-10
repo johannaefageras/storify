@@ -24,6 +24,16 @@
 	onMount(async () => {
 		// Load profile and skip Step 0 for logged-in users
 		await wizardStore.initProfile();
+		// Reset mode flags before restoring the wizard draft so stale state from
+		// a prior /quick, /editor, or /interview session in the same tab doesn't
+		// route auto-saves to the wrong key or trigger short-mode prompts on the server.
+		wizardStore.updateData('quickMode', false);
+		wizardStore.updateData('speakMode', false);
+		wizardStore.updateData('chatMode', false);
+		wizardStore.updateData('editorMode', false);
+		wizardStore.updateData('quickText', '');
+		wizardStore.updateData('freeText', '');
+		wizardStore.updateData('chatTranscript', '');
 		// Restore any saved draft progress
 		await wizardStore.restoreDraft('wizard');
 		// Fetch weather silently in the background (fails silently if denied or unavailable)
