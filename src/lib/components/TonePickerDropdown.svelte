@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { tones } from '$lib/data/tones';
+	import { activeTones as tones } from '$lib/data/tones';
 	import { accentStore, type Accent } from '$lib/stores/accent.svelte';
 	import { Emoji } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';

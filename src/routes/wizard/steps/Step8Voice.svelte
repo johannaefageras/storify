@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import { tones } from '$lib/data/tones';
+	import { activeTones as tones } from '$lib/data/tones';
 	import { voiceSamples } from '$lib/data/voiceSamples';
 	import { Emoji } from '$lib/assets/emojis';
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';

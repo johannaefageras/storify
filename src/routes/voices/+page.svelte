@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { tones } from '$lib/data/tones';
+	import { activeTones as tones } from '$lib/data/tones';
 	import { voiceSamples, type VoiceSample } from '$lib/data/voiceGallery';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';

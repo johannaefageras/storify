@@ -3,6 +3,7 @@ export interface Tone {
   name: string;
   emoji: string;
   preview: string;
+  disabled?: boolean;
 }
 
 export const tones: Tone[] = [
@@ -34,7 +35,8 @@ export const tones: Tone[] = [
     id: 'cat-perspective',
     name: 'Katten',
     emoji: '🐈',
-    preview: 'Människan vaknade sent igen. Typiskt.'
+    preview: 'Människan vaknade sent igen. Typiskt.',
+    disabled: true
   },
   {
     id: 'drama-queen',
@@ -64,13 +66,15 @@ export const tones: Tone[] = [
     id: 'bored',
     name: 'Roastaren',
     emoji: '🔥',
-    preview: 'Din dag ställde sig på scen och bad om att bli roastad.'
+    preview: 'Din dag ställde sig på scen och bad om att bli roastad.',
+    disabled: true
   },
   {
     id: 'nature-documentary',
     name: 'Naturfilmaren',
     emoji: '🌎',
-    preview: 'Här ser vi tonåringen i sin naturliga miljö... sovande.'
+    preview: 'Här ser vi tonåringen i sin naturliga miljö... sovande.',
+    disabled: true
   },
   {
     id: 'therapist',
@@ -94,7 +98,8 @@ export const tones: Tone[] = [
     id: 'tabloid',
     name: 'Utrikeskorrespondenten',
     emoji: '🌐',
-    preview: 'GÖTEBORG. Det regnar tunt över Avenyn när dagen tar sin början...'
+    preview: 'GÖTEBORG. Det regnar tunt över Avenyn när dagen tar sin början...',
+    disabled: true
   },
   {
     id: 'formal',
@@ -149,19 +154,22 @@ export const tones: Tone[] = [
     id: 'bureaucratic',
     name: 'Handläggaren',
     emoji: '📋',
-    preview: 'Ärendet avslutas. Med vänlig hälsning, Undertecknad, Handläggare.'
+    preview: 'Ärendet avslutas. Med vänlig hälsning, Undertecknad, Handläggare.',
+    disabled: true
   },
   {
     id: 'bro',
     name: 'Killen-hela-dagen',
     emoji: '🩳',
-    preview: 'Ass boys, vaknade 06:00 för padel. Grind mode. Inte för att skryta men.'
+    preview: 'Ass boys, vaknade 06:00 för padel. Grind mode. Inte för att skryta men.',
+    disabled: true
   },
   {
     id: 'action-hero',
     name: 'Actionhjälten',
     emoji: '💥',
-    preview: '06:47. Stockholm. Jag satte på fuel. Svart. Inget annat räknas.'
+    preview: '06:47. Stockholm. Jag satte på fuel. Svart. Inget annat räknas.',
+    disabled: true
   },
   {
     id: 'influencer',
@@ -173,30 +181,37 @@ export const tones: Tone[] = [
     id: 'six-year-old',
     name: 'Sexåringen',
     emoji: '🧸',
-    preview: 'Idag hände det JÄTTEMYCKET. Typ hundra grejer. Fast mest bara två.'
+    preview: 'Idag hände det JÄTTEMYCKET. Typ hundra grejer. Fast mest bara två.',
+    disabled: true
   },
   {
     id: 'poet',
     name: 'Poeten',
     emoji: '🪶',
-    preview: 'Dagen låg grå och mjuk över mig, som en filt av tystnad.'
+    preview: 'Dagen låg grå och mjuk över mig, som en filt av tystnad.',
+    disabled: true
   },
   {
     id: 'culture-vulture',
     name: 'Kulturtanten',
     emoji: '🍷',
-    preview: 'Dagens uppsättning var lågmäld, men inte utan vissa fina partier.'
+    preview: 'Dagens uppsättning var lågmäld, men inte utan vissa fina partier.',
+    disabled: true
   },
   {
     id: 'pirate',
     name: 'Piraten',
     emoji: '🏴‍☠️',
-    preview: 'Kaptenens logg: jag satte kurs mot ännu en vardag på öppet hav.'
+    preview: 'Kaptenens logg: jag satte kurs mot ännu en vardag på öppet hav.',
+    disabled: true
   },
   {
     id: 'gothenburger',
     name: 'Göteborgaren',
     emoji: '🚋',
-    preview: 'Jajamen, dagen rullade på som en spårvagn i sidledes regn.'
+    preview: 'Jajamen, dagen rullade på som en spårvagn i sidledes regn.',
+    disabled: true
   }
 ];
+
+export const activeTones: Tone[] = tones.filter((t) => !t.disabled);

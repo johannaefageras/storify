@@ -2,7 +2,7 @@
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { supabase } from '$lib/supabase/client';
-	import { tones } from '$lib/data/tones';
+	import { tones, activeTones } from '$lib/data/tones';
 	import { emojiSvgMap } from '$lib/data/emojiSvgs';
 	import { uniqueSvgIds } from '$lib/utils/uniqueSvgIds';
 	import { getMoodColorById } from '$lib/data/moodColors';
@@ -263,8 +263,8 @@ Vi ses imorgon, dagboken.`;
 		// Determine the actual tone to use (random if "surprise" selected)
 		let toneToUse = wizardStore.data.selectedTone;
 		if (toneToUse === 'surprise') {
-			const randomIndex = Math.floor(Math.random() * tones.length);
-			toneToUse = tones[randomIndex].id;
+			const randomIndex = Math.floor(Math.random() * activeTones.length);
+			toneToUse = activeTones[randomIndex].id;
 		}
 		actualToneUsed = toneToUse;
 		startPhraseCycling(toneToUse);

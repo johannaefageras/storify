@@ -15,7 +15,7 @@
 	import { generateTitle } from '$lib/utils/generateTitle';
 	import { fireBadgeEvent } from '$lib/gamification/client';
 	import { goto } from '$app/navigation';
-	import { tones } from '$lib/data/tones';
+	import { activeTones as tones } from '$lib/data/tones';
 	import { pickOpener, type StarterId } from '$lib/data/interviewOpeners';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import { isSeparatorParagraph } from '$lib/utils/paragraphs';

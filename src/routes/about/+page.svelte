@@ -2,7 +2,7 @@
 	import { Emoji } from '$lib/assets/emojis';
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
-	import { tones } from '$lib/data/tones';
+	import { activeTones as tones } from '$lib/data/tones';
 	import { BADGES } from '$lib/data/badges';
 
 	const roseComponents = {
@@ -72,7 +72,7 @@
 
 	<section>
 		<h2>Många röster – från poetisk till pinsam</h2>
-		<p>Det som gör Storify unikt är rösterna. Välj mellan {tones.length} helt olika skrivstilar: klassisk dagbok, sportkommentator, katten, Shakespeare, kvällstidningsreporter, byråkratisk myndighetsstil, actionhjälte, influencer, sexåring, Poeten, Kulturtanten, Piraten, Göteborgaren – och mycket mer. Samma dag kan bli helt olika beroende på vilken röst du väljer. Kan du inte bestämma dig? Låt appen överraska dig med en slumpmässig röst, eller besök <a href="/voices">Rösterna</a> för att läsa provtexter.</p>
+		<p>Det som gör Storify unikt är rösterna. Välj mellan {tones.length} helt olika skrivstilar: Dagboksskribenten, Berättaren, Filosofen, Sportkommentatorn, Shakespeare, Influencern, Psykologen, AI-Roboten, Foliehatten, Multitaskaren – och många fler. Samma dag kan bli helt olika beroende på vilken röst du väljer. Kan du inte bestämma dig? Låt appen överraska dig med en slumpmässig röst, eller besök <a href="/voices">Rösterna</a> för att läsa provtexter.</p>
 	</section>
 
 	<section>

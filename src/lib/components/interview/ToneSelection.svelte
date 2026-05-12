@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { chatStore } from '$lib/stores/chat.svelte';
 	import { wizardStore } from '$lib/stores/wizard.svelte';
-	import { tones } from '$lib/data/tones';
+	import { activeTones as tones } from '$lib/data/tones';
 	import { voiceSamples } from '$lib/data/voiceSamples';
 	import { getZodiacFromBirthday } from '$lib/utils/zodiac';
 	import arrowLeftSvg from '$lib/assets/icons/arrow-left.svg?raw';

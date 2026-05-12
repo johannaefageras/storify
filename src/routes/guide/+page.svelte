@@ -3,7 +3,7 @@
 	import { Emoji } from '$lib/assets/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import { voiceSamples } from '$lib/data/voiceSamples';
-	import { tones } from '$lib/data/tones';
+	import { activeTones as tones } from '$lib/data/tones';
 	import { BADGES } from '$lib/data/badges';
 	import type { Snippet } from 'svelte';
 
@@ -102,7 +102,7 @@
 	<section>
 		<h2>Tala in</h2>
 		<p>Tala in-läget passar när du hellre pratar än skriver. Du spelar in upp till fem minuter, Storify gör om ljudet till text, och sedan används transkriberingen som underlag för din dagbok.</p>
-		<p>Du kan välja röst precis som i de andra lägena. Det gör att samma inspelning kan bli rak dagbok, prosapoesi, Göteborgshumor, sjörövarlogg eller något helt annat.</p>
+		<p>Du kan välja röst precis som i de andra lägena. Det gör att samma inspelning kan bli rak dagbok, sportkommentar, filosofisk reflektion eller något helt annat.</p>
 		<p>Tips: prata naturligt och ta med konkreta detaljer. Det gör inget om du ändrar dig, upprepar dig eller pratar i ofärdiga meningar – texten kan redigeras efteråt. Du hittar läget via <a href="/speak">/speak</a>.</p>
 	</section>
 
@@ -228,7 +228,7 @@
 
 	<section>
 		<h2>Välj rätt röst</h2>
-		<p>Rösten du väljer påverkar stilen på din dagbokstext. Det finns {tones.length} röster totalt, inklusive Poeten, Kulturtanten, Piraten och Göteborgaren. Klicka på en röst för att läsa mer och se exempel, eller öppna <a href="/voices">Rösterna</a> för längre provtexter:</p>
+		<p>Rösten du väljer påverkar stilen på din dagbokstext. Det finns {tones.length} röster totalt, från klassisk dagbok till Shakespeare, Influencern och Foliehatten. Klicka på en röst för att läsa mer och se exempel, eller öppna <a href="/voices">Rösterna</a> för längre provtexter:</p>
 
 		<div class="voice-grid-compact">
 			{#snippet ledgerIcon()}<Emoji name="ledger" size={20} />{/snippet}
@@ -279,10 +279,6 @@
 				<span class="voice-chip-emoji">{@render soccerBallIcon()}</span>
 				<span class="voice-chip-name">Sportkommentatorn</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'cat-perspective', name: 'Katten', description: 'Din dag sedd genom kattens dömande och nyfikna ögon.', icon: catIcon })}>
-				<span class="voice-chip-emoji">{@render catIcon()}</span>
-				<span class="voice-chip-name">Katten</span>
-			</button>
 			<button class="voice-chip" onclick={() => openModal({ id: 'cynical', name: 'Cynikern', description: 'Skeptisk och lite uppgiven – men ärlig och underfundig.', icon: unamusedIcon })}>
 				<span class="voice-chip-emoji">{@render unamusedIcon()}</span>
 				<span class="voice-chip-name">Cynikern</span>
@@ -303,14 +299,6 @@
 				<span class="voice-chip-emoji">{@render videoGameIcon()}</span>
 				<span class="voice-chip-name">Gamern</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'bored', name: 'Roastaren', description: 'Din dag som standupmaterial – tight, träffsäkert och utan filter.', icon: fireIcon })}>
-				<span class="voice-chip-emoji">{@render fireIcon()}</span>
-				<span class="voice-chip-name">Roastaren</span>
-			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'nature-documentary', name: 'Naturfilmaren', description: 'David Attenborough observerar dig i din naturliga miljö.', icon: earthIcon })}>
-				<span class="voice-chip-emoji">{@render earthIcon()}</span>
-				<span class="voice-chip-name">Naturfilmaren</span>
-			</button>
 			<button class="voice-chip" onclick={() => openModal({ id: 'therapist', name: 'Psykologen', description: 'Empatisk och validerande. Hjälper dig förstå dina känslor.', icon: brainIcon })}>
 				<span class="voice-chip-emoji">{@render brainIcon()}</span>
 				<span class="voice-chip-name">Psykologen</span>
@@ -322,10 +310,6 @@
 			<button class="voice-chip" onclick={() => openModal({ id: 'shakespeare', name: 'Shakespeare', description: 'Poetisk prosa från renässansen. Att vara eller icke vara.', icon: theaterMasksIcon })}>
 				<span class="voice-chip-emoji">{@render theaterMasksIcon()}</span>
 				<span class="voice-chip-name">Shakespeare</span>
-			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'tabloid', name: 'Kvällstidningsreportern', description: 'CHOCK! SKANDAL! Din dag som sensationella rubriker!', icon: newspaperIcon })}>
-				<span class="voice-chip-emoji">{@render newspaperIcon()}</span>
-				<span class="voice-chip-name">Kvällstidningsreportern</span>
 			</button>
 			<button class="voice-chip" onclick={() => openModal({ id: 'formal', name: 'Akademikern', description: 'Din dag som empiri, analys och försiktiga slutsatser. Vidare forskning krävs.', icon: blackNibIcon })}>
 				<span class="voice-chip-emoji">{@render blackNibIcon()}</span>
@@ -351,45 +335,13 @@
 				<span class="voice-chip-emoji">{@render headstoneIcon()}</span>
 				<span class="voice-chip-name">Martyren</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'bureaucratic', name: 'Handläggaren', description: 'Formulär, stämplar och paragrafer. Allt ska dokumenteras korrekt.', icon: archiveIcon })}>
-				<span class="voice-chip-emoji">{@render archiveIcon()}</span>
-				<span class="voice-chip-name">Handläggaren</span>
-			</button>
 			<button class="voice-chip" onclick={() => openModal({ id: 'chaotic', name: 'Multitaskaren', description: 'Allt händer på en gång och ingenting går som planerat. Kaoset regerar!', icon: tornadoIcon })}>
 				<span class="voice-chip-emoji">{@render tornadoIcon()}</span>
 				<span class="voice-chip-name">Multitaskaren</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'bro', name: 'Killen-hela-dagen', description: 'Grind mode, padel och boys. Allt är sjukt eller typ ingenting alls.', icon: shortsIcon })}>
-				<span class="voice-chip-emoji">{@render shortsIcon()}</span>
-				<span class="voice-chip-name">Killen-hela-dagen</span>
-			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'action-hero', name: 'Actionhjälten', description: 'Hårdkokt noir-monolog. Tuff, torr och lätt melankolisk.', icon: collisionIcon })}>
-				<span class="voice-chip-emoji">{@render collisionIcon()}</span>
-				<span class="voice-chip-name">Actionhjälten</span>
-			</button>
 			<button class="voice-chip" onclick={() => openModal({ id: 'influencer', name: 'Influencern', description: 'Soft era, matcha och good vibes. Allt är magiskt och contentvänligt.', icon: megaphoneIcon })}>
 				<span class="voice-chip-emoji">{@render megaphoneIcon()}</span>
 				<span class="voice-chip-name">Influencern</span>
-			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'six-year-old', name: 'Sexåringen', description: 'Oförfalskad sexårs-logik. Orättvist, mysigt och ibland helt lysande.', icon: teddyBearIcon })}>
-				<span class="voice-chip-emoji">{@render teddyBearIcon()}</span>
-				<span class="voice-chip-name">Sexåringen</span>
-			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'poet', name: 'Poeten', description: 'Modern prosapoesi som fångar dagens små detaljer med bild, rytm och stillhet.', icon: featherIcon })}>
-				<span class="voice-chip-emoji">{@render featherIcon()}</span>
-				<span class="voice-chip-name">Poeten</span>
-			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'culture-vulture', name: 'Kulturtanten', description: 'DN Kultur möter vardagen. Estetiska omdömen, mild snobbism och varmt hjärta.', icon: wineIcon })}>
-				<span class="voice-chip-emoji">{@render wineIcon()}</span>
-				<span class="voice-chip-name">Kulturtanten</span>
-			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'pirate', name: 'Piraten', description: 'Kaptenens logg över vardagens stormar, skatter, besättning och trygga hamnar.', icon: pirateFlagIcon })}>
-				<span class="voice-chip-emoji">{@render pirateFlagIcon()}</span>
-				<span class="voice-chip-name">Piraten</span>
-			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'gothenburger', name: 'Göteborgaren', description: 'Varm, torr Göteborgshumor med spårvagnskänsla, regn och goa små segrar.', icon: tramIcon })}>
-				<span class="voice-chip-emoji">{@render tramIcon()}</span>
-				<span class="voice-chip-name">Göteborgaren</span>
 			</button>
 		</div>
 

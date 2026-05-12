@@ -4,7 +4,7 @@
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { supabase } from '$lib/supabase/client';
-	import { tones } from '$lib/data/tones';
+	import { activeTones as tones } from '$lib/data/tones';
 	import { moodColors } from '$lib/data/moodColors';
 	import { streamEntry } from '$lib/utils/streamEntry';
 	import { generateTitle } from '$lib/utils/generateTitle';

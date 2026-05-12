@@ -271,7 +271,7 @@
 		<section class="section section-tones">
 			<div class="section-inner">
 				<p class="eyebrow">Berättarröster</p>
-				<h2 class="section-title">Din dag, i 32 olika röster</h2>
+				<h2 class="section-title">Din dag, i 20 olika röster</h2>
 				<p class="section-lede center">
 					Klassisk dagbok? Klart. Eller berätta som en pirat, en sportkommentator, en katt
 					eller en filosof. Samma dag – helt olika minne.
@@ -288,7 +288,7 @@
 					{/each}
 				</div>
 				<p class="tones-footnote">
-					…och 20 till. Influencern, Foliehatten, Poeten, Piraten…
+					…och 8 till. Influencern, Foliehatten, Tonåringen, Multitaskaren…
 					<a href="/voices" class="tones-link">Utforska alla röster →</a>
 				</p>
 			</div>
