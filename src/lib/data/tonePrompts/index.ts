@@ -7,73 +7,69 @@ import {
 } from './types';
 
 // Import all tone modules
-import { buildPrompt as classicPrompt } from './classic';
-import { buildPrompt as storytellingPrompt } from './storytelling';
-import { buildPrompt as philosophicalPrompt } from './philosophical';
-import { buildPrompt as sportscasterPrompt } from './sportscaster';
-import { buildPrompt as catPerspectivePrompt } from './cat-perspective';
-import { buildPrompt as cynicalPrompt } from './cynical';
-import { buildPrompt as dramaQueenPrompt } from './drama-queen';
-import { buildPrompt as cringePrompt } from './cringe';
-import { buildPrompt as britishPrompt } from './british';
-import { buildPrompt as questLogPrompt } from './quest-log';
-import { buildPrompt as boredPrompt } from './bored';
-import { buildPrompt as natureDocumentaryPrompt } from './nature-documentary';
-import { buildPrompt as therapistPrompt } from './therapist';
-import { buildPrompt as aiRobotPrompt } from './ai-robot';
+import { buildPrompt as dagboksskribentenPrompt } from './dagboksskribenten';
+import { buildPrompt as berattarenPrompt } from './berattaren';
+import { buildPrompt as filosofenPrompt } from './filosofen';
+import { buildPrompt as sportkommentatornPrompt } from './sportkommentatorn';
+import { buildPrompt as kattenPrompt } from './katten';
+import { buildPrompt as cynikernPrompt } from './cynikern';
+import { buildPrompt as divanPrompt } from './divan';
+import { buildPrompt as tonaringenPrompt } from './tonaringen';
+import { buildPrompt as brittenPrompt } from './britten';
+import { buildPrompt as gamernPrompt } from './gamern';
+import { buildPrompt as naturfilmarenPrompt } from './naturfilmaren';
+import { buildPrompt as psykologenPrompt } from './psykologen';
+import { buildPrompt as aiRobotPrompt } from './roboten';
 import { buildPrompt as shakespearePrompt } from './shakespeare';
-import { buildPrompt as tabloidPrompt } from './tabloid';
-import { buildPrompt as formalPrompt } from './formal';
-import { buildPrompt as nerdPrompt } from './nerd';
-import { buildPrompt as tinfoilHatPrompt } from './tinfoil-hat';
-import { buildPrompt as selfHelpPrompt } from './self-help';
-import { buildPrompt as overthinkerPrompt } from './overthinker';
-import { buildPrompt as passiveAggressivePrompt } from './passive-aggressive';
-import { buildPrompt as chaoticPrompt } from './chaotic';
-import { buildPrompt as bureaucraticPrompt } from './bureaucratic';
-import { buildPrompt as broPrompt } from './bro';
-import { buildPrompt as actionHeroPrompt } from './action-hero';
-import { buildPrompt as influencerPrompt } from './influencer';
-import { buildPrompt as sixYearOldPrompt } from './six-year-old';
-import { buildPrompt as poetPrompt } from './poet';
-import { buildPrompt as cultureVulturePrompt } from './culture-vulture';
-import { buildPrompt as piratePrompt } from './pirate';
-import { buildPrompt as gothenburgerPrompt } from './gothenburger';
+import { buildPrompt as reporternPrompt } from './reportern';
+import { buildPrompt as akademikernPrompt } from './akademikern';
+import { buildPrompt as nordenPrompt } from './norden';
+import { buildPrompt as foliehattenPrompt } from './foliehatten';
+import { buildPrompt as livscoachenPrompt } from './livscoachen';
+import { buildPrompt as grubblarenPrompt } from './grubblaren';
+import { buildPrompt as martyrenPrompt } from './martyren';
+import { buildPrompt as multitaskarenPrompt } from './multitaskaren';
+import { buildPrompt as handlaggarenPrompt } from './handlaggaren';
+import { buildPrompt as killenHelaDagenPrompt } from './killenheladagen';
+import { buildPrompt as actionHjaltenPrompt } from './actionhjalten';
+import { buildPrompt as influencernPrompt } from './influencern';
+import { buildPrompt as sexaringenPrompt } from './sexaringen';
+import { buildPrompt as poetenPrompt } from './poeten';
+import { buildPrompt as kulturtantenPrompt } from './kulturtanten';
+import { buildPrompt as piratenPrompt } from './piraten';
 
 // Registry of all tone prompt builders
 const toneBuilders: Record<ToneId, TonePromptBuilder> = {
-  classic: classicPrompt,
-  storytelling: storytellingPrompt,
-  philosophical: philosophicalPrompt,
-  sportscaster: sportscasterPrompt,
-  'cat-perspective': catPerspectivePrompt,
-  cynical: cynicalPrompt,
-  'drama-queen': dramaQueenPrompt,
-  cringe: cringePrompt,
-  british: britishPrompt,
-  'quest-log': questLogPrompt,
-  bored: boredPrompt,
-  'nature-documentary': natureDocumentaryPrompt,
-  therapist: therapistPrompt,
-  'ai-robot': aiRobotPrompt,
+  dagboksskribenten: dagboksskribentenPrompt,
+  berattaren: berattarenPrompt,
+  filosofen: filosofenPrompt,
+  sportkommentatorn: sportkommentatornPrompt,
+  katten: kattenPrompt,
+  cynikern: cynikernPrompt,
+  divan: divanPrompt,
+  tonaringen: tonaringenPrompt,
+  britten: brittenPrompt,
+  gamern: gamernPrompt,
+  naturfilmaren: naturfilmarenPrompt,
+  psykologen: psykologenPrompt,
+  roboten: aiRobotPrompt,
   shakespeare: shakespearePrompt,
-  tabloid: tabloidPrompt,
-  formal: formalPrompt,
-  nerd: nerdPrompt,
-  'tinfoil-hat': tinfoilHatPrompt,
-  'self-help': selfHelpPrompt,
-  overthinker: overthinkerPrompt,
-  'passive-aggressive': passiveAggressivePrompt,
-  chaotic: chaoticPrompt,
-  bureaucratic: bureaucraticPrompt,
-  bro: broPrompt,
-  'action-hero': actionHeroPrompt,
-  influencer: influencerPrompt,
-  'six-year-old': sixYearOldPrompt,
-  poet: poetPrompt,
-  'culture-vulture': cultureVulturePrompt,
-  pirate: piratePrompt,
-  gothenburger: gothenburgerPrompt
+  reportern: reporternPrompt,
+  akademikern: akademikernPrompt,
+  norden: nordenPrompt,
+  foliehatten: foliehattenPrompt,
+  livscoachen: livscoachenPrompt,
+  grubblaren: grubblarenPrompt,
+  martyren: martyrenPrompt,
+  multitaskaren: multitaskarenPrompt,
+  handlaggaren: handlaggarenPrompt,
+  killenheladagen: killenHelaDagenPrompt,
+  actionhjalten: actionHjaltenPrompt,
+  influencern: influencernPrompt,
+  sexaringen: sexaringenPrompt,
+  poeten: poetenPrompt,
+  kulturtanten: kulturtantenPrompt,
+  piraten: piratenPrompt
 };
 
 /**
@@ -82,10 +78,10 @@ const toneBuilders: Record<ToneId, TonePromptBuilder> = {
  * a perfect candidate for Anthropic prompt caching (set the cache breakpoint
  * at the end of this block).
  *
- * Falls back to 'classic' if the requested tone is not found.
+ * Falls back to 'dagboksskribenten' if the requested tone is not found.
  */
 export function buildToneStaticPrefix(toneId: string): string {
-  const builder = toneBuilders[toneId as ToneId] || toneBuilders.classic;
+  const builder = toneBuilders[toneId as ToneId] || toneBuilders['dagboksskribenten'];
   return `${STATIC_PROMPT_HEADER}\n\n${builder()}`;
 }
 

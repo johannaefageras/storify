@@ -82,7 +82,6 @@ Other important features:
 - Profile personalization.
 - Theme, accent color, and font settings.
 - Badges and light gamification.
-- Weekly recap email and push reminder infrastructure.
 - Blog with educational and reflective posts about journaling, memory, AI writing, and everyday life.
 
 ## Writing Voices
@@ -100,7 +99,6 @@ Examples of voices:
 - Tonåringen: awkward, self-aware teenage energy.
 - Britten: dry British understatement in English.
 - Gamern: RPG quest log.
-- Roastaren: standup-roast of the user's day.
 - Naturfilmaren: documentary-style observation.
 - Psykologen: warm, reflective, validating.
 - AI-Roboten: robotic system log with emerging feelings.
@@ -122,7 +120,6 @@ Examples of voices:
 - Poeten: lyrical, image-driven prose.
 - Kulturtanten: culture-page judgment and warmth.
 - Piraten: captain’s log and sea-adventure framing.
-- Göteborgaren: warm, dry Gothenburg humor.
 
 When writing about Storify, emphasize that the voices are not just cosmetic filters. They are part of the emotional experience. They make journaling feel surprising, funny, personal, and easier to return to.
 

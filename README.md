@@ -10,12 +10,11 @@ Live site: https://mystorify.se
 - Four writing modes: AI interview, step-by-step wizard, quick entry, and free-writing editor.
 - Swedish-first UI and generated content, with some voices intentionally using other styles or English.
 - Private account-based journal backed by Supabase Auth and Postgres.
-- Profile, theme, accent, font, avatar, newsletter, and push reminder settings.
+- Profile, theme, accent, font, avatar, and account settings.
 - Entry editing, retone generation, title generation, PDF/image-style sharing utilities, and public share links.
 - Community page for voluntarily shared diary entries.
 - Blog posts from local Markdown files in `src/posts`.
 - Badge/gamification system for writing milestones and feature usage.
-- Weekly recap email and daily push reminder cron scripts.
 
 ## Tech Stack
 
@@ -27,12 +26,11 @@ Live site: https://mystorify.se
 | Database/Auth | Supabase |
 | Rate limiting | Upstash Redis |
 | Email | Resend |
-| Push | Web Push / VAPID |
 | Maps/geocoding | Google Maps / Google Cloud credentials |
 | Rich text | Tiptap |
 | PDF/export | jsPDF, html2canvas |
 | Tests | Vitest, Testing Library, svelte-check |
-| Hosting | Render web service plus Render cron jobs |
+| Hosting | Render web service |
 
 ## Getting Started
 
@@ -62,16 +60,9 @@ Copy `.env.example` to `.env` and fill in the services you need for the feature 
 | `RESEND_API_KEY` | Email sending. |
 | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | Server-side rate limiting. |
 | `GOOGLE_MAPS_API_KEY`, `GOOGLE_CLOUD_PROJECT_ID`, `GOOGLE_APPLICATION_CREDENTIALS_JSON` | Places/geocoding support. |
-| `PUBLIC_VAPID_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT` | Browser push notifications. |
 | `CLEANUP_SECRET` | Protected cleanup endpoint access. |
 | `SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_SECRET` | Google auth integration secret when enabled in Supabase. |
 | `VITE_API_BASE_URL` | Legacy/optional API base setting; current app calls local API paths. |
-
-Generate VAPID keys with:
-
-```bash
-npm exec web-push generate-vapid-keys
-```
 
 ## Supabase Setup
 
@@ -79,11 +70,10 @@ The database schema lives in `supabase/migrations`. Apply the migrations in orde
 
 Core tables/features include:
 
-- `profiles` for account profile, preferences, newsletter, push, and badge backfill state.
+- `profiles` for account profile, preferences, and badge backfill state.
 - `entries` for private saved diary entries and public share links.
 - `community_entries` for community-shared copies.
 - `user_badges` and related badge migration data.
-- `newsletter_sends`, `push_subscriptions`, and `push_sends` for scheduled messaging.
 
 Supabase Row Level Security policies are part of the migrations.
 
@@ -97,14 +87,8 @@ npm run check          # svelte-check + SvelteKit sync
 npm run test           # run Vitest in watch mode
 npm run test:run       # run Vitest once
 npm run test:coverage  # run Vitest with coverage
-npm run build:cron     # bundle cron scripts into dist/cron
 ```
 
-Cron entry points:
-
-- `scripts/send-weekly.ts` sends weekly recap emails.
-- `scripts/send-reminders.ts` sends daily journal push reminders.
-- `scripts/preview-weekly-email.ts` previews the weekly email template.
 - `scripts/backfill-titles.mjs` backfills entry titles.
 
 ## Project Structure
@@ -129,18 +113,17 @@ storify/
 │   │   ├── components/               # reusable Svelte components
 │   │   ├── data/                     # tones, prompts, badges, copy, samples
 │   │   ├── gamification/             # badge evaluation and awarding
-│   │   ├── newsletter/               # weekly email selection/templates
 │   │   ├── stores/                   # Svelte stores for auth, wizard, UI prefs
 │   │   ├── supabase/                 # browser/server Supabase clients
 │   │   ├── utils/                    # date, sharing, PDF/image, title helpers
 │   │   └── validation/               # input validation, sanitizing, rate limits
 │   ├── posts/                        # blog Markdown
-│   └── service-worker.ts             # push/service worker support
+│   └── service-worker.ts             # service worker support
 ├── docs/tones/                       # human-readable tone documentation
-├── scripts/                          # cron and maintenance scripts
+├── scripts/                          # maintenance scripts
 ├── static/                           # favicons, manifests, OG image, robots/sitemap
 ├── supabase/migrations/              # database schema and RLS migrations
-├── render.yaml                       # Render web + cron services
+├── render.yaml                       # Render web service
 ├── server.js                         # Node production server wrapper
 └── package.json
 ```
@@ -158,17 +141,13 @@ When adding a new voice, update all relevant files and add tests where prompt or
 
 ## Deployment
 
-`render.yaml` defines:
-
-- `storify`, the Node web service running `node server.js`.
-- `storify-newsletter-weekly`, an hourly cron that sends only to users whose local time is due.
-- `storify-push-reminders`, an hourly cron that sends reminders to opted-in users who have not written today.
+`render.yaml` defines `storify`, the Node web service running `node server.js`.
 
 The production build uses `@sveltejs/adapter-node`. `server.js` adds cache headers for long-lived static assets and short-lived metadata files before handing requests to SvelteKit.
 
 ## Privacy Model
 
-Storify stores account data, saved entries, preferences, badges, community links, newsletter settings, and push subscriptions in Supabase for logged-in users. Entries are private by default. Public sharing and community publishing are explicit user actions.
+Storify stores account data, saved entries, preferences, badges, and community links in Supabase for logged-in users. Entries are private by default. Public sharing and community publishing are explicit user actions.
 
 AI generation sends the provided diary input and profile context needed for the selected flow to Anthropic. Optional location-related features are used for weather/geocoding behavior when enabled.
 

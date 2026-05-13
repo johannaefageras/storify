@@ -68,7 +68,7 @@ describe('shareFreshEntry', () => {
 		fetchMock.mockResolvedValueOnce(jsonResponse({ shareId: 'xyz' }));
 		const input = {
 			generated_text: 'Hej',
-			tone_id: 'classic',
+			tone_id: 'dagboksskribenten',
 			entry_date: '2026-05-11',
 			emojis: ['sparkles'],
 			weekday: 'Måndag'
@@ -86,7 +86,7 @@ describe('shareFreshEntry', () => {
 		fetchMock.mockResolvedValueOnce(jsonResponse({ shareId: 'xyz' }));
 		await shareFreshEntry({
 			generated_text: 'Hej',
-			tone_id: 'classic',
+			tone_id: 'dagboksskribenten',
 			entry_date: '2026-05-11'
 		});
 		const [, init] = fetchMock.mock.calls[0];
@@ -98,7 +98,7 @@ describe('shareFreshEntry', () => {
 	it('propagates errors from postShare', async () => {
 		fetchMock.mockResolvedValueOnce(jsonResponse({ error: 'rate limited' }, { status: 429 }));
 		await expect(
-			shareFreshEntry({ generated_text: 'x', tone_id: 'classic', entry_date: '2026-05-11' })
+			shareFreshEntry({ generated_text: 'x', tone_id: 'dagboksskribenten', entry_date: '2026-05-11' })
 		).rejects.toThrow('rate limited');
 	});
 });

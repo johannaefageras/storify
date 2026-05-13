@@ -13,7 +13,7 @@ export interface VoiceSample {
 
 export const voiceSamples: VoiceSample[] = [
   {
-    toneId: 'ai-robot',
+    toneId: 'roboten',
     voiceName: 'AI-Roboten',
     description:
       'AI-Roboten loggar dagen som ett systemprotokoll. Tidsstämplar, statusrapporter och anomalier blandas med små emotionella felvärden som maskinen försöker förstå utan att riktigt lyckas.',
@@ -28,7 +28,7 @@ export const voiceSamples: VoiceSample[] = [
   },
 
   {
-    toneId: 'action-hero',
+    toneId: 'actionhjalten',
     voiceName: 'Actionhjälten',
     description:
       'Actionhjälten gör vardagen till actionfilm. Att vakna, hinna bussen eller skicka ett mejl blir heroiska insatser med hög puls, slow motion och en huvudperson som aldrig ger upp.',
@@ -42,7 +42,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-11-04'
   },
   {
-    toneId: 'formal',
+    toneId: 'akademikern',
     voiceName: 'Akademikern',
     description:
       'Akademikern analyserar dagen som en seminarietext. Begrepp, perspektiv och försiktiga slutsatser gör vardagen till empiri, med värme gömd under den distanserade formuleringen.',
@@ -56,7 +56,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-10-04'
   },
   {
-    toneId: 'storytelling',
+    toneId: 'berattaren',
     voiceName: 'Berättaren',
     description:
       'Berättaren skriver som en varm, allvetande romanförfattare. Tredje person, sensoriska detaljer och mjuka scenbyten hittar tyngd i det vardagliga utan att pressa fram lärdomar.',
@@ -70,7 +70,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-03-04'
   },
   {
-    toneId: 'british',
+    toneId: 'britten',
     voiceName: 'Britten',
     description:
       'Britten skriver på engelska, artigt och torrt, som en mild person från Bath eller Cotswolds. Väder, te och lågmäld självironi håller tonen lugn oavsett vad dagen innehöll.',
@@ -84,7 +84,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-09-04'
   },
   {
-    toneId: 'cynical',
+    toneId: 'cynikern',
     voiceName: 'Cynikern',
     description:
       'Cynikern är världstrött, tvär­säker och allergisk mot illusioner. Tonen är torrt ironisk och ofta mörkt prick­säker, men mer skarp och under­hållande än elak.',
@@ -98,7 +98,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-12-04'
   },
   {
-    toneId: 'classic',
+    toneId: 'dagboksskribenten',
     voiceName: 'Dagboksskribenten',
     description:
       'Dagboksskribenten är den trygga grundrösten. Varm, ärlig och reflekterande i första person, utan stor stilvridning, bara dagen berättad rakt fram med igenkänning och eftertanke.',
@@ -112,7 +112,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-10-04'
   },
   {
-    toneId: 'drama-queen',
+    toneId: 'divan',
     voiceName: 'Divan',
     description:
       'Divan gör varje detalj till personlig tragedi. En sen buss, kallt kaffe eller tråkig kollega blir stora känslo­utbrott med patos, självömkan och teatralisk precision.',
@@ -126,7 +126,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-03-04'
   },
   {
-    toneId: 'philosophical',
+    toneId: 'filosofen',
     voiceName: 'Filosofen',
     description:
       'Filosofen gör dagen till ett stillsamt resonemang. Små händelser öppnar frågor om tid, mening och vana, och tonen stannar gärna i undran snarare än färdiga svar.',
@@ -140,7 +140,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-12-04'
   },
   {
-    toneId: 'tinfoil-hat',
+    toneId: 'foliehatten',
     voiceName: 'Foliehatten',
     description:
       'Foliehatten ser mönster överallt. Sena bussar, sjuka lärare och ovanligt god pasta kopplas ihop med kursiv misstänksamhet, beviskedjor och vaga "de" utan verkliga konspirationer.',
@@ -154,7 +154,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-06-04'
   },
   {
-    toneId: 'quest-log',
+    toneId: 'gamern',
     voiceName: 'Gamern',
     description:
       'Gamern skriver dagen som en quest log. Lektioner blir grinding, möten blir boss fights, lyckade ögonblick ger XP och kvällen används för återhämtning inför nästa raid.',
@@ -168,21 +168,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-10-04'
   },
   {
-    toneId: 'gothenburger',
-    voiceName: 'Göteborgaren',
-    description:
-      'Göteborgaren skriver på bred, avspänd göteborgska. La, änna och gôr-gott möter torra skämt, vänliga pikar mot Stockholm och en stadig axelryckning åt det mesta.',
-    title: 'Spårvagnen och havet — en tjôta om goa dagar',
-    weekday: 'Tisdag',
-    date: '4 november',
-    emojiIds: ['shrimp', 'umbrella-rain', 'tram', 'hot-beverage'],
-    generatedText:
-      'Jajamen. Dagen började med ett Göteborgsdrama av det vanliga slaget: spårvagnen.\n\nTrean var inställd vid Brunnsparken. Ingen förklaring i appen, bara den där tysta västtrafikska tonen av "vi vet, ni vet, vi går vidare." Det är inte en ursäkt, det är en existentiell ståndpunkt. Jag tog sexan istället, vilket gick fint men med lite avig rutt över Järntorget. Man får ta de spårvagnar man får, la. Det är ungefär livets göteborgska variant av "man får inte vad man vill."\n\nVid Drottningtorget kom regnet sidledes. Det var inte mycket, men tillräckligt för att påminna mig om att jag glömt mössan hemma. Inte för att skryta, men jag tog det med en vuxenhet som hade förvånat min mamma.\n\nSen var det ärendet på Coop. Ett paket som legat redo "sen i fredags," enligt mejlet. Det visade sig att personalen behövde tio minuter och tre olika hyllor för att förstå exakt vad "redo" betydde. Vilket är ungefär den tid det tar för min jacka att bli våt på ryggen. Inte deras fel. Mest paketets, om man tänker efter.\n\nSedan blev jag på Da Matteo. Henke satt redan där och hade beställt två kaffe och en kanelbulle som han generöst påstod var "till oss." Jag har sett honom ta kanelbullar förut. "Till oss" betyder "till mig, men jag bjuder på vibben." Vi pratade i en och en halv timme om allt och inget — hans nya jobb, mitt halvfärdiga kökrenoveringsprojekt, en gemensam kompis som tydligen flyttat tillbaka till Göteborg från Stockholm med uttalandet "jag är klar med det där."\n\nVi nickade båda. Det fanns inget mer att tillägga.\n\nPå eftermiddagen tog jag en sväng genom Slottsskogen, för det är gratis och ingen frågar varför man är där. Skorna blev blöta nästan direkt, men det är la inte vad göteborgska skor är till för. Löven hade lagt sig i en sån där koppar-och-rost-färg som påminner om att hösten faktiskt har någon dramaturgi, även här. Jag mötte min granne Birgitta vid Azaleadalen. Hon klagade på snigelpopulationen — vilket är vår vanliga öppningsreplik sen sex år tillbaka. Det är hennes sätt att hälsa.\n\nKvällen blev det fryslasagne, kvällsnyheter på Aftonbladet och en kopp te som blev kall innan jag drack ur den. Inte direkt en triumfkväll, men inte fel sorts triumf heller. Jag var lugn på ett hanterbart sätt — som en mobil på 23 procent med laddaren inom synhåll, som man säger när man vill låta poetisk fast man bara är trött.\n\nInте dumt alls, för en tisdag som började utan trean.\n\nGôtt så.\n\n**Horoskop för Jungfrun**\n\nJungfrun, veckan kommer att kräva tålamod av dig — men du är ju född med fyra liter extra. En spårvagn kommer vara försenad. Ett paket kommer hittas på fel hylla. Ta det med samma värdighet som en göteborgare i blåst. Och hör du, ring någon du inte ringt på ett tag. Det löser sig oftare av sånt än man tror.\n\n**Hemläxa**\n\nLägg märke till en liten vänlighet imorgon — någon som håller dörren, en kollega som fyller på kaffet, en spårvagnsförare som ser dig springa och faktiskt väntar. Tacka dem ordentligt. Inte stort. Bara så att de hör att du sett det. Det är så stan håller sig hel.',
-    zodiacId: 'virgo',
-    birthday: '1990-09-04'
-  },
-  {
-    toneId: 'overthinker',
+    toneId: 'grubblaren',
     voiceName: 'Grubblaren',
     description:
       'Grubblaren tänker allt ett varv för mycket. Små beslut, kommentarer och formuleringar omprövas vänligt men envist, utan ren ångest, mer som en hjärna som aldrig riktigt landar.',
@@ -196,7 +182,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-09-04'
   },
   {
-    toneId: 'bureaucratic',
+    toneId: 'handlaggaren',
     voiceName: 'Handläggaren',
     description:
       'Handläggaren behandlar dagen som ett myndighetsärende. Diarienummer, paragrafkänsla och formuleringar som "härmed avslutas" gör vardagen kommunalt allvarlig på ett torrt roligt sätt.',
@@ -210,7 +196,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-09-04'
   },
   {
-    toneId: 'influencer',
+    toneId: 'influencern',
     voiceName: 'Influencern',
     description:
       'Influencern gör dagen till ett socialt-medie-inlägg. Caption-rytm, "guys", produktkänsla och medveten paketering skapar en glansig yta där något äkta ibland råkar synas.',
@@ -224,7 +210,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-05-04'
   },
   {
-    toneId: 'cat-perspective',
+    toneId: 'katten',
     voiceName: 'Katten',
     description:
       'Katten ser dagen från soffans, fönsterbrädan och solfläckens nivå. Människan skildras måttfullt men nedlåtande, medan påsar, dammsugare och främlingar bedöms med skarp misstänksamhet.',
@@ -238,7 +224,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-09-04'
   },
   {
-    toneId: 'bro',
+    toneId: 'killenheladagen',
     voiceName: 'Killen Hela Dagen',
     description:
       'Killen Hela Dagen gör skola till grind och fritid till networking. Alla är boys, varje händelse blir ett flex, och Ayia Napa-minnen droppas med total självklarhet.',
@@ -252,7 +238,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-09-04'
   },
   {
-    toneId: 'culture-vulture',
+    toneId: 'kulturtanten',
     voiceName: 'Kulturtanten',
     description:
       'Kulturtanten tolkar dagen som en utställning där allt kan recenseras. Ljussättning, akustik och samtalsrytm får omdömen mellan kaffet, tåget och P1-referenserna.',
@@ -266,7 +252,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-09-04'
   },
   {
-    toneId: 'tabloid',
+    toneId: 'reportern',
     voiceName: 'Utrikeskorrespondenten',
     description:
       'Utrikeskorrespondenten rapporterar från hemstaden som från en utländsk post. Dateline i versaler, lugn observans och konkreta sinnesintryck ger SVT-känsla åt vardagen.',
@@ -280,7 +266,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-09-04'
   },
   {
-    toneId: 'self-help',
+    toneId: 'livscoachen',
     voiceName: 'Livscoachen',
     description:
       'Livscoachen tolkar dagen som en resa av tillväxt. Varje detalj blir en lärdom, varje stund blir en möjlighet, och tacksamhet finns i det mesta. "Du är nog. Precis som du är."',
@@ -294,7 +280,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-09-04'
   },
   {
-    toneId: 'passive-aggressive',
+    toneId: 'martyren',
     voiceName: 'Martyren',
     description:
       'Martyren tar varje dag på sina axlar med trött värdighet. Rösten säger "jag klarar mig", men noterar tyst vem som inte tackade, hjälpte eller faktiskt märkte.',
@@ -308,7 +294,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-09-04'
   },
   {
-    toneId: 'chaotic',
+    toneId: 'multitaskaren',
     voiceName: 'Multitaskaren',
     description:
       'Multitaskaren skriver som någon med fyrtio öppna flikar i hjärnan. Tankar avbryter varandra, parenteser nästlas och poängen dyker upp... någonstans, till slut.',
@@ -322,7 +308,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-09-04'
   },
   {
-    toneId: 'nature-documentary',
+    toneId: 'naturfilmaren',
     voiceName: 'Naturfilmaren',
     description:
       'Naturfilmaren berättar om dagen som en dokumentär från savannen. Uppvaknande, fika och familjemiddag blir fascinerande beteenden i vardagens lilla ekosystem.',
@@ -336,7 +322,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-09-04'
   },
   {
-    toneId: 'nerd',
+    toneId: 'norden',
     voiceName: 'Nörden',
     description:
       'Nörden kan inte låta bli att förklara allt i onödig detalj. Varje tisdag, pastarätt och bussresa triggar en encyklopedisk tangent, helst med många parenteser.',
@@ -350,7 +336,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-09-04'
   },
   {
-    toneId: 'pirate',
+    toneId: 'piraten',
     voiceName: 'Piraten',
     description:
       'Piraten skriver kaptenens logg från vardagens farvatten. Skolan blir skutan, vänner blir besättning och fredagen glimmar som en trygg hamn borta vid horisonten.',
@@ -364,7 +350,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-09-04'
   },
   {
-    toneId: 'poet',
+    toneId: 'poeten',
     voiceName: 'Poeten',
     description:
       'Poeten förvandlar vardagen till bilder och rytm. Korridorer, pasta och håltimmar får mjuk tyngd i modern prosapoesi där de allra små detaljerna bär känslan.',
@@ -378,7 +364,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-09-04'
   },
   {
-    toneId: 'therapist',
+    toneId: 'psykologen',
     voiceName: 'Psykologen',
     description:
       'Psykologen dokumenterar dagen som en varm terapeut. Observationer, styrkor och försiktiga rekommendationer fångar vardagen med klinisk, inkännande omtanke.',
@@ -392,7 +378,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-09-04'
   },
   {
-    toneId: 'six-year-old',
+    toneId: 'sexaringen',
     voiceName: 'Sexåringen',
     description:
       'Sexåringen berättar dagen som vid middagsbordet. Allt kommer i ivriga hopp: sjuk fröken, tråkig film, pasta, konstiga vuxna och strumpor som måste räknas noga.',
@@ -420,7 +406,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-09-04'
   },
   {
-    toneId: 'sportscaster',
+    toneId: 'sportkommentatorn',
     voiceName: 'Sportkommentatorn',
     description:
       'Sportkommentatorn liverapporterar dagen som atletisk prestation. Alarm, schemaändringar och kvällsvila blir dramatik, statistik och MVP-snack i högt tempo.',
@@ -434,7 +420,7 @@ export const voiceSamples: VoiceSample[] = [
     birthday: '1990-09-04'
   },
   {
-    toneId: 'cringe',
+    toneId: 'tonaringen',
     voiceName: 'Tonåringen',
     description:
       'Tonåringen har social radar på maxvolym. Varje blick, felsägning och lowkey seger får enorm betydelse, med pinsamhet, ironi och äkta känsla i samma andetag.',
@@ -446,19 +432,5 @@ export const voiceSamples: VoiceSample[] = [
       'Okej. Dagens grej: jag trodde det skulle bli en helt vanlig dag, vilket var gulligt av mig.\n\nMorgonen började med att jag snoozade för länge och sedan behövde välja kläder på typ tre minuter, vilket är orimligt eftersom min garderob tydligen bara består av "nej", "kanske" och "varför äger jag detta".\n\nI skolan var matten inställd, så vi fick se film. Alla blev direkt på bättre humör. Jag försökte verka normal över detta men var lowkey lycklig, för ibland behöver man bara att universum säger: här, slipp algebra i 50 minuter.\n\nSen i cafeterian satt vi och pratade och jag sa något som faktiskt fick alla att skratta. Inte artighetsskratt heller. Riktigt skratt. Jag vet, chockerande utveckling. Kommer leva på det i minst två arbetsdagar.\n\nMen självklart kunde dagen inte bara vara enkel. På vägen ut råkade jag säga "du med" när någon sa smaklig måltid.\n\nDu med.\n\nTill smaklig måltid.\n\nVad betyder ens det? Ska hon också äta min mat? Ska vi dela öde nu? Jag log bara och gick därifrån som om min hjärna inte precis kastat sig ut genom ett fönster.\n\nHemma gjorde mamma pasta och frågade hur dagen var. Jag sa "bra" för hur förklarar man hela detta emotionella landskap vid middagsbordet?\n\nNu är det kväll och jag är trött på ett sätt som känns personligt. Men det var faktiskt en ganska fin dag. Pinsam, ja. Socialt riskabel, absolut. Men fin.\n\nSäg bara att andra också säger fel saker och sedan bygger en hel dokumentärserie i huvudet om det.\n\nSnälla.\n\n**Horoskop för Tvillingarna**\n\nOkej Tvillingarna, universum säger att den här veckan handlar om kommunikation. Vilket, typ... duh? Mercurius är i nån fas som betyder att du kommer säga fel sak minst en gång. Acceptera det. Bygden dokumentärserie i huvudet om det efteråt, som vanligt. Stjärnorna ser dig. De fattar. De skäms lite åt dig också, men i solidaritet.\n\n**Hemläxa**\n\nNästa gång du säger något socialt konstigt: andas. Räkna till fem. Acceptera att det hände. Gå vidare. De flesta kommer glömma det om typ tio minuter. Du kommer tänka på det i tre veckor. Men det är okej. Det är så vi bygger karaktär, tydligen.',
     zodiacId: 'gemini',
     birthday: '1990-06-04'
-  },
-  {
-    toneId: 'bored',
-    voiceName: 'Roastaren',
-    description:
-      'Roastaren gör dagen till standupmaterial. Väckarklockor, bussar och produktiva ambitioner får träffsäkra pikar, men värmen ligger kvar under alla vardagliga skämten.',
-    title: 'Dagens tema: bra intentioner, tveksamt genomförande',
-    weekday: 'Tisdag',
-    date: '15 januari',
-    emojiIds: ['microphone', 'fire', 'face-smirking', 'clapping-hands'],
-    generatedText:
-      'Idag gick jag ut i världen med planen att vara en fungerande människa. Redan där hör man ju självförtroendet. Det är modigt att börja dagen med fiktion.\n\nMorgonen öppnade med att jag snoozade som om väckarklockan var ett förslag från en lösryckt konsult. "Vi tar det i nästa sprint", sa jag till kroppen, och kroppen svarade med att panikstarta hela produktionen tjugo minuter senare.\n\nSedan skulle jag hinna med bussen. Klassisk scen. Jag, lätt svettig och full av optimism. Bussen, kald, opersonlig och redan trött på min karaktärsutveckling. Jag hann precis, vilket gav mig den farliga känslan av att mina metoder fungerar. Det gör de inte. Det var bara kollektivtrafiken som blinkade.\n\nPå dagen försökte jag vara produktiv. Jag öppnade datorn med den sortens fokus som normalt bara syns i reklam för ergonomiska stolar. Fem minuter senare hade jag kontrollerat mejlen, mobilen och en helt irrelevant tanke om vad jag egentligen gör med mitt liv. Effektivitet, men som performance art.\n\nÄndå blev saker gjorda. Inte elegant. Inte enligt plan. Mer som när någon bygger IKEA-möbel utan instruktioner men bordet står upp om ingen lutar sig mot det.\n\nSå ja. Dagen får två stjärnor: en för överlevnad, en för material. Och bussen får dagens biroll för att ha låtit mig tro att detta var en strategi.\n\n**Horoskop för Jungfrun**\n\nJungfrun, du som planerar frukost dagen innan och har backup-alarm. Denna vecka roastar universum dig genom att ta bort strukturen. Kaos kommer. Det är inte en varning, det är programmet. Rådet? Släpp kontrollen. Observera hur det känns. Dokumentera. Lär dig ingenting. Det här är inte utveckling, det är exponering.\n\n**Hemläxa**\n\nNästa gång du fastnar i stress: Pausa. Titta runt. Räkna tre saker med samma färg. Detta är inte djup andning eller mindfulness. Det är bara en teknisk reset för hjärnan när den beter sig som min dator när jag öppnat för många flikar. Fungerar? Ja. Kommer du göra det? Tveksamt. Men nu vet du.',
-    zodiacId: 'virgo',
-    birthday: '1990-09-04'
   }
 ];

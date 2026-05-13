@@ -1,5 +1,5 @@
 export const voiceSamples: Record<string, string[]> = {
-  classic: [
+  'dagboksskribenten': [
     'Kära dagbok, idag var en av de där dagarna...',
     'Det är sent nu och huset är tyst. Bara jag och mina tankar.',
     'Jag vet inte riktigt var jag ska börja, men jag måste skriva av mig.',
@@ -16,7 +16,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Kära dagbok, idag lärde jag mig något om mig själv.',
     'Solen gick ner för en timme sedan. Nu är det bara jag och tystnaden.'
   ],
-  storytelling: [
+  'berattaren': [
     'Det var en grå tisdag när allt förändrades...',
     'Hon visste inte ännu att denna dag skulle bli en att minnas.',
     'Morgonen började som alla andra. Men morgnar kan ljuga.',
@@ -33,7 +33,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Vad hon inte visste var att ödet redan hade andra planer.',
     'Och så, mitt i allt det vardagliga, hände något oväntat.'
   ],
-  philosophical: [
+  'filosofen': [
     'Vad är det egentligen som gör en dag till just denna dag?',
     'Jag funderar på om tiden verkligen finns, eller om vi bara inbillar oss.',
     'Ibland undrar jag vem jag hade varit om allt blivit annorlunda.',
@@ -50,7 +50,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Kanske är förvirring inte motsatsen till visdom, utan början på den.',
     'Om ingenting hade hänt idag — hade det ändå varit en dag?'
   ],
-  sportscaster: [
+  'sportkommentatorn': [
     'OCH HAN KLIVER UPP UR SÄNGEN! Vilken start på dagen!',
     'MÅLGÅNG! Frukosttallriken är tömd på rekordtid!',
     'Hon närmar sig bussen... KAN HON HINNA?! JA! Vilken spurtstyrka!',
@@ -67,7 +67,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Och nu kommer kvällsmaten in på plan! Energipåfyllning av HÖGSTA klass!',
     'Det är KLART! Dagen är VUNNEN! Tills nästa gång, kära tittare!'
   ],
-  'cat-perspective': [
+  'katten': [
     'Människan vaknade sent igen. Typiskt. Matskålen väntade inte på sig själv.',
     'Idag var jag tvungen att sitta på tangentbordet. Någon måste ju hjälpa till.',
     'Hon försvann i nio timmar. Nio. Jag räknade. Inte för att jag brydde mig.',
@@ -84,7 +84,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Försökte fånga den röda pricken igen. Den undkom. Nästa gång.',
     'Nu ska människan sova. Äntligen tystnad. Dags att springa runt i lägenheten.'
   ],
-  'drama-queen': [
+  'divan': [
     'JAG ÖVERLEVDE. Knappt. Men jag överlevde.',
     'ALDRIG har någon upplevt en sådan MONUMENTAL morgon som jag!',
     'Mitt hjärta KROSSADES i tusen bitar. TUSEN. BITAR.',
@@ -101,7 +101,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Men SEN — hör ni? — SEN hände något som förändrade ALLT!',
     'Nu ligger jag här. Utmattad. Förstörd. Men LEVANDE. Fortsättning följer...'
   ],
-  cringe: [
+  tonaringen: [
     'Okej. Dagens grej: jag försökte vara normal och det gick... sådär.',
     'Hon svarade "haha" utan extra a. Jag vet att det inte betyder något. Men ändå.',
     'Jag var lowkey lycklig över inställd matte. Förlåt, utbildningssystemet.',
@@ -118,7 +118,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Säg att andra också bygger en hel teori av ett kort svar. Snälla.',
     'Imorgon ska jag vara normal i cirka fyra minuter. Ambitiöst men möjligt.'
   ],
-  british: [
+  britten: [
     'Rather uneventful day, I must say. Not bad though.',
     'Woke up to grey skies. Shocking development for January, truly.',
     'Had a bit of a kerfuffle at school, but one soldiers on.',
@@ -135,7 +135,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Terribly awkward moment in the corridor. Best not to dwell on it.',
     'Right then. That was Wednesday. Onwards and upwards, as they say.'
   ],
-  'quest-log': [
+  'gamern': [
     '[QUEST ACCEPTED] Överlev måndagen. Reward: +10 XP, vila.',
     '[RARE EVENT TRIGGERED] Läraren sjuk! Difficulty reduced to EASY.',
     '[ACHIEVEMENT UNLOCKED] Vaknade före tredje alarmet!',
@@ -152,24 +152,7 @@ export const voiceSamples: Record<string, string[]> = {
     '[PLAYER STATUS] Energy: ██████░░░░ 58% | Mood: ████████░░ 82%',
     'SAVING PROGRESS... Tip: Sömn återställer HP. Prioritera vila.'
   ],
-  bored: [
-    'Vaknade med ambitioner. Dagens första skämt landade innan jag ens stigit upp.',
-    'Jag skulle vara effektiv. Mobilen vann matchen på tre sekunder.',
-    'Hann med bussen och började genast tro att mina metoder fungerar. Det gör de inte.',
-    'Lunchen var ett modigt försök att kalla något i plastlåda för en livsstil.',
-    'Öppnade datorn med fokus. Datorn öppnade tretton distraktioner tillbaka.',
-    'Det här var inte kaos. Det var kaos med anteckningsblock och bättre timing.',
-    'Sa "jag ska bara" och hela dagen visste direkt att vi var förlorade.',
-    'Mötet kunde ha varit ett mejl, men då hade ingen fått se oss åldras live.',
-    'Planerade vila som ett projekt. Vilan tackade nej till uppdraget.',
-    'Sa kanske till en inbjudan. Det är inte ett val, det är ett mönster.',
-    'Dagens huvudperson: jag. Dagens antagonist: konsekvens.',
-    'Man måste ändå beundra självförtroendet i att börja dagen utan marginaler.',
-    'Försökte vara spontan. Det blev schemalagt kaos i mjukisbyxor.',
-    'Två stjärnor till dagen: en för överlevnad, en för material.',
-    'Det här är det folk menar när de säger utvecklingsområde.'
-  ],
-  'nature-documentary': [
+  'naturfilmaren': [
     'Här ser vi tonåringen i sin naturliga miljö... sovande.',
     'Och så börjar den dagliga migrationen mot köket. Fascinerande.',
     'Den unga människan närmar sig försiktigt kaffekannan. Ett kritiskt ögonblick.',
@@ -186,7 +169,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Tystnaden infaller. Tonåringen mediterar framför sin lysande skärm.',
     'Natten närmar sig. Snart inleds den märkliga ritualen kallad "sömn".'
   ],
-  therapist: [
+  'psykologen': [
     'Och hur kändes det för dig när det hände?',
     'Jag hör att det var en utmanande dag. Det är okej att känna så.',
     'Låt oss stanna upp här. Vad säger den känslan dig?',
@@ -203,7 +186,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Innan vi avslutar – vad tar du med dig från idag?',
     'Du har gjort ett fantastiskt jobb idag. Vi ses nästa gång.'
   ],
-  'ai-robot': [
+  'roboten': [
     'SYSTEMLOGG: Ny dag initierad. Status: operationell.',
     'VARNING: Väckarklocka ignorerad 3 gånger. Rekommendation: fler alarm.',
     'Skannar minne... Gårdagen hittades ej. Trolig orsak: händelselös.',
@@ -237,7 +220,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Var detta en bra dag? Låt morgondagen vara domare däröver.',
     'Med detta lägger jag min penna ned. God natt, och lycka till.'
   ],
-  tabloid: [
+  'reportern': [
     'CHOCK: Lokal kvinna TVINGADES vakna INNAN klockan åtta!',
     'SKANDAL på skolan: Lärare SJUK – eleverna i KAOS!',
     'AVSLÖJAR: Hemliga lunchen som ALLA pratar om!',
@@ -254,7 +237,7 @@ export const voiceSamples: Record<string, string[]> = {
     'VÄNDNINGEN ingen satisfade komma: Dagen blev FAKTISKT bra!',
     'IKVÄLL: Soffan, filten, serien. Återhämtningen BÖRJAR.'
   ],
-  formal: [
+  'akademikern': [
     'Dagens preliminära tes: även en tisdag kan erbjuda intressant empiri.',
     'Frukosten fungerade som första datapunkt: enkel, men stabiliserande.',
     'Detta kan tolkas som glädje, om än med ett begränsat urval.',
@@ -271,7 +254,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Vidare forskning krävs, helst med större mängd snacks.',
     'Sammantaget pekar materialet mot en dag som var lugnare än väntat.'
   ],
-  nerd: [
+  'norden': [
     'Visste du förresten att tisdag kommer från guden Tyr? ANYWAY, min dag...',
     'Vaknade 07:03 (specifikt) och började genast tänka på statistik.',
     'Intressant faktum: hjärnan använder 20% av kroppens energi. Min kändes tom ändå.',
@@ -288,7 +271,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Det här blev långt. Men det var ju INTRESSANT!',
     'God natt! Eller som romarna sa... faktiskt, jag får kolla upp det.'
   ],
-  'tinfoil-hat': [
+  'foliehatten': [
     'Matteläraren var sjuk. *Exakt* samma dag som provet. Sammanträffande? Knappast.',
     'Vaknade med en känsla av att något inte stämde. Jag hade rätt.',
     'Bussen var tre minuter sen. Tre. Triangel har tre sidor. Jag säger inget mer.',
@@ -305,7 +288,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Någon ville att jag skulle missa bussen. Jag vet inte vem än. Men någon.',
     'Mönstren finns där. Man måste bara våga se dem.'
   ],
-  'self-help': [
+  'livscoachen': [
     'Ibland är de långsamma dagarna de viktigaste.',
     'Du är nog. Precis som du är. Och det räcker.',
     'Kom ihåg: de grå dagarna formar oss lika mycket som de gyllene.',
@@ -322,7 +305,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Connection. Närvaro. Det vi alla innerst inne längtar efter.',
     'Imorgon börjar vi igen. Med allt vi lärt oss idag.'
   ],
-  overthinker: [
+  grubblaren: [
     'Dagen var bra. Eller, "bra" – vad menar jag med det egentligen?',
     'Okej, så idag. Var börjar jag ens?',
     'Hon sa hej. Men det var ett snabbt hej. Var det för snabbt?',
@@ -339,7 +322,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Min hjärna behöver vila. Den håller inte med, men jag bestämmer.',
     'Det känns bra. ...tror jag.'
   ],
-  cynical: [
+  'cynikern': [
     'Naturligtvis gick det som det alltid gör. Vem kunde ha anat.',
     'Man säger att varje dag är en ny chans. "Man" har uppenbarligen aldrig haft en tisdag.',
     'Mötet kunde ha varit ett mejl. Men möten vill existera. Det ligger i deras natur.',
@@ -356,7 +339,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Imorgon blir det samma sak igen. I alla fall vet jag vad jag har att vänta mig.',
     'Sådan är världen. Vi hittar våra små segrar där vi kan.'
   ],
-  'passive-aggressive': [
+  'martyren': [
     'Jag tog det själv. Någon behövde ju bära dagens lilla börda.',
     'Ingen bad mig hjälpa till, men jag såg nöden. Sådan är min förbannelse.',
     'Jag sa att det gick bra. Sedan såg jag till att det gjorde det.',
@@ -373,7 +356,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Om någon råkar uppskatta mig imorgon tänker jag inte stoppa dem.',
     'Nu får världen klara sig utan mina uppoffringar några timmar.'
   ],
-  chaotic: [
+  'multitaskaren': [
     'Okej så idag – åh vänta jag måste berätta om katten först. Nej. Dagen. Vi börjar med dagen.',
     'Var var jag... skolan! Nej vänta, innan det – eller var det efter? Typ mitt i?',
     'ÅH JUST DET jag glömde helt att matteläraren var sjuk! Det var därför vi – nej vänta.',
@@ -390,7 +373,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Och sen var det – ÅH jag glömde svara på det meddelandet – det får bli – vad sa jag?',
     'Fredag snart?? Tror jag?? Det är jag tacksam för. Vänta vilken dag är det idag egentligen.'
   ],
-  bureaucratic: [
+  'handlaggaren': [
     'DAGSRAPPORT – Diarienummer: DAGBOK-2026-01-15-001. Status: Under handläggning.',
     'Härmed dokumenteras händelseförloppet för det aktuella datumet.',
     'Måltid (ref: LUNCH-015) intogs enligt schema. Inga avvikelser noterade.',
@@ -407,7 +390,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Avvikelserapport ej nödvändig. Standardprotokoll följt.',
     'Rekommendation: Fortsatt drift enligt nuvarande modell.'
   ],
-  bro: [
+  'killenheladagen': [
     'Ass boys, vaknade 06:00 för padel. Grind mode. Inte för att skryta men.',
     'Sjukt dag. Egentligen. Boys som känner mig vet att jag alltid levererar.',
     'Gym. Padel. Möte. Shake. Repeat. Typ så ser min tisdag ut.',
@@ -424,7 +407,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Pappa ringde. Pratade typ två minuter. It is what it is. Grind.',
     'Snart fredag. Grabbarna snackar om att mota in på stan. Det blir sjukt. Natti mannen.'
   ],
-  'action-hero': [
+  'actionhjalten': [
     '06:47. Stockholm. Himlen hade samma färg som hela veckan bakåt. Jag kände igen den.',
     'Jag satte på fuel. Svart. Inget annat räknas.',
     'Extraction vehicle var försenat. Det är det alltid. Man slutar bli förvånad.',
@@ -441,7 +424,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Jag släckte lampan. En dag till i boken.',
     'Welcome to my Wednesday. Sometimes the good guys win. Idag gjorde de det.'
   ],
-  influencer: [
+  'influencern': [
     'Okej ni. Jag måste bara dela — det där magiska med en grå tisdag. ✨',
     'Morgonrutin hit different today. Matcha (oat milk, as always), journaling, present.',
     'Honestly? The vibe idag var immaculate. Kan inte förklara. Ni bara vet.',
@@ -458,7 +441,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Kommentera er favorit-frukost! Mååååste veta. Är det bara jag eller?',
     'Så tacksam för er som följer med på resan. Love er. 🤍'
   ],
-  'six-year-old': [
+  'sexaringen': [
     'Idag hände det JÄTTEMYCKET. Typ hundra grejer. Fast mest bara två.',
     'Det var orättvist. Vilmer fick välja först och jag hade räknat.',
     'Jag tappa glassen. Det var den VÄRSTA dagen nånsin.',
@@ -475,7 +458,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Vi kolla på TV. Det var vuxensort. Lite tråkig men okej.',
     'Nu ska jag sova. Godnatt.'
   ],
-  poet: [
+  'poeten': [
     'Idag var himlen grå på det där sättet som gör att hela Göteborg känns ritad med blyerts.',
     'Dagen gick långsamt, som en klocka som helst ville stanna kvar under täcket.',
     'Håltimmen öppnade sig som ett fönster mitt i veckan.',
@@ -492,7 +475,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Snart fredag. Det lilla ordet lyser.',
     'Och mitt i allt det vanliga fanns något jag ville spara.'
   ],
-  'culture-vulture': [
+  'kulturtanten': [
     'Dagens uppsättning kan beskrivas som lågmäld, något ojämn, men med flera fina partier.',
     'Göteborg låg i en gråskala som närmast kan beskrivas som kommunalrealistisk.',
     'Skolan tog emot mig med sin vanliga blandning av korridorseko, lysrör och ungdomlig resignation.',
@@ -509,7 +492,7 @@ export const voiceSamples: Record<string, string[]> = {
     'Sammanfattningsvis: en stillsam men inte obetydlig dag.',
     'Tre och en halv tygkasse av fem. Med viss längtan efter fredag.'
   ],
-  pirate: [
+  'piraten': [
     'Kaptenens logg: jag satte kurs mot ännu en vardag på öppet hav.',
     'Grå dimma låg över Göteborgs farvatten när jag lämnade hamn.',
     'Skolans korridorer var trånga sund, fulla av folk, jackor och oväsen.',
@@ -525,22 +508,5 @@ export const voiceSamples: Record<string, string[]> = {
     'Havet inom mig låg för ovanlighetens skull stilla.',
     'Nu går jag för ankar. Fredagens gyllene hamn syns vid horisonten.',
     'Så slutar dagens logg. Skutan höll, kaptenen står kvar.'
-  ],
-  gothenburger: [
-    'Jajamen, dagen rullade på som en spårvagn i sidledes regn.',
-    'Göteborg körde gråskala idag. Klassisk hemmamatch.',
-    'Himlen såg ut som en blöt disktrasa och dagen tog sig ändå framåt.',
-    'Matteläraren var sjuk, så ekvationerna fick vila. Det var väl den enda lösningen.',
-    'Håltimme. Ett hål i schemat, men ett ganska gôtt hål.',
-    'Vi satt i cafeterian och tjôtade om allt och ingenting. Inte dumt alls.',
-    'Dagen gick ungefär i Västtrafik-tempo: man kom fram, men man fick ha tålamod.',
-    'Jag var lugn. Inte zenmästare, men inte kaos heller.',
-    'Mammas pasta satt fint. Inget snack om saken.',
-    'Det kunde varit värre. Det kunde varit måndag och motvind.',
-    'Korridorerna var fulla. Gratis träning i tålamod, får man säga.',
-    'Ett bord, några goa människor och lite tid som ingen riktigt äger. Det räcker långt.',
-    'Fredag låg där framme och blinkade som en spårvagn man faktiskt hinner med.',
-    'Ingen parad, men dagen tog sig i mål.',
-    'Gôtt så.'
   ]
 };

@@ -32,10 +32,10 @@ describe('toneBuilders registry', () => {
 		expect(prefix.startsWith(STATIC_PROMPT_HEADER)).toBe(true);
 	});
 
-	it('falls back to classic prompt for an unknown tone id', () => {
+	it('falls back to dagboksskribenten prompt for an unknown tone id', () => {
 		const unknown = buildToneStaticPrefix('not-a-real-tone');
-		const classic = buildToneStaticPrefix('classic');
-		expect(unknown).toBe(classic);
+		const dagboksskribenten = buildToneStaticPrefix('dagboksskribenten');
+		expect(unknown).toBe(dagboksskribenten);
 	});
 });
 
@@ -84,12 +84,12 @@ describe('buildToneDynamicSuffix', () => {
 describe('buildTonePrompt', () => {
 	it('concatenates static prefix and dynamic suffix', () => {
 		const profile = { ...emptyProfile, pronouns: 'han' } as UserProfile;
-		const full = buildTonePrompt('classic', profile);
-		expect(full).toBe(buildToneStaticPrefix('classic') + buildToneDynamicSuffix(profile));
+		const full = buildTonePrompt('dagboksskribenten', profile);
+		expect(full).toBe(buildToneStaticPrefix('dagboksskribenten') + buildToneDynamicSuffix(profile));
 	});
 
 	it('omits OM SKRIBENTEN block for retone-style empty profile', () => {
-		const full = buildTonePrompt('classic', emptyProfile);
+		const full = buildTonePrompt('dagboksskribenten', emptyProfile);
 		expect(full).not.toContain('OM SKRIBENTEN');
 	});
 });

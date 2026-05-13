@@ -8,82 +8,75 @@ export interface Tone {
 
 export const tones: Tone[] = [
   {
-    id: 'classic',
+    id: 'dagboksskribenten',
     name: 'Dagboksskribenten',
     emoji: '📒',
     preview: 'Kära dagbok, idag var en av de där dagarna...'
   },
   {
-    id: 'storytelling',
+    id: 'berattaren',
     name: 'Berättaren',
     emoji: '📖',
     preview: 'Det var en grå tisdag när allt förändrades...'
   },
   {
-    id: 'philosophical',
+    id: 'filosofen',
     name: 'Filosofen',
     emoji: '🤔',
     preview: 'Vad är egentligen en dag, om inte en samling ögonblick...'
   },
   {
-    id: 'sportscaster',
+    id: 'sportkommentatorn',
     name: 'Sportkommentatorn',
     emoji: '🎙️',
     preview: 'OCH HAN KLIVER UPP UR SÄNGEN! Vilken start på dagen!'
   },
   {
-    id: 'cat-perspective',
+    id: 'katten',
     name: 'Katten',
     emoji: '🐈',
     preview: 'Människan vaknade sent igen. Typiskt.',
     disabled: true
   },
   {
-    id: 'drama-queen',
+    id: 'divan',
     name: 'Divan',
     emoji: '👑',
     preview: 'ALDRIG har någon upplevt en sådan MONUMENTAL morgon!'
   },
   {
-    id: 'cringe',
+    id: 'tonaringen',
     name: 'Tonåringen',
     emoji: '😬',
     preview: 'Okej. Dagens grej: jag försökte vara normal och det gick... sådär.'
   },
   {
-    id: 'british',
+    id: 'britten',
     name: 'Britten',
     emoji: '🇬🇧',
     preview: 'Rather uneventful day, I must say. Not bad though.'
   },
   {
-    id: 'quest-log',
+    id: 'gamern',
     name: 'Gamern',
     emoji: '🎮',
     preview: '[QUEST ACCEPTED] Överlev måndagen. Reward: +10 XP'
   },
   {
-    id: 'bored',
-    name: 'Roastaren',
-    emoji: '🔥',
-    preview: 'Din dag ställde sig på scen och bad om att bli roastad.',
-    disabled: true
-  },
-  {
-    id: 'nature-documentary',
+    id: 'naturfilmaren',
     name: 'Naturfilmaren',
     emoji: '🌎',
     preview: 'Här ser vi tonåringen i sin naturliga miljö... sovande.',
     disabled: true
   },
   {
-    id: 'therapist',
+    id: 'psykologen',
     name: 'Psykologen',
     emoji: '🧠️',
     preview: 'Jag hör att det var en utmanande dag. Det är okej att känna så.'
   },
   {
-    id: 'ai-robot',
+    id: 'roboten',
     name: 'AI-Roboten',
     emoji: '🤖',
     preview: 'SYSTEMLOGG: Ny dag initierad. Status: operationell.'
@@ -95,121 +88,114 @@ export const tones: Tone[] = [
     preview: 'Hör, vad ljus från morgonfönstret bryter? Det är alarmet, och jag är trött.'
   },
   {
-    id: 'tabloid',
+    id: 'reportern',
     name: 'Utrikeskorrespondenten',
     emoji: '🌐',
     preview: 'GÖTEBORG. Det regnar tunt över Avenyn när dagen tar sin början...',
     disabled: true
   },
   {
-    id: 'formal',
+    id: 'akademikern',
     name: 'Akademikern',
     emoji: '🏛️',
     preview: 'Dagens preliminära tes: även en tisdag kan erbjuda intressant empiri.'
   },
   {
-    id: 'nerd',
+    id: 'norden',
     name: 'Nörden',
     emoji: '🤓',
     preview: 'Frukosten bestod av havregryn – stapelvara sedan bronsåldern, faktiskt!'
   },
   {
-    id: 'tinfoil-hat',
+    id: 'foliehatten',
     name: 'Foliehatten',
     emoji: '🎩',
     preview: 'Matteläraren var sjuk. *Exakt* samma dag som provet. Sammanträffande? Knappast.'
   },
   {
-    id: 'self-help',
+    id: 'livscoachen',
     name: 'Livscoachen',
     emoji: '✨',
     preview: 'Ibland är de långsamma dagarna de viktigaste. Du är nog. Precis som du är.'
   },
   {
-    id: 'overthinker',
+    id: 'grubblaren',
     name: 'Grubblaren',
     emoji: '🌀',
     preview: 'Dagen var bra. Eller, "bra" – vad menar jag med det egentligen? Typ okej?'
   },
   {
-    id: 'cynical',
+    id: 'cynikern',
     name: 'Cynikern',
     emoji: '😒',
     preview:
       'Det gick bra. Inte för att jag förväntade mig det, men ibland har världen sina ögonblick.'
   },
   {
-    id: 'passive-aggressive',
+    id: 'martyren',
     name: 'Martyren',
     emoji: '😐',
     preview: 'Jag tog det själv. Någon behövde ju bära dagens lilla börda.'
   },
   {
-    id: 'chaotic',
+    id: 'multitaskaren',
     name: 'Multitaskaren',
     emoji: '🌪️',
     preview: 'Okej jag måste – åh katten vill in igen – ja. Bra dag. Typ. KATT. Hejdå.'
   },
   {
-    id: 'bureaucratic',
+    id: 'handlaggaren',
     name: 'Handläggaren',
     emoji: '📋',
     preview: 'Ärendet avslutas. Med vänlig hälsning, Undertecknad, Handläggare.',
     disabled: true
   },
   {
-    id: 'bro',
+    id: 'killenheladagen',
     name: 'Killen-hela-dagen',
     emoji: '🩳',
     preview: 'Ass boys, vaknade 06:00 för padel. Grind mode. Inte för att skryta men.',
     disabled: true
   },
   {
-    id: 'action-hero',
+    id: 'actionhjalten',
     name: 'Actionhjälten',
     emoji: '💥',
     preview: '06:47. Stockholm. Jag satte på fuel. Svart. Inget annat räknas.',
     disabled: true
   },
   {
-    id: 'influencer',
+    id: 'influencern',
     name: 'Influencern',
     emoji: '📣',
     preview: 'Okej ni. Jag måste bara dela — det där magiska med en grå tisdag. ✨'
   },
   {
-    id: 'six-year-old',
+    id: 'sexaringen',
     name: 'Sexåringen',
     emoji: '🧸',
     preview: 'Idag hände det JÄTTEMYCKET. Typ hundra grejer. Fast mest bara två.',
     disabled: true
   },
   {
-    id: 'poet',
+    id: 'poeten',
     name: 'Poeten',
     emoji: '🪶',
     preview: 'Dagen låg grå och mjuk över mig, som en filt av tystnad.',
     disabled: true
   },
   {
-    id: 'culture-vulture',
+    id: 'kulturtanten',
     name: 'Kulturtanten',
     emoji: '🍷',
     preview: 'Dagens uppsättning var lågmäld, men inte utan vissa fina partier.',
     disabled: true
   },
   {
-    id: 'pirate',
+    id: 'piraten',
     name: 'Piraten',
     emoji: '🏴‍☠️',
     preview: 'Kaptenens logg: jag satte kurs mot ännu en vardag på öppet hav.',
-    disabled: true
-  },
-  {
-    id: 'gothenburger',
-    name: 'Göteborgaren',
-    emoji: '🚋',
-    preview: 'Jajamen, dagen rullade på som en spårvagn i sidledes regn.',
     disabled: true
   }
 ];

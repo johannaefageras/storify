@@ -47,7 +47,7 @@
 		<p>Vill du hellre säga allt högt? I <strong>Tala in</strong> kan du spela in upp till fem minuter, få rösten transkriberad och skapa en dagbokstext från det du faktiskt sa – med samma val av röster som i resten av appen.</p>
 		<p>Vill du skriva själv? <strong>Skriv fritt</strong> ger dig en riktig textredigerare där du kan formulera dagen på ditt eget sätt, med AI-stöd som förfinar och polerar texten när du är klar.</p>
 		<p>I guiden kan appen hämta vädret automatiskt baserat på din position och hjälpa till med plats. Vill du krydda din dagbok lite extra? Lägg till ett personligt horoskop, historiska händelser som inträffat på samma datum, eller en liten "hemläxa" – en reflektion eller utmaning baserad på din dag.</p>
-		<p>När texten är klar kan du redigera den, regenerera den i en annan röst, exportera den som PDF, spara den i ditt dagboksarkiv om du har konto, eller publicera den frivilligt i Gemenskapen. Skapar du ett konto får du dessutom kalender med streak-statistik, profilsynk, skrivpåminnelser, veckobrev och ett system med {BADGES.length} utmärkelser att låsa upp längs vägen.</p>
+		<p>När texten är klar kan du redigera den, regenerera den i en annan röst, exportera den som PDF, spara den i ditt dagboksarkiv om du har konto, eller publicera den frivilligt i Gemenskapen. Skapar du ett konto får du dessutom kalender med streak-statistik, profilsynk och ett system med {BADGES.length} utmärkelser att låsa upp längs vägen.</p>
 		<p>Storify är en webbapp som också kan installeras som app via webbläsaren på enheter som stödjer det.</p>
 	</section>
 

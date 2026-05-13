@@ -4,7 +4,7 @@
  */
 
 const loadingPhrases: Record<string, string[]> = {
-  classic: [
+  'dagboksskribenten': [
     'Kära dagbok...',
     'Letar efter orden...',
     'Sätter mig ner och skriver...',
@@ -21,7 +21,7 @@ const loadingPhrases: Record<string, string[]> = {
     'Nu ska vi se...',
     'Vi ses snart, dagboken...'
   ],
-  storytelling: [
+  'berattaren': [
     'Det var en av de där dagarna...',
     'Berättaren samlar sina tankar...',
     'Sätter scenen...',
@@ -38,7 +38,7 @@ const loadingPhrases: Record<string, string[]> = {
     "Show, don't tell...",
     'Och sedan hände något...'
   ],
-  philosophical: [
+  'filosofen': [
     'Funderar på meningen...',
     'Ifrågasätter allt...',
     'Om ett dagboksinlägg skrivs i skogen...',
@@ -55,7 +55,7 @@ const loadingPhrases: Record<string, string[]> = {
     'Finns det svar, eller bara fler frågor...',
     'Jag vet inte än. Och det är okej...'
   ],
-  sportscaster: [
+  'sportkommentatorn': [
     'Och VI ÄR LIVE!',
     'Förbereder sändningen...',
     'Väntar på domaren...',
@@ -72,7 +72,7 @@ const loadingPhrases: Record<string, string[]> = {
     'Breaking news inkommande...',
     'HISTORISKT ögonblick förestår...'
   ],
-  'cat-perspective': [
+  'katten': [
     'Väntar. Som vanligt.',
     'Observerar...',
     'Tid för min tupplur snart...',
@@ -89,7 +89,7 @@ const loadingPhrases: Record<string, string[]> = {
     'Patrullerar minnet...',
     'Överväger om detta är värt min tid...'
   ],
-  'drama-queen': [
+  'divan': [
     'JAG DÖR av väntan...',
     'Varje sekund är en EVIGHET...',
     'Hur ska jag ÖVERLEVA detta?!',
@@ -106,7 +106,7 @@ const loadingPhrases: Record<string, string[]> = {
     'Min själ LÄMNAR kroppen...',
     'VARFÖR tar detta så lång tid?!'
   ],
-  cringe: [
+  tonaringen: [
     'Okej vänta...',
     'Analyserar dagens vibe...',
     'Kollar om detta var konstigt...',
@@ -123,7 +123,7 @@ const loadingPhrases: Record<string, string[]> = {
     'Snart klart. Tror jag.',
     'Okej okej, nästan...'
   ],
-  british: [
+  britten: [
     'Right then...',
     'One moment, if you please...',
     'Preparing something rather nice...',
@@ -140,7 +140,7 @@ const loadingPhrases: Record<string, string[]> = {
     'Apologies for the wait. Frightfully sorry.',
     'And... there we are. Almost.'
   ],
-  'quest-log': [
+  'gamern': [
     'LOADING...',
     'Generating gamer log...',
     'Calculating XP gains...',
@@ -157,24 +157,7 @@ const loadingPhrases: Record<string, string[]> = {
     '⚡ Initializing day log...',
     'Loading next checkpoint...'
   ],
-  bored: [
-    'Värmer upp mikrofonen...',
-    'Letar efter dagens sämsta beslut...',
-    'Bygger setup...',
-    'Slipar punchlinen...',
-    'Publiken håller andan...',
-    'Hittar det absurda...',
-    'Kalibrerar lagom svid...',
-    'Roastar med omtanke...',
-    'Laddar callbacks...',
-    'Scenen är nästan klar...',
-    'Översätter kaos till material...',
-    'Testar skämtet på kalendern...',
-    'Samlar dagens bevismaterial...',
-    'Ger vardagen en mikrofon...',
-    'Förbereder avslutande punchline...'
-  ],
-  'nature-documentary': [
+  'naturfilmaren': [
     'Och här... observerar vi...',
     'Timmarna passerar...',
     'Livet tar sin tid...',
@@ -191,7 +174,7 @@ const loadingPhrases: Record<string, string[]> = {
     'Snart avslöjas dagens berättelse...',
     'Cykeln fortsätter...'
   ],
-  therapist: [
+  'psykologen': [
     'Bearbetar sessionsdata...',
     'Analyserar observationer...',
     'Noterbart: Väntan pågår.',
@@ -208,7 +191,7 @@ const loadingPhrases: Record<string, string[]> = {
     'Fortsatt monitorering...',
     'Positiv indikator: Nästan framme.'
   ],
-  'ai-robot': [
+  'roboten': [
     'BEARBETAR...',
     '[STATUS: LADDAR]',
     'Analyserar data...',
@@ -242,7 +225,7 @@ const loadingPhrases: Record<string, string[]> = {
     'Så skall historien skrivas!',
     'Exeunt... nej, vänta. Snart.'
   ],
-  tabloid: [
+  'reportern': [
     'BREAKING: Laddar...',
     'JUST NU: Dagboken skrivs...',
     'EXKLUSIVT: Snart avslöjas allt!',
@@ -259,7 +242,7 @@ const loadingPhrases: Record<string, string[]> = {
     'Fortsättning följer...',
     'EXKLUSIVT för Dagboken: Snart!'
   ],
-  formal: [
+  'akademikern': [
     'Formulerar tesen...',
     'Samlar dagens empiri...',
     'Problematiserar morgonen...',
@@ -276,7 +259,7 @@ const loadingPhrases: Record<string, string[]> = {
     'Tendensen är preliminär...',
     'Snart en försiktig slutsats...'
   ],
-  nerd: [
+  'norden': [
     'Laddar... (ungefär 73% klart)',
     'Visste du förresten att...',
     'Kompilerar tangenter...',
@@ -293,7 +276,7 @@ const loadingPhrases: Record<string, string[]> = {
     'Jag ska fatta mig kort. (Nej.)',
     'Fascinerande process pågår...'
   ],
-  'tinfoil-hat': [
+  'foliehatten': [
     'Laddar... eller *gör* den det?',
     'De vill att du ska vänta.',
     'Sammanträffande? Knappast.',
@@ -310,7 +293,7 @@ const loadingPhrases: Record<string, string[]> = {
     'Vem tjänar på denna väntan?',
     'Snart avslöjas allt...'
   ],
-  'self-help': [
+  'livscoachen': [
     'Varje väntan är en möjlighet...',
     'Andas in. Andas ut.',
     'Processen är också en del av resan.',
@@ -327,7 +310,7 @@ const loadingPhrases: Record<string, string[]> = {
     'Vad kan denna väntan lära oss?',
     'Och det räcker. Det räcker gott.'
   ],
-  overthinker: [
+  grubblaren: [
     'Laddar... eller?',
     'Väntar. Eller, "väntar" — vad betyder det ens?',
     'Bearbetar. Tror jag.',
@@ -344,7 +327,7 @@ const loadingPhrases: Record<string, string[]> = {
     'Okej. Ja. Vi får se. Eller?',
     'Laddar. Antar jag. Vem vet.'
   ],
-  cynical: [
+  'cynikern': [
     'Laddar. Naturligtvis tar det tid.',
     'Väntar. Som förväntat.',
     'Snart klart, påstås det.',
@@ -361,7 +344,7 @@ const loadingPhrases: Record<string, string[]> = {
     'Jag lägger inga pengar på snabb leverans.',
     'Men så är det. Vi väntar.'
   ],
-  'passive-aggressive': [
+  'martyren': [
     'Bär dagens börda...',
     'Jag löser det. Som vanligt.',
     'Skriver tappert vidare...',
@@ -378,7 +361,7 @@ const loadingPhrases: Record<string, string[]> = {
     'Bär kommatecknen själv...',
     'Värdigt lidande pågår...'
   ],
-  chaotic: [
+  'multitaskaren': [
     'Laddar — åh vänta nej — ja, laddar.',
     'Snart klart! Eller — var var jag?',
     'Bearbetar... ÅH JUST DET det laddar.',
@@ -395,7 +378,7 @@ const loadingPhrases: Record<string, string[]> = {
     'Okej så det — ÅH det laddar!',
     'Händer saker!! Bra saker!! Typ!!'
   ],
-  bureaucratic: [
+  'handlaggaren': [
     'Ärende under handläggning...',
     'Status: Pågående.',
     'Väntar på godkännande...',
@@ -412,7 +395,7 @@ const loadingPhrases: Record<string, string[]> = {
     'Väntetid registrerad för handläggning.',
     'Ärendet övergår till nästa fas.'
   ],
-  poet: [
+  'poeten': [
     'Letar efter dagens färg...',
     'Lyssnar på de små detaljerna...',
     'Låter orden andas...',
@@ -429,7 +412,7 @@ const loadingPhrases: Record<string, string[]> = {
     'Sparar ögonblicket innan det försvinner...',
     'Det lilla blir större nu...'
   ],
-  'culture-vulture': [
+  'kulturtanten': [
     'Kuraterar dagens händelser...',
     'Justera ljussättningen, tack...',
     'Skriver programbladet...',
@@ -446,7 +429,7 @@ const loadingPhrases: Record<string, string[]> = {
     'Sammanfattningsvis: snart klart...',
     'Inte oviktigt. Bara inte färdigt än.'
   ],
-  pirate: [
+  'piraten': [
     'Kaptenens logg skrivs...',
     'Sätter kurs mot sista stycket...',
     'Hissar segel över dagens minnen...',
@@ -463,22 +446,73 @@ const loadingPhrases: Record<string, string[]> = {
     'Snart går vi för ankar...',
     'Skutan håller. Texten kommer.'
   ],
-  gothenburger: [
-    'Jajamen, det laddar...',
-    'Rullar fram som en spårvagn...',
-    'Väntar på grönt vid Brunnsparken...',
-    'Lite regn i maskineriet bara...',
-    'Tjôtar ihop texten...',
-    'Snart klart, det löser sig...',
-    'Västtrafik-tempo. Men fram kommer vi.',
-    'Letar efter en lagom dålig ordvits...',
-    'Samlar goa små detaljer...',
-    'Kokar kaffe och formuleringar...',
-    'Himlen är grå, texten tar sig...',
-    'Inte dumt. Snart färdigt.',
-    'Spårvagnen blinkar vid horisonten...',
-    'Ett ganska gôtt stycke återstår...',
-    'Gôtt så. Nästan.'
+  'killenheladagen': [
+    'Pumpar texten...',
+    'Ass boys, snart klart...',
+    'Grind mode aktiverat...',
+    'Tar en proteinshake under tiden...',
+    'Inte för att skryta men det laddar...',
+    'PR på väntetid snart...',
+    'Padel om en timme, snabbar på...',
+    'Bro, detta tar ju ingen tid...',
+    'Laddar gains...',
+    'Sista setet på texten...',
+    'Locked in...',
+    'Sippar en BCAA...',
+    'Texten blir cracked snart...',
+    'Boys boys boys, snart där...',
+    'No days off, inte ens för laddning...'
+  ],
+  'actionhjalten': [
+    'Laddar vapnen.',
+    'Ingen tid att förlora.',
+    'Klockan tickar.',
+    'Stockholm. 14:32. Texten närmar sig.',
+    'Adrenalinet pumpar.',
+    'Jag jobbar ensam.',
+    'Ett sista uppdrag.',
+    'Inget kan stoppa det här.',
+    'Snart är det över.',
+    'De kommer aldrig se det komma.',
+    'Stålnerver. Inga ord.',
+    'Uppdraget pågår.',
+    'Tystnad före stormen.',
+    'Bara jag och texten.',
+    'Nedräkningen har börjat.'
+  ],
+  'influencern': [
+    'Okej ni, ni kommer DÖ...',
+    'OBSESSED med detta...',
+    'Fixar lighting...',
+    'Snart upp på storyn...',
+    'Hihi vänta lite...',
+    'Spamma hjärtan så länge!!',
+    'Filmar i fyra vinklar...',
+    'Ni kommer ÄLSKA detta...',
+    'Måste bara hitta rätt vibe...',
+    'Texten är typ SÅ aesthetic...',
+    'En sekund bara — så cute...',
+    'Link in bio snart...',
+    'Det här blir min favorit hittills...',
+    'Snart droppar jag det...',
+    'Tack ni som väntar — ni är BÄST!! 💖'
+  ],
+  'sexaringen': [
+    'JAG SKRIVER NU!!',
+    'Vänta vänta vänta...',
+    'Det här blir SÅ bra!!',
+    'Hittar bokstäverna...',
+    'Mamma sa snart...',
+    'En sekund, jag måste tänka...',
+    'JÄTTEJÄTTELÄNGE kvar, typ två minuter...',
+    'Glömde vad jag skulle säga...',
+    'JO! Nu kommer jag ihåg...',
+    'Det var en dinosaurie. Typ.',
+    'Skriver med stora bokstäver...',
+    'Pennan tappade ord igen...',
+    'Nästan klar PÅ RIKTIGT...',
+    'Pappa kolla kolla kolla...',
+    'KLART! Nej vänta. Snart.'
   ],
 };
 

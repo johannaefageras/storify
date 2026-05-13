@@ -78,23 +78,23 @@ describe('getParagraphType', () => {
 	});
 
 	// --- Quest-log collision tests ---
-	it('does not detect quest-log debuff line as homework', () => {
+	it('does not detect gamern debuff line as homework', () => {
 		expect(getParagraphType('💀 [DEBUFF] Homework Pending: Anxiety stacking +5/hour')).toBe('regular');
 	});
 
-	it('does not detect quest-log achievement as homework', () => {
+	it('does not detect gamern achievement as homework', () => {
 		expect(getParagraphType('🏆 HOMEWORK HERO — Slutförde läxa samma dag')).toBe('regular');
 	});
 
-	it('does not detect quest-log objective as homework', () => {
+	it('does not detect gamern objective as homework', () => {
 		expect(getParagraphType('- Homework ☐')).toBe('regular');
 	});
 
-	it('does not detect quest-log stat bar as homework', () => {
+	it('does not detect gamern stat bar as homework', () => {
 		expect(getParagraphType('Homework: ███░░░░░░░ 30% ⚠️')).toBe('regular');
 	});
 
-	it('does not detect quest-log debuff as homework', () => {
+	it('does not detect gamern debuff as homework', () => {
 		expect(getParagraphType('💀 [DEBUFF] Homework Pending — Duration: Until completed')).toBe('regular');
 	});
 
@@ -210,13 +210,13 @@ describe('getRenderParagraphs', () => {
 		expect(result[2]).toEqual({ type: 'regular', text: 'Stjärnorna ler mot dig.' });
 	});
 
-	it('does not treat quest-log homework stat as addon heading', () => {
+	it('does not treat gamern homework stat as addon heading', () => {
 		const input = 'Gamer log.\n\nHomework: ███░░░░░░░ 30%\n\nMore text.';
 		const result = getRenderParagraphs(input);
 		expect(result.every((p) => p.type === 'regular')).toBe(true);
 	});
 
-	it('handles full quest-log entry without false positives', () => {
+	it('handles full gamern entry without false positives', () => {
 		const input = [
 			'═══ DAILY LOG — Day 127 ═══',
 			'',

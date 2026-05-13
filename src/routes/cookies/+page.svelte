@@ -25,7 +25,7 @@
 	<section>
 		<h2>Den korta versionen</h2>
 		<p>Storify använder inte cookies för reklam, beteendespårning eller analys. De cookies som kan förekomma är funktionella cookies från vår inloggningstjänst, så att du kan vara inloggad och komma åt ditt konto.</p>
-		<p>Appen använder också lokal lagring i webbläsaren för sådant som tema, accentfärg, lokal profil och tillfälliga utkast. Om du aktiverar påminnelser, använder mikrofonfunktionen eller installerar webbappen kan webbläsaren även spara teknisk appdata, till exempel behörigheter, push-prenumeration och cache för statiska filer.</p>
+		<p>Appen använder också lokal lagring i webbläsaren för sådant som tema, accentfärg, lokal profil och tillfälliga utkast. Om du använder mikrofonfunktionen eller installerar webbappen kan webbläsaren även spara teknisk appdata, till exempel behörigheter och cache för statiska filer.</p>
 	</section>
 
 	<section>
@@ -88,9 +88,8 @@
 	</section>
 
 	<section>
-		<h2>Webbapp, cache och push-notiser</h2>
+		<h2>Webbapp och cache</h2>
 		<p>Storify har en service worker och en webbappmanifestfil så att appen kan installeras via webbläsaren på enheter som stödjer det. Webbläsaren kan därför spara statiska filer i sin cache, till exempel appskal, ikoner och byggfiler, för att appen ska ladda snabbare och fungera bättre som installerad webbapp.</p>
-		<p>Om du som inloggad användare aktiverar skrivpåminnelser kan webbläsaren skapa en push-prenumeration. Då sparas tekniska push-uppgifter både i webbläsaren och i vår databas, kopplat till ditt konto, så att vi kan skicka påminnelsen. Du kan stänga av påminnelser i profilen och även ta bort webbplatsens notisbehörighet i webbläsarens inställningar.</p>
 	</section>
 
 	<section>
@@ -139,10 +138,6 @@
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Cache och service worker:</strong> Används av webbläsaren för att spara tekniska appfiler så att webbappen kan laddas snabbare</span>
 			</div>
-			<div class="custom-li">
-				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Push-prenumeration:</strong> Skapas bara om du aktivt tillåter notiser och används för skrivpåminnelser</span>
-			</div>
 		</div>
 		<p>Storify använder cookies endast för funktionella kontobehov. För appupplevelsen används i första hand lokal lagring, cache och webbläsarens egna behörigheter.</p>
 	</section>
@@ -155,7 +150,7 @@
 
 	<section>
 		<h2>Varför vi valt att minimera cookies</h2>
-		<p>Vi tror att din dagbok är privat. Därför använder Storify inte spårningscookies och sparar bara sådan webbläsardata som behövs för att appen ska fungera: inloggning, utkast, inställningar, mikrofonbehörighet, installerbar webbapp och frivilliga notiser. Det är helt enkelt det rimliga sättet att bygga en dagboksapp.</p>
+		<p>Vi tror att din dagbok är privat. Därför använder Storify inte spårningscookies och sparar bara sådan webbläsardata som behövs för att appen ska fungera: inloggning, utkast, inställningar, mikrofonbehörighet och installerbar webbapp. Det är helt enkelt det rimliga sättet att bygga en dagboksapp.</p>
 	</section>
 
 	<section>

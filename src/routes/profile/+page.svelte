@@ -141,15 +141,10 @@
 				<span class="hub-card-title">Redigera profil</span>
 				<span class="hub-card-desc">Namn, födelsedag, intressen…</span>
 			</a>
-			<a href="/profile/settings" class="hub-card">
-				<span class="hub-card-icon"><Emoji name="bell" size={56} /></span>
-				<span class="hub-card-title">Aviseringar</span>
-				<span class="hub-card-desc">Veckobrev, påminnelser, tidszon</span>
-			</a>
 			<a href="/profile/account" class="hub-card">
 				<span class="hub-card-icon"><Emoji name="gear" size={56} /></span>
 				<span class="hub-card-title">Kontoinställningar</span>
-				<span class="hub-card-desc">E-post, lösenord, logga ut</span>
+				<span class="hub-card-desc">E-post, tidszon, lösenord, logga ut</span>
 			</a>
 		</section>
 	{/if}

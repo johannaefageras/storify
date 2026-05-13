@@ -274,7 +274,7 @@
 	// Regenerate state
 	let isRegenerating = $state(false);
 	let regenerateError = $state('');
-	let currentToneId = $state('classic');
+	let currentToneId = $state('dagboksskribenten');
 
 	// Edit state
 	let isEditing = $state(false);

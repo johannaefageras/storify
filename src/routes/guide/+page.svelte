@@ -263,47 +263,47 @@
 			{#snippet wineIcon()}<Emoji name="wine" size={20} />{/snippet}
 			{#snippet pirateFlagIcon()}<Emoji name="skull-crossbones" size={20} />{/snippet}
 			{#snippet tramIcon()}<Emoji name="tram" size={20} />{/snippet}
-			<button class="voice-chip" onclick={() => openModal({ id: 'classic', name: 'Dagboksskribenten', description: 'En rak, varm berättelse om din dag. Perfekt för alla tillfällen.', icon: ledgerIcon })}>
+			<button class="voice-chip" onclick={() => openModal({ id: 'dagboksskribenten', name: 'Dagboksskribenten', description: 'En rak, varm berättelse om din dag. Perfekt för alla tillfällen.', icon: ledgerIcon })}>
 				<span class="voice-chip-emoji">{@render ledgerIcon()}</span>
 				<span class="voice-chip-name">Dagboksskribenten</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'storytelling', name: 'Berättaren', description: 'Din dag som en fängslande novell med dramaturgisk båge.', icon: openBookIcon })}>
+			<button class="voice-chip" onclick={() => openModal({ id: 'berattaren', name: 'Berättaren', description: 'Din dag som en fängslande novell med dramaturgisk båge.', icon: openBookIcon })}>
 				<span class="voice-chip-emoji">{@render openBookIcon()}</span>
 				<span class="voice-chip-name">Berättaren</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'philosophical', name: 'Filosofen', description: 'Djupa reflektioner om livets mening och vardagens under.', icon: owlIcon })}>
+			<button class="voice-chip" onclick={() => openModal({ id: 'filosofen', name: 'Filosofen', description: 'Djupa reflektioner om livets mening och vardagens under.', icon: owlIcon })}>
 				<span class="voice-chip-emoji">{@render owlIcon()}</span>
 				<span class="voice-chip-name">Filosofen</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'sportscaster', name: 'Sportkommentatorn', description: 'OCH HAN GÖR DET! Spänning och energi i varje moment!', icon: soccerBallIcon })}>
+			<button class="voice-chip" onclick={() => openModal({ id: 'sportkommentatorn', name: 'Sportkommentatorn', description: 'OCH HAN GÖR DET! Spänning och energi i varje moment!', icon: soccerBallIcon })}>
 				<span class="voice-chip-emoji">{@render soccerBallIcon()}</span>
 				<span class="voice-chip-name">Sportkommentatorn</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'cynical', name: 'Cynikern', description: 'Skeptisk och lite uppgiven – men ärlig och underfundig.', icon: unamusedIcon })}>
+			<button class="voice-chip" onclick={() => openModal({ id: 'cynikern', name: 'Cynikern', description: 'Skeptisk och lite uppgiven – men ärlig och underfundig.', icon: unamusedIcon })}>
 				<span class="voice-chip-emoji">{@render unamusedIcon()}</span>
 				<span class="voice-chip-name">Cynikern</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'drama-queen', name: 'Divan', description: 'ALLT är en KATASTROF eller en TRIUMF. Inga mellanting!', icon: crownIcon })}>
+			<button class="voice-chip" onclick={() => openModal({ id: 'divan', name: 'Divan', description: 'ALLT är en KATASTROF eller en TRIUMF. Inga mellanting!', icon: crownIcon })}>
 				<span class="voice-chip-emoji">{@render crownIcon()}</span>
 				<span class="voice-chip-name">Divan</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'cringe', name: 'Tonåringen', description: 'Självmedveten, socialt överanalyserande och väldigt mycket "okej men alltså".', icon: rollingEyesIcon })}>
+			<button class="voice-chip" onclick={() => openModal({ id: 'tonaringen', name: 'Tonåringen', description: 'Självmedveten, socialt överanalyserande och väldigt mycket "okej men alltså".', icon: rollingEyesIcon })}>
 				<span class="voice-chip-emoji">{@render rollingEyesIcon()}</span>
 				<span class="voice-chip-name">Tonåringen</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'british', name: 'Britten', description: 'Torr Britten-humor och understatement. Skrivs på engelska.', icon: flagUKIcon })}>
+			<button class="voice-chip" onclick={() => openModal({ id: 'britten', name: 'Britten', description: 'Torr Britten-humor och understatement. Skrivs på engelska.', icon: flagUKIcon })}>
 				<span class="voice-chip-emoji">{@render flagUKIcon()}</span>
 				<span class="voice-chip-name">Britten</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'quest-log', name: 'Gamern', description: 'Din dag som ett äventyr med quests, XP och achievements.', icon: videoGameIcon })}>
+			<button class="voice-chip" onclick={() => openModal({ id: 'gamern', name: 'Gamern', description: 'Din dag som ett äventyr med quests, XP och achievements.', icon: videoGameIcon })}>
 				<span class="voice-chip-emoji">{@render videoGameIcon()}</span>
 				<span class="voice-chip-name">Gamern</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'therapist', name: 'Psykologen', description: 'Empatisk och validerande. Hjälper dig förstå dina känslor.', icon: brainIcon })}>
+			<button class="voice-chip" onclick={() => openModal({ id: 'psykologen', name: 'Psykologen', description: 'Empatisk och validerande. Hjälper dig förstå dina känslor.', icon: brainIcon })}>
 				<span class="voice-chip-emoji">{@render brainIcon()}</span>
 				<span class="voice-chip-name">Psykologen</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'ai-robot', name: 'AI-Roboten', description: 'SYSTEMLOGG: Mänsklig aktivitet dokumenterad. Analyserar...', icon: robotIcon })}>
+			<button class="voice-chip" onclick={() => openModal({ id: 'roboten', name: 'AI-Roboten', description: 'SYSTEMLOGG: Mänsklig aktivitet dokumenterad. Analyserar...', icon: robotIcon })}>
 				<span class="voice-chip-emoji">{@render robotIcon()}</span>
 				<span class="voice-chip-name">AI-Roboten</span>
 			</button>
@@ -311,35 +311,35 @@
 				<span class="voice-chip-emoji">{@render theaterMasksIcon()}</span>
 				<span class="voice-chip-name">Shakespeare</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'formal', name: 'Akademikern', description: 'Din dag som empiri, analys och försiktiga slutsatser. Vidare forskning krävs.', icon: blackNibIcon })}>
+			<button class="voice-chip" onclick={() => openModal({ id: 'akademikern', name: 'Akademikern', description: 'Din dag som empiri, analys och försiktiga slutsatser. Vidare forskning krävs.', icon: blackNibIcon })}>
 				<span class="voice-chip-emoji">{@render blackNibIcon()}</span>
 				<span class="voice-chip-name">Akademikern</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'nerd', name: 'Nörden', description: 'Fakta, statistik och djupdykningar i varje liten detalj.', icon: nerdIcon })}>
+			<button class="voice-chip" onclick={() => openModal({ id: 'norden', name: 'Nörden', description: 'Fakta, statistik och djupdykningar i varje liten detalj.', icon: nerdIcon })}>
 				<span class="voice-chip-emoji">{@render nerdIcon()}</span>
 				<span class="voice-chip-name">Nörden</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'tinfoil-hat', name: 'Foliehatten', description: 'Allt hänger ihop. Dolda signaler och hemliga planer överallt.', icon: satelliteIcon })}>
+			<button class="voice-chip" onclick={() => openModal({ id: 'foliehatten', name: 'Foliehatten', description: 'Allt hänger ihop. Dolda signaler och hemliga planer överallt.', icon: satelliteIcon })}>
 				<span class="voice-chip-emoji">{@render satelliteIcon()}</span>
 				<span class="voice-chip-name">Foliehatten</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'self-help', name: 'Livscoachen', description: 'Upplyftande råd, små övningar och pepp för din utveckling.', icon: meditatingIcon })}>
+			<button class="voice-chip" onclick={() => openModal({ id: 'livscoachen', name: 'Livscoachen', description: 'Upplyftande råd, små övningar och pepp för din utveckling.', icon: meditatingIcon })}>
 				<span class="voice-chip-emoji">{@render meditatingIcon()}</span>
 				<span class="voice-chip-name">Livscoachen</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'overthinker', name: 'Grubblaren', description: 'Alla beslut analyseras in i minsta detalj. Om och om igen.', icon: explodingHeadIcon })}>
+			<button class="voice-chip" onclick={() => openModal({ id: 'grubblaren', name: 'Grubblaren', description: 'Alla beslut analyseras in i minsta detalj. Om och om igen.', icon: explodingHeadIcon })}>
 				<span class="voice-chip-emoji">{@render explodingHeadIcon()}</span>
 				<span class="voice-chip-name">Grubblaren</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'passive-aggressive', name: 'Martyren', description: 'Självuppoffrande, sårad och tapper. Någon måste ju bära allt.', icon: headstoneIcon })}>
+			<button class="voice-chip" onclick={() => openModal({ id: 'martyren', name: 'Martyren', description: 'Självuppoffrande, sårad och tapper. Någon måste ju bära allt.', icon: headstoneIcon })}>
 				<span class="voice-chip-emoji">{@render headstoneIcon()}</span>
 				<span class="voice-chip-name">Martyren</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'chaotic', name: 'Multitaskaren', description: 'Allt händer på en gång och ingenting går som planerat. Kaoset regerar!', icon: tornadoIcon })}>
+			<button class="voice-chip" onclick={() => openModal({ id: 'multitaskaren', name: 'Multitaskaren', description: 'Allt händer på en gång och ingenting går som planerat. Kaoset regerar!', icon: tornadoIcon })}>
 				<span class="voice-chip-emoji">{@render tornadoIcon()}</span>
 				<span class="voice-chip-name">Multitaskaren</span>
 			</button>
-			<button class="voice-chip" onclick={() => openModal({ id: 'influencer', name: 'Influencern', description: 'Soft era, matcha och good vibes. Allt är magiskt och contentvänligt.', icon: megaphoneIcon })}>
+			<button class="voice-chip" onclick={() => openModal({ id: 'influencern', name: 'Influencern', description: 'Soft era, matcha och good vibes. Allt är magiskt och contentvänligt.', icon: megaphoneIcon })}>
 				<span class="voice-chip-emoji">{@render megaphoneIcon()}</span>
 				<span class="voice-chip-name">Influencern</span>
 			</button>
@@ -478,10 +478,6 @@
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Utmärkelser:</strong> Lås upp {BADGES.length} badges för milstolpar, skrivsätt, gemenskap, röster och små upptäckter i appen.</span>
-			</div>
-			<div class="custom-li">
-				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Aviseringar:</strong> Slå på skrivpåminnelser, veckobrev eller månadsbrev i profilen om du vill få en liten puff att fortsätta skriva.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon bullet-icon"><Emoji name={DiamondIcon} size={12} /></span>

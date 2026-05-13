@@ -36,8 +36,6 @@ export type BadgeCriterion =
   | { type: 'first-login' }
   | { type: 'profile-completed' }
   | { type: 'profile-photo-uploaded' }
-  | { type: 'newsletter-subscribed' }
-  | { type: 'notifications-enabled' }
   | { type: 'entries-total'; count: number }
   | { type: 'entries-streak'; days: number }
   | { type: 'entries-at-night'; count: number }
@@ -142,26 +140,6 @@ export const BADGES: readonly Badge[] = [
     category: 'onboarding',
     tier: 'bronze',
     criterion: { type: 'profile-photo-uploaded' }
-  },
-  {
-    id: 'brevvannen',
-    name: 'Brevvännen',
-    description: 'Du valde att hänga med via nyhetsbrevet — inga nyheter ska missa dig.',
-    emoji: '📬',
-    emojiSlug: 'mailbox',
-    category: 'onboarding',
-    tier: 'bronze',
-    criterion: { type: 'newsletter-subscribed' }
-  },
-  {
-    id: 'alltid-alert',
-    name: 'Alltid Alert',
-    description: 'Du slog på notiser — Storify håller dig i loopen.',
-    emoji: '🔔',
-    emojiSlug: 'bell',
-    category: 'onboarding',
-    tier: 'bronze',
-    criterion: { type: 'notifications-enabled' }
   },
   {
     id: 'tio-i-rad',

@@ -196,7 +196,7 @@ export const INTERVIEW_OPENERS: StarterPools = {
       'Vilken banal sanning borde ha dramatisk musik bakom sig?',
       'Om du fick byta plats med ett föremål i tio minuter, vilket skulle få ledigt?',
       'Vilken komplimang skulle låta som en förolämpning om fel person sa den?',
-      'Om universum skickade en pushnotis till dig just nu, vad skulle det stå?',
+      'Om universum skickade ett vykort till dig just nu, vad skulle det stå?',
       'Om din dag var en bortglömd pryl i en flyttlåda, vad skulle det vara för något?',
       'Vilken är den mest onödiga talang du önskar att du plötsligt vaknade upp med?',
       'Om du var tvungen att byta förnamn till en krydda, vilken skulle passa ditt humör idag?',

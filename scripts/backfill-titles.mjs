@@ -72,7 +72,7 @@ Rules:
 Respond with only the title, nothing else.`;
 
 function languageForTone(toneId) {
-	return toneId === 'british' ? 'en' : 'sv';
+	return toneId === 'britten' ? 'en' : 'sv';
 }
 
 function buildUserMessage(text, language) {

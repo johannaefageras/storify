@@ -33,7 +33,7 @@
 		<div class="custom-ul">
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Profil- och inställningsuppgifter:</strong> Namn, födelsedag, pronomen, hemstad, familj, husdjur, sysselsättning, intressen, profilbild, accentfärg, tidszon samt val för veckobrev, månadsbrev och skrivpåminnelser</span>
+				<span class="list-content"><strong>Profil- och inställningsuppgifter:</strong> Namn, födelsedag, pronomen, hemstad, familj, husdjur, sysselsättning, intressen, profilbild, accentfärg och tidszon</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
@@ -57,7 +57,7 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Tekniska uppgifter för appfunktioner:</strong> Lokala utkast, tema- och accentinställningar i webbläsaren, sessionsuppgifter för inloggning, samt tekniska push-uppgifter om du aktiverar skrivpåminnelser</span>
+				<span class="list-content"><strong>Tekniska uppgifter för appfunktioner:</strong> Lokala utkast, tema- och accentinställningar i webbläsaren samt sessionsuppgifter för inloggning</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
@@ -77,7 +77,7 @@
 
 		<h3>Med konto</h3>
 		<p>Om du skapar ett konto lagras din profil, dina sparade dagboksinlägg, dina badge- och communitykopplingar samt dina kontoinställningar i molnet hos vår databastjänst. Detta gör att du kan komma åt din data från olika enheter. Funktionella cookies och liknande sessionsuppgifter används för att hålla dig inloggad.</p>
-		<p>Om du laddar upp en profilbild lagras den i anslutning till ditt konto hos vår lagringsleverantör. Om du aktiverar veckobrev, månadsbrev eller skrivpåminnelser lagras även dessa preferenser och den tidszon som behövs för att skicka dem vid rätt tid.</p>
+		<p>Om du laddar upp en profilbild lagras den i anslutning till ditt konto hos vår lagringsleverantör.</p>
 		<p>Om du delar till Gemenskapen som inloggad lagras även kopplingen mellan inlägget och ditt konto, så att du kan hantera och ta bort ditt delade inlägg senare.</p>
 	</section>
 
@@ -132,10 +132,6 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Utskick och påminnelser:</strong> Om du aktiverar veckobrev, månadsbrev eller skrivpåminnelser används dina preferenser, din tidszon och tekniska push- eller e-postuppgifter för att kunna skicka dem</span>
-			</div>
-			<div class="custom-li">
-				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Personalisering och framsteg:</strong> Profilinformation, röstval och användningshändelser används för att personalisera texter och visa utmärkelser, streaks och annan kontorelaterad funktionalitet i appen</span>
 			</div>
 			<div class="custom-li">
@@ -147,7 +143,7 @@
 				<span class="list-content"><strong>Säkerhet och missbruksskydd:</strong> Vi använder hastighetsbegränsning och tekniska skydd för att minska spam, missbruk och angrepp mot tjänsten. I samband med detta behandlas en anonymiserad identifierare tillfälligt</span>
 			</div>
 		</div>
-		<p>Rättslig grund enligt GDPR beror på vilken funktion som används. När vi tillhandahåller konto- och appfunktioner som du själv använder sker behandlingen normalt för att kunna leverera tjänsten. För valfria funktioner som platsåtkomst, mikrofonåtkomst, Gemenskapen, nyhetsbrev och pushpåminnelser bygger behandlingen på dina aktiva val eller ditt samtycke. För säkerhet, felhantering och missbruksskydd kan vi också behandla uppgifter med stöd av vårt berättigade intresse att hålla tjänsten säker och fungerande. Officiell EU-vägledning om rättsliga grunder finns hos Europeiska kommissionen och Europeiska dataskyddsstyrelsen: <a href="https://commission.europa.eu/law/law-topic/data-protection/rules-business-and-organisations/legal-grounds-processing-data/grounds-processing/when-can-personal-data-be-processed_en" target="_blank" rel="noopener">European Commission</a> och <a href="https://www.edpb.europa.eu/sme-data-protection-guide/process-personal-data-lawfully_en" target="_blank" rel="noopener">EDPB</a>.</p>
+		<p>Rättslig grund enligt GDPR beror på vilken funktion som används. När vi tillhandahåller konto- och appfunktioner som du själv använder sker behandlingen normalt för att kunna leverera tjänsten. För valfria funktioner som platsåtkomst, mikrofonåtkomst och Gemenskapen bygger behandlingen på dina aktiva val eller ditt samtycke. För säkerhet, felhantering och missbruksskydd kan vi också behandla uppgifter med stöd av vårt berättigade intresse att hålla tjänsten säker och fungerande. Officiell EU-vägledning om rättsliga grunder finns hos Europeiska kommissionen och Europeiska dataskyddsstyrelsen: <a href="https://commission.europa.eu/law/law-topic/data-protection/rules-business-and-organisations/legal-grounds-processing-data/grounds-processing/when-can-personal-data-be-processed_en" target="_blank" rel="noopener">European Commission</a> och <a href="https://www.edpb.europa.eu/sme-data-protection-guide/process-personal-data-lawfully_en" target="_blank" rel="noopener">EDPB</a>.</p>
 	</section>
 
 	<section>
@@ -164,11 +160,11 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Supabase:</strong> Databas-, lagrings- och autentiseringstjänst för konton, profiler, sparade inlägg, badges, push-prenumerationer och communitydata. Tjänsten hanterar även sessionscookies. Läs mer i <a href="https://supabase.com/privacy" target="_blank" rel="noopener">Supabases integritetspolicy</a>.</span>
+				<span class="list-content"><strong>Supabase:</strong> Databas-, lagrings- och autentiseringstjänst för konton, profiler, sparade inlägg, badges och communitydata. Tjänsten hanterar även sessionscookies. Läs mer i <a href="https://supabase.com/privacy" target="_blank" rel="noopener">Supabases integritetspolicy</a>.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Resend:</strong> E-posttjänst som används för Storifys e-postutskick, till exempel veckobrev och andra utskick när sådana används. Läs mer i <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener">Resends integritetspolicy</a>.</span>
+				<span class="list-content"><strong>Resend:</strong> E-posttjänst som används när du skickar dagboksinlägg via e-post. Läs mer i <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener">Resends integritetspolicy</a>.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>

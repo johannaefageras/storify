@@ -47,9 +47,6 @@ interface BackfillProfileRow {
 	hometown: string | null;
 	avatar_url: string | null;
 	timezone: string | null;
-	push_reminders_enabled: boolean | null;
-	newsletter_weekly_enabled: boolean | null;
-	newsletter_monthly_enabled: boolean | null;
 	badges_backfilled_at: string | null;
 }
 
@@ -78,7 +75,7 @@ export async function backfillBadges(
 	const { data: profile, error: profileErr } = await supabase
 		.from('profiles')
 		.select(
-			'birthday, name, pronouns, hometown, avatar_url, timezone, push_reminders_enabled, newsletter_weekly_enabled, newsletter_monthly_enabled, badges_backfilled_at'
+			'birthday, name, pronouns, hometown, avatar_url, timezone, badges_backfilled_at'
 		)
 		.eq('id', userId)
 		.maybeSingle<BackfillProfileRow>();
@@ -203,14 +200,6 @@ function matches(
 
 	if (type === 'profile-photo-uploaded') {
 		return typeof profile?.avatar_url === 'string' && profile.avatar_url.length > 0;
-	}
-
-	if (type === 'newsletter-subscribed') {
-		return profile?.newsletter_weekly_enabled === true || profile?.newsletter_monthly_enabled === true;
-	}
-
-	if (type === 'notifications-enabled') {
-		return profile?.push_reminders_enabled === true;
 	}
 
 	if (type === 'entry-edited') {

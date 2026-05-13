@@ -55,16 +55,16 @@ describe('generateTitleServer', () => {
 		expect(await generateTitleServer('text')).toBeNull();
 	});
 
-	it('uses the English system prompt for british tone', async () => {
+	it('uses the English system prompt for britten tone', async () => {
 		messagesCreate.mockResolvedValueOnce(textResponse('A grey Tuesday morning'));
-		await generateTitleServer('Walked through Hyde Park.', 'british');
+		await generateTitleServer('Walked through Hyde Park.', 'britten');
 		const args = messagesCreate.mock.calls[0][0];
 		expect(args.system).toMatch(/Respond with only the title/);
 	});
 
 	it('uses the Swedish system prompt for other tones', async () => {
 		messagesCreate.mockResolvedValueOnce(textResponse('En vanlig tisdag'));
-		await generateTitleServer('Promenad i parken.', 'classic');
+		await generateTitleServer('Promenad i parken.', 'dagboksskribenten');
 		const args = messagesCreate.mock.calls[0][0];
 		expect(args.system).toMatch(/Svara endast med titeln/);
 	});

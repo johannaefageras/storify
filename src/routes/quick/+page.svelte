@@ -22,38 +22,36 @@
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 
 	const toneEmojiMap: Record<string, string> = {
-		'classic': 'ledger',
-		'storytelling': 'open-book',
-		'philosophical': 'owl',
-		'sportscaster': 'soccer-ball',
-		'cat-perspective': 'cat-face',
-		'cynical': 'face-unamused',
-		'drama-queen': 'crown',
-		'cringe': 'face-rolling-eyes',
-		'british': 'flag-uk',
-		'quest-log': 'video-game',
-		'bored': 'fire',
-		'nature-documentary': 'earth',
-		'therapist': 'brain',
-		'ai-robot': 'robot',
+		'dagboksskribenten': 'ledger',
+		'berattaren': 'open-book',
+		'filosofen': 'owl',
+		'sportkommentatorn': 'soccer-ball',
+		'katten': 'cat-face',
+		'cynikern': 'face-unamused',
+		'divan': 'crown',
+		'tonaringen': 'face-rolling-eyes',
+		'britten': 'flag-uk',
+		'gamern': 'video-game',
+		'naturfilmaren': 'earth',
+		'psykologen': 'brain',
+		'roboten': 'robot',
 		'shakespeare': 'theater-masks',
-		'tabloid': 'newspaper',
-		'formal': 'black-nib',
-		'nerd': 'face-nerd',
-		'tinfoil-hat': 'satellite',
-		'self-help': 'woman-meditating',
-		'overthinker': 'face-exploding-head',
-		'passive-aggressive': 'headstone',
-		'bureaucratic': 'archive',
-		'chaotic': 'tornado',
-		'bro': 'shorts',
-		'action-hero': 'collision',
-		'influencer': 'loudspeaker',
-		'six-year-old': 'teddy-bear',
-		'poet': 'feather',
-		'culture-vulture': 'wine',
-		'pirate': 'skull-crossbones',
-		'gothenburger': 'tram'
+		'reportern': 'newspaper',
+		'akademikern': 'black-nib',
+		'norden': 'face-nerd',
+		'foliehatten': 'satellite',
+		'livscoachen': 'woman-meditating',
+		'grubblaren': 'face-exploding-head',
+		'martyren': 'headstone',
+		'handlaggaren': 'archive',
+		'multitaskaren': 'tornado',
+		'killenheladagen': 'shorts',
+		'actionhjalten': 'collision',
+		'influencern': 'loudspeaker',
+		'sexaringen': 'teddy-bear',
+		'poeten': 'feather',
+		'kulturtanten': 'wine',
+		'piraten': 'skull-crossbones'
 	};
 
 	// Mood emoji array (same as Step2Energy mood slider)
@@ -92,7 +90,7 @@
 
 		// Default tone (only if not restored from draft)
 		if (!wizardStore.data.selectedTone) {
-			wizardStore.updateData('selectedTone', 'classic');
+			wizardStore.updateData('selectedTone', 'dagboksskribenten');
 		}
 
 		// Disable addons (quick flow has no addon controls)

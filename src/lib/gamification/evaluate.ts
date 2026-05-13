@@ -17,8 +17,6 @@ export type BadgeEvent =
 	| 'first-login'
 	| 'profile-updated'
 	| 'profile-photo-uploaded'
-	| 'newsletter-subscribed'
-	| 'notifications-enabled'
 	| 'entry-created'
 	| 'entry-updated'
 	| 'entry-deleted'
@@ -81,8 +79,6 @@ const criterionTypeToEvents: Record<BadgeCriterion['type'], readonly BadgeEvent[
 	'first-login': ['first-login'],
 	'profile-completed': ['profile-updated'],
 	'profile-photo-uploaded': ['profile-photo-uploaded'],
-	'newsletter-subscribed': ['newsletter-subscribed'],
-	'notifications-enabled': ['notifications-enabled'],
 	'entries-total': ['entry-created'],
 	'entries-streak': ['entry-created'],
 	'entries-at-night': ['entry-created'],
@@ -124,8 +120,6 @@ export const BADGES_BY_EVENT: Readonly<Record<BadgeEvent, readonly Badge[]>> = (
 		'first-login': [],
 		'profile-updated': [],
 		'profile-photo-uploaded': [],
-		'newsletter-subscribed': [],
-		'notifications-enabled': [],
 		'entry-created': [],
 		'entry-updated': [],
 		'entry-deleted': [],
@@ -194,8 +188,6 @@ export function evaluateCriterion(c: BadgeCriterion, ctx: EvaluationContext): bo
 	switch (c.type) {
 		case 'account-created':
 		case 'first-login':
-		case 'newsletter-subscribed':
-		case 'notifications-enabled':
 		case 'community-entry-read':
 		case 'revisited-entry':
 		case 'regenerated-in-new-tone':

@@ -10,8 +10,7 @@ Turn `/profile` from one long scrollable page into a hub:
 
 - **`/profile`** — landing page. Avatar, name, badges, a small "your journal" summary, and three navigation cards leading to the sub-pages below. No editable fields.
 - **`/profile/edit`** — all profile-data fields (name, birthday, pronouns, hometown, family, pets, occupation, interests). Save button. Avatar upload.
-- **`/profile/settings`** — newsletter toggles (weekly/monthly), push reminders, timezone.
-- **`/profile/account`** — email (read-only), change password, log out.
+- **`/profile/account`** — email (read-only), timezone, change password, log out.
 
 The "Ny anteckning / Dagböcker / Kalender" action cards stay on the hub.
 
@@ -26,10 +25,8 @@ The "Ny anteckning / Dagböcker / Kalender" action cards stay on the hub.
 - Badges:
   - `fireBadgeEvent('profile-photo-uploaded')` after avatar upload
   - `fireBadgeEvent('profile-updated')` after profile save
-  - `fireBadgeEvent('notifications-enabled')` when push is turned on
 - After profile save, call `wizardStore.initProfile()` so wizard data stays in sync (see [+page.svelte:495](src/routes/profile/+page.svelte#L495)).
 - Timezone auto-detect logic (only runs when value is still default `Europe/Stockholm`) must be preserved. See [+page.svelte:300-313](src/routes/profile/+page.svelte#L300-L313).
-- Push support detection (`unsupported` vs `needs-ios-install`) must be preserved. See [+page.svelte:347-358](src/routes/profile/+page.svelte#L347-L358).
 - Use Svelte 5 runes (`$state`, `$derived`) — these files are `.svelte`, not `.svelte.ts`, but the rune syntax is the same in `<script>` blocks. Match the existing style.
 - Swedish UI copy — keep all user-facing strings in Swedish. Reuse the exact strings from the current file where possible.
 - Styles: existing CSS is page-scoped. Move only the styles each sub-page actually uses; do not invent a new design system.
@@ -47,15 +44,14 @@ Open [src/routes/profile/+page.svelte](src/routes/profile/+page.svelte) and map 
 | Hero (avatar + name + `ProfileBadgeStrip`) | **hub** (read-only avatar, no upload), **edit** (with upload) |
 | `.profile-actions` (Ny anteckning / Dagböcker / Kalender) + writing-mode modal | **hub** |
 | Profile form fields (name, birthday, pronouns, hometown, occupation, family, pets, interests) | **edit** |
-| Newsletter section (`Aviseringar`) | **settings** |
-| Account section (email + password change) | **account** |
+| Account section (email + timezone + password change) | **account** |
 | Log out button | **account** |
 | `LegalFooter` | **all four routes** |
 
 Helpers that need to move with their owner:
 
 - `parseBirthday`, `getDaysInMonth`, `handleBirthdayPartChange`, `swedishMonths`, `pronounOptions`, all tag helpers (`addTag`, `removeTag`, `removeLastTag`, `handleKeydown`, `handleCommaInput`, `focusInput`, `addFamily`, `addOccupation`, `addPet`, `addInterest`), `handleAvatarUpload`, `handleSave` → **edit**
-- `handleWeeklyToggle`, `handleMonthlyToggle`, `handlePushToggle`, `handleTimezoneChange`, `checkPushSupport` import + push detection → **settings**
+- `handleTimezoneChange` → **account**
 - `handleChangePassword`, `handleSignOut` → **account**
 
 ### Step 2 — Create the four routes
@@ -67,8 +63,6 @@ src/routes/profile/+page.svelte           ← rewrite (hub)
 src/routes/profile/+page.ts               ← unchanged
 src/routes/profile/edit/+page.svelte      ← new
 src/routes/profile/edit/+page.ts          ← new
-src/routes/profile/settings/+page.svelte  ← new
-src/routes/profile/settings/+page.ts      ← new
 src/routes/profile/account/+page.svelte   ← new
 src/routes/profile/account/+page.ts       ← new
 ```
@@ -93,8 +87,7 @@ Contents, top to bottom:
 2. Action cards (existing): Ny anteckning (opens writing-mode modal), Dagböcker (`/journal`), Kalender (`/calendar`). Modal markup + handlers stay here.
 3. **New** navigation list — three cards linking to the sub-routes:
    - "Redigera profil" → `/profile/edit` — helper text e.g. "Namn, födelsedag, intressen…"
-   - "Aviseringar" → `/profile/settings` — helper text e.g. "Veckobrev, påminnelser, tidszon"
-   - "Konto" → `/profile/account` — helper text e.g. "E-post, lösenord, logga ut"
+   - "Konto" → `/profile/account` — helper text e.g. "E-post, tidszon, lösenord, logga ut"
    - Style these like `.action-card` but with a subtitle line. Reuse `arrowRightSvg`.
 4. `LegalFooter` at the bottom.
 
@@ -107,18 +100,12 @@ The hub should only need: `name`, `avatarUrl` from the profile row. Load just th
 - After `handleSave` succeeds, leave the user on the page (current behavior — show success alert). Do not auto-navigate.
 - Keep the success/error alert pattern unchanged.
 
-### Step 6 — Build `/profile/settings`
+### Step 6 — Build `/profile/account`
 
-- Move the `Aviseringar` section here.
+- Move email field + timezone selector + password change form + log out button.
 - Same back link to `/profile`.
-- Toggles save on change (current behavior — no Save button). Preserve optimistic update + revert-on-error pattern from `handleWeeklyToggle` / `handleMonthlyToggle` / `handlePushToggle` / `handleTimezoneChange`.
+- Timezone changes save on change (current behavior — no Save button). Preserve optimistic update + revert-on-error pattern from `handleTimezoneChange`.
 - Preserve the timezone auto-detect-on-first-visit behavior in this page's loader.
-- Preserve push support detection and the `pushUnavailable` messaging.
-
-### Step 7 — Build `/profile/account`
-
-- Move email field + password change form + log out button.
-- Same back link to `/profile`.
 - `handleSignOut` redirects to `/` — unchanged.
 
 ### Step 8 — Slim down the original `+page.svelte`
@@ -127,7 +114,7 @@ After steps 4–7 are working, the original file becomes the hub from step 4. De
 
 ### Step 9 — Move shared styles if duplicated
 
-If the same CSS is repeated across `edit` / `settings` / `account` (likely: `.profile-section`, `.section-title`, `.field-group`, `.field-label`, inputs, selects, alerts, toggle styles), extract them into either:
+If the same CSS is repeated across `edit` / `account` (likely: `.profile-section`, `.section-title`, `.field-group`, `.field-label`, inputs, selects, alerts), extract them into either:
 
 - a new `src/routes/profile/profile.css` imported by each page, **or**
 - a `src/lib/components/profile/` set of components (e.g. `ProfileSection.svelte`, `Field.svelte`, `Toggle.svelte`).
@@ -141,13 +128,11 @@ Run, in order:
 1. `npm run check` — must pass (TypeScript + Svelte diagnostics).
 2. `npm run test:run` — must pass.
 3. `npm run dev` — manually walk every flow:
-   - Hub renders; clicking each of the three nav cards lands on the right sub-page.
+   - Hub renders; clicking each nav card lands on the right sub-page.
    - Edit: change a field, save, see success, refresh — value persists.
    - Edit: upload avatar, see it appear, refresh — still there. Hub also shows new avatar.
    - Edit: badge fires for `profile-updated` and `profile-photo-uploaded` (check via `/badges` or whatever surface shows them).
-   - Settings: toggle weekly newsletter — persists across refresh. Toggling on clears `weekly_last_sent_at`.
-   - Settings: toggle push (in a browser that supports it) — flow completes; refusing permission reverts toggle and shows the localized error.
-   - Settings: change timezone — persists.
+   - Account: change timezone — persists.
    - Account: change password — succeeds with matching 6+ char password; shows error otherwise.
    - Account: log out — redirects to `/`.
    - Auth gate: visit each route signed-out — redirects to `/login`.
@@ -164,7 +149,6 @@ rg "goto\\(.*profile" src/
 
 Likely candidates for re-pointing:
 - Any "edit your profile" CTA from elsewhere → `/profile/edit`.
-- Any "manage notifications" link → `/profile/settings`.
 
 ### Step 12 — Mobile check
 

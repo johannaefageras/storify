@@ -27,9 +27,9 @@ Respond with only the title, nothing else.`;
 
 export type TitleLanguage = 'sv' | 'en';
 
-// `british` is the only documented English tone; everything else writes Swedish.
+// `britten` is the only documented English tone; everything else writes Swedish.
 export function languageForTone(toneId: string | null | undefined): TitleLanguage {
-	return toneId === 'british' ? 'en' : 'sv';
+	return toneId === 'britten' ? 'en' : 'sv';
 }
 
 export function buildTitleSystemPrompt(language: TitleLanguage): string {

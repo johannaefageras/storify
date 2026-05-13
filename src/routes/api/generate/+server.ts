@@ -237,7 +237,7 @@ Skriv dagboksinlägget nu.`;
       return sseResponse(streamWithFallback(editorSystem, userInstruction));
     }
 
-    const toneId = data.selectedTone || 'classic';
+    const toneId = data.selectedTone || 'dagboksskribenten';
     const staticPrefix = buildToneStaticPrefix(toneId);
     let dynamicSuffix = buildToneDynamicSuffix(data.profile);
 

@@ -18,15 +18,15 @@ function jsonResponse(body: unknown, init: ResponseInit = { status: 200 }): Resp
 describe('generateTitle', () => {
 	it('returns the title on success', async () => {
 		fetchMock.mockResolvedValueOnce(jsonResponse({ success: true, title: 'En lugn dag' }));
-		expect(await generateTitle('text', 'classic')).toBe('En lugn dag');
+		expect(await generateTitle('text', 'dagboksskribenten')).toBe('En lugn dag');
 	});
 
 	it('sends text and toneId in body', async () => {
 		fetchMock.mockResolvedValueOnce(jsonResponse({ success: true, title: 't' }));
-		await generateTitle('hello', 'british');
+		await generateTitle('hello', 'britten');
 		const [, init] = fetchMock.mock.calls[0];
 		expect(init.method).toBe('POST');
-		expect(JSON.parse(init.body as string)).toEqual({ text: 'hello', toneId: 'british' });
+		expect(JSON.parse(init.body as string)).toEqual({ text: 'hello', toneId: 'britten' });
 	});
 
 	it('returns null for empty/whitespace text without calling fetch', async () => {

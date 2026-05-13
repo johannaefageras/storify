@@ -358,7 +358,7 @@ const createChatWizardData = (overrides: Partial<WizardData> = {}): WizardData =
 	moodColor: '',
 	memoryFor10Years: '',
 	messageToFutureSelf: '',
-	selectedTone: 'classic',
+	selectedTone: 'dagboksskribenten',
 	includeHoroscope: false,
 	includeOnThisDay: false,
 	includeHomework: true,

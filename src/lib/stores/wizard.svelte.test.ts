@@ -139,7 +139,7 @@ describe('wizardStore', () => {
 			wizardStore.updateData('selectedTone', '   '); // whitespace only
 			expect(wizardStore.isStepValid(8)).toBe(false);
 
-			wizardStore.updateData('selectedTone', 'classic');
+			wizardStore.updateData('selectedTone', 'dagboksskribenten');
 			expect(wizardStore.isStepValid(8)).toBe(true);
 		});
 

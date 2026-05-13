@@ -14,6 +14,92 @@
 	let passwordError = $state('');
 	let passwordSuccess = $state('');
 	let changingPassword = $state(false);
+	let timezone = $state('Europe/Stockholm');
+	let timezoneOptions = $state<string[]>([]);
+	let settingsError = $state('');
+
+	async function loadAccountSettings() {
+		if (!authStore.user) return;
+
+		const { data, error: fetchError } = await supabase
+			.from('profiles')
+			.select('timezone')
+			.eq('id', authStore.user.id)
+			.single();
+
+		if (fetchError) {
+			settingsError = 'Kunde inte ladda inställningarna.';
+			loading = false;
+			return;
+		}
+
+		if (data) {
+			timezone = data.timezone || 'Europe/Stockholm';
+
+			// Auto-detect timezone on first visit (only if still at default)
+			if (timezone === 'Europe/Stockholm') {
+				try {
+					const detected = Intl.DateTimeFormat().resolvedOptions().timeZone;
+					if (detected && detected !== timezone) {
+						timezone = detected;
+						await supabase
+							.from('profiles')
+							.update({ timezone: detected, updated_at: new Date().toISOString() })
+							.eq('id', authStore.user.id);
+					}
+				} catch {
+					// Intl unavailable — keep default
+				}
+			}
+		}
+
+		try {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			const supported = (Intl as any).supportedValuesOf?.('timeZone');
+			if (Array.isArray(supported) && supported.length > 0) {
+				timezoneOptions = supported;
+			}
+		} catch {
+			// ignored
+		}
+		if (timezoneOptions.length === 0) {
+			timezoneOptions = [
+				'Europe/Stockholm',
+				'Europe/Oslo',
+				'Europe/Copenhagen',
+				'Europe/Helsinki',
+				'Europe/London',
+				'Europe/Berlin',
+				'Europe/Paris',
+				'Europe/Madrid',
+				'UTC',
+				'America/New_York',
+				'America/Los_Angeles'
+			];
+		}
+		if (!timezoneOptions.includes(timezone)) {
+			timezoneOptions = [timezone, ...timezoneOptions];
+		}
+
+		loading = false;
+	}
+
+	async function handleTimezoneChange(value: string) {
+		if (!authStore.user) return;
+		const prev = timezone;
+		timezone = value;
+		settingsError = '';
+
+		const { error: err } = await supabase
+			.from('profiles')
+			.update({ timezone: value, updated_at: new Date().toISOString() })
+			.eq('id', authStore.user.id);
+
+		if (err) {
+			settingsError = 'Kunde inte spara tidszonen. Försök igen.';
+			timezone = prev;
+		}
+	}
 
 	async function handleChangePassword() {
 		passwordError = '';
@@ -62,7 +148,7 @@
 				goto('/login');
 				return;
 			}
-			loading = false;
+			loadAccountSettings();
 		};
 		checkAuth();
 	});
@@ -94,6 +180,23 @@
 							class="field-disabled"
 						/>
 					</div>
+
+					<div class="field-group">
+						<label class="field-label" for="timezone">Tidszon</label>
+						<select
+							id="timezone"
+							value={timezone}
+							onchange={(e) => handleTimezoneChange(e.currentTarget.value)}
+						>
+							{#each timezoneOptions as tz}
+								<option value={tz}>{tz}</option>
+							{/each}
+						</select>
+					</div>
+
+					{#if settingsError}
+						<div class="profile-alert profile-alert-error">{settingsError}</div>
+					{/if}
 
 					<form class="password-form" onsubmit={(e) => { e.preventDefault(); handleChangePassword(); }}>
 						<div class="field-group">
@@ -139,6 +242,15 @@
 </main>
 
 <style>
+	#timezone {
+		appearance: none;
+		-webkit-appearance: none;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235f5f5f' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: right 0.5rem center;
+		padding-right: 1.75rem;
+	}
+
 	.password-form {
 		display: flex;
 		flex-direction: column;

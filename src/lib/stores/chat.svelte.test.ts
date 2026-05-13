@@ -296,14 +296,14 @@ describe('chatStore', () => {
 
 	describe('tone selection', () => {
 		it('setSelectedTone updates the tone', () => {
-			chatStore.setSelectedTone('classic');
-			expect(chatStore.selectedTone).toBe('classic');
+			chatStore.setSelectedTone('dagboksskribenten');
+			expect(chatStore.selectedTone).toBe('dagboksskribenten');
 		});
 
 		it('setSelectedTone can change the tone', () => {
-			chatStore.setSelectedTone('classic');
-			chatStore.setSelectedTone('cringe');
-			expect(chatStore.selectedTone).toBe('cringe');
+			chatStore.setSelectedTone('dagboksskribenten');
+			chatStore.setSelectedTone('tonaringen');
+			expect(chatStore.selectedTone).toBe('tonaringen');
 		});
 	});
 
@@ -425,7 +425,7 @@ describe('chatStore', () => {
 			chatStore.addAssistantMessage('Hi!');
 			chatStore.startChatting();
 			chatStore.setStreaming(true);
-			chatStore.setSelectedTone('classic');
+			chatStore.setSelectedTone('dagboksskribenten');
 			chatStore.setAddon('horoscope', true);
 			chatStore.setAddon('onThisDay', true);
 			chatStore.setAddon('homework', false);
@@ -502,18 +502,18 @@ describe('chatStore', () => {
 			chatStore.addUserMessage('My day was great');
 			chatStore.addAssistantMessage('Tell me more!');
 			chatStore.finishInterview();
-			chatStore.setSelectedTone('classic');
+			chatStore.setSelectedTone('dagboksskribenten');
 			chatStore.startGenerating();
 			chatStore.showResult('First entry');
 
 			// Re-generate with different tone
 			chatStore.finishInterview();
-			chatStore.setSelectedTone('cringe');
+			chatStore.setSelectedTone('tonaringen');
 			chatStore.startGenerating();
 			chatStore.showResult('Meme entry');
 
 			expect(chatStore.generatedEntry).toBe('Meme entry');
-			expect(chatStore.selectedTone).toBe('cringe');
+			expect(chatStore.selectedTone).toBe('tonaringen');
 			expect(chatStore.messages).toHaveLength(2); // Messages preserved
 		});
 	});
@@ -571,7 +571,7 @@ describe('chatStore', () => {
 		});
 
 		it('saves when tone is selected', async () => {
-			chatStore.setSelectedTone('classic');
+			chatStore.setSelectedTone('dagboksskribenten');
 
 			await vi.advanceTimersByTimeAsync(500);
 
@@ -579,7 +579,7 @@ describe('chatStore', () => {
 			const savedValue = JSON.parse(
 				localStorageMock.setItem.mock.calls[0][1]
 			);
-			expect(savedValue.selectedTone).toBe('classic');
+			expect(savedValue.selectedTone).toBe('dagboksskribenten');
 		});
 
 		it('saves when addon is toggled', async () => {
@@ -600,7 +600,7 @@ describe('chatStore', () => {
 					{ id: 'msg-2', role: 'assistant', content: 'Hi!', timestamp: 2000 }
 				],
 				phase: 'chatting',
-				selectedTone: 'cringe',
+				selectedTone: 'tonaringen',
 				includeHoroscope: true,
 				includeOnThisDay: false,
 				includeHomework: false,
@@ -616,7 +616,7 @@ describe('chatStore', () => {
 			expect(chatStore.messages[0].content).toBe('Hello');
 			expect(chatStore.messages[1].content).toBe('Hi!');
 			expect(chatStore.phase).toBe('chatting');
-			expect(chatStore.selectedTone).toBe('cringe');
+			expect(chatStore.selectedTone).toBe('tonaringen');
 			expect(chatStore.includeHoroscope).toBe(true);
 			expect(chatStore.includeHomework).toBe(false);
 		});

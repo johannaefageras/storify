@@ -21,9 +21,6 @@ interface ProfileFixture {
 	hometown?: string | null;
 	avatar_url?: string | null;
 	timezone?: string | null;
-	push_reminders_enabled?: boolean | null;
-	newsletter_weekly_enabled?: boolean | null;
-	newsletter_monthly_enabled?: boolean | null;
 	badges_backfilled_at?: string | null;
 }
 
@@ -44,9 +41,6 @@ function createSupabaseFake(fx: Fixtures = {}) {
 		hometown: null,
 		avatar_url: null,
 		timezone: 'Europe/Stockholm',
-		push_reminders_enabled: false,
-		newsletter_weekly_enabled: false,
-		newsletter_monthly_enabled: false,
 		badges_backfilled_at: null,
 		...(fx.profile ?? {})
 	};
@@ -133,28 +127,6 @@ describe('backfillBadges', () => {
 
 		expect(got.newlyEarned.map((b) => b.id)).toContain('forsta-raden');
 		expect(inserted.map((row) => row.badge_id)).toContain('forsta-raden');
-	});
-
-	it('retroactively awards notifications-enabled from saved profile state', async () => {
-		const { fake, inserted } = createSupabaseFake({
-			profile: { push_reminders_enabled: true }
-		});
-
-		const got = await backfillBadges(fake, 'user-1', { force: true });
-
-		expect(got.newlyEarned.map((b) => b.id)).toContain('alltid-alert');
-		expect(inserted.map((row) => row.badge_id)).toContain('alltid-alert');
-	});
-
-	it('does not award notifications-enabled when push reminders are off', async () => {
-		const { fake, inserted } = createSupabaseFake({
-			profile: { push_reminders_enabled: false }
-		});
-
-		const got = await backfillBadges(fake, 'user-1', { force: true });
-
-		expect(got.newlyEarned.map((b) => b.id)).not.toContain('alltid-alert');
-		expect(inserted.map((row) => row.badge_id)).not.toContain('alltid-alert');
 	});
 
 	it('retroactively awards nattugglan using the saved profile timezone', async () => {

@@ -41,7 +41,7 @@
 	<section>
 		<h2>Så fungerar tjänsten</h2>
 		<p>Du kan välja mellan fem lägen: en fullständig guide med detaljerade frågor om din dag, ett snabbläge där du fångar dagens känsla på under en minut, en AI-intervju där du väljer intervjuare och chattar med en AI som ställer frågor om din dag, Tala in där en ljudinspelning transkriberas till text, eller Skriv fritt där du skriver själv med AI-stöd och redigeringsverktyg. I samtliga lägen väljer du en av {tones.length} skrivstilar och låter vår AI skapa eller förfina ett dagboksinlägg åt dig. I den fullständiga guiden kan du även lägga till tillägg som horoskop, historiska händelser eller en personlig hemläxa.</p>
-		<p>När texten är klar kan du redigera den, regenerera den i en annan röst, exportera den som PDF, spara den i ditt dagboksarkiv om du har konto eller dela den frivilligt till Gemenskapen. Med konto får du dessutom profilsynk, kalender med streak-statistik, badges, skrivpåminnelser och inställningar för veckobrev och månadsbrev.</p>
+		<p>När texten är klar kan du redigera den, regenerera den i en annan röst, exportera den som PDF, spara den i ditt dagboksarkiv om du har konto eller dela den frivilligt till Gemenskapen. Med konto får du dessutom profilsynk, kalender med streak-statistik, badges och kontoinställningar.</p>
 	</section>
 
 	<section>
@@ -187,11 +187,11 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Supabase:</strong> Hanterar autentisering, profillagring, dagboksarkiv för användare med konto, push-prenumerationer och lagring av delade inlägg i Gemenskapen. <a href="https://supabase.com/terms" target="_blank" rel="noopener">Läs deras villkor</a>.</span>
+				<span class="list-content"><strong>Supabase:</strong> Hanterar autentisering, profillagring, dagboksarkiv för användare med konto och lagring av delade inlägg i Gemenskapen. <a href="https://supabase.com/terms" target="_blank" rel="noopener">Läs deras villkor</a>.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Resend:</strong> E-posttjänst som används för Storifys utskick, till exempel veckobrev, månadsbrev eller andra kontorelaterade e-postmeddelanden. <a href="https://resend.com/legal/terms-of-service" target="_blank" rel="noopener">Läs deras villkor</a>.</span>
+				<span class="list-content"><strong>Resend:</strong> E-posttjänst som används när du skickar dagboksinlägg via e-post. <a href="https://resend.com/legal/terms-of-service" target="_blank" rel="noopener">Läs deras villkor</a>.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>

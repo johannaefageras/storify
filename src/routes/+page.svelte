@@ -99,18 +99,18 @@
 	];
 
 	const featuredTones = [
-		{ id: 'passive-aggressive', name: 'Martyren', icon: 'headstone', preview: 'Jag tog det själv. Någon behövde ju bära dagens lilla börda.' },
-		{ id: 'cynical', name: 'Cynikern', icon: 'face-unamused', preview: 'Det gick bra. Inte för att jag förväntade mig det, men ibland har världen sina ögonblick.' },
-		{ id: 'self-help', name: 'Livscoachen', icon: 'woman-meditating', preview: 'Ibland är de långsamma dagarna de viktigaste. Du är nog. Precis som du är.' },
-		{ id: 'formal', name: 'Akademikern', icon: 'top-hat', preview: 'Dagens preliminära tes: även en tisdag kan erbjuda intressant empiri.' },
+		{ id: 'martyren', name: 'Martyren', icon: 'headstone', preview: 'Jag tog det själv. Någon behövde ju bära dagens lilla börda.' },
+		{ id: 'cynikern', name: 'Cynikern', icon: 'face-unamused', preview: 'Det gick bra. Inte för att jag förväntade mig det, men ibland har världen sina ögonblick.' },
+		{ id: 'livscoachen', name: 'Livscoachen', icon: 'woman-meditating', preview: 'Ibland är de långsamma dagarna de viktigaste. Du är nog. Precis som du är.' },
+		{ id: 'akademikern', name: 'Akademikern', icon: 'top-hat', preview: 'Dagens preliminära tes: även en tisdag kan erbjuda intressant empiri.' },
 		{ id: 'shakespeare', name: 'Shakespeare', icon: 'theater-masks', preview: 'Hör, vad ljus från morgonfönstret bryter? Det är alarmet, och jag är trött.' },
-		{ id: 'ai-robot', name: 'AI-Roboten', icon: 'robot', preview: 'SYSTEMLOGG: Ny dag initierad. Status: operationell.' },
-		{ id: 'therapist', name: 'Psykologen', icon: 'brain', preview: 'Jag hör att det var en utmanande dag. Det är okej att känna så.' },
-		{ id: 'quest-log', name: 'Gamern', icon: 'video-game', preview: '[QUEST ACCEPTED] Överlev måndagen. Reward: +10 XP' },
-		{ id: 'british', name: 'Britten', icon: 'flag-uk', preview: 'Rather uneventful day, I must say. Not bad though.' },
-		{ id: 'philosophical', name: 'Filosofen', icon: 'owl', preview: 'Vad är egentligen en dag, om inte en samling ögonblick...' },
-		{ id: 'storytelling', name: 'Berättaren', icon: 'open-book', preview: 'Det var en grå tisdag när allt förändrades...' },
-		{ id: 'sportscaster', name: 'Sportkommentatorn', icon: 'soccer-ball', preview: 'OCH HAN KLIVER UPP UR SÄNGEN! Vilken start på dagen!' }
+		{ id: 'roboten', name: 'AI-Roboten', icon: 'robot', preview: 'SYSTEMLOGG: Ny dag initierad. Status: operationell.' },
+		{ id: 'psykologen', name: 'Psykologen', icon: 'brain', preview: 'Jag hör att det var en utmanande dag. Det är okej att känna så.' },
+		{ id: 'gamern', name: 'Gamern', icon: 'video-game', preview: '[QUEST ACCEPTED] Överlev måndagen. Reward: +10 XP' },
+		{ id: 'britten', name: 'Britten', icon: 'flag-uk', preview: 'Rather uneventful day, I must say. Not bad though.' },
+		{ id: 'filosofen', name: 'Filosofen', icon: 'owl', preview: 'Vad är egentligen en dag, om inte en samling ögonblick...' },
+		{ id: 'berattaren', name: 'Berättaren', icon: 'open-book', preview: 'Det var en grå tisdag när allt förändrades...' },
+		{ id: 'sportkommentatorn', name: 'Sportkommentatorn', icon: 'soccer-ball', preview: 'OCH HAN KLIVER UPP UR SÄNGEN! Vilken start på dagen!' }
 	];
 
 	let randomizedTonePreviews = $state<Record<string, string>>({});
@@ -134,7 +134,7 @@
 		weekday: 'Tisdag',
 		date: '12 mars 2026',
 		emojis: ['hot-beverage', 'rain-cloud', 'open-book'],
-		toneId: 'storytelling',
+		toneId: 'berattaren',
 		title: 'Regnet och boken',
 		generatedText:
 			'Det var en grå tisdag när jag bestämde mig för att stanna inne. Regnet trummade tålmodigt mot fönstret, och jag lät det.\n\nKaffet blev kallt två gånger innan jag hann dricka det. Boken jag tagit fram låg uppslagen i knäet, och jag insåg att jag läst samma stycke tre gånger utan att ta in ett ord. Det var inte tråkigt – det var bara stilla.\n\nIbland är det de små, oviktiga dagarna som man minns längst.'

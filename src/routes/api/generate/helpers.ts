@@ -18,59 +18,55 @@ interface ToneMetadata {
 }
 
 const toneMetadata: Record<ToneId, ToneMetadata> = {
-	classic: {
+	'dagboksskribenten': {
 		language: 'swedish',
 		styleSummary: 'varm, personlig och reflekterande'
 	},
-	storytelling: {
+	'berattaren': {
 		language: 'swedish',
 		styleSummary: 'berättande och målande, som en saga'
 	},
-	philosophical: {
+	'filosofen': {
 		language: 'swedish',
 		styleSummary: 'eftertänksam och filosofisk'
 	},
-	sportscaster: {
+	'sportkommentatorn': {
 		language: 'swedish',
 		styleSummary: 'energisk sportkommentator med dramatik'
 	},
-	'cat-perspective': {
+	'katten': {
 		language: 'swedish',
 		styleSummary: 'ur en katts arroganta och nyfikna perspektiv'
 	},
-	cynical: {
+	'cynikern': {
 		language: 'swedish',
 		styleSummary: 'skeptisk och sarkastisk med mörk humor'
 	},
-	'drama-queen': {
+	'divan': {
 		language: 'swedish',
 		styleSummary: 'överdrivet dramatisk med STORA KÄNSLOR'
 	},
-	cringe: {
+	tonaringen: {
 		language: 'swedish',
 		styleSummary: 'tonårigt självmedveten, socialt överanalyserande och varmt rolig'
 	},
-	british: {
+	britten: {
 		language: 'english',
 		styleSummary: 'British understatement, dry wit, and reserved observation. Use British English spelling (colour, favourite, realise)'
 	},
-	'quest-log': {
+	'gamern': {
 		language: 'swedish',
-		styleSummary: 'som en quest-log i ett RPG-spel'
+		styleSummary: 'som en gamern i ett RPG-spel'
 	},
-	bored: {
-		language: 'swedish',
-		styleSummary: 'standup-roastande, träffsäker och varmt skoningslös'
-	},
-	'nature-documentary': {
+	'naturfilmaren': {
 		language: 'swedish',
 		styleSummary: 'som David Attenborough i en naturfilm'
 	},
-	therapist: {
+	'psykologen': {
 		language: 'swedish',
 		styleSummary: 'empatisk och stöttande som en terapeut'
 	},
-	'ai-robot': {
+	'roboten': {
 		language: 'swedish',
 		styleSummary: 'som en robot som försöker förstå människor'
 	},
@@ -78,81 +74,77 @@ const toneMetadata: Record<ToneId, ToneMetadata> = {
 		language: 'swedish',
 		styleSummary: 'teatralisk och poetisk i Shakespearesk stil'
 	},
-	tabloid: {
+	'reportern': {
 		language: 'swedish',
 		styleSummary: 'som en sensationell kvällstidningsreporter'
 	},
-	formal: {
+	'akademikern': {
 		language: 'swedish',
 		styleSummary: 'akademiskt analyserande, nyanserad och torrt rolig'
 	},
-	nerd: {
+	'norden': {
 		language: 'swedish',
 		styleSummary: 'faktaspäckad med referenser och fakta'
 	},
-	'tinfoil-hat': {
+	'foliehatten': {
 		language: 'swedish',
 		styleSummary: 'konspirationsteoretisk och paranoid'
 	},
-	'self-help': {
+	'livscoachen': {
 		language: 'swedish',
 		styleSummary: 'som en motiverande självhjälpsbok'
 	},
-	'passive-aggressive': {
+	'martyren': {
 		language: 'swedish',
 		styleSummary: 'självuppoffrande, sårad och lågmält martyrisk'
 	},
-	chaotic: {
+	'multitaskaren': {
 		language: 'swedish',
 		styleSummary: 'rörig och osammanhängande som en multitaskare'
 	},
-	bureaucratic: {
+	'handlaggaren': {
 		language: 'swedish',
 		styleSummary: 'byråkratisk och formell som ett myndighetsdokument'
 	},
-	overthinker: {
+	grubblaren: {
 		language: 'swedish',
 		styleSummary: 'övertänkande med många parenteser och sidonoteringar'
 	},
-	bro: {
+	'killenheladagen': {
 		language: 'swedish',
 		styleSummary: 'som en svensk dokusåpa-brat med grindset, boys-snack och charmigt skev självbild'
 	},
-	'action-hero': {
+	'actionhjalten': {
 		language: 'swedish',
 		styleSummary: 'som en trött 80-tals actionhjälte som gör vardagen till ett taktiskt uppdrag'
 	},
-	influencer: {
+	'influencern': {
 		language: 'swedish',
 		styleSummary: 'som en svensk mikro-influencer med curated autenticitet, Swenglish och content-hjärna'
 	},
-	'six-year-old': {
+	'sexaringen': {
 		language: 'swedish',
 		styleSummary: 'som en varm, bokstavlig sexåring med stora känslor, sidospår och skeva proportioner'
 	},
-	poet: {
+	'poeten': {
 		language: 'swedish',
 		styleSummary: 'modern, lyrisk och bilddriven som ett poetiskt dagboksinlägg'
 	},
-	'culture-vulture': {
+	'kulturtanten': {
 		language: 'swedish',
 		styleSummary: 'kultiverad, estetiskt dömande och varm som en svensk kulturtant'
 	},
-	pirate: {
+	'piraten': {
 		language: 'swedish',
 		styleSummary: 'som en varm piratkapten som gör vardagen till en sjöresa'
-	},
-	gothenburger: {
-		language: 'swedish',
-		styleSummary: 'göteborgskt varm, torrt humoristisk och lätt lokal med spårvagns- och regnkänsla'
 	}
 };
 
 /**
- * Get metadata for a tone, with fallback to classic.
+ * Get metadata for a tone, with fallback to dagboksskribenten.
  */
 export function getToneMetadata(toneId: string): ToneMetadata {
-	return toneMetadata[toneId as ToneId] || toneMetadata.classic;
+	return toneMetadata[toneId as ToneId] || toneMetadata['dagboksskribenten'];
 }
 
 export function formatProfileForPrompt(profile: UserProfile): string {
@@ -416,7 +408,7 @@ export function formatWizardDataForPrompt(data: WizardData): string {
 }
 
 export function buildOnThisDayInstructions(dateString: string, toneId?: string): string {
-	const metadata = getToneMetadata(toneId || 'classic');
+	const metadata = getToneMetadata(toneId || 'dagboksskribenten');
 	const isEnglish = metadata.language === 'english';
 
 	if (isEnglish) {
@@ -480,7 +472,7 @@ GÖR INTE:
 }
 
 export function buildHoroscopeInstructions(zodiacName: string, toneId?: string): string {
-	const metadata = getToneMetadata(toneId || 'classic');
+	const metadata = getToneMetadata(toneId || 'dagboksskribenten');
 	const isEnglish = metadata.language === 'english';
 
 	// Map Swedish zodiac names to English
@@ -562,7 +554,7 @@ GÖR INTE:
 }
 
 export function buildHomeworkInstructions(toneId?: string): string {
-	const metadata = getToneMetadata(toneId || 'classic');
+	const metadata = getToneMetadata(toneId || 'dagboksskribenten');
 	const isEnglish = metadata.language === 'english';
 
 	if (isEnglish) {
@@ -583,7 +575,7 @@ THIS SECTION SHOULD:
 - Either be action-oriented ("Tomorrow, try...") OR reflective ("Consider why...") - let the tone guide this
 - Choose an appropriate timeframe naturally (tomorrow, this week, next time you...) based on context
 - Match the tone and personality of the main diary entry
-- Be personal and relevant - NOT generic self-help advice
+- Be personal and relevant - NOT generic livscoachen advice
 - Be 1-3 sentences long
 
 EXAMPLES OF GOOD "HOMEWORK" (adapt to match the diary's tone):

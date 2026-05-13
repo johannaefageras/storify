@@ -36,8 +36,6 @@ describe('evaluateCriterion — event-coincident criteria', () => {
 	const eventOnly: BadgeCriterion['type'][] = [
 		'account-created',
 		'first-login',
-		'newsletter-subscribed',
-		'notifications-enabled',
 		'community-entry-read',
 		'revisited-entry',
 		'regenerated-in-new-tone',
@@ -255,8 +253,6 @@ describe('BADGES_BY_EVENT covers all known events', () => {
 		'first-login',
 		'profile-updated',
 		'profile-photo-uploaded',
-		'newsletter-subscribed',
-		'notifications-enabled',
 		'entry-created',
 		'entry-updated',
 		'entry-deleted',

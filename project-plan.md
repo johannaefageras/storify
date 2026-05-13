@@ -76,8 +76,6 @@ This document reviews the current state and proposes improvements — ranging fr
 - **Entry tags.** Free-form or suggested ("trip", "family", "work"). Store as text[], filter in journal/calendar.
 - **Mood analytics dashboard.** Line charts for mood/sleep/energy over time; heatmap calendar. The 1–10 data is already collected but never visualized.
 - **Writing streaks + light gamification.** Calendar already computes streaks — surface them in Navbar, add milestone badges.
-- **Weekly email digest.** "Your week in diaries" via Resend cron; top emotions, top tone used, a surfaced old entry.
-- **Reminders / PWA push notifications.** Evening nudge "Write today's entry" — ties into streaks.
 - **Version history per entry.** Store regenerations; let users flip between tones without losing the original.
 - **Pinned / favorite entries.**
 - **Import from other journal apps** (Day One JSON, Journey, plain markdown).
@@ -93,7 +91,7 @@ This document reviews the current state and proposes improvements — ranging fr
 ## 5. Improvement Suggestions — Big (1–4 weeks each)
 
 - **Subscriptions via Stripe.** Free tier (N entries/month, N tones) + Pro (unlimited, all tones, AI illustrations, priority model, longer entries, export formats, family sharing). Natural monetization given API costs are real.
-- **Native app via Capacitor.** Comments in the code already hint at this. PWA → proper app with push notifications, widgets, share-target integration.
+- **Native app via Capacitor.** Comments in the code already hint at this. PWA → proper app with widgets and share-target integration.
 - **AI illustrations per entry.** DALL-E / Flux / Replicate image per diary entry, using entry excerpt as prompt + a shared style system. High perceived value, fits the "little book" vibe.
 - **Voice narration.** ElevenLabs TTS read-back of entries in user's chosen voice. Great for accessibility and bedtime-journal use cases.
 - **Voice input / dictation.** Speech-to-text via Whisper for wizard inputs and interview mode. Particularly powerful on mobile.

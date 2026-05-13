@@ -14,8 +14,6 @@ const VALID_EVENTS: ReadonlySet<BadgeEvent> = new Set<BadgeEvent>([
 	'first-login',
 	'profile-updated',
 	'profile-photo-uploaded',
-	'newsletter-subscribed',
-	'notifications-enabled',
 	'entry-created',
 	'entry-updated',
 	'entry-deleted',

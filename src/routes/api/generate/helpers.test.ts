@@ -73,7 +73,7 @@ const createMinimalWizardData = (overrides: Partial<WizardData> = {}): WizardDat
   moodColor: '',
   memoryFor10Years: '',
   messageToFutureSelf: '',
-  selectedTone: 'classic',
+  selectedTone: 'dagboksskribenten',
   includeHoroscope: false,
   includeOnThisDay: false,
   includeHomework: true,
@@ -352,14 +352,14 @@ describe('buildOnThisDayInstructions', () => {
   });
 
   it('returns Swedish instructions for Swedish tones', () => {
-    const result = buildOnThisDayInstructions('15 juni', 'classic');
+    const result = buildOnThisDayInstructions('15 juni', 'dagboksskribenten');
     expect(result).toContain('"PÅ DENNA DAG"-TILLÄGG');
     expect(result).toContain('GÖR INTE');
     expect(result).toContain('varm, personlig och reflekterande');
   });
 
   it('returns English instructions for British tone', () => {
-    const result = buildOnThisDayInstructions('15 juni', 'british');
+    const result = buildOnThisDayInstructions('15 juni', 'britten');
     expect(result).toContain('"ON THIS DAY" SECTION');
     expect(result).toContain('DO NOT');
     expect(result).toContain('Write this section in ENGLISH');
@@ -367,11 +367,11 @@ describe('buildOnThisDayInstructions', () => {
   });
 
   it('includes tone style summary in Swedish instructions', () => {
-    const result = buildOnThisDayInstructions('15 juni', 'drama-queen');
+    const result = buildOnThisDayInstructions('15 juni', 'divan');
     expect(result).toContain('överdrivet dramatisk med STORA KÄNSLOR');
   });
 
-  it('defaults to classic tone when toneId not provided', () => {
+  it('defaults to dagboksskribenten tone when toneId not provided', () => {
     const result = buildOnThisDayInstructions('15 juni');
     expect(result).toContain('varm, personlig och reflekterande');
   });
@@ -407,14 +407,14 @@ describe('buildHoroscopeInstructions', () => {
   });
 
   it('returns Swedish instructions for Swedish tones', () => {
-    const result = buildHoroscopeInstructions('Lejonet', 'classic');
+    const result = buildHoroscopeInstructions('Lejonet', 'dagboksskribenten');
     expect(result).toContain('HOROSKOP-TILLÄGG');
     expect(result).toContain('Horoskop för Lejonet');
     expect(result).toContain('varm, personlig och reflekterande');
   });
 
   it('returns English instructions for British tone', () => {
-    const result = buildHoroscopeInstructions('Lejonet', 'british');
+    const result = buildHoroscopeInstructions('Lejonet', 'britten');
     expect(result).toContain('HOROSCOPE SECTION');
     expect(result).toContain('Horoscope for Leo');
     expect(result).toContain('DO NOT');
@@ -438,7 +438,7 @@ describe('buildHoroscopeInstructions', () => {
     ];
 
     for (const { swedish, english } of testCases) {
-      const result = buildHoroscopeInstructions(swedish, 'british');
+      const result = buildHoroscopeInstructions(swedish, 'britten');
       expect(result).toContain(`Horoscope for ${english}`);
     }
   });
@@ -448,41 +448,41 @@ describe('buildHoroscopeInstructions', () => {
     expect(result).toContain('teatralisk och poetisk i Shakespearesk stil');
   });
 
-  it('defaults to classic tone when toneId not provided', () => {
+  it('defaults to dagboksskribenten tone when toneId not provided', () => {
     const result = buildHoroscopeInstructions('Lejonet');
     expect(result).toContain('varm, personlig och reflekterande');
   });
 });
 
 describe('getToneMetadata', () => {
-  it('returns correct metadata for classic tone', () => {
-    const metadata = getToneMetadata('classic');
+  it('returns correct metadata for dagboksskribenten tone', () => {
+    const metadata = getToneMetadata('dagboksskribenten');
     expect(metadata.language).toBe('swedish');
     expect(metadata.styleSummary).toContain('varm');
   });
 
-  it('returns correct metadata for british tone', () => {
-    const metadata = getToneMetadata('british');
+  it('returns correct metadata for britten tone', () => {
+    const metadata = getToneMetadata('britten');
     expect(metadata.language).toBe('english');
     expect(metadata.styleSummary).toContain('British');
   });
 
-  it('returns classic metadata for unknown tone', () => {
+  it('returns dagboksskribenten metadata for unknown tone', () => {
     const metadata = getToneMetadata('unknown-tone');
     expect(metadata.language).toBe('swedish');
     expect(metadata.styleSummary).toContain('varm');
   });
 
-  it('returns swedish language for all tones except british', () => {
+  it('returns swedish language for all tones except britten', () => {
     const swedishTones = [
-      'classic', 'storytelling', 'philosophical', 'sportscaster',
-      'cat-perspective', 'cynical', 'drama-queen', 'cringe',
-      'quest-log', 'bored', 'nature-documentary', 'therapist', 'ai-robot',
-      'shakespeare', 'tabloid', 'formal', 'nerd',
-      'tinfoil-hat', 'self-help', 'passive-aggressive',
-      'chaotic', 'bureaucratic', 'overthinker',
-      'bro', 'action-hero', 'influencer', 'six-year-old',
-      'poet', 'culture-vulture', 'pirate', 'gothenburger'
+      'dagboksskribenten', 'berattaren', 'filosofen', 'sportkommentatorn',
+      'katten', 'cynikern', 'divan', 'tonaringen',
+      'gamern', 'naturfilmaren', 'psykologen', 'roboten',
+      'shakespeare', 'reportern', 'akademikern', 'norden',
+      'foliehatten', 'livscoachen', 'martyren',
+      'multitaskaren', 'handlaggaren', 'grubblaren',
+      'killenheladagen', 'actionhjalten', 'influencern', 'sexaringen',
+      'poeten', 'kulturtanten', 'piraten'
     ];
 
     for (const toneId of swedishTones) {
