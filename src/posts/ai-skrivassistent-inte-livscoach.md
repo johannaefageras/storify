@@ -80,7 +80,7 @@ Det är just därför användare inte beskriver appen som något som ser rakt ig
 
 Det är därför Storify är byggt med de exakta gränser produkten har. Du har tre lägen att röra dig mellan — [Wizarden](/wizard), [Snabbläget](/quick) och [AI-intervjun](/interview). Alla vilar på exakt samma ofrånkomliga princip: tekniken hjälper dig forma materialet, inte tolka det.
 
-Du har 32 röster som erbjuder ingång, inte djupsinnighet. Och när du väl har skapat din text får du inga uppmuntrande kommentarer i marginalen efteråt. Inga meningslösa klapp på axeln. Du har skrivit klart.
+Du har många röster som erbjuder ingång, inte djupsinnighet. Och när du väl har skapat din text får du inga uppmuntrande kommentarer i marginalen efteråt. Inga meningslösa klapp på axeln. Du har skrivit klart.
 
 Det räcker.
 

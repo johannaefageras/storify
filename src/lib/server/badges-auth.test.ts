@@ -32,7 +32,7 @@ function makeEvent(opts: {
 			user: opts.session.user
 		});
 	}
-	return { request, locals } as Parameters<typeof getBadgeRouteUser>[0];
+	return { request, locals } as unknown as Parameters<typeof getBadgeRouteUser>[0];
 }
 
 beforeEach(() => {

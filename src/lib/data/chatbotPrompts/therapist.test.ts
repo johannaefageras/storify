@@ -39,9 +39,9 @@ const fullProfile: UserProfile = {
 describe('buildTherapistPrompt', () => {
   it('explicitly disclaims being a therapist in its persona header', () => {
     // Resolves the tension flagged in the plan: the header must not contradict
-    // SHARED_BOUNDARIES' "du är en intervjuare, INTE en terapeut" line.
+    // shared boundaries' "du är en intervjuare, inte en terapeut" line.
     const prompt = buildTherapistPrompt(emptyProfile);
-    expect(prompt).toContain('INTE en terapeut');
+    expect(prompt).toMatch(/inte en terapeut/i);
   });
 
   it('emphasizes body and landing questions', () => {

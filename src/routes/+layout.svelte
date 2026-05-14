@@ -13,8 +13,10 @@
 	import { badgesStore } from '$lib/stores/badges.svelte';
 	import { trackPageView } from '$lib/analytics';
 	import ConsentBanner from '$lib/components/ConsentBanner.svelte';
+	import { ACTIVE_TONE_COUNT } from '$lib/data/tones';
 
 	let { children } = $props();
+	const metaDescription = `Tom dagbokssida-panik är på riktigt, och "börja bara skriva" är ett värdelöst råd. Storify är en AI-dagbok som ställer frågor som faktiskt går att svara på. ${ACTIVE_TONE_COUNT} röster. Helt privat. Inget flum.`;
 
 	onMount(async () => {
 		themeStore.init();
@@ -35,7 +37,7 @@
 
 <svelte:head>
 	<title>Privat AI-dagbok som ställer frågor | Storify</title>
-	<meta name="description" content="Tom dagbokssida-panik är på riktigt, och &quot;börja bara skriva&quot; är ett värdelöst råd. Storify är en AI-dagbok som ställer frågor som faktiskt går att svara på. 20 röster. Helt privat. Inget flum." />
+	<meta name="description" content={metaDescription} />
 
 	<!-- Open Graph -->
 	<meta property="og:type" content="website" />

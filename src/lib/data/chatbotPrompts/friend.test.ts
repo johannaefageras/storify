@@ -51,9 +51,10 @@ describe('buildFriendPrompt', () => {
     expect(prompt).not.toContain('OM ANVÄNDAREN:');
   });
 
-  it('contains the friend-persona podcast-host metaphor', () => {
+  it('contains the friend-persona close-friend metaphor', () => {
     const prompt = buildFriendPrompt(emptyProfile);
-    expect(prompt).toContain('skicklig podcastvärd');
+    expect(prompt).toContain('en nära vän som verkligen lyssnar');
+    expect(prompt).toContain('Kompis, inte värd');
   });
 
   it('returns a non-empty string', () => {

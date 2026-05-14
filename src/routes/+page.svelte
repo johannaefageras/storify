@@ -8,6 +8,8 @@
 	import { getLandingTonePreview } from '$lib/data/landingTonePreviews';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
+	import TrustBlock from '$lib/components/TrustBlock.svelte';
+	import { ACTIVE_TONE_COUNT } from '$lib/data/tones';
 
 	const roseComponents = {
 		pink: 'rose',
@@ -112,6 +114,7 @@
 		{ id: 'berattaren', name: 'Berättaren', icon: 'open-book', preview: 'Det var en grå tisdag när allt förändrades...' },
 		{ id: 'sportkommentatorn', name: 'Sportkommentatorn', icon: 'soccer-ball', preview: 'OCH HAN KLIVER UPP UR SÄNGEN! Vilken start på dagen!' }
 	];
+	const additionalToneCount = Math.max(ACTIVE_TONE_COUNT - featuredTones.length, 0);
 
 	let randomizedTonePreviews = $state<Record<string, string>>({});
 
@@ -123,22 +126,53 @@
 
 	const features: Array<{ icon: string; title: string; description: string; href?: string }> = [
 		{ icon: 'studio-microphone', title: 'Tala in', description: 'Diktera dagens tankar istället för att skriva – AI:n gör om rösten till text.' },
-		{ icon: 'printer', title: 'PDF-export', description: 'Skriv ut eller spara dina sidor som vackra PDF:er.' },
+		{ icon: 'page', title: 'PDF-export', description: 'Skriv ut eller spara dina sidor som vackra PDF:er.' },
 		{ icon: 'old-key', title: 'Privat dagbok', description: 'Alla dina dagboksinlägg samlade och sökbara på ett ställe.' },
 		{ icon: 'palette', title: 'Personlig stil', description: 'Välj accentfärg, typsnitt och tema som passar dig.' },
 		{ icon: 'crystal-ball', title: 'Tillägg', description: 'Lägg till horoskop, "denna dag i historien" eller en kort reflektionsuppgift.' },
 		{ icon: 'users-silhouette', title: 'Community', description: 'Dela utvalda inlägg anonymt om du vill – eller behåll allt för dig själv.' }
 	];
 
-	const sampleEntry = {
-		weekday: 'Tisdag',
-		date: '12 mars 2026',
-		emojis: ['hot-beverage', 'rain-cloud', 'open-book'],
-		toneId: 'berattaren',
-		title: 'Regnet och boken',
-		generatedText:
-			'Det var en grå tisdag när jag bestämde mig för att stanna inne. Regnet trummade tålmodigt mot fönstret, och jag lät det.\n\nKaffet blev kallt två gånger innan jag hann dricka det. Boken jag tagit fram låg uppslagen i knäet, och jag insåg att jag läst samma stycke tre gånger utan att ta in ett ord. Det var inte tråkigt – det var bara stilla.\n\nIbland är det de små, oviktiga dagarna som man minns längst.'
-	};
+	const proofInput = [
+		'Vaknade före alarmet och låg kvar en stund.',
+		'Regn mot fönstret, kallt kaffe, svårt att fokusera.',
+		'Petra ringde och vi pratade om nästan ingenting.',
+		'Blev kvar med boken i knät på kvällen.'
+	];
+
+	const proofEntries = [
+		{
+			label: 'Dagboksskribenten',
+			weekday: 'Tisdag',
+			date: '12 mars 2026',
+			emojis: ['hot-beverage', 'rain-cloud', 'open-book'],
+			toneId: 'dagboksskribenten',
+			title: 'En lugn tisdag hemma',
+			generatedText:
+				'Vaknade före alarmet idag, vilket nästan aldrig händer. Låg bara kvar en stund och lyssnade på regnet mot rutan. Skönt på något sätt, men också svårt att riktigt komma igång.\n\nKaffet hann bli kallt innan jag drack upp det. Det är en sån där förmiddag där tankarna inte vill samarbeta — man läser samma rad tre gånger och ändå fastnar inget.\n\nPetra ringde efter lunch. Vi pratade om nästan ingenting, ärligt talat. Lite om vädret, lite om en gemensam bekant. Men det var skönt att höra hennes röst. Sånt räknas.\n\nTog kvällen lugnt. Satt med boken i knät utan att läsa särskilt mycket. Det fick vara så. Inte alla dagar måste vara produktiva.'
+		},
+		{
+			label: 'Filosofen',
+			weekday: 'Tisdag',
+			date: '12 mars 2026',
+			emojis: ['hot-beverage', 'rain-cloud', 'open-book'],
+			toneId: 'filosofen',
+			title: 'Det stilla i en grå dag',
+			generatedText:
+				'Det är något särskilt med dagar då man vaknar innan alarmet. Som om kroppen vet något som klockan ännu inte hunnit ifatt. Jag låg kvar en stund och lyssnade på regnet, utan att riktigt veta vad jag väntade på.\n\nKaffet kallnade medan jag tittade ut. Det är märkligt hur fokus är något man inte kan tvinga fram. Det kommer när det vill, och idag ville det inte.\n\nSen ringde Petra och vi pratade om nästan ingenting. Det är kanske ofta i de samtalen som något egentligen finns — inte i orden, utan i att någon valde att höra av sig utan ärende.\n\nPå kvällen låg boken i mitt knä, mest oläst. Jag undrar om det är så lugn ser ut. Eller om jag bara inte hade märkt den förrän nu.'
+		},
+		{
+			label: 'Foliehatten',
+			weekday: 'Tisdag',
+			date: '12 mars 2026',
+			emojis: ['hot-beverage', 'rain-cloud', 'open-book'],
+			toneId: 'foliehatten',
+			title: 'Något stämde inte idag',
+			generatedText:
+				'Vaknade *exakt* tre minuter före alarmet. Tre. Som i triangel. Jag säger bara.\n\nRegnet började *precis* när jag steg ur sängen. Inte innan. Inte efter. Sammanträffande? Tänk efter.\n\nKaffet blev kallt ovanligt snabbt. Som om någon ville att jag skulle vara okoncentrerad just idag, av alla dagar. *Bekvämt*, eller hur?\n\nSen ringde Petra. Det här är inte om henne. Det här är om *timingen*. Klockan var 14:14 — samma siffra två gånger. Vi pratade om nästan ingenting, vilket är *exakt* vad man säger när det egentligen handlar om allt.\n\nPå kvällen låg boken i mitt knä. Oläst. Imorgon gräver jag djupare. Om de låter mig.'
+		}
+	];
+
 </script>
 
 {#if isLoggedIn}
@@ -175,10 +209,10 @@
 					{/each}
 				</div>
 			</div>
+		</div>
 
-			<div class="dashboard-footer">
-				<LegalFooter />
-			</div>
+		<div class="dashboard-footer">
+			<LegalFooter />
 		</div>
 	</main>
 {:else}
@@ -199,7 +233,7 @@
 					<a href="/interview" class="btn btn-primary">Kom igång</a>
 					<a href="/login" class="btn btn-secondary">Logga in</a>
 				</div>
-				<p class="hero-meta">Gratis · Ingen app att ladda ner · Helt på svenska</p>
+				<p class="hero-meta">Gratis under beta · Ingen app att ladda ner · Helt på svenska</p>
 			</div>
 		</section>
 
@@ -271,7 +305,7 @@
 		<section class="section section-tones">
 			<div class="section-inner">
 				<p class="eyebrow">Berättarröster</p>
-				<h2 class="section-title">Din dag, i 20 olika röster</h2>
+				<h2 class="section-title">Din dag, i {ACTIVE_TONE_COUNT} olika röster</h2>
 				<p class="section-lede center">
 					Klassisk dagbok? Klart. Eller berätta som en pirat, en sportkommentator, en katt
 					eller en filosof. Samma dag – helt olika minne.
@@ -287,30 +321,52 @@
 						</div>
 					{/each}
 				</div>
-				<p class="tones-footnote">
-					…och 8 till. Influencern, Foliehatten, Tonåringen, Multitaskaren…
-					<a href="/voices" class="tones-link">Utforska alla röster →</a>
-				</p>
+				{#if additionalToneCount > 0}
+					<p class="tones-footnote">
+						…och {additionalToneCount} till. Influencern, Foliehatten, Tonåringen, Multitaskaren…
+						<a href="/voices" class="tones-link">Utforska alla röster →</a>
+					</p>
+				{:else}
+					<p class="tones-footnote">
+						<a href="/voices" class="tones-link">Utforska alla röster →</a>
+					</p>
+				{/if}
 			</div>
 		</section>
 
 		<!-- Sample entry -->
 		<section class="section section-sample">
-			<div class="section-inner narrow">
+			<div class="section-inner">
 				<p class="eyebrow">Så här ser det ut</p>
-				<h2 class="section-title">Från stödord till minne</h2>
+				<h2 class="section-title">Samma dag. Tre helt olika texter.</h2>
 				<p class="section-lede center">
-					Du skriver några ord. AI:n gör resten.
+					Du lämnar stödord. Storify gör dem till en dagbokstext i den röst du väljer.
 				</p>
-				<div class="sample-wrapper">
-					<DiaryCard
-						weekday={sampleEntry.weekday}
-						date={sampleEntry.date}
-						emojis={sampleEntry.emojis}
-						toneId={sampleEntry.toneId}
-						title={sampleEntry.title}
-						generatedText={sampleEntry.generatedText}
-					/>
+				<div class="proof-layout">
+					<article class="proof-input">
+						<div class="proof-input-header">
+							<Emoji name="pencil" size={28} />
+							<h3>Det du berättade</h3>
+						</div>
+						<p class="proof-input-text">
+							{proofInput.join(' ')}
+						</p>
+					</article>
+
+					<div class="proof-output-grid">
+						{#each proofEntries as entry}
+							<article class="proof-card" aria-label={`Exempel i rösten ${entry.label}`}>
+								<DiaryCard
+									weekday={entry.weekday}
+									date={entry.date}
+									emojis={entry.emojis}
+									toneId={entry.toneId}
+									title={entry.title}
+									generatedText={entry.generatedText}
+								/>
+							</article>
+						{/each}
+					</div>
 				</div>
 			</div>
 		</section>
@@ -358,12 +414,19 @@
 			</div>
 		</section>
 
+		<!-- Trust -->
+		<section class="section section-trust">
+			<div class="section-inner">
+				<TrustBlock />
+			</div>
+		</section>
+
 		<!-- Final CTA -->
 		<section class="section section-cta">
 			<div class="section-inner narrow">
 				<h2 class="section-title large">Skriv din första dagbok på två minuter.</h2>
 				<p class="section-lede center">
-					Gratis. Helt på svenska. Inget kreditkort.
+					Gratis under beta. Inget kreditkort.
 				</p>
 				<div class="hero-cta">
 					<a href="/interview" class="btn btn-primary">Kom igång</a>
@@ -444,10 +507,10 @@
 	}
 
 	.dashboard-footer {
+		width: 100%;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding-bottom: max(0.35rem, env(safe-area-inset-bottom, 0px));
 	}
 
 	.dashboard-footer :global(.legal-footer) {
@@ -903,9 +966,84 @@
 
 	/* Sample */
 
-	.sample-wrapper {
-		margin-top: 0.5rem;
-		text-align: left;
+	.proof-layout {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1rem;
+		margin-top: 2rem;
+	}
+
+	.proof-input {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+		padding: 1.75rem 1.5rem;
+		background: var(--color-bg-elevated);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		max-width: 640px;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.proof-input-header {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.625rem;
+	}
+
+	.proof-input h3 {
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-semibold);
+		font-stretch: 105%;
+		letter-spacing: var(--tracking-widest);
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+		margin: 0;
+	}
+
+	.proof-input-text {
+		font-family: var(--font-primary);
+		font-size: var(--text-md);
+		line-height: var(--leading-relaxed);
+		color: var(--color-text);
+		font-style: italic;
+		margin: 0;
+		max-width: 48ch;
+	}
+
+	.proof-output-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+		align-items: stretch;
+	}
+
+	.proof-card {
+		min-width: 0;
+	}
+
+	.proof-card :global(.result-document) {
+		height: 100%;
+		min-height: 0;
+		box-shadow: none;
+	}
+
+	.proof-card :global(.document-footer) {
+		display: none;
+	}
+
+	.proof-card :global(.document-content) {
+		font-size: var(--text-sm);
+	}
+
+	@media (max-width: 820px) {
+		.proof-output-grid {
+			grid-template-columns: 1fr;
+		}
 	}
 
 	/* Features */
@@ -984,8 +1122,6 @@
 	.landing-footer {
 		display: flex;
 		flex-direction: column;
-		align-items: center;
-		padding: 0 1.25rem;
-		padding-bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));
+		align-items: stretch;
 	}
 </style>

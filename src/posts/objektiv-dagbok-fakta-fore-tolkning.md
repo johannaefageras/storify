@@ -62,7 +62,7 @@ Det är skillnaden mellan att skriva "jag var arg på Sara efter mötet" och att
 
 ## Därför ser Storify ut som det gör
 
-Det är precis därför [Storifys wizard](/wizard) frågar efter konkreta saker — vad du gjorde, var du var, vad som hände — innan den ens kommer i närheten av någon form av tolkning. Det är därför [Snabbläget](/quick) bara har tre fält. Det är därför [ingen av de 32 rösterna](/voices) heter "Terapeut". Storify är designat och byggt för att hjälpa dig skriva ner dagen och gå vidare med ditt liv.
+Det är precis därför [Storifys wizard](/wizard) frågar efter konkreta saker — vad du gjorde, var du var, vad som hände — innan den ens kommer i närheten av någon form av tolkning. Det är därför [Snabbläget](/quick) bara har tre fält. Det är därför [ingen av rösterna](/voices) heter "Terapeut". Storify är designat och byggt för att hjälpa dig skriva ner dagen och gå vidare med ditt liv.
 
 Det är hela jobbet.
 

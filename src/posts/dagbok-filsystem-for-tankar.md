@@ -76,7 +76,7 @@ Det är exakt det här som är tanken bakom Storify. Det är inte en självhjäl
 
 Genom verktyg som [Wizarden](/wizard), [Snabbläget](/quick) och [AI-intervjun](/interview) får du tre helt olika sätt att lägga ner samma sorts material, helt beroende på hur din dagsform ser ut. Det finns inga streaks att upprätthålla. Inga falska krav på att du måste prestera. Du återvänder till din lagringsplats när du har något du behöver lägga ifrån dig.
 
-Du har [32 röster att välja mellan](/voices). Samma tanke kan arkiveras som en rak dagbokstext, en sportkommentar eller en kattmonolog. Tonvalet hjälper dig över tröskeln när orden inte kommer. Formen ger dig en adress när ingenting annat fungerar.
+Du har [många röster att välja mellan](/voices). Samma tanke kan arkiveras som en rak dagbokstext, en sportkommentar eller en kattmonolog. Tonvalet hjälper dig över tröskeln när orden inte kommer. Formen ger dig en adress när ingenting annat fungerar.
 
 ## Släpp taget och ge tankarna en adress
 

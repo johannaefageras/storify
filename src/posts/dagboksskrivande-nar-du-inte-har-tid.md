@@ -78,6 +78,6 @@ Släpp kraven på omfång. Skriv kort, skriv ofta, skriv nu.
 
 Det är precis därför [Snabbläget](/quick) i Storify existerar. Du får tre fält, en specifik röst, och sedan är det färdigt. Det är inte en nedbantad kompromiss av den vanliga processen. Det är en helt annan produkt utvecklad för en helt annan typ av dag. Det är för dina extremt låga lågenergidagar. Det är för dina bussdagar. Det är för innan-du-somnar-dagarna.
 
-Storify gör inte korta anteckningar till ett misslyckande. Det är ett format. Du har [32 röster att välja mellan](/voices) – från Dagboksskribenten till Katten, från Filosofen till Sportkommentatorn. Samma dag kan ta nittio sekunder eller fem minuter beroende på hur mycket energi du har kvar.
+Storify gör inte korta anteckningar till ett misslyckande. Det är ett format. Du har [många röster att välja mellan](/voices) – från Dagboksskribenten till Katten, från Filosofen till Sportkommentatorn. Samma dag kan ta nittio sekunder eller fem minuter beroende på hur mycket energi du har kvar.
 
 Sluta vänta på halvtimmen. Skriv tre meningar. Stäng appen.

@@ -244,6 +244,7 @@
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
+		flex-shrink: 0;
 	}
 
 	.document-emoji {
@@ -284,6 +285,7 @@
 		flex-direction: column;
 		align-items: flex-start;
 		gap: 0.125rem;
+		min-width: 0;
 	}
 
 	.document-weekday {

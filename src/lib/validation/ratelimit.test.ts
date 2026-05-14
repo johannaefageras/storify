@@ -48,6 +48,12 @@ async function loadModule() {
 	return await import('./ratelimit');
 }
 
+type RatelimitConfig = { prefix?: string };
+
+function getRatelimitConstructionConfigs(): RatelimitConfig[] {
+	return (RatelimitMock.mock.calls as unknown as Array<[RatelimitConfig]>).map(([cfg]) => cfg);
+}
+
 describe('checkRateLimit', () => {
 	it('returns success result from limiter', async () => {
 		limitMock.mockResolvedValueOnce({ success: true, remaining: 9, reset: 1234 });
@@ -95,9 +101,7 @@ describe('checkRateLimit', () => {
 		await checkRateLimit('a');
 		await checkRateLimit('b');
 		// One Ratelimit construction for the generate limiter
-		const generateConstructions = RatelimitMock.mock.calls.filter(
-			([cfg]) => !(cfg as { prefix?: string }).prefix
-		);
+		const generateConstructions = getRatelimitConstructionConfigs().filter((cfg) => !cfg.prefix);
 		expect(generateConstructions).toHaveLength(1);
 	});
 });
@@ -107,8 +111,8 @@ describe('checkChatRateLimit', () => {
 		limitMock.mockResolvedValueOnce({ success: true, remaining: 49, reset: 1 });
 		const { checkChatRateLimit } = await loadModule();
 		await checkChatRateLimit('ip');
-		const chatCall = RatelimitMock.mock.calls.find(
-			([cfg]) => (cfg as { prefix?: string }).prefix === 'ratelimit:chat'
+		const chatCall = getRatelimitConstructionConfigs().find(
+			(cfg) => cfg.prefix === 'ratelimit:chat'
 		);
 		expect(chatCall).toBeDefined();
 	});
@@ -139,8 +143,8 @@ describe('checkBadgeRateLimit', () => {
 		limitMock.mockResolvedValueOnce({ success: true, remaining: 119, reset: 1 });
 		const { checkBadgeRateLimit } = await loadModule();
 		await checkBadgeRateLimit('ip');
-		const call = RatelimitMock.mock.calls.find(
-			([cfg]) => (cfg as { prefix?: string }).prefix === 'ratelimit:badges'
+		const call = getRatelimitConstructionConfigs().find(
+			(cfg) => cfg.prefix === 'ratelimit:badges'
 		);
 		expect(call).toBeDefined();
 	});
@@ -171,8 +175,8 @@ describe('checkTranscribeRateLimit', () => {
 		limitMock.mockResolvedValueOnce({ success: true, remaining: 19, reset: 1 });
 		const { checkTranscribeRateLimit } = await loadModule();
 		await checkTranscribeRateLimit('ip');
-		const call = RatelimitMock.mock.calls.find(
-			([cfg]) => (cfg as { prefix?: string }).prefix === 'ratelimit:transcribe'
+		const call = getRatelimitConstructionConfigs().find(
+			(cfg) => cfg.prefix === 'ratelimit:transcribe'
 		);
 		expect(call).toBeDefined();
 	});

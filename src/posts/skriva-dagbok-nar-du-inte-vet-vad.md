@@ -24,7 +24,7 @@ Att skriva om sig själv är laddat. Du försöker omedvetet låta smart, djup e
 
 Sportkommentatorn bryr sig inte om din stilla melankoli. Han bryr sig om handlingen. "Han närmar sig inkorgen med en tveksam hållning, klickar upp mailet från ekonomiavdelningen och... ja, det är en suck, en klassisk defensiv suck innan han stänger fönstret igen!" Plötsligt har du skrivit om din prokrastinering. Inte löst. Inte botat. Bara namngiven.
 
-Katten dömer din dagbok utifrån om du matade henne i tid. Shakespeare kräver dramatik och monologer. Kvällstidningsreportern vill ha skandal i din lunchpaus. Storify har [32 olika röster att välja mellan](/voices). När rösten är given, följer orden efter. Du spelar en roll istället för att prestera som dig själv.
+Katten dömer din dagbok utifrån om du matade henne i tid. Shakespeare kräver dramatik och monologer. Kvällstidningsreportern vill ha skandal i din lunchpaus. Storify har [många olika röster att välja mellan](/voices). När rösten är given, följer orden efter. Du spelar en roll istället för att prestera som dig själv.
 
 ## Svara på en specifik fråga
 

@@ -7,7 +7,7 @@ import {
 	STATIC_PROMPT_HEADER,
 	type ToneId
 } from './index';
-import { tones } from '$lib/data/tones';
+import { ACTIVE_TONE_COUNT, activeTones, tones } from '$lib/data/tones';
 import { voiceSamples } from '$lib/data/voiceSamples';
 import type { UserProfile } from '$lib/stores/wizard.svelte';
 
@@ -18,11 +18,17 @@ const emptyProfile: UserProfile = {
 	occupation: '',
 	relationship: '',
 	location: ''
-} as UserProfile;
+} as unknown as UserProfile;
 
 describe('toneBuilders registry', () => {
 	it('exposes at least one tone', () => {
 		expect(availableToneIds.length).toBeGreaterThan(0);
+	});
+
+	it('exports the active public tone count from activeTones', () => {
+		expect(ACTIVE_TONE_COUNT).toBeGreaterThan(0);
+		expect(ACTIVE_TONE_COUNT).toBe(activeTones.length);
+		expect(ACTIVE_TONE_COUNT).toBeLessThanOrEqual(tones.length);
 	});
 
 	it.each(availableToneIds)('builder for %s produces a non-empty string', (id) => {

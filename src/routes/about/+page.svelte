@@ -2,7 +2,8 @@
 	import { Emoji } from '$lib/assets/emojis';
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
-	import { activeTones as tones } from '$lib/data/tones';
+	import TrustBlock from '$lib/components/TrustBlock.svelte';
+	import { ACTIVE_TONE_COUNT } from '$lib/data/tones';
 	import { BADGES } from '$lib/data/badges';
 
 	const roseComponents = {
@@ -36,7 +37,7 @@
 	<section>
 		<h2>En dagbok för oss som aldrig skriver dagbok</h2>
 		<p>Du vet de där fina anteckningsböckerna du köpt med de bästa intentioner? De som ligger i en låda någonstans med kanske tre inlägg – varav det sista börjar med "Oj, det var länge sen..."?</p>
-		<p>Storify är för oss. För alla som vill minnas sin vardag men som inte har tid, ork eller inspiration att faktiskt sätta sig ner och skriva. Svara på frågor, skriv fritt, chatta, tala in dagen eller fånga den snabbt – välj sedan en av {tones.length} unika röster som passar ditt humör, och låt AI:n göra det jobbiga: själva skrivandet.</p>
+		<p>Storify är för oss. För alla som vill minnas sin vardag men som inte har tid, ork eller inspiration att faktiskt sätta sig ner och skriva. Svara på frågor, skriv fritt, chatta, tala in dagen eller fånga den snabbt – välj sedan en av {ACTIVE_TONE_COUNT} unika röster som passar ditt humör, och låt AI:n göra det jobbiga: själva skrivandet.</p>
 	</section>
 
 	<section>
@@ -72,8 +73,15 @@
 
 	<section>
 		<h2>Många röster – från poetisk till pinsam</h2>
-		<p>Det som gör Storify unikt är rösterna. Välj mellan {tones.length} helt olika skrivstilar: Dagboksskribenten, Berättaren, Filosofen, Sportkommentatorn, Shakespeare, Influencern, Psykologen, AI-Roboten, Foliehatten, Multitaskaren – och många fler. Samma dag kan bli helt olika beroende på vilken röst du väljer. Kan du inte bestämma dig? Låt appen överraska dig med en slumpmässig röst, eller besök <a href="/voices">Rösterna</a> för att läsa provtexter.</p>
+		<p>Det som gör Storify unikt är rösterna. Välj mellan {ACTIVE_TONE_COUNT} helt olika skrivstilar: Dagboksskribenten, Berättaren, Filosofen, Sportkommentatorn, Shakespeare, Influencern, Psykologen, AI-Roboten, Foliehatten, Multitaskaren – och många fler. Samma dag kan bli helt olika beroende på vilken röst du väljer. Kan du inte bestämma dig? Låt appen överraska dig med en slumpmässig röst, eller besök <a href="/voices">Rösterna</a> för att läsa provtexter.</p>
 	</section>
+
+	<section>
+		<h2>Affärsmodell</h2>
+		<p>Storify är gratis under beta. Eventuell premium eller betalmodell kommer att aviseras i god tid innan något ändras.</p>
+	</section>
+
+	<TrustBlock />
 
 	<section>
 		<h2>Varför jag byggde det här</h2>

@@ -96,7 +96,7 @@ Det är precis därför Storify är byggt som det är. Vi såg samma mönster av
 
 Inga streaks att hålla vid liv. Inget krav på prestation. Du återvänder när du behöver det, och det räcker så.
 
-Du har [32 olika röster att välja mellan](/voices) – från Dagboksskribenten till Katten, från Filosofen till Sportkommentatorn. Samma dag kan bli en klassisk dagbokstext eller en absurd monolog beroende på hur mycket energi du har kvar. Tonvalet sänker garden. Det tar bort prestationspressen.
+Du har [många olika röster att välja mellan](/voices) – från Dagboksskribenten till Katten, från Filosofen till Sportkommentatorn. Samma dag kan bli en klassisk dagbokstext eller en absurd monolog beroende på hur mycket energi du har kvar. Tonvalet sänker garden. Det tar bort prestationspressen.
 
 ## Du misslyckades inte
 

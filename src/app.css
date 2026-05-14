@@ -4,6 +4,7 @@
 :root {
   /* Layout */
   --content-width: 800px;
+  --footer-bg: var(--color-bg);
 
   /* Border Radius */
   --radius-sm: 2px;
@@ -99,6 +100,19 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
+  background-color: var(--color-bg);
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  height: 50vh;
+  background: var(--footer-bg);
+  pointer-events: none;
 }
 
 /* ==========================================================================

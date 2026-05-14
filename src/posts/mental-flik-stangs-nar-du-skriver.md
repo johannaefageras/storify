@@ -80,6 +80,6 @@ Det enda som tillförlitligt och konsekvent fungerar är att orden fysiskt lämn
 
 Det är exakt därför Storify finns. [Inte som en duktig ritual du ska pricka av](/blog/dagbok-utan-mindfulness-ceremoni). Inte som en daglig praktik du ska känna skuld över när du missar. Bara som en tom plats att lägga ner det du bär runt på.
 
-När den mentala fliken står vidöppen och drar energi, öppna appen. Skriv tre korta meningar om vad som pågår. Välj [Snabbläget](/quick) om tröskeln känns för hög. Välj [en av de 32 rösterna](/voices) om du behöver distans. Stäng appen igen och återgå till din dag.
+När den mentala fliken står vidöppen och drar energi, öppna appen. Skriv tre korta meningar om vad som pågår. Välj [Snabbläget](/quick) om tröskeln känns för hög. Välj [en röst ur galleriet](/voices) om du behöver distans. Stäng appen igen och återgå till din dag.
 
 Du förtjänar att lägga ner fliken.

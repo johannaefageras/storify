@@ -54,6 +54,6 @@ Din perception ändras inte för att du spänner dig, stirrar på ett tomt dokum
 
 Nästa gång du sätter dig för att skriva och [inte har en aning om var du ska börja](/blog/skriva-dagbok-nar-du-inte-vet-vad) — välj en röst innan du väljer ett ämne. Sportkommentatorn, Divan, Naturfilmaren eller en trött senior-utvecklare. Vilken som helst fungerar. Skriv tre meningar i den rösten. Du kommer att skriva något du inte hade förväntat dig. Det är hela poängen.
 
-Det är därför Storify har [32 olika röster att välja mellan](/voices). De är inte där som dekoration. De är inte ett spel. De är konkreta verktyg för att lägga märke till olika saker på olika dagar. Du är fortfarande den som väljer linsen. Storify ger dig bara fler att välja mellan.
+Det är därför Storify har ett helt [röstgalleri att välja ur](/voices). Rösterna är inte där som dekoration. De är inte ett spel. De är konkreta verktyg för att lägga märke till olika saker på olika dagar. Du är fortfarande den som väljer linsen. Storify ger dig bara fler att välja mellan.
 
 Byt röst och se vad som dyker upp.

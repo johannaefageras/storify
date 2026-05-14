@@ -12,6 +12,8 @@ slug: 32-roster-dagbok-inte-gimmick
 featured: /blog/32-roster-dagbok-inte-gimmick.jpeg
 ---
 
+_Redaktionsnotering: När det här skrevs fanns 32 röster. Antalet kan ändras — se [röstgalleriet](/voices) för aktuell lista._
+
 När du hör att en dagboksapp erbjuder [32 olika röster](/voices) är den första reaktionen helt rimlig. Det låter som en överdimensionerad feature-lista designad av någon som helt enkelt fick slut på idéer. En Sportkommentator. En Katt. Shakespeare. Det låter onekligen som ett gimmick. Det är det inte. Här är varför.
 
 ## Premissen du fått om dagboksskrivande är fel

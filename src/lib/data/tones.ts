@@ -201,3 +201,4 @@ export const tones: Tone[] = [
 ];
 
 export const activeTones: Tone[] = tones.filter((t) => !t.disabled);
+export const ACTIVE_TONE_COUNT = activeTones.length;

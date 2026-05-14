@@ -2,7 +2,7 @@
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import { Emoji } from '$lib/assets/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
-	import { tones } from '$lib/data/tones';
+	import { ACTIVE_TONE_COUNT } from '$lib/data/tones';
 
 	const judgeComponents = {
 		pink: 'woman-judge-pink',
@@ -40,7 +40,7 @@
 
 	<section>
 		<h2>Så fungerar tjänsten</h2>
-		<p>Du kan välja mellan fem lägen: en fullständig guide med detaljerade frågor om din dag, ett snabbläge där du fångar dagens känsla på under en minut, en AI-intervju där du väljer intervjuare och chattar med en AI som ställer frågor om din dag, Tala in där en ljudinspelning transkriberas till text, eller Skriv fritt där du skriver själv med AI-stöd och redigeringsverktyg. I samtliga lägen väljer du en av {tones.length} skrivstilar och låter vår AI skapa eller förfina ett dagboksinlägg åt dig. I den fullständiga guiden kan du även lägga till tillägg som horoskop, historiska händelser eller en personlig hemläxa.</p>
+		<p>Du kan välja mellan fem lägen: en fullständig guide med detaljerade frågor om din dag, ett snabbläge där du fångar dagens känsla på under en minut, en AI-intervju där du väljer intervjuare och chattar med en AI som ställer frågor om din dag, Tala in där en ljudinspelning transkriberas till text, eller Skriv fritt där du skriver själv med AI-stöd och redigeringsverktyg. I samtliga lägen väljer du en av {ACTIVE_TONE_COUNT} skrivstilar och låter vår AI skapa eller förfina ett dagboksinlägg åt dig. I den fullständiga guiden kan du även lägga till tillägg som horoskop, historiska händelser eller en personlig hemläxa.</p>
 		<p>När texten är klar kan du redigera den, regenerera den i en annan röst, exportera den som PDF, spara den i ditt dagboksarkiv om du har konto eller dela den frivilligt till Gemenskapen. Med konto får du dessutom profilsynk, kalender med streak-statistik, badges och kontoinställningar.</p>
 	</section>
 
