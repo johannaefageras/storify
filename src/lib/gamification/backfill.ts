@@ -26,6 +26,7 @@ import {
 import { evaluateCriterion, type EvaluationContext } from './evaluate';
 import { deriveFromEntries, isProfileComplete, parseBirthday } from './award';
 import { getZodiacFromBirthday } from '$lib/utils/zodiac';
+import type { InterviewerId } from '$lib/data/chatbotPrompts/types';
 
 interface BackfillEntryRow {
 	created_at: string;
@@ -33,6 +34,7 @@ interface BackfillEntryRow {
 	entry_date: string;
 	tone_id: string;
 	writing_mode: WritingMode | null;
+	interviewer: InterviewerId | null;
 	generated_text: string;
 	mood_level: number | null;
 	sleep_quality: number | null;
@@ -88,7 +90,7 @@ export async function backfillBadges(
 	const { data: entriesData, error: entriesErr } = await supabase
 		.from('entries')
 		.select(
-			'created_at, updated_at, entry_date, tone_id, writing_mode, generated_text, mood_level, sleep_quality, energy_level, is_public'
+			'created_at, updated_at, entry_date, tone_id, writing_mode, interviewer, generated_text, mood_level, sleep_quality, energy_level, is_public'
 		)
 		.eq('user_id', userId)
 		.order('entry_date', { ascending: false });

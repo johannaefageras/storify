@@ -22,7 +22,7 @@
 		</div>
 		<p>
 			Vi använder analyscookies för att förstå hur Storify används. Inga annonscookies, ingen
-			tredjepartsspårning. <a href="/cookies">Läs mer</a>.
+			annonsprofilering. <a href="/cookies">Läs mer</a>.
 		</p>
 		<div class="actions">
 			<button type="button" class="secondary" onclick={() => decide('denied')}>Avböj</button>

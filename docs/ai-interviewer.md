@@ -39,12 +39,14 @@ Shared traits across all three (enforced by [src/lib/data/chatbotPrompts/shared.
 
 ### Why three personas, chosen before the conversation
 
-- The persona shapes the *first* assistant message (often a pre-filled starter opener) — picking mid-chat would break that.
+- The persona shapes the _first_ assistant message (often a pre-filled starter opener) — picking mid-chat would break that.
 - Locking the choice per conversation keeps the voice consistent. Switching requires "Ny konversation".
 - The interviewer's skill (extracting material) is still orthogonal to writing style — the full tone catalogue is available regardless of persona.
 - The choice is **invisible after the chat**: it is not shown in the result view and not stored on the Supabase `entries` row. It lives only in chat state while the conversation is active.
 
 Prompt sources live in [src/lib/data/chatbotPrompts/](src/lib/data/chatbotPrompts/) — one file per persona plus `shared.ts` for the sections that must be byte-identical across all three (`GRÄNSER`, `SPRÅK`, `MEDDELANDEFORMAT`, prompt-injection defense, profile context, bad-examples, starter handling).
+
+For the **voice mode** (Tala-toggle, see [VoiceInterview.svelte](../src/lib/components/interview/VoiceInterview.svelte)), the same three personas are mirrored as ElevenLabs Conversational AI agents — one agent per persona, configured in the ElevenLabs dashboard with the markdown documents under [docs/elevenlabs/](elevenlabs/) as their system prompts. The text chat and voice chat are independent runtimes (Anthropic via `/api/chat` for text; ElevenLabs WebSocket for voice), but they share the persona model, the same boundary rules, and the same downstream generation flow.
 
 ### Boundaries (shared across all personas)
 
@@ -135,12 +137,12 @@ The empty state shows 4 tappable chips that serve as conversation openers. When 
 
 **Default starters:**
 
-| Chip label | Sent as user message |
-|---|---|
-| Berätta om min dag | Jag vill berätta om min dag |
-| Något bra som hände? | Jag vill berätta om något bra som hände idag |
-| Jag behöver ventilera | Jag behöver ventilera lite om min dag |
-| Idag var speciell för att... | Idag var speciell för att... |
+| Chip label                   | Sent as user message                         |
+| ---------------------------- | -------------------------------------------- |
+| Berätta om min dag           | Jag vill berätta om min dag                  |
+| Något bra som hände?         | Jag vill berätta om något bra som hände idag |
+| Jag behöver ventilera        | Jag behöver ventilera lite om min dag        |
+| Idag var speciell för att... | Idag var speciell för att...                 |
 
 The last chip ("Idag var speciell...") is an open-ended prompt — it sends the text and the user continues typing in the input field. The others trigger an immediate interviewer response.
 
@@ -272,6 +274,30 @@ This mirrors how profile data is already injected in the wizard flow via `format
 
 ---
 
+## Voice mode (ElevenLabs)
+
+The interview page exposes a **Skriv / Tala** toggle. In Tala mode, [VoiceInterview.svelte](../src/lib/components/interview/VoiceInterview.svelte) replaces `ChatInput` and runs a full voice loop (mic → STT → LLM → TTS → speaker) inside ElevenLabs' Conversational AI infrastructure.
+
+**Data path during a voice session:**
+
+1. The browser POSTs the selected persona id to `/api/voice-interview/signed-url`.
+2. That endpoint is auth-gated (`locals.safeGetSession`), rate-limited (shares the chat limiter), maps the persona to an agent id from env (`ELEVENLABS_AGENT_FRIEND_ID` etc.), and proxies to ElevenLabs to mint a short-lived signed URL.
+3. The browser opens a WebSocket directly to ElevenLabs using that signed URL via `@elevenlabs/client`'s `Conversation.startSession`.
+4. The user's mic audio is streamed to ElevenLabs. Each finalized turn (user transcript or agent response) fires `onMessage`, which `VoiceInterview.svelte` pushes into the shared `chatStore.messages` — so the downstream "Jag är klar — skapa dagbok" flow, the transcript formatter, and `/api/generate` are reused unchanged.
+
+**Privacy posture:**
+
+- Each agent is configured with `record_voice: false`, so ElevenLabs does not retain audio. Only the text transcript is persisted in the user's chat draft (and only if they save the resulting diary entry).
+- Each agent has `enable_auth: true` and `require_origin_header: true` with `mystorify.se` + `localhost:5173` allowlisted, so the agent id alone cannot be used to start a session from anywhere else.
+- ElevenLabs is disclosed as a sub-processor in [/privacy](../src/routes/privacy/+page.svelte) (both the "Ljuddata" bullet and a dedicated "När du använder röstintervjun" section, plus the Tredjepartstjänster list).
+- The `first_message` override is enabled on each agent so the app can personalize the greeting ("Hej Sara!"); no other override is allowed.
+
+**Persona → agent mapping** lives in [src/routes/api/voice-interview/signed-url/+server.ts](../src/routes/api/voice-interview/signed-url/+server.ts). The persona id is validated against `VALID_INTERVIEWER_IDS` before any lookup, so the client cannot request an arbitrary agent.
+
+**Why two parallel runtimes (Anthropic for text, ElevenLabs for voice)?** Voice and text have very different latency profiles: text can stream tokens from Anthropic with a long TTFB budget, while voice needs end-to-end <500 ms turn-taking that's hard to assemble from separate STT + LLM + TTS calls. ElevenLabs' Conv AI bundles all three with optimized turn-detection. The trade-off is that the voice-mode system prompt lives in the ElevenLabs dashboard rather than in this repo — when you edit a file under [docs/elevenlabs/](elevenlabs/), you must re-paste it into the corresponding agent.
+
+---
+
 ## API Integration
 
 ### New endpoint: `/api/chat`
@@ -296,7 +322,7 @@ The `interviewer` field is optional for backwards compatibility. The server vali
 
 **Response:** Server-Sent Events (SSE) stream of text chunks from Claude, using the Anthropic SDK's streaming API.
 
-**Model:** Use the same model strategy as `/api/generate` — primary `claude-opus-4-5-20251101` with fallback to `claude-sonnet-4-20250514` on overload. However, since this is a conversational exchange where response speed matters more than raw output quality, consider using Sonnet as primary for the chat phase and reserving Opus for the final generation.
+**Model:** Use the same model strategy as `/api/generate` — primary `claude-opus-4-7` with fallback to `claude-sonnet-4-6` on overload. However, since this is a conversational exchange where response speed matters more than raw output quality, consider using Sonnet as primary for the chat phase and reserving Opus for the final generation.
 
 **Rate limiting:** Apply rate limiting per client, not per individual message. Use a separate rate limit key prefix (`chat:${clientId}`) with a higher limit than generation (e.g. 50 messages per hour) since a single journaling session involves many back-and-forth messages.
 
@@ -372,7 +398,7 @@ interface ChatMessage {
 }
 
 type InterviewPhase =
-  | 'interviewer-selection'  // entry phase — user picks one of three personas
+  | 'interviewer-selection' // entry phase — user picks one of three personas
   | 'empty'
   | 'chatting'
   | 'tone-selection'
@@ -383,7 +409,7 @@ interface ChatState {
   messages: ChatMessage[];
   phase: InterviewPhase;
   isStreaming: boolean;
-  selectedInterviewer: InterviewerId;  // persisted in draft; default 'friend'
+  selectedInterviewer: InterviewerId; // persisted in draft; default 'friend'
   selectedTone: string;
   generatedEntry: string;
   includeHoroscope: boolean;
@@ -482,6 +508,7 @@ Drafts are cleared when:
 **Layout:** Full-page, centered content area. Max width ~720px, horizontally centered with generous padding. The page fills the viewport height and manages its own scroll within the message area.
 
 **Responsive behavior:**
+
 - **Mobile:** Full-width, input pinned to bottom with safe area insets, messages fill the available space
 - **Desktop:** Centered column with max-width, comfortable reading width, input pinned to bottom of the content area
 
@@ -503,6 +530,7 @@ The result view does **not** surface which interviewer was used — the persona 
 Full-page card picker shown as the first phase of `/interview`. Three large cards (one per persona from the `interviewers` registry in `chatbotPrompts/types.ts`), rendered dynamically via `Object.values(interviewers)` so adding a persona is a one-file change.
 
 Each card:
+
 - Persona emoji (from `InterviewerMeta.emoji`)
 - Name (`Kompisen` / `Journalisten` / `Terapeuten`)
 - Short label under the name (e.g. "Varm och prestigelös")

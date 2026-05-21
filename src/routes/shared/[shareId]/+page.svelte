@@ -1,6 +1,7 @@
 <script lang="ts">
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import { page } from '$app/stores';
 	import type { PageData } from './$types';
 
@@ -26,36 +27,31 @@
 		return { weekday, date: `${day} ${month} ${year}` };
 	}
 
-	const { weekday, date } = formatDate(data.entry.entry_date);
-	const displayWeekday = weekday || data.entry.weekday || '';
+	const formattedEntryDate = $derived(formatDate(data.entry.entry_date));
+	const displayWeekday = $derived(formattedEntryDate.weekday || data.entry.weekday || '');
 
-	const excerpt = data.entry.generated_text.replace(/\s+/g, ' ').trim().slice(0, 180);
-	const ogDescription = excerpt.length === 180 ? excerpt + '…' : excerpt;
-	const ogTitle = data.entry.title
-		? `${data.entry.title} – ${displayWeekday} ${date}`
-		: `Dagbok – ${displayWeekday} ${date}`;
-	const canonical = $derived($page.url.origin + $page.url.pathname);
+	const excerpt = $derived(data.entry.generated_text.replace(/\s+/g, ' ').trim().slice(0, 180));
+	const ogDescription = $derived(excerpt.length === 180 ? excerpt + '…' : excerpt);
+	const ogTitle = $derived(
+		data.entry.title
+			? `${data.entry.title} – ${displayWeekday} ${formattedEntryDate.date}`
+			: `Dagbok – ${displayWeekday} ${formattedEntryDate.date}`
+	);
+	const canonicalPath = $derived($page.url.pathname);
 </script>
 
-<svelte:head>
-	<title>{ogTitle} · Storify</title>
-	<meta name="description" content={ogDescription} />
-	<link rel="canonical" href={canonical} />
-	<meta property="og:type" content="article" />
-	<meta property="og:title" content={ogTitle} />
-	<meta property="og:description" content={ogDescription} />
-	<meta property="og:url" content={canonical} />
-	<meta property="og:site_name" content="Storify" />
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content={ogTitle} />
-	<meta name="twitter:description" content={ogDescription} />
-</svelte:head>
+<SeoHead
+	title={`${ogTitle} · Storify`}
+	description={ogDescription}
+	path={canonicalPath}
+	ogType="article"
+/>
 
 <div class="shared-page">
 	<div class="shared-container">
 		<DiaryCard
 			weekday={displayWeekday}
-			{date}
+			date={formattedEntryDate.date}
 			emojis={data.entry.emojis || []}
 			toneId={data.entry.tone_id}
 			generatedText={data.entry.generated_text}

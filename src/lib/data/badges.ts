@@ -11,6 +11,8 @@
  * extend the `BadgeCriterion` union rather than overloading existing types.
  */
 
+import type { VoiceClusterId } from './voiceClusters';
+
 export type BadgeCategory =
   | 'onboarding'
   | 'milestones'
@@ -67,7 +69,9 @@ export type BadgeCriterion =
   | { type: 'homework-entries'; count: number }
   | { type: 'entry-archived' }
   | { type: 'entries-same-day'; count: number }
-  | { type: 'entry-word-count'; minWords: number };
+  | { type: 'entry-word-count'; minWords: number }
+  | { type: 'tones-from-cluster-used'; cluster: VoiceClusterId; count: number }
+  | { type: 'all-interviewers-used' };
 
 export interface Badge {
   /** Stable slug; safe to persist in DB and URLs. */
@@ -557,6 +561,71 @@ export const BADGES: readonly Badge[] = [
     category: 'craft',
     tier: 'gold',
     criterion: { type: 'entry-word-count', minWords: 1000 }
+  },
+  {
+    id: 'tankesmedjan',
+    name: 'Tankesmedjan',
+    description:
+      'Tre olika reflekterande röster — du har låtit dagen analyseras från flera tänkande vinklar.',
+    emoji: '💡',
+    emojiSlug: 'light-bulb',
+    category: 'voice',
+    tier: 'silver',
+    criterion: { type: 'tones-from-cluster-used', cluster: 'tankesmedjan', count: 3 }
+  },
+  {
+    id: 'scenens-mastare',
+    name: 'Scenens Mästare',
+    description:
+      'Tre olika dramatiska röster — du har gett vardagen storslagen scenisk behandling.',
+    emoji: '🎭',
+    emojiSlug: 'theater-masks',
+    category: 'voice',
+    tier: 'silver',
+    criterion: { type: 'tones-from-cluster-used', cluster: 'scenens-mastare', count: 3 }
+  },
+  {
+    id: 'skuggsidan',
+    name: 'Skuggsidan',
+    description:
+      'Tre olika röster ur det mörkare registret — du har vågat skriva från livets baksida.',
+    emoji: '🌑',
+    emojiSlug: 'new-moon',
+    category: 'voice',
+    tier: 'silver',
+    criterion: { type: 'tones-from-cluster-used', cluster: 'skuggsidan', count: 3 }
+  },
+  {
+    id: 'varmekallan',
+    name: 'Värmekällan',
+    description:
+      'Tre olika omsorgsfulla röster — du har låtit dina dagar mötas med ömhet, gång på gång.',
+    emoji: '🫂',
+    emojiSlug: 'people-hugging',
+    category: 'voice',
+    tier: 'silver',
+    criterion: { type: 'tones-from-cluster-used', cluster: 'varmekallan', count: 3 }
+  },
+  {
+    id: 'tre-samtal',
+    name: 'Tre Samtal',
+    description:
+      'Du har provat alla tre intervjuare — vännen, journalisten och terapeuten.',
+    emoji: '💬',
+    emojiSlug: 'speech-balloon',
+    category: 'voice',
+    tier: 'silver',
+    criterion: { type: 'all-interviewers-used' }
+  },
+  {
+    id: 'hogt-och-tydligt',
+    name: 'Högt och Tydligt',
+    description: 'Tre inlägg skapade via röst — du låter dina ord komma direkt från källan.',
+    emoji: '🗣️',
+    emojiSlug: 'speaking-head',
+    category: 'writing-mode',
+    tier: 'bronze',
+    criterion: { type: 'entries-by-mode', mode: 'speak', count: 3 }
   }
 ] as const;
 

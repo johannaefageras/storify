@@ -1,5 +1,6 @@
 <script lang="ts">
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 
 	let { data } = $props();
 
@@ -16,14 +17,11 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Blogg – Storify</title>
-	<meta
-		name="description"
-		content="Läs Storifys blogg om AI-dagbok, reflektion och att skriva sin egen historia."
-	/>
-	<link rel="canonical" href="https://mystorify.se/blog" />
-</svelte:head>
+<SeoHead
+	title="Blogg – Storify"
+	description="Läs Storifys blogg om AI-dagbok, reflektion och att skriva sin egen historia."
+	path="/blog"
+/>
 
 <main class="blog-page">
 	<header class="page-header">

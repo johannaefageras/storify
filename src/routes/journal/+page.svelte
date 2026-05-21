@@ -9,6 +9,7 @@
 	import paginationArrowRightSvg from '$lib/assets/icons/arrow-right.svg?raw';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import arrowLeftSvg from '$lib/assets/icons/arrow-left.svg?raw';
 	import { Emoji } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
@@ -403,6 +404,13 @@ function getToneIcon(id: string): string | undefined {
 		checkAuth();
 	});
 </script>
+
+<SeoHead
+	title="Dagboksarkiv – Storify"
+	description="Läs, redigera och hantera dina privata dagboksinlägg i Storifys arkiv."
+	path="/journal"
+	noindex
+/>
 
 <svelte:window onkeydown={(e) => e.key === 'Escape' && selectedEntry && closeModal()} />
 

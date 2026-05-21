@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { supabase } from '$lib/supabase/client';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import { FIELD_LIMITS, validateUsername } from '$lib/validation';
 	import arrowRightSvg from '$lib/assets/icons/arrow-right.svg?raw';
 	import googleIcon from '$lib/assets/icons/google.svg';
@@ -139,9 +140,12 @@
 	}
 </script>
 
-<svelte:head>
-	<meta name="robots" content="noindex, nofollow" />
-</svelte:head>
+<SeoHead
+	title="Skapa konto – Storify"
+	description="Skapa ett Storify-konto för att spara dagboksinlägg, synka din profil och komma åt ditt arkiv."
+	path="/register"
+	noindex
+/>
 
 <main class="auth-page">
 	<div class="auth-container">

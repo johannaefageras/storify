@@ -2,6 +2,7 @@
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import { Emoji } from '$lib/assets/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import { CONTACT_EMAIL } from '$lib/data/legal';
 
 	const wheelchairComponents = {
@@ -16,14 +17,11 @@
 	let WheelchairIcon = $derived(wheelchairComponents[accentStore.current]);
 </script>
 
-<svelte:head>
-	<title>Tillgänglighet – Storify</title>
-	<meta
-		name="description"
-		content="Storifys tillgänglighetsmål, kända begränsningar och kontaktväg för tillgänglighetsproblem."
-	/>
-	<link rel="canonical" href="https://mystorify.se/accessibility" />
-</svelte:head>
+<SeoHead
+	title="Tillgänglighet – Storify"
+	description="Storifys tillgänglighetsmål, kända begränsningar och kontaktväg för tillgänglighetsproblem."
+	path="/accessibility"
+/>
 
 <main class="legal-page">
 	<div class="page-header">

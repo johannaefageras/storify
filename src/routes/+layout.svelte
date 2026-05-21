@@ -13,10 +13,8 @@
 	import { badgesStore } from '$lib/stores/badges.svelte';
 	import { trackPageView } from '$lib/analytics';
 	import ConsentBanner from '$lib/components/ConsentBanner.svelte';
-	import { ACTIVE_TONE_COUNT } from '$lib/data/tones';
 
 	let { children } = $props();
-	const metaDescription = `Tom dagbokssida-panik är på riktigt, och "börja bara skriva" är ett värdelöst råd. Storify är en AI-dagbok som ställer frågor som faktiskt går att svara på. ${ACTIVE_TONE_COUNT} röster. Helt privat. Inget flum.`;
 
 	onMount(async () => {
 		themeStore.init();
@@ -36,42 +34,7 @@
 </script>
 
 <svelte:head>
-	<title>Privat AI-dagbok som ställer frågor | Storify</title>
-	<meta name="description" content={metaDescription} />
-
-	<!-- Open Graph -->
-	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://mystorify.se/" />
-	<meta property="og:title" content="Storify – Din intelligenta dagboksassistent" />
-	<meta property="og:description" content="Skapa personliga dagboksinlägg med AI. Besvara frågor om din dag och få en unik dagboksanteckning i din valda berättarröst." />
-	<meta property="og:image" content="https://mystorify.se/og-image.png" />
-	<meta property="og:locale" content="sv_SE" />
-
-	<!-- Twitter Card -->
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="Storify – Din intelligenta dagboksassistent" />
-	<meta name="twitter:description" content="Skapa personliga dagboksinlägg med AI. Besvara frågor om din dag och få en unik dagboksanteckning i din valda berättarröst." />
-	<meta name="twitter:image" content="https://mystorify.se/og-image.png" />
-
-	<link rel="canonical" href="https://mystorify.se/" />
 	<link rel="preload" href={myStorifyWoff2} as="font" type="font/woff2" crossorigin="anonymous" />
-
-	<!-- Structured Data -->
-	{@html `<script type="application/ld+json">${JSON.stringify({
-		'@context': 'https://schema.org',
-		'@type': 'WebApplication',
-		name: 'Storify',
-		description: 'Skapa personliga dagboksinlägg med AI. Besvara frågor om din dag och få en unik dagboksanteckning i din valda berättarröst.',
-		url: 'https://mystorify.se',
-		applicationCategory: 'LifestyleApplication',
-		operatingSystem: 'Web, Android',
-		offers: {
-			'@type': 'Offer',
-			price: '0',
-			priceCurrency: 'SEK'
-		},
-		inLanguage: 'sv'
-	})}</script>`}
 </svelte:head>
 
 <Navbar />

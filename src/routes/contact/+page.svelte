@@ -3,6 +3,7 @@
 	import { Emoji } from '$lib/assets/emojis';
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 
 	const wavingComponents = {
 		pink: 'woman-waving-pink',
@@ -85,6 +86,12 @@
 		}
 	}
 </script>
+
+<SeoHead
+	title="Kontakt – Storify"
+	description="Kontakta Storify med frågor, feedback, buggar eller funderingar om den svenska AI-dagboken."
+	path="/contact"
+/>
 
 <svelte:window onkeydown={handleKeydown} />
 

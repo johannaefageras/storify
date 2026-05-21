@@ -21,6 +21,7 @@ type Sendable = Pick<
 	| 'energyLevel'
 	| 'wordCount'
 	| 'mode'
+	| 'interviewerId'
 	| 'chatTranscript'
 	| 'isRandomTone'
 	| 'readFinePrint'

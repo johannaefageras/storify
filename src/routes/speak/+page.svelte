@@ -15,6 +15,7 @@
 	import ShareToCommunity from '$lib/components/ShareToCommunity.svelte';
 	import TonePickerDropdown from '$lib/components/TonePickerDropdown.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 	import VoiceRecorder from '$lib/components/VoiceRecorder.svelte';
 	import arrowLeftSvg from '$lib/assets/icons/arrow-left.svg?raw';
@@ -320,6 +321,13 @@
 		}
 	}
 </script>
+
+<SeoHead
+	title="Tala in – Storify"
+	description="Spela in dagens tankar och låt Storify transkribera dem till en dagbokstext med AI."
+	path="/speak"
+	noindex
+/>
 
 <main class="speak" class:result-view={!!generatedEntry}>
 	{#if generatedEntry}

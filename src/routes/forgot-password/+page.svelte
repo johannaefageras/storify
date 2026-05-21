@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { supabase } from '$lib/supabase/client';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import arrowRightSvg from '$lib/assets/icons/arrow-right.svg?raw';
 
 	let email = $state('');
@@ -28,9 +29,12 @@
 	}
 </script>
 
-<svelte:head>
-	<meta name="robots" content="noindex, nofollow" />
-</svelte:head>
+<SeoHead
+	title="Återställ lösenord – Storify"
+	description="Återställ lösenordet till ditt Storify-konto."
+	path="/forgot-password"
+	noindex
+/>
 
 <main class="auth-page">
 	<div class="auth-container">

@@ -2,6 +2,7 @@
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import { Emoji } from '$lib/assets/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 
 	const diamondComponents = {
 		pink: 'diamond-pink',
@@ -15,17 +16,23 @@
 	let DiamondIcon = $derived(diamondComponents[accentStore.current]);
 </script>
 
+<SeoHead
+	title="Cookiepolicy – Storify"
+	description="Läs hur Storify använder funktionella cookies, samtycke, lokal lagring, cache och analyscookies."
+	path="/cookies"
+/>
+
 <main class="legal-page">
 	<div class="page-header">
 		<Emoji name="cookie" size={96} />
 		<h1>Cookiepolicy</h1>
 	</div>
-	<p class="updated">Senast uppdaterad: 3 maj 2026</p>
+	<p class="updated">Senast uppdaterad: 14 maj 2026</p>
 
 	<section>
 		<h2>Den korta versionen</h2>
-		<p>Storify använder inte cookies för reklam, beteendespårning eller analys. De cookies som kan förekomma är funktionella cookies från vår inloggningstjänst, så att du kan vara inloggad och komma åt ditt konto.</p>
-		<p>Appen använder också lokal lagring i webbläsaren för sådant som tema, accentfärg, lokal profil och tillfälliga utkast. Om du använder mikrofonfunktionen eller installerar webbappen kan webbläsaren även spara teknisk appdata, till exempel behörigheter och cache för statiska filer.</p>
+		<p>Storify använder inte cookies för reklam eller annonsprofilering. Vi använder däremot Google Analytics efter samtycke för att förstå hur sajten används och vilka delar av appen som behöver förbättras.</p>
+		<p>De cookies som kan förekomma är funktionella cookies från vår inloggningstjänst och analyscookies från Google Analytics om du accepterar dem. Appen använder också lokal lagring i webbläsaren för sådant som tema, accentfärg, lokal profil, samtyckesval och tillfälliga utkast. Om du använder mikrofonfunktionen eller installerar webbappen kan webbläsaren även spara teknisk appdata, till exempel behörigheter och cache för statiska filer.</p>
 	</section>
 
 	<section>
@@ -93,8 +100,8 @@
 	</section>
 
 	<section>
-		<h2>Tredjepartscookies</h2>
-		<p>Storify bäddar inte in reklam, analysverktyg eller sociala medier-widgets som sätter tredjepartscookies på våra sidor. Bloggen och Rösterna är vanliga publika sidor och använder inte spårningscookies för att mäta vad du läser. Det betyder:</p>
+		<h2>Analyscookies och tredjepartstjänster</h2>
+		<p>Storify bäddar inte in reklam eller sociala medier-widgets som sätter tredjepartscookies på våra sidor. Vi använder Google Analytics för grundläggande webbanalys, men bara efter att du har accepterat analyscookies i samtyckesrutan. Det betyder:</p>
 		<div class="custom-ul">
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
@@ -102,7 +109,7 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content">Inga analysverktyg som Google Analytics</span>
+				<span class="list-content">Google Analytics laddas med Consent Mode och analyslagring är nekad tills du samtycker</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
@@ -113,6 +120,7 @@
 				<span class="list-content">Ingen delning av din data med annonsörer</span>
 			</div>
 		</div>
+		<p>Google Analytics kan efter samtycke behandla teknisk användningsdata, till exempel sidvisningar, ungefärlig enhets- och webbläsarinformation, hänvisande sida och händelser i appen. Storify skickar inte dagbokstexter, profilinnehåll eller privata delningslänkar till Google Analytics.</p>
 		<p>Om du klickar på en extern länk, till exempel till GitHub, en integritetspolicy eller en delningsfunktion utanför Storify, lämnar du vår webbplats. Då gäller den externa tjänstens egna villkor och cookiehantering. När du använder serverfunktioner som AI-generering eller transkribering skickas data till externa tjänster enligt vår integritetspolicy, men det innebär inte att de sätter spårningscookies i din webbläsare via Storify.</p>
 	</section>
 
@@ -139,18 +147,18 @@
 				<span class="list-content"><strong>Cache och service worker:</strong> Används av webbläsaren för att spara tekniska appfiler så att webbappen kan laddas snabbare</span>
 			</div>
 		</div>
-		<p>Storify använder cookies endast för funktionella kontobehov. För appupplevelsen används i första hand lokal lagring, cache och webbläsarens egna behörigheter.</p>
+		<p>Storify använder cookies för funktionella kontobehov och, om du samtycker, för Google Analytics. För appupplevelsen används i första hand lokal lagring, cache och webbläsarens egna behörigheter.</p>
 	</section>
 
 	<section>
 		<h2>Så kan du radera lagrad information</h2>
-		<p>Du kan alltid logga ut för att avsluta din aktiva session. Vill du rensa lokal appdata, cache eller cookies helt kan du göra det via webbläsarens inställningar för webbplatsdata för mystorify.se.</p>
+		<p>Du kan alltid logga ut för att avsluta din aktiva session. Vill du rensa lokal appdata, cache eller cookies helt kan du göra det via webbläsarens inställningar för webbplatsdata för mystorify.se. Om du tidigare accepterat analyscookies kan du också rensa webbplatsdata i webbläsaren för att ta bort samtyckesvalet och eventuella Google Analytics-cookies.</p>
 		<p>Utkast i guiden, snabbläget, AI-intervjun, Tala in och Skriv fritt sparas bara tillfälligt och rensas när de blir för gamla eller när du avslutar respektive flöde. Sparade dagboksinlägg i ditt konto raderas däremot i dagboksarkivet, inte genom att rensa webbläsarens cookies.</p>
 	</section>
 
 	<section>
 		<h2>Varför vi valt att minimera cookies</h2>
-		<p>Vi tror att din dagbok är privat. Därför använder Storify inte spårningscookies och sparar bara sådan webbläsardata som behövs för att appen ska fungera: inloggning, utkast, inställningar, mikrofonbehörighet och installerbar webbapp. Det är helt enkelt det rimliga sättet att bygga en dagboksapp.</p>
+		<p>Vi tror att din dagbok är privat. Därför använder Storify inte annonscookies och skickar inte dagboksinnehåll till analysverktyg. Vi sparar bara sådan webbläsardata som behövs för att appen ska fungera, plus Google Analytics om du aktivt accepterar analyscookies. Det är helt enkelt det rimliga sättet att bygga en dagboksapp.</p>
 	</section>
 
 	<section>

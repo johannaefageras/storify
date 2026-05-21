@@ -3,6 +3,7 @@
 	import InterviewerSelection from '$lib/components/interview/InterviewerSelection.svelte';
 	import MessageList from '$lib/components/interview/MessageList.svelte';
 	import ChatInput from '$lib/components/interview/ChatInput.svelte';
+	import VoiceInterview from '$lib/components/interview/VoiceInterview.svelte';
 	import ToneSelection from '$lib/components/interview/ToneSelection.svelte';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import ShareToCommunity from '$lib/components/ShareToCommunity.svelte';
@@ -18,11 +19,15 @@
 	import { activeTones as tones } from '$lib/data/tones';
 	import { pickOpener, type StarterId } from '$lib/data/interviewOpeners';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import { isSeparatorParagraph } from '$lib/utils/paragraphs';
 	import { getSwedishDiaryDate } from '$lib/utils/localDate';
 	import { getLoadingPhrases } from '$lib/data/loadingPhrases';
 	import { Emoji } from '$lib/assets/emojis';
 	import TonePickerDropdown from '$lib/components/TonePickerDropdown.svelte';
+
+	// Input mode toggle — text or voice (ElevenLabs Conv AI)
+	let inputMode = $state<'text' | 'voice'>('text');
 
 	// Generation state
 	let generatedEntry = $state('');
@@ -365,7 +370,8 @@
 				energy_level: 5,
 				sleep_quality: 5,
 				mood_level: 5,
-				writing_mode: 'interview'
+				writing_mode: 'interview',
+				interviewer: chatStore.selectedInterviewer
 			};
 
 			const { error: insertError } = await supabase.from('entries').insert(payload);
@@ -380,6 +386,7 @@
 					entryDate: payload.entry_date,
 					toneId: payload.tone_id,
 					mode: 'interview',
+					interviewerId: chatStore.selectedInterviewer,
 					wordCount: generatedEntry.trim().split(/\s+/).filter(Boolean).length,
 					chatTranscript: chatStore.messages.map((m) => ({
 						role: m.role,
@@ -430,9 +437,12 @@
 	}
 </script>
 
-<svelte:head>
-	<meta name="robots" content="noindex, nofollow" />
-</svelte:head>
+<SeoHead
+	title="AI-intervju – Storify"
+	description="Chatta med en AI-intervjuare som hjälper dig reflektera över dagen och skapa ett dagboksinlägg."
+	path="/interview"
+	noindex
+/>
 
 <main class="interview-page">
 	<div class="interview-body">
@@ -598,11 +608,38 @@
 					<button class="error-retry" onclick={() => streamResponse()}>Försök igen</button>
 				</div>
 			{/if}
-			<ChatInput
-				onSend={handleSend}
-				onExitChat={handleExitChat}
-				onBack={() => chatStore.backToInterviewerSelection()}
-			/>
+			<div class="input-mode-toggle" role="tablist" aria-label="Inmatningsläge">
+				<button
+					role="tab"
+					aria-selected={inputMode === 'text'}
+					class="input-mode-btn"
+					class:active={inputMode === 'text'}
+					onclick={() => (inputMode = 'text')}
+				>
+					Skriv
+				</button>
+				<button
+					role="tab"
+					aria-selected={inputMode === 'voice'}
+					class="input-mode-btn"
+					class:active={inputMode === 'voice'}
+					onclick={() => (inputMode = 'voice')}
+				>
+					Tala
+				</button>
+			</div>
+			{#if inputMode === 'text'}
+				<ChatInput
+					onSend={handleSend}
+					onExitChat={handleExitChat}
+					onBack={() => chatStore.backToInterviewerSelection()}
+				/>
+			{:else}
+				<VoiceInterview
+					onExitChat={handleExitChat}
+					onBack={() => chatStore.backToInterviewerSelection()}
+				/>
+			{/if}
 		</div>
 	{/if}
 
@@ -610,6 +647,38 @@
 </main>
 
 <style>
+	.input-mode-toggle {
+		display: inline-flex;
+		gap: 0.5rem;
+		margin-bottom: 0.5rem;
+		align-self: center;
+	}
+
+	.input-mode-btn {
+		padding: 0.375rem 1rem;
+		background: transparent;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		font-family: var(--font-primary);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-text-muted);
+		cursor: pointer;
+		transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+	}
+
+	.input-mode-btn:hover:not(.active) {
+		color: var(--color-text);
+		border-color: var(--color-text-muted);
+	}
+
+	.input-mode-btn.active {
+		background: var(--color-accent);
+		color: white;
+		border-color: var(--color-accent);
+	}
+
 	.interview-page {
 		display: flex;
 		flex-direction: column;

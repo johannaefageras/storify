@@ -6,6 +6,7 @@ import type { RequestHandler } from './$types';
 import { checkAndAward } from '$lib/gamification/award';
 import type { BadgeEvent, EvaluationContext } from '$lib/gamification/evaluate';
 import type { WritingMode } from '$lib/data/badges';
+import { VALID_INTERVIEWER_IDS, type InterviewerId } from '$lib/data/chatbotPrompts/types';
 import { checkBadgeRateLimit } from '$lib/validation/ratelimit';
 import { getBadgeRouteUser } from '$lib/server/badges-auth';
 
@@ -87,6 +88,13 @@ function sanitizePayload(raw: unknown): Partial<EvaluationContext> {
 
 	if (typeof p.mode === 'string' && VALID_MODES.has(p.mode as WritingMode)) {
 		out.mode = p.mode as WritingMode;
+	}
+
+	if (
+		typeof p.interviewerId === 'string' &&
+		VALID_INTERVIEWER_IDS.includes(p.interviewerId as InterviewerId)
+	) {
+		out.interviewerId = p.interviewerId as InterviewerId;
 	}
 
 	if (Array.isArray(p.chatTranscript)) {

@@ -11,6 +11,13 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Badge, WritingMode } from '$lib/data/badges';
 import {
+	VOICE_CLUSTERS,
+	VOICE_CLUSTER_IDS,
+	type VoiceClusterId
+} from '$lib/data/voiceClusters';
+import type { InterviewerId } from '$lib/data/chatbotPrompts/types';
+import { VALID_INTERVIEWER_IDS } from '$lib/data/chatbotPrompts/types';
+import {
 	BADGES_BY_EVENT,
 	evaluateCriterion,
 	type BadgeEvent,
@@ -22,6 +29,7 @@ export interface EntryRow {
 	entry_date: string;
 	tone_id: string;
 	writing_mode: WritingMode | null;
+	interviewer: InterviewerId | null;
 }
 
 const NIGHT_HOURS = new Set([0, 1, 2, 3, 4]);
@@ -112,7 +120,7 @@ async function buildContext(
 	if (needsEntriesDerived(candidates)) {
 		const { data, error } = await supabase
 			.from('entries')
-			.select('created_at, entry_date, tone_id, writing_mode')
+			.select('created_at, entry_date, tone_id, writing_mode, interviewer')
 			.eq('user_id', userId)
 			.order('entry_date', { ascending: false });
 		if (error) throw error;
@@ -156,6 +164,8 @@ function needsEntriesDerived(candidates: readonly Badge[]): boolean {
 			case 'same-tone-entries':
 			case 'returned-after-days':
 			case 'entries-same-day':
+			case 'tones-from-cluster-used':
+			case 'all-interviewers-used':
 				return true;
 			default:
 				return false;
@@ -186,6 +196,7 @@ export function deriveFromEntries(
 	const toneCounts = new Map<string, number>();
 	const entriesPerDay = new Map<string, number>();
 	const hours = new Set<number>();
+	const interviewersSeen = new Set<InterviewerId>();
 	let nightEntriesCount = 0;
 	const timezone = options.timezone ?? DEFAULT_TIMEZONE;
 
@@ -193,12 +204,24 @@ export function deriveFromEntries(
 		if (r.writing_mode) {
 			entriesByMode[r.writing_mode] = (entriesByMode[r.writing_mode] ?? 0) + 1;
 		}
+		if (r.interviewer && VALID_INTERVIEWER_IDS.includes(r.interviewer)) {
+			interviewersSeen.add(r.interviewer);
+		}
 		toneCounts.set(r.tone_id, (toneCounts.get(r.tone_id) ?? 0) + 1);
 		entriesPerDay.set(r.entry_date, (entriesPerDay.get(r.entry_date) ?? 0) + 1);
 		const h = getHourInTimezone(new Date(r.created_at), timezone);
 		if (h === null) continue;
 		hours.add(h);
 		if (NIGHT_HOURS.has(h)) nightEntriesCount++;
+	}
+
+	const tonesByCluster: Partial<Record<VoiceClusterId, number>> = {};
+	for (const cluster of VOICE_CLUSTER_IDS) {
+		let n = 0;
+		for (const toneId of VOICE_CLUSTERS[cluster]) {
+			if (toneCounts.has(toneId)) n++;
+		}
+		tonesByCluster[cluster] = n;
 	}
 
 	const uniqueDates = [...new Set(rows.map((r) => r.entry_date))].sort().reverse();
@@ -222,7 +245,9 @@ export function deriveFromEntries(
 		currentStreakDays,
 		daysSinceLastEntry,
 		weekendStreakWeeks,
-		sameDayEntriesCount
+		sameDayEntriesCount,
+		tonesByCluster,
+		uniqueInterviewersUsed: interviewersSeen.size
 	};
 }
 

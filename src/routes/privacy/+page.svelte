@@ -2,6 +2,7 @@
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import { Emoji } from '$lib/assets/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 
 	const diamondComponents = {
 		pink: 'diamond-pink',
@@ -15,12 +16,18 @@
 	let DiamondIcon = $derived(diamondComponents[accentStore.current]);
 </script>
 
+<SeoHead
+	title="Integritetspolicy – Storify"
+	description="Så hanterar Storify personuppgifter, lokal lagring, konto, AI-behandling, röstinspelning och dina rättigheter enligt GDPR."
+	path="/privacy"
+/>
+
 <main class="legal-page">
 	<div class="page-header">
 		<Emoji name="shield" size={96} />
 		<h1>Integritetspolicy</h1>
 	</div>
-	<p class="updated">Senast uppdaterad: 3 maj 2026</p>
+	<p class="updated">Senast uppdaterad: 21 maj 2026</p>
 
 	<section>
 		<h2>Vem ansvarar för dina uppgifter?</h2>
@@ -41,7 +48,7 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
-				<span class="list-content"><strong>Ljuddata:</strong> Om du använder Tala in-läget behandlas ljudinspelningen tillfälligt för att kunna transkribera den. Själva ljudfilen används för transkriberingen och sparas inte som ett dagboksinlägg hos oss. Den transkriberade texten kan däremot användas för att generera, redigera och spara din dagbokstext om du väljer det.</span>
+				<span class="list-content"><strong>Ljuddata:</strong> Om du använder Tala in-läget behandlas ljudinspelningen tillfälligt för att kunna transkribera den. Själva ljudfilen används för transkriberingen och sparas inte som ett dagboksinlägg hos oss. Den transkriberade texten kan däremot användas för att generera, redigera och spara din dagbokstext om du väljer det. Om du använder röstintervjuläget i AI-intervjun streamas ditt mikrofonljud i realtid till ElevenLabs för att driva röstsamtalet. Vi har konfigurerat ElevenLabs att inte spara ljudet, och endast textavskriften av samtalet skickas tillbaka till Storify.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
@@ -62,6 +69,10 @@
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Kontaktuppgifter:</strong> Om du kontaktar oss via kontaktsidan behandlas de uppgifter du själv skickar in, till exempel namn, e-postadress, telefonnummer, meddelande och eventuella bilagor</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>Analysdata:</strong> Om du accepterar analyscookies kan Google Analytics behandla teknisk användningsdata, till exempel sidvisningar, ungefärlig enhets- och webbläsarinformation, hänvisande sida och apphändelser. Storify skickar inte dagbokstexter, profilinnehåll eller privata delningslänkar till Google Analytics.</span>
 			</div>
 		</div>
 	</section>
@@ -97,6 +108,13 @@
 	</section>
 
 	<section>
+		<h2>När du använder röstintervjun</h2>
+		<p>AI-intervjun kan göras antingen som textchatt eller som ett röstsamtal. Röstläget startar bara när du själv trycker på mikrofonknappen och ger webbläsaren tillåtelse att använda mikrofonen.</p>
+		<p>Under ett röstsamtal streamas ditt mikrofonljud krypterat till ElevenLabs, som driver röst-AI:n (taligenkänning, samtalslogik och uppläsning) på uppdrag av Storify. Storify har konfigurerat ElevenLabs att inte lagra ljudinspelningar — endast textavskriften av samtalet (det du och intervjuaren säger) skickas tillbaka till appen.</p>
+		<p>Textavskriften behandlas därefter som vanlig intervjudata: den används för att generera ett dagboksinlägg om du väljer det, och kan sparas i ditt dagboksarkiv om du är inloggad. Om du avbryter samtalet utan att skapa ett inlägg sparas ingenting hos oss.</p>
+	</section>
+
+	<section>
 		<h2>När du exporterar PDF</h2>
 		<p>PDF-exporten skapas i din webbläsare från den dagbokstext som redan visas på sidan. Själva exporten skapar ingen ny molnlagring hos oss och skickar inte PDF-filen till Storify. Filen sparas på din enhet om du väljer att ladda ner den.</p>
 	</section>
@@ -117,6 +135,10 @@
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Transkribera ljud:</strong> När du använder Tala in skickas ljudinspelningen till OpenAI via vår server för att omvandlas till text</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>Driva röstintervjun:</strong> När du använder röstläget i AI-intervjun streamas ditt mikrofonljud till ElevenLabs för att driva röstsamtalet i realtid. Endast textavskriften skickas tillbaka till Storify.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
@@ -142,8 +164,12 @@
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Säkerhet och missbruksskydd:</strong> Vi använder hastighetsbegränsning och tekniska skydd för att minska spam, missbruk och angrepp mot tjänsten. I samband med detta behandlas en anonymiserad identifierare tillfälligt</span>
 			</div>
+			<div class="custom-li">
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>Webbanalys:</strong> Om du samtycker använder vi Google Analytics för att förstå vilka publika sidor och appflöden som används, så att vi kan förbättra produkten och upptäcka friktion i användarresan</span>
+			</div>
 		</div>
-		<p>Rättslig grund enligt GDPR beror på vilken funktion som används. När vi tillhandahåller konto- och appfunktioner som du själv använder sker behandlingen normalt för att kunna leverera tjänsten. För valfria funktioner som platsåtkomst, mikrofonåtkomst och Gemenskapen bygger behandlingen på dina aktiva val eller ditt samtycke. För säkerhet, felhantering och missbruksskydd kan vi också behandla uppgifter med stöd av vårt berättigade intresse att hålla tjänsten säker och fungerande. Officiell EU-vägledning om rättsliga grunder finns hos Europeiska kommissionen och Europeiska dataskyddsstyrelsen: <a href="https://commission.europa.eu/law/law-topic/data-protection/rules-business-and-organisations/legal-grounds-processing-data/grounds-processing/when-can-personal-data-be-processed_en" target="_blank" rel="noopener">European Commission</a> och <a href="https://www.edpb.europa.eu/sme-data-protection-guide/process-personal-data-lawfully_en" target="_blank" rel="noopener">EDPB</a>.</p>
+		<p>Rättslig grund enligt GDPR beror på vilken funktion som används. När vi tillhandahåller konto- och appfunktioner som du själv använder sker behandlingen normalt för att kunna leverera tjänsten. För valfria funktioner som platsåtkomst, mikrofonåtkomst, Gemenskapen och Google Analytics bygger behandlingen på dina aktiva val eller ditt samtycke. För säkerhet, felhantering och missbruksskydd kan vi också behandla uppgifter med stöd av vårt berättigade intresse att hålla tjänsten säker och fungerande. Officiell EU-vägledning om rättsliga grunder finns hos Europeiska kommissionen och Europeiska dataskyddsstyrelsen: <a href="https://commission.europa.eu/law/law-topic/data-protection/rules-business-and-organisations/legal-grounds-processing-data/grounds-processing/when-can-personal-data-be-processed_en" target="_blank" rel="noopener">European Commission</a> och <a href="https://www.edpb.europa.eu/sme-data-protection-guide/process-personal-data-lawfully_en" target="_blank" rel="noopener">EDPB</a>.</p>
 	</section>
 
 	<section>
@@ -160,6 +186,10 @@
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>ElevenLabs:</strong> Röst-AI som driver röstläget i AI-intervjun (taligenkänning, samtalslogik och uppläsning). Storify har konfigurerat ElevenLabs att inte lagra ljudinspelningar. Läs mer i <a href="https://elevenlabs.io/privacy" target="_blank" rel="noopener">ElevenLabs integritetspolicy</a>.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Supabase:</strong> Databas-, lagrings- och autentiseringstjänst för konton, profiler, sparade inlägg, badges och communitydata. Tjänsten hanterar även sessionscookies. Läs mer i <a href="https://supabase.com/privacy" target="_blank" rel="noopener">Supabases integritetspolicy</a>.</span>
 			</div>
 			<div class="custom-li">
@@ -173,6 +203,10 @@
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
 				<span class="list-content"><strong>Google:</strong> Google Geocoding API används för platsnamn om du använder platsfunktionen. Google används också för inloggning om du väljer "Fortsätt med Google". Läs mer i <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Googles integritetspolicy</a>.</span>
+			</div>
+			<div class="custom-li">
+				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>
+				<span class="list-content"><strong>Google Analytics:</strong> Webbanalys som används efter samtycke för att mäta sidvisningar och apphändelser. Google Analytics används inte för annonsprofilering i Storify. Läs mer i <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Googles integritetspolicy</a>.</span>
 			</div>
 			<div class="custom-li">
 				<span class="list-icon"><Emoji name={DiamondIcon} size={12} /></span>

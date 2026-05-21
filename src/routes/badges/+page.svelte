@@ -4,6 +4,7 @@
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { supabase } from '$lib/supabase/client';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import { Emoji } from '$lib/assets/emojis';
 	import refreshSvg from '$lib/assets/icons/refresh.svg?raw';
@@ -197,9 +198,12 @@
 	});
 </script>
 
-<svelte:head>
-	<title>Utmärkelser – Storify</title>
-</svelte:head>
+<SeoHead
+	title="Utmärkelser – Storify"
+	description="Se dina Storify-badges och framsteg i den privata dagboksappen."
+	path="/badges"
+	noindex
+/>
 
 <main class="badges-page">
 	{#if isLoading}

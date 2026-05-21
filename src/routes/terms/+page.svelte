@@ -2,6 +2,7 @@
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import { Emoji } from '$lib/assets/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import { ACTIVE_TONE_COUNT } from '$lib/data/tones';
 
 	const judgeComponents = {
@@ -25,6 +26,12 @@
 	let JudgeIcon = $derived(judgeComponents[accentStore.current]);
 	let DiamondIcon = $derived(diamondComponents[accentStore.current]);
 </script>
+
+<SeoHead
+	title="Användarvillkor – Storify"
+	description="Villkor för att använda Storify, inklusive konto, AI-genererade dagbokstexter, betalning under beta och frivillig delning."
+	path="/terms"
+/>
 
 <main class="legal-page">
 	<div class="page-header">

@@ -1,303 +1,311 @@
-# Förbättringsplan baserad på `deep-research-report.md`
+# Storify – Implementation Plan
 
-Status: utkast 2026-05-11. Källa: `deep-research-report.md`. Baseras även på snabbgranskning av `src/` för att jorda rekommendationerna i faktisk kod.
-
-Verifierad nuvarande state (kort):
-
-- Antal toner i [`src/lib/data/tones.ts`](src/lib/data/tones.ts): **32** (`tones.length`).
-- Antal "lägen": **5** (wizard, quick, interview, speak, editor) — redan konsekvent som "fem" i [`about`](src/routes/about/+page.svelte:44), [`guide`](src/routes/guide/+page.svelte:77), [`terms`](src/routes/terms/+page.svelte:43), [`badges.ts:289`](src/lib/data/badges.ts).
-- Toninkonsekvenser kvar:
-  - [`src/routes/+layout.svelte:38`](src/routes/+layout.svelte#L38) säger "28 röster" (meta description).
-  - [`src/routes/+page.svelte:274`](src/routes/+page.svelte#L274) säger "32 olika röster".
-  - 6 blogginlägg i [`src/posts/`](src/posts/) skriver "32 röster".
-  - [`terms`](src/routes/terms/+page.svelte:43) använder redan dynamiskt `{tones.length}` — bra mönster.
+Baserad på [deep-research-report.md](deep-research-report.md). Sorterad efter prioritet: P0 (gör först, 30 dgr), P1 (90 dgr), P2 (180 dgr). Varje punkt har konkreta filer/åtgärder och acceptanskriterier.
 
 ---
 
-## Tier 1 — Konkreta kodfixar (låg insats, hög trovärdighetseffekt)
+## P0 – SEO-grund och domänstruktur (30 dagar)
 
-### 1. Single source of truth för antal röster
+### 1. Per-sida `<svelte:head>` med unik title/description/canonical/OG
 
-**Mål:** Eliminera 28/32-driften. Numret kommer alltid från `tones.length`.
+**Problem:** [src/routes/+layout.svelte:38-75](src/routes/+layout.svelte#L38-L75) sätter title, description, OG, Twitter och canonical (`https://mystorify.se/`) globalt. Följande publika rutter saknar egna `<svelte:head>` och ärver därför hemsidans metadata och canonical:
 
-**Steg:**
+- [src/routes/about/+page.svelte](src/routes/about/+page.svelte)
+- [src/routes/guide/+page.svelte](src/routes/guide/+page.svelte)
+- [src/routes/contact/+page.svelte](src/routes/contact/+page.svelte)
+- [src/routes/privacy/+page.svelte](src/routes/privacy/+page.svelte)
+- [src/routes/terms/+page.svelte](src/routes/terms/+page.svelte)
+- [src/routes/cookies/+page.svelte](src/routes/cookies/+page.svelte)
+- [src/routes/community/+page.svelte](src/routes/community/+page.svelte)
 
-1. I [`src/lib/data/tones.ts`](src/lib/data/tones.ts), lägg till längst ned:
+**Åtgärd:**
+
+1. Skapa en återanvändbar komponent [src/lib/components/SeoHead.svelte](src/lib/components/SeoHead.svelte) som tar props `title`, `description`, `path` (för canonical/OG-url), valfri `ogImage`, valfri `noindex`. Komponenten renderar `<svelte:head>` med title, meta description, canonical, OG-title/description/url/image, Twitter card.
+2. Flytta hemsidans head-block från [+layout.svelte](src/routes/+layout.svelte) → [+page.svelte](src/routes/+page.svelte) (rotsidan). Lämna kvar i layout: font preload, ev. global favicon/manifest. **Ta bort** den globala `<title>`, `<meta name="description">`, OG/Twitter, `<link rel="canonical">` från layouten så att de inte längre ärvs.
+3. Lägg till `<SeoHead …>` i varje publik sida ovan plus:
+   - [src/routes/voices/+page.svelte](src/routes/voices/+page.svelte) (har redan head — granska och konvertera)
+   - [src/routes/blog/+page.svelte](src/routes/blog/+page.svelte) och [src/routes/blog/[slug]/+page.svelte](src/routes/blog/[slug]/+page.svelte) (om finns)
+   - [src/routes/changelog/+page.svelte](src/routes/changelog/+page.svelte)
+   - [src/routes/accessibility/+page.svelte](src/routes/accessibility/+page.svelte)
+4. Strukturerad data (`WebApplication` JSON-LD) bör ligga ENBART på rotsidan, inte i layouten. Flytta tillsammans med title-blocket.
+5. Privata/genererande rutter (`/interview`, `/wizard`, `/quick`, `/editor`, `/journal`, `/profile`, `/calendar`, `/badges`, `/login`, `/register`, `/forgot-password`) ska sätta `noindex` via SeoHead — robots.txt blockerar redan crawl men `noindex` skyddar om någon länkar in.
+
+**Acceptanskriterier:**
+- `curl https://mystorify.se/about` returnerar title som börjar med "Om Storify" och canonical `/about`.
+- Inga två publika sidor har samma `<title>` eller `<link rel="canonical">`.
+- View source på `/guide` visar OG-url `https://mystorify.se/guide`.
+
+**Insats:** Medium · **Effekt:** Hög
+
+---
+
+### 2. Domänkonsolidering: mystorify.se vs getstorify.app
+
+**Problem:** Båda domänerna serverar samma app och indexeras separat. Canonical pekar redan till mystorify.se, men getstorify.app sidor existerar i sökresultat (privacy, quick, editor, interview, speak).
+
+**Åtgärd:**
+
+1. Beslut: behåll `mystorify.se` som primär. Det är det varumärket sajten faktiskt heter.
+2. På Render: lägg till `getstorify.app` som en separat service eller redirect-regel som 301:ar **allt** till motsvarande sökväg på mystorify.se. Antingen via Render redirect rules eller via en `handle` hook som kollar `event.url.host`:
    ```ts
-   export const TONE_COUNT = tones.length;
+   // src/hooks.server.ts
+   if (event.url.host === 'getstorify.app' || event.url.host === 'www.getstorify.app') {
+     return new Response(null, {
+       status: 301,
+       headers: { location: `https://mystorify.se${event.url.pathname}${event.url.search}` }
+     });
+   }
    ```
-2. Ersätt hårdkodade "28" och "32" i Svelte-komponenter med variabelinterpolation:
-   - [`src/routes/+page.svelte:274`](src/routes/+page.svelte#L274): `"Din dag, i 32 olika röster"` → importera `tones` (eller `TONE_COUNT`) och skriv `Din dag, i {tones.length} olika röster`.
-   - [`src/routes/+layout.svelte:38`](src/routes/+layout.svelte#L38): meta description säger "28 röster". Eftersom meta description är statisk text i `<svelte:head>` går det inte att enkelt göra dynamiskt utan att flytta titeln/beskrivningen till en page-specifik `<svelte:head>`. Två val:
-     - **A (rekommenderat):** Importera `tones` och rendera `description` som `{`...${tones.length} röster...`}`. SvelteKit serverrenderar headen, så detta funkar för SEO.
-     - B: Hårdkoda till `33` och lägg en kommentar `// uppdatera när tones.ts ändras` (sämre — driften kommer tillbaka).
-   - Kontrollera även `og:description` och `twitter:description` i samma fil — om de finns och nämner antalet, behandla likadant.
-3. **Blogginlägg** ([`src/posts/`](src/posts/)) — eftersom dessa är `.md`-filer kan de inte interpolera. Två policyalternativ:
-   - **A (rekommenderat):** Skriv om till siffergenerisk text: "_flera dussin röster_" eller "_röstgalleriet_" med länk till `/voices`. Då slipper man drift utan codepath-magi.
-   - B: Behåll "33" som hårdvärde och lägg till en lint-regel/test (se steg 5).
-   - Filer att uppdatera:
-     - [`src/posts/objektiv-dagbok-fakta-fore-tolkning.md:65`](src/posts/objektiv-dagbok-fakta-fore-tolkning.md#L65)
-     - [`src/posts/mental-flik-stangs-nar-du-skriver.md:83`](src/posts/mental-flik-stangs-nar-du-skriver.md#L83)
-     - [`src/posts/vi-byggde-olika-saker-med-flit.md:37`](src/posts/vi-byggde-olika-saker-med-flit.md#L37)
-     - [`src/posts/dagboksskrivande-nar-du-inte-har-tid.md:81`](src/posts/dagboksskrivande-nar-du-inte-har-tid.md#L81)
-     - [`src/posts/dagbok-filsystem-for-tankar.md:79`](src/posts/dagbok-filsystem-for-tankar.md#L79)
-     - [`src/posts/ai-skrivassistent-inte-livscoach.md:83`](src/posts/ai-skrivassistent-inte-livscoach.md#L83)
-   - **Specialfall:** [`src/posts/32-roster-dagbok-inte-gimmick.md`](src/posts/32-roster-dagbok-inte-gimmick.md) har "32" i titel, filnamn och brödtext. Lämna slug och titel oförändrade (frys postens identitet till tidpunkten den skrevs) men lägg till en kort redaktionsnotering högst upp: _"När det här skrevs fanns 32 röster. Antalet kan ändras — se [röstgalleriet](/voices) för aktuell lista."_
-4. **Test:** Lägg till en enkel sanity test i [`src/lib/data/tonePrompts/index.test.ts`](src/lib/data/tonePrompts/index.test.ts) eller en ny `tones.test.ts`:
+3. Lägg till `www.mystorify.se` → `mystorify.se` redirect (eller tvärt om — välj en) i samma block.
+4. Sätt `link rel="alternate" hreflang="sv"` på huvudsidan om internationalisering övervägs framöver (inte nu).
+5. Verifiera i Google Search Console: lägg till båda domänerna, bekräfta att getstorify.app rapporterar 301:or, begär omindexering av primära sidor.
+
+**Acceptanskriterier:**
+- `curl -I https://getstorify.app/privacy` → 301 till `https://mystorify.se/privacy`.
+- Search Console visar minskning av getstorify.app-indexerade sidor inom 4 veckor.
+
+**Insats:** Medium · **Effekt:** Hög
+
+---
+
+### 3. Sitemap-utbyggnad och äkta `lastmod`
+
+**Problem:** [src/routes/sitemap.xml/+server.ts](src/routes/sitemap.xml/+server.ts) listar bara 7 statiska URL:er + community. Saknar: `/blog`, `/blog/[slug]`, `/voices`, `/changelog`, `/accessibility`. Sätter `lastmod = TODAY` för alla statiska sidor.
+
+**Åtgärd:**
+
+1. Lägg till statiska poster för `/voices`, `/changelog`, `/accessibility` med hårdkodad `lastmod` (uppdateras vid utgivning) eller härled från fil-mtime via en build-time-konstant.
+2. Lägg till blogg: läs [src/posts/](src/posts/) via [src/lib/server/blog.ts](src/lib/server/blog.ts) och iterera över slugs. Använd front-matter `date` eller filens mtime som `lastmod`.
+3. För statiska policy-sidor (`/privacy`, `/terms`, `/cookies`, `/about`, `/guide`, `/contact`, `/accessibility`): lägg in fasta datum i en const-tabell, t.ex.:
    ```ts
-   it('exports a non-empty list of tones', () => {
-     expect(tones.length).toBeGreaterThan(0);
-   });
+   const STATIC_URLS = [
+     { path: '', lastmod: '2026-05-14' },
+     { path: '/about', lastmod: '2026-05-14' },
+     // ...
+   ];
    ```
-   _(Lägg INTE in en låst siffra — testet ska tolerera att antalet ändras.)_
-5. **Lint-skydd (valfritt men billigt):** Lägg till ett `vitest`-test som söker i `src/routes/**/*.svelte` och `src/posts/**/*.md` efter regex `/\b\d{2}\s+röster\b/` och failar om det hittas (med undantag för `32-roster-dagbok-inte-gimmick.md`). Förhindrar regression.
+   Uppdatera manuellt när sidan faktiskt ändras.
+4. För `/changelog`: använd senaste changelog-entry-datum.
+5. Lägg till `<changefreq>` och `<priority>` (lågt prio: policys, högt: start/blog/voices).
+6. Verifiera att robots.txt fortsätter blockera `/journal`, `/interview` etc. — de ska INTE läggas i sitemap.
 
-**Acceptanskriterium:** `grep -rEn "\b(28|32)\s+röster\b" src/` returnerar inget utöver den medvetet frusna posten.
+**Acceptanskriterier:**
+- `GET /sitemap.xml` innehåller alla publika rutter.
+- Bloggsidor finns med riktiga `lastmod`.
+- Inga `lastmod` är "idag" om sidan inte faktiskt ändrats idag.
 
----
-
-### 2. Standardisera "lägen" till 5
-
-**Status:** redan konsekvent. Inget att göra utöver att hålla ögonen öppna när nya sidor läggs till.
-
-**Skydd:** lägg gärna till en kort kommentar i [`src/routes/+layout.svelte`](src/routes/+layout.svelte) eller en `MODES`-konstant i [`src/lib/data/`](src/lib/data/) som listar de fem och kan importeras i `about`, `guide`, `terms`. Då är "fyra vs fem"-driften strukturellt omöjlig.
-
-**Föreslagen plats:** ny fil `src/lib/data/modes.ts`:
-
-```ts
-export interface Mode {
-  id: 'wizard' | 'quick' | 'interview' | 'speak' | 'editor';
-  name: string;
-  path: string;
-  description: string;
-}
-export const modes: Mode[] = [
-  /* ... */
-];
-export const MODE_COUNT = modes.length;
-```
-
-Refaktorera sedan `about`, `guide`, `terms` att läsa från denna lista istället för att räkna upp dem manuellt i prosa. Mer arbete, men gör att framtida lägen automatiskt syns på alla relevanta sidor.
+**Insats:** Låg-medium · **Effekt:** Hög
 
 ---
 
-### 3. Juridisk identitet i footer
+### 4. Publik beta-/pricing-/FAQ-sida
 
-**Mål:** Användare/Google ska kunna se vem som driver sajten utan att leta.
+**Problem:** "Gratis under beta" finns spritt i copy men ingen sammanhållen sida som besvarar "vad händer när beta tar slut?", "vad kommer kosta?", "vad förblir gratis?", "hur lagras min data efter beta?".
 
-**Steg:**
+**Åtgärd:**
 
-1. Hitta footern. Den ligger sannolikt i [`src/routes/+layout.svelte`](src/routes/+layout.svelte) eller en `Footer.svelte`-komponent under `src/lib/components/`. Sök: `grep -rn "footer" src/lib/components/ src/routes/+layout.svelte`.
-2. Lägg till ett block i footern:
+1. Skapa [src/routes/beta/+page.svelte](src/routes/beta/+page.svelte) (eller `/pricing` — välj termen som matchar produktstadiet; `/beta` är ärligare nu).
+2. Innehåll:
+   - Vad "beta" betyder konkret (funktionsstatus, ev. brister)
+   - Garanti om förvarning innan prisändring (matcha [/terms](src/routes/terms/+page.svelte))
+   - Preliminär struktur: vad förblir gratis, vad blir premium (skissa: ev. större arkiv, mer AI-quota, avancerad export, fler röster). Tydligt märkt "preliminärt".
+   - FAQ-sektion: integritet, datalagring, radering, GDPR-rättigheter, export
+3. Länka från footer + från `/about`.
+4. Lägg in sidan i sitemap.
+5. SeoHead med unik title "Beta och framtida prismodell – Storify".
+
+**Acceptanskriterier:**
+- Sidan är publik, har egen metadata, finns i sitemap, länkad från footer.
+
+**Insats:** Låg · **Effekt:** Hög
+
+---
+
+## P1 – Förtroende, säkerhet, integritet (90 dagar)
+
+### 5. Säkerhetsheaders i hooks.server.ts
+
+**Problem:** [src/hooks.server.ts](src/hooks.server.ts) sätter inga säkerhetsheaders. CSP, HSTS, X-Frame-Options, Referrer-Policy, Permissions-Policy bör vara synliga i appkoden så att de versionshanteras.
+
+**Åtgärd:**
+
+1. Utöka `handle` i [src/hooks.server.ts](src/hooks.server.ts):
+   ```ts
+   const response = await resolve(event, { /* … */ });
+   response.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
+   response.headers.set('X-Content-Type-Options', 'nosniff');
+   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+   response.headers.set('X-Frame-Options', 'DENY');
+   response.headers.set('Permissions-Policy', 'camera=(), microphone=(self), geolocation=(self)');
+   // CSP — börja i Report-Only-läge för att hitta inline-skript som bryts:
+   response.headers.set('Content-Security-Policy-Report-Only', [
+     "default-src 'self'",
+     "script-src 'self' 'unsafe-inline'",  // Svelte 5 + JSON-LD inline-skript kräver detta tills nonces införs
+     "style-src 'self' 'unsafe-inline'",
+     "img-src 'self' data: https:",
+     "connect-src 'self' https://*.supabase.co https://api.anthropic.com",
+     "font-src 'self'",
+     "frame-ancestors 'none'"
+   ].join('; '));
+   return response;
    ```
-   Storify drivs som hobbyprojekt av Johanna Fagerås, Göteborg.
-   Kontakt: <a href="mailto:hej@mystorify.se">hej@mystorify.se</a> ·
-   <a href="/about">Om</a> ·
-   <a href="/privacy">Integritet</a> ·
-   <a href="/terms">Villkor</a> ·
-   <a href="https://github.com/johannaefageras/storify">Källkod</a>
+2. Notera att `microphone=(self)` krävs av [/speak](src/routes/speak/) röstinspelningen.
+3. Efter ~2 veckor i Report-Only utan brott: byt till `Content-Security-Policy` (enforced) och stram åt `script-src` med nonce om möjligt.
+4. Lägg till `server.js` static asset-headers verifiering — krocka inte med befintliga.
+
+**Acceptanskriterier:**
+- `curl -I https://mystorify.se/` visar HSTS, X-Frame-Options, Referrer-Policy.
+- Inga CSP-violations i prod-konsolen efter migration till enforced.
+
+**Insats:** Medium · **Effekt:** Hög
+
+---
+
+### 6. Trust- och säkerhetssida + security.txt
+
+**Åtgärd:**
+
+1. Skapa [static/.well-known/security.txt](static/.well-known/security.txt) enligt RFC 9116:
    ```
-3. Om/när ett AB registreras: byt textraden till "Storify drivs av _Bolagsnamn AB_ (org.nr xxxxxx-xxxx)". Lägg gärna fält i en `src/lib/data/legal.ts`-konstant så uppdateringen sker på ett ställe.
-4. Verifiera att `mailto:`-adressen faktiskt går till en inbox du läser. Om inte: använd kontaktformuläret som nämns i villkoren och länka dit istället.
+   Contact: mailto:[kontakt-email]
+   Expires: 2027-12-31T23:59:59Z
+   Preferred-Languages: sv, en
+   Canonical: https://mystorify.se/.well-known/security.txt
+   ```
+2. Skapa [src/routes/security/+page.svelte](src/routes/security/+page.svelte) som beskriver:
+   - Hosting (Render Frankfurt)
+   - Krypteringsläge (TLS in transit, Supabase at rest)
+   - Backup-rutin (hur ofta, hur länge, var)
+   - Retentionspolicy (kopplas till privacy)
+   - Incident response (kontaktväg + förväntad responstid)
+   - Säkerhetsheaders (se #5)
+3. Länka från footer och från [/privacy](src/routes/privacy/+page.svelte).
 
-**Acceptanskriterium:** Footer syns på alla sidor och innehåller en identifierbar avsändare + kontaktväg.
-
----
-
-### 4. Affärsmodellstatus
-
-**Mål:** Besökare ska inte gissa om tjänsten är gratis-för-alltid eller pre-paywall.
-
-**Steg:**
-
-1. Lägg till en kort rad i tre lägen — välj den som passar varumärket bäst:
-   - "_Gratis under beta. Eventuell premium aviseras i god tid._"
-   - "_Gratis just nu. Vi testar oss fram till en hållbar modell — du får veta innan något ändras._"
-   - "_100 % gratis. Inga annonser. Inga tracking-pixlar för tredje part._" (bara om det faktiskt stämmer)
-2. Placering:
-   - I hero-blocket på [`src/routes/+page.svelte`](src/routes/+page.svelte) som en liten badge eller under primär CTA.
-   - I [`src/routes/about/+page.svelte`](src/routes/about/+page.svelte) som ett eget kort avsnitt "Affärsmodell".
-3. Om en betalplan börjar bli aktuell: skapa `/pricing` även om den bara säger "Premium kommer hösten 2026 — anmäl intresse" med ett mailfält som postar till nyhetsbrevslistan i [`src/lib/newsletter/`](src/lib/newsletter/).
+**Insats:** Medium · **Effekt:** Hög
 
 ---
 
-## Tier 2 — Trust- och bevismaterial (medel insats)
+### 7. Förtydliga Gemenskapen + åldersfrågor + SMS-villkor
 
-### 5. Trust-block på landningssidan
+**Problem:** Rapport flaggar att publik delning + ålderslös målgrupp + SMS-villkor i terms är inkonsekvent.
 
-**Mål:** Avväpna integritets-/datafrågor innan användaren ens hinner ställa dem.
+**Åtgärd:**
 
-**Innehåll (fyra korta punkter):**
+1. [src/routes/community/+page.svelte](src/routes/community/+page.svelte): lägg in tydligt block "Innan du delar":
+   - Påminnelse om att inlägg blir publika
+   - Råd om personuppgifter och tredje part
+   - Åldersrekommendation (matcha [project_audience.md](memory: ages 10–100) — om barn använder produkten, hur skyddas de i community?)
+2. Före submit i communityflödet: kräv aktiv kryssruta "Jag förstår att detta blir publikt" (om saknas).
+3. [src/routes/terms/+page.svelte](src/routes/terms/+page.svelte): granska SMS-/marknadsföringssektionen. Om SMS inte används, ta bort. Om används framtida — flagga "ej aktivt under beta".
+4. Lägg till åldersbekräftelse i registreringsflödet om relevant.
 
-- **Privat som standard.** Ingen ser dina inlägg om du inte aktivt delar.
-- **Tränar inte AI-modeller.** Din text används inte för att träna någon modell.
-- **Data i EU.** Lagras hos Supabase. _(Verifiera region i Supabase-konsolen innan du publicerar.)_
-- **Öppen källkod.** Du kan inspektera och granska koden själv på [GitHub](https://github.com/johannaefageras/storify).
-
-**Implementation:**
-
-1. Ny komponent `src/lib/components/TrustBlock.svelte` med fyra ikon+rubrik+brödtext-celler.
-2. Inkludera i [`src/routes/+page.svelte`](src/routes/+page.svelte) ovanför den slutgiltiga CTA:n.
-3. Återanvänd i [`src/routes/about/+page.svelte`](src/routes/about/+page.svelte) och eventuellt på registreringssidan.
-
-**Datakälla:** [`src/routes/privacy/+page.svelte`](src/routes/privacy/+page.svelte) bör fortfarande vara den auktoritativa långa versionen — trust-blocket länkar dit.
+**Insats:** Låg-medium · **Effekt:** Medium-hög
 
 ---
 
-### 6. Visuella produktbevis
+### 8. Synka publik copy med faktiska lägen
 
-**Mål:** En förstagångsbesökare ska _se_ vad produkten producerar utan att registrera sig.
+**Problem:** [README.md](README.md) listar 4 skrivlägen, sajten 5 (Tala in saknas i README). Den hårdkodade röstantals-buggen åtgärdades enligt changelog 2026-05-14 — säkerställ att samma princip används för lägen.
 
-**Steg:**
+**Åtgärd:**
 
-1. Producera 3 statiska bilder (eller 1 kort loop-GIF/video, max ~2 MB):
-   - **Bild A:** Voice picker med 3–4 toner synliga (en distinkt, t.ex. Katten + Shakespeare + Dagboksskribenten).
-   - **Bild B:** Samma dag, genererad i två olika toner sida vid sida — visar produktens kärnvärde direkt.
-   - **Bild C:** Arkiv/kalendervy med streak-markering.
-2. Lägg dem i `static/marketing/` (eller `static/screenshots/`) och referera från [`src/routes/+page.svelte`](src/routes/+page.svelte) som ett `<section class="proof">`.
-3. Prestanda: använd `loading="lazy"`, sätt explicita `width`/`height` för att undvika CLS, kör bilderna genom en `.webp`-konvertering (`cwebp -q 80`).
-4. Tillgänglighet: konkreta `alt`-texter ("Skärmbild: tonväljare med 33 olika röster, exempel på Katten och Shakespeare").
+1. Skapa en single source of truth: t.ex. `src/lib/data/modes.ts` som exporterar `ACTIVE_MODES` med id, label, beskrivning.
+2. Använd i: hemsidan, [/about](src/routes/about/+page.svelte), [/guide](src/routes/guide/+page.svelte), README, meta descriptions.
+3. Uppdatera README så det matchar.
 
-**Datakälla för exempel:** generera riktiga texter via egen testanvändare så proverna är produkttrogna, inte påhittade.
+**Insats:** Låg · **Effekt:** Medium
 
 ---
 
-### 7. Changelog-sida
+### 9. Social proof och testimonials
 
-**Mål:** Visar att produkten lever; bra både för retention och SEO.
+**Åtgärd:**
 
-**Steg:**
+1. Lägg in en frivillig "Berätta för oss"-form (befintlig kontaktväg räcker) som ber om citat + samtycke att publicera anonymt.
+2. Skapa en sektion på hemsidan eller [/about](src/routes/about/+page.svelte) för 3–5 anonymiserade citat när de finns.
+3. Överväg en publik "byggdagbok"-sida (changelog är redan ett embryo — utöka med "varför" inte bara "vad").
 
-1. Ny route: `src/routes/changelog/+page.svelte` + `+page.ts` med `prerender = true`.
-2. Datakälla — välj enklast först:
-   - **A (enklast):** En manuell Markdown-fil `src/lib/data/changelog.md` som renderas med `marked` (redan dep i [`src/lib/server/blog.ts`](src/lib/server/blog.ts)).
-   - B: En lista av entries i `src/lib/data/changelog.ts` med `date`, `title`, `notes`.
-3. Lägg till länk i footern (steg 3 ovan).
-4. Skriv minst 5–10 inledande poster baserat på senaste git-loggen så sidan inte ser tom ut vid lansering. Filtrera bort interna refactors — fokus på _vad användaren märker_.
-5. Lägg till `<link rel="alternate" type="application/rss+xml" href="/changelog.xml">` om du vill gå hela vägen (kan vänta).
-
-**Acceptanskriterium:** `/changelog` finns, är prerendrad, länkad från footern, har minst 5 entries.
+**Insats:** Medium · **Effekt:** Medium-hög
 
 ---
 
-### 8. Tillgänglighetspass + statement
+### 10. Svenskt SEO-innehållskluster
 
-**Mål:** Hygiennivå — och en synlig sida som visar att ni bryr er.
+**Åtgärd:**
 
-**Steg:**
+1. Identifiera 5–8 långsvansade söktermer: "AI-dagbok på svenska", "dagbok utan konto", "hur börja skriva dagbok", "dagboksappar jämförelse", "privat dagbok online", "skriv dagbok snabbt".
+2. Skapa blogginlägg under [src/posts/](src/posts/) med ett inlägg per term. Längd: 800–1500 ord, svenska, med interna länkar till relevanta lägen.
+3. Säkerställ att bloggsidor har egen [SeoHead](src/lib/components/SeoHead.svelte) med unik title per inlägg (komplettera #1 om blogg saknar det).
+4. Lägg till JSON-LD `Article` per inlägg.
 
-1. Snabb manuell genomgång:
-   - Kör `npm run build && npm run preview` och kör Lighthouse Accessibility på `/`, `/wizard`, `/voices`, `/journal`. Notera alla failures.
-   - Kontrollera kontrast på "muted"/sekundärtext — vanligaste WCAG-failet.
-   - Kontrollera fokusring: ta bort eventuellt `outline: none` utan ersättning.
-   - Kontrollera att alla `<img>` har `alt` (eller `alt=""` om dekorativa).
-   - Kontrollera att rubriksekvensen i [`src/routes/+page.svelte`](src/routes/+page.svelte) följer h1→h2→h3 utan hopp.
-2. Skapa `src/routes/accessibility/+page.svelte` med en kort, ärlig sida:
-   - Mål-WCAG-nivå (sikta på AA).
-   - Vilka delar som testats.
-   - Kända begränsningar.
-   - Kontaktväg för rapportering.
-3. Länka från footern.
+**Insats:** Medium · **Effekt:** Medium-hög
 
 ---
 
-## Tier 3 — Tillväxt och retention (medel-hög insats)
+## P2 – Paketering och tillväxt (180 dagar)
 
-### 9. Jämförelsesidor
+### 11. Premiumpaketering
 
-**Mål:** Fånga sökintention "X vs Y" där användare redan letar efter en dagboksapp.
+**Åtgärd:** När betafas avslutas:
 
-**Sidor att bygga (en åt gången):**
+1. Definiera plan-grid på [/beta](src/routes/beta/+page.svelte) (eller flytta till `/pricing`).
+2. Behåll fri kärna: alla skrivlägen, ett rimligt antal genereringar/månad, alla röster.
+3. Premium-värdeaxlar: större kvota för AI-genereringar och transkribering, avancerad PDF-export, ev. extra "specialröster", långtidsarkiv.
+4. Implementera Stripe (eller Polar/Lemon) med Supabase-kopplad subscription-state.
+5. Migrera "gratis under beta"-copy → "gratis grundnivå + premium".
 
-- `/storify-vs-day-one`
-- `/storify-vs-daylio`
-- `/storify-vs-dagbok-apple`
-
-**Struktur per sida (~600–900 ord):**
-
-1. H1: "Storify vs Day One — vilken passar dig?"
-2. Snabbsammanfattning (3 rader).
-3. Jämförelsetabell: språk, AI-generering, integritet, pris, plattform, export.
-4. När välja Storify / När välja konkurrenten — ärligt.
-5. CTA till `/wizard` eller `/quick`.
-6. JSON-LD `Article` + `FAQPage` om relevant.
-
-**Tekniskt:** ny route per sida under `src/routes/`, prerendered. Lägg till URL:erna i `svelte.config.js` `prerender.entries` om de inte är länkade från någon sida.
-
-**Källkrav:** Hämta priser etc. från konkurrenternas officiella sidor (`citeturn39search1` etc. i rapporten) — _aldrig_ från minnet.
+**Insats:** Hög · **Effekt:** Medium-hög
 
 ---
 
-### 10. Bloggen → SEO-hub
+### 12. Onboarding-räls per användartyp
 
-**Mål:** Gå från 14 lösa poster till ett kluster med internt länknät.
+**Åtgärd:**
 
-**Steg:**
+1. Efter "Kom igång"-klick: kort 3-stegs val: "Vill du skriva, prata eller bli intervjuad?" → "Har du några minuter eller bara 30 sekunder?" → välj läge.
+2. Implementera som en liten klient-only komponent på [/+page.svelte](src/routes/+page.svelte) eller egen route `/start`.
+3. Spara val i localStorage så återkommande besökare hoppar direkt till sitt favoritläge.
 
-1. Definiera 3 _pillar pages_: `/voices`, `/quick`, `/wizard`. Dessa ska vara de mest länkade-till från bloggposter.
-2. Gå igenom befintliga 14 poster i [`src/posts/`](src/posts/) och säkerställ att varje post länkar till minst 1 pillar + 2 andra poster.
-3. Lägg till en "Relaterade inlägg"-sektion i [`src/lib/server/blog.ts`](src/lib/server/blog.ts) som väljer 3 poster med matchande taggar.
-4. Lägg till `tags`-fält i blogpost frontmatter om det inte finns — taxonomi-rutter (`/blogg/amne/integritet` etc.) kan vänta.
-5. Sätt `<link rel="canonical">` på alla bloggposter (om inte redan gjort).
+**Insats:** Låg-medium · **Effekt:** Medium
 
 ---
 
-### 11. Analytics med samtycke
+### 13. Tillgänglighetsåtgärder
 
-**Mål:** Faktisk mätning utan att tappa integritetspositionering.
+**Problem:** [/accessibility](src/routes/accessibility/+page.svelte) listar redan kända brister: fokusring i modaler, kontraster i vissa teman, skärmläsartestning kalender/röstväljare/editor.
 
-**Val:**
+**Åtgärd:**
 
-- **A (rekommenderat):** [Plausible](https://plausible.io) eller self-hosted [Umami](https://umami.is). Cookielös, EU-friendly, ingen consent banner krävs juridiskt.
-- B: GA4 bakom en consent banner — sämre för integritetsbudskapet.
+1. Audit med axe DevTools på varje modal + dropdown. Tagga med ARIA-roller och `aria-modal`, `aria-labelledby`.
+2. Kontroll-loop: gå igenom alla teman (se [accentStore](src/lib/stores/accent.svelte)/[themeStore](src/lib/stores/theme.svelte)) mot WCAG AA kontrast (4.5:1 text, 3:1 stor text). Fixa svaga kombinationer.
+3. Skärmläsartest (VoiceOver + NVDA) av kalender, voice picker, editor. Dokumentera resultat på /accessibility.
 
-**Steg om A väljs:**
-
-1. Lägg till script-tag i [`src/routes/+layout.svelte`](src/routes/+layout.svelte) `<svelte:head>`, gated på `import.meta.env.PROD`.
-2. Spåra händelser: `signup`, `entry_generated` (med `mode` och `tone` properties), `share_to_community`. Kalla från relevanta `+server.ts`-routes eller klient-actions.
-3. Uppdatera [`src/routes/cookies/+page.svelte`](src/routes/cookies/+page.svelte) och [`src/routes/privacy/+page.svelte`](src/routes/privacy/+page.svelte) för att nämna analytics och varför ingen cookie-banner behövs.
+**Insats:** Medium · **Effekt:** Medium (men hög för berörda användare)
 
 ---
 
-### 12. Lifecycle email-paketering
+## Roadmap-översikt
 
-**Mål:** Vecko-/månadsbrev är retention-infrastruktur men marknadsförs inte. Synliggör.
-
-**Steg:**
-
-1. Lägg till en signup-modul på landningssidan (under hero eller före slutlig CTA): "Få ett veckobrev som sammanfattar din dagbok — varje söndag."
-2. För icke inloggade: e-mailfält som skapar en "pending"-prenumeration och föreslår registrering.
-3. Visa på inställningar (`/profile`) tydliga toggles för veckobrev/månadsbrev (om inte redan finns).
-4. Resend-templates lever i [`src/lib/newsletter/`](src/lib/newsletter/) — säkerställ att utskicken har en stabil CTA "Skriv idag" till `/quick` så mailet driver tillbaka till produkten.
-
----
-
-## Genomförandeordning (förslag)
-
-| Sprint | Innehåll                                                     | Uppskattat arbete |
-| ------ | ------------------------------------------------------------ | ----------------- |
-| 1      | Tier 1 steg 1, 3, 4 (en PR)                                  | ~2 timmar         |
-| 2      | Tier 1 steg 2 (modes-refaktor) + Tier 2 steg 5 (trust-block) | ~3 timmar         |
-| 3      | Tier 2 steg 6 (visuella bevis) + steg 7 (changelog)          | ~4 timmar         |
-| 4      | Tier 2 steg 8 (accessibility)                                | ~2 timmar         |
-| 5      | Tier 3 steg 9 (en jämförelsesida i taget)                    | ~3 timmar/sida    |
-| 6      | Tier 3 steg 10–12                                            | ~6 timmar totalt  |
+| Vecka | Fokus |
+|---|---|
+| 1–2 | #1 SeoHead-komponent + migrera alla publika sidor |
+| 2–3 | #2 Domän-redirect via hooks + DNS/Render-konfig |
+| 3 | #3 Sitemap-utbyggnad |
+| 4 | #4 /beta-sida + footer-länk |
+| 5–6 | #5 Säkerhetsheaders (CSP Report-Only först) |
+| 6–8 | #6 Trust-sida + security.txt, #7 Community/ålder/SMS |
+| 8–10 | #8 Synka modes, #9 Testimonials-flöde |
+| 10–13 | #10 SEO-innehåll (1 inlägg/vecka) |
+| 14+ | #11 Premiumpaketering, #12 Onboarding, #13 A11y |
 
 ---
 
-## Explicita icke-mål
+## Verifikation efter P0
 
-- **Inga falska testimonials.** Vänta tills riktiga användare ger riktiga citat med tillstånd.
-- **Ingen prissida förrän en plan faktiskt finns.** "Kommer snart"-sidor utan substans skadar mer än de hjälper.
-- **Ingen mass-cookie-banner** om analytics-valet är cookielös (steg 11A).
-- **Ingen automatiserad SEO-spammning** av bloggen — håll fast vid Om-sidans löfte att bloggen inte ska bli en "halvautomatiserad SEO-maskin".
+Innan något i P1 påbörjas:
 
----
-
-## Öppna frågor som behöver beslut innan implementation
-
-1. Vilken kontakt-epostadress ska exponeras i footern?
-2. Ska jämförelsesidor (Tier 3 steg 9) skrivas av en människa eller får AI utkastet och människa redigerar?
-3. Plausible (~$9/mån) vs Umami (self-host, gratis)? Påverkar steg 11.
-4. Ska bilderna i steg 6 vara fejk-data eller riktiga dagboksinlägg (med tillstånd)?
-5. Org.nr-frågan: planeras AB-registrering, eller ska "hobbyprojekt"-positionen behållas långsiktigt?
+- [ ] `curl -s https://mystorify.se/about | grep -i "<title>"` visar unik title
+- [ ] `curl -I https://getstorify.app/` returnerar 301
+- [ ] `curl https://mystorify.se/sitemap.xml | wc -l` har växt med minst 5 rader
+- [ ] Google Search Console: skicka in uppdaterad sitemap, begär indexering av primära sidor
+- [ ] Verifiera i Search Console "Coverage" att inga ärvda canonical-konflikter rapporteras

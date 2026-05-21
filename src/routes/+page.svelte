@@ -9,6 +9,7 @@
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import TrustBlock from '$lib/components/TrustBlock.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import { ACTIVE_TONE_COUNT } from '$lib/data/tones';
 
 	const roseComponents = {
@@ -26,6 +27,22 @@
 	let firstName = $derived(wizardStore.data.profile.name.split(' ')[0]);
 	let greeting = $derived(isLoggedIn && firstName ? getGreeting(firstName) : '');
 	let subtitle = $derived(isLoggedIn && firstName ? getSubtitle() : '');
+	const metaDescription = `Tom dagbokssida-panik är på riktigt, och "börja bara skriva" är ett värdelöst råd. Storify är en AI-dagbok som ställer frågor som faktiskt går att svara på. ${ACTIVE_TONE_COUNT} röster. Helt privat. Inget flum.`;
+	const structuredData = {
+		'@context': 'https://schema.org',
+		'@type': 'WebApplication',
+		name: 'Storify',
+		description: 'Skapa personliga dagboksinlägg med AI. Besvara frågor om din dag och få en unik dagboksanteckning i din valda berättarröst.',
+		url: 'https://mystorify.se',
+		applicationCategory: 'LifestyleApplication',
+		operatingSystem: 'Web, Android',
+		offers: {
+			'@type': 'Offer',
+			price: '0',
+			priceCurrency: 'SEK'
+		},
+		inLanguage: 'sv'
+	};
 
 	interface ModeCard {
 		id: string;
@@ -174,6 +191,16 @@
 	];
 
 </script>
+
+<SeoHead
+	title="Privat AI-dagbok som ställer frågor | Storify"
+	description={metaDescription}
+	path="/"
+/>
+
+<svelte:head>
+	{@html `<script type="application/ld+json">${JSON.stringify(structuredData)}</script>`}
+</svelte:head>
 
 {#if isLoggedIn}
 	<main class="dashboard">

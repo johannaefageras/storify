@@ -6,6 +6,7 @@
 	import { Emoji } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import arrowLeftSvg from '$lib/assets/icons/arrow-left.svg?raw';
 
 	function getNow(): Date {
@@ -259,6 +260,13 @@
 		checkAuth();
 	});
 </script>
+
+<SeoHead
+	title="Kalender – Storify"
+	description="Se dina sparade dagboksdagar, streaks och skrivhistorik i Storifys privata kalender."
+	path="/calendar"
+	noindex
+/>
 
 <div class="calendar-page">
 	<div class="calendar-container">

@@ -13,6 +13,7 @@
 	import ShareToCommunity from '$lib/components/ShareToCommunity.svelte';
 	import TonePickerDropdown from '$lib/components/TonePickerDropdown.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 
 	import { Emoji } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
@@ -421,9 +422,12 @@
 	}
 </script>
 
-<svelte:head>
-	<meta name="robots" content="noindex, nofollow" />
-</svelte:head>
+<SeoHead
+	title="Skriv fritt – Storify"
+	description="Skriv fritt med AI-stöd i Storify och förvandla dina egna ord till en dagbokstext."
+	path="/editor"
+	noindex
+/>
 
 <main class="editor-page" class:result-view={!!generatedEntry}>
 	{#if generatedEntry}

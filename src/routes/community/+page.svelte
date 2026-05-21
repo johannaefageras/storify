@@ -8,6 +8,7 @@
 	import arrowLeftSvg from '$lib/assets/icons/arrow-left.svg?raw';
 	import arrowRightSvg from '$lib/assets/icons/arrow-right.svg?raw';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import { Emoji } from '$lib/assets/emojis';
 	import { fireBadgeEvent } from '$lib/gamification/client';
@@ -241,6 +242,12 @@
 		loadEntries(1);
 	});
 </script>
+
+<SeoHead
+	title="Gemenskapen – delade dagboksinlägg | Storify"
+	description="Utforska frivilligt delade dagboksinlägg i Storifys gemenskap och läs hur olika röster tolkar vardagen."
+	path="/community"
+/>
 
 <svelte:window
 	onkeydown={(e) => {

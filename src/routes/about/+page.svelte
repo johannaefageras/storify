@@ -3,6 +3,7 @@
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
 	import TrustBlock from '$lib/components/TrustBlock.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import { ACTIVE_TONE_COUNT } from '$lib/data/tones';
 	import { BADGES } from '$lib/data/badges';
 
@@ -27,6 +28,12 @@
 	let RoseIcon = $derived(roseComponents[accentStore.current]);
 	let LaptopIcon = $derived(laptopComponents[accentStore.current]);
 </script>
+
+<SeoHead
+	title="Om Storify – AI-dagboken på svenska | Storify"
+	description="Läs om Storify, en svensk AI-dagbok för dig som vill minnas vardagen utan att fastna inför den tomma sidan."
+	path="/about"
+/>
 
 <main class="legal-page">
 	<div class="page-header">

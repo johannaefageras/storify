@@ -4,6 +4,7 @@
 	import { supabase } from '$lib/supabase/client';
 	import { authStore } from '$lib/stores/auth.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import arrowLeftSvg from '$lib/assets/icons/arrow-left.svg?raw';
 	import '../profile.css';
 
@@ -153,6 +154,13 @@
 		checkAuth();
 	});
 </script>
+
+<SeoHead
+	title="Kontoinställningar – Storify"
+	description="Hantera lösenord, tidszon och kontoinställningar för ditt privata Storify-konto."
+	path="/profile/account"
+	noindex
+/>
 
 <main class="profile-page">
 	{#if loading}

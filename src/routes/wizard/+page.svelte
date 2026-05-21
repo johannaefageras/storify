@@ -16,6 +16,7 @@
 	import Step9Addons from './steps/Step9Addons.svelte';
 	import Step10Summary from './steps/Step10Summary.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import arrowLeftSvg from '$lib/assets/icons/arrow-left.svg?raw';
 	import arrowRightSvg from '$lib/assets/icons/arrow-right.svg?raw';
 
@@ -187,9 +188,12 @@
 	}
 </script>
 
-<svelte:head>
-	<meta name="robots" content="noindex, nofollow" />
-</svelte:head>
+<SeoHead
+	title="Steg-för-steg-guide – Storify"
+	description="Svara på frågor om din dag och låt Storify skapa en personlig dagbokstext med AI."
+	path="/wizard"
+	noindex
+/>
 
 <main class="wizard" class:result-view={isResultView}>
 	{#if isResultView}

@@ -3,6 +3,7 @@
 	import { voiceSamples, type VoiceSample } from '$lib/data/voiceGallery';
 	import DiaryCard from '$lib/components/DiaryCard.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import { Emoji } from '$lib/assets/emojis';
 	import UniqueEmoji from '$lib/components/UniqueEmoji.svelte';
 	import arrowLeftSvg from '$lib/assets/icons/arrow-left.svg?raw';
@@ -61,13 +62,11 @@
 
 <svelte:window onkeydown={(e) => e.key === 'Escape' && selectedSample && closeModal()} />
 
-<svelte:head>
-	<title>Röster — Storify</title>
-	<meta
-		name="description"
-		content="Bläddra bland Storifys röster. Varje röst förvandlar din dag till en dagboksanteckning med sin egen ton, rytm och blick."
-	/>
-</svelte:head>
+<SeoHead
+	title="Rösterna – berättarröster för din dagbok | Storify"
+	description="Bläddra bland Storifys röster. Varje röst förvandlar din dag till en dagboksanteckning med sin egen ton, rytm och blick."
+	path="/voices"
+/>
 
 <div class="voices-page">
 	<div class="voices-container">

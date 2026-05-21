@@ -2,7 +2,7 @@
 
 ## Context
 
-Storify ([mystorify.se](https://mystorify.se)) is a Swedish-first AI journaling app: users answer a guided questionnaire and Claude generates a personalized diary entry in one of 24 voices. The codebase is SvelteKit 2 + Svelte 5 (runes), TypeScript strict, Supabase (auth + Postgres), Anthropic SDK (Opus 4.6 primary / Sonnet 4.6 fallback), Resend, Upstash Redis (rate limiting), TipTap, Vercel/Node adapter.
+Storify ([mystorify.se](https://mystorify.se)) is a Swedish-first AI journaling app: users answer a guided questionnaire and Claude generates a personalized diary entry in one of 24 voices. The codebase is SvelteKit 2 + Svelte 5 (runes), TypeScript strict, Supabase (auth + Postgres), Anthropic SDK (Opus 4.7 primary / Sonnet 4.6 fallback), Resend, Upstash Redis (rate limiting), TipTap, Vercel/Node adapter.
 
 This document reviews the current state and proposes improvements — ranging from small hygiene fixes to large product extensions. No code is being changed; treat this as a menu to pick from.
 

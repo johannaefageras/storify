@@ -6,6 +6,7 @@
 	import { wizardStore } from '$lib/stores/wizard.svelte';
 	import { FIELD_LIMITS, validateUsername, validatePhone } from '$lib/validation';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import AvatarUpload from '$lib/components/AvatarUpload.svelte';
 	import { fireBadgeEvent } from '$lib/gamification/client';
 	import arrowLeftSvg from '$lib/assets/icons/arrow-left.svg?raw';
@@ -340,6 +341,13 @@
 		checkAuth();
 	});
 </script>
+
+<SeoHead
+	title="Redigera profil – Storify"
+	description="Uppdatera profil, intressen, familj, avatar och personliga inställningar i Storify."
+	path="/profile/edit"
+	noindex
+/>
 
 <main class="profile-page">
 	{#if loading}

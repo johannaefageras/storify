@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { supabase } from '$lib/supabase/client';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import arrowRightSvg from '$lib/assets/icons/arrow-right.svg?raw';
 	import googleIcon from '$lib/assets/icons/google.svg';
 
@@ -40,9 +41,12 @@
 	}
 </script>
 
-<svelte:head>
-	<meta name="robots" content="noindex, nofollow" />
-</svelte:head>
+<SeoHead
+	title="Logga in – Storify"
+	description="Logga in på Storify för att komma åt din privata dagbok, profil, kalender och sparade texter."
+	path="/login"
+	noindex
+/>
 
 <main class="auth-page">
 	<div class="auth-container">

@@ -2,6 +2,7 @@
 	import { accentStore } from '$lib/stores/accent.svelte';
 	import { Emoji } from '$lib/assets/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import { voiceSamples } from '$lib/data/voiceSamples';
 	import { activeTones as tones } from '$lib/data/tones';
 	import { BADGES } from '$lib/data/badges';
@@ -57,6 +58,12 @@
 		return shuffled.slice(0, count);
 	}
 </script>
+
+<SeoHead
+	title="Guide till Storify – skriv dagbok med AI | Storify"
+	description="Kom igång med Storifys fem skrivlägen, berättarröster, arkiv, kalender, badges och privata dagboksflöden."
+	path="/guide"
+/>
 
 <svelte:window onkeydown={handleKeydown} />
 

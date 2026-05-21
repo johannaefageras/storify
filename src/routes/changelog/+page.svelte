@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Emoji } from '$lib/assets/emojis';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import { changelogEntries } from '$lib/data/changelog';
 
 	const dateFormatter = new Intl.DateTimeFormat('sv-SE', {
@@ -15,14 +16,11 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Uppdateringar – Storify</title>
-	<meta
-		name="description"
-		content="Se vad som är nytt i Storify: förbättringar, produktuppdateringar och tydligare information för användare."
-	/>
-	<link rel="canonical" href="https://mystorify.se/changelog" />
-</svelte:head>
+<SeoHead
+	title="Uppdateringar – Storify"
+	description="Se vad som är nytt i Storify: förbättringar, produktuppdateringar och tydligare information för användare."
+	path="/changelog"
+/>
 
 <main class="changelog-page">
 	<header class="page-header">

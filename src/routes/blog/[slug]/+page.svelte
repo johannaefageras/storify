@@ -1,5 +1,6 @@
 <script lang="ts">
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 
 	let { data } = $props();
 
@@ -18,15 +19,14 @@
 	let post = $derived(data.post);
 </script>
 
-<svelte:head>
-	<title>{post.title} – Storify Blogg</title>
-	<meta name="description" content={post.description} />
-	<link rel="canonical" href="https://mystorify.se/blog/{post.slug}" />
-	<meta property="og:type" content="article" />
-	<meta property="og:title" content={post.title} />
-	<meta property="og:description" content={post.description} />
-	<meta property="article:published_time" content={post.date} />
-</svelte:head>
+<SeoHead
+	title={`${post.title} – Storify Blogg`}
+	description={post.description}
+	path={`/blog/${post.slug}`}
+	ogType="article"
+	ogImage={post.featured || undefined}
+	publishedTime={post.date}
+/>
 
 <main class="blog-post">
 	<a class="back" href="/blog">← Tillbaka till bloggen</a>

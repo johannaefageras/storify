@@ -11,6 +11,9 @@
 
 import { BADGES, type Badge, type BadgeCriterion, type WritingMode } from '$lib/data/badges';
 import { tones } from '$lib/data/tones';
+import type { VoiceClusterId } from '$lib/data/voiceClusters';
+import type { InterviewerId } from '$lib/data/chatbotPrompts/types';
+import { VALID_INTERVIEWER_IDS } from '$lib/data/chatbotPrompts/types';
 
 export type BadgeEvent =
 	| 'account-created'
@@ -42,6 +45,8 @@ export interface EvaluationContext {
 	homeworkEntryCount?: number;
 	uniqueTonesUsed?: number;
 	sameToneMaxCount?: number;
+	tonesByCluster?: Partial<Record<VoiceClusterId, number>>;
+	uniqueInterviewersUsed?: number;
 	hoursCovered?: number;
 	nightEntriesCount?: number;
 	currentStreakDays?: number;
@@ -58,6 +63,7 @@ export interface EvaluationContext {
 	energyLevel?: number;
 	wordCount?: number;
 	mode?: WritingMode;
+	interviewerId?: InterviewerId;
 	chatTranscript?: ReadonlyArray<{ role: 'user' | 'assistant'; content: string }>;
 
 	// Account/profile signals.
@@ -110,8 +116,12 @@ const criterionTypeToEvents: Record<BadgeCriterion['type'], readonly BadgeEvent[
 	'homework-entries': ['entry-created'],
 	'entry-archived': ['entry-archived'],
 	'entries-same-day': ['entry-created'],
-	'entry-word-count': ['entry-created', 'entry-updated']
+	'entry-word-count': ['entry-created', 'entry-updated'],
+	'tones-from-cluster-used': ['entry-created'],
+	'all-interviewers-used': ['entry-created']
 };
+
+const ALL_INTERVIEWERS_COUNT = VALID_INTERVIEWER_IDS.length;
 
 /** Index mapping each event to the badges whose criterion *may* fire on it. */
 export const BADGES_BY_EVENT: Readonly<Record<BadgeEvent, readonly Badge[]>> = (() => {
@@ -259,5 +269,9 @@ export function evaluateCriterion(c: BadgeCriterion, ctx: EvaluationContext): bo
 			return (ctx.sameDayEntriesCount ?? 0) >= c.count;
 		case 'entry-word-count':
 			return (ctx.wordCount ?? 0) >= c.minWords;
+		case 'tones-from-cluster-used':
+			return (ctx.tonesByCluster?.[c.cluster] ?? 0) >= c.count;
+		case 'all-interviewers-used':
+			return (ctx.uniqueInterviewersUsed ?? 0) >= ALL_INTERVIEWERS_COUNT;
 	}
 }

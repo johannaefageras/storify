@@ -16,6 +16,7 @@
 	import ShareToCommunity from '$lib/components/ShareToCommunity.svelte';
 	import TonePickerDropdown from '$lib/components/TonePickerDropdown.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import RequiredIndicator from '$lib/components/RequiredIndicator.svelte';
 	import arrowLeftSvg from '$lib/assets/icons/arrow-left.svg?raw';
 	import { Emoji } from '$lib/assets/emojis';
@@ -375,9 +376,12 @@
 	}
 </script>
 
-<svelte:head>
-	<meta name="robots" content="noindex, nofollow" />
-</svelte:head>
+<SeoHead
+	title="Snabbläge – Storify"
+	description="Fånga dagens känsla snabbt i Storify och låt AI skapa en kort dagbokstext."
+	path="/quick"
+	noindex
+/>
 
 <main class="quick" class:result-view={!!generatedEntry}>
 	{#if generatedEntry}

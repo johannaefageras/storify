@@ -4,6 +4,7 @@
 	import { supabase } from '$lib/supabase/client';
 	import { authStore } from '$lib/stores/auth.svelte';
 	import LegalFooter from '$lib/components/LegalFooter.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import AvatarUpload from '$lib/components/AvatarUpload.svelte';
 	import ProfileBadgeStrip from '$lib/components/ProfileBadgeStrip.svelte';
 	import { Emoji } from '$lib/assets/emojis';
@@ -96,6 +97,13 @@
 		checkAuth();
 	});
 </script>
+
+<SeoHead
+	title="Profil – Storify"
+	description="Hantera din privata Storify-profil, skrivlägen, avatar och genvägar till dagboken."
+	path="/profile"
+	noindex
+/>
 
 <main class="profile-page">
 	{#if loading}
