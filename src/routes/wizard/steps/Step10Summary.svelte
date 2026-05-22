@@ -15,6 +15,7 @@
 	import TonePickerDropdown from '$lib/components/TonePickerDropdown.svelte';
 	import { streamEntry } from '$lib/utils/streamEntry';
 	import { generateTitle } from '$lib/utils/generateTitle';
+	import { triggerThreadExtraction } from '$lib/utils/triggerThreadExtraction';
 	import { fireBadgeEvent } from '$lib/gamification/client';
 	import { goto } from '$app/navigation';
 	import { getLoadingPhrases } from '$lib/data/loadingPhrases';
@@ -400,13 +401,18 @@ Vi ses imorgon, dagboken.`;
 			};
 			console.log('Insert payload:', JSON.stringify(payload, null, 2));
 
-			const { error: insertError } = await supabase.from('entries').insert(payload);
+			const { data: inserted, error: insertError } = await supabase
+				.from('entries')
+				.insert(payload)
+				.select('id')
+				.single();
 
 			if (insertError) {
 				entrySaveError = 'Kunde inte spara inlägget. Försök igen.';
 				console.error('Save entry error:', JSON.stringify(insertError, null, 2));
 			} else {
 				entrySaved = true;
+				triggerThreadExtraction(inserted?.id);
 				void fireBadgeEvent('entry-created', {
 					createdAt: new Date(),
 					entryDate: payload.entry_date,

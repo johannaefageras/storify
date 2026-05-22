@@ -12,6 +12,7 @@ import {
 import { validateChatMessages, type ChatMessagePayload } from '$lib/validation';
 import { sanitizeString } from '$lib/validation/sanitizers';
 import { checkChatRateLimit, getClientIdentifier } from '$lib/validation/ratelimit';
+import { fetchActiveThreads, formatThreadsForPrompt } from '$lib/server/threads';
 
 // CORS headers for Capacitor native app
 const corsHeaders = {
@@ -38,7 +39,7 @@ interface ChatRequestBody {
   interviewer?: InterviewerId;
 }
 
-export const POST: RequestHandler = async ({ request }) => {
+export const POST: RequestHandler = async ({ request, locals }) => {
   try {
     // 1. Rate limiting
     const clientId = getClientIdentifier(request);
@@ -113,6 +114,20 @@ Användaren kan inte skriva fler meddelanden efter detta. Ge en kort, varm avslu
 Det finns bara cirka 3 meddelanden kvar för användaren att skriva. Börja styra konkret mot avslut nu. Ställ avrundande frågor som "Något viktigt vi inte hunnit prata om?" eller "Vad känns viktigast att ta med från idag?". Öppna inte nya, breda ämnen — fokusera på att fånga det sista som behövs för dagboken.`;
     }
 
+    // 5b. Fetch active threads from recent entries (logged-in users only). Kept
+    // in a separate, uncached system block so the persona prefix stays
+    // cache-stable. Failures here must not block chat.
+    let threadsBlock = '';
+    try {
+      const { user } = await locals.safeGetSession();
+      if (user) {
+        const threads = await fetchActiveThreads(locals.supabase, user.id);
+        threadsBlock = formatThreadsForPrompt(threads);
+      }
+    } catch (e) {
+      console.error('[chat] thread fetch failed', e);
+    }
+
     // 6. Format messages for Anthropic API. Place a rolling cache breakpoint
     // on the latest user message so the growing conversation prefix is reused
     // across turns (within the 5-minute ephemeral cache TTL).
@@ -134,18 +149,28 @@ Det finns bara cirka 3 meddelanden kvar för användaren att skriva. Börja styr
       };
     });
 
-    // 7. Stream response via SSE. The system prompt gets its own cache
-    // breakpoint so it's reused across every turn of the conversation.
+    // 7. Stream response via SSE. The persona prompt gets a cache breakpoint
+    // so it's reused across every turn. Threads (which change per request)
+    // go in a second uncached block after the breakpoint.
+    const systemBlocks: Array<{
+      type: 'text';
+      text: string;
+      cache_control?: { type: 'ephemeral' };
+    }> = [
+      {
+        type: 'text',
+        text: systemPrompt,
+        cache_control: { type: 'ephemeral' }
+      }
+    ];
+    if (threadsBlock) {
+      systemBlocks.push({ type: 'text', text: threadsBlock });
+    }
+
     const stream = client.messages.stream({
       model: MODEL,
       max_tokens: MAX_TOKENS,
-      system: [
-        {
-          type: 'text',
-          text: systemPrompt,
-          cache_control: { type: 'ephemeral' }
-        }
-      ],
+      system: systemBlocks,
       messages: anthropicMessages
     });
 

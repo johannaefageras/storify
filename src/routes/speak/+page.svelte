@@ -7,6 +7,7 @@
 	import { activeTones as tones } from '$lib/data/tones';
 	import { streamEntry } from '$lib/utils/streamEntry';
 	import { generateTitle } from '$lib/utils/generateTitle';
+	import { triggerThreadExtraction } from '$lib/utils/triggerThreadExtraction';
 	import { fireBadgeEvent } from '$lib/gamification/client';
 	import { isSeparatorParagraph } from '$lib/utils/paragraphs';
 	import { getSwedishDiaryDate } from '$lib/utils/localDate';
@@ -299,12 +300,17 @@
 				mood_level: null,
 				writing_mode: 'speak'
 			};
-			const { error: insertError } = await supabase.from('entries').insert(payload);
+			const { data: inserted, error: insertError } = await supabase
+				.from('entries')
+				.insert(payload)
+				.select('id')
+				.single();
 			if (insertError) {
 				entrySaveError = 'Kunde inte spara inlägget. Försök igen.';
 				console.error('Save entry error:', JSON.stringify(insertError, null, 2));
 			} else {
 				entrySaved = true;
+				triggerThreadExtraction(inserted?.id);
 				void fireBadgeEvent('entry-created', {
 					createdAt: new Date(),
 					entryDate: payload.entry_date,

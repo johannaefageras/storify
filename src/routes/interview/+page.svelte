@@ -12,6 +12,7 @@
 	import { authStore } from '$lib/stores/auth.svelte';
 	import { supabase } from '$lib/supabase/client';
 	import { getApiUrl } from '$lib/config';
+	import { triggerThreadExtraction } from '$lib/utils/triggerThreadExtraction';
 	import { streamEntry } from '$lib/utils/streamEntry';
 	import { generateTitle } from '$lib/utils/generateTitle';
 	import { fireBadgeEvent } from '$lib/gamification/client';
@@ -374,13 +375,18 @@
 				interviewer: chatStore.selectedInterviewer
 			};
 
-			const { error: insertError } = await supabase.from('entries').insert(payload);
+			const { data: inserted, error: insertError } = await supabase
+				.from('entries')
+				.insert(payload)
+				.select('id')
+				.single();
 
 			if (insertError) {
 				entrySaveError = 'Kunde inte spara inlägget. Försök igen.';
 				console.error('Save entry error:', JSON.stringify(insertError, null, 2));
 			} else {
 				entrySaved = true;
+				triggerThreadExtraction(inserted?.id);
 				void fireBadgeEvent('entry-created', {
 					createdAt: new Date(),
 					entryDate: payload.entry_date,

@@ -29,129 +29,189 @@
 </script>
 
 <footer class="legal-footer">
-	<div class="footer-grid">
-		<nav class="footer-col footer-links" aria-label="Sidfotslänkar">
-			<a href="/about">Om Storify</a>
-			<a href="/guide">Användarguide</a>
-			<a href="/contact">Kontaktsida</a>
-			<a href="/changelog">Uppdateringar</a>
-		</nav>
-		<nav class="footer-col footer-links" aria-label="Juridiska länkar">
-			<a href="/privacy">Integritetspolicy</a>
-			<a href="/terms">Användarvillkor</a>
-			<a href="/cookies">Cookiepolicy</a>
-			<a href="/accessibility">Tillgänglighet</a>
-		</nav>
-		<div class="footer-col footer-identity">
-			<p>© Storify 2026</p>
-			<p>Johanna Fagerås</p>
-			<p>Org.nr. {LEGAL_ORG_NUMBER}</p>
-			<p><a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></p>
+	<div class="footer-inner">
+		<div class="footer-links-row">
+			<div class="link-stack">
+				<nav class="link-cluster" aria-label="Sidfotslänkar">
+					<a href="/about">Om Storify</a>
+					<span aria-hidden="true">·</span>
+					<a href="/guide">Användarguide</a>
+					<span aria-hidden="true">·</span>
+					<a href="/contact">Kontakt</a>
+					<span aria-hidden="true">·</span>
+					<a href="/changelog">Uppdateringar</a>
+				</nav>
+				<nav class="link-cluster" aria-label="Juridiska länkar">
+					<a href="/privacy">Integritetspolicy</a>
+					<span aria-hidden="true">·</span>
+					<a href="/terms">Användarvillkor</a>
+					<span aria-hidden="true">·</span>
+					<a href="/cookies">Cookiepolicy</a>
+					<span aria-hidden="true">·</span>
+					<a href="/accessibility">Tillgänglighet</a>
+				</nav>
+			</div>
+			<a href="/" class="links-flower" aria-label="Gå till startsidan">
+				<Emoji name={flower} size="4.5rem" />
+			</a>
+		</div>
+
+		<div class="footer-rule" aria-hidden="true"></div>
+
+		<div class="footer-colophon">
+			<p class="colophon-text">
+				<span>© Storify 2026</span>
+				<span class="sep" aria-hidden="true">·</span>
+				<span>Johanna Fagerås</span>
+				<span class="sep" aria-hidden="true">·</span>
+				<span>Org.nr. {LEGAL_ORG_NUMBER}</span>
+				<span class="sep" aria-hidden="true">·</span>
+				<a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+			</p>
 			<div class="social-links" aria-label="Sociala länkar">
 				{#each socialLinks as link}
 					<a href={link.href} aria-label={link.label}>
 						{#if link.inline}
 							{@html link.icon}
 						{:else}
-							<img src={link.icon} alt="" width="18" height="18" />
+							<img src={link.icon} alt="" width="16" height="16" />
 						{/if}
 					</a>
 				{/each}
 			</div>
-		</div>
-		<div class="footer-col footer-flower">
-			<a href="/" aria-label="Gå till startsidan">
-				<Emoji name={flower} size="6.9rem" />
-			</a>
 		</div>
 	</div>
 </footer>
 
 <style>
 	.legal-footer {
-		margin: 0 calc(50% - 50vw);
-		padding: 2rem 1.25rem max(2rem, env(safe-area-inset-bottom, 0px));
+		margin: 4rem calc(50% - 50vw) 0;
+		padding: 3rem 1.5rem max(2.25rem, env(safe-area-inset-bottom, 0px));
 		width: 100vw;
 		font-family: var(--font-primary);
 		background: var(--footer-bg);
-	}
-
-	.footer-grid {
-		width: 100%;
-		max-width: var(--content-width);
-		margin: 0 auto;
-		display: grid;
-		grid-template-columns: 1fr 1fr 1.25fr 1fr;
-		gap: 2rem;
-		align-items: start;
-	}
-
-	.footer-col {
-		font-size: var(--text-xs);
-		line-height: 1.6;
 		color: var(--color-text-muted);
 	}
 
-	.footer-links {
+	.footer-inner {
+		width: 100%;
+		max-width: var(--content-width);
+		margin: 0 auto;
+	}
+
+	.footer-rule {
+		height: 1px;
+		background: currentColor;
+		opacity: 0.15;
+	}
+
+	.footer-links-row {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+		gap: 1rem 2rem;
+		padding-bottom: 1.5rem;
+		font-size: var(--text-sm);
+	}
+
+	.link-stack {
 		display: flex;
 		flex-direction: column;
-		gap: 0.375rem;
-		text-align: center;
-		opacity: 0.7;
+		gap: 0.5rem;
 	}
 
-	.footer-links a {
+	.links-flower {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		text-decoration: none;
+		flex-shrink: 0;
+		transition: transform 0.2s ease;
+	}
+
+	.links-flower:hover {
+		transform: rotate(-4deg);
+	}
+
+	.link-cluster {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5rem;
+		opacity: 0.85;
+	}
+
+	.link-cluster a {
 		color: inherit;
 		text-decoration: none;
-		transition: opacity 0.15s ease, color 0.15s ease;
+		transition: color 0.15s ease;
 	}
 
-	.footer-links a:hover {
+	.link-cluster a:hover {
 		color: var(--color-accent);
-		opacity: 1;
+		text-decoration: underline;
+		text-underline-offset: 3px;
 	}
 
-	.footer-identity {
-		text-align: center;
+	.link-cluster span {
+		opacity: 0.4;
 	}
 
-	.footer-identity p {
+	.footer-colophon {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+		gap: 0.75rem 1.5rem;
+		padding-top: 1.25rem;
+		font-size: var(--text-xs);
+	}
+
+	.colophon-text {
 		margin: 0;
-		font-size: inherit;
-		line-height: inherit;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5rem;
+		opacity: 0.6;
+		line-height: 1.5;
+	}
+
+	.colophon-text .sep {
 		opacity: 0.5;
 	}
 
-	.footer-identity a {
+	.colophon-text a {
 		color: inherit;
 		text-decoration: underline;
 		text-underline-offset: 2px;
 	}
 
-	.footer-identity p a:hover {
+	.colophon-text a:hover {
 		color: var(--color-accent);
 	}
 
 	.social-links {
 		display: flex;
-		justify-content: center;
 		align-items: center;
-		gap: 0.5rem;
-		margin-top: 0.45rem;
+		gap: 0.75rem;
 	}
 
 	.social-links a {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		width: 1.125rem;
-		height: 1.125rem;
+		width: 1rem;
+		height: 1rem;
 		color: var(--color-text);
-		opacity: 1;
-		transition: color 0.15s ease, transform 0.15s ease;
+		opacity: 0.7;
+		transition: opacity 0.15s ease, transform 0.15s ease, color 0.15s ease;
 	}
 
 	.social-links a:hover {
+		opacity: 1;
+		color: var(--color-accent);
 		transform: translateY(-1px);
 	}
 
@@ -163,48 +223,20 @@
 		object-fit: contain;
 	}
 
-	.footer-flower {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.footer-flower a {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		text-decoration: none;
-		transition: transform 0.15s ease;
-	}
-
-	.footer-flower a:hover {
-		transform: translateY(-1px);
-	}
-
-	@media (max-width: 720px) {
-		.footer-grid {
-			grid-template-columns: 1fr 1fr;
-			gap: 1.5rem;
+	@media (max-width: 640px) {
+		.legal-footer {
+			padding: 2.25rem 1.25rem max(2rem, env(safe-area-inset-bottom, 0px));
 		}
 
-		.footer-flower {
-			grid-column: 1 / -1;
-			justify-content: center;
-		}
-	}
-
-	@media (max-width: 420px) {
-		.footer-grid {
-			grid-template-columns: 1fr;
-			text-align: center;
+		.footer-links-row {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.5rem;
 		}
 
-		.footer-links {
-			align-items: center;
-		}
-
-		.footer-flower {
-			justify-content: center;
+		.footer-colophon {
+			flex-direction: column;
+			align-items: flex-start;
 		}
 	}
 </style>
